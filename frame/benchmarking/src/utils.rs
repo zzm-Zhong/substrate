@@ -18,7 +18,7 @@
 //! Interfaces, types and utils for benchmarking a FRAME runtime.
 
 use codec::{Decode, Encode};
-use frame_support::{dispatch::DispatchErrorWithPostInfo, traits::StorageInfo};
+use frame_support::traits::StorageInfo;
 use sp_io::hashing::blake2_256;
 use sp_std::{prelude::Box, vec::Vec};
 use sp_storage::TrackedStorageKey;
@@ -115,29 +115,14 @@ pub struct BenchmarkResult {
 ///   included weight instead.
 #[derive(Encode, Decode, Clone, PartialEq, Debug)]
 
-pub enum BenchmarkError {
-	Stop(#[codec(skip)] &'static str),
+pub enum BenchmarkReturn {
+	IsOk,
 	Override(BenchmarkResult),
 }
 
-impl From<BenchmarkError> for &'static str {
-	fn from(e: BenchmarkError) -> Self {
-		match e {
-			BenchmarkError::Stop(s) => s,
-			BenchmarkError::Override(_) => "benchmark override",
-		}
-	}
-}
-
-impl From<&'static str> for BenchmarkError {
-	fn from(s: &'static str) -> Self {
-		Self::Stop(s)
-	}
-}
-
-impl From<DispatchErrorWithPostInfo> for BenchmarkError {
-	fn from(e: DispatchErrorWithPostInfo) -> Self {
-		Self::Stop(e.into())
+impl From<()> for BenchmarkReturn {
+	fn from(_: ()) -> Self {
+		Self::IsOk
 	}
 }
 
@@ -283,7 +268,7 @@ pub trait Benchmarking {
 		whitelist: &[TrackedStorageKey],
 		verify: bool,
 		internal_repeats: u32,
-	) -> Result<Vec<BenchmarkResult>, BenchmarkError>;
+	) -> Result<Vec<BenchmarkResult>, &'static str>;
 }
 
 /// The required setup for creating a benchmark.
@@ -299,7 +284,7 @@ pub trait BenchmarkingSetup<T, I = ()> {
 		&self,
 		components: &[(BenchmarkParameter, u32)],
 		verify: bool,
-	) -> Result<Box<dyn FnOnce() -> Result<(), BenchmarkError>>, &'static str>;
+	) -> Result<Box<dyn FnOnce() -> Result<BenchmarkReturn, &'static str>>, &'static str>;
 }
 
 /// Grab an account, seeded by a name and index.

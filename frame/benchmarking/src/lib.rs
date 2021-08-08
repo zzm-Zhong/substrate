@@ -643,8 +643,8 @@ macro_rules! benchmark_backend {
 			fn instance(
 				&self,
 				components: &[($crate::BenchmarkParameter, u32)],
-				verify: bool
-			) -> Result<$crate::Box<dyn FnOnce() -> Result<(), $crate::BenchmarkError>>, &'static str> {
+				verify: bool,
+			) -> Result<$crate::Box<dyn FnOnce() -> Result<$crate::BenchmarkReturn, &'static str>>, &'static str> {
 				$(
 					// Prepare instance
 					let $param = components.iter()
@@ -658,12 +658,12 @@ macro_rules! benchmark_backend {
 				$( $param_instancer ; )*
 				$( $post )*
 
-				Ok($crate::Box::new(move || -> Result<(), $crate::BenchmarkError> {
+				Ok($crate::Box::new(move || -> Result<$crate::BenchmarkReturn, &'static str> {
 					$eval;
 					if verify {
 						$postcode;
 					}
-					Ok(())
+					Ok($crate::BenchmarkReturn::IsOk)
 				}))
 			}
 		}
@@ -717,7 +717,7 @@ macro_rules! selected_benchmark {
 				&self,
 				components: &[($crate::BenchmarkParameter, u32)],
 				verify: bool
-			) -> Result<$crate::Box<dyn FnOnce() -> Result<(), $crate::BenchmarkError>>, &'static str> {
+			) -> Result<$crate::Box<dyn FnOnce() -> Result<$crate::BenchmarkReturn, &'static str>>, &'static str> {
 				match self {
 					$(
 						Self::$bench => <
@@ -772,7 +772,7 @@ macro_rules! impl_benchmark {
 				whitelist: &[$crate::TrackedStorageKey],
 				verify: bool,
 				internal_repeats: u32,
-			) -> Result<$crate::Vec<$crate::BenchmarkResult>, $crate::BenchmarkError> {
+			) -> Result<$crate::Vec<$crate::BenchmarkResult>, &'static str> {
 				// Map the input to the selected benchmark.
 				let extrinsic = $crate::sp_std::str::from_utf8(extrinsic)
 					.map_err(|_| "`extrinsic` is not a valid utf8 string!")?;
@@ -1336,8 +1336,8 @@ macro_rules! add_benchmark {
 
 			let final_results = match benchmark_result {
 				Ok(results) => results,
-				Err($crate::BenchmarkError::Override(result)) => $crate::vec![result],
-				Err($crate::BenchmarkError::Stop(e)) => {
+				Err(&'static str::Override(result)) => $crate::vec![result],
+				Err(&'static str::Stop(e)) => {
 					$crate::show_benchmark_debug_info(
 						instance_string,
 						benchmark,
