@@ -2409,6 +2409,16 @@
 <span id="2398">2398</span>
 <span id="2399">2399</span>
 <span id="2400">2400</span>
+<span id="2401">2401</span>
+<span id="2402">2402</span>
+<span id="2403">2403</span>
+<span id="2404">2404</span>
+<span id="2405">2405</span>
+<span id="2406">2406</span>
+<span id="2407">2407</span>
+<span id="2408">2408</span>
+<span id="2409">2409</span>
+<span id="2410">2410</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2683,10 +2693,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">///   `twox_128(&quot;:&quot; ++ NAME ++ &quot;:&quot;)` where `NAME` is the name that is passed as type name.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// - Using `static` to create a static parameter type. Its value is</span>
-<span class="doccomment">///   being provided by a static variable with the equivalent name in `UPPER_SNAKE_CASE`. An</span>
-<span class="doccomment">///   additional `set` function is provided in this case to alter the static variable.</span>
-<span class="doccomment">///   **This is intended for testing ONLY and is ONLY available when `std` is enabled.**</span>
+<span class="doccomment">/// - Using `static` to create a static parameter type. Its value is being provided by a static</span>
+<span class="doccomment">///   variable with the equivalent name in `UPPER_SNAKE_CASE`. An additional `set` function is</span>
+<span class="doccomment">///   provided in this case to alter the static variable. **This is intended for testing ONLY and is</span>
+<span class="doccomment">///   ONLY available when `std` is enabled.**</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>
@@ -2771,7 +2781,6 @@
 	(<span class="ident">IMPL_CONST</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
 			<span class="doccomment">/// Returns the value of this parameter type.</span>
-			<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused</span>)]</span>
 			<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">get</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">type</span> {
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>
 			}
@@ -2779,14 +2788,13 @@
 
 		<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::traits::Get</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
 			<span class="kw">fn</span> <span class="ident">get</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">I</span> {
-				<span class="ident">I::from</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>)
+				<span class="ident">I::from</span>(<span class="self">Self</span><span class="ident">::get</span>())
 			}
 		}
 	};
 	(<span class="ident">IMPL</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
 			<span class="doccomment">/// Returns the value of this parameter type.</span>
-			<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused</span>)]</span>
 			<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">type</span> {
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>
 			}
@@ -2794,7 +2802,7 @@
 
 		<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::traits::Get</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
 			<span class="kw">fn</span> <span class="ident">get</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">I</span> {
-				<span class="ident">I::from</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>)
+				<span class="ident">I::from</span>(<span class="self">Self</span><span class="ident">::get</span>())
 			}
 		}
 	};
@@ -3728,11 +3736,11 @@
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Inside the module the macro will parse item with the attribute: `#[pallet::*]`, some attributes</span>
-<span class="doccomment">/// are mandatory, some other optional.</span>
+<span class="doccomment">/// Inside the module the macro will parse item with the attribute: `#[pallet::*]`, some</span>
+<span class="doccomment">/// attributes are mandatory, some other optional.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The attribute are explained with the syntax of non instantiable pallets, to see how pallet with</span>
-<span class="doccomment">/// instance work see below example.</span>
+<span class="doccomment">/// The attribute are explained with the syntax of non instantiable pallets, to see how pallet</span>
+<span class="doccomment">/// with instance work see below example.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Note various type can be automatically imported using pallet_prelude in frame_support and</span>
 <span class="doccomment">/// frame_system:</span>
@@ -3762,7 +3770,8 @@
 <span class="doccomment">/// optionally other supertrait and where clause.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The associated type `Event` is reserved, if defined it must bounds `From&lt;Event&gt;` and</span>
-<span class="doccomment">/// `IsType&lt;&lt;Self as frame_system::Config&gt;::Event&gt;`, see `#[pallet::event]` for more information.</span>
+<span class="doccomment">/// `IsType&lt;&lt;Self as frame_system::Config&gt;::Event&gt;`, see `#[pallet::event]` for more</span>
+<span class="doccomment">/// information.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// To put `Get` associated type into metadatas, use the attribute `#[pallet::constant]`, e.g.:</span>
 <span class="doccomment">/// ```ignore</span>
@@ -3783,7 +3792,8 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// ### Macro expansion:</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The macro expand pallet constant metadata with the information given by `#[pallet::constant]`.</span>
+<span class="doccomment">/// The macro expand pallet constant metadata with the information given by</span>
+<span class="doccomment">/// `#[pallet::constant]`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Pallet struct placeholder: `#[pallet::pallet]` mandatory</span>
 <span class="doccomment">///</span>
@@ -3803,8 +3813,8 @@
 <span class="doccomment">/// #[pallet::generate_store(pub(super) trait Store)]</span>
 <span class="doccomment">/// pub struct Pallet&lt;T&gt;(_);</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// More precisely the store trait contains an associated type for each storage. It is implemented</span>
-<span class="doccomment">/// for `Pallet` allowing to access the storage from pallet struct.</span>
+<span class="doccomment">/// More precisely the store trait contains an associated type for each storage. It is</span>
+<span class="doccomment">/// implemented for `Pallet` allowing to access the storage from pallet struct.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Thus when defining a storage named `Foo`, it can later be accessed from `Pallet` using</span>
 <span class="doccomment">/// `&lt;Pallet as Store&gt;::Foo`.</span>
@@ -3820,8 +3830,8 @@
 <span class="doccomment">/// This require all storage to implement the trait [`traits::StorageInfoTrait`], thus all keys</span>
 <span class="doccomment">/// and value types must bound [`pallet_prelude::MaxEncodedLen`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// As the macro implements [`traits::GetStorageVersion`], the current storage version needs to be</span>
-<span class="doccomment">/// communicated to the macro. This can be done by using the `storage_version` attribute:</span>
+<span class="doccomment">/// As the macro implements [`traits::GetStorageVersion`], the current storage version needs to</span>
+<span class="doccomment">/// be communicated to the macro. This can be done by using the `storage_version` attribute:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```ignore</span>
 <span class="doccomment">/// const STORAGE_VERSION: StorageVersion = StorageVersion::new(5);</span>
@@ -3853,14 +3863,15 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// It declare `type Module` type alias for `Pallet`, used by [`construct_runtime`].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// It implements [`traits::PalletInfoAccess`] on `Pallet` to ease access to pallet informations</span>
-<span class="doccomment">/// given by [`frame_support::traits::PalletInfo`].</span>
+<span class="doccomment">/// It implements [`traits::PalletInfoAccess`] on `Pallet` to ease access to pallet</span>
+<span class="doccomment">/// informations given by [`frame_support::traits::PalletInfo`].</span>
 <span class="doccomment">/// (The implementation use the associated type `frame_system::Config::PalletInfo`).</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// It implements [`traits::StorageInfoTrait`] on `Pallet` which give information about all storages.</span>
+<span class="doccomment">/// It implements [`traits::StorageInfoTrait`] on `Pallet` which give information about all</span>
+<span class="doccomment">/// storages.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// If the attribute generate_store is set then the macro creates the trait `Store` and implements</span>
-<span class="doccomment">/// it on `Pallet`.</span>
+<span class="doccomment">/// If the attribute generate_store is set then the macro creates the trait `Store` and</span>
+<span class="doccomment">/// implements it on `Pallet`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// If the attribute set_storage_max_encoded_len is set then the macro call</span>
 <span class="doccomment">/// [`traits::StorageInfoTrait`] for each storage in the implementation of</span>
@@ -3882,8 +3893,8 @@
 <span class="doccomment">/// `Hooks&lt;BlockNumberFor&lt;T&gt;&gt;` (they are defined in preludes), for the type `Pallet&lt;T&gt;`</span>
 <span class="doccomment">/// and with an optional where clause.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// If no `#[pallet::hooks]` exists, then a default implementation corresponding to the following</span>
-<span class="doccomment">/// code is automatically generated:</span>
+<span class="doccomment">/// If no `#[pallet::hooks]` exists, then a default implementation corresponding to the</span>
+<span class="doccomment">/// following code is automatically generated:</span>
 <span class="doccomment">/// ```ignore</span>
 <span class="doccomment">/// #[pallet::hooks]</span>
 <span class="doccomment">/// impl&lt;T: Config&gt; Hooks&lt;BlockNumberFor&lt;T&gt;&gt; for Pallet&lt;T&gt; {}</span>
@@ -3897,8 +3908,8 @@
 <span class="doccomment">/// NOTE: OnRuntimeUpgrade is implemented with `Hooks::on_runtime_upgrade` and some additional</span>
 <span class="doccomment">/// logic. E.g. logic to write pallet version into storage.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// NOTE: The macro also adds some tracing logic when implementing the above traits. The following</span>
-<span class="doccomment">///  hooks emit traces: `on_initialize`, `on_finalize` and `on_runtime_upgrade`.</span>
+<span class="doccomment">/// NOTE: The macro also adds some tracing logic when implementing the above traits. The</span>
+<span class="doccomment">/// following  hooks emit traces: `on_initialize`, `on_finalize` and `on_runtime_upgrade`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Call: `#[pallet::call]` optional</span>
 <span class="doccomment">///</span>
@@ -3925,30 +3936,30 @@
 <span class="doccomment">/// optional where clause.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Each dispatchable needs to define a weight with `#[pallet::weight($expr)]` attribute,</span>
-<span class="doccomment">/// the first argument must be `origin: OriginFor&lt;T&gt;`, compact encoding for argument can be used</span>
-<span class="doccomment">/// using `#[pallet::compact]`, function must return `DispatchResultWithPostInfo` or</span>
+<span class="doccomment">/// the first argument must be `origin: OriginFor&lt;T&gt;`, compact encoding for argument can be</span>
+<span class="doccomment">/// used using `#[pallet::compact]`, function must return `DispatchResultWithPostInfo` or</span>
 <span class="doccomment">/// `DispatchResult`.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// All arguments must implement `Debug`, `PartialEq`, `Eq`, `Decode`, `Encode`, `Clone`. For ease</span>
-<span class="doccomment">/// of use, bound the trait `Member` available in frame_support::pallet_prelude.</span>
+<span class="doccomment">/// All arguments must implement `Debug`, `PartialEq`, `Eq`, `Decode`, `Encode`, `Clone`. For</span>
+<span class="doccomment">/// ease of use, bound the trait `Member` available in frame_support::pallet_prelude.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// If no `#[pallet::call]` exists, then a default implementation corresponding to the following</span>
-<span class="doccomment">/// code is automatically generated:</span>
+<span class="doccomment">/// If no `#[pallet::call]` exists, then a default implementation corresponding to the</span>
+<span class="doccomment">/// following code is automatically generated:</span>
 <span class="doccomment">/// ```ignore</span>
 <span class="doccomment">/// #[pallet::call]</span>
 <span class="doccomment">/// impl&lt;T: Config&gt; Pallet&lt;T&gt; {}</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// **WARNING**: modifying dispatchables, changing their order, removing some must be done with</span>
-<span class="doccomment">/// care. Indeed this will change the outer runtime call type (which is an enum with one variant</span>
-<span class="doccomment">/// per pallet), this outer runtime call can be stored on-chain (e.g. in pallet-scheduler).</span>
-<span class="doccomment">/// Thus migration might be needed.</span>
+<span class="doccomment">/// care. Indeed this will change the outer runtime call type (which is an enum with one</span>
+<span class="doccomment">/// variant per pallet), this outer runtime call can be stored on-chain (e.g. in</span>
+<span class="doccomment">/// pallet-scheduler). Thus migration might be needed.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ### Macro expansion</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The macro create an enum `Call` with one variant per dispatchable. This enum implements:</span>
-<span class="doccomment">/// `Clone`, `Eq`, `PartialEq`, `Debug` (with stripped implementation in `not(&quot;std&quot;)`), `Encode`,</span>
-<span class="doccomment">/// `Decode`, `GetDispatchInfo`, `GetCallName`, `UnfilteredDispatchable`.</span>
+<span class="doccomment">/// `Clone`, `Eq`, `PartialEq`, `Debug` (with stripped implementation in `not(&quot;std&quot;)`),</span>
+<span class="doccomment">/// `Encode`, `Decode`, `GetDispatchInfo`, `GetCallName`, `UnfilteredDispatchable`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The macro implement on `Pallet`, the `Callable` trait and a function `call_functions` which</span>
 <span class="doccomment">/// returns the dispatchable metadatas.</span>
@@ -3968,8 +3979,8 @@
 <span class="doccomment">/// 	...</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// I.e. a regular rust implement block with some optional where clause and functions with 0 args,</span>
-<span class="doccomment">/// 0 generics, and some return type.</span>
+<span class="doccomment">/// I.e. a regular rust implement block with some optional where clause and functions with 0</span>
+<span class="doccomment">/// args, 0 generics, and some return type.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ### Macro expansion</span>
 <span class="doccomment">///</span>
@@ -3990,13 +4001,13 @@
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// I.e. a regular rust enum named `Error`, with generic `T` and fieldless variants.</span>
-<span class="doccomment">/// The generic `T` mustn&#39;t bound anything and where clause is not allowed. But bounds and where</span>
-<span class="doccomment">/// clause shouldn&#39;t be needed for any usecase.</span>
+<span class="doccomment">/// The generic `T` mustn&#39;t bound anything and where clause is not allowed. But bounds and</span>
+<span class="doccomment">/// where clause shouldn&#39;t be needed for any usecase.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ### Macro expansion</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The macro implements `Debug` trait and functions `as_u8` using variant position, and `as_str`</span>
-<span class="doccomment">/// using variant doc.</span>
+<span class="doccomment">/// The macro implements `Debug` trait and functions `as_u8` using variant position, and</span>
+<span class="doccomment">/// `as_str` using variant doc.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The macro implements `From&lt;Error&lt;T&gt;&gt;` for `&amp;&#39;static str`.</span>
 <span class="doccomment">/// The macro implements `From&lt;Error&lt;T&gt;&gt;` for `DispatchError`.</span>
@@ -4006,8 +4017,8 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Event: `#[pallet::event]` optional</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Allow to define pallet events, pallet events are stored in the block when they deposited (and</span>
-<span class="doccomment">/// removed in next block).</span>
+<span class="doccomment">/// Allow to define pallet events, pallet events are stored in the block when they deposited</span>
+<span class="doccomment">/// (and removed in next block).</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Item is defined as:</span>
 <span class="doccomment">/// ```ignore</span>
@@ -4020,15 +4031,16 @@
 <span class="doccomment">/// 	...</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// I.e. an enum (with named or unnamed fields variant), named Event, with generic: none or `T` or</span>
-<span class="doccomment">/// `T: Config`, and optional where clause.</span>
+<span class="doccomment">/// I.e. an enum (with named or unnamed fields variant), named Event, with generic: none or `T`</span>
+<span class="doccomment">/// or `T: Config`, and optional where clause.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Each field must implement `Clone`, `Eq`, `PartialEq`, `Encode`, `Decode`, and `Debug` (on std</span>
-<span class="doccomment">/// only).</span>
+<span class="doccomment">/// Each field must implement `Clone`, `Eq`, `PartialEq`, `Encode`, `Decode`, and `Debug` (on</span>
+<span class="doccomment">/// std only).</span>
 <span class="doccomment">/// For ease of use, bound the trait `Member` available in frame_support::pallet_prelude.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Variant documentations and field types are put into metadata.</span>
-<span class="doccomment">/// The attribute `#[pallet::metadata(..)]` allows to specify the metadata to put for some types.</span>
+<span class="doccomment">/// The attribute `#[pallet::metadata(..)]` allows to specify the metadata to put for some</span>
+<span class="doccomment">/// types.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The metadata of a type is defined by:</span>
 <span class="doccomment">/// * if matching a type in `#[pallet::metadata(..)]`, then the corresponding metadata.</span>
@@ -4090,16 +4102,16 @@
 <span class="doccomment">/// For named generic argument: the name for each argument is the one as define on the storage</span>
 <span class="doccomment">/// struct:</span>
 <span class="doccomment">/// * [`pallet_prelude::StorageValue`] expect `Value` and optionally `QueryKind` and `OnEmpty`,</span>
-<span class="doccomment">/// * [`pallet_prelude::StorageMap`] expect `Hasher`, `Key`, `Value` and optionally `QueryKind` and</span>
-<span class="doccomment">///   `OnEmpty`,</span>
-<span class="doccomment">/// * [`pallet_prelude::StorageDoubleMap`] expect `Hasher1`, `Key1`, `Hasher2`, `Key2`, `Value` and</span>
-<span class="doccomment">///   optionally `QueryKind` and `OnEmpty`.</span>
+<span class="doccomment">/// * [`pallet_prelude::StorageMap`] expect `Hasher`, `Key`, `Value` and optionally `QueryKind`</span>
+<span class="doccomment">///   and `OnEmpty`,</span>
+<span class="doccomment">/// * [`pallet_prelude::StorageDoubleMap`] expect `Hasher1`, `Key1`, `Hasher2`, `Key2`, `Value`</span>
+<span class="doccomment">///   and optionally `QueryKind` and `OnEmpty`.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// For unnamed generic argument: Their first generic must be `_` as it is replaced by the macro</span>
-<span class="doccomment">/// and other generic must declared as a normal declaration of type generic in rust.</span>
+<span class="doccomment">/// For unnamed generic argument: Their first generic must be `_` as it is replaced by the</span>
+<span class="doccomment">/// macro and other generic must declared as a normal declaration of type generic in rust.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The Prefix generic written by the macro is generated using `PalletInfo::name::&lt;Pallet&lt;..&gt;&gt;()`</span>
-<span class="doccomment">/// and the name of the storage type.</span>
+<span class="doccomment">/// The Prefix generic written by the macro is generated using</span>
+<span class="doccomment">/// `PalletInfo::name::&lt;Pallet&lt;..&gt;&gt;()` and the name of the storage type.</span>
 <span class="doccomment">/// E.g. if runtime names the pallet &quot;MyExample&quot; then the storage `type Foo&lt;T&gt; = ...` use the</span>
 <span class="doccomment">/// prefix: `Twox128(b&quot;MyExample&quot;) ++ Twox128(b&quot;Foo&quot;)`.</span>
 <span class="doccomment">///</span>
@@ -4128,12 +4140,12 @@
 <span class="doccomment">/// pub(super) type MyStorage&lt;T&gt; = StorageValue&lt;Value = u32&gt;;</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// All the `cfg` attributes are automatically copied to the items generated for the storage, i.e. the</span>
-<span class="doccomment">/// getter, storage prefix, and the metadata element etc.</span>
+<span class="doccomment">/// All the `cfg` attributes are automatically copied to the items generated for the storage,</span>
+<span class="doccomment">/// i.e. the getter, storage prefix, and the metadata element etc.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// NOTE: If the `QueryKind` generic parameter is still generic at this stage or is using some type</span>
-<span class="doccomment">/// alias then the generation of the getter might fail. In this case the getter can be implemented</span>
-<span class="doccomment">/// manually.</span>
+<span class="doccomment">/// NOTE: If the `QueryKind` generic parameter is still generic at this stage or is using some</span>
+<span class="doccomment">/// type alias then the generation of the getter might fail. In this case the getter can be</span>
+<span class="doccomment">/// implemented manually.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// NOTE: The generic `Hasher` must implement the [`StorageHasher`] trait (or the type is not</span>
 <span class="doccomment">/// usable at all). We use [`StorageHasher::METADATA`] for the metadata of the hasher of the</span>
@@ -4143,17 +4155,17 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// For each storage item the macro generates a struct named</span>
 <span class="doccomment">/// `_GeneratedPrefixForStorage$NameOfStorage`, and implements</span>
-<span class="doccomment">/// [`StorageInstance`](traits::StorageInstance) on it using the pallet and storage name. It then</span>
-<span class="doccomment">/// uses it as the first generic of the aliased type.</span>
+<span class="doccomment">/// [`StorageInstance`](traits::StorageInstance) on it using the pallet and storage name. It</span>
+<span class="doccomment">/// then uses it as the first generic of the aliased type.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// For named generic, the macro will reorder the generics, and remove the names.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The macro implements the function `storage_metadata` on `Pallet` implementing the metadata for</span>
-<span class="doccomment">/// all storage items based on their kind:</span>
+<span class="doccomment">/// The macro implements the function `storage_metadata` on `Pallet` implementing the metadata</span>
+<span class="doccomment">/// for all storage items based on their kind:</span>
 <span class="doccomment">/// * for a storage value, the type of the value is copied into the metadata</span>
 <span class="doccomment">/// * for a storage map, the type of the values and the key&#39;s type is copied into the metadata</span>
-<span class="doccomment">/// * for a storage double map, the type of the values, and the types of key1 and key2 are copied into</span>
-<span class="doccomment">///   the metadata.</span>
+<span class="doccomment">/// * for a storage double map, the type of the values, and the types of key1 and key2 are</span>
+<span class="doccomment">///   copied into the metadata.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Type value: `#[pallet::type_value]` optional</span>
 <span class="doccomment">///</span>
@@ -4178,9 +4190,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// ### Macro expansion</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Macro renames the function to some internal name, generate a struct with the original name of</span>
-<span class="doccomment">/// the function and its generic, and implement `Get&lt;$ReturnType&gt;` by calling the user defined</span>
-<span class="doccomment">/// function.</span>
+<span class="doccomment">/// Macro renames the function to some internal name, generate a struct with the original name</span>
+<span class="doccomment">/// of the function and its generic, and implement `Get&lt;$ReturnType&gt;` by calling the user</span>
+<span class="doccomment">/// defined function.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Genesis config: `#[pallet::genesis_config]` optional</span>
 <span class="doccomment">///</span>
@@ -4219,8 +4231,8 @@
 <span class="doccomment">/// 	fn build(&amp;self) { $expr }</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// I.e. a rust trait implementation with generic `T: Config`, of trait `GenesisBuild&lt;T&gt;` on type</span>
-<span class="doccomment">/// `GenesisConfig` with generics none or `T`.</span>
+<span class="doccomment">/// I.e. a rust trait implementation with generic `T: Config`, of trait `GenesisBuild&lt;T&gt;` on</span>
+<span class="doccomment">/// type `GenesisConfig` with generics none or `T`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// E.g.:</span>
 <span class="doccomment">/// ```ignore</span>
@@ -4235,8 +4247,8 @@
 <span class="doccomment">/// Macro will add the following attribute on it:</span>
 <span class="doccomment">/// * `#[cfg(feature = &quot;std&quot;)]`</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Macro will implement `sp_runtime::BuildModuleGenesisStorage` using `()` as second generic for</span>
-<span class="doccomment">/// non-instantiable pallets.</span>
+<span class="doccomment">/// Macro will implement `sp_runtime::BuildModuleGenesisStorage` using `()` as second generic</span>
+<span class="doccomment">/// for non-instantiable pallets.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Inherent: `#[pallet::inherent]` optional</span>
 <span class="doccomment">///</span>
@@ -4271,8 +4283,8 @@
 <span class="doccomment">/// I.e. a trait implementation with bound `T: Config`, of trait `ValidateUnsigned` for type</span>
 <span class="doccomment">/// `Pallet&lt;T&gt;`, and some optional where clause.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// NOTE: There is also `sp_runtime::traits::SignedExtension` that can be used to add some specific</span>
-<span class="doccomment">/// logic for transaction validation.</span>
+<span class="doccomment">/// NOTE: There is also `sp_runtime::traits::SignedExtension` that can be used to add some</span>
+<span class="doccomment">/// specific logic for transaction validation.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ### Macro expansion</span>
 <span class="doccomment">///</span>
@@ -4291,19 +4303,19 @@
 <span class="doccomment">/// pub struct Origin&lt;T&gt;(PhantomData&lt;(T)&gt;);</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// **WARNING**: modifying origin changes the outer runtime origin. This outer runtime origin can</span>
-<span class="doccomment">/// be stored on-chain (e.g. in pallet-scheduler), thus any change must be done with care as it</span>
-<span class="doccomment">/// might require some migration.</span>
+<span class="doccomment">/// **WARNING**: modifying origin changes the outer runtime origin. This outer runtime origin</span>
+<span class="doccomment">/// can be stored on-chain (e.g. in pallet-scheduler), thus any change must be done with care</span>
+<span class="doccomment">/// as it might require some migration.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// NOTE: for instantiable pallet, origin must be generic over T and I.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # General notes on instantiable pallet</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// An instantiable pallet is one where Config is generic, i.e. `Config&lt;I&gt;`. This allow runtime to</span>
-<span class="doccomment">/// implement multiple instance of the pallet, by using different type for the generic.</span>
+<span class="doccomment">/// An instantiable pallet is one where Config is generic, i.e. `Config&lt;I&gt;`. This allow runtime</span>
+<span class="doccomment">/// to implement multiple instance of the pallet, by using different type for the generic.</span>
 <span class="doccomment">/// This is the sole purpose of the generic `I`.</span>
-<span class="doccomment">/// But because `PalletInfo` requires `Pallet` placeholder to be static it is important to bound</span>
-<span class="doccomment">/// `&#39;static` whenever `PalletInfo` can be used.</span>
+<span class="doccomment">/// But because `PalletInfo` requires `Pallet` placeholder to be static it is important to</span>
+<span class="doccomment">/// bound `&#39;static` whenever `PalletInfo` can be used.</span>
 <span class="doccomment">/// And in order to have instantiable pallet usable as a regular pallet without instance, it is</span>
 <span class="doccomment">/// important to bound `= ()` on every types.</span>
 <span class="doccomment">///</span>
@@ -4640,8 +4652,8 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// 1. Export the metadata of the pallet for later checks</span>
 <span class="doccomment">///     - run your node with the pallet active</span>
-<span class="doccomment">///     - query the metadata using the `state_getMetadata` RPC and curl, or use</span>
-<span class="doccomment">///       `subsee -p &lt;PALLET_NAME&gt; &gt; meta.json`</span>
+<span class="doccomment">///     - query the metadata using the `state_getMetadata` RPC and curl, or use `subsee -p</span>
+<span class="doccomment">///       &lt;PALLET_NAME&gt; &gt; meta.json`</span>
 <span class="doccomment">/// 2. generate the template upgrade for the pallet provided by decl_storage</span>
 <span class="doccomment">///     with environment variable `PRINT_PALLET_UPGRADE`:</span>
 <span class="doccomment">///     `PRINT_PALLET_UPGRADE=1 cargo check -p my_pallet` This template can be</span>
@@ -4685,7 +4697,8 @@
 <span class="doccomment">/// 	impl&lt;T: Config&gt; Hooks for Pallet&lt;T&gt; {</span>
 <span class="doccomment">/// 	}</span>
 <span class="doccomment">/// 	```</span>
-<span class="doccomment">/// 	and write inside on_initialize/on_finalize/on_runtime_upgrade/offchain_worker/integrity_test</span>
+<span class="doccomment">/// 	and write inside</span>
+<span class="doccomment">/// 	`on_initialize`, `on_finalize`, `on_runtime_upgrade`, `offchain_worker`, `integrity_test`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// 	then write:</span>
 <span class="doccomment">/// 	```ignore</span>
@@ -4695,7 +4708,8 @@
 <span class="doccomment">/// 	```</span>
 <span class="doccomment">/// 	and write inside all the calls in decl_module with a few changes in the signature:</span>
 <span class="doccomment">/// 	- origin must now be written completely, e.g. `origin: OriginFor&lt;T&gt;`</span>
-<span class="doccomment">/// 	- result type must be `DispatchResultWithPostInfo`, you need to write it and also you might</span>
+<span class="doccomment">/// 	- result type must be `DispatchResultWithPostInfo`, you need to write it and also you</span>
+<span class="doccomment">///    might</span>
 <span class="doccomment">/// 	need to put `Ok(().into())` at the end or the function.</span>
 <span class="doccomment">/// 	- `#[compact]` must now be written `#[pallet::compact]`</span>
 <span class="doccomment">/// 	- `#[weight = ..]` must now be written `#[pallet::weight(..)]`</span>
@@ -4703,8 +4717,8 @@
 <span class="doccomment">/// 7. **migrate event**:</span>
 <span class="doccomment">/// 	rewrite as a simple enum under with the attribute `#[pallet::event]`,</span>
 <span class="doccomment">/// 	use `#[pallet::generate_deposit($vis fn deposit_event)]` to generate deposit_event,</span>
-<span class="doccomment">/// 	use `#[pallet::metadata(...)]` to configure the metadata for types in order not to break them.</span>
-<span class="doccomment">/// 8. **migrate error**: rewrite it with attribute `#[pallet::error]`.</span>
+<span class="doccomment">/// 	use `#[pallet::metadata(...)]` to configure the metadata for types in order not to break</span>
+<span class="doccomment">/// them. 8. **migrate error**: rewrite it with attribute `#[pallet::error]`.</span>
 <span class="doccomment">/// 9. **migrate storage**:</span>
 <span class="doccomment">/// 	decl_storage provide an upgrade template (see 3.). All storages, genesis config, genesis</span>
 <span class="doccomment">/// 	build and default implementation of genesis config can be taken from it directly.</span>
@@ -4722,7 +4736,8 @@
 <span class="doccomment">/// 	}</span>
 <span class="doccomment">/// 	#[pallet::genesis_build]</span>
 <span class="doccomment">/// 	impl&lt;T: Config&gt; GenesisBuild&lt;T&gt; for GenesisConfig {</span>
-<span class="doccomment">/// 	// impl&lt;T: Config, I: &#39;static&gt; GenesisBuild&lt;T, I&gt; for GenesisConfig { for instantiable pallet</span>
+<span class="doccomment">/// 	// for instantiable pallet:</span>
+<span class="doccomment">/// 	// `impl&lt;T: Config, I: &#39;static&gt; GenesisBuild&lt;T, I&gt; for GenesisConfig {</span>
 <span class="doccomment">/// 		fn build() {</span>
 <span class="doccomment">/// 			// The add_extra_genesis build logic</span>
 <span class="doccomment">/// 		}</span>
@@ -4739,10 +4754,12 @@
 <span class="doccomment">/// 	Once this is done you can migrate storage individually, a few notes:</span>
 <span class="doccomment">/// 	- for private storage use `pub(crate) type ` or `pub(super) type` or nothing,</span>
 <span class="doccomment">/// 	- for storage with `get(fn ..)` use `#[pallet::getter(fn ...)]`</span>
-<span class="doccomment">/// 	- for storage with value being `Option&lt;$something&gt;` make generic `Value` being `$something`</span>
+<span class="doccomment">/// 	- for storage with value being `Option&lt;$something&gt;` make generic `Value` being</span>
+<span class="doccomment">///    `$something`</span>
 <span class="doccomment">/// 		and generic `QueryKind` being `OptionQuery` (note: this is default). Otherwise make</span>
 <span class="doccomment">/// 		`Value` the complete value type and `QueryKind` being `ValueQuery`.</span>
-<span class="doccomment">/// 	- for storage with default value: `= $expr;` provide some specific OnEmpty generic. To do so</span>
+<span class="doccomment">/// 	- for storage with default value: `= $expr;` provide some specific OnEmpty generic. To do</span>
+<span class="doccomment">///    so</span>
 <span class="doccomment">/// 		use of `#[pallet::type_value]` to generate the wanted struct to put.</span>
 <span class="doccomment">/// 		example: `MyStorage: u32 = 3u32` would be written:</span>
 <span class="doccomment">/// 		```ignore</span>
@@ -4775,9 +4792,11 @@
 <span class="doccomment">/// 	* error , error, constant,</span>
 <span class="doccomment">/// * manually check that:</span>
 <span class="doccomment">/// 	* `Origin` is moved inside the macro under `#[pallet::origin]` if it exists</span>
-<span class="doccomment">/// 	* `ValidateUnsigned` is moved inside the macro under `#[pallet::validate_unsigned)]` if it exists</span>
+<span class="doccomment">/// 	* `ValidateUnsigned` is moved inside the macro under `#[pallet::validate_unsigned)]` if it</span>
+<span class="doccomment">///    exists</span>
 <span class="doccomment">/// 	* `ProvideInherent` is moved inside macro under `#[pallet::inherent)]` if it exists</span>
-<span class="doccomment">/// 	* `on_initialize`/`on_finalize`/`on_runtime_upgrade`/`offchain_worker` are moved to `Hooks`</span>
+<span class="doccomment">/// 	* `on_initialize`/`on_finalize`/`on_runtime_upgrade`/`offchain_worker` are moved to</span>
+<span class="doccomment">///    `Hooks`</span>
 <span class="doccomment">/// 		implementation</span>
 <span class="doccomment">/// 	* storages with `config(..)` are converted to `GenesisConfig` field, and their default is</span>
 <span class="doccomment">/// 		`= $expr;` if the storage have default value</span>
@@ -4794,8 +4813,9 @@
 <span class="doccomment">/// 		as the name the pallet was giving to `decl_storage`,</span>
 <span class="doccomment">/// 	* or do a storage migration from the old prefix used to the new prefix used.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// 	NOTE: The prefixes used by storage items are in the metadata. Thus, ensuring the metadata hasn&#39;t</span>
-<span class="doccomment">/// 	changed does ensure that the `pallet_prefix`s used by the storage items haven&#39;t changed.</span>
+<span class="doccomment">/// 	NOTE: The prefixes used by storage items are in the metadata. Thus, ensuring the metadata</span>
+<span class="doccomment">/// hasn&#39;t 	changed does ensure that the `pallet_prefix`s used by the storage items haven&#39;t</span>
+<span class="doccomment">/// changed.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Notes when macro fails to show proper error message spans:</span>
 <span class="doccomment">///</span>

@@ -449,6 +449,7 @@
 <span id="438">438</span>
 <span id="439">439</span>
 <span id="440">440</span>
+<span id="441">441</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -671,9 +672,10 @@
 	<span class="doccomment">/// Revert all pending changes</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">revert_pending</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
 		<span class="comment">// Revert pending deletions.</span>
-		<span class="comment">// Note that pending insertions might cause some existing deletions to be removed from `death_index`</span>
-		<span class="comment">// We don&#39;t bother to track and revert that for now. This means that a few nodes might end up no being</span>
-		<span class="comment">// deleted in case transaction fails and `revert_pending` is called.</span>
+		<span class="comment">// Note that pending insertions might cause some existing deletions to be removed from</span>
+		<span class="comment">// `death_index` We don&#39;t bother to track and revert that for now. This means that a few</span>
+		<span class="comment">// nodes might end up no being deleted in case transaction fails and `revert_pending` is</span>
+		<span class="comment">// called.</span>
 		<span class="self">self</span>.<span class="ident">death_rows</span>.<span class="ident">truncate</span>(<span class="self">self</span>.<span class="ident">death_rows</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="self">self</span>.<span class="ident">pending_canonicalizations</span>);
 		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">count_insertions</span> {
 			<span class="kw">let</span> <span class="ident">new_max_block</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">death_rows</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u64</span> <span class="op">+</span> <span class="self">self</span>.<span class="ident">pending_number</span>;

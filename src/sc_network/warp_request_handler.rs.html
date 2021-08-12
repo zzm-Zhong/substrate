@@ -170,6 +170,9 @@
 <span id="159">159</span>
 <span id="160">160</span>
 <span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
 </pre><pre class="rust">
 <span class="comment">// Copyright 2021 Parity Technologies (UK) Ltd.</span>
 <span class="comment">// This file is part of Substrate.</span>
@@ -222,7 +225,8 @@
 
 <span class="doccomment">/// Warp sync backend. Handles retrieveing and verifying warp sync proofs.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">WarpSyncProvider</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> {
-	<span class="doccomment">/// Generate proof starting at given block hash. The proof is accumulated until maximum proof size is reached.</span>
+	<span class="doccomment">/// Generate proof starting at given block hash. The proof is accumulated until maximum proof</span>
+	<span class="doccomment">/// size is reached.</span>
 	<span class="kw">fn</span> <span class="ident">generate</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">start</span>: <span class="ident">B::Hash</span>,
@@ -234,11 +238,13 @@
 		<span class="ident">set_id</span>: <span class="ident">SetId</span>,
 		<span class="ident">authorities</span>: <span class="ident">AuthorityList</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VerificationResult</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span><span class="op">&gt;</span>;
-	<span class="doccomment">/// Get current list of authorities. This is supposed to be genesis authorities when starting sync.</span>
+	<span class="doccomment">/// Get current list of authorities. This is supposed to be genesis authorities when starting</span>
+	<span class="doccomment">/// sync.</span>
 	<span class="kw">fn</span> <span class="ident">current_authorities</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AuthorityList</span>;
 }
 
-<span class="doccomment">/// Generates a [`RequestResponseConfig`] for the grandpa warp sync request protocol, refusing incoming requests.</span>
+<span class="doccomment">/// Generates a [`RequestResponseConfig`] for the grandpa warp sync request protocol, refusing</span>
+<span class="doccomment">/// incoming requests.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_request_response_config</span>(<span class="ident">protocol_id</span>: <span class="ident">ProtocolId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RequestResponseConfig</span> {
 	<span class="ident">RequestResponseConfig</span> {
 		<span class="ident">name</span>: <span class="ident">generate_protocol_name</span>(<span class="ident">protocol_id</span>).<span class="ident">into</span>(),

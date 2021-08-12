@@ -1566,8 +1566,7 @@
 <span class="doccomment">/// - `UnsignedValidator`: The unsigned transaction validator of the runtime.</span>
 <span class="doccomment">/// - `AllPallets`: Tuple that contains all modules. Will be used to call e.g. `on_initialize`.</span>
 <span class="doccomment">/// - `OnRuntimeUpgrade`: Custom logic that should be called after a runtime upgrade. Modules are</span>
-<span class="doccomment">///                       already called by `AllPallets`. It will be called before all modules will</span>
-<span class="doccomment">///                       be called.</span>
+<span class="doccomment">///   already called by `AllPallets`. It will be called before all modules will be called.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Executive</span><span class="op">&lt;</span><span class="ident">System</span>, <span class="ident">Block</span>, <span class="ident">Context</span>, <span class="ident">UnsignedValidator</span>, <span class="ident">AllPallets</span>, <span class="ident">OnRuntimeUpgrade</span> <span class="op">=</span> ()<span class="op">&gt;</span>(
 	<span class="ident">PhantomData</span><span class="op">&lt;</span>(<span class="ident">System</span>, <span class="ident">Block</span>, <span class="ident">Context</span>, <span class="ident">UnsignedValidator</span>, <span class="ident">AllPallets</span>, <span class="ident">OnRuntimeUpgrade</span>)<span class="op">&gt;</span>,
 );
@@ -1895,7 +1894,8 @@
 	}
 
 	<span class="doccomment">/// Check a given signed transaction for validity. This doesn&#39;t execute any</span>
-	<span class="doccomment">/// side-effects; it merely checks whether the transaction would panic if it were included or not.</span>
+	<span class="doccomment">/// side-effects; it merely checks whether the transaction would panic if it were included or</span>
+	<span class="doccomment">/// not.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Changes made to storage should be discarded.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">validate_transaction</span>(

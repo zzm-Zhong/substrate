@@ -1541,6 +1541,7 @@
 <span id="1530">1530</span>
 <span id="1531">1531</span>
 <span id="1532">1532</span>
+<span id="1533">1533</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1799,8 +1800,8 @@
 		<span class="kw">let</span> (<span class="ident">prefix_len</span>, <span class="ident">ident</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">data</span>[<span class="number">0</span>] {
 			<span class="number">0</span>..<span class="op">=</span><span class="number">63</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="number">1</span>, <span class="ident">data</span>[<span class="number">0</span>] <span class="kw">as</span> <span class="ident">u16</span>),
 			<span class="number">64</span>..<span class="op">=</span><span class="number">127</span> <span class="op">=</span><span class="op">&gt;</span> {
-				<span class="comment">// weird bit manipulation owing to the combination of LE encoding and missing two bits</span>
-				<span class="comment">// from the left.</span>
+				<span class="comment">// weird bit manipulation owing to the combination of LE encoding and missing two</span>
+				<span class="comment">// bits from the left.</span>
 				<span class="comment">// d[0] d[1] are: 01aaaaaa bbcccccc</span>
 				<span class="comment">// they make the LE-encoded 16-bit value: aaaaaabb 00cccccc</span>
 				<span class="comment">// so the lower byte is formed of aaaaaabb and the higher byte is 00cccccc</span>
@@ -2573,9 +2574,9 @@
 	<span class="doccomment">/// Get the public key.</span>
 	<span class="kw">fn</span> <span class="ident">public</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Public</span>;
 
-	<span class="doccomment">/// Interprets the string `s` in order to generate a key Pair. Returns both the pair and an optional seed, in the</span>
-	<span class="doccomment">/// case that the pair can be expressed as a direct derivation from a seed (some cases, such as Sr25519 derivations</span>
-	<span class="doccomment">/// with path components, cannot).</span>
+	<span class="doccomment">/// Interprets the string `s` in order to generate a key Pair. Returns both the pair and an</span>
+	<span class="doccomment">/// optional seed, in the case that the pair can be expressed as a direct derivation from a seed</span>
+	<span class="doccomment">/// (some cases, such as Sr25519 derivations with path components, cannot).</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This takes a helper function to do the key generation from a phrase, password and</span>
 	<span class="doccomment">/// junction iterator.</span>
@@ -2587,7 +2588,8 @@
 	<span class="doccomment">///   - the phrase may be followed by one or more items delimited by `/` characters.</span>
 	<span class="doccomment">///   - the path may be followed by `///`, in which case everything after the `///` is treated</span>
 	<span class="doccomment">/// as a password.</span>
-	<span class="doccomment">/// - If `s` begins with a `/` character it is prefixed with the Substrate public `DEV_PHRASE` and</span>
+	<span class="doccomment">/// - If `s` begins with a `/` character it is prefixed with the Substrate public `DEV_PHRASE`</span>
+	<span class="doccomment">///   and</span>
 	<span class="doccomment">/// interpreted as above.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// In this case they are interpreted as HDKD junctions; purely numeric items are interpreted as</span>
@@ -2597,8 +2599,8 @@
 	<span class="doccomment">/// There is no correspondence mapping between SURI strings and the keys they represent.</span>
 	<span class="doccomment">/// Two different non-identical strings can actually lead to the same secret being derived.</span>
 	<span class="doccomment">/// Notably, integer junction indices may be legally prefixed with arbitrary number of zeros.</span>
-	<span class="doccomment">/// Similarly an empty password (ending the SURI with `///`) is perfectly valid and will generally</span>
-	<span class="doccomment">/// be equivalent to no password at all.</span>
+	<span class="doccomment">/// Similarly an empty password (ending the SURI with `///`) is perfectly valid and will</span>
+	<span class="doccomment">/// generally be equivalent to no password at all.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// `None` is returned if no matches are found.</span>
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>

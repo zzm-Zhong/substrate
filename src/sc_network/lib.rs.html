@@ -341,7 +341,6 @@
 <span id="330">330</span>
 <span id="331">331</span>
 <span id="332">332</span>
-<span id="333">333</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -466,10 +465,10 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! - **`/substrate/&lt;protocol-id&gt;/&lt;version&gt;`** (where `&lt;protocol-id&gt;` must be replaced with the</span>
 <span class="doccomment">//! protocol ID of the targeted chain, and `&lt;version&gt;` is a number between 2 and 6). For each</span>
-<span class="doccomment">//! connection we optionally keep an additional substream for all Substrate-based communications alive.</span>
-<span class="doccomment">//! This protocol is considered legacy, and is progressively being replaced with alternatives.</span>
-<span class="doccomment">//! This is designated as &quot;The legacy Substrate substream&quot; in this documentation. See below for</span>
-<span class="doccomment">//! more details.</span>
+<span class="doccomment">//! connection we optionally keep an additional substream for all Substrate-based communications</span>
+<span class="doccomment">//! alive. This protocol is considered legacy, and is progressively being replaced with</span>
+<span class="doccomment">//! alternatives. This is designated as &quot;The legacy Substrate substream&quot; in this documentation. See</span>
+<span class="doccomment">//! below for more details.</span>
 <span class="doccomment">//! - **`/&lt;protocol-id&gt;/sync/2`** is a request-response protocol (see below) that lets one perform</span>
 <span class="doccomment">//! requests for information about blocks. Each request is the encoding of a `BlockRequest` and</span>
 <span class="doccomment">//! each response is the encoding of a `BlockResponse`, as defined in the `api.v1.proto` file in</span>
@@ -588,7 +587,6 @@
 <span class="doccomment">//! - Calling `trigger_repropagate` when a transaction is added to the pool.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! More precise usage details are still being worked on and will likely change in the future.</span>
-<span class="doccomment">//!</span>
 
 <span class="kw">mod</span> <span class="ident">behaviour</span>;
 <span class="kw">mod</span> <span class="ident">chain</span>;

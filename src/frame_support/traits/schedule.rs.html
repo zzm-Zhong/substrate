@@ -187,8 +187,8 @@
 <span class="doccomment">/// The highest priority. We invert the value so that normal sorting will place the highest</span>
 <span class="doccomment">/// priority at the beginning of the list.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">HIGHEST_PRIORITY</span>: <span class="ident">Priority</span> <span class="op">=</span> <span class="number">0</span>;
-<span class="doccomment">/// Anything of this value or lower will definitely be scheduled on the block that they ask for, even</span>
-<span class="doccomment">/// if it breaches the `MaximumWeight` limitation.</span>
+<span class="doccomment">/// Anything of this value or lower will definitely be scheduled on the block that they ask for,</span>
+<span class="doccomment">/// even if it breaches the `MaximumWeight` limitation.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">HARD_DEADLINE</span>: <span class="ident">Priority</span> <span class="op">=</span> <span class="number">63</span>;
 <span class="doccomment">/// The lowest priority. Most stuff should be around here.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LOWEST_PRIORITY</span>: <span class="ident">Priority</span> <span class="op">=</span> <span class="number">255</span>;

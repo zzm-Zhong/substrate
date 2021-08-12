@@ -926,6 +926,7 @@
 <span id="915">915</span>
 <span id="916">916</span>
 <span id="917">917</span>
+<span id="918">918</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1544,7 +1545,8 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">inner</span>
 	}
 
-	<span class="doccomment">/// Reset to a specified pair of epochs, as if they were announced at blocks `parent_hash` and `hash`.</span>
+	<span class="doccomment">/// Reset to a specified pair of epochs, as if they were announced at blocks `parent_hash` and</span>
+	<span class="doccomment">/// `hash`.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reset</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">parent_hash</span>: <span class="ident">Hash</span>, <span class="ident">hash</span>: <span class="ident">Hash</span>, <span class="ident">number</span>: <span class="ident">Number</span>, <span class="ident">current</span>: <span class="ident">E</span>, <span class="ident">next</span>: <span class="ident">E</span>) {
 		<span class="self">self</span>.<span class="ident">inner</span> <span class="op">=</span> <span class="ident">ForkTree::new</span>();
 		<span class="self">self</span>.<span class="ident">epochs</span>.<span class="ident">clear</span>();

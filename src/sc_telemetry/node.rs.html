@@ -364,14 +364,14 @@
 <span class="doccomment">/// Handler for a single telemetry node.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is a wrapper `Sink` around a network `Sink` with 3 particularities:</span>
-<span class="doccomment">///  -  It is infallible: if the connection stops, it will reconnect automatically when the server</span>
-<span class="doccomment">///     becomes available again.</span>
-<span class="doccomment">///  -  It holds a list of &quot;connection messages&quot; which are sent automatically when the connection is</span>
-<span class="doccomment">///     (re-)established. This is used for the &quot;system.connected&quot; message that needs to be send for</span>
-<span class="doccomment">///     every substrate node that connects.</span>
-<span class="doccomment">///  -  It doesn&#39;t stay in pending while waiting for connection. Instead, it moves data into the</span>
-<span class="doccomment">///     void if the connection could not be established. This is important for the `Dispatcher`</span>
-<span class="doccomment">///     `Sink` which we don&#39;t want to block if one connection is broken.</span>
+<span class="doccomment">///  - It is infallible: if the connection stops, it will reconnect automatically when the server</span>
+<span class="doccomment">///    becomes available again.</span>
+<span class="doccomment">///  - It holds a list of &quot;connection messages&quot; which are sent automatically when the connection is</span>
+<span class="doccomment">///    (re-)established. This is used for the &quot;system.connected&quot; message that needs to be send for</span>
+<span class="doccomment">///    every substrate node that connects.</span>
+<span class="doccomment">///  - It doesn&#39;t stay in pending while waiting for connection. Instead, it moves data into the void</span>
+<span class="doccomment">///    if the connection could not be established. This is important for the `Dispatcher` `Sink`</span>
+<span class="doccomment">///    which we don&#39;t want to block if one connection is broken.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">Node</span><span class="op">&lt;</span><span class="ident">TTrans</span>: <span class="ident">Transport</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Address of the node.</span>

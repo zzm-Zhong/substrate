@@ -273,6 +273,7 @@
 <span id="262">262</span>
 <span id="263">263</span>
 <span id="264">264</span>
+<span id="265">265</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -330,10 +331,11 @@
 <span class="doccomment">/// Created by [`SharedData::shared_data_locked`].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// As long as this object isn&#39;t dropped, the shared data is held in a mutex guard and the shared</span>
-<span class="doccomment">/// data is tagged as locked. Access to the shared data is provided through [`Deref`](std::ops::Deref) and</span>
-<span class="doccomment">/// [`DerefMut`](std::ops::DerefMut). The trick is to use [`Self::release_mutex`] to release the mutex, but still keep</span>
-<span class="doccomment">/// the shared data locked. This means every other thread trying to access the shared data in this</span>
-<span class="doccomment">/// time will need to wait until this lock is freed.</span>
+<span class="doccomment">/// data is tagged as locked. Access to the shared data is provided through</span>
+<span class="doccomment">/// [`Deref`](std::ops::Deref) and [`DerefMut`](std::ops::DerefMut). The trick is to use</span>
+<span class="doccomment">/// [`Self::release_mutex`] to release the mutex, but still keep the shared data locked. This means</span>
+<span class="doccomment">/// every other thread trying to access the shared data in this time will need to wait until this</span>
+<span class="doccomment">/// lock is freed.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// If this object is dropped without calling [`Self::release_mutex`], the lock will be dropped</span>
 <span class="doccomment">/// immediately.</span>
@@ -486,8 +488,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This will give mutable access to the shared data. The returned [`SharedDataLocked`]</span>
 	<span class="doccomment">/// provides the function [`SharedDataLocked::release_mutex`] to release the mutex, but</span>
-	<span class="doccomment">/// keeping the data locked. This is useful in async contexts for example where the data needs to</span>
-	<span class="doccomment">/// be locked, but a mutex guard can not be held.</span>
+	<span class="doccomment">/// keeping the data locked. This is useful in async contexts for example where the data needs</span>
+	<span class="doccomment">/// to be locked, but a mutex guard can not be held.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// For an example see [`SharedData`].</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shared_data_locked</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SharedDataLocked</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {

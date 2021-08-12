@@ -701,12 +701,12 @@
 					};
 					(<span class="ident">justifications</span>, <span class="ident">Vec::new</span>(), <span class="bool-val">false</span>)
 				} <span class="kw">else</span> {
-					<span class="comment">// For now we keep compatibility by selecting precisely the GRANDPA one, and not just</span>
-					<span class="comment">// the first one. When sending we could have just taken the first one, since we don&#39;t</span>
-					<span class="comment">// expect there to be any other kind currently, but when receiving we need to add the</span>
-					<span class="comment">// engine ID tag.</span>
-					<span class="comment">// The ID tag is hardcoded here to avoid depending on the GRANDPA crate, and will be</span>
-					<span class="comment">// removed once we remove the backwards compatibility.</span>
+					<span class="comment">// For now we keep compatibility by selecting precisely the GRANDPA one, and not</span>
+					<span class="comment">// just the first one. When sending we could have just taken the first one,</span>
+					<span class="comment">// since we don&#39;t expect there to be any other kind currently, but when</span>
+					<span class="comment">// receiving we need to add the engine ID tag.</span>
+					<span class="comment">// The ID tag is hardcoded here to avoid depending on the GRANDPA crate, and</span>
+					<span class="comment">// will be removed once we remove the backwards compatibility.</span>
 					<span class="comment">// See: https://github.com/paritytech/substrate/issues/8172</span>
 					<span class="kw">let</span> <span class="ident">justification</span> <span class="op">=</span>
 						<span class="ident">justifications</span>.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">just</span><span class="op">|</span> <span class="ident">just</span>.<span class="ident">into_justification</span>(<span class="kw-2">*</span><span class="string">b&quot;FRNK&quot;</span>));

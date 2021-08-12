@@ -2711,8 +2711,8 @@
 	<span class="doccomment">/// Instantiate a contract from the given code.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Returns the original code size of the called contract.</span>
-	<span class="doccomment">/// The newly created account will be associated with `code`. `value` specifies the amount of value</span>
-	<span class="doccomment">/// transferred from this to the newly created account (also known as endowment).</span>
+	<span class="doccomment">/// The newly created account will be associated with `code`. `value` specifies the amount of</span>
+	<span class="doccomment">/// value transferred from this to the newly created account (also known as endowment).</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// # Return Value</span>
 	<span class="doccomment">///</span>
@@ -2728,8 +2728,8 @@
 
 	<span class="doccomment">/// Transfer all funds to `beneficiary` and delete the contract.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Since this function removes the self contract eagerly, if succeeded, no further actions should</span>
-	<span class="doccomment">/// be performed on this `Ext` instance.</span>
+	<span class="doccomment">/// Since this function removes the self contract eagerly, if succeeded, no further actions</span>
+	<span class="doccomment">/// should be performed on this `Ext` instance.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This function will fail if the same contract is present on the contract</span>
 	<span class="doccomment">/// call stack.</span>
@@ -2737,8 +2737,8 @@
 
 	<span class="doccomment">/// Restores the given destination contract sacrificing the current one.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Since this function removes the self contract eagerly, if succeeded, no further actions should</span>
-	<span class="doccomment">/// be performed on this `Ext` instance.</span>
+	<span class="doccomment">/// Since this function removes the self contract eagerly, if succeeded, no further actions</span>
+	<span class="doccomment">/// should be performed on this `Ext` instance.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This function will fail if the same contract is present</span>
 	<span class="doccomment">/// on the contract call stack.</span>
@@ -3821,8 +3821,8 @@
 
 <span class="doccomment">/// These tests exercise the executive layer.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// In these tests the VM/loader are mocked. Instead of dealing with wasm bytecode they use simple closures.</span>
-<span class="doccomment">/// This allows you to tackle executive logic more thoroughly without writing a</span>
+<span class="doccomment">/// In these tests the VM/loader are mocked. Instead of dealing with wasm bytecode they use simple</span>
+<span class="doccomment">/// closures. This allows you to tackle executive logic more thoroughly without writing a</span>
 <span class="doccomment">/// wasm VM code.</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {

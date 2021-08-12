@@ -909,6 +909,7 @@
 <span id="898">898</span>
 <span id="899">899</span>
 <span id="900">900</span>
+<span id="901">901</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1181,7 +1182,8 @@
 	<span class="doccomment">/// All the key type ids this session handler can process.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The order must be the same as it expects them in</span>
-	<span class="doccomment">/// [`on_new_session`](Self::on_new_session&lt;Ks&gt;) and [`on_genesis_session`](Self::on_genesis_session&lt;Ks&gt;).</span>
+	<span class="doccomment">/// [`on_new_session`](Self::on_new_session&lt;Ks&gt;) and</span>
+	<span class="doccomment">/// [`on_genesis_session`](Self::on_genesis_session&lt;Ks&gt;).</span>
 	<span class="kw">const</span> <span class="ident">KEY_TYPE_IDS</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">KeyTypeId</span>];
 
 	<span class="doccomment">/// The given validator set will be used for the genesis session.</span>
@@ -1402,8 +1404,8 @@
 
 <span class="macro">decl_event!</span>(
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span> {
-		<span class="doccomment">/// New session has happened. Note that the argument is the \[session_index\], not the block</span>
-		<span class="doccomment">/// number as the type might suggest.</span>
+		<span class="doccomment">/// New session has happened. Note that the argument is the \[session_index\], not the</span>
+		<span class="doccomment">/// block number as the type might suggest.</span>
 		<span class="ident">NewSession</span>(<span class="ident">SessionIndex</span>),
 	}
 );

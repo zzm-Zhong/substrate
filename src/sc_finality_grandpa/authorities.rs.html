@@ -1701,6 +1701,7 @@
 <span id="1690">1690</span>
 <span id="1691">1691</span>
 <span id="1692">1692</span>
+<span id="1693">1693</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1869,8 +1870,8 @@
 	<span class="doccomment">/// is lower than the last finalized block (as signaled in the forced</span>
 	<span class="doccomment">/// change) must be applied beforehand.</span>
 	<span class="ident">pending_forced_changes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PendingChange</span><span class="op">&lt;</span><span class="ident">H</span>, <span class="ident">N</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	<span class="doccomment">/// Track at which blocks the set id changed. This is useful when we need to prove finality for a</span>
-	<span class="doccomment">/// given block since we can figure out what set the block belongs to and when the set</span>
+	<span class="doccomment">/// Track at which blocks the set id changed. This is useful when we need to prove finality for</span>
+	<span class="doccomment">/// a given block since we can figure out what set the block belongs to and when the set</span>
 	<span class="doccomment">/// started/ended.</span>
 	<span class="ident">authority_set_changes</span>: <span class="ident">AuthoritySetChanges</span><span class="op">&lt;</span><span class="ident">N</span><span class="op">&gt;</span>,
 }
@@ -2361,16 +2362,16 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AuthoritySetChanges</span><span class="op">&lt;</span><span class="ident">N</span><span class="op">&gt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">u64</span>, <span class="ident">N</span>)<span class="op">&gt;</span>);
 
 <span class="doccomment">/// The response when querying for a set id for a specific block. Either we get a set id</span>
-<span class="doccomment">/// together with a block number for the last block in the set, or that the requested block is in the</span>
-<span class="doccomment">/// latest set, or that we don&#39;t know what set id the given block belongs to.</span>
+<span class="doccomment">/// together with a block number for the last block in the set, or that the requested block is in</span>
+<span class="doccomment">/// the latest set, or that we don&#39;t know what set id the given block belongs to.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">AuthoritySetChangeId</span><span class="op">&lt;</span><span class="ident">N</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// The requested block is in the latest set.</span>
 	<span class="ident">Latest</span>,
 	<span class="doccomment">/// Tuple containing the set id and the last block number of that set.</span>
 	<span class="ident">Set</span>(<span class="ident">SetId</span>, <span class="ident">N</span>),
-	<span class="doccomment">/// We don&#39;t know which set id the request block belongs to (this can only happen due to missing</span>
-	<span class="doccomment">/// data).</span>
+	<span class="doccomment">/// We don&#39;t know which set id the request block belongs to (this can only happen due to</span>
+	<span class="doccomment">/// missing data).</span>
 	<span class="ident">Unknown</span>,
 }
 
@@ -2616,7 +2617,8 @@
 
 		<span class="macro">assert_eq!</span>(<span class="ident">authorities</span>.<span class="ident">pending_changes</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>(), <span class="macro">vec!</span>[<span class="kw-2">&amp;</span><span class="ident">change_a</span>, <span class="kw-2">&amp;</span><span class="ident">change_b</span>]);
 
-		<span class="comment">// finalizing &quot;hash_c&quot; won&#39;t enact the change signaled at &quot;hash_a&quot; but it will prune out &quot;hash_b&quot;</span>
+		<span class="comment">// finalizing &quot;hash_c&quot; won&#39;t enact the change signaled at &quot;hash_a&quot; but it will prune out</span>
+		<span class="comment">// &quot;hash_b&quot;</span>
 		<span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">authorities</span>
 			.<span class="ident">apply_standard_changes</span>(
 				<span class="string">&quot;hash_c&quot;</span>,

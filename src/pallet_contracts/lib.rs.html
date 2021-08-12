@@ -882,6 +882,13 @@
 <span id="871">871</span>
 <span id="872">872</span>
 <span id="873">873</span>
+<span id="874">874</span>
+<span id="875">875</span>
+<span id="876">876</span>
+<span id="877">877</span>
+<span id="878">878</span>
+<span id="879">879</span>
+<span id="880">880</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -902,43 +909,47 @@
 
 <span class="doccomment">//! # Contract Pallet</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The Contract module provides functionality for the runtime to deploy and execute WebAssembly smart-contracts.</span>
+<span class="doccomment">//! The Contract module provides functionality for the runtime to deploy and execute WebAssembly</span>
+<span class="doccomment">//! smart-contracts.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! - [`Config`]</span>
 <span class="doccomment">//! - [`Call`]</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Overview</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! This module extends accounts based on the [`Currency`] trait to have smart-contract functionality. It can</span>
-<span class="doccomment">//! be used with other modules that implement accounts based on [`Currency`]. These &quot;smart-contract accounts&quot;</span>
-<span class="doccomment">//! have the ability to instantiate smart-contracts and make calls to other contract and non-contract accounts.</span>
+<span class="doccomment">//! This module extends accounts based on the [`Currency`] trait to have smart-contract</span>
+<span class="doccomment">//! functionality. It can be used with other modules that implement accounts based on [`Currency`].</span>
+<span class="doccomment">//! These &quot;smart-contract accounts&quot; have the ability to instantiate smart-contracts and make calls</span>
+<span class="doccomment">//! to other contract and non-contract accounts.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The smart-contract code is stored once in a code cache, and later retrievable via its hash.</span>
-<span class="doccomment">//! This means that multiple smart-contracts can be instantiated from the same hash, without replicating</span>
-<span class="doccomment">//! the code each time.</span>
+<span class="doccomment">//! This means that multiple smart-contracts can be instantiated from the same hash, without</span>
+<span class="doccomment">//! replicating the code each time.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! When a smart-contract is called, its associated code is retrieved via the code hash and gets executed.</span>
-<span class="doccomment">//! This call can alter the storage entries of the smart-contract account, instantiate new smart-contracts,</span>
-<span class="doccomment">//! or call other smart-contracts.</span>
+<span class="doccomment">//! When a smart-contract is called, its associated code is retrieved via the code hash and gets</span>
+<span class="doccomment">//! executed. This call can alter the storage entries of the smart-contract account, instantiate new</span>
+<span class="doccomment">//! smart-contracts, or call other smart-contracts.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Finally, when an account is reaped, its associated code and storage of the smart-contract account</span>
-<span class="doccomment">//! will also be deleted.</span>
+<span class="doccomment">//! Finally, when an account is reaped, its associated code and storage of the smart-contract</span>
+<span class="doccomment">//! account will also be deleted.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Gas</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Senders must specify a gas limit with every call, as all instructions invoked by the smart-contract require gas.</span>
-<span class="doccomment">//! Unused gas is refunded after the call, regardless of the execution outcome.</span>
+<span class="doccomment">//! Senders must specify a gas limit with every call, as all instructions invoked by the</span>
+<span class="doccomment">//! smart-contract require gas. Unused gas is refunded after the call, regardless of the execution</span>
+<span class="doccomment">//! outcome.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! If the gas limit is reached, then all calls and state changes (including balance transfers) are only</span>
-<span class="doccomment">//! reverted at the current call&#39;s contract level. For example, if contract A calls B and B runs out of gas mid-call,</span>
-<span class="doccomment">//! then all of B&#39;s calls are reverted. Assuming correct error handling by contract A, A&#39;s other calls and state</span>
-<span class="doccomment">//! changes still persist.</span>
+<span class="doccomment">//! If the gas limit is reached, then all calls and state changes (including balance transfers) are</span>
+<span class="doccomment">//! only reverted at the current call&#39;s contract level. For example, if contract A calls B and B</span>
+<span class="doccomment">//! runs out of gas mid-call, then all of B&#39;s calls are reverted. Assuming correct error handling by</span>
+<span class="doccomment">//! contract A, A&#39;s other calls and state changes still persist.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Notable Scenarios</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Contract call failures are not always cascading. When failures occur in a sub-call, they do not &quot;bubble up&quot;,</span>
-<span class="doccomment">//! and the call will only revert at the specific contract level. For example, if contract A calls contract B, and B</span>
-<span class="doccomment">//! fails, A can decide how to handle that failure, either proceeding or reverting A&#39;s changes.</span>
+<span class="doccomment">//! Contract call failures are not always cascading. When failures occur in a sub-call, they do not</span>
+<span class="doccomment">//! &quot;bubble up&quot;, and the call will only revert at the specific contract level. For example, if</span>
+<span class="doccomment">//! contract A calls contract B, and B fails, A can decide how to handle that failure, either</span>
+<span class="doccomment">//! proceeding or reverting A&#39;s changes.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Interface</span>
 <span class="doccomment">//!</span>
@@ -1111,17 +1122,18 @@
 		<span class="doccomment">/// deposited while the contract is alive. Costs for additional storage are added to</span>
 		<span class="doccomment">/// this base cost.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// This is a simple way to ensure that contracts with empty storage eventually get deleted by</span>
-		<span class="doccomment">/// making them pay rent. This creates an incentive to remove them early in order to save rent.</span>
+		<span class="doccomment">/// This is a simple way to ensure that contracts with empty storage eventually get deleted</span>
+		<span class="doccomment">/// by making them pay rent. This creates an incentive to remove them early in order to save</span>
+		<span class="doccomment">/// rent.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
 		<span class="kw">type</span> <span class="ident">DepositPerContract</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// The balance a contract needs to deposit per storage byte to stay alive indefinitely.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// Let&#39;s suppose the deposit is 1,000 BU (balance units)/byte and the rent is 1 BU/byte/day,</span>
-		<span class="doccomment">/// then a contract with 1,000,000 BU that uses 1,000 bytes of storage would pay no rent.</span>
-		<span class="doccomment">/// But if the balance reduced to 500,000 BU and the storage stayed the same at 1,000,</span>
-		<span class="doccomment">/// then it would pay 500 BU/day.</span>
+		<span class="doccomment">/// Let&#39;s suppose the deposit is 1,000 BU (balance units)/byte and the rent is 1</span>
+		<span class="doccomment">/// BU/byte/day, then a contract with 1,000,000 BU that uses 1,000 bytes of storage would</span>
+		<span class="doccomment">/// pay no rent. But if the balance reduced to 500,000 BU and the storage stayed the same at</span>
+		<span class="doccomment">/// 1,000, then it would pay 500 BU/day.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
 		<span class="kw">type</span> <span class="ident">DepositPerStorageByte</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
@@ -1238,7 +1250,8 @@
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Instantiation is executed as follows:</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// - The supplied `code` is instrumented, deployed, and a `code_hash` is created for that code.</span>
+		<span class="doccomment">/// - The supplied `code` is instrumented, deployed, and a `code_hash` is created for that</span>
+		<span class="doccomment">///   code.</span>
 		<span class="doccomment">/// - If the `code_hash` already exists on the chain the underlying `code` will be shared.</span>
 		<span class="doccomment">/// - The destination address is computed based on the sender, code_hash and the salt.</span>
 		<span class="doccomment">/// - The smart-contract account is created at the computed address.</span>
@@ -1343,7 +1356,8 @@
 
 			<span class="comment">// Add some advantage for block producers (who send unsigned extrinsics) by</span>
 			<span class="comment">// adding a handicap: for signed extrinsics we use a slightly older block number</span>
-			<span class="comment">// for the eviction check. This can be viewed as if we pushed regular users back in past.</span>
+			<span class="comment">// for the eviction check. This can be viewed as if we pushed regular users back in</span>
+			<span class="comment">// past.</span>
 			<span class="kw">let</span> <span class="ident">handicap</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">signed</span> { <span class="ident">T::SignedClaimHandicap::get</span>() } <span class="kw">else</span> { <span class="ident">Zero::zero</span>() };
 
 			<span class="comment">// If poking the contract has lead to eviction of the contract, give out the rewards.</span>
@@ -1415,8 +1429,8 @@
 		<span class="doccomment">/// # Params</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// - `contract`: The contract that emitted the event.</span>
-		<span class="doccomment">/// - `data`: Data supplied by the contract. Metadata generated during contract</span>
-		<span class="doccomment">///           compilation is needed to decode it.</span>
+		<span class="doccomment">/// - `data`: Data supplied by the contract. Metadata generated during contract compilation</span>
+		<span class="doccomment">///   is needed to decode it.</span>
 		<span class="ident">ContractEmitted</span>(<span class="ident">T::AccountId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>),
 
 		<span class="doccomment">/// A code with the specified hash was removed.</span>

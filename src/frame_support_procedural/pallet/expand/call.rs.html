@@ -269,6 +269,7 @@
 <span id="258">258</span>
 <span id="259">259</span>
 <span id="260">260</span>
+<span id="261">261</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -291,6 +292,7 @@
 <span class="kw">use</span> <span class="ident">frame_support_procedural_tools::clean_type_string</span>;
 <span class="kw">use</span> <span class="ident">syn::spanned::Spanned</span>;
 
+<span class="doccomment">///</span>
 <span class="doccomment">/// * Generate enum call and implement various trait on it.</span>
 <span class="doccomment">/// * Implement Callable and call_function on `Pallet`</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expand_call</span>(<span class="ident">def</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Def</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">proc_macro2::TokenStream</span> {

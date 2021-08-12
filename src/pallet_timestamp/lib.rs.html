@@ -411,6 +411,10 @@
 <span id="400">400</span>
 <span id="401">401</span>
 <span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -441,13 +445,14 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The Timestamp pallet allows the validators to set and validate a timestamp with each block.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! It uses inherents for timestamp data, which is provided by the block author and validated/verified</span>
-<span class="doccomment">//! by other validators. The timestamp can be set only once per block and must be set each block.</span>
-<span class="doccomment">//! There could be a constraint on how much time must pass before setting the new timestamp.</span>
+<span class="doccomment">//! It uses inherents for timestamp data, which is provided by the block author and</span>
+<span class="doccomment">//! validated/verified by other validators. The timestamp can be set only once per block and must be</span>
+<span class="doccomment">//! set each block. There could be a constraint on how much time must pass before setting the new</span>
+<span class="doccomment">//! timestamp.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! **NOTE:** The Timestamp pallet is the recommended way to query the on-chain time instead of using</span>
-<span class="doccomment">//! an approach based on block numbers. The block number based time measurement can cause issues</span>
-<span class="doccomment">//! because of cumulative calculation errors and hence should be avoided.</span>
+<span class="doccomment">//! **NOTE:** The Timestamp pallet is the recommended way to query the on-chain time instead of</span>
+<span class="doccomment">//! using an approach based on block numbers. The block number based time measurement can cause</span>
+<span class="doccomment">//! issues because of cumulative calculation errors and hence should be avoided.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Interface</span>
 <span class="doccomment">//!</span>
@@ -466,7 +471,8 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Usage</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The following example shows how to use the Timestamp pallet in your custom pallet to query the current timestamp.</span>
+<span class="doccomment">//! The following example shows how to use the Timestamp pallet in your custom pallet to query the</span>
+<span class="doccomment">//! current timestamp.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Prerequisites</span>
 <span class="doccomment">//!</span>
@@ -534,13 +540,14 @@
 			<span class="op">+</span> <span class="ident">Copy</span>
 			<span class="op">+</span> <span class="ident">MaxEncodedLen</span>;
 
-		<span class="doccomment">/// Something which can be notified when the timestamp is set. Set this to `()` if not needed.</span>
+		<span class="doccomment">/// Something which can be notified when the timestamp is set. Set this to `()` if not</span>
+		<span class="doccomment">/// needed.</span>
 		<span class="kw">type</span> <span class="ident">OnTimestampSet</span>: <span class="ident">OnTimestampSet</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Moment</span><span class="op">&gt;</span>;
 
-		<span class="doccomment">/// The minimum period between blocks. Beware that this is different to the *expected* period</span>
-		<span class="doccomment">/// that the block production apparatus provides. Your chosen consensus system will generally</span>
-		<span class="doccomment">/// work with this to determine a sensible block time. e.g. For Aura, it will be double this</span>
-		<span class="doccomment">/// period on default settings.</span>
+		<span class="doccomment">/// The minimum period between blocks. Beware that this is different to the *expected*</span>
+		<span class="doccomment">/// period that the block production apparatus provides. Your chosen consensus system will</span>
+		<span class="doccomment">/// generally work with this to determine a sensible block time. e.g. For Aura, it will be</span>
+		<span class="doccomment">/// double this period on default settings.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
 		<span class="kw">type</span> <span class="ident">MinimumPeriod</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Moment</span><span class="op">&gt;</span>;
 
@@ -593,7 +600,8 @@
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// # &lt;weight&gt;</span>
 		<span class="doccomment">/// - `O(1)` (Note that implementations of `OnTimestampSet` must also be `O(1)`)</span>
-		<span class="doccomment">/// - 1 storage read and 1 storage mutation (codec `O(1)`). (because of `DidUpdate::take` in `on_finalize`)</span>
+		<span class="doccomment">/// - 1 storage read and 1 storage mutation (codec `O(1)`). (because of `DidUpdate::take` in</span>
+		<span class="doccomment">///   `on_finalize`)</span>
 		<span class="doccomment">/// - 1 event handler `on_timestamp_set`. Must be `O(1)`.</span>
 		<span class="doccomment">/// # &lt;/weight&gt;</span>
 		<span class="attribute">#[<span class="ident">pallet::weight</span>((

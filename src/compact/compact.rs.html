@@ -45,6 +45,8 @@
 <span id="34">34</span>
 <span id="35">35</span>
 <span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="ident">honggfuzz::fuzz</span>;
 <span class="kw">use</span> <span class="ident">sp_npos_elections</span>::{<span class="ident">generate_solution_type</span>, <span class="ident">sp_arithmetic::Percent</span>};
@@ -60,18 +62,20 @@
 		<span class="macro">fuzz!</span>(<span class="op">|</span><span class="ident">fuzzer_data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">|</span> {
 			<span class="kw">let</span> <span class="ident">result_decoded</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">InnerTestSolutionCompact</span>, <span class="ident">Error</span><span class="op">&gt;</span> <span class="op">=</span>
 				<span class="op">&lt;</span><span class="ident">InnerTestSolutionCompact</span> <span class="kw">as</span> <span class="ident">codec::Decode</span><span class="op">&gt;</span><span class="ident">::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="ident">fuzzer_data</span>[..]);
-			<span class="comment">// Ignore errors as not every random sequence of bytes can be decoded as InnerTestSolutionCompact</span>
+			<span class="comment">// Ignore errors as not every random sequence of bytes can be decoded as</span>
+			<span class="comment">// InnerTestSolutionCompact</span>
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">decoded</span>) <span class="op">=</span> <span class="ident">result_decoded</span> {
 				<span class="comment">// Decoding works, let&#39;s re-encode it and compare results.</span>
 				<span class="kw">let</span> <span class="ident">reencoded</span>: <span class="ident">std::vec::Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">decoded</span>.<span class="ident">encode</span>();
-				<span class="comment">// The reencoded value may or may not be equal to the original fuzzer output. However, the</span>
-				<span class="comment">// original decoder should be optimal (in the sense that there is no shorter encoding of</span>
-				<span class="comment">// the same object). So let&#39;s see if the fuzzer can find something shorter:</span>
+				<span class="comment">// The reencoded value may or may not be equal to the original fuzzer output.</span>
+				<span class="comment">// However, the original decoder should be optimal (in the sense that there is no</span>
+				<span class="comment">// shorter encoding of the same object). So let&#39;s see if the fuzzer can find</span>
+				<span class="comment">// something shorter:</span>
 				<span class="kw">if</span> <span class="ident">fuzzer_data</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="ident">reencoded</span>.<span class="ident">len</span>() {
 					<span class="macro">panic!</span>(<span class="string">&quot;fuzzer_data.len() &lt; reencoded.len()&quot;</span>);
 				}
-				<span class="comment">// The reencoded value should definitely be decodable (if unwrap() fails that is a valid</span>
-				<span class="comment">// panic/finding for the fuzzer):</span>
+				<span class="comment">// The reencoded value should definitely be decodable (if unwrap() fails that is a</span>
+				<span class="comment">// valid panic/finding for the fuzzer):</span>
 				<span class="kw">let</span> <span class="ident">decoded2</span>: <span class="ident">InnerTestSolutionCompact</span> <span class="op">=</span>
 					<span class="op">&lt;</span><span class="ident">InnerTestSolutionCompact</span> <span class="kw">as</span> <span class="ident">codec::Decode</span><span class="op">&gt;</span><span class="ident">::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">reencoded</span>.<span class="ident">as_slice</span>())
 						.<span class="ident">unwrap</span>();

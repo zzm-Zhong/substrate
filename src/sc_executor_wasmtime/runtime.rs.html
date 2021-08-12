@@ -582,6 +582,8 @@
 <span id="571">571</span>
 <span id="572">572</span>
 <span id="573">573</span>
+<span id="574">574</span>
+<span id="575">575</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -685,8 +687,8 @@
 		<span class="comment">// and results.</span>
 		<span class="comment">//</span>
 		<span class="comment">// NOTE: Attentive reader may notice that this could&#39;ve been moved in `WasmModule` creation.</span>
-		<span class="comment">//       However, I am not sure if that&#39;s a good idea since it would be pushing our luck further</span>
-		<span class="comment">//       by assuming that `Store` not only `Send` but also `Sync`.</span>
+		<span class="comment">//       However, I am not sure if that&#39;s a good idea since it would be pushing our luck</span>
+		<span class="comment">// further       by assuming that `Store` not only `Send` but also `Sync`.</span>
 		<span class="kw">let</span> <span class="ident">imports</span> <span class="op">=</span> <span class="ident">resolve_imports</span>(
 			<span class="kw-2">&amp;</span><span class="ident">store</span>,
 			<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">module</span>,
@@ -700,10 +702,10 @@
 				<span class="ident">InstanceWrapper::new</span>(<span class="kw-2">&amp;</span><span class="ident">store</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">module</span>, <span class="kw-2">&amp;</span><span class="ident">imports</span>, <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">heap_pages</span>)<span class="question-mark">?</span>;
 			<span class="kw">let</span> <span class="ident">heap_base</span> <span class="op">=</span> <span class="ident">instance_wrapper</span>.<span class="ident">extract_heap_base</span>()<span class="question-mark">?</span>;
 
-			<span class="comment">// This function panics if the instance was created from a runtime blob different from which</span>
-			<span class="comment">// the mutable globals were collected. Here, it is easy to see that there is only a single</span>
-			<span class="comment">// runtime blob and thus it&#39;s the same that was used for both creating the instance and</span>
-			<span class="comment">// collecting the mutable globals.</span>
+			<span class="comment">// This function panics if the instance was created from a runtime blob different from</span>
+			<span class="comment">// which the mutable globals were collected. Here, it is easy to see that there is only</span>
+			<span class="comment">// a single runtime blob and thus it&#39;s the same that was used for both creating the</span>
+			<span class="comment">// instance and collecting the mutable globals.</span>
 			<span class="kw">let</span> <span class="ident">globals_snapshot</span> <span class="op">=</span>
 				<span class="ident">GlobalsSnapshot::take</span>(<span class="kw-2">&amp;</span><span class="ident">snapshot_data</span>.<span class="ident">mutable_globals</span>, <span class="kw-2">&amp;</span><span class="ident">instance_wrapper</span>);
 
@@ -876,10 +878,10 @@ directory = \&quot;{cache_dir}\&quot;
 <span class="doccomment">/// estimate of the actual stack limit in wasmtime. This is because wasmtime measures it&#39;s stack</span>
 <span class="doccomment">/// usage in bytes.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The actual number of bytes consumed by a function is not trivial to compute  without going through</span>
-<span class="doccomment">/// full compilation. Therefore, it&#39;s expected that `native_stack_max` is grealy overestimated and</span>
-<span class="doccomment">/// thus never reached in practice. The stack overflow check introduced by the instrumentation and</span>
-<span class="doccomment">/// that relies on the logical item count should be reached first.</span>
+<span class="doccomment">/// The actual number of bytes consumed by a function is not trivial to compute  without going</span>
+<span class="doccomment">/// through full compilation. Therefore, it&#39;s expected that `native_stack_max` is grealy</span>
+<span class="doccomment">/// overestimated and thus never reached in practice. The stack overflow check introduced by the</span>
+<span class="doccomment">/// instrumentation and that relies on the logical item count should be reached first.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// See [here][stack_height] for more details of the instrumentation</span>
 <span class="doccomment">///</span>
@@ -892,12 +894,12 @@ directory = \&quot;{cache_dir}\&quot;
 	<span class="kw">pub</span> <span class="ident">logical_max</span>: <span class="ident">u32</span>,
 	<span class="doccomment">/// The maximum number of bytes for stack used by wasmtime JITed code.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// It&#39;s not specified how much bytes will be consumed by a stack frame for a given wasm function</span>
-	<span class="doccomment">/// after translation into machine code. It is also not quite trivial.</span>
+	<span class="doccomment">/// It&#39;s not specified how much bytes will be consumed by a stack frame for a given wasm</span>
+	<span class="doccomment">/// function after translation into machine code. It is also not quite trivial.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Therefore, this number should be choosen conservatively. It must be so large so that it can</span>
-	<span class="doccomment">/// fit the [`logical_max`](Self::logical_max) logical values on the stack, according to the current</span>
-	<span class="doccomment">/// instrumentation algorithm.</span>
+	<span class="doccomment">/// fit the [`logical_max`](Self::logical_max) logical values on the stack, according to the</span>
+	<span class="doccomment">/// current instrumentation algorithm.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This value cannot be 0.</span>
 	<span class="kw">pub</span> <span class="ident">native_stack_max</span>: <span class="ident">u32</span>,
@@ -920,9 +922,9 @@ directory = \&quot;{cache_dir}\&quot;
 	<span class="comment">// I.e. if [`CodeSupplyMode::Verbatim`] is used.</span>
 	<span class="kw">pub</span> <span class="ident">fast_instance_reuse</span>: <span class="ident">bool</span>,
 
-	<span class="doccomment">/// Specifiying `Some` will enable deterministic stack height. That is, all executor invocations</span>
-	<span class="doccomment">/// will reach stack overflow at the exactly same point across different wasmtime versions and</span>
-	<span class="doccomment">/// architectures.</span>
+	<span class="doccomment">/// Specifiying `Some` will enable deterministic stack height. That is, all executor</span>
+	<span class="doccomment">/// invocations will reach stack overflow at the exactly same point across different wasmtime</span>
+	<span class="doccomment">/// versions and architectures.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This is achieved by a combination of running an instrumentation pass on input code and</span>
 	<span class="doccomment">/// configuring wasmtime accordingly.</span>
@@ -936,10 +938,10 @@ directory = \&quot;{cache_dir}\&quot;
 	<span class="doccomment">/// non-determinism.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// By default, the wasm spec allows some local non-determinism wrt. certain floating point</span>
-	<span class="doccomment">/// operations. Specifically, those operations that are not defined to operate on bits (e.g. fneg)</span>
-	<span class="doccomment">/// can produce NaN values. The exact bit pattern for those is not specified and may depend</span>
-	<span class="doccomment">/// on the particular machine that executes wasmtime generated JITed machine code. That is</span>
-	<span class="doccomment">/// a source of non-deterministic values.</span>
+	<span class="doccomment">/// operations. Specifically, those operations that are not defined to operate on bits (e.g.</span>
+	<span class="doccomment">/// fneg) can produce NaN values. The exact bit pattern for those is not specified and may</span>
+	<span class="doccomment">/// depend on the particular machine that executes wasmtime generated JITed machine code. That</span>
+	<span class="doccomment">/// is a source of non-deterministic values.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The classical runtime environment for Substrate allowed it and punted this on the runtime</span>
 	<span class="doccomment">/// developers. For PVFs, we want to ensure that execution is deterministic though. Therefore,</span>
@@ -953,11 +955,11 @@ directory = \&quot;{cache_dir}\&quot;
 
 	<span class="doccomment">/// The total number of wasm pages an instance can request.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// If specified, the runtime will be able to allocate only that much of wasm memory pages. This</span>
-	<span class="doccomment">/// is the total number and therefore the [`heap_pages`] is accounted for.</span>
+	<span class="doccomment">/// If specified, the runtime will be able to allocate only that much of wasm memory pages.</span>
+	<span class="doccomment">/// This is the total number and therefore the [`heap_pages`] is accounted for.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// That means that the initial number of pages of a linear memory plus the [`heap_pages`] should</span>
-	<span class="doccomment">/// be less or equal to `max_memory_pages`, otherwise the instance won&#39;t be created.</span>
+	<span class="doccomment">/// That means that the initial number of pages of a linear memory plus the [`heap_pages`]</span>
+	<span class="doccomment">/// should be less or equal to `max_memory_pages`, otherwise the instance won&#39;t be created.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Moreover, `memory.grow` will fail (return -1) if the sum of the number of currently mounted</span>
 	<span class="doccomment">/// pages and the number of additional pages exceeds `max_memory_pages`.</span>
@@ -967,8 +969,8 @@ directory = \&quot;{cache_dir}\&quot;
 
 	<span class="doccomment">/// The WebAssembly standard requires all imports of an instantiated module to be resolved,</span>
 	<span class="doccomment">/// othewise, the instantiation fails. If this option is set to `true`, then this behavior is</span>
-	<span class="doccomment">/// overriden and imports that are requested by the module and not provided by the host functions</span>
-	<span class="doccomment">/// will be resolved using stubs. These stubs will trap upon a call.</span>
+	<span class="doccomment">/// overriden and imports that are requested by the module and not provided by the host</span>
+	<span class="doccomment">/// functions will be resolved using stubs. These stubs will trap upon a call.</span>
 	<span class="kw">pub</span> <span class="ident">allow_missing_func_imports</span>: <span class="ident">bool</span>,
 
 	<span class="doccomment">/// A directory in which wasmtime can store its compiled artifacts cache.</span>
@@ -987,15 +989,16 @@ directory = \&quot;{cache_dir}\&quot;
 		<span class="comment">// some instrumentations for both anticipated paths: substrate execution and PVF execution.</span>
 		<span class="comment">//</span>
 		<span class="comment">// Should there raise a need in performing no instrumentation and the client doesn&#39;t need</span>
-		<span class="comment">// to do any checks, then we can provide a `Cow` like semantics here: if we need the blob and</span>
-		<span class="comment">//  the user got `RuntimeBlob` then extract it, or otherwise create it from the given</span>
+		<span class="comment">// to do any checks, then we can provide a `Cow` like semantics here: if we need the blob</span>
+		<span class="comment">// and  the user got `RuntimeBlob` then extract it, or otherwise create it from the given</span>
 		<span class="comment">// bytecode.</span>
 		<span class="ident">blob</span>: <span class="ident">RuntimeBlob</span>,
 	},
 
 	<span class="doccomment">/// The code is supplied in a form of a compiled artifact.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// This assumes that the code is already prepared for execution and the same `Config` was used.</span>
+	<span class="doccomment">/// This assumes that the code is already prepared for execution and the same `Config` was</span>
+	<span class="doccomment">/// used.</span>
 	<span class="ident">Artifact</span> { <span class="ident">compiled_artifact</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>] },
 }
 
@@ -1015,11 +1018,12 @@ directory = \&quot;{cache_dir}\&quot;
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Safety</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The caller must ensure that the compiled artifact passed here was produced by [`prepare_runtime_artifact`].</span>
-<span class="doccomment">/// Otherwise, there is a risk of arbitrary code execution with all implications.</span>
+<span class="doccomment">/// The caller must ensure that the compiled artifact passed here was produced by</span>
+<span class="doccomment">/// [`prepare_runtime_artifact`]. Otherwise, there is a risk of arbitrary code execution with all</span>
+<span class="doccomment">/// implications.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// It is ok though if the `compiled_artifact` was created by code of another version or with different</span>
-<span class="doccomment">/// configuration flags. In such case the caller will receive an `Err` deterministically.</span>
+<span class="doccomment">/// It is ok though if the `compiled_artifact` was created by code of another version or with</span>
+<span class="doccomment">/// different configuration flags. In such case the caller will receive an `Err` deterministically.</span>
 <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">create_runtime_from_artifact</span>(
 	<span class="ident">compiled_artifact</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
 	<span class="ident">config</span>: <span class="ident">Config</span>,
@@ -1030,8 +1034,8 @@ directory = \&quot;{cache_dir}\&quot;
 
 <span class="doccomment">/// # Safety</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This is only unsafe if called with [`CodeSupplyMode::Artifact`]. See [`create_runtime_from_artifact`]</span>
-<span class="doccomment">/// to get more details.</span>
+<span class="doccomment">/// This is only unsafe if called with [`CodeSupplyMode::Artifact`]. See</span>
+<span class="doccomment">/// [`create_runtime_from_artifact`] to get more details.</span>
 <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">do_create_runtime</span>(
 	<span class="ident">code_supply_mode</span>: <span class="ident">CodeSupplyMode</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
 	<span class="ident">config</span>: <span class="ident">Config</span>,

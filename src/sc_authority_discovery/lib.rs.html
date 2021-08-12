@@ -261,8 +261,8 @@
 			<span class="ident">max_publish_interval</span>: <span class="ident">Duration::from_secs</span>(<span class="number">1</span> <span class="op">*</span> <span class="number">60</span> <span class="op">*</span> <span class="number">60</span>),
 			<span class="ident">keystore_refresh_interval</span>: <span class="ident">Duration::from_secs</span>(<span class="number">60</span>),
 			<span class="comment">// External addresses of remote authorities can change at any given point in time. The</span>
-			<span class="comment">// interval on which to trigger new queries for the current and next authorities is a trade</span>
-			<span class="comment">// off between efficiency and performance.</span>
+			<span class="comment">// interval on which to trigger new queries for the current and next authorities is a</span>
+			<span class="comment">// trade off between efficiency and performance.</span>
 			<span class="comment">//</span>
 			<span class="comment">// Querying 700 [`AuthorityId`]s takes ~8m on the Kusama DHT (16th Nov 2020) when</span>
 			<span class="comment">// comparing `authority_discovery_authority_addresses_requested_total` and</span>

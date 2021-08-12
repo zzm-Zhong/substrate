@@ -115,7 +115,7 @@
 <span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
 
 <span class="kw">use</span> <span class="ident">prometheus_endpoint::Registry</span>;
-<span class="kw">use</span> <span class="ident">sc_executor::RuntimeInfo</span>;
+<span class="kw">use</span> <span class="ident">sc_executor::RuntimeVersionOf</span>;
 <span class="kw">use</span> <span class="ident">sc_telemetry::TelemetryHandle</span>;
 <span class="kw">use</span> <span class="ident">sp_blockchain::Result</span> <span class="kw">as</span> <span class="ident">ClientResult</span>;
 <span class="kw">use</span> <span class="ident">sp_core::traits</span>::{<span class="ident">CodeExecutor</span>, <span class="ident">SpawnNamed</span>};
@@ -153,7 +153,7 @@
 <span class="kw">where</span>
 	<span class="ident">B</span>: <span class="ident">BlockT</span>,
 	<span class="ident">S</span>: <span class="ident">BlockchainStorage</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-	<span class="ident">E</span>: <span class="ident">CodeExecutor</span> <span class="op">+</span> <span class="ident">RuntimeInfo</span> <span class="op">+</span> <span class="ident">Clone</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+	<span class="ident">E</span>: <span class="ident">CodeExecutor</span> <span class="op">+</span> <span class="ident">RuntimeVersionOf</span> <span class="op">+</span> <span class="ident">Clone</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
 	<span class="kw">let</span> <span class="ident">local_executor</span> <span class="op">=</span> <span class="ident">LocalCallExecutor::new</span>(
 		<span class="ident">backend</span>.<span class="ident">clone</span>(),

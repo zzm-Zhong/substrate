@@ -1728,6 +1728,7 @@
 <span id="1717">1717</span>
 <span id="1718">1718</span>
 <span id="1719">1719</span>
+<span id="1720">1720</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1758,8 +1759,8 @@
 <span class="doccomment">//! The System pallet defines the core data types used in a Substrate runtime.</span>
 <span class="doccomment">//! It also provides several utility functions (see [`Pallet`]) for other FRAME pallets.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! In addition, it manages the storage items for extrinsics data, indexes, event records, and digest items,</span>
-<span class="doccomment">//! among other things that support the execution of the current block.</span>
+<span class="doccomment">//! In addition, it manages the storage items for extrinsics data, indexes, event records, and</span>
+<span class="doccomment">//! digest items, among other things that support the execution of the current block.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! It also handles low-level tasks like depositing logs, basic set up and take down of</span>
 <span class="doccomment">//! temporary storage entries, and access to previous block hashes.</span>
@@ -1785,10 +1786,10 @@
 <span class="doccomment">//!   - [`CheckEra`]: Checks the era of the transaction. Contains a single payload of type `Era`.</span>
 <span class="doccomment">//!   - [`CheckGenesis`]: Checks the provided genesis hash of the transaction. Must be a part of the</span>
 <span class="doccomment">//!     signed payload of the transaction.</span>
-<span class="doccomment">//!   - [`CheckSpecVersion`]: Checks that the runtime version is the same as the one used to sign the</span>
-<span class="doccomment">//!     transaction.</span>
-<span class="doccomment">//!   - [`CheckTxVersion`]: Checks that the transaction version is the same as the one used to sign the</span>
-<span class="doccomment">//!     transaction.</span>
+<span class="doccomment">//!   - [`CheckSpecVersion`]: Checks that the runtime version is the same as the one used to sign</span>
+<span class="doccomment">//!     the transaction.</span>
+<span class="doccomment">//!   - [`CheckTxVersion`]: Checks that the transaction version is the same as the one used to sign</span>
+<span class="doccomment">//!     the transaction.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Lookup the runtime aggregator file (e.g. `node/runtime`) to see the full list of signed</span>
 <span class="doccomment">//! extensions included in a chain.</span>
@@ -1911,8 +1912,8 @@
 		<span class="doccomment">/// The aggregated `Call` type.</span>
 		<span class="kw">type</span> <span class="ident">Call</span>: <span class="ident">Dispatchable</span> <span class="op">+</span> <span class="ident">Debug</span>;
 
-		<span class="doccomment">/// Account index (aka nonce) type. This stores the number of previous transactions associated</span>
-		<span class="doccomment">/// with a sender account.</span>
+		<span class="doccomment">/// Account index (aka nonce) type. This stores the number of previous transactions</span>
+		<span class="doccomment">/// associated with a sender account.</span>
 		<span class="kw">type</span> <span class="ident">Index</span>: <span class="ident">Parameter</span>
 			<span class="op">+</span> <span class="ident">Member</span>
 			<span class="op">+</span> <span class="ident">MaybeSerializeDeserialize</span>
@@ -1969,10 +1970,10 @@
 
 		<span class="doccomment">/// Converting trait to take a source type and convert to `AccountId`.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// Used to define the type and conversion mechanism for referencing accounts in transactions.</span>
-		<span class="doccomment">/// It&#39;s perfectly reasonable for this to be an identity conversion (with the source type being</span>
-		<span class="doccomment">/// `AccountId`), but other pallets (e.g. Indices pallet) may provide more functional/efficient</span>
-		<span class="doccomment">/// alternatives.</span>
+		<span class="doccomment">/// Used to define the type and conversion mechanism for referencing accounts in</span>
+		<span class="doccomment">/// transactions. It&#39;s perfectly reasonable for this to be an identity conversion (with the</span>
+		<span class="doccomment">/// source type being `AccountId`), but other pallets (e.g. Indices pallet) may provide more</span>
+		<span class="doccomment">/// functional/efficient alternatives.</span>
 		<span class="kw">type</span> <span class="ident">Lookup</span>: <span class="ident">StaticLookup</span><span class="op">&lt;</span><span class="ident">Target</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::AccountId</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// The block header.</span>
@@ -2094,10 +2095,11 @@
 		<span class="doccomment">/// # &lt;weight&gt;</span>
 		<span class="doccomment">/// - `O(C + S)` where `C` length of `code` and `S` complexity of `can_set_code`</span>
 		<span class="doccomment">/// - 1 storage write (codec `O(C)`).</span>
-		<span class="doccomment">/// - 1 call to `can_set_code`: `O(S)` (calls `sp_io::misc::runtime_version` which is expensive).</span>
+		<span class="doccomment">/// - 1 call to `can_set_code`: `O(S)` (calls `sp_io::misc::runtime_version` which is</span>
+		<span class="doccomment">///   expensive).</span>
 		<span class="doccomment">/// - 1 event.</span>
-		<span class="doccomment">/// The weight of this function is dependent on the runtime, but generally this is very expensive.</span>
-		<span class="doccomment">/// We will treat this as a full block.</span>
+		<span class="doccomment">/// The weight of this function is dependent on the runtime, but generally this is very</span>
+		<span class="doccomment">/// expensive. We will treat this as a full block.</span>
 		<span class="doccomment">/// # &lt;/weight&gt;</span>
 		<span class="attribute">#[<span class="ident">pallet::weight</span>((<span class="ident">T::BlockWeights::get</span>().<span class="ident">max_block</span>, <span class="ident">DispatchClass::Operational</span>))]</span>
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_code</span>(<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">code</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResultWithPostInfo</span> {
@@ -2115,8 +2117,8 @@
 		<span class="doccomment">/// - `O(C)` where `C` length of `code`</span>
 		<span class="doccomment">/// - 1 storage write (codec `O(C)`).</span>
 		<span class="doccomment">/// - 1 event.</span>
-		<span class="doccomment">/// The weight of this function is dependent on the runtime. We will treat this as a full block.</span>
-		<span class="doccomment">/// # &lt;/weight&gt;</span>
+		<span class="doccomment">/// The weight of this function is dependent on the runtime. We will treat this as a full</span>
+		<span class="doccomment">/// block. # &lt;/weight&gt;</span>
 		<span class="attribute">#[<span class="ident">pallet::weight</span>((<span class="ident">T::BlockWeights::get</span>().<span class="ident">max_block</span>, <span class="ident">DispatchClass::Operational</span>))]</span>
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_code_without_checks</span>(
 			<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,

@@ -512,7 +512,6 @@
 <span id="501">501</span>
 <span id="502">502</span>
 <span id="503">503</span>
-<span id="504">504</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -611,15 +610,14 @@
 <span class="doccomment">/// A trait to allow the Treasury Pallet to spend it&#39;s funds for other purposes.</span>
 <span class="doccomment">/// There is an expectation that the implementer of this trait will correctly manage</span>
 <span class="doccomment">/// the mutable variables passed to it:</span>
-<span class="doccomment">/// * `budget_remaining`: How much available funds that can be spent by the treasury.</span>
-<span class="doccomment">///    As funds are spent, you must correctly deduct from this value.</span>
-<span class="doccomment">/// * `imbalance`: Any imbalances that you create should be subsumed in here to</span>
-<span class="doccomment">///    maximize efficiency of updating the total issuance. (i.e. `deposit_creating`)</span>
-<span class="doccomment">/// * `total_weight`: Track any weight that your `spend_fund` implementation uses by</span>
-<span class="doccomment">///    updating this value.</span>
-<span class="doccomment">/// * `missed_any`: If there were items that you want to spend on, but there were</span>
-<span class="doccomment">///    not enough funds, mark this value as `true`. This will prevent the treasury</span>
-<span class="doccomment">///    from burning the excess funds.</span>
+<span class="doccomment">/// * `budget_remaining`: How much available funds that can be spent by the treasury. As funds are</span>
+<span class="doccomment">///   spent, you must correctly deduct from this value.</span>
+<span class="doccomment">/// * `imbalance`: Any imbalances that you create should be subsumed in here to maximize efficiency</span>
+<span class="doccomment">///   of updating the total issuance. (i.e. `deposit_creating`)</span>
+<span class="doccomment">/// * `total_weight`: Track any weight that your `spend_fund` implementation uses by updating this</span>
+<span class="doccomment">///   value.</span>
+<span class="doccomment">/// * `missed_any`: If there were items that you want to spend on, but there were not enough funds,</span>
+<span class="doccomment">///   mark this value as `true`. This will prevent the treasury from burning the excess funds.</span>
 <span class="attribute">#[<span class="ident">impl_trait_for_tuples::impl_for_tuples</span>(<span class="number">30</span>)]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SpendFunds</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>, <span class="ident">I</span>: <span class="lifetime">&#39;static</span> <span class="op">=</span> ()<span class="op">&gt;</span> {
 	<span class="kw">fn</span> <span class="ident">spend_funds</span>(
@@ -809,8 +807,8 @@
 		<span class="doccomment">/// # &lt;weight&gt;</span>
 		<span class="doccomment">/// - Complexity: `O(A)` where `A` is the number of approvals</span>
 		<span class="doccomment">/// - Db reads and writes: `Approvals`, `pot account data`</span>
-		<span class="doccomment">/// - Db reads and writes per approval:</span>
-		<span class="doccomment">///   `Proposals`, `proposer account data`, `beneficiary account data`</span>
+		<span class="doccomment">/// - Db reads and writes per approval: `Proposals`, `proposer account data`, `beneficiary</span>
+		<span class="doccomment">///   account data`</span>
 		<span class="doccomment">/// - The weight is overestimated if some approvals got missed.</span>
 		<span class="doccomment">/// # &lt;/weight&gt;</span>
 		<span class="kw">fn</span> <span class="ident">on_initialize</span>(<span class="ident">n</span>: <span class="ident">T::BlockNumber</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {

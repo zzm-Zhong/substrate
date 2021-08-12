@@ -612,8 +612,8 @@
 	<span class="doccomment">/// Add expected HTTP request.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This method can be used to initialize expected HTTP requests and their responses</span>
-	<span class="doccomment">/// before running the actual code that utilizes them (for instance before calling into runtime).</span>
-	<span class="doccomment">/// Expected request has to be fulfilled before this struct is dropped,</span>
+	<span class="doccomment">/// before running the actual code that utilizes them (for instance before calling into</span>
+	<span class="doccomment">/// runtime). Expected request has to be fulfilled before this struct is dropped,</span>
 	<span class="doccomment">/// the `response` and `response_headers` fields will be used to return results to the callers.</span>
 	<span class="doccomment">/// Requests are expected to be performed in the insertion order.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expect_request</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">expected</span>: <span class="ident">PendingRequest</span>) {

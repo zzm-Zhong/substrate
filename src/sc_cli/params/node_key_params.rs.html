@@ -227,7 +227,6 @@
 <span id="216">216</span>
 <span id="217">217</span>
 <span id="218">218</span>
-<span id="219">219</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -284,17 +283,16 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The secret key of the node is obtained as follows:</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">///   * If the `--node-key` option is given, the value is parsed as a secret key</span>
-	<span class="doccomment">///     according to the type. See the documentation for `--node-key`.</span>
+	<span class="doccomment">///   * If the `--node-key` option is given, the value is parsed as a secret key according to</span>
+	<span class="doccomment">///     the type. See the documentation for `--node-key`.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">///   * If the `--node-key-file` option is given, the secret key is read from the</span>
-	<span class="doccomment">///     specified file. See the documentation for `--node-key-file`.</span>
+	<span class="doccomment">///   * If the `--node-key-file` option is given, the secret key is read from the specified</span>
+	<span class="doccomment">///     file. See the documentation for `--node-key-file`.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">///   * Otherwise, the secret key is read from a file with a predetermined,</span>
-	<span class="doccomment">///     type-specific name from the chain-specific network config directory</span>
-	<span class="doccomment">///     inside the base directory specified by `--base-dir`. If this file does</span>
-	<span class="doccomment">///     not exist, it is created with a newly generated secret key of the</span>
-	<span class="doccomment">///     chosen type.</span>
+	<span class="doccomment">///   * Otherwise, the secret key is read from a file with a predetermined, type-specific name</span>
+	<span class="doccomment">///     from the chain-specific network config directory inside the base directory specified by</span>
+	<span class="doccomment">///     `--base-dir`. If this file does not exist, it is created with a newly generated secret</span>
+	<span class="doccomment">///     key of the chosen type.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The node&#39;s secret key determines the corresponding public key and hence the</span>
 	<span class="doccomment">/// node&#39;s peer ID in the context of libp2p.</span>

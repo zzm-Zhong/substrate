@@ -303,6 +303,7 @@
 <span id="292">292</span>
 <span id="293">293</span>
 <span id="294">294</span>
+<span id="295">295</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -508,7 +509,8 @@
 	<span class="kw">fn</span> <span class="ident">add_to_whitelist</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">add</span>: <span class="ident">TrackedStorageKey</span>) {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">whitelist</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_whitelist</span>();
 		<span class="kw">match</span> <span class="ident">whitelist</span>.<span class="ident">iter_mut</span>().<span class="ident">find</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>.<span class="ident">key</span> <span class="op">=</span><span class="op">=</span> <span class="ident">add</span>.<span class="ident">key</span>) {
-			<span class="comment">// If we already have this key in the whitelist, update to be the most constrained value.</span>
+			<span class="comment">// If we already have this key in the whitelist, update to be the most constrained</span>
+			<span class="comment">// value.</span>
 			<span class="prelude-val">Some</span>(<span class="ident">item</span>) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="ident">item</span>.<span class="ident">reads</span> <span class="op">+</span><span class="op">=</span> <span class="ident">add</span>.<span class="ident">reads</span>;
 				<span class="ident">item</span>.<span class="ident">writes</span> <span class="op">+</span><span class="op">=</span> <span class="ident">add</span>.<span class="ident">writes</span>;
@@ -545,8 +547,8 @@
 	<span class="doccomment">/// extrinsic, so these are sometimes just called &quot;extrinsics&quot;.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Parameters</span>
-	<span class="doccomment">/// - `extra`: Also return benchmarks marked &quot;extra&quot; which would otherwise not be</span>
-	<span class="doccomment">///            needed for weight calculation.</span>
+	<span class="doccomment">/// - `extra`: Also return benchmarks marked &quot;extra&quot; which would otherwise not be needed for</span>
+	<span class="doccomment">///   weight calculation.</span>
 	<span class="kw">fn</span> <span class="ident">benchmarks</span>(<span class="ident">extra</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkMetadata</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Run the benchmarks for this pallet.</span>

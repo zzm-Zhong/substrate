@@ -1903,6 +1903,10 @@
 <span id="1892">1892</span>
 <span id="1893">1893</span>
 <span id="1894">1894</span>
+<span id="1895">1895</span>
+<span id="1896">1896</span>
+<span id="1897">1897</span>
+<span id="1898">1898</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1952,12 +1956,12 @@
 <span class="doccomment">//! - **Conviction:** An indication of a voter&#39;s strength of belief in their vote. An increase</span>
 <span class="doccomment">//! of one in conviction indicates that a token holder is willing to lock their tokens for twice</span>
 <span class="doccomment">//! as many lock periods after enactment.</span>
-<span class="doccomment">//! - **Vote:** A value that can either be in approval (&quot;Aye&quot;) or rejection (&quot;Nay&quot;)</span>
-<span class="doccomment">//!   of a particular referendum.</span>
+<span class="doccomment">//! - **Vote:** A value that can either be in approval (&quot;Aye&quot;) or rejection (&quot;Nay&quot;) of a particular</span>
+<span class="doccomment">//!   referendum.</span>
 <span class="doccomment">//! - **Proposal:** A submission to the chain that represents an action that a proposer (either an</span>
 <span class="doccomment">//! account or an external origin) suggests that the system adopt.</span>
-<span class="doccomment">//! - **Referendum:** A proposal that is in the process of being voted on for</span>
-<span class="doccomment">//!   either acceptance or rejection as a change to the system.</span>
+<span class="doccomment">//! - **Referendum:** A proposal that is in the process of being voted on for either acceptance or</span>
+<span class="doccomment">//!   rejection as a change to the system.</span>
 <span class="doccomment">//! - **Delegation:** The act of granting your voting power to the decisions of another account for</span>
 <span class="doccomment">//!   up to a certain conviction.</span>
 <span class="doccomment">//!</span>
@@ -1998,50 +2002,50 @@
 <span class="doccomment">//! - `unlock` - Redetermine the account&#39;s balance lock, potentially making tokens available.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Preimage actions:</span>
-<span class="doccomment">//! - `note_preimage` - Registers the preimage for an upcoming proposal, requires</span>
-<span class="doccomment">//!   a deposit that is returned once the proposal is enacted.</span>
+<span class="doccomment">//! - `note_preimage` - Registers the preimage for an upcoming proposal, requires a deposit that is</span>
+<span class="doccomment">//!   returned once the proposal is enacted.</span>
 <span class="doccomment">//! - `note_preimage_operational` - same but provided by `T::OperationalPreimageOrigin`.</span>
-<span class="doccomment">//! - `note_imminent_preimage` - Registers the preimage for an upcoming proposal.</span>
-<span class="doccomment">//!   Does not require a deposit, but the proposal must be in the dispatch queue.</span>
+<span class="doccomment">//! - `note_imminent_preimage` - Registers the preimage for an upcoming proposal. Does not require a</span>
+<span class="doccomment">//!   deposit, but the proposal must be in the dispatch queue.</span>
 <span class="doccomment">//! - `note_imminent_preimage_operational` - same but provided by `T::OperationalPreimageOrigin`.</span>
-<span class="doccomment">//! - `reap_preimage` - Removes the preimage for an expired proposal. Will only</span>
-<span class="doccomment">//!   work under the condition that it&#39;s the same account that noted it and</span>
-<span class="doccomment">//!   after the voting period, OR it&#39;s a different account after the enactment period.</span>
+<span class="doccomment">//! - `reap_preimage` - Removes the preimage for an expired proposal. Will only work under the</span>
+<span class="doccomment">//!   condition that it&#39;s the same account that noted it and after the voting period, OR it&#39;s a</span>
+<span class="doccomment">//!   different account after the enactment period.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #### Cancellation Origin</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This call can only be made by the `CancellationOrigin`.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - `emergency_cancel` - Schedules an emergency cancellation of a referendum.</span>
-<span class="doccomment">//!   Can only happen once to a specific referendum.</span>
+<span class="doccomment">//! - `emergency_cancel` - Schedules an emergency cancellation of a referendum. Can only happen once</span>
+<span class="doccomment">//!   to a specific referendum.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #### ExternalOrigin</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This call can only be made by the `ExternalOrigin`.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - `external_propose` - Schedules a proposal to become a referendum once it is is legal</span>
-<span class="doccomment">//!   for an externally proposed referendum.</span>
+<span class="doccomment">//! - `external_propose` - Schedules a proposal to become a referendum once it is is legal for an</span>
+<span class="doccomment">//!   externally proposed referendum.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #### External Majority Origin</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This call can only be made by the `ExternalMajorityOrigin`.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - `external_propose_majority` - Schedules a proposal to become a majority-carries</span>
-<span class="doccomment">//! 	 referendum once it is legal for an externally proposed referendum.</span>
+<span class="doccomment">//! - `external_propose_majority` - Schedules a proposal to become a majority-carries referendum</span>
+<span class="doccomment">//!   once it is legal for an externally proposed referendum.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #### External Default Origin</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This call can only be made by the `ExternalDefaultOrigin`.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - `external_propose_default` - Schedules a proposal to become a negative-turnout-bias</span>
-<span class="doccomment">//!   referendum once it is legal for an externally proposed referendum.</span>
+<span class="doccomment">//! - `external_propose_default` - Schedules a proposal to become a negative-turnout-bias referendum</span>
+<span class="doccomment">//!   once it is legal for an externally proposed referendum.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #### Fast Track Origin</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This call can only be made by the `FastTrackOrigin`.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - `fast_track` - Schedules the current externally proposed proposal that</span>
-<span class="doccomment">//!   is &quot;majority-carries&quot; to become a referendum immediately.</span>
+<span class="doccomment">//! - `fast_track` - Schedules the current externally proposed proposal that is &quot;majority-carries&quot;</span>
+<span class="doccomment">//!   to become a referendum immediately.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #### Veto Origin</span>
 <span class="doccomment">//!</span>
@@ -2169,11 +2173,12 @@
 		<span class="kw">type</span> <span class="ident">Currency</span>: <span class="ident">ReservableCurrency</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::AccountId</span><span class="op">&gt;</span>
 			<span class="op">+</span> <span class="ident">LockableCurrency</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::AccountId</span>, <span class="ident">Moment</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::BlockNumber</span><span class="op">&gt;</span>;
 
-		<span class="doccomment">/// The minimum period of locking and the period between a proposal being approved and enacted.</span>
+		<span class="doccomment">/// The minimum period of locking and the period between a proposal being approved and</span>
+		<span class="doccomment">/// enacted.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// It should generally be a little more than the unstake period to ensure that</span>
-		<span class="doccomment">/// voting stakers have an opportunity to remove themselves from the system in the case where</span>
-		<span class="doccomment">/// they are on the losing side of a vote.</span>
+		<span class="doccomment">/// voting stakers have an opportunity to remove themselves from the system in the case</span>
+		<span class="doccomment">/// where they are on the losing side of a vote.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
 		<span class="kw">type</span> <span class="ident">EnactmentPeriod</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::BlockNumber</span><span class="op">&gt;</span>;
 
@@ -2193,27 +2198,27 @@
 		<span class="doccomment">/// &quot;super-majority-required&quot; referendum.</span>
 		<span class="kw">type</span> <span class="ident">ExternalOrigin</span>: <span class="ident">EnsureOrigin</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Origin</span><span class="op">&gt;</span>;
 
-		<span class="doccomment">/// Origin from which the next tabled referendum may be forced; this allows for the tabling of</span>
-		<span class="doccomment">/// a majority-carries referendum.</span>
+		<span class="doccomment">/// Origin from which the next tabled referendum may be forced; this allows for the tabling</span>
+		<span class="doccomment">/// of a majority-carries referendum.</span>
 		<span class="kw">type</span> <span class="ident">ExternalMajorityOrigin</span>: <span class="ident">EnsureOrigin</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Origin</span><span class="op">&gt;</span>;
 
-		<span class="doccomment">/// Origin from which the next tabled referendum may be forced; this allows for the tabling of</span>
-		<span class="doccomment">/// a negative-turnout-bias (default-carries) referendum.</span>
+		<span class="doccomment">/// Origin from which the next tabled referendum may be forced; this allows for the tabling</span>
+		<span class="doccomment">/// of a negative-turnout-bias (default-carries) referendum.</span>
 		<span class="kw">type</span> <span class="ident">ExternalDefaultOrigin</span>: <span class="ident">EnsureOrigin</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Origin</span><span class="op">&gt;</span>;
 
-		<span class="doccomment">/// Origin from which the next majority-carries (or more permissive) referendum may be tabled to</span>
-		<span class="doccomment">/// vote according to the `FastTrackVotingPeriod` asynchronously in a similar manner to the</span>
-		<span class="doccomment">/// emergency origin. It retains its threshold method.</span>
+		<span class="doccomment">/// Origin from which the next majority-carries (or more permissive) referendum may be</span>
+		<span class="doccomment">/// tabled to vote according to the `FastTrackVotingPeriod` asynchronously in a similar</span>
+		<span class="doccomment">/// manner to the emergency origin. It retains its threshold method.</span>
 		<span class="kw">type</span> <span class="ident">FastTrackOrigin</span>: <span class="ident">EnsureOrigin</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Origin</span><span class="op">&gt;</span>;
 
-		<span class="doccomment">/// Origin from which the next majority-carries (or more permissive) referendum may be tabled to</span>
-		<span class="doccomment">/// vote immediately and asynchronously in a similar manner to the emergency origin. It retains</span>
-		<span class="doccomment">/// its threshold method.</span>
+		<span class="doccomment">/// Origin from which the next majority-carries (or more permissive) referendum may be</span>
+		<span class="doccomment">/// tabled to vote immediately and asynchronously in a similar manner to the emergency</span>
+		<span class="doccomment">/// origin. It retains its threshold method.</span>
 		<span class="kw">type</span> <span class="ident">InstantOrigin</span>: <span class="ident">EnsureOrigin</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Origin</span><span class="op">&gt;</span>;
 
-		<span class="doccomment">/// Indicator for whether an emergency origin is even allowed to happen. Some chains may want</span>
-		<span class="doccomment">/// to set this permanently to `false`, others may want to condition it on things such as</span>
-		<span class="doccomment">/// an upgrade having happened recently.</span>
+		<span class="doccomment">/// Indicator for whether an emergency origin is even allowed to happen. Some chains may</span>
+		<span class="doccomment">/// want to set this permanently to `false`, others may want to condition it on things such</span>
+		<span class="doccomment">/// as an upgrade having happened recently.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
 		<span class="kw">type</span> <span class="ident">InstantAllowed</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>;
 
@@ -2352,8 +2357,8 @@
 
 	<span class="doccomment">/// True if the last referendum tabled was submitted externally. False if it was a public</span>
 	<span class="doccomment">/// proposal.</span>
-	<span class="comment">// TODO: There should be any number of tabling origins, not just public and &quot;external&quot; (council).</span>
-	<span class="comment">// https://github.com/paritytech/substrate/issues/5322</span>
+	<span class="comment">// TODO: There should be any number of tabling origins, not just public and &quot;external&quot;</span>
+	<span class="comment">// (council). https://github.com/paritytech/substrate/issues/5322</span>
 	<span class="attribute">#[<span class="ident">pallet::storage</span>]</span>
 	<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">LastTabledWasExternal</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">StorageValue</span><span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">bool</span>, <span class="ident">ValueQuery</span><span class="op">&gt;</span>;
 
@@ -2414,7 +2419,8 @@
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> {
 		<span class="doccomment">/// A motion has been proposed by a public account. \[proposal_index, deposit\]</span>
 		<span class="ident">Proposed</span>(<span class="ident">PropIndex</span>, <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>),
-		<span class="doccomment">/// A public proposal has been tabled for referendum vote. \[proposal_index, deposit, depositors\]</span>
+		<span class="doccomment">/// A public proposal has been tabled for referendum vote. \[proposal_index, deposit,</span>
+		<span class="doccomment">/// depositors\]</span>
 		<span class="ident">Tabled</span>(<span class="ident">PropIndex</span>, <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>),
 		<span class="doccomment">/// An external proposal has been tabled.</span>
 		<span class="ident">ExternalTabled</span>,
@@ -2730,7 +2736,8 @@
 			<span class="ident">delay</span>: <span class="ident">T::BlockNumber</span>,
 		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
 			<span class="comment">// Rather complicated bit of code to ensure that either:</span>
-			<span class="comment">// - `voting_period` is at least `FastTrackVotingPeriod` and `origin` is `FastTrackOrigin`; or</span>
+			<span class="comment">// - `voting_period` is at least `FastTrackVotingPeriod` and `origin` is</span>
+			<span class="comment">//   `FastTrackOrigin`; or</span>
 			<span class="comment">// - `InstantAllowed` is `true` and `origin` is `InstantOrigin`.</span>
 			<span class="kw">let</span> <span class="ident">maybe_ensure_instant</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">voting_period</span> <span class="op">&lt;</span> <span class="ident">T::FastTrackVotingPeriod::get</span>() {
 				<span class="prelude-val">Some</span>(<span class="ident">origin</span>)
@@ -2838,8 +2845,8 @@
 		<span class="doccomment">/// - `to`: The account whose voting the `target` account&#39;s voting power will follow.</span>
 		<span class="doccomment">/// - `conviction`: The conviction that will be attached to the delegated votes. When the</span>
 		<span class="doccomment">///   account is undelegated, the funds will be locked for the corresponding period.</span>
-		<span class="doccomment">/// - `balance`: The amount of the account&#39;s balance to be used in delegating. This must</span>
-		<span class="doccomment">///   not be more than the account&#39;s current balance.</span>
+		<span class="doccomment">/// - `balance`: The amount of the account&#39;s balance to be used in delegating. This must not</span>
+		<span class="doccomment">///   be more than the account&#39;s current balance.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Emits `Delegated`.</span>
 		<span class="doccomment">///</span>
@@ -2941,8 +2948,9 @@
 			<span class="ident">encoded_proposal</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
 		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResultWithPostInfo</span> {
 			<span class="self">Self</span><span class="ident">::note_imminent_preimage_inner</span>(<span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>, <span class="ident">encoded_proposal</span>)<span class="question-mark">?</span>;
-			<span class="comment">// We check that this preimage was not uploaded before in `note_imminent_preimage_inner`,</span>
-			<span class="comment">// thus this call can only be successful once. If successful, user does not pay a fee.</span>
+			<span class="comment">// We check that this preimage was not uploaded before in</span>
+			<span class="comment">// `note_imminent_preimage_inner`, thus this call can only be successful once. If</span>
+			<span class="comment">// successful, user does not pay a fee.</span>
 			<span class="prelude-val">Ok</span>(<span class="ident">Pays::No</span>.<span class="ident">into</span>())
 		}
 
@@ -2957,8 +2965,9 @@
 		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResultWithPostInfo</span> {
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">T::OperationalPreimageOrigin::ensure_origin</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="self">Self</span><span class="ident">::note_imminent_preimage_inner</span>(<span class="ident">who</span>, <span class="ident">encoded_proposal</span>)<span class="question-mark">?</span>;
-			<span class="comment">// We check that this preimage was not uploaded before in `note_imminent_preimage_inner`,</span>
-			<span class="comment">// thus this call can only be successful once. If successful, user does not pay a fee.</span>
+			<span class="comment">// We check that this preimage was not uploaded before in</span>
+			<span class="comment">// `note_imminent_preimage_inner`, thus this call can only be successful once. If</span>
+			<span class="comment">// successful, user does not pay a fee.</span>
 			<span class="prelude-val">Ok</span>(<span class="ident">Pays::No</span>.<span class="ident">into</span>())
 		}
 
@@ -2967,8 +2976,8 @@
 		<span class="doccomment">/// The dispatch origin of this call must be _Signed_.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// - `proposal_hash`: The preimage hash of a proposal.</span>
-		<span class="doccomment">/// - `proposal_length_upper_bound`: an upper bound on length of the proposal.</span>
-		<span class="doccomment">///   Extrinsic is weighted according to this value with no refund.</span>
+		<span class="doccomment">/// - `proposal_length_upper_bound`: an upper bound on length of the proposal. Extrinsic is</span>
+		<span class="doccomment">///   weighted according to this value with no refund.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// This will only work after `VotingPeriod` blocks from the time that the preimage was</span>
 		<span class="doccomment">/// noted, if it&#39;s the same account doing it. If it&#39;s a different account, then it&#39;ll only</span>
@@ -3526,11 +3535,10 @@
 	<span class="doccomment">/// Table the waiting public proposal with the highest backing for a vote.</span>
 	<span class="kw">fn</span> <span class="ident">launch_public</span>(<span class="ident">now</span>: <span class="ident">T::BlockNumber</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">public_props</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::public_props</span>();
-		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">winner_index</span>, <span class="kw">_</span>)) <span class="op">=</span> <span class="ident">public_props</span>.<span class="ident">iter</span>()
-			.<span class="ident">enumerate</span>()
-			.<span class="ident">max_by_key</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="self">Self</span><span class="ident">::backing_for</span>((<span class="ident">x</span>.<span class="number">1</span>).<span class="number">0</span>).<span class="ident">unwrap_or_else</span>(<span class="ident">Zero::zero</span>)
-				<span class="comment">/* ^^ defensive only: All current public proposals have an amount locked*/</span>)
-		{
+		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">winner_index</span>, <span class="kw">_</span>)) <span class="op">=</span> <span class="ident">public_props</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>().<span class="ident">max_by_key</span>(
+			<span class="comment">// defensive only: All current public proposals have an amount locked</span>
+			<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="self">Self</span><span class="ident">::backing_for</span>((<span class="ident">x</span>.<span class="number">1</span>).<span class="number">0</span>).<span class="ident">unwrap_or_else</span>(<span class="ident">Zero::zero</span>),
+		) {
 			<span class="kw">let</span> (<span class="ident">prop_index</span>, <span class="ident">proposal</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">public_props</span>.<span class="ident">swap_remove</span>(<span class="ident">winner_index</span>);
 			<span class="op">&lt;</span><span class="ident">PublicProps</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">public_props</span>);
 

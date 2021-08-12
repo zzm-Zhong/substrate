@@ -381,14 +381,14 @@
 		<span class="doccomment">/// and some of the inner mmr nodes might be pruned from on-chain storage.</span>
 		<span class="doccomment">/// The latter will contain all the entries in their full form.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// Each node is stored in the Off-chain DB under key derived from the [`Self::INDEXING_PREFIX`] and</span>
-		<span class="doccomment">/// it&#39;s in-tree index (MMR position).</span>
+		<span class="doccomment">/// Each node is stored in the Off-chain DB under key derived from the</span>
+		<span class="doccomment">/// [`Self::INDEXING_PREFIX`] and it&#39;s in-tree index (MMR position).</span>
 		<span class="kw">const</span> <span class="ident">INDEXING_PREFIX</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">u8</span>];
 
 		<span class="doccomment">/// A hasher type for MMR.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// To construct trie nodes that result in merging (bagging) two peaks, depending on the node</span>
-		<span class="doccomment">/// kind we take either:</span>
+		<span class="doccomment">/// To construct trie nodes that result in merging (bagging) two peaks, depending on the</span>
+		<span class="doccomment">/// node kind we take either:</span>
 		<span class="doccomment">/// - The node (hash) itself if it&#39;s an inner node.</span>
 		<span class="doccomment">/// - The hash of SCALE-encoding of the leaf data if it&#39;s a leaf node.</span>
 		<span class="doccomment">///</span>
@@ -413,22 +413,22 @@
 
 		<span class="doccomment">/// Data stored in the leaf nodes.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// The [LeafData](primitives::LeafDataProvider) is responsible for returning the entire leaf</span>
-		<span class="doccomment">/// data that will be inserted to the MMR.</span>
+		<span class="doccomment">/// The [LeafData](primitives::LeafDataProvider) is responsible for returning the entire</span>
+		<span class="doccomment">/// leaf data that will be inserted to the MMR.</span>
 		<span class="doccomment">/// [LeafDataProvider](primitives::LeafDataProvider)s can be composed into tuples to put</span>
-		<span class="doccomment">/// multiple elements into the tree. In such a case it might be worth using [primitives::Compact]</span>
-		<span class="doccomment">/// to make MMR proof for one element of the tuple leaner.</span>
+		<span class="doccomment">/// multiple elements into the tree. In such a case it might be worth using</span>
+		<span class="doccomment">/// [primitives::Compact] to make MMR proof for one element of the tuple leaner.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// Note that the leaf at each block MUST be unique. You may want to include a block hash or block</span>
-		<span class="doccomment">/// number as an easiest way to ensure that.</span>
+		<span class="doccomment">/// Note that the leaf at each block MUST be unique. You may want to include a block hash or</span>
+		<span class="doccomment">/// block number as an easiest way to ensure that.</span>
 		<span class="kw">type</span> <span class="ident">LeafData</span>: <span class="ident">primitives::LeafDataProvider</span>;
 
 		<span class="doccomment">/// A hook to act on the new MMR root.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// For some applications it might be beneficial to make the MMR root available externally</span>
-		<span class="doccomment">/// apart from having it in the storage. For instance you might output it in the header digest</span>
-		<span class="doccomment">/// (see [`frame_system::Pallet::deposit_log`]) to make it available for Light Clients.</span>
-		<span class="doccomment">/// Hook complexity should be `O(1)`.</span>
+		<span class="doccomment">/// apart from having it in the storage. For instance you might output it in the header</span>
+		<span class="doccomment">/// digest (see [`frame_system::Pallet::deposit_log`]) to make it available for Light</span>
+		<span class="doccomment">/// Clients. Hook complexity should be `O(1)`.</span>
 		<span class="kw">type</span> <span class="ident">OnNewRoot</span>: <span class="ident">primitives::OnNewRoot</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// Weights for this pallet.</span>

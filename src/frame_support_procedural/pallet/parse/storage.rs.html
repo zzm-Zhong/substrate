@@ -671,6 +671,7 @@
 <span id="660">660</span>
 <span id="661">661</span>
 <span id="662">662</span>
+<span id="663">663</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -786,7 +787,8 @@
 	<span class="kw">pub</span> <span class="ident">instances</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">helper::InstanceUsage</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Optional getter to generate. If some then query_kind is ensured to be some as well.</span>
 	<span class="kw">pub</span> <span class="ident">getter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">syn::Ident</span><span class="op">&gt;</span>,
-	<span class="doccomment">/// Optional expression that evaluates to a type that can be used as StoragePrefix instead of ident.</span>
+	<span class="doccomment">/// Optional expression that evaluates to a type that can be used as StoragePrefix instead of</span>
+	<span class="doccomment">/// ident.</span>
 	<span class="kw">pub</span> <span class="ident">rename_as</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">syn::LitStr</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Whereas the querytype of the storage is OptionQuery or ValueQuery.</span>
 	<span class="doccomment">/// Note that this is best effort as it can&#39;t be determined when QueryKind is generic, and</span>

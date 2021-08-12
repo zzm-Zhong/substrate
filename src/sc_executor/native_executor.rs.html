@@ -675,6 +675,50 @@
 <span id="664">664</span>
 <span id="665">665</span>
 <span id="666">666</span>
+<span id="667">667</span>
+<span id="668">668</span>
+<span id="669">669</span>
+<span id="670">670</span>
+<span id="671">671</span>
+<span id="672">672</span>
+<span id="673">673</span>
+<span id="674">674</span>
+<span id="675">675</span>
+<span id="676">676</span>
+<span id="677">677</span>
+<span id="678">678</span>
+<span id="679">679</span>
+<span id="680">680</span>
+<span id="681">681</span>
+<span id="682">682</span>
+<span id="683">683</span>
+<span id="684">684</span>
+<span id="685">685</span>
+<span id="686">686</span>
+<span id="687">687</span>
+<span id="688">688</span>
+<span id="689">689</span>
+<span id="690">690</span>
+<span id="691">691</span>
+<span id="692">692</span>
+<span id="693">693</span>
+<span id="694">694</span>
+<span id="695">695</span>
+<span id="696">696</span>
+<span id="697">697</span>
+<span id="698">698</span>
+<span id="699">699</span>
+<span id="700">700</span>
+<span id="701">701</span>
+<span id="702">702</span>
+<span id="703">703</span>
+<span id="704">704</span>
+<span id="705">705</span>
+<span id="706">706</span>
+<span id="707">707</span>
+<span id="708">708</span>
+<span id="709">709</span>
+<span id="710">710</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -697,7 +741,7 @@
 <span class="kw">use</span> <span class="kw">crate</span>::{
 	<span class="ident">error</span>::{<span class="ident">Error</span>, <span class="prelude-ty">Result</span>},
 	<span class="ident">wasm_runtime</span>::{<span class="ident">RuntimeCache</span>, <span class="ident">WasmExecutionMethod</span>},
-	<span class="ident">RuntimeInfo</span>,
+	<span class="ident">RuntimeVersionOf</span>,
 };
 
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -723,7 +767,7 @@
 };
 <span class="kw">use</span> <span class="ident">sp_externalities::ExternalitiesExt</span> <span class="kw">as</span> <span class="kw">_</span>;
 <span class="kw">use</span> <span class="ident">sp_tasks::new_async_externalities</span>;
-<span class="kw">use</span> <span class="ident">sp_version</span>::{<span class="ident">NativeVersion</span>, <span class="ident">RuntimeVersion</span>};
+<span class="kw">use</span> <span class="ident">sp_version</span>::{<span class="ident">GetNativeVersion</span>, <span class="ident">NativeVersion</span>, <span class="ident">RuntimeVersion</span>};
 <span class="kw">use</span> <span class="ident">sp_wasm_interface</span>::{<span class="ident">Function</span>, <span class="ident">HostFunctions</span>};
 
 <span class="doccomment">/// Default num of pages for the heap</span>
@@ -875,8 +919,8 @@
 	<span class="doccomment">/// The runtime is passed as a [`RuntimeBlob`]. The runtime will be isntantiated with the</span>
 	<span class="doccomment">/// parameters this `WasmExecutor` was initialized with.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// In case of problems with during creation of the runtime or instantation, a `Err` is returned.</span>
-	<span class="doccomment">/// that describes the message.</span>
+	<span class="doccomment">/// In case of problems with during creation of the runtime or instantation, a `Err` is</span>
+	<span class="doccomment">/// returned. that describes the message.</span>
 	<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span> <span class="comment">// We use this function for tests across multiple crates.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">uncached_call</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -947,6 +991,48 @@
 	}
 }
 
+<span class="kw">impl</span> <span class="ident">CodeExecutor</span> <span class="kw">for</span> <span class="ident">WasmExecutor</span> {
+	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+
+	<span class="kw">fn</span> <span class="ident">call</span><span class="op">&lt;</span>
+		<span class="ident">R</span>: <span class="ident">Decode</span> <span class="op">+</span> <span class="ident">Encode</span> <span class="op">+</span> <span class="ident">PartialEq</span>,
+		<span class="ident">NC</span>: <span class="ident">FnOnce</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">result::Result</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">UnwindSafe</span>,
+	<span class="op">&gt;</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">ext</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Externalities</span>,
+		<span class="ident">runtime_code</span>: <span class="kw-2">&amp;</span><span class="ident">RuntimeCode</span>,
+		<span class="ident">method</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+		<span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
+		<span class="ident">_use_native</span>: <span class="ident">bool</span>,
+		<span class="ident">_native_call</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NC</span><span class="op">&gt;</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> (<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">NativeOrEncoded</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">bool</span>) {
+		<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">with_instance</span>(
+			<span class="ident">runtime_code</span>,
+			<span class="ident">ext</span>,
+			<span class="bool-val">false</span>,
+			<span class="op">|</span><span class="ident">module</span>, <span class="ident">instance</span>, <span class="ident">_onchain_version</span>, <span class="kw-2">mut</span> <span class="ident">ext</span><span class="op">|</span> {
+				<span class="ident">with_externalities_safe</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">ext</span>, <span class="kw">move</span> <span class="op">|</span><span class="op">|</span> {
+					<span class="ident">preregister_builtin_ext</span>(<span class="ident">module</span>.<span class="ident">clone</span>());
+					<span class="ident">instance</span>.<span class="ident">call_export</span>(<span class="ident">method</span>, <span class="ident">data</span>).<span class="ident">map</span>(<span class="ident">NativeOrEncoded::Encoded</span>)
+				})
+			},
+		);
+		(<span class="ident">result</span>, <span class="bool-val">false</span>)
+	}
+}
+
+<span class="kw">impl</span> <span class="ident">RuntimeVersionOf</span> <span class="kw">for</span> <span class="ident">WasmExecutor</span> {
+	<span class="kw">fn</span> <span class="ident">runtime_version</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">ext</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Externalities</span>,
+		<span class="ident">runtime_code</span>: <span class="kw-2">&amp;</span><span class="ident">RuntimeCode</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RuntimeVersion</span><span class="op">&gt;</span> {
+		<span class="self">self</span>.<span class="ident">with_instance</span>(<span class="ident">runtime_code</span>, <span class="ident">ext</span>, <span class="bool-val">false</span>, <span class="op">|</span><span class="ident">_module</span>, <span class="ident">_instance</span>, <span class="ident">version</span>, <span class="ident">_ext</span><span class="op">|</span> {
+			<span class="prelude-val">Ok</span>(<span class="ident">version</span>.<span class="ident">cloned</span>().<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Error::ApiError</span>(<span class="string">&quot;Unknown version&quot;</span>.<span class="ident">into</span>())))
+		})
+	}
+}
+
 <span class="doccomment">/// A generic `CodeExecutor` implementation that uses a delegate to determine wasm code equivalence</span>
 <span class="doccomment">/// and dispatch to native code when possible, falling back on `WasmExecutor` when not.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NativeExecutor</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> {
@@ -1002,11 +1088,7 @@
 	}
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">NativeExecutionDispatch</span><span class="op">&gt;</span> <span class="ident">RuntimeInfo</span> <span class="kw">for</span> <span class="ident">NativeExecutor</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> {
-	<span class="kw">fn</span> <span class="ident">native_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">NativeVersion</span> {
-		<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">native_version</span>
-	}
-
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">NativeExecutionDispatch</span><span class="op">&gt;</span> <span class="ident">RuntimeVersionOf</span> <span class="kw">for</span> <span class="ident">NativeExecutor</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> {
 	<span class="kw">fn</span> <span class="ident">runtime_version</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">ext</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Externalities</span>,
@@ -1016,6 +1098,12 @@
 			.<span class="ident">with_instance</span>(<span class="ident">runtime_code</span>, <span class="ident">ext</span>, <span class="bool-val">false</span>, <span class="op">|</span><span class="ident">_module</span>, <span class="ident">_instance</span>, <span class="ident">version</span>, <span class="ident">_ext</span><span class="op">|</span> {
 				<span class="prelude-val">Ok</span>(<span class="ident">version</span>.<span class="ident">cloned</span>().<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Error::ApiError</span>(<span class="string">&quot;Unknown version&quot;</span>.<span class="ident">into</span>())))
 			})
+	}
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">NativeExecutionDispatch</span><span class="op">&gt;</span> <span class="ident">GetNativeVersion</span> <span class="kw">for</span> <span class="ident">NativeExecutor</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">native_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">NativeVersion</span> {
+		<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">native_version</span>
 	}
 }
 
@@ -1090,8 +1178,8 @@
 						<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">sender</span>.<span class="ident">send</span>(<span class="ident">output</span>);
 					},
 					<span class="prelude-val">Err</span>(<span class="ident">error</span>) <span class="op">=</span><span class="op">&gt;</span> {
-						<span class="comment">// If execution is panicked, the `join` in the original runtime code will panic as well,</span>
-						<span class="comment">// since the sender is dropped without sending anything.</span>
+						<span class="comment">// If execution is panicked, the `join` in the original runtime code will</span>
+						<span class="comment">// panic as well, since the sender is dropped without sending anything.</span>
 						<span class="macro">log::error!</span>(<span class="string">&quot;Call error in spawned task: {:?}&quot;</span>, <span class="ident">error</span>);
 					},
 				}

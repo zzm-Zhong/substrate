@@ -485,6 +485,7 @@
 <span id="474">474</span>
 <span id="475">475</span>
 <span id="476">476</span>
+<span id="477">477</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -533,7 +534,8 @@
 	<span class="ident">OnRuntimeUpgrade</span>(<span class="ident">OnRuntimeUpgradeCmd</span>),
 	<span class="doccomment">/// Execute &quot;OffchainWorkerApi_offchain_worker&quot; against the given runtime state.</span>
 	<span class="ident">OffchainWorker</span>(<span class="ident">OffchainWorkerCmd</span>),
-	<span class="doccomment">/// Execute &quot;Core_execute_block&quot; using the given block and the runtime state of the parent block.</span>
+	<span class="doccomment">/// Execute &quot;Core_execute_block&quot; using the given block and the runtime state of the parent</span>
+	<span class="doccomment">/// block.</span>
 	<span class="ident">ExecuteBlock</span>(<span class="ident">ExecuteBlockCmd</span>),
 }
 

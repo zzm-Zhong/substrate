@@ -737,6 +737,21 @@
 <span id="726">726</span>
 <span id="727">727</span>
 <span id="728">728</span>
+<span id="729">729</span>
+<span id="730">730</span>
+<span id="731">731</span>
+<span id="732">732</span>
+<span id="733">733</span>
+<span id="734">734</span>
+<span id="735">735</span>
+<span id="736">736</span>
+<span id="737">737</span>
+<span id="738">738</span>
+<span id="739">739</span>
+<span id="740">740</span>
+<span id="741">741</span>
+<span id="742">742</span>
+<span id="743">743</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -766,27 +781,35 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Documentation Guidelines:</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! &lt;!-- Original author of paragraph: Various. Based on collation of review comments to PRs addressing issues with --&gt;</span>
-<span class="doccomment">//! &lt;!-- label &#39;S3-FRAME&#39; in https://github.com/paritytech/substrate-developer-hub/issues --&gt;</span>
+<span class="doccomment">//! &lt;!-- Original author of paragraph: Various. Based on collation of review comments to PRs</span>
+<span class="doccomment">//! addressing issues with --&gt; &lt;!-- label &#39;S3-FRAME&#39; in https://github.com/paritytech/substrate-developer-hub/issues --&gt;</span>
 <span class="doccomment">//! &lt;ul&gt;</span>
-<span class="doccomment">//!     &lt;li&gt;Documentation comments (i.e. &lt;code&gt;/// comment&lt;/code&gt;) - should</span>
-<span class="doccomment">//!         accompany pallet functions and be restricted to the pallet interface,</span>
-<span class="doccomment">//!         not the internals of the pallet implementation. Only state inputs,</span>
-<span class="doccomment">//!         outputs, and a brief description that mentions whether calling it</span>
-<span class="doccomment">//!         requires root, but without repeating the source code details.</span>
-<span class="doccomment">//!         Capitalize the first word of each documentation comment and end it with</span>
-<span class="doccomment">//!         a full stop. See</span>
-<span class="doccomment">//!         &lt;a href=&quot;https://github.com/paritytech/substrate#72-contributing-to-documentation-for-substrate-packages&quot;</span>
-<span class="doccomment">//!         target=&quot;_blank&quot;&gt; Generic example of annotating source code with documentation comments&lt;/a&gt;&lt;/li&gt;</span>
-<span class="doccomment">//!     &lt;li&gt;Self-documenting code - Try to refactor code to be self-documenting.&lt;/li&gt;</span>
-<span class="doccomment">//!     &lt;li&gt;Code comments - Supplement complex code with a brief explanation, not every line of code.&lt;/li&gt;</span>
-<span class="doccomment">//!     &lt;li&gt;Identifiers - surround by backticks (i.e. &lt;code&gt;INHERENT_IDENTIFIER&lt;/code&gt;, &lt;code&gt;InherentType&lt;/code&gt;,</span>
-<span class="doccomment">//!         &lt;code&gt;u64&lt;/code&gt;)&lt;/li&gt;</span>
-<span class="doccomment">//!     &lt;li&gt;Usage scenarios - should be simple doctests. The compiler should ensure they stay valid.&lt;/li&gt;</span>
-<span class="doccomment">//!     &lt;li&gt;Extended tutorials - should be moved to external files and refer to.&lt;/li&gt;</span>
-<span class="doccomment">//!     &lt;!-- Original author of paragraph: @AmarRSingh --&gt;</span>
-<span class="doccomment">//!     &lt;li&gt;Mandatory - include all of the sections/subsections where &lt;b&gt;MUST&lt;/b&gt; is specified.&lt;/li&gt;</span>
-<span class="doccomment">//!     &lt;li&gt;Optional - optionally include sections/subsections where &lt;b&gt;CAN&lt;/b&gt; is specified.&lt;/li&gt;</span>
+<span class="doccomment">//! &lt;li&gt;Documentation comments (i.e. &lt;code&gt;/// comment&lt;/code&gt;) - should</span>
+<span class="doccomment">//! accompany pallet functions and be restricted to the pallet interface,</span>
+<span class="doccomment">//! not the internals of the pallet implementation. Only state inputs,</span>
+<span class="doccomment">//! outputs, and a brief description that mentions whether calling it</span>
+<span class="doccomment">//! requires root, but without repeating the source code details.</span>
+<span class="doccomment">//! Capitalize the first word of each documentation comment and end it with</span>
+<span class="doccomment">//! a full stop. See</span>
+<span class="doccomment">//! &lt;a href=&quot;https://github.com/paritytech/substrate#72-contributing-to-documentation-for-substrate-packages&quot;</span>
+<span class="doccomment">//! target=&quot;_blank&quot;&gt; Generic example of annotating source code with documentation comments&lt;/a&gt;&lt;/li&gt;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! &lt;li&gt;Self-documenting code - Try to refactor code to be self-documenting.&lt;/li&gt;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! &lt;li&gt;Code comments - Supplement complex code with a brief explanation, not every line of</span>
+<span class="doccomment">//! code.&lt;/li&gt;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! &lt;li&gt;Identifiers - surround by backticks (i.e. &lt;code&gt;INHERENT_IDENTIFIER&lt;/code&gt;,</span>
+<span class="doccomment">//! &lt;code&gt;InherentType&lt;/code&gt;, &lt;code&gt;u64&lt;/code&gt;)&lt;/li&gt;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! &lt;li&gt;Usage scenarios - should be simple doctests. The compiler should ensure they stay</span>
+<span class="doccomment">//! valid.&lt;/li&gt;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! &lt;li&gt;Extended tutorials - should be moved to external files and refer to.&lt;/li&gt;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! &lt;li&gt;Mandatory - include all of the sections/subsections where &lt;b&gt;MUST&lt;/b&gt; is specified.&lt;/li&gt;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! &lt;li&gt;Optional - optionally include sections/subsections where &lt;b&gt;CAN&lt;/b&gt; is specified.&lt;/li&gt;</span>
 <span class="doccomment">//! &lt;/ul&gt;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Documentation Template:&lt;br&gt;</span>
@@ -824,12 +847,13 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! \## Terminology</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! // Add terminology used in the custom pallet. Include concepts, storage items, or actions that you think</span>
-<span class="doccomment">//! // deserve to be noted to give context to the rest of the documentation or pallet usage. The author needs to</span>
-<span class="doccomment">//! // use some judgment about what is included. We don&#39;t want a list of every storage item nor types - the user</span>
-<span class="doccomment">//! // can go to the code for that. For example, &quot;transfer fee&quot; is obvious and should not be included, but</span>
-<span class="doccomment">//! // &quot;free balance&quot; and &quot;reserved balance&quot; should be noted to give context to the pallet.</span>
-<span class="doccomment">//! // Please do not link to outside resources. The reference docs should be the ultimate source of truth.</span>
+<span class="doccomment">//! // Add terminology used in the custom pallet. Include concepts, storage items, or actions that</span>
+<span class="doccomment">//! you think // deserve to be noted to give context to the rest of the documentation or pallet</span>
+<span class="doccomment">//! usage. The author needs to // use some judgment about what is included. We don&#39;t want a list of</span>
+<span class="doccomment">//! every storage item nor types - the user // can go to the code for that. For example, &quot;transfer</span>
+<span class="doccomment">//! fee&quot; is obvious and should not be included, but // &quot;free balance&quot; and &quot;reserved balance&quot; should</span>
+<span class="doccomment">//! be noted to give context to the pallet. // Please do not link to outside resources. The</span>
+<span class="doccomment">//! reference docs should be the ultimate source of truth.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! &lt;!-- Original author of heading: @Kianenigma in PR https://github.com/paritytech/substrate/pull/1951 --&gt;</span>
 <span class="doccomment">//!</span>
@@ -846,7 +870,8 @@
 <span class="doccomment">//! \#### &lt;INSERT_SCENARIO_NAME&gt;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! // Describe requirements prior to interacting with the custom pallet.</span>
-<span class="doccomment">//! // Describe the process of interacting with the custom pallet for this scenario and public API functions used.</span>
+<span class="doccomment">//! // Describe the process of interacting with the custom pallet for this scenario and public API</span>
+<span class="doccomment">//! functions used.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! \## Interface</span>
 <span class="doccomment">//!</span>
@@ -870,14 +895,16 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! &lt;!-- Original author of paragraph: ??? --&gt;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! // Reference documentation of aspects such as `storageItems` and `dispatchable` functions should only be</span>
-<span class="doccomment">//! // included in the &lt;https://docs.rs&gt; Rustdocs for Substrate and not repeated in the README file.</span>
+<span class="doccomment">//! // Reference documentation of aspects such as `storageItems` and `dispatchable` functions should</span>
+<span class="doccomment">//! // only be included in the &lt;https://docs.rs&gt; Rustdocs for Substrate and not repeated in the</span>
+<span class="doccomment">//! // README file.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! \### Dispatchable Functions</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! &lt;!-- Original author of paragraph: @AmarRSingh &amp; @joepetrowski --&gt;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! // A brief description of dispatchable functions and a link to the rustdoc with their actual documentation.</span>
+<span class="doccomment">//! // A brief description of dispatchable functions and a link to the rustdoc with their actual</span>
+<span class="doccomment">//! documentation.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! // &lt;b&gt;MUST&lt;/b&gt; have link to Call enum</span>
 <span class="doccomment">//! // &lt;b&gt;MUST&lt;/b&gt; have origin information included in function doc</span>
@@ -894,7 +921,8 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! &lt;!-- Original author of paragraph: @AmarRSingh --&gt;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! // It is up to the writer of the respective pallet (with respect to how much information to provide).</span>
+<span class="doccomment">//! // It is up to the writer of the respective pallet (with respect to how much information to</span>
+<span class="doccomment">//! provide).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! \#### Public Inspection functions - Immutable (getters)</span>
 <span class="doccomment">//!</span>
@@ -957,7 +985,8 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! \### Simple Code Snippet</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! // Show a simple example (e.g. how to query a public getter function of &lt;INSERT_CUSTOM_PALLET_NAME&gt;)</span>
+<span class="doccomment">//! // Show a simple example (e.g. how to query a public getter function of</span>
+<span class="doccomment">//! &lt;INSERT_CUSTOM_PALLET_NAME&gt;)</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! \### Example from FRAME</span>
 <span class="doccomment">//!</span>
@@ -1148,10 +1177,10 @@
 	<span class="comment">// - Public calls that are signed by an external account.</span>
 	<span class="comment">// - Root calls that are allowed to be made only by the governance system.</span>
 	<span class="comment">// - Unsigned calls that can be of two kinds:</span>
-	<span class="comment">//   * &quot;Inherent extrinsics&quot; that are opinions generally held by the block</span>
-	<span class="comment">//     authors that build child blocks.</span>
-	<span class="comment">//   * Unsigned Transactions that are of intrinsic recognizable utility to the</span>
-	<span class="comment">//     network, and are validated by the runtime.</span>
+	<span class="comment">//   * &quot;Inherent extrinsics&quot; that are opinions generally held by the block authors that build</span>
+	<span class="comment">//     child blocks.</span>
+	<span class="comment">//   * Unsigned Transactions that are of intrinsic recognizable utility to the network, and are</span>
+	<span class="comment">//     validated by the runtime.</span>
 	<span class="comment">//</span>
 	<span class="comment">// Information about where this dispatch initiated from is provided as the first argument</span>
 	<span class="comment">// &quot;origin&quot;. As such functions must always look like:</span>
@@ -1206,10 +1235,10 @@
 		<span class="comment">//</span>
 		<span class="comment">// If you don&#39;t respect these rules, it is likely that your chain will be attackable.</span>
 		<span class="comment">//</span>
-		<span class="comment">// Each transaction must define a `#[pallet::weight(..)]` attribute to convey a set of static</span>
-		<span class="comment">// information about its dispatch. FRAME System and FRAME Executive pallet then use this</span>
-		<span class="comment">// information to properly execute the transaction, whilst keeping the total load of the</span>
-		<span class="comment">// chain in a moderate rate.</span>
+		<span class="comment">// Each transaction must define a `#[pallet::weight(..)]` attribute to convey a set of</span>
+		<span class="comment">// static information about its dispatch. FRAME System and FRAME Executive pallet then use</span>
+		<span class="comment">// this information to properly execute the transaction, whilst keeping the total load of</span>
+		<span class="comment">// the chain in a moderate rate.</span>
 		<span class="comment">//</span>
 		<span class="comment">// The parenthesized value of the `#[pallet::weight(..)]` attribute can be any type that</span>
 		<span class="comment">// implements a set of traits, namely [`WeighData`] and [`ClassifyDispatch`].</span>
@@ -1218,8 +1247,8 @@
 		<span class="comment">// call. A higher weight means a larger transaction (less of which can be placed in a</span>
 		<span class="comment">// single block).</span>
 		<span class="comment">//</span>
-		<span class="comment">// The weight for this extrinsic we rely on the auto-generated `WeightInfo` from the benchmark</span>
-		<span class="comment">// toolchain.</span>
+		<span class="comment">// The weight for this extrinsic we rely on the auto-generated `WeightInfo` from the</span>
+		<span class="comment">// benchmark toolchain.</span>
 		<span class="attribute">#[<span class="ident">pallet::weight</span>(
 			<span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">pallet::Config</span><span class="op">&gt;</span><span class="ident">::WeightInfo::accumulate_dummy</span>((<span class="kw-2">*</span><span class="ident">increase_by</span>).<span class="ident">saturated_into</span>())
 		)]</span>
@@ -1262,8 +1291,8 @@
 		<span class="comment">// assume it&#39;s a one-off operation and substantial processing/storage/memory can be used</span>
 		<span class="comment">// without worrying about gameability or attack scenarios.</span>
 		<span class="comment">//</span>
-		<span class="comment">// The weight for this extrinsic we use our own weight object `WeightForSetDummy` to determine</span>
-		<span class="comment">// its weight</span>
+		<span class="comment">// The weight for this extrinsic we use our own weight object `WeightForSetDummy` to</span>
+		<span class="comment">// determine its weight</span>
 		<span class="attribute">#[<span class="ident">pallet::weight</span>(<span class="ident">WeightForSetDummy</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="op">&lt;</span><span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::from</span>(<span class="number">100u32</span>)))]</span>
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_dummy</span>(
 			<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
@@ -1271,8 +1300,8 @@
 		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
 			<span class="ident">ensure_root</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 
-			<span class="comment">// Print out log or debug message in the console via log::{error, warn, info, debug, trace},</span>
-			<span class="comment">// accepting format strings similar to `println!`.</span>
+			<span class="comment">// Print out log or debug message in the console via log::{error, warn, info, debug,</span>
+			<span class="comment">// trace}, accepting format strings similar to `println!`.</span>
 			<span class="comment">// https://substrate.dev/rustdocs/v3.0.0/log/index.html</span>
 			<span class="macro">info!</span>(<span class="string">&quot;New value is now: {:?}&quot;</span>, <span class="ident">new_value</span>);
 
@@ -1371,7 +1400,8 @@
 		<span class="kw">let</span> <span class="ident">_sender</span> <span class="op">=</span> <span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 
 		<span class="kw">let</span> <span class="ident">prev</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Foo</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>();
-		<span class="comment">// Because Foo has &#39;default&#39;, the type of &#39;foo&#39; in closure is the raw type instead of an Option&lt;&gt; type.</span>
+		<span class="comment">// Because Foo has &#39;default&#39;, the type of &#39;foo&#39; in closure is the raw type instead of an</span>
+		<span class="comment">// Option&lt;&gt; type.</span>
 		<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Foo</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::mutate</span>(<span class="op">|</span><span class="ident">foo</span><span class="op">|</span> {
 			<span class="kw-2">*</span><span class="ident">foo</span> <span class="op">=</span> <span class="ident">foo</span>.<span class="ident">saturating_add</span>(<span class="ident">increase_by</span>);
 			<span class="kw-2">*</span><span class="ident">foo</span>

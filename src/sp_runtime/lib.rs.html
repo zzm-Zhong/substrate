@@ -1759,10 +1759,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Examples of reasons preventing inclusion in a block:</span>
 <span class="doccomment">/// - More block weight is required to process the extrinsic than is left in the block being built.</span>
-<span class="doccomment">///   This doesn&#39;t necessarily mean that the extrinsic is invalid, since it can still be</span>
-<span class="doccomment">///   included in the next block if it has enough spare weight available.</span>
-<span class="doccomment">/// - The sender doesn&#39;t have enough funds to pay the transaction inclusion fee. Including such</span>
-<span class="doccomment">///   a transaction in the block doesn&#39;t make sense.</span>
+<span class="doccomment">///   This doesn&#39;t necessarily mean that the extrinsic is invalid, since it can still be included in</span>
+<span class="doccomment">///   the next block if it has enough spare weight available.</span>
+<span class="doccomment">/// - The sender doesn&#39;t have enough funds to pay the transaction inclusion fee. Including such a</span>
+<span class="doccomment">///   transaction in the block doesn&#39;t make sense.</span>
 <span class="doccomment">/// - The extrinsic supplied a bad signature. This transaction won&#39;t become valid ever.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ApplyExtrinsicResult</span> <span class="op">=</span>
 	<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DispatchOutcome</span>, <span class="ident">transaction_validity::TransactionValidityError</span><span class="op">&gt;</span>;

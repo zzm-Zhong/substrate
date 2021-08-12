@@ -478,8 +478,8 @@
 	<span class="doccomment">/// By default the maximum drift is 60 seconds.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The maximum drift is used when checking the inherents of a runtime. If the current timestamp</span>
-	<span class="doccomment">/// plus the maximum drift is smaller than the timestamp in the block, the block will be rejected</span>
-	<span class="doccomment">/// as being too far in the future.</span>
+	<span class="doccomment">/// plus the maximum drift is smaller than the timestamp in the block, the block will be</span>
+	<span class="doccomment">/// rejected as being too far in the future.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_max_drift</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">max_drift</span>: <span class="ident">std::time::Duration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="self">self</span>.<span class="ident">max_drift</span> <span class="op">=</span> <span class="ident">max_drift</span>.<span class="ident">into</span>();
 		<span class="self">self</span>

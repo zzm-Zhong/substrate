@@ -563,8 +563,8 @@
 	<span class="ident">instance</span>: <span class="ident">Instance</span>,
 	<span class="comment">// The memory instance of the `instance`.</span>
 	<span class="comment">//</span>
-	<span class="comment">// It is important to make sure that we don&#39;t make any copies of this to make it easier to proof</span>
-	<span class="comment">// See `memory_as_slice` and `memory_as_slice_mut`.</span>
+	<span class="comment">// It is important to make sure that we don&#39;t make any copies of this to make it easier to</span>
+	<span class="comment">// proof See `memory_as_slice` and `memory_as_slice_mut`.</span>
 	<span class="ident">memory</span>: <span class="ident">Memory</span>,
 	<span class="ident">table</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Table</span><span class="op">&gt;</span>,
 	<span class="comment">// Make this struct explicitly !Send &amp; !Sync.</span>
@@ -864,9 +864,9 @@
 		<span class="self">self</span>.<span class="ident">memory</span>.<span class="ident">data_ptr</span>()
 	}
 
-	<span class="doccomment">/// Removes physical backing from the allocated linear memory. This leads to returning the memory</span>
-	<span class="doccomment">/// back to the system. While the memory is zeroed this is considered as a side-effect and is not</span>
-	<span class="doccomment">/// relied upon. Thus this function acts as a hint.</span>
+	<span class="doccomment">/// Removes physical backing from the allocated linear memory. This leads to returning the</span>
+	<span class="doccomment">/// memory back to the system. While the memory is zeroed this is considered as a side-effect</span>
+	<span class="doccomment">/// and is not relied upon. Thus this function acts as a hint.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decommit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
 		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">memory</span>.<span class="ident">data_size</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
 			<span class="kw">return</span>

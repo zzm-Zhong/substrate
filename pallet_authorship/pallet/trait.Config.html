@@ -23,8 +23,8 @@ This means that we will deal with uncle-parents that are
 </div></details><details class="rustdoc-toggle" open><summary><div id="associatedtype.FilterUncle" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/pallet_authorship/lib.rs.html#152" title="goto source code">[src]</a></div><code>type <a href="#associatedtype.FilterUncle" class="type">FilterUncle</a>: <a class="trait" href="../trait.FilterUncle.html" title="trait pallet_authorship::FilterUncle">FilterUncle</a>&lt;Self::<a class="type" href="../../frame_system/pallet/trait.Config.html#associatedtype.Header" title="type frame_system::pallet::Config::Header">Header</a>, Self::<a class="type" href="../../frame_system/pallet/trait.Config.html#associatedtype.AccountId" title="type frame_system::pallet::Config::AccountId">AccountId</a>&gt;</code></div></summary><div class="docblock"><p>A filter for uncles within a block. This is for implementing
 further constraints on what uncles can be included, other than their ancestry.</p>
 <p>For PoW, as long as the seals are checked, there is no need to use anything
-but the <code>VerifySeal</code> implementation as the filter. This is because the cost of making many equivocating
-uncles is high.</p>
+but the <code>VerifySeal</code> implementation as the filter. This is because the cost of making
+many equivocating uncles is high.</p>
 <p>For PoS, there is no such limitation, so a further constraint must be imposed
 beyond a seal check in order to prevent an arbitrary number of
 equivocating uncles from being included.</p>

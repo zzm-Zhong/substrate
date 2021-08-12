@@ -2553,6 +2553,7 @@
 <span id="2542">2542</span>
 <span id="2543">2543</span>
 <span id="2544">2544</span>
+<span id="2545">2545</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2670,7 +2671,8 @@
 			<span class="ident">Endow::CollectRent</span> <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="comment">// storage_size cannot be zero because otherwise a contract that is just above</span>
 				<span class="comment">// the subsistence threshold does not pay rent given a large enough subsistence</span>
-				<span class="comment">// threshold. But we need rent payments to occur in order to benchmark for worst cases.</span>
+				<span class="comment">// threshold. But we need rent payments to occur in order to benchmark for worst</span>
+				<span class="comment">// cases.</span>
 				<span class="kw">let</span> <span class="ident">storage_size</span> <span class="op">=</span> <span class="ident">u32::MAX</span> <span class="op">/</span> <span class="number">10</span>;
 
 				<span class="comment">// Endowment should be large but not as large to inhibit rent payments.</span>

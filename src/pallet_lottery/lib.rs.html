@@ -767,9 +767,9 @@
 							<span class="kw-2">*</span><span class="ident">lottery</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 							<span class="kw">return</span> <span class="ident">T::WeightInfo::on_initialize_end</span>()
 						}
-						<span class="comment">// We choose not need to kill Participants and Tickets to avoid a large number</span>
-						<span class="comment">// of writes at one time. Instead, data persists between lotteries, but is not used</span>
-						<span class="comment">// if it is not relevant.</span>
+						<span class="comment">// We choose not need to kill Participants and Tickets to avoid a large</span>
+						<span class="comment">// number of writes at one time. Instead, data persists between lotteries,</span>
+						<span class="comment">// but is not used if it is not relevant.</span>
 					}
 				}
 				<span class="kw">return</span> <span class="ident">T::DbWeight::get</span>().<span class="ident">reads</span>(<span class="number">1</span>)

@@ -587,6 +587,7 @@
 <span id="576">576</span>
 <span id="577">577</span>
 <span id="578">578</span>
+<span id="579">579</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -878,7 +879,8 @@
 
 	<span class="doccomment">/// Attempt to wait for all provided requests, but up to given deadline.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Requests that are complete will resolve to an `Ok` others will return a `DeadlineReached` error.</span>
+	<span class="doccomment">/// Requests that are complete will resolve to an `Ok` others will return a `DeadlineReached`</span>
+	<span class="doccomment">/// error.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">try_wait_all</span>(
 		<span class="ident">requests</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PendingRequest</span><span class="op">&gt;</span>,
 		<span class="ident">deadline</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Timestamp</span><span class="op">&gt;</span><span class="op">&gt;</span>,

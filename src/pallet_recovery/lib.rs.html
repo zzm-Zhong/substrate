@@ -737,6 +737,10 @@
 <span id="726">726</span>
 <span id="727">727</span>
 <span id="728">728</span>
+<span id="729">729</span>
+<span id="730">730</span>
+<span id="731">731</span>
+<span id="732">732</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -773,12 +777,12 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The recovery process for each recoverable account can be configured by the account owner.</span>
 <span class="doccomment">//! They are able to choose:</span>
-<span class="doccomment">//! * `friends` - The list of friends that the account owner trusts to protect the</span>
-<span class="doccomment">//!   recovery process for their account.</span>
-<span class="doccomment">//! * `threshold` - The number of friends that need to approve a recovery process for</span>
-<span class="doccomment">//!   the account to be successfully recovered.</span>
-<span class="doccomment">//! * `delay_period` - The minimum number of blocks after the beginning of the recovery</span>
-<span class="doccomment">//!   process that need to pass before the account can be successfully recovered.</span>
+<span class="doccomment">//! * `friends` - The list of friends that the account owner trusts to protect the recovery process</span>
+<span class="doccomment">//!   for their account.</span>
+<span class="doccomment">//! * `threshold` - The number of friends that need to approve a recovery process for the account to</span>
+<span class="doccomment">//!   be successfully recovered.</span>
+<span class="doccomment">//! * `delay_period` - The minimum number of blocks after the beginning of the recovery process that</span>
+<span class="doccomment">//!   need to pass before the account can be successfully recovered.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! There is a configurable deposit that all users need to pay to create a recovery</span>
 <span class="doccomment">//! configuration. This deposit is composed of a base deposit plus a multiplier for</span>
@@ -841,25 +845,23 @@
 <span class="doccomment">//! security of an account if used incorrectly. Some recommended practices for users</span>
 <span class="doccomment">//! of this pallet are:</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! * Configure a significant `delay_period` for your recovery process: As long as you</span>
-<span class="doccomment">//!   have access to your recoverable account, you need only check the blockchain once</span>
-<span class="doccomment">//!   every `delay_period` blocks to ensure that no recovery attempt is successful</span>
-<span class="doccomment">//!   against your account. Using off-chain notification systems can help with this,</span>
-<span class="doccomment">//!   but ultimately, setting a large `delay_period` means that even the most skilled</span>
-<span class="doccomment">//!   attacker will need to wait this long before they can access your account.</span>
-<span class="doccomment">//! * Use a high threshold of approvals: Setting a value of 1 for the threshold means</span>
-<span class="doccomment">//!   that any of your friends would be able to recover your account. They would</span>
-<span class="doccomment">//!   simply need to start a recovery process and approve their own process. Similarly,</span>
-<span class="doccomment">//!   a threshold of 2 would mean that any 2 friends could work together to gain</span>
-<span class="doccomment">//!   access to your account. The only way to prevent against these kinds of attacks</span>
-<span class="doccomment">//!   is to choose a high threshold of approvals and select from a diverse friend</span>
-<span class="doccomment">//!   group that would not be able to reasonably coordinate with one another.</span>
-<span class="doccomment">//! * Reset your configuration over time: Since the entire deposit of creating a</span>
-<span class="doccomment">//!   recovery configuration is returned to the user, the only cost of updating</span>
-<span class="doccomment">//!   your recovery configuration is the transaction fees for the calls. Thus,</span>
-<span class="doccomment">//!   it is strongly encouraged to regularly update your recovery configuration</span>
-<span class="doccomment">//!   as your life changes and your relationship with new and existing friends</span>
-<span class="doccomment">//!   change as well.</span>
+<span class="doccomment">//! * Configure a significant `delay_period` for your recovery process: As long as you have access</span>
+<span class="doccomment">//!   to your recoverable account, you need only check the blockchain once every `delay_period`</span>
+<span class="doccomment">//!   blocks to ensure that no recovery attempt is successful against your account. Using off-chain</span>
+<span class="doccomment">//!   notification systems can help with this, but ultimately, setting a large `delay_period` means</span>
+<span class="doccomment">//!   that even the most skilled attacker will need to wait this long before they can access your</span>
+<span class="doccomment">//!   account.</span>
+<span class="doccomment">//! * Use a high threshold of approvals: Setting a value of 1 for the threshold means that any of</span>
+<span class="doccomment">//!   your friends would be able to recover your account. They would simply need to start a recovery</span>
+<span class="doccomment">//!   process and approve their own process. Similarly, a threshold of 2 would mean that any 2</span>
+<span class="doccomment">//!   friends could work together to gain access to your account. The only way to prevent against</span>
+<span class="doccomment">//!   these kinds of attacks is to choose a high threshold of approvals and select from a diverse</span>
+<span class="doccomment">//!   friend group that would not be able to reasonably coordinate with one another.</span>
+<span class="doccomment">//! * Reset your configuration over time: Since the entire deposit of creating a recovery</span>
+<span class="doccomment">//!   configuration is returned to the user, the only cost of updating your recovery configuration</span>
+<span class="doccomment">//!   is the transaction fees for the calls. Thus, it is strongly encouraged to regularly update</span>
+<span class="doccomment">//!   your recovery configuration as your life changes and your relationship with new and existing</span>
+<span class="doccomment">//!   friends change as well.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Interface</span>
 <span class="doccomment">//!</span>
@@ -871,22 +873,27 @@
 <span class="doccomment">//! * `initiate_recovery` - Start the recovery process for a recoverable account.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #### For Friends of a Recoverable Account</span>
-<span class="doccomment">//! * `vouch_recovery` - As a `friend` of a recoverable account, vouch for a recovery attempt on the account.</span>
+<span class="doccomment">//! * `vouch_recovery` - As a `friend` of a recoverable account, vouch for a recovery attempt on the</span>
+<span class="doccomment">//!   account.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #### For a User Who Successfully Recovered an Account</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! * `claim_recovery` - Claim access to the account that you have successfully completed the recovery process for.</span>
-<span class="doccomment">//! * `as_recovered` - Send a transaction as an account that you have recovered. See other functions below.</span>
+<span class="doccomment">//! * `claim_recovery` - Claim access to the account that you have successfully completed the</span>
+<span class="doccomment">//!   recovery process for.</span>
+<span class="doccomment">//! * `as_recovered` - Send a transaction as an account that you have recovered. See other functions</span>
+<span class="doccomment">//!   below.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #### For the Recoverable Account</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! * `close_recovery` - Close an active recovery process for your account and reclaim the recovery deposit.</span>
-<span class="doccomment">//! * `remove_recovery` - Remove the recovery configuration from the account, making it un-recoverable.</span>
+<span class="doccomment">//! * `close_recovery` - Close an active recovery process for your account and reclaim the recovery</span>
+<span class="doccomment">//!   deposit.</span>
+<span class="doccomment">//! * `remove_recovery` - Remove the recovery configuration from the account, making it</span>
+<span class="doccomment">//!   un-recoverable.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #### For Super Users</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! * `set_recovered` - The ROOT origin is able to skip the recovery process and directly allow</span>
-<span class="doccomment">//!   one account to access another.</span>
+<span class="doccomment">//! * `set_recovered` - The ROOT origin is able to skip the recovery process and directly allow one</span>
+<span class="doccomment">//!   account to access another.</span>
 
 <span class="comment">// Ensure we&#39;re `no_std` when compiling for Wasm.</span>
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>), <span class="ident">no_std</span>)]</span>
@@ -971,9 +978,11 @@
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
 		<span class="kw">type</span> <span class="ident">ConfigDepositBase</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
-		<span class="doccomment">/// The amount of currency needed per additional user when creating a recovery configuration.</span>
+		<span class="doccomment">/// The amount of currency needed per additional user when creating a recovery</span>
+		<span class="doccomment">/// configuration.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// This is held for adding `sizeof(AccountId)` bytes more into a pre-existing storage value.</span>
+		<span class="doccomment">/// This is held for adding `sizeof(AccountId)` bytes more into a pre-existing storage</span>
+		<span class="doccomment">/// value.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
 		<span class="kw">type</span> <span class="ident">FriendDepositFactor</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
@@ -1157,13 +1166,13 @@
 		<span class="doccomment">/// The dispatch origin for this call must be _Signed_.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Parameters:</span>
-		<span class="doccomment">/// - `friends`: A list of friends you trust to vouch for recovery attempts.</span>
-		<span class="doccomment">///   Should be ordered and contain no duplicate values.</span>
-		<span class="doccomment">/// - `threshold`: The number of friends that must vouch for a recovery attempt</span>
-		<span class="doccomment">///   before the account can be recovered. Should be less than or equal to</span>
-		<span class="doccomment">///   the length of the list of friends.</span>
-		<span class="doccomment">/// - `delay_period`: The number of blocks after a recovery attempt is initialized</span>
-		<span class="doccomment">///   that needs to pass before the account can be recovered.</span>
+		<span class="doccomment">/// - `friends`: A list of friends you trust to vouch for recovery attempts. Should be</span>
+		<span class="doccomment">///   ordered and contain no duplicate values.</span>
+		<span class="doccomment">/// - `threshold`: The number of friends that must vouch for a recovery attempt before the</span>
+		<span class="doccomment">///   account can be recovered. Should be less than or equal to the length of the list of</span>
+		<span class="doccomment">///   friends.</span>
+		<span class="doccomment">/// - `delay_period`: The number of blocks after a recovery attempt is initialized that</span>
+		<span class="doccomment">///   needs to pass before the account can be recovered.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// # &lt;weight&gt;</span>
 		<span class="doccomment">/// - Key: F (len of friends)</span>
@@ -1220,8 +1229,8 @@
 		<span class="doccomment">/// The dispatch origin for this call must be _Signed_.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Parameters:</span>
-		<span class="doccomment">/// - `account`: The lost account that you want to recover. This account</span>
-		<span class="doccomment">///   needs to be recoverable (i.e. have a recovery configuration).</span>
+		<span class="doccomment">/// - `account`: The lost account that you want to recover. This account needs to be</span>
+		<span class="doccomment">///   recoverable (i.e. have a recovery configuration).</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// # &lt;weight&gt;</span>
 		<span class="doccomment">/// - One storage read to check that account is recoverable. O(F)</span>
@@ -1266,8 +1275,7 @@
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Parameters:</span>
 		<span class="doccomment">/// - `lost`: The lost account that you want to recover.</span>
-		<span class="doccomment">/// - `rescuer`: The account trying to rescue the lost account that you</span>
-		<span class="doccomment">///   want to vouch for.</span>
+		<span class="doccomment">/// - `rescuer`: The account trying to rescue the lost account that you want to vouch for.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// The combination of these two parameters must point to an active recovery</span>
 		<span class="doccomment">/// process.</span>
@@ -1315,8 +1323,8 @@
 		<span class="doccomment">/// `threshold` or more vouches, waited `delay_period` blocks since initiation.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Parameters:</span>
-		<span class="doccomment">/// - `account`: The lost account that you want to claim has been successfully</span>
-		<span class="doccomment">///   recovered by you.</span>
+		<span class="doccomment">/// - `account`: The lost account that you want to claim has been successfully recovered by</span>
+		<span class="doccomment">///   you.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// # &lt;weight&gt;</span>
 		<span class="doccomment">/// Key: F (len of friends in config), V (len of vouching friends)</span>

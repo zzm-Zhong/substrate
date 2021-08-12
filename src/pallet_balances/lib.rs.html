@@ -2126,6 +2126,17 @@
 <span id="2115">2115</span>
 <span id="2116">2116</span>
 <span id="2117">2117</span>
+<span id="2118">2118</span>
+<span id="2119">2119</span>
+<span id="2120">2120</span>
+<span id="2121">2121</span>
+<span id="2122">2122</span>
+<span id="2123">2123</span>
+<span id="2124">2124</span>
+<span id="2125">2125</span>
+<span id="2126">2126</span>
+<span id="2127">2127</span>
+<span id="2128">2128</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2167,17 +2178,18 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Terminology</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - **Existential Deposit:** The minimum balance required to create or keep an account open. This prevents</span>
-<span class="doccomment">//!   &quot;dust accounts&quot; from filling storage. When the free plus the reserved balance (i.e. the total balance)</span>
-<span class="doccomment">//!   fall below this, then the account is said to be dead; and it loses its functionality as well as any</span>
-<span class="doccomment">//!   prior history and all information on it is removed from the chain&#39;s state.</span>
-<span class="doccomment">//!   No account should ever have a total balance that is strictly between 0 and the existential</span>
-<span class="doccomment">//!   deposit (exclusive). If this ever happens, it indicates either a bug in this pallet or an</span>
-<span class="doccomment">//!   erroneous raw mutation of storage.</span>
+<span class="doccomment">//! - **Existential Deposit:** The minimum balance required to create or keep an account open. This</span>
+<span class="doccomment">//!   prevents &quot;dust accounts&quot; from filling storage. When the free plus the reserved balance (i.e.</span>
+<span class="doccomment">//!   the total balance) fall below this, then the account is said to be dead; and it loses its</span>
+<span class="doccomment">//!   functionality as well as any prior history and all information on it is removed from the</span>
+<span class="doccomment">//!   chain&#39;s state. No account should ever have a total balance that is strictly between 0 and the</span>
+<span class="doccomment">//!   existential deposit (exclusive). If this ever happens, it indicates either a bug in this</span>
+<span class="doccomment">//!   pallet or an erroneous raw mutation of storage.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! - **Total Issuance:** The total number of units in existence in a system.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - **Reaping an account:** The act of removing an account by resetting its nonce. Happens after its</span>
+<span class="doccomment">//! - **Reaping an account:** The act of removing an account by resetting its nonce. Happens after</span>
+<span class="doccomment">//!   its</span>
 <span class="doccomment">//! total balance has become zero (or, strictly speaking, less than the Existential Deposit).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! - **Free Balance:** The portion of a balance that is not reserved. The free balance is the only</span>
@@ -2186,18 +2198,21 @@
 <span class="doccomment">//! - **Reserved Balance:** Reserved balance still belongs to the account holder, but is suspended.</span>
 <span class="doccomment">//!   Reserved balance can still be slashed, but only after all the free balance has been slashed.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - **Imbalance:** A condition when some funds were credited or debited without equal and opposite accounting</span>
-<span class="doccomment">//! (i.e. a difference between total issuance and account balances). Functions that result in an imbalance will</span>
-<span class="doccomment">//! return an object of the `Imbalance` trait that can be managed within your runtime logic. (If an imbalance is</span>
-<span class="doccomment">//! simply dropped, it should automatically maintain any book-keeping such as total issuance.)</span>
+<span class="doccomment">//! - **Imbalance:** A condition when some funds were credited or debited without equal and opposite</span>
+<span class="doccomment">//!   accounting</span>
+<span class="doccomment">//! (i.e. a difference between total issuance and account balances). Functions that result in an</span>
+<span class="doccomment">//! imbalance will return an object of the `Imbalance` trait that can be managed within your runtime</span>
+<span class="doccomment">//! logic. (If an imbalance is simply dropped, it should automatically maintain any book-keeping</span>
+<span class="doccomment">//! such as total issuance.)</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - **Lock:** A freeze on a specified amount of an account&#39;s free balance until a specified block number. Multiple</span>
+<span class="doccomment">//! - **Lock:** A freeze on a specified amount of an account&#39;s free balance until a specified block</span>
+<span class="doccomment">//!   number. Multiple</span>
 <span class="doccomment">//! locks always operate over the same funds, so they &quot;overlay&quot; rather than &quot;stack&quot;.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Implementations</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The Balances pallet provides implementations for the following traits. If these traits provide the functionality</span>
-<span class="doccomment">//! that you need, then you can avoid coupling with the Balances pallet.</span>
+<span class="doccomment">//! The Balances pallet provides implementations for the following traits. If these traits provide</span>
+<span class="doccomment">//! the functionality that you need, then you can avoid coupling with the Balances pallet.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! - [`Currency`](frame_support::traits::Currency): Functions for dealing with a</span>
 <span class="doccomment">//! fungible assets system.</span>
@@ -2207,8 +2222,8 @@
 <span class="doccomment">//! - [`LockableCurrency`](frame_support::traits::LockableCurrency): Functions for</span>
 <span class="doccomment">//! dealing with accounts that allow liquidity restrictions.</span>
 <span class="doccomment">//! - [`Imbalance`](frame_support::traits::Imbalance): Functions for handling</span>
-<span class="doccomment">//! imbalances between total issuance in the system and account balances. Must be used when a function</span>
-<span class="doccomment">//! creates new funds (e.g. a reward) or destroys some funds (e.g. a system fee).</span>
+<span class="doccomment">//! imbalances between total issuance in the system and account balances. Must be used when a</span>
+<span class="doccomment">//! function creates new funds (e.g. a reward) or destroys some funds (e.g. a system fee).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Interface</span>
 <span class="doccomment">//!</span>
@@ -2223,7 +2238,8 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Examples from the FRAME</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The Contract pallet uses the `Currency` trait to handle gas payment, and its types inherit from `Currency`:</span>
+<span class="doccomment">//! The Contract pallet uses the `Currency` trait to handle gas payment, and its types inherit from</span>
+<span class="doccomment">//! `Currency`:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//! use frame_support::traits::Currency;</span>
@@ -2378,18 +2394,19 @@
 		<span class="doccomment">/// The dispatch origin for this call must be `Signed` by the transactor.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// # &lt;weight&gt;</span>
-		<span class="doccomment">/// - Dependent on arguments but not critical, given proper implementations for</span>
-		<span class="doccomment">///   input config types. See related functions below.</span>
-		<span class="doccomment">/// - It contains a limited number of reads and writes internally and no complex computation.</span>
+		<span class="doccomment">/// - Dependent on arguments but not critical, given proper implementations for input config</span>
+		<span class="doccomment">///   types. See related functions below.</span>
+		<span class="doccomment">/// - It contains a limited number of reads and writes internally and no complex</span>
+		<span class="doccomment">///   computation.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Related functions:</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">///   - `ensure_can_withdraw` is always called internally but has a bounded complexity.</span>
 		<span class="doccomment">///   - Transferring balances to accounts that did not exist before will cause</span>
-		<span class="doccomment">///      `T::OnNewAccount::on_new_account` to be called.</span>
+		<span class="doccomment">///     `T::OnNewAccount::on_new_account` to be called.</span>
 		<span class="doccomment">///   - Removing enough funds from an account will trigger `T::DustRemoval::on_unbalanced`.</span>
-		<span class="doccomment">///   - `transfer_keep_alive` works the same way as `transfer`, but has an additional</span>
-		<span class="doccomment">///     check that the transfer will not kill the origin account.</span>
+		<span class="doccomment">///   - `transfer_keep_alive` works the same way as `transfer`, but has an additional check</span>
+		<span class="doccomment">///     that the transfer will not kill the origin account.</span>
 		<span class="doccomment">/// ---------------------------------</span>
 		<span class="doccomment">/// - Base Weight: 73.64 µs, worst case scenario (account created, account removed)</span>
 		<span class="doccomment">/// - DB Weight: 1 Read and 1 Write to destination account</span>
@@ -2473,8 +2490,8 @@
 		<span class="doccomment">/// Exactly as `transfer`, except the origin must be root and the source account may be</span>
 		<span class="doccomment">/// specified.</span>
 		<span class="doccomment">/// # &lt;weight&gt;</span>
-		<span class="doccomment">/// - Same as transfer, but additional read and write because the source account is</span>
-		<span class="doccomment">///   not assumed to be in the overlay.</span>
+		<span class="doccomment">/// - Same as transfer, but additional read and write because the source account is not</span>
+		<span class="doccomment">///   assumed to be in the overlay.</span>
 		<span class="doccomment">/// # &lt;/weight&gt;</span>
 		<span class="attribute">#[<span class="ident">pallet::weight</span>(<span class="ident">T::WeightInfo::force_transfer</span>())]</span>
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">force_transfer</span>(
@@ -2532,8 +2549,7 @@
 		<span class="doccomment">/// - `keep_alive`: A boolean to determine if the `transfer_all` operation should send all</span>
 		<span class="doccomment">///   of the funds the account has, causing the sender account to be killed (false), or</span>
 		<span class="doccomment">///   transfer everything except at least the existential deposit, which will guarantee to</span>
-		<span class="doccomment">///   keep the sender account alive (true).</span>
-		<span class="doccomment">///   # &lt;weight&gt;</span>
+		<span class="doccomment">///   keep the sender account alive (true). # &lt;weight&gt;</span>
 		<span class="doccomment">/// - O(1). Just like transfer, but reading the user&#39;s transferable balance first.</span>
 		<span class="doccomment">///   #&lt;/weight&gt;</span>
 		<span class="attribute">#[<span class="ident">pallet::weight</span>(<span class="ident">T::WeightInfo::transfer_all</span>())]</span>
@@ -3181,8 +3197,8 @@
 		<span class="kw">if</span> <span class="ident">frame_system::Pallet</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::can_dec_provider</span>(<span class="ident">who</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">keep_alive</span> {
 			<span class="ident">liquid</span>
 		} <span class="kw">else</span> {
-			<span class="comment">// `must_remain_to_exist` is the part of liquid balance which must remain to keep total over</span>
-			<span class="comment">// ED.</span>
+			<span class="comment">// `must_remain_to_exist` is the part of liquid balance which must remain to keep total</span>
+			<span class="comment">// over ED.</span>
 			<span class="kw">let</span> <span class="ident">must_remain_to_exist</span> <span class="op">=</span>
 				<span class="ident">T::ExistentialDeposit::get</span>().<span class="ident">saturating_sub</span>(<span class="ident">a</span>.<span class="ident">total</span>() <span class="op">-</span> <span class="ident">liquid</span>);
 			<span class="ident">liquid</span>.<span class="ident">saturating_sub</span>(<span class="ident">must_remain_to_exist</span>)
@@ -3593,8 +3609,8 @@
 							.<span class="ident">checked_sub</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>)
 							.<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::InsufficientBalance</span>)<span class="question-mark">?</span>;
 
-						<span class="comment">// NOTE: total stake being stored in the same type means that this could never overflow</span>
-						<span class="comment">// but better to be safe than sorry.</span>
+						<span class="comment">// NOTE: total stake being stored in the same type means that this could</span>
+						<span class="comment">// never overflow but better to be safe than sorry.</span>
 						<span class="ident">to_account</span>.<span class="ident">free</span> <span class="op">=</span>
 							<span class="ident">to_account</span>.<span class="ident">free</span>.<span class="ident">checked_add</span>(<span class="kw-2">&amp;</span><span class="ident">value</span>).<span class="ident">ok_or</span>(<span class="ident">ArithmeticError::Overflow</span>)<span class="question-mark">?</span>;
 
@@ -3609,8 +3625,8 @@
 						)
 						.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::LiquidityRestrictions</span>)<span class="question-mark">?</span>;
 
-						<span class="comment">// TODO: This is over-conservative. There may now be other providers, and this pallet</span>
-						<span class="comment">//   may not even be a provider.</span>
+						<span class="comment">// TODO: This is over-conservative. There may now be other providers, and</span>
+						<span class="comment">// this pallet   may not even be a provider.</span>
 						<span class="kw">let</span> <span class="ident">allow_death</span> <span class="op">=</span> <span class="ident">existence_requirement</span> <span class="op">=</span><span class="op">=</span> <span class="ident">ExistenceRequirement::AllowDeath</span>;
 						<span class="kw">let</span> <span class="ident">allow_death</span> <span class="op">=</span>
 							<span class="ident">allow_death</span> <span class="op">&amp;&amp;</span> <span class="ident">system::Pallet</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::can_dec_provider</span>(<span class="ident">transactor</span>);
@@ -3638,9 +3654,9 @@
 	<span class="doccomment">/// Is a no-op if `value` to be slashed is zero or the account does not exist.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// NOTE: `slash()` prefers free balance, but assumes that reserve balance can be drawn</span>
-	<span class="doccomment">/// from in extreme circumstances. `can_slash()` should be used prior to `slash()` to avoid having</span>
-	<span class="doccomment">/// to draw from reserved funds, however we err on the side of punishment if things are inconsistent</span>
-	<span class="doccomment">/// or `can_slash` wasn&#39;t used appropriately.</span>
+	<span class="doccomment">/// from in extreme circumstances. `can_slash()` should be used prior to `slash()` to avoid</span>
+	<span class="doccomment">/// having to draw from reserved funds, however we err on the side of punishment if things are</span>
+	<span class="doccomment">/// inconsistent or `can_slash` wasn&#39;t used appropriately.</span>
 	<span class="kw">fn</span> <span class="ident">slash</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>, <span class="ident">value</span>: <span class="self">Self</span><span class="ident">::Balance</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="self">Self</span><span class="ident">::NegativeImbalance</span>, <span class="self">Self</span><span class="ident">::Balance</span>) {
 		<span class="kw">if</span> <span class="ident">value</span>.<span class="ident">is_zero</span>() {
 			<span class="kw">return</span> (<span class="ident">NegativeImbalance::zero</span>(), <span class="ident">Zero::zero</span>())
@@ -3657,7 +3673,8 @@
 				 <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="self">Self</span><span class="ident">::NegativeImbalance</span>, <span class="self">Self</span><span class="ident">::Balance</span>), <span class="ident">DispatchError</span><span class="op">&gt;</span> {
 					<span class="comment">// Best value is the most amount we can slash following liveness rules.</span>
 					<span class="kw">let</span> <span class="ident">best_value</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">attempt</span> {
-						<span class="comment">// First attempt we try to slash the full amount, and see if liveness issues happen.</span>
+						<span class="comment">// First attempt we try to slash the full amount, and see if liveness issues</span>
+						<span class="comment">// happen.</span>
 						<span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">value</span>,
 						<span class="comment">// If acting as a critical provider (i.e. first attempt failed), then slash</span>
 						<span class="comment">// as much as possible while leaving at least at ED.</span>
@@ -3677,7 +3694,8 @@
 						<span class="ident">account</span>.<span class="ident">reserved</span> <span class="op">-</span><span class="op">=</span> <span class="ident">reserved_slash</span>; <span class="comment">// Safe because of above check</span>
 						<span class="prelude-val">Ok</span>((
 							<span class="ident">NegativeImbalance::new</span>(<span class="ident">free_slash</span> <span class="op">+</span> <span class="ident">reserved_slash</span>),
-							<span class="ident">value</span> <span class="op">-</span> <span class="ident">free_slash</span> <span class="op">-</span> <span class="ident">reserved_slash</span>, <span class="comment">/* Safe because value is gt or eq total slashed */</span>
+							<span class="ident">value</span> <span class="op">-</span> <span class="ident">free_slash</span> <span class="op">-</span> <span class="ident">reserved_slash</span>, <span class="comment">/* Safe because value is gt or
+							                                      * eq total slashed */</span>
 						))
 					} <span class="kw">else</span> {
 						<span class="comment">// Else we are done!</span>
@@ -3722,8 +3740,10 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This function is a no-op if:</span>
 	<span class="doccomment">/// - the `value` to be deposited is zero; or</span>
-	<span class="doccomment">/// - the `value` to be deposited is less than the required ED and the account does not yet exist; or</span>
-	<span class="doccomment">/// - the deposit would necessitate the account to exist and there are no provider references; or</span>
+	<span class="doccomment">/// - the `value` to be deposited is less than the required ED and the account does not yet</span>
+	<span class="doccomment">///   exist; or</span>
+	<span class="doccomment">/// - the deposit would necessitate the account to exist and there are no provider references;</span>
+	<span class="doccomment">///   or</span>
 	<span class="doccomment">/// - `value` is so large it would cause the balance of `who` to overflow.</span>
 	<span class="kw">fn</span> <span class="ident">deposit_creating</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>, <span class="ident">value</span>: <span class="self">Self</span><span class="ident">::Balance</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::PositiveImbalance</span> {
 		<span class="kw">if</span> <span class="ident">value</span>.<span class="ident">is_zero</span>() {
@@ -3873,8 +3893,8 @@
 		<span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">Self</span><span class="ident">::mutate_account</span>(<span class="ident">who</span>, <span class="op">|</span><span class="ident">account</span><span class="op">|</span> {
 			<span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">cmp::min</span>(<span class="ident">account</span>.<span class="ident">reserved</span>, <span class="ident">value</span>);
 			<span class="ident">account</span>.<span class="ident">reserved</span> <span class="op">-</span><span class="op">=</span> <span class="ident">actual</span>;
-			<span class="comment">// defensive only: this can never fail since total issuance which is at least free+reserved</span>
-			<span class="comment">// fits into the same data type.</span>
+			<span class="comment">// defensive only: this can never fail since total issuance which is at least</span>
+			<span class="comment">// free+reserved fits into the same data type.</span>
 			<span class="ident">account</span>.<span class="ident">free</span> <span class="op">=</span> <span class="ident">account</span>.<span class="ident">free</span>.<span class="ident">saturating_add</span>(<span class="ident">actual</span>);
 			<span class="ident">actual</span>
 		}) {
@@ -4120,7 +4140,8 @@
 												<span class="ident">status</span>,
 											)<span class="question-mark">?</span>;
 
-										<span class="comment">// remain should always be zero but just to be defensive here</span>
+										<span class="comment">// remain should always be zero but just to be defensive</span>
+										<span class="comment">// here</span>
 										<span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">to_change</span>.<span class="ident">saturating_sub</span>(<span class="ident">remain</span>);
 
 										<span class="comment">// this add can&#39;t overflow but just to be defensive.</span>
@@ -4138,7 +4159,8 @@
 												<span class="ident">status</span>,
 											)<span class="question-mark">?</span>;
 
-										<span class="comment">// remain should always be zero but just to be defensive here</span>
+										<span class="comment">// remain should always be zero but just to be defensive</span>
+										<span class="comment">// here</span>
 										<span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">to_change</span>.<span class="ident">saturating_sub</span>(<span class="ident">remain</span>);
 
 										<span class="ident">reserves</span>

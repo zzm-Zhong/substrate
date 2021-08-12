@@ -1780,6 +1780,11 @@
 <span id="1769">1769</span>
 <span id="1770">1770</span>
 <span id="1771">1771</span>
+<span id="1772">1772</span>
+<span id="1773">1773</span>
+<span id="1774">1774</span>
+<span id="1775">1775</span>
+<span id="1776">1776</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1989,7 +1994,8 @@
 		<span class="ident">NativeWhenPossible</span>,
 		<span class="doccomment">/// Use the given wasm module.</span>
 		<span class="ident">AlwaysWasm</span>,
-		<span class="doccomment">/// Run with both the wasm and the native variant (if compatible). Report any discrepancy as an error.</span>
+		<span class="doccomment">/// Run with both the wasm and the native variant (if compatible). Report any discrepancy</span>
+		<span class="doccomment">/// as an error.</span>
 		<span class="ident">Both</span>,
 		<span class="doccomment">/// First native, then if that fails or is not possible, wasm.</span>
 		<span class="ident">NativeElseWasm</span>,
@@ -2013,10 +2019,12 @@
 		<span class="doccomment">/// otherwise fall back to the wasm.</span>
 		<span class="ident">NativeWhenPossible</span>,
 		<span class="doccomment">/// Use the given wasm module. The backend on which code is executed code could be</span>
-		<span class="doccomment">/// trusted to provide all storage or not (i.e. the light client cannot be trusted to provide</span>
-		<span class="doccomment">/// for all storage queries since the storage entries it has come from an external node).</span>
+		<span class="doccomment">/// trusted to provide all storage or not (i.e. the light client cannot be trusted to</span>
+		<span class="doccomment">/// provide for all storage queries since the storage entries it has come from an external</span>
+		<span class="doccomment">/// node).</span>
 		<span class="ident">AlwaysWasm</span>(<span class="ident">BackendTrustLevel</span>),
-		<span class="doccomment">/// Run with both the wasm and the native variant (if compatible). Call `F` in the case of any discrepancy.</span>
+		<span class="doccomment">/// Run with both the wasm and the native variant (if compatible). Call `F` in the case of</span>
+		<span class="doccomment">/// any discrepancy.</span>
 		<span class="ident">Both</span>(<span class="ident">F</span>),
 		<span class="doccomment">/// First native, then if that fails or is not possible, wasm.</span>
 		<span class="ident">NativeElseWasm</span>,
@@ -2061,12 +2069,14 @@
 		<span class="ident">ExecutionManager::NativeElseWasm</span>
 	}
 
-	<span class="doccomment">/// Evaluate to ExecutionManager::AlwaysWasm with trusted backend, without having to figure out the type.</span>
+	<span class="doccomment">/// Evaluate to ExecutionManager::AlwaysWasm with trusted backend, without having to figure out</span>
+	<span class="doccomment">/// the type.</span>
 	<span class="kw">fn</span> <span class="ident">always_wasm</span><span class="op">&lt;</span><span class="ident">E</span>, <span class="ident">R</span>: <span class="ident">Decode</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecutionManager</span><span class="op">&lt;</span><span class="ident">DefaultHandler</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="ident">ExecutionManager::AlwaysWasm</span>(<span class="ident">BackendTrustLevel::Trusted</span>)
 	}
 
-	<span class="doccomment">/// Evaluate ExecutionManager::AlwaysWasm with untrusted backend, without having to figure out the type.</span>
+	<span class="doccomment">/// Evaluate ExecutionManager::AlwaysWasm with untrusted backend, without having to figure out</span>
+	<span class="doccomment">/// the type.</span>
 	<span class="kw">fn</span> <span class="ident">always_untrusted_wasm</span><span class="op">&lt;</span><span class="ident">E</span>, <span class="ident">R</span>: <span class="ident">Decode</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecutionManager</span><span class="op">&lt;</span><span class="ident">DefaultHandler</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="ident">ExecutionManager::AlwaysWasm</span>(<span class="ident">BackendTrustLevel::Untrusted</span>)
 	}
@@ -2173,8 +2183,8 @@
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Returns the SCALE encoded result of the executed function.</span>
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">execute</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">strategy</span>: <span class="ident">ExecutionStrategy</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-			<span class="comment">// We are not giving a native call and thus we are sure that the result can never be a native</span>
-			<span class="comment">// value.</span>
+			<span class="comment">// We are not giving a native call and thus we are sure that the result can never be a</span>
+			<span class="comment">// native value.</span>
 			<span class="self">self</span>.<span class="ident">execute_using_consensus_failure_handler</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">NeverNativeValue</span>, <span class="kw">fn</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw">_</span><span class="op">&gt;</span>(
 				<span class="ident">strategy</span>.<span class="ident">get_manager</span>(),
 				<span class="prelude-val">None</span>,

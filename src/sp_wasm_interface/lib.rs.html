@@ -508,6 +508,7 @@
 <span id="497">497</span>
 <span id="498">498</span>
 <span id="499">499</span>
+<span id="500">500</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -654,7 +655,8 @@
 
 	<span class="doccomment">/// Calculate the offset from this pointer.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// `offset` is in units of `T`. So, `3` means `3 * mem::size_of::&lt;T&gt;()` as offset to the pointer.</span>
+	<span class="doccomment">/// `offset` is in units of `T`. So, `3` means `3 * mem::size_of::&lt;T&gt;()` as offset to the</span>
+	<span class="doccomment">/// pointer.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Returns an `Option` to respect that the pointer could probably overflow.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">offset</span>(<span class="self">self</span>, <span class="ident">offset</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {

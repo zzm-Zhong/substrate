@@ -160,6 +160,7 @@
 <span id="149">149</span>
 <span id="150">150</span>
 <span id="151">151</span>
+<span id="152">152</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -305,7 +306,8 @@
 	<span class="op">&lt;</span><span class="ident">B</span> <span class="kw">as</span> <span class="ident">Balanced</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::OnDropCredit</span>,
 <span class="op">&gt;</span>;
 
-<span class="doccomment">/// Imbalance implying that the total_issuance value is greater than the sum of all account balances.</span>
+<span class="doccomment">/// Imbalance implying that the total_issuance value is greater than the sum of all account</span>
+<span class="doccomment">/// balances.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">CreditOf</span><span class="op">&lt;</span><span class="ident">AccountId</span>, <span class="ident">B</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Imbalance</span><span class="op">&lt;</span>
 	<span class="op">&lt;</span><span class="ident">B</span> <span class="kw">as</span> <span class="ident">Inspect</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Balance</span>,
 	<span class="comment">// This will generally be implemented by decreasing the total_issuance value.</span>

@@ -218,7 +218,7 @@
 
 <span class="kw">use</span> <span class="ident">parking_lot::RwLock</span>;
 <span class="kw">use</span> <span class="ident">sc_client_api::backend</span>;
-<span class="kw">use</span> <span class="ident">sc_executor::RuntimeInfo</span>;
+<span class="kw">use</span> <span class="ident">sc_executor::RuntimeVersionOf</span>;
 <span class="kw">use</span> <span class="ident">sp_blockchain</span>::{<span class="ident">HeaderBackend</span>, <span class="prelude-ty">Result</span>};
 <span class="kw">use</span> <span class="ident">sp_core::traits</span>::{<span class="ident">FetchRuntimeCode</span>, <span class="ident">RuntimeCode</span>};
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{
@@ -337,7 +337,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Executor</span>, <span class="ident">Backend</span>, <span class="ident">Block</span><span class="op">&gt;</span> <span class="ident">WasmSubstitutes</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Executor</span>, <span class="ident">Backend</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-	<span class="ident">Executor</span>: <span class="ident">RuntimeInfo</span> <span class="op">+</span> <span class="ident">Clone</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+	<span class="ident">Executor</span>: <span class="ident">RuntimeVersionOf</span> <span class="op">+</span> <span class="ident">Clone</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">Backend</span>: <span class="ident">backend::Backend</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 	<span class="ident">Block</span>: <span class="ident">BlockT</span>,
 {

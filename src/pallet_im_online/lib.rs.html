@@ -873,6 +873,8 @@
 <span id="862">862</span>
 <span id="863">863</span>
 <span id="864">864</span>
+<span id="865">865</span>
+<span id="866">866</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1098,7 +1100,8 @@
 	<span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">frame_system::Config</span><span class="op">&gt;</span><span class="ident">::AccountId</span>,
 <span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::ValidatorId</span>;
 
-<span class="doccomment">/// A tuple of (ValidatorId, Identification) where `Identification` is the full identification of `ValidatorId`.</span>
+<span class="doccomment">/// A tuple of (ValidatorId, Identification) where `Identification` is the full identification of</span>
+<span class="doccomment">/// `ValidatorId`.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">IdentificationTuple</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> (
 	<span class="ident">ValidatorId</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 	<span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::ValidatorSet</span> <span class="kw">as</span> <span class="ident">ValidatorSetWithIdentification</span><span class="op">&lt;</span>
@@ -1251,8 +1254,8 @@
 	<span class="attribute">#[<span class="ident">pallet::call</span>]</span>
 	<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 		<span class="doccomment">/// # &lt;weight&gt;</span>
-		<span class="doccomment">/// - Complexity: `O(K + E)` where K is length of `Keys` (heartbeat.validators_len)</span>
-		<span class="doccomment">///   and E is length of `heartbeat.network_state.external_address`</span>
+		<span class="doccomment">/// - Complexity: `O(K + E)` where K is length of `Keys` (heartbeat.validators_len) and E is</span>
+		<span class="doccomment">///   length of `heartbeat.network_state.external_address`</span>
 		<span class="doccomment">///   - `O(K)`: decoding of length `K`</span>
 		<span class="doccomment">///   - `O(E)`: decoding/encoding of length `E`</span>
 		<span class="doccomment">/// - DbReads: pallet_session `Validators`, pallet_session `CurrentIndex`, `Keys`,</span>
@@ -1323,7 +1326,8 @@
 		}
 	}
 
-	<span class="doccomment">/// Invalid transaction custom error. Returned when validators_len field in heartbeat is incorrect.</span>
+	<span class="doccomment">/// Invalid transaction custom error. Returned when validators_len field in heartbeat is</span>
+	<span class="doccomment">/// incorrect.</span>
 	<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const</span> <span class="ident">INVALID_VALIDATORS_LEN</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="number">10</span>;
 
 	<span class="attribute">#[<span class="ident">pallet::validate_unsigned</span>]</span>

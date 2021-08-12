@@ -482,6 +482,7 @@
 <span id="471">471</span>
 <span id="472">472</span>
 <span id="473">473</span>
+<span id="474">474</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -532,7 +533,8 @@
 	<span class="ident">SIZE</span>.<span class="ident">into</span>()
 }
 
-<span class="doccomment">/// Returns Some(cht_number) if CHT is need to be built when the block with given number is canonized.</span>
+<span class="doccomment">/// Returns Some(cht_number) if CHT is need to be built when the block with given number is</span>
+<span class="doccomment">/// canonized.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_build_required</span><span class="op">&lt;</span><span class="ident">N</span><span class="op">&gt;</span>(<span class="ident">cht_size</span>: <span class="ident">N</span>, <span class="ident">block_num</span>: <span class="ident">N</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">N</span><span class="op">&gt;</span>
 <span class="kw">where</span>
 	<span class="ident">N</span>: <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">AtLeast32Bit</span>,

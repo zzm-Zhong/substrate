@@ -726,6 +726,10 @@
 <span id="715">715</span>
 <span id="716">716</span>
 <span id="717">717</span>
+<span id="718">718</span>
+<span id="719">719</span>
+<span id="720">720</span>
+<span id="721">721</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -789,9 +793,10 @@
 <span class="doccomment">//! `${TRAIT_NAME}_${FUNCTION_NAME}`. Such a function has the following signature</span>
 <span class="doccomment">//! `(ptr: *u8, length: u32) -&gt; u64`. It takes a pointer to an `u8` array and its length as an</span>
 <span class="doccomment">//! argument. This `u8` array is expected to be the SCALE encoded parameters of the function as</span>
-<span class="doccomment">//! defined in the trait. The return value is an `u64` that represents `length &lt;&lt; 32 | pointer` of an</span>
-<span class="doccomment">//! `u8` array. This return value `u8` array contains the SCALE encoded return value as defined by</span>
-<span class="doccomment">//! the trait function. The macros take care to encode the parameters and to decode the return value.</span>
+<span class="doccomment">//! defined in the trait. The return value is an `u64` that represents `length &lt;&lt; 32 | pointer` of</span>
+<span class="doccomment">//! an `u8` array. This return value `u8` array contains the SCALE encoded return value as defined</span>
+<span class="doccomment">//! by the trait function. The macros take care to encode the parameters and to decode the return</span>
+<span class="doccomment">//! value.</span>
 
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>), <span class="ident">no_std</span>)]</span>
 
@@ -845,8 +850,9 @@
 <span class="doccomment">/// on the runtime side. The declaration for the runtime side is hidden in its own module.</span>
 <span class="doccomment">/// The client side declaration gets two extra parameters per function,</span>
 <span class="doccomment">/// `&amp;self` and `at: &amp;BlockId&lt;Block&gt;`. The runtime side declaration will match the given trait</span>
-<span class="doccomment">/// declaration. Besides one exception, the macro adds an extra generic parameter `Block: BlockT`</span>
-<span class="doccomment">/// to the client side and the runtime side. This generic parameter is usable by the user.</span>
+<span class="doccomment">/// declaration. Besides one exception, the macro adds an extra generic parameter `Block:</span>
+<span class="doccomment">/// BlockT` to the client side and the runtime side. This generic parameter is usable by the</span>
+<span class="doccomment">/// user.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// For implementing these macros you should use the</span>
 <span class="doccomment">/// [`impl_runtime_apis!`] macro.</span>
@@ -878,14 +884,14 @@
 <span class="doccomment">/// # Runtime api trait versioning</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// To support versioning of the traits, the macro supports the attribute `#[api_version(1)]`.</span>
-<span class="doccomment">/// The attribute supports any `u32` as version. By default, each trait is at version `1`, if no</span>
-<span class="doccomment">/// version is provided. We also support changing the signature of a method. This signature</span>
-<span class="doccomment">/// change is highlighted with the `#[changed_in(2)]` attribute above a method. A method that is</span>
-<span class="doccomment">/// tagged with this attribute is callable by the name `METHOD_before_version_VERSION`. This</span>
-<span class="doccomment">/// method will only support calling into wasm, trying to call into native will fail (change the</span>
-<span class="doccomment">/// spec version!). Such a method also does not need to be implemented in the runtime. It is</span>
-<span class="doccomment">/// required that there exist the &quot;default&quot; of the method without the `#[changed_in(_)]` attribute,</span>
-<span class="doccomment">/// this method will be used to call the current default implementation.</span>
+<span class="doccomment">/// The attribute supports any `u32` as version. By default, each trait is at version `1`, if</span>
+<span class="doccomment">/// no version is provided. We also support changing the signature of a method. This signature</span>
+<span class="doccomment">/// change is highlighted with the `#[changed_in(2)]` attribute above a method. A method that</span>
+<span class="doccomment">/// is tagged with this attribute is callable by the name `METHOD_before_version_VERSION`. This</span>
+<span class="doccomment">/// method will only support calling into wasm, trying to call into native will fail (change</span>
+<span class="doccomment">/// the spec version!). Such a method also does not need to be implemented in the runtime. It</span>
+<span class="doccomment">/// is required that there exist the &quot;default&quot; of the method without the `#[changed_in(_)]`</span>
+<span class="doccomment">/// attribute, this method will be used to call the current default implementation.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```rust</span>
 <span class="doccomment">/// sp_api::decl_runtime_apis! {</span>
@@ -910,22 +916,23 @@
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// To check if a given runtime implements a runtime api trait, the `RuntimeVersion` has the</span>
-<span class="doccomment">/// function `has_api&lt;A&gt;()`. Also the `ApiExt` provides a function `has_api&lt;A&gt;(at: &amp;BlockId)` to</span>
-<span class="doccomment">/// check if the runtime at the given block id implements the requested runtime api trait.</span>
+<span class="doccomment">/// function `has_api&lt;A&gt;()`. Also the `ApiExt` provides a function `has_api&lt;A&gt;(at: &amp;BlockId)`</span>
+<span class="doccomment">/// to check if the runtime at the given block id implements the requested runtime api trait.</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_api_proc_macro::decl_runtime_apis</span>;
 
 <span class="doccomment">/// Tags given trait implementations as runtime apis.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// All traits given to this macro, need to be declared with the</span>
 <span class="doccomment">/// [`decl_runtime_apis!`](macro.decl_runtime_apis.html) macro. The implementation of the trait</span>
-<span class="doccomment">/// should follow the declaration given to the [`decl_runtime_apis!`](macro.decl_runtime_apis.html)</span>
-<span class="doccomment">/// macro, besides the `Block` type that is required as first generic parameter for each runtime</span>
-<span class="doccomment">/// api trait. When implementing a runtime api trait, it is required that the trait is referenced</span>
-<span class="doccomment">/// by a path, e.g. `impl my_trait::MyTrait for Runtime`. The macro will use this path to access</span>
-<span class="doccomment">/// the declaration of the trait for the runtime side.</span>
+<span class="doccomment">/// should follow the declaration given to the</span>
+<span class="doccomment">/// [`decl_runtime_apis!`](macro.decl_runtime_apis.html) macro, besides the `Block` type that</span>
+<span class="doccomment">/// is required as first generic parameter for each runtime api trait. When implementing a</span>
+<span class="doccomment">/// runtime api trait, it is required that the trait is referenced by a path, e.g. `impl</span>
+<span class="doccomment">/// my_trait::MyTrait for Runtime`. The macro will use this path to access the declaration of</span>
+<span class="doccomment">/// the trait for the runtime side.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The macro also generates the api implementations for the client side and provides it through</span>
-<span class="doccomment">/// the `RuntimeApi` type. The `RuntimeApi` is hidden behind a `feature` called `std`.</span>
+<span class="doccomment">/// The macro also generates the api implementations for the client side and provides it</span>
+<span class="doccomment">/// through the `RuntimeApi` type. The `RuntimeApi` is hidden behind a `feature` called `std`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// To expose version information about all implemented api traits, the constant</span>
 <span class="doccomment">/// `RUNTIME_API_VERSIONS` is generated. This constant should be used to instantiate the `apis`</span>
@@ -1004,13 +1011,13 @@
 <span class="doccomment">/// Mocks given trait implementations as runtime apis.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Accepts similar syntax as [`impl_runtime_apis!`] and generates</span>
-<span class="doccomment">/// simplified mock implementations of the given runtime apis. The difference in syntax is that the</span>
-<span class="doccomment">/// trait does not need to be referenced by a qualified path, methods accept the `&amp;self` parameter</span>
-<span class="doccomment">/// and the error type can be specified as associated type. If no error type is specified [`String`]</span>
-<span class="doccomment">/// is used as error type.</span>
+<span class="doccomment">/// simplified mock implementations of the given runtime apis. The difference in syntax is that</span>
+<span class="doccomment">/// the trait does not need to be referenced by a qualified path, methods accept the `&amp;self`</span>
+<span class="doccomment">/// parameter and the error type can be specified as associated type. If no error type is</span>
+<span class="doccomment">/// specified [`String`] is used as error type.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Besides implementing the given traits, the [`Core`](sp_api::Core) and [`ApiExt`](sp_api::ApiExt)</span>
-<span class="doccomment">/// are implemented automatically.</span>
+<span class="doccomment">/// Besides implementing the given traits, the [`Core`](sp_api::Core) and</span>
+<span class="doccomment">/// [`ApiExt`](sp_api::ApiExt) are implemented automatically.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Example</span>
 <span class="doccomment">///</span>
@@ -1058,14 +1065,15 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # `advanced` attribute</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This attribute can be placed above individual function in the mock implementation to request</span>
-<span class="doccomment">/// more control over the function declaration. From the client side each runtime api function is</span>
-<span class="doccomment">/// called with the `at` parameter that is a [`BlockId`](sp_api::BlockId). When using the `advanced`</span>
-<span class="doccomment">/// attribute, the macro expects that the first parameter of the function is this `at` parameter.</span>
-<span class="doccomment">/// Besides that the macro also doesn&#39;t do the automatic return value rewrite, which means that full</span>
-<span class="doccomment">/// return value must be specified. The full return value is constructed like</span>
-<span class="doccomment">/// [`Result`]`&lt;`[`NativeOrEncoded`](sp_api::NativeOrEncoded)`&lt;ReturnValue&gt;, Error&gt;` while</span>
-<span class="doccomment">/// `ReturnValue` being the return value that is specified in the trait declaration.</span>
+<span class="doccomment">/// This attribute can be placed above individual function in the mock implementation to</span>
+<span class="doccomment">/// request more control over the function declaration. From the client side each runtime api</span>
+<span class="doccomment">/// function is called with the `at` parameter that is a [`BlockId`](sp_api::BlockId). When</span>
+<span class="doccomment">/// using the `advanced` attribute, the macro expects that the first parameter of the function</span>
+<span class="doccomment">/// is this `at` parameter. Besides that the macro also doesn&#39;t do the automatic return value</span>
+<span class="doccomment">/// rewrite, which means that full return value must be specified. The full return value is</span>
+<span class="doccomment">/// constructed like [`Result`]`&lt;`[`NativeOrEncoded`](sp_api::NativeOrEncoded)`&lt;ReturnValue&gt;,</span>
+<span class="doccomment">/// Error&gt;` while `ReturnValue` being the return value that is specified in the trait</span>
+<span class="doccomment">/// declaration.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ## Example</span>
 <span class="doccomment">/// ```rust</span>

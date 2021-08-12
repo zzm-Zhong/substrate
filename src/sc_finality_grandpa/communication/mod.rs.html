@@ -1252,16 +1252,16 @@
 	<span class="ident">neighbor_sender</span>: <span class="ident">periodic::NeighborPacketSender</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
 
 	<span class="doccomment">/// `NeighborPacketWorker` processing packets sent through the `NeighborPacketSender`.</span>
-	<span class="comment">// `NetworkBridge` is required to be cloneable, thus one needs to be able to clone its children,</span>
-	<span class="comment">// thus one has to wrap `neighbor_packet_worker` with an `Arc` `Mutex`.</span>
+	<span class="comment">// `NetworkBridge` is required to be cloneable, thus one needs to be able to clone its</span>
+	<span class="comment">// children, thus one has to wrap `neighbor_packet_worker` with an `Arc` `Mutex`.</span>
 	<span class="ident">neighbor_packet_worker</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">periodic::NeighborPacketWorker</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
 	<span class="doccomment">/// Receiver side of the peer report stream populated by the gossip validator, forwarded to the</span>
 	<span class="doccomment">/// gossip engine.</span>
-	<span class="comment">// `NetworkBridge` is required to be cloneable, thus one needs to be able to clone its children,</span>
-	<span class="comment">// thus one has to wrap gossip_validator_report_stream with an `Arc` `Mutex`. Given that it is</span>
-	<span class="comment">// just an `UnboundedReceiver`, one could also switch to a multi-producer-*multi*-consumer</span>
-	<span class="comment">// channel implementation.</span>
+	<span class="comment">// `NetworkBridge` is required to be cloneable, thus one needs to be able to clone its</span>
+	<span class="comment">// children, thus one has to wrap gossip_validator_report_stream with an `Arc` `Mutex`. Given</span>
+	<span class="comment">// that it is just an `UnboundedReceiver`, one could also switch to a</span>
+	<span class="comment">// multi-producer-*multi*-consumer channel implementation.</span>
 	<span class="ident">gossip_validator_report_stream</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">TracingUnboundedReceiver</span><span class="op">&lt;</span><span class="ident">PeerReport</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
 	<span class="ident">telemetry</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TelemetryHandle</span><span class="op">&gt;</span>,
@@ -1352,8 +1352,8 @@
 			.<span class="ident">note_round</span>(<span class="ident">round</span>, <span class="op">|</span><span class="ident">to</span>, <span class="ident">neighbor</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">neighbor_sender</span>.<span class="ident">send</span>(<span class="ident">to</span>, <span class="ident">neighbor</span>));
 	}
 
-	<span class="doccomment">/// Get a stream of signature-checked round messages from the network as well as a sink for round messages to the</span>
-	<span class="doccomment">/// network all within the current set.</span>
+	<span class="doccomment">/// Get a stream of signature-checked round messages from the network as well as a sink for</span>
+	<span class="doccomment">/// round messages to the network all within the current set.</span>
 	<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">round_communication</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keystore</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LocalIdKeystore</span><span class="op">&gt;</span>,

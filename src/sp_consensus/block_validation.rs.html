@@ -170,9 +170,9 @@
 	<span class="doccomment">/// Returning [`Validation::Failure`] will lead to a decrease of the</span>
 	<span class="doccomment">/// peers reputation as it sent us invalid data.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// The returned future should only resolve to an error iff there was an internal error validating</span>
-	<span class="doccomment">/// the block announcement. If the block announcement itself is invalid, this should *always*</span>
-	<span class="doccomment">/// return [`Validation::Failure`].</span>
+	<span class="doccomment">/// The returned future should only resolve to an error iff there was an internal error</span>
+	<span class="doccomment">/// validating the block announcement. If the block announcement itself is invalid, this should</span>
+	<span class="doccomment">/// *always* return [`Validation::Failure`].</span>
 	<span class="kw">fn</span> <span class="ident">validate</span>(
 		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
 		<span class="ident">header</span>: <span class="kw-2">&amp;</span><span class="ident">B::Header</span>,

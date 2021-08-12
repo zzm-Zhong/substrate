@@ -739,8 +739,8 @@
 	<span class="doccomment">/// more messages to forward.</span>
 	<span class="ident">Idle</span>,
 	<span class="doccomment">/// The gossip engine is in the progress of forwarding messages and thus will not poll the</span>
-	<span class="doccomment">/// network for more messages until it has send all current messages into the subscribed message</span>
-	<span class="doccomment">/// sinks.</span>
+	<span class="doccomment">/// network for more messages until it has send all current messages into the subscribed</span>
+	<span class="doccomment">/// message sinks.</span>
 	<span class="ident">Busy</span>(<span class="ident">VecDeque</span><span class="op">&lt;</span>(<span class="ident">B::Hash</span>, <span class="ident">TopicNotification</span>)<span class="op">&gt;</span>),
 }
 

@@ -1070,7 +1070,6 @@
 <span id="1059">1059</span>
 <span id="1060">1060</span>
 <span id="1061">1061</span>
-<span id="1062">1062</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1353,8 +1352,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This accomplishes two tasks:</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// - checks any imported function against defined host functions set, incl.</span>
-	<span class="doccomment">///   their signatures.</span>
+	<span class="doccomment">/// - checks any imported function against defined host functions set, incl. their signatures.</span>
 	<span class="doccomment">/// - if there is a memory import, returns it&#39;s descriptor</span>
 	<span class="doccomment">/// `import_fn_banlist`: list of function names that are disallowed to be imported</span>
 	<span class="kw">fn</span> <span class="ident">scan_imports</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">ImportSatisfyCheck</span><span class="op">&gt;</span>(

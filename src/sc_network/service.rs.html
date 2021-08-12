@@ -2187,6 +2187,14 @@
 <span id="2176">2176</span>
 <span id="2177">2177</span>
 <span id="2178">2178</span>
+<span id="2179">2179</span>
+<span id="2180">2180</span>
+<span id="2181">2181</span>
+<span id="2182">2182</span>
+<span id="2183">2183</span>
+<span id="2184">2184</span>
+<span id="2185">2185</span>
+<span id="2186">2186</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2919,7 +2927,8 @@
 	<span class="doccomment">/// &gt;			preventing the message from being delivered.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The protocol must have been registered with</span>
-	<span class="doccomment">/// [`NetworkConfiguration::notifications_protocols`](crate::config::NetworkConfiguration::notifications_protocols).</span>
+	<span class="doccomment">/// [`NetworkConfiguration::notifications_protocols`](crate::config::NetworkConfiguration::</span>
+	<span class="doccomment">/// notifications_protocols).</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_notification</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">target</span>: <span class="ident">PeerId</span>,
@@ -2964,7 +2973,8 @@
 	<span class="doccomment">/// Obtains a [`NotificationSender`] for a connected peer, if it exists.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// A `NotificationSender` is scoped to a particular connection to the peer that holds</span>
-	<span class="doccomment">/// a receiver. With a `NotificationSender` at hand, sending a notification is done in two steps:</span>
+	<span class="doccomment">/// a receiver. With a `NotificationSender` at hand, sending a notification is done in two</span>
+	<span class="doccomment">/// steps:</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// 1.  [`NotificationSender::ready`] is used to wait for the sender to become ready</span>
 	<span class="doccomment">/// for another notification, yielding a [`NotificationSenderReady`] token.</span>
@@ -2984,7 +2994,8 @@
 	<span class="doccomment">/// in which case enqueued notifications will be lost.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The protocol must have been registered with</span>
-	<span class="doccomment">/// [`NetworkConfiguration::notifications_protocols`](crate::config::NetworkConfiguration::notifications_protocols).</span>
+	<span class="doccomment">/// [`NetworkConfiguration::notifications_protocols`](crate::config::NetworkConfiguration::</span>
+	<span class="doccomment">/// notifications_protocols).</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// # Usage</span>
 	<span class="doccomment">///</span>
@@ -3073,10 +3084,10 @@
 	<span class="doccomment">/// notifications should remain the default ways of communicating information. For example, a</span>
 	<span class="doccomment">/// peer can announce something through a notification, after which the recipient can obtain</span>
 	<span class="doccomment">/// more information by performing a request.</span>
-	<span class="doccomment">/// As such, call this function with `IfDisconnected::ImmediateError` for `connect`. This way you</span>
-	<span class="doccomment">/// will get an error immediately for disconnected peers, instead of waiting for a potentially very</span>
-	<span class="doccomment">/// long connection attempt, which would suggest that something is wrong anyway, as you are</span>
-	<span class="doccomment">/// supposed to be connected because of the notification protocol.</span>
+	<span class="doccomment">/// As such, call this function with `IfDisconnected::ImmediateError` for `connect`. This way</span>
+	<span class="doccomment">/// you will get an error immediately for disconnected peers, instead of waiting for a</span>
+	<span class="doccomment">/// potentially very long connection attempt, which would suggest that something is wrong</span>
+	<span class="doccomment">/// anyway, as you are supposed to be connected because of the notification protocol.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// No limit or throttling of concurrent outbound requests per peer and protocol are enforced.</span>
 	<span class="doccomment">/// Such restrictions, if desired, need to be enforced at the call site(s).</span>
@@ -3104,7 +3115,8 @@
 		}
 	}
 
-	<span class="doccomment">/// Variation of `request` which starts a request whose response is delivered on a provided channel.</span>
+	<span class="doccomment">/// Variation of `request` which starts a request whose response is delivered on a provided</span>
+	<span class="doccomment">/// channel.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Instead of blocking and waiting for a reply, this function returns immediately, sending</span>
 	<span class="doccomment">/// responses via the passed in sender. This alternative API exists to make it easier to</span>
@@ -3320,7 +3332,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Returns an `Err` if one of the given addresses is invalid or contains an</span>
 	<span class="doccomment">/// invalid peer ID (which includes the local peer ID).</span>
-	<span class="comment">// NOTE: technically, this function only needs `Vec&lt;PeerId&gt;`, but we use `Multiaddr` here for convenience.</span>
+	<span class="comment">// NOTE: technically, this function only needs `Vec&lt;PeerId&gt;`, but we use `Multiaddr` here for</span>
+	<span class="comment">// convenience.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_peers_from_reserved_set</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">protocol</span>: <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span>,
@@ -3388,7 +3401,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Returns an `Err` if one of the given addresses is invalid or contains an</span>
 	<span class="doccomment">/// invalid peer ID (which includes the local peer ID).</span>
-	<span class="comment">// NOTE: technically, this function only needs `Vec&lt;PeerId&gt;`, but we use `Multiaddr` here for convenience.</span>
+	<span class="comment">// NOTE: technically, this function only needs `Vec&lt;PeerId&gt;`, but we use `Multiaddr` here for</span>
+	<span class="comment">// convenience.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_from_peers_set</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">protocol</span>: <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span>,
@@ -3504,7 +3518,8 @@
 }
 
 <span class="kw">impl</span> <span class="ident">NotificationSender</span> {
-	<span class="doccomment">/// Returns a future that resolves when the `NotificationSender` is ready to send a notification.</span>
+	<span class="doccomment">/// Returns a future that resolves when the `NotificationSender` is ready to send a</span>
+	<span class="doccomment">/// notification.</span>
 	<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">ready</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
 		<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">NotificationSenderReady</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">NotificationSenderError</span><span class="op">&gt;</span> {
@@ -3561,7 +3576,8 @@
 <span class="doccomment">/// Error returned by [`NetworkService::send_notification`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">derive_more::Display</span>, <span class="ident">derive_more::Error</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">NotificationSenderError</span> {
-	<span class="doccomment">/// The notification receiver has been closed, usually because the underlying connection closed.</span>
+	<span class="doccomment">/// The notification receiver has been closed, usually because the underlying connection</span>
+	<span class="doccomment">/// closed.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Some of the notifications most recently sent may not have been received. However,</span>
 	<span class="doccomment">/// the peer may still be connected and a new `NotificationSender` for the same</span>

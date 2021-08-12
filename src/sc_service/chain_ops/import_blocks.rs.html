@@ -770,8 +770,8 @@
 {
 	<span class="doccomment">/// We are reading from the BlockIter structure, adding those blocks to the queue if possible.</span>
 	<span class="ident">Reading</span> { <span class="ident">block_iter</span>: <span class="ident">BlockIter</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">B</span><span class="op">&gt;</span> },
-	<span class="doccomment">/// The queue is full (contains at least MAX_PENDING_BLOCKS blocks) and we are waiting for it to</span>
-	<span class="doccomment">/// catch up.</span>
+	<span class="doccomment">/// The queue is full (contains at least MAX_PENDING_BLOCKS blocks) and we are waiting for it</span>
+	<span class="doccomment">/// to catch up.</span>
 	<span class="ident">WaitingForImportQueueToCatchUp</span> {
 		<span class="ident">block_iter</span>: <span class="ident">BlockIter</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">B</span><span class="op">&gt;</span>,
 		<span class="ident">delay</span>: <span class="ident">Delay</span>,

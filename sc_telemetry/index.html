@@ -19,10 +19,10 @@ remote telemetry servers.</p>
 <p>If multiple substrate nodes are running in the same process, it uses a <code>tracing::Span</code> to
 identify which substrate node is reporting the telemetry. Every task spawned using sc-service’s
 <code>TaskManager</code> automatically inherit this span.</p>
-<p>Substrate’s nodes initialize/register with the <a href="struct.TelemetryWorker.html" title="TelemetryWorker"><code>TelemetryWorker</code></a> using a <a href="struct.TelemetryWorkerHandle.html" title="TelemetryWorkerHandle"><code>TelemetryWorkerHandle</code></a>.
-This handle can be cloned and passed around. It uses an asynchronous channel to communicate with
-the running <a href="struct.TelemetryWorker.html" title="TelemetryWorker"><code>TelemetryWorker</code></a> dedicated to registration. Registering can happen at any point
-in time during the process execution.</p>
+<p>Substrate’s nodes initialize/register with the <a href="struct.TelemetryWorker.html" title="TelemetryWorker"><code>TelemetryWorker</code></a> using a
+<a href="struct.TelemetryWorkerHandle.html" title="TelemetryWorkerHandle"><code>TelemetryWorkerHandle</code></a>. This handle can be cloned and passed around. It uses an asynchronous
+channel to communicate with the running <a href="struct.TelemetryWorker.html" title="TelemetryWorker"><code>TelemetryWorker</code></a> dedicated to registration.
+Registering can happen at any point in time during the process execution.</p>
 </div></details><h2 id="reexports" class="section-header"><a href="#reexports">Re-exports</a></h2>
 <div class="item-table"><div class="item-left import-item"><code>pub use <a class="mod" href="https://docs.rs/log/0.4.14/log/index.html" title="mod log">log</a>;</code></div><div class="item-right docblock-short"></div><div class="item-left import-item"><code>pub use <a class="mod" href="https://docs.rs/serde_json/1.0.64/serde_json/index.html" title="mod serde_json">serde_json</a>;</code></div><div class="item-right docblock-short"></div></div><h2 id="macros" class="section-header"><a href="#macros">Macros</a></h2>
 <div class="item-table"><div class="item-left module-item"><a class="macro" href="macro.telemetry.html" title="sc_telemetry::telemetry macro">telemetry</a></div><div class="item-right docblock-short"><p>Report a telemetry.</p>

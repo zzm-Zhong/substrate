@@ -150,17 +150,17 @@
 <span class="doccomment">//! ## Running a single iteration</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Honggfuzz shuts down each individual loop iteration after a configurable time limit.</span>
-<span class="doccomment">//! It can be helpful to run a single iteration on your hardware to help benchmark how long that time</span>
-<span class="doccomment">//! limit should reasonably be. Simply run the program without the `fuzzing` configuration to run a</span>
-<span class="doccomment">//! single iteration: `cargo run --bin phragmen_pjr`.</span>
+<span class="doccomment">//! It can be helpful to run a single iteration on your hardware to help benchmark how long that</span>
+<span class="doccomment">//! time limit should reasonably be. Simply run the program without the `fuzzing` configuration to</span>
+<span class="doccomment">//! run a single iteration: `cargo run --bin phragmen_pjr`.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Running</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Run with `HFUZZ_RUN_ARGS=&quot;-t 10&quot; cargo hfuzz run phragmen_pjr`.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Note the environment variable: by default, `cargo hfuzz` shuts down each iteration after 1 second</span>
-<span class="doccomment">//! of runtime. We significantly increase that to ensure that the fuzzing gets a chance to complete.</span>
-<span class="doccomment">//! Running a single iteration can help determine an appropriate value for this parameter.</span>
+<span class="doccomment">//! Note the environment variable: by default, `cargo hfuzz` shuts down each iteration after 1</span>
+<span class="doccomment">//! second of runtime. We significantly increase that to ensure that the fuzzing gets a chance to</span>
+<span class="doccomment">//! complete. Running a single iteration can help determine an appropriate value for this parameter.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Debugging a panic</span>
 <span class="doccomment">//!</span>

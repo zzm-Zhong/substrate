@@ -248,6 +248,7 @@
 <span id="237">237</span>
 <span id="238">238</span>
 <span id="239">239</span>
+<span id="240">240</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -466,7 +467,8 @@
 				},
 				<span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> {
 					<span class="macro">warn!</span>(<span class="string">&quot;Failed to submit extrinsic: {}&quot;</span>, <span class="ident">err</span>);
-					<span class="comment">// reject the subscriber (ignore errors - we don&#39;t care if subscriber is no longer there).</span>
+					<span class="comment">// reject the subscriber (ignore errors - we don&#39;t care if subscriber is no</span>
+					<span class="comment">// longer there).</span>
 					<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">subscriber</span>.<span class="ident">reject</span>(<span class="ident">err</span>.<span class="ident">into</span>());
 				},
 			});

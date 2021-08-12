@@ -353,11 +353,11 @@
 <span class="comment">// See the License for the specific language governing permissions and</span>
 <span class="comment">// limitations under the License.</span>
 
-<span class="doccomment">//! The best way to understand how this iterator works is to imagine some 2D terrain that have some mountains</span>
-<span class="doccomment">//! (digest changes tries) and valleys (changes tries for regular blocks). There are gems (blocks) beneath the</span>
-<span class="doccomment">//! terrain. Given the request to find all gems in the range [X1; X2] this iterator will return **minimal set**</span>
-<span class="doccomment">//! of points at the terrain (mountains and valleys) inside this range that have to be drilled down to</span>
-<span class="doccomment">//! search for gems.</span>
+<span class="doccomment">//! The best way to understand how this iterator works is to imagine some 2D terrain that have some</span>
+<span class="doccomment">//! mountains (digest changes tries) and valleys (changes tries for regular blocks). There are gems</span>
+<span class="doccomment">//! (blocks) beneath the terrain. Given the request to find all gems in the range [X1; X2] this</span>
+<span class="doccomment">//! iterator will return **minimal set** of points at the terrain (mountains and valleys) inside</span>
+<span class="doccomment">//! this range that have to be drilled down to search for gems.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::changes_trie</span>::{<span class="ident">BlockNumber</span>, <span class="ident">ConfigurationRange</span>};
 <span class="kw">use</span> <span class="ident">num_traits::One</span>;
@@ -388,9 +388,9 @@
 <span class="doccomment">/// Surface iterator - only traverses top-level digests from given range and tries to find</span>
 <span class="doccomment">/// all valid digest changes.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Iterator item is the tuple of (last block of the current point + digest level of the current point).</span>
-<span class="doccomment">/// Digest level is Some(0) when it is regular block, is Some(non-zero) when it is digest block and None</span>
-<span class="doccomment">/// if it is skewed digest block.</span>
+<span class="doccomment">/// Iterator item is the tuple of (last block of the current point + digest level of the current</span>
+<span class="doccomment">/// point). Digest level is Some(0) when it is regular block, is Some(non-zero) when it is digest</span>
+<span class="doccomment">/// block and None if it is skewed digest block.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SurfaceIterator</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Number</span>: <span class="ident">BlockNumber</span><span class="op">&gt;</span> {
 	<span class="ident">config</span>: <span class="ident">ConfigurationRange</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Number</span><span class="op">&gt;</span>,
 	<span class="ident">begin</span>: <span class="ident">Number</span>,

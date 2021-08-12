@@ -445,6 +445,7 @@
 <span id="434">434</span>
 <span id="435">435</span>
 <span id="436">436</span>
+<span id="437">437</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -617,9 +618,9 @@
 
 	<span class="attribute">#[<span class="ident">pallet::call</span>]</span>
 	<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-		<span class="doccomment">/// Index and store data on chain. Minimum data size is 1 bytes, maximum is `MaxTransactionSize`.</span>
-		<span class="doccomment">/// Data will be removed after `STORAGE_PERIOD` blocks, unless `renew` is called.</span>
-		<span class="doccomment">/// # &lt;weight&gt;</span>
+		<span class="doccomment">/// Index and store data on chain. Minimum data size is 1 bytes, maximum is</span>
+		<span class="doccomment">/// `MaxTransactionSize`. Data will be removed after `STORAGE_PERIOD` blocks, unless `renew`</span>
+		<span class="doccomment">/// is called. # &lt;weight&gt;</span>
 		<span class="doccomment">/// - n*log(n) of data size, as all data is pushed to an in-memory trie.</span>
 		<span class="doccomment">/// Additionally contains a DB write.</span>
 		<span class="doccomment">/// # &lt;/weight&gt;</span>
@@ -706,7 +707,8 @@
 		<span class="doccomment">/// Check storage proof for block number `block_number() - StoragePeriod`.</span>
 		<span class="doccomment">/// If such block does not exist the proof is expected to be `None`.</span>
 		<span class="doccomment">/// # &lt;weight&gt;</span>
-		<span class="doccomment">/// - Linear w.r.t the number of indexed transactions in the proved block for random probing.</span>
+		<span class="doccomment">/// - Linear w.r.t the number of indexed transactions in the proved block for random</span>
+		<span class="doccomment">///   probing.</span>
 		<span class="doccomment">/// There&#39;s a DB read for each transaction.</span>
 		<span class="doccomment">/// Here we assume a maximum of 100 probed transactions.</span>
 		<span class="doccomment">/// # &lt;/weight&gt;</span>

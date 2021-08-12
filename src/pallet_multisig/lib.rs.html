@@ -747,8 +747,6 @@
 <span id="736">736</span>
 <span id="737">737</span>
 <span id="738">738</span>
-<span id="739">739</span>
-<span id="740">740</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -879,8 +877,8 @@
 		<span class="doccomment">/// The currency mechanism.</span>
 		<span class="kw">type</span> <span class="ident">Currency</span>: <span class="ident">ReservableCurrency</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::AccountId</span><span class="op">&gt;</span>;
 
-		<span class="doccomment">/// The base amount of currency needed to reserve for creating a multisig execution or to store</span>
-		<span class="doccomment">/// a dispatch call for later.</span>
+		<span class="doccomment">/// The base amount of currency needed to reserve for creating a multisig execution or to</span>
+		<span class="doccomment">/// store a dispatch call for later.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// This is held for an additional storage item whose value size is</span>
 		<span class="doccomment">/// `4 + sizeof((BlockNumber, Balance, AccountId))` bytes and whose key size is</span>
@@ -1085,9 +1083,8 @@
 		<span class="doccomment">/// - I/O: 1 read `O(S)`, up to 1 mutate `O(S)`. Up to one remove.</span>
 		<span class="doccomment">/// - One event.</span>
 		<span class="doccomment">/// - The weight of the `call`.</span>
-		<span class="doccomment">/// - Storage: inserts one item, value size bounded by `MaxSignatories`, with a</span>
-		<span class="doccomment">///   deposit taken for its lifetime of</span>
-		<span class="doccomment">///   `DepositBase + threshold * DepositFactor`.</span>
+		<span class="doccomment">/// - Storage: inserts one item, value size bounded by `MaxSignatories`, with a deposit</span>
+		<span class="doccomment">///   taken for its lifetime of `DepositBase + threshold * DepositFactor`.</span>
 		<span class="doccomment">/// -------------------------------</span>
 		<span class="doccomment">/// - DB Weight:</span>
 		<span class="doccomment">///     - Reads: Multisig Storage, [Caller Account], Calls (if `store_call`)</span>
@@ -1152,9 +1149,8 @@
 		<span class="doccomment">/// - Up to one binary search and insert (`O(logS + S)`).</span>
 		<span class="doccomment">/// - I/O: 1 read `O(S)`, up to 1 mutate `O(S)`. Up to one remove.</span>
 		<span class="doccomment">/// - One event.</span>
-		<span class="doccomment">/// - Storage: inserts one item, value size bounded by `MaxSignatories`, with a</span>
-		<span class="doccomment">///   deposit taken for its lifetime of</span>
-		<span class="doccomment">///   `DepositBase + threshold * DepositFactor`.</span>
+		<span class="doccomment">/// - Storage: inserts one item, value size bounded by `MaxSignatories`, with a deposit</span>
+		<span class="doccomment">///   taken for its lifetime of `DepositBase + threshold * DepositFactor`.</span>
 		<span class="doccomment">/// ----------------------------------</span>
 		<span class="doccomment">/// - DB Weight:</span>
 		<span class="doccomment">///     - Read: Multisig Storage, [Caller Account]</span>

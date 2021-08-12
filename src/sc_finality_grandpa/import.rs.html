@@ -818,6 +818,7 @@
 <span id="807">807</span>
 <span id="808">808</span>
 <span id="809">809</span>
+<span id="810">810</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -921,7 +922,8 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
 		<span class="kw">let</span> <span class="ident">chain_info</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">info</span>();
 
-		<span class="comment">// request justifications for all pending changes for which change blocks have already been imported</span>
+		<span class="comment">// request justifications for all pending changes for which change blocks have already been</span>
+		<span class="comment">// imported</span>
 		<span class="kw">let</span> <span class="ident">pending_changes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span>
 			<span class="self">self</span>.<span class="ident">authority_set</span>.<span class="ident">inner</span>().<span class="ident">pending_changes</span>().<span class="ident">cloned</span>().<span class="ident">collect</span>();
 

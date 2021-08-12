@@ -1021,6 +1021,7 @@
 <span id="1010">1010</span>
 <span id="1011">1011</span>
 <span id="1012">1012</span>
+<span id="1013">1013</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1253,8 +1254,9 @@
 	<span class="ident">Operational</span>,
 	<span class="doccomment">/// A mandatory dispatch. These kinds of dispatch are always included regardless of their</span>
 	<span class="doccomment">/// weight, therefore it is critical that they are separately validated to ensure that a</span>
-	<span class="doccomment">/// malicious validator cannot craft a valid but impossibly heavy block. Usually this just means</span>
-	<span class="doccomment">/// ensuring that the extrinsic can only be included once and that it is always very light.</span>
+	<span class="doccomment">/// malicious validator cannot craft a valid but impossibly heavy block. Usually this just</span>
+	<span class="doccomment">/// means ensuring that the extrinsic can only be included once and that it is always very</span>
+	<span class="doccomment">/// light.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Do *NOT* use it for extrinsics that can be heavy.</span>
 	<span class="doccomment">///</span>
@@ -1552,12 +1554,12 @@
 <span class="doccomment">/// A struct to represent a weight which is a function of the input arguments. The given items have</span>
 <span class="doccomment">/// the following types:</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// - `WD`: a raw `Weight` value or a closure that returns a `Weight` with the same</span>
+<span class="doccomment">/// - `WD`: a raw `Weight` value or a closure that returns a `Weight` with the same argument list as</span>
+<span class="doccomment">///   the dispatched, wrapped in a tuple.</span>
+<span class="doccomment">/// - `CD`: a raw `DispatchClass` value or a closure that returns a `DispatchClass` with the same</span>
 <span class="doccomment">///   argument list as the dispatched, wrapped in a tuple.</span>
-<span class="doccomment">/// - `CD`: a raw `DispatchClass` value or a closure that returns a `DispatchClass`</span>
-<span class="doccomment">///   with the same argument list as the dispatched, wrapped in a tuple.</span>
-<span class="doccomment">/// - `PF`: a `Pays` variant for whether this dispatch pays fee or not or a closure that</span>
-<span class="doccomment">///   returns a `Pays` variant with the same argument list as the dispatched, wrapped in a tuple.</span>
+<span class="doccomment">/// - `PF`: a `Pays` variant for whether this dispatch pays fee or not or a closure that returns a</span>
+<span class="doccomment">///   `Pays` variant with the same argument list as the dispatched, wrapped in a tuple.</span>
 <span class="attribute">#[<span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Function arguments are available directly inside the annotation now.&quot;</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FunctionOf</span><span class="op">&lt;</span><span class="ident">WD</span>, <span class="ident">CD</span>, <span class="ident">PF</span><span class="op">&gt;</span>(<span class="kw">pub</span> <span class="ident">WD</span>, <span class="kw">pub</span> <span class="ident">CD</span>, <span class="kw">pub</span> <span class="ident">PF</span>);
 

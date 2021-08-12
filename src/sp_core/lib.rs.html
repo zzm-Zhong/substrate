@@ -471,6 +471,7 @@
 <span id="460">460</span>
 <span id="461">461</span>
 <span id="462">462</span>
+<span id="463">463</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -592,7 +593,8 @@
 
 		<span class="kw">match</span> <span class="self">self</span> {
 			<span class="ident">Importing</span> <span class="op">|</span> <span class="ident">Syncing</span> <span class="op">|</span> <span class="ident">BlockConstruction</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">offchain::Capabilities::none</span>(),
-			<span class="comment">// Enable keystore, transaction pool and Offchain DB reads by default for offchain calls.</span>
+			<span class="comment">// Enable keystore, transaction pool and Offchain DB reads by default for offchain</span>
+			<span class="comment">// calls.</span>
 			<span class="ident">OffchainCall</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> [
 				<span class="ident">offchain::Capability::Keystore</span>,
 				<span class="ident">offchain::Capability::OffchainDbRead</span>,

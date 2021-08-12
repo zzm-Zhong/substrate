@@ -528,6 +528,9 @@
 <span id="517">517</span>
 <span id="518">518</span>
 <span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -625,8 +628,8 @@
 	<span class="doccomment">/// Shared reference to the transaction pool.</span>
 	<span class="kw">pub</span> <span class="ident">pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">TP</span><span class="op">&gt;</span>,
 
-	<span class="doccomment">/// Stream&lt;Item = EngineCommands&gt;, Basically the receiving end of a channel for sending commands to</span>
-	<span class="doccomment">/// the authorship task.</span>
+	<span class="doccomment">/// Stream&lt;Item = EngineCommands&gt;, Basically the receiving end of a channel for sending</span>
+	<span class="doccomment">/// commands to the authorship task.</span>
 	<span class="kw">pub</span> <span class="ident">commands_stream</span>: <span class="ident">CS</span>,
 
 	<span class="doccomment">/// SelectChain strategy.</span>
@@ -812,7 +815,8 @@
 			<span class="number">0</span>,
 		));
 		<span class="kw">let</span> <span class="ident">env</span> <span class="op">=</span> <span class="ident">ProposerFactory::new</span>(<span class="ident">spawner</span>.<span class="ident">clone</span>(), <span class="ident">client</span>.<span class="ident">clone</span>(), <span class="ident">pool</span>.<span class="ident">clone</span>(), <span class="prelude-val">None</span>, <span class="prelude-val">None</span>);
-		<span class="comment">// this test checks that blocks are created as soon as transactions are imported into the pool.</span>
+		<span class="comment">// this test checks that blocks are created as soon as transactions are imported into the</span>
+		<span class="comment">// pool.</span>
 		<span class="kw">let</span> (<span class="ident">sender</span>, <span class="ident">receiver</span>) <span class="op">=</span> <span class="ident">futures::channel::oneshot::channel</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sender</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="prelude-val">Some</span>(<span class="ident">sender</span>));
 		<span class="kw">let</span> <span class="ident">commands_stream</span> <span class="op">=</span>
@@ -881,7 +885,8 @@
 			<span class="number">0</span>,
 		));
 		<span class="kw">let</span> <span class="ident">env</span> <span class="op">=</span> <span class="ident">ProposerFactory::new</span>(<span class="ident">spawner</span>.<span class="ident">clone</span>(), <span class="ident">client</span>.<span class="ident">clone</span>(), <span class="ident">pool</span>.<span class="ident">clone</span>(), <span class="prelude-val">None</span>, <span class="prelude-val">None</span>);
-		<span class="comment">// this test checks that blocks are created as soon as an engine command is sent over the stream.</span>
+		<span class="comment">// this test checks that blocks are created as soon as an engine command is sent over the</span>
+		<span class="comment">// stream.</span>
 		<span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">sink</span>, <span class="ident">commands_stream</span>) <span class="op">=</span> <span class="ident">futures::channel::mpsc::channel</span>(<span class="number">1024</span>);
 		<span class="kw">let</span> <span class="ident">future</span> <span class="op">=</span> <span class="ident">run_manual_seal</span>(<span class="ident">ManualSealParams</span> {
 			<span class="ident">block_import</span>: <span class="ident">client</span>.<span class="ident">clone</span>(),
@@ -958,7 +963,8 @@
 			<span class="number">0</span>,
 		));
 		<span class="kw">let</span> <span class="ident">env</span> <span class="op">=</span> <span class="ident">ProposerFactory::new</span>(<span class="ident">spawner</span>.<span class="ident">clone</span>(), <span class="ident">client</span>.<span class="ident">clone</span>(), <span class="ident">pool</span>.<span class="ident">clone</span>(), <span class="prelude-val">None</span>, <span class="prelude-val">None</span>);
-		<span class="comment">// this test checks that blocks are created as soon as an engine command is sent over the stream.</span>
+		<span class="comment">// this test checks that blocks are created as soon as an engine command is sent over the</span>
+		<span class="comment">// stream.</span>
 		<span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">sink</span>, <span class="ident">commands_stream</span>) <span class="op">=</span> <span class="ident">futures::channel::mpsc::channel</span>(<span class="number">1024</span>);
 		<span class="kw">let</span> <span class="ident">future</span> <span class="op">=</span> <span class="ident">run_manual_seal</span>(<span class="ident">ManualSealParams</span> {
 			<span class="ident">block_import</span>: <span class="ident">client</span>.<span class="ident">clone</span>(),

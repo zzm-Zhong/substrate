@@ -79,6 +79,7 @@
 <span id="68">68</span>
 <span id="69">69</span>
 <span id="70">70</span>
+<span id="71">71</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -133,7 +134,8 @@
 	}
 }
 
-<span class="doccomment">/// Provides an implementation of [`frame_support::traits::Randomness`] that should only be used in tests!</span>
+<span class="doccomment">/// Provides an implementation of [`frame_support::traits::Randomness`] that should only be used in</span>
+<span class="doccomment">/// tests!</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TestRandomness</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">sp_std::marker::PhantomData</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Output</span>: <span class="ident">codec::Decode</span> <span class="op">+</span> <span class="ident">Default</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">frame_support::traits::Randomness</span><span class="op">&lt;</span><span class="ident">Output</span>, <span class="ident">T::BlockNumber</span><span class="op">&gt;</span>

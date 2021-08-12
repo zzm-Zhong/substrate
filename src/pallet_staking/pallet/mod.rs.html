@@ -1552,6 +1552,13 @@
 <span id="1541">1541</span>
 <span id="1542">1542</span>
 <span id="1543">1543</span>
+<span id="1544">1544</span>
+<span id="1545">1545</span>
+<span id="1546">1546</span>
+<span id="1547">1547</span>
+<span id="1548">1548</span>
+<span id="1549">1549</span>
+<span id="1550">1550</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1617,12 +1624,12 @@
 
 		<span class="doccomment">/// Time used for computing era duration.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// It is guaranteed to start being called from the first `on_finalize`. Thus value at genesis</span>
-		<span class="doccomment">/// is not used.</span>
+		<span class="doccomment">/// It is guaranteed to start being called from the first `on_finalize`. Thus value at</span>
+		<span class="doccomment">/// genesis is not used.</span>
 		<span class="kw">type</span> <span class="ident">UnixTime</span>: <span class="ident">UnixTime</span>;
 
-		<span class="doccomment">/// Convert a balance into a number used for election calculation. This must fit into a `u64`</span>
-		<span class="doccomment">/// but is allowed to be sensibly lossy. The `u64` is used to communicate with the</span>
+		<span class="doccomment">/// Convert a balance into a number used for election calculation. This must fit into a</span>
+		<span class="doccomment">/// `u64` but is allowed to be sensibly lossy. The `u64` is used to communicate with the</span>
 		<span class="doccomment">/// [`sp_npos_elections`] crate which accepts u64 numbers and does operations in 128.</span>
 		<span class="doccomment">/// Consequently, the backward convert is used convert the u128s from sp-elections back to a</span>
 		<span class="doccomment">/// [`BalanceOf`].</span>
@@ -1684,13 +1691,14 @@
 		<span class="doccomment">/// See [Era payout](./index.html#era-payout).</span>
 		<span class="kw">type</span> <span class="ident">EraPayout</span>: <span class="ident">EraPayout</span><span class="op">&lt;</span><span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
-		<span class="doccomment">/// Something that can estimate the next session change, accurately or as a best effort guess.</span>
+		<span class="doccomment">/// Something that can estimate the next session change, accurately or as a best effort</span>
+		<span class="doccomment">/// guess.</span>
 		<span class="kw">type</span> <span class="ident">NextNewSession</span>: <span class="ident">EstimateNextNewSession</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::BlockNumber</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// The maximum number of nominators rewarded for each validator.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// For each validator only the `$MaxNominatorRewardedPerValidator` biggest stakers can claim</span>
-		<span class="doccomment">/// their reward. This used to limit the i/o cost for the nominator payout.</span>
+		<span class="doccomment">/// For each validator only the `$MaxNominatorRewardedPerValidator` biggest stakers can</span>
+		<span class="doccomment">/// claim their reward. This used to limit the i/o cost for the nominator payout.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
 		<span class="kw">type</span> <span class="ident">MaxNominatorRewardedPerValidator</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>;
 
@@ -1992,9 +2000,9 @@
 	<span class="attribute">#[<span class="ident">pallet::storage</span>]</span>
 	<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">type</span> <span class="ident">StorageVersion</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">StorageValue</span><span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Releases</span>, <span class="ident">ValueQuery</span><span class="op">&gt;</span>;
 
-	<span class="doccomment">/// The threshold for when users can start calling `chill_other` for other validators / nominators.</span>
-	<span class="doccomment">/// The threshold is compared to the actual number of validators / nominators (`CountFor*`) in</span>
-	<span class="doccomment">/// the system compared to the configured max (`Max*Count`).</span>
+	<span class="doccomment">/// The threshold for when users can start calling `chill_other` for other validators /</span>
+	<span class="doccomment">/// nominators. The threshold is compared to the actual number of validators / nominators</span>
+	<span class="doccomment">/// (`CountFor*`) in the system compared to the configured max (`Max*Count`).</span>
 	<span class="attribute">#[<span class="ident">pallet::storage</span>]</span>
 	<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">type</span> <span class="ident">ChillThreshold</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">StorageValue</span><span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Percent</span>, <span class="ident">OptionQuery</span><span class="op">&gt;</span>;
 
@@ -2049,13 +2057,13 @@
 					<span class="ident">T::Currency::free_balance</span>(<span class="kw-2">&amp;</span><span class="ident">stash</span>) <span class="op">&gt;</span><span class="op">=</span> <span class="ident">balance</span>,
 					<span class="string">&quot;Stash does not have enough balance to bond.&quot;</span>
 				);
-				<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::bond</span>(
+				<span class="macro">frame_support::assert_ok!</span>(<span class="op">&lt;</span><span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::bond</span>(
 					<span class="ident">T::Origin::from</span>(<span class="prelude-val">Some</span>(<span class="ident">stash</span>.<span class="ident">clone</span>()).<span class="ident">into</span>()),
 					<span class="ident">T::Lookup::unlookup</span>(<span class="ident">controller</span>.<span class="ident">clone</span>()),
 					<span class="ident">balance</span>,
 					<span class="ident">RewardDestination::Staked</span>,
-				);
-				<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">status</span> {
+				));
+				<span class="macro">frame_support::assert_ok!</span>(<span class="kw">match</span> <span class="ident">status</span> {
 					<span class="ident">StakerStatus::Validator</span> <span class="op">=</span><span class="op">&gt;</span> <span class="op">&lt;</span><span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::validate</span>(
 						<span class="ident">T::Origin::from</span>(<span class="prelude-val">Some</span>(<span class="ident">controller</span>.<span class="ident">clone</span>()).<span class="ident">into</span>()),
 						<span class="ident">Default::default</span>(),
@@ -2065,7 +2073,7 @@
 						<span class="ident">votes</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">l</span><span class="op">|</span> <span class="ident">T::Lookup::unlookup</span>(<span class="ident">l</span>.<span class="ident">clone</span>())).<span class="ident">collect</span>(),
 					),
 					<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(()),
-				};
+				});
 			}
 		}
 	}
@@ -2153,11 +2161,11 @@
 		<span class="ident">BadTarget</span>,
 		<span class="doccomment">/// The user has enough bond and thus cannot be chilled forcefully by an external person.</span>
 		<span class="ident">CannotChillOther</span>,
-		<span class="doccomment">/// There are too many nominators in the system. Governance needs to adjust the staking settings</span>
-		<span class="doccomment">/// to keep things safe for the runtime.</span>
+		<span class="doccomment">/// There are too many nominators in the system. Governance needs to adjust the staking</span>
+		<span class="doccomment">/// settings to keep things safe for the runtime.</span>
 		<span class="ident">TooManyNominators</span>,
-		<span class="doccomment">/// There are too many validators in the system. Governance needs to adjust the staking settings</span>
-		<span class="doccomment">/// to keep things safe for the runtime.</span>
+		<span class="doccomment">/// There are too many validators in the system. Governance needs to adjust the staking</span>
+		<span class="doccomment">/// settings to keep things safe for the runtime.</span>
 		<span class="ident">TooManyValidators</span>,
 	}
 
@@ -2191,7 +2199,8 @@
 				<span class="kw">if</span> <span class="ident">active_era</span>.<span class="ident">start</span>.<span class="ident">is_none</span>() {
 					<span class="kw">let</span> <span class="ident">now_as_millis_u64</span> <span class="op">=</span> <span class="ident">T::UnixTime::now</span>().<span class="ident">as_millis</span>().<span class="ident">saturated_into</span>::<span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>();
 					<span class="ident">active_era</span>.<span class="ident">start</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">now_as_millis_u64</span>);
-					<span class="comment">// This write only ever happens once, we don&#39;t include it in the weight in general</span>
+					<span class="comment">// This write only ever happens once, we don&#39;t include it in the weight in</span>
+					<span class="comment">// general</span>
 					<span class="ident">ActiveEra</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">active_era</span>);
 				}
 			}
@@ -2286,8 +2295,8 @@
 		<span class="doccomment">/// The dispatch origin for this call must be _Signed_ by the stash, not the controller.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Use this if there are additional funds in your stash account that you wish to bond.</span>
-		<span class="doccomment">/// Unlike [`bond`](Self::bond) or [`unbond`](Self::unbond) this function does not impose any limitation</span>
-		<span class="doccomment">/// on the amount that can be added.</span>
+		<span class="doccomment">/// Unlike [`bond`](Self::bond) or [`unbond`](Self::unbond) this function does not impose</span>
+		<span class="doccomment">/// any limitation on the amount that can be added.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Emits `Bonded`.</span>
 		<span class="doccomment">///</span>
@@ -2409,23 +2418,24 @@
 				<span class="ident">ledger</span> <span class="op">=</span> <span class="ident">ledger</span>.<span class="ident">consolidate_unlocked</span>(<span class="ident">current_era</span>)
 			}
 
-			<span class="kw">let</span> <span class="ident">post_info_weight</span> <span class="op">=</span>
-				<span class="kw">if</span> <span class="ident">ledger</span>.<span class="ident">unlocking</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="ident">ledger</span>.<span class="ident">active</span> <span class="op">&lt;</span> <span class="ident">T::Currency::minimum_balance</span>() {
-					<span class="comment">// This account must have called `unbond()` with some value that caused the active</span>
-					<span class="comment">// portion to fall below existential deposit + will have no more unlocking chunks</span>
-					<span class="comment">// left. We can now safely remove all staking-related information.</span>
-					<span class="self">Self</span><span class="ident">::kill_stash</span>(<span class="kw-2">&amp;</span><span class="ident">stash</span>, <span class="ident">num_slashing_spans</span>)<span class="question-mark">?</span>;
-					<span class="comment">// Remove the lock.</span>
-					<span class="ident">T::Currency::remove_lock</span>(<span class="ident">STAKING_ID</span>, <span class="kw-2">&amp;</span><span class="ident">stash</span>);
-					<span class="comment">// This is worst case scenario, so we use the full weight and return None</span>
-					<span class="prelude-val">None</span>
-				} <span class="kw">else</span> {
-					<span class="comment">// This was the consequence of a partial unbond. just update the ledger and move on.</span>
-					<span class="self">Self</span><span class="ident">::update_ledger</span>(<span class="kw-2">&amp;</span><span class="ident">controller</span>, <span class="kw-2">&amp;</span><span class="ident">ledger</span>);
+			<span class="kw">let</span> <span class="ident">post_info_weight</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">ledger</span>.<span class="ident">unlocking</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span>
+				<span class="ident">ledger</span>.<span class="ident">active</span> <span class="op">&lt;</span> <span class="ident">T::Currency::minimum_balance</span>()
+			{
+				<span class="comment">// This account must have called `unbond()` with some value that caused the active</span>
+				<span class="comment">// portion to fall below existential deposit + will have no more unlocking chunks</span>
+				<span class="comment">// left. We can now safely remove all staking-related information.</span>
+				<span class="self">Self</span><span class="ident">::kill_stash</span>(<span class="kw-2">&amp;</span><span class="ident">stash</span>, <span class="ident">num_slashing_spans</span>)<span class="question-mark">?</span>;
+				<span class="comment">// Remove the lock.</span>
+				<span class="ident">T::Currency::remove_lock</span>(<span class="ident">STAKING_ID</span>, <span class="kw-2">&amp;</span><span class="ident">stash</span>);
+				<span class="comment">// This is worst case scenario, so we use the full weight and return None</span>
+				<span class="prelude-val">None</span>
+			} <span class="kw">else</span> {
+				<span class="comment">// This was the consequence of a partial unbond. just update the ledger and move on.</span>
+				<span class="self">Self</span><span class="ident">::update_ledger</span>(<span class="kw-2">&amp;</span><span class="ident">controller</span>, <span class="kw-2">&amp;</span><span class="ident">ledger</span>);
 
-					<span class="comment">// This is only an update, so we use less overall weight.</span>
-					<span class="prelude-val">Some</span>(<span class="ident">T::WeightInfo::withdraw_unbonded_update</span>(<span class="ident">num_slashing_spans</span>))
-				};
+				<span class="comment">// This is only an update, so we use less overall weight.</span>
+				<span class="prelude-val">Some</span>(<span class="ident">T::WeightInfo::withdraw_unbonded_update</span>(<span class="ident">num_slashing_spans</span>))
+			};
 
 			<span class="comment">// `old_total` should never be less than the new total because</span>
 			<span class="comment">// `consolidate_unlocked` strictly subtracts balance.</span>
@@ -2453,8 +2463,9 @@
 
 			<span class="comment">// Only check limits if they are not already a validator.</span>
 			<span class="kw">if</span> <span class="op">!</span><span class="ident">Validators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::contains_key</span>(<span class="ident">stash</span>) {
-				<span class="comment">// If this error is reached, we need to adjust the `MinValidatorBond` and start calling `chill_other`.</span>
-				<span class="comment">// Until then, we explicitly block new validators to protect the runtime.</span>
+				<span class="comment">// If this error is reached, we need to adjust the `MinValidatorBond` and start</span>
+				<span class="comment">// calling `chill_other`. Until then, we explicitly block new validators to protect</span>
+				<span class="comment">// the runtime.</span>
 				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">max_validators</span>) <span class="op">=</span> <span class="ident">MaxValidatorsCount</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>() {
 					<span class="macro">ensure!</span>(
 						<span class="ident">CounterForValidators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>() <span class="op">&lt;</span> <span class="ident">max_validators</span>,
@@ -2492,8 +2503,9 @@
 
 			<span class="comment">// Only check limits if they are not already a nominator.</span>
 			<span class="kw">if</span> <span class="op">!</span><span class="ident">Nominators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::contains_key</span>(<span class="ident">stash</span>) {
-				<span class="comment">// If this error is reached, we need to adjust the `MinNominatorBond` and start calling `chill_other`.</span>
-				<span class="comment">// Until then, we explicitly block new nominators to protect the runtime.</span>
+				<span class="comment">// If this error is reached, we need to adjust the `MinNominatorBond` and start</span>
+				<span class="comment">// calling `chill_other`. Until then, we explicitly block new nominators to protect</span>
+				<span class="comment">// the runtime.</span>
 				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">max_nominators</span>) <span class="op">=</span> <span class="ident">MaxNominatorsCount</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>() {
 					<span class="macro">ensure!</span>(
 						<span class="ident">CounterForNominators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>() <span class="op">&lt;</span> <span class="ident">max_nominators</span>,
@@ -2735,8 +2747,8 @@
 		<span class="doccomment">/// # &lt;weight&gt;</span>
 		<span class="doccomment">/// O(S) where S is the number of slashing spans to be removed</span>
 		<span class="doccomment">/// Reads: Bonded, Slashing Spans, Account, Locks</span>
-		<span class="doccomment">/// Writes: Bonded, Slashing Spans (if S &gt; 0), Ledger, Payee, Validators, Nominators, Account, Locks</span>
-		<span class="doccomment">/// Writes Each: SpanSlash * S</span>
+		<span class="doccomment">/// Writes: Bonded, Slashing Spans (if S &gt; 0), Ledger, Payee, Validators, Nominators,</span>
+		<span class="doccomment">/// Account, Locks Writes Each: SpanSlash * S</span>
 		<span class="doccomment">/// # &lt;/weight&gt;</span>
 		<span class="attribute">#[<span class="ident">pallet::weight</span>(<span class="ident">T::WeightInfo::force_unstake</span>(<span class="kw-2">*</span><span class="ident">num_slashing_spans</span>))]</span>
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">force_unstake</span>(
@@ -2882,10 +2894,10 @@
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Parameters:</span>
 		<span class="doccomment">/// - `new_history_depth`: The new history depth you would like to set.</span>
-		<span class="doccomment">/// - `era_items_deleted`: The number of items that will be deleted by this dispatch.</span>
-		<span class="doccomment">///    This should report all the storage items that will be deleted by clearing old</span>
-		<span class="doccomment">///    era history. Needed to report an accurate weight for the dispatch. Trusted by</span>
-		<span class="doccomment">///    `Root` to report an accurate number.</span>
+		<span class="doccomment">/// - `era_items_deleted`: The number of items that will be deleted by this dispatch. This</span>
+		<span class="doccomment">///   should report all the storage items that will be deleted by clearing old era history.</span>
+		<span class="doccomment">///   Needed to report an accurate weight for the dispatch. Trusted by `Root` to report an</span>
+		<span class="doccomment">///   accurate number.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Origin must be root.</span>
 		<span class="doccomment">///</span>
@@ -2896,7 +2908,8 @@
 		<span class="doccomment">///     - Reads: Current Era, History Depth</span>
 		<span class="doccomment">///     - Writes: History Depth</span>
 		<span class="doccomment">///     - Clear Prefix Each: Era Stakers, EraStakersClipped, ErasValidatorPrefs</span>
-		<span class="doccomment">///     - Writes Each: ErasValidatorReward, ErasRewardPoints, ErasTotalStake, ErasStartSessionIndex</span>
+		<span class="doccomment">///     - Writes Each: ErasValidatorReward, ErasRewardPoints, ErasTotalStake,</span>
+		<span class="doccomment">///       ErasStartSessionIndex</span>
 		<span class="doccomment">/// # &lt;/weight&gt;</span>
 		<span class="attribute">#[<span class="ident">pallet::weight</span>(<span class="ident">T::WeightInfo::set_history_depth</span>(<span class="kw-2">*</span><span class="ident">_era_items_deleted</span>))]</span>
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_history_depth</span>(
@@ -2930,7 +2943,8 @@
 		<span class="doccomment">/// Complexity: O(S) where S is the number of slashing spans on the account.</span>
 		<span class="doccomment">/// DB Weight:</span>
 		<span class="doccomment">/// - Reads: Stash Account, Bonded, Slashing Spans, Locks</span>
-		<span class="doccomment">/// - Writes: Bonded, Slashing Spans (if S &gt; 0), Ledger, Payee, Validators, Nominators, Stash Account, Locks</span>
+		<span class="doccomment">/// - Writes: Bonded, Slashing Spans (if S &gt; 0), Ledger, Payee, Validators, Nominators,</span>
+		<span class="doccomment">///   Stash Account, Locks</span>
 		<span class="doccomment">/// - Writes Each: SpanSlash * S</span>
 		<span class="doccomment">/// # &lt;/weight&gt;</span>
 		<span class="attribute">#[<span class="ident">pallet::weight</span>(<span class="ident">T::WeightInfo::reap_stash</span>(<span class="kw-2">*</span><span class="ident">num_slashing_spans</span>))]</span>
@@ -2992,10 +3006,10 @@
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// * `min_nominator_bond`: The minimum active bond needed to be a nominator.</span>
 		<span class="doccomment">/// * `min_validator_bond`: The minimum active bond needed to be a validator.</span>
-		<span class="doccomment">/// * `max_nominator_count`: The max number of users who can be a nominator at once.</span>
-		<span class="doccomment">///   When set to `None`, no limit is enforced.</span>
-		<span class="doccomment">/// * `max_validator_count`: The max number of users who can be a validator at once.</span>
-		<span class="doccomment">///   When set to `None`, no limit is enforced.</span>
+		<span class="doccomment">/// * `max_nominator_count`: The max number of users who can be a nominator at once. When</span>
+		<span class="doccomment">///   set to `None`, no limit is enforced.</span>
+		<span class="doccomment">/// * `max_validator_count`: The max number of users who can be a validator at once. When</span>
+		<span class="doccomment">///   set to `None`, no limit is enforced.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Origin must be Root to call this function.</span>
 		<span class="doccomment">///</span>

@@ -688,6 +688,7 @@
 <span id="677">677</span>
 <span id="678">678</span>
 <span id="679">679</span>
+<span id="680">680</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1123,9 +1124,9 @@
 		.<span class="ident">args</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;rustc&quot;</span>, <span class="string">&quot;--target=wasm32-unknown-unknown&quot;</span>])
 		.<span class="ident">arg</span>(<span class="macro">format!</span>(<span class="string">&quot;--manifest-path={}&quot;</span>, <span class="ident">manifest_path</span>.<span class="ident">display</span>()))
 		.<span class="ident">env</span>(<span class="string">&quot;RUSTFLAGS&quot;</span>, <span class="ident">rustflags</span>)
-		<span class="comment">// Unset the `CARGO_TARGET_DIR` to prevent a cargo deadlock (cargo locks a target dir exclusive).</span>
-		<span class="comment">// The runner project is created in `CARGO_TARGET_DIR` and executing it will create a sub target</span>
-		<span class="comment">// directory inside of `CARGO_TARGET_DIR`.</span>
+		<span class="comment">// Unset the `CARGO_TARGET_DIR` to prevent a cargo deadlock (cargo locks a target dir</span>
+		<span class="comment">// exclusive). The runner project is created in `CARGO_TARGET_DIR` and executing it will</span>
+		<span class="comment">// create a sub target directory inside of `CARGO_TARGET_DIR`.</span>
 		.<span class="ident">env_remove</span>(<span class="string">&quot;CARGO_TARGET_DIR&quot;</span>)
 		<span class="comment">// We don&#39;t want to call ourselves recursively</span>
 		.<span class="ident">env</span>(<span class="kw">crate</span><span class="ident">::SKIP_BUILD_ENV</span>, <span class="string">&quot;&quot;</span>);
@@ -1333,8 +1334,9 @@
 		.<span class="ident">into_iter</span>()
 		.<span class="ident">filter_entry</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> {
 			<span class="comment">// Ignore this entry if it is a directory that contains a `Cargo.toml` that is not the</span>
-			<span class="comment">// `Cargo.toml` related to the current package. This is done to ignore sub-crates of a crate.</span>
-			<span class="comment">// If such a sub-crate is a dependency, it will be processed independently anyway.</span>
+			<span class="comment">// `Cargo.toml` related to the current package. This is done to ignore sub-crates of a</span>
+			<span class="comment">// crate. If such a sub-crate is a dependency, it will be processed independently</span>
+			<span class="comment">// anyway.</span>
 			<span class="ident">p</span>.<span class="ident">path</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">manifest_path</span> <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="ident">p</span>.<span class="ident">path</span>().<span class="ident">is_dir</span>() <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="ident">p</span>.<span class="ident">path</span>().<span class="ident">join</span>(<span class="string">&quot;Cargo.toml&quot;</span>).<span class="ident">exists</span>()
 		})
 		.<span class="ident">filter_map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">ok</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">into_path</span>()))

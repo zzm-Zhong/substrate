@@ -255,8 +255,8 @@
 	}
 
 	<span class="doccomment">/// Merges multiple storage proofs covering potentially different sets of keys into one proof</span>
-	<span class="doccomment">/// covering all keys. The merged proof output may be smaller than the aggregate size of the input</span>
-	<span class="doccomment">/// proofs due to deduplication of trie nodes.</span>
+	<span class="doccomment">/// covering all keys. The merged proof output may be smaller than the aggregate size of the</span>
+	<span class="doccomment">/// input proofs due to deduplication of trie nodes.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">merge</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>(<span class="ident">proofs</span>: <span class="ident">I</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>
 	<span class="kw">where</span>
 		<span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="self">Self</span><span class="op">&gt;</span>,

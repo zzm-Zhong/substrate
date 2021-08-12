@@ -746,6 +746,7 @@
 <span id="735">735</span>
 <span id="736">736</span>
 <span id="737">737</span>
+<span id="738">738</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1436,7 +1437,8 @@
 	<span class="ident">missing_functions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }
 
-<span class="comment">// This is safe because `WasmiInstance` does not leak any references to `self.memory` and `self.instance`</span>
+<span class="comment">// This is safe because `WasmiInstance` does not leak any references to `self.memory` and</span>
+<span class="comment">// `self.instance`</span>
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Send</span> <span class="kw">for</span> <span class="ident">WasmiInstance</span> {}
 
 <span class="kw">impl</span> <span class="ident">WasmInstance</span> <span class="kw">for</span> <span class="ident">WasmiInstance</span> {

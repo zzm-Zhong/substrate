@@ -1176,6 +1176,7 @@
 <span id="1165">1165</span>
 <span id="1166">1166</span>
 <span id="1167">1167</span>
+<span id="1168">1168</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1238,8 +1239,8 @@
 		.<span class="ident">and_then</span>(<span class="ident">ChangesTrieSignal::as_new_configuration</span>)
 }
 
-<span class="doccomment">/// Opaque configuration cache transaction. During its lifetime, no-one should modify cache. This is currently</span>
-<span class="doccomment">/// guaranteed because import lock is held during block import/finalization.</span>
+<span class="doccomment">/// Opaque configuration cache transaction. During its lifetime, no-one should modify cache. This is</span>
+<span class="doccomment">/// currently guaranteed because import lock is held during block import/finalization.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DbChangesTrieStorageTransaction</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Cache operations that must be performed after db transaction is committed.</span>
 	<span class="ident">cache_ops</span>: <span class="ident">DbCacheTransactionOps</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
@@ -1289,12 +1290,13 @@
 	<span class="doccomment">/// The range is inclusive from both sides.</span>
 	<span class="doccomment">/// Is None only if:</span>
 	<span class="doccomment">/// 1) we haven&#39;t yet finalized any blocks (except genesis)</span>
-	<span class="doccomment">/// 2) if best_finalized_block - min_blocks_to_keep points to the range where changes tries are disabled</span>
-	<span class="doccomment">/// 3) changes tries pruning is disabled</span>
+	<span class="doccomment">/// 2) if best_finalized_block - min_blocks_to_keep points to the range where changes tries are</span>
+	<span class="doccomment">/// disabled 3) changes tries pruning is disabled</span>
 	<span class="kw">pub</span> <span class="ident">oldest_digest_range</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">NumberFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>, <span class="ident">NumberFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
 	<span class="doccomment">/// End block (inclusive) of oldest pruned max-level (or skewed) digest trie blocks range.</span>
 	<span class="doccomment">/// It is guaranteed that we have no any changes tries before (and including) this block.</span>
-	<span class="doccomment">/// It is guaranteed that all existing changes tries after this block are not yet pruned (if created).</span>
+	<span class="doccomment">/// It is guaranteed that all existing changes tries after this block are not yet pruned (if</span>
+	<span class="doccomment">/// created).</span>
 	<span class="kw">pub</span> <span class="ident">oldest_pruned_digest_range_end</span>: <span class="ident">NumberFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 }
 
@@ -2310,8 +2312,8 @@
 			<span class="macro">vec!</span>[<span class="number">3</span>, <span class="number">3</span>],
 		);
 
-		<span class="comment">// after truncating block2_1 &amp;&amp; block2_2 - there are still two unfinalized forks (cache impl specifics),</span>
-		<span class="comment">// the 1st one points to the block #3 because it isn&#39;t truncated</span>
+		<span class="comment">// after truncating block2_1 &amp;&amp; block2_2 - there are still two unfinalized forks (cache impl</span>
+		<span class="comment">// specifics), the 1st one points to the block #3 because it isn&#39;t truncated</span>
 		<span class="ident">backend</span>.<span class="ident">revert</span>(<span class="number">1</span>, <span class="bool-val">false</span>).<span class="ident">unwrap</span>();
 		<span class="macro">assert_eq!</span>(
 			<span class="ident">backend</span>

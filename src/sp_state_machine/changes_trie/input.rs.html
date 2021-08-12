@@ -214,6 +214,8 @@
 <span id="203">203</span>
 <span id="204">204</span>
 <span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -280,9 +282,11 @@
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">InputPair</span><span class="op">&lt;</span><span class="ident">Number</span>: <span class="ident">BlockNumber</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Element of { key =&gt; set of extrinsics where key has been changed } element mapping.</span>
 	<span class="ident">ExtrinsicIndex</span>(<span class="ident">ExtrinsicIndex</span><span class="op">&lt;</span><span class="ident">Number</span><span class="op">&gt;</span>, <span class="ident">ExtrinsicIndexValue</span>),
-	<span class="doccomment">/// Element of { key =&gt; set of blocks/digest blocks where key has been changed } element mapping.</span>
+	<span class="doccomment">/// Element of { key =&gt; set of blocks/digest blocks where key has been changed } element</span>
+	<span class="doccomment">/// mapping.</span>
 	<span class="ident">DigestIndex</span>(<span class="ident">DigestIndex</span><span class="op">&lt;</span><span class="ident">Number</span><span class="op">&gt;</span>, <span class="ident">DigestIndexValue</span><span class="op">&lt;</span><span class="ident">Number</span><span class="op">&gt;</span>),
-	<span class="doccomment">/// Element of { childtrie key =&gt; Childchange trie } where key has been changed } element mapping.</span>
+	<span class="doccomment">/// Element of { childtrie key =&gt; Childchange trie } where key has been changed } element</span>
+	<span class="doccomment">/// mapping.</span>
 	<span class="ident">ChildIndex</span>(<span class="ident">ChildIndex</span><span class="op">&lt;</span><span class="ident">Number</span><span class="op">&gt;</span>, <span class="ident">ChildIndexValue</span>),
 }
 

@@ -53,7 +53,8 @@ trait (eg. the pallet_balances) using an unbalance handler (implementing
 <code>OnUnbalanced</code>).</p>
 </div><div class="item-left module-item"><a class="struct" href="struct.FeeDetails.html" title="pallet_transaction_payment::FeeDetails struct">FeeDetails</a></div><div class="item-right docblock-short"><p>The <code>FeeDetails</code> is composed of:</p>
 </div><div class="item-left module-item"><a class="struct" href="struct.InclusionFee.html" title="pallet_transaction_payment::InclusionFee struct">InclusionFee</a></div><div class="item-right docblock-short"><p>The base fee and adjusted weight and length fees constitute the <em>inclusion fee</em>.</p>
-</div><div class="item-left module-item"><a class="struct" href="struct.RuntimeDispatchInfo.html" title="pallet_transaction_payment::RuntimeDispatchInfo struct">RuntimeDispatchInfo</a></div><div class="item-right docblock-short"><p>Information related to a dispatchable’s class, weight, and fee that can be queried from the runtime.</p>
+</div><div class="item-left module-item"><a class="struct" href="struct.RuntimeDispatchInfo.html" title="pallet_transaction_payment::RuntimeDispatchInfo struct">RuntimeDispatchInfo</a></div><div class="item-right docblock-short"><p>Information related to a dispatchable’s class, weight, and fee that can be queried from the
+runtime.</p>
 </div><div class="item-left module-item"><a class="struct" href="struct.TargetedFeeAdjustment.html" title="pallet_transaction_payment::TargetedFeeAdjustment struct">TargetedFeeAdjustment</a></div><div class="item-right docblock-short"><p>A struct to update the weight multiplier per block. It implements <code>Convert&lt;Multiplier, Multiplier&gt;</code>, meaning that it can convert the previous multiplier to the next one. This should
 be called on <code>on_finalize</code> of a block, prior to potentially cleaning the weight data from the
 system pallet.</p>

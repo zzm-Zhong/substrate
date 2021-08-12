@@ -1395,6 +1395,8 @@
 <span id="1384">1384</span>
 <span id="1385">1385</span>
 <span id="1386">1386</span>
+<span id="1387">1387</span>
+<span id="1388">1388</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2073,7 +2075,7 @@
 <span class="comment">// Every variant must implement [`BenchmarkingSetup`].</span>
 <span class="comment">//</span>
 <span class="comment">// ```nocompile</span>
-<span class="comment">//</span>
+<span class="comment">// </span>
 <span class="comment">// struct Transfer;</span>
 <span class="comment">// impl BenchmarkingSetup for Transfer { ... }</span>
 <span class="comment">//</span>
@@ -2430,11 +2432,12 @@
 <span class="doccomment">/// );</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// There is an optional fourth argument, with keyword syntax: `benchmarks_path = path_to_benchmarks_invocation`.</span>
-<span class="doccomment">/// In the typical case in which this macro is in the same module as the `benchmarks!` invocation,</span>
-<span class="doccomment">/// you don&#39;t need to supply this. However, if the `impl_benchmark_test_suite!` invocation is in a</span>
-<span class="doccomment">/// different module than the `benchmarks!` invocation, then you should provide the path to the</span>
-<span class="doccomment">/// module containing the `benchmarks!` invocation:</span>
+<span class="doccomment">/// There is an optional fourth argument, with keyword syntax: `benchmarks_path =</span>
+<span class="doccomment">/// path_to_benchmarks_invocation`. In the typical case in which this macro is in the same module as</span>
+<span class="doccomment">/// the `benchmarks!` invocation, you don&#39;t need to supply this. However, if the</span>
+<span class="doccomment">/// `impl_benchmark_test_suite!` invocation is in a different module than the `benchmarks!`</span>
+<span class="doccomment">/// invocation, then you should provide the path to the module containing the `benchmarks!`</span>
+<span class="doccomment">/// invocation:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```rust,ignore</span>
 <span class="doccomment">/// mod benches {</span>
@@ -2463,7 +2466,8 @@
 <span class="doccomment">/// to these restrictions:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// - It must be the name of a method applied to the output of the `new_test_ext` argument.</span>
-<span class="doccomment">/// - That method must have a signature capable of receiving a single argument of the form `impl FnOnce()`.</span>
+<span class="doccomment">/// - That method must have a signature capable of receiving a single argument of the form `impl</span>
+<span class="doccomment">///   FnOnce()`.</span>
 <span class="comment">// ## Notes (not for rustdoc)</span>
 <span class="comment">//</span>
 <span class="comment">// The biggest challenge for this macro is communicating the actual test functions to be run. We</span>
@@ -2656,8 +2660,8 @@
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The `whitelist` is a parameter you pass to control the DB read/write tracking.</span>
-<span class="doccomment">/// We use a vector of [TrackedStorageKey](./struct.TrackedStorageKey.html), which is a simple struct used to set</span>
-<span class="doccomment">/// if a key has been read or written to.</span>
+<span class="doccomment">/// We use a vector of [TrackedStorageKey](./struct.TrackedStorageKey.html), which is a simple</span>
+<span class="doccomment">/// struct used to set if a key has been read or written to.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// For values that should be skipped entirely, we can just pass `key.into()`. For example:</span>
 <span class="doccomment">///</span>

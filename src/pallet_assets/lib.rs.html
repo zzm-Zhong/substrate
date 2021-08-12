@@ -1295,6 +1295,8 @@
 <span id="1284">1284</span>
 <span id="1285">1285</span>
 <span id="1286">1286</span>
+<span id="1287">1287</span>
+<span id="1288">1288</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1341,8 +1343,8 @@
 <span class="doccomment">//!   account that issues the asset. This is a privileged operation.</span>
 <span class="doccomment">//! * **Asset transfer**: The reduction of the balance of an asset of one account with the</span>
 <span class="doccomment">//!   corresponding increase in the balance of another.</span>
-<span class="doccomment">//! * **Asset destruction**: The process of reduce the balance of an asset of one account. This is</span>
-<span class="doccomment">//!   a privileged operation.</span>
+<span class="doccomment">//! * **Asset destruction**: The process of reduce the balance of an asset of one account. This is a</span>
+<span class="doccomment">//!   privileged operation.</span>
 <span class="doccomment">//! * **Fungible asset**: An asset whose units are interchangeable.</span>
 <span class="doccomment">//! * **Issuer**: An account ID uniquely privileged to be able to mint a particular class of assets.</span>
 <span class="doccomment">//! * **Freezer**: An account ID uniquely privileged to be able to freeze an account from</span>
@@ -1352,8 +1354,8 @@
 <span class="doccomment">//! * **Non-fungible asset**: An asset for which each unit has unique characteristics.</span>
 <span class="doccomment">//! * **Owner**: An account ID uniquely privileged to be able to destroy a particular asset class,</span>
 <span class="doccomment">//!   or to set the Issuer, Freezer or Admin of that asset class.</span>
-<span class="doccomment">//! * **Approval**: The act of allowing an account the permission to transfer some</span>
-<span class="doccomment">//!   balance of asset from the approving account into some third-party destination account.</span>
+<span class="doccomment">//! * **Approval**: The act of allowing an account the permission to transfer some balance of asset</span>
+<span class="doccomment">//!   from the approving account into some third-party destination account.</span>
 <span class="doccomment">//! * **Sufficiency**: The idea of a minimum-balance of an asset being sufficient to allow the</span>
 <span class="doccomment">//!   account&#39;s existence on the system without requiring any other existential-deposit.</span>
 <span class="doccomment">//!</span>
@@ -1402,7 +1404,8 @@
 <span class="doccomment">//! * `set_team`: Changes an asset class&#39;s Admin, Freezer and Issuer; called by the asset class&#39;s</span>
 <span class="doccomment">//!   Owner.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Please refer to the [`Call`] enum and its associated variants for documentation on each function.</span>
+<span class="doccomment">//! Please refer to the [`Call`] enum and its associated variants for documentation on each</span>
+<span class="doccomment">//! function.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Public Functions</span>
 <span class="doccomment">//! &lt;!-- Original author of descriptions: @gavofyork --&gt;</span>
@@ -1637,7 +1640,8 @@
 		<span class="ident">BadWitness</span>,
 		<span class="doccomment">/// Minimum balance should be non-zero.</span>
 		<span class="ident">MinBalanceZero</span>,
-		<span class="doccomment">/// No provider reference exists to allow a non-zero balance of a non-self-sufficient asset.</span>
+		<span class="doccomment">/// No provider reference exists to allow a non-zero balance of a non-self-sufficient</span>
+		<span class="doccomment">/// asset.</span>
 		<span class="ident">NoProvider</span>,
 		<span class="doccomment">/// Invalid metadata given.</span>
 		<span class="ident">BadMetadata</span>,
@@ -1716,8 +1720,8 @@
 		<span class="doccomment">/// - `id`: The identifier of the new asset. This must not be currently in use to identify</span>
 		<span class="doccomment">/// an existing asset.</span>
 		<span class="doccomment">/// - `owner`: The owner of this class of assets. The owner has full superuser permissions</span>
-		<span class="doccomment">/// over this asset, but may later change and configure the permissions using `transfer_ownership`</span>
-		<span class="doccomment">/// and `set_team`.</span>
+		<span class="doccomment">/// over this asset, but may later change and configure the permissions using</span>
+		<span class="doccomment">/// `transfer_ownership` and `set_team`.</span>
 		<span class="doccomment">/// - `min_balance`: The minimum balance of this new asset that any single account must</span>
 		<span class="doccomment">/// have. If an account&#39;s balance is reduced below this, then it collapses to zero.</span>
 		<span class="doccomment">///</span>

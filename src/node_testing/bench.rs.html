@@ -1005,8 +1005,8 @@
 					<span class="ident">BlockType::RandomTransfersReaping</span> <span class="op">=</span><span class="op">&gt;</span> {
 						<span class="ident">Call::Balances</span>(<span class="ident">BalancesCall::transfer</span>(
 							<span class="ident">sp_runtime::MultiAddress::Id</span>(<span class="ident">receiver</span>),
-							<span class="comment">// Transfer so that ending balance would be 1 less than existential deposit</span>
-							<span class="comment">// so that we kill the sender account.</span>
+							<span class="comment">// Transfer so that ending balance would be 1 less than existential</span>
+							<span class="comment">// deposit so that we kill the sender account.</span>
 							<span class="number">100</span> <span class="op">*</span> <span class="ident">DOLLARS</span> <span class="op">-</span> (<span class="ident">node_runtime::ExistentialDeposit::get</span>() <span class="op">-</span> <span class="number">1</span>),
 						))
 					},

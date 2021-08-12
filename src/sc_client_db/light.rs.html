@@ -2178,8 +2178,8 @@
 			<span class="macro">assert_eq!</span>(<span class="ident">raw_db</span>.<span class="ident">count</span>(<span class="ident">columns::HEADER</span>), <span class="number">1</span> <span class="op">+</span> <span class="ident">ucht_size</span> <span class="op">+</span> <span class="ident">ucht_size</span>);
 			<span class="macro">assert_eq!</span>(<span class="ident">raw_db</span>.<span class="ident">count</span>(<span class="ident">columns::CHT</span>), <span class="number">0</span>);
 
-			<span class="comment">// insert block #{2 * cht::size() + 1} &amp;&amp; check that new CHT is created + headers of this CHT are pruned</span>
-			<span class="comment">// nothing is yet finalized, so nothing is pruned.</span>
+			<span class="comment">// insert block #{2 * cht::size() + 1} &amp;&amp; check that new CHT is created + headers of</span>
+			<span class="comment">// this CHT are pruned nothing is yet finalized, so nothing is pruned.</span>
 			<span class="ident">prev_hash</span> <span class="op">=</span> <span class="ident">insert_block</span>(<span class="kw-2">&amp;</span><span class="ident">db</span>, <span class="ident">HashMap::new</span>(), <span class="op">|</span><span class="op">|</span> {
 				<span class="ident">header_producer</span>(<span class="kw-2">&amp;</span><span class="ident">prev_hash</span>, <span class="number">1</span> <span class="op">+</span> <span class="ident">cht_size</span> <span class="op">+</span> <span class="ident">cht_size</span>)
 			});

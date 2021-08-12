@@ -1324,6 +1324,8 @@
 <span id="1313">1313</span>
 <span id="1314">1314</span>
 <span id="1315">1315</span>
+<span id="1316">1316</span>
+<span id="1317">1317</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1755,7 +1757,8 @@
 
 <span class="doccomment">/// Slot specific extension that the inherent data provider needs to implement.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InherentDataProviderExt</span> {
-	<span class="doccomment">/// The current timestamp that will be found in the [`InherentData`](`sp_inherents::InherentData`).</span>
+	<span class="doccomment">/// The current timestamp that will be found in the</span>
+	<span class="doccomment">/// [`InherentData`](`sp_inherents::InherentData`).</span>
 	<span class="kw">fn</span> <span class="ident">timestamp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Timestamp</span>;
 
 	<span class="doccomment">/// The current slot that will be found in the [`InherentData`](`sp_inherents::InherentData`).</span>
@@ -2386,7 +2389,8 @@
 			})
 			.<span class="ident">collect</span>();
 
-		<span class="comment">// Should always be true after a short while, since the chain is advancing but finality is stalled</span>
+		<span class="comment">// Should always be true after a short while, since the chain is advancing but finality is</span>
+		<span class="comment">// stalled</span>
 		<span class="kw">let</span> <span class="ident">expected</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> <span class="op">=</span> (<span class="ident">slot_now</span>..<span class="number">300</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span> <span class="op">&gt;</span> <span class="number">8</span>).<span class="ident">collect</span>();
 		<span class="macro">assert_eq!</span>(<span class="ident">should_backoff</span>, <span class="ident">expected</span>);
 	}

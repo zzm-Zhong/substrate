@@ -718,6 +718,9 @@
 <span id="707">707</span>
 <span id="708">708</span>
 <span id="709">709</span>
+<span id="710">710</span>
+<span id="711">711</span>
+<span id="712">712</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -746,15 +749,17 @@
 <span class="doccomment">//! There&#39;s a limit of 32 blocks that may have the same block number in the canonicalization window.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Canonicalization function selects one root from the top of the tree and discards all other roots</span>
-<span class="doccomment">//! and their subtrees. Upon canonicalization all trie nodes that were inserted in the block are added to</span>
-<span class="doccomment">//! the backing DB and block tracking is moved to the pruning window, where no forks are allowed.</span>
+<span class="doccomment">//! and their subtrees. Upon canonicalization all trie nodes that were inserted in the block are</span>
+<span class="doccomment">//! added to the backing DB and block tracking is moved to the pruning window, where no forks are</span>
+<span class="doccomment">//! allowed.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Canonicalization vs Finality</span>
-<span class="doccomment">//! Database engine uses a notion of canonicality, rather then finality. A canonical block may not be yet finalized</span>
-<span class="doccomment">//! from the perspective of the consensus engine, but it still can&#39;t be reverted in the database. Most of the time</span>
-<span class="doccomment">//! during normal operation last canonical block is the same as last finalized. However if finality stall for a</span>
-<span class="doccomment">//! long duration for some reason, there&#39;s only a certain number of blocks that can fit in the non-canonical overlay,</span>
-<span class="doccomment">//! so canonicalization of an unfinalized block may be forced.</span>
+<span class="doccomment">//! Database engine uses a notion of canonicality, rather then finality. A canonical block may not</span>
+<span class="doccomment">//! be yet finalized from the perspective of the consensus engine, but it still can&#39;t be reverted in</span>
+<span class="doccomment">//! the database. Most of the time during normal operation last canonical block is the same as last</span>
+<span class="doccomment">//! finalized. However if finality stall for a long duration for some reason, there&#39;s only a certain</span>
+<span class="doccomment">//! number of blocks that can fit in the non-canonical overlay, so canonicalization of an</span>
+<span class="doccomment">//! unfinalized block may be forced.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Pruning.</span>
 <span class="doccomment">//! See `RefWindow` for pruning algorithm details. `StateDb` prunes on each canonicalization until</span>
@@ -898,7 +903,8 @@
 <span class="doccomment">/// Pruning constraints. If none are specified pruning is</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>, <span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Constraints</span> {
-	<span class="doccomment">/// Maximum blocks. Defaults to 0 when unspecified, effectively keeping only non-canonical states.</span>
+	<span class="doccomment">/// Maximum blocks. Defaults to 0 when unspecified, effectively keeping only non-canonical</span>
+	<span class="doccomment">/// states.</span>
 	<span class="kw">pub</span> <span class="ident">max_blocks</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Maximum memory in the pruning overlay.</span>
 	<span class="kw">pub</span> <span class="ident">max_mem</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,

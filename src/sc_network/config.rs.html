@@ -854,6 +854,7 @@
 <span id="843">843</span>
 <span id="844">844</span>
 <span id="845">845</span>
+<span id="846">846</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -969,8 +970,8 @@
 	<span class="doccomment">/// Request response configuration for the block request protocol.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// [`RequestResponseConfig::name`] is used to tag outgoing block requests with the correct</span>
-	<span class="doccomment">/// protocol name. In addition all of [`RequestResponseConfig`] is used to handle incoming block</span>
-	<span class="doccomment">/// requests, if enabled.</span>
+	<span class="doccomment">/// protocol name. In addition all of [`RequestResponseConfig`] is used to handle incoming</span>
+	<span class="doccomment">/// block requests, if enabled.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Can be constructed either via [`crate::block_request_handler::generate_protocol_config`]</span>
 	<span class="doccomment">/// allowing outgoing but not incoming requests, or constructed via</span>
@@ -1129,7 +1130,6 @@
 <span class="doccomment">/// assert_eq!(peer_id, &quot;QmSk5HQbn6LhUwDiNMseVUjuRYhEtYj4aUZ6WfWoGURpdV&quot;.parse::&lt;PeerId&gt;().unwrap());</span>
 <span class="doccomment">/// assert_eq!(addr, &quot;/ip4/198.51.100.19/tcp/30333&quot;.parse::&lt;Multiaddr&gt;().unwrap());</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">///</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_str_addr</span>(<span class="ident">addr_str</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">PeerId</span>, <span class="ident">Multiaddr</span>), <span class="ident">ParseErr</span><span class="op">&gt;</span> {
 	<span class="kw">let</span> <span class="ident">addr</span>: <span class="ident">Multiaddr</span> <span class="op">=</span> <span class="ident">addr_str</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>;
 	<span class="ident">parse_addr</span>(<span class="ident">addr</span>)
@@ -1363,7 +1363,8 @@
 		}
 	}
 
-	<span class="doccomment">/// Create new default configuration for localhost-only connection with random port (useful for testing)</span>
+	<span class="doccomment">/// Create new default configuration for localhost-only connection with random port (useful for</span>
+	<span class="doccomment">/// testing)</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_local</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">NetworkConfiguration</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">config</span> <span class="op">=</span>
 			<span class="ident">NetworkConfiguration::new</span>(<span class="string">&quot;test-node&quot;</span>, <span class="string">&quot;test-client&quot;</span>, <span class="ident">Default::default</span>(), <span class="prelude-val">None</span>);
@@ -1377,7 +1378,8 @@
 		<span class="ident">config</span>
 	}
 
-	<span class="doccomment">/// Create new default configuration for localhost-only connection with random port (useful for testing)</span>
+	<span class="doccomment">/// Create new default configuration for localhost-only connection with random port (useful for</span>
+	<span class="doccomment">/// testing)</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_memory</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">NetworkConfiguration</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">config</span> <span class="op">=</span>
 			<span class="ident">NetworkConfiguration::new</span>(<span class="string">&quot;test-node&quot;</span>, <span class="string">&quot;test-client&quot;</span>, <span class="ident">Default::default</span>(), <span class="prelude-val">None</span>);
@@ -1486,8 +1488,8 @@
 		<span class="ident">allow_private_ipv4</span>: <span class="ident">bool</span>,
 
 		<span class="doccomment">/// Optional external implementation of a libp2p transport. Used in WASM contexts where we</span>
-		<span class="doccomment">/// need some binding between the networking provided by the operating system or environment</span>
-		<span class="doccomment">/// and libp2p.</span>
+		<span class="doccomment">/// need some binding between the networking provided by the operating system or</span>
+		<span class="doccomment">/// environment and libp2p.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// This parameter exists whatever the target platform is, but it is expected to be set to</span>
 		<span class="doccomment">/// `Some` only when compiling for WASM.</span>
@@ -1567,12 +1569,12 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">///  * If the secret is configured as input, the corresponding keypair is returned.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">///  * If the secret is configured as a file, it is read from that file, if it exists.</span>
-	<span class="doccomment">///    Otherwise a new secret is generated and stored. In either case, the</span>
-	<span class="doccomment">///    keypair obtained from the secret is returned.</span>
+	<span class="doccomment">///  * If the secret is configured as a file, it is read from that file, if it exists. Otherwise</span>
+	<span class="doccomment">///    a new secret is generated and stored. In either case, the keypair obtained from the</span>
+	<span class="doccomment">///    secret is returned.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">///  * If the secret is configured to be new, it is generated and the corresponding</span>
-	<span class="doccomment">///    keypair is returned.</span>
+	<span class="doccomment">///  * If the secret is configured to be new, it is generated and the corresponding keypair is</span>
+	<span class="doccomment">///    returned.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_keypair</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">Keypair</span><span class="op">&gt;</span> {
 		<span class="kw">use</span> <span class="ident">NodeKeyConfig</span>::<span class="kw-2">*</span>;
 		<span class="kw">match</span> <span class="self">self</span> {

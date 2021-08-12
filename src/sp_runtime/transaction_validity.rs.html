@@ -481,6 +481,7 @@
 <span id="470">470</span>
 <span id="471">471</span>
 <span id="472">472</span>
+<span id="473">473</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -544,7 +545,8 @@
 	<span class="doccomment">/// # Possible causes</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// For `FRAME`-based runtimes this would be caused by `current block number</span>
-	<span class="doccomment">/// - Era::birth block number &gt; BlockHashCount`. (e.g. in Polkadot `BlockHashCount` = 2400, so a</span>
+	<span class="doccomment">/// - Era::birth block number &gt; BlockHashCount`. (e.g. in Polkadot `BlockHashCount` = 2400, so</span>
+	<span class="doccomment">///   a</span>
 	<span class="doccomment">/// transaction with birth block number 1337 would be valid up until block number 1337 + 2400,</span>
 	<span class="doccomment">/// after which point the transaction would be considered to have an ancient birth block.)</span>
 	<span class="ident">AncientBirthBlock</span>,
@@ -556,8 +558,8 @@
 	<span class="doccomment">/// Any other custom invalid validity that is not covered by this enum.</span>
 	<span class="ident">Custom</span>(<span class="ident">u8</span>),
 	<span class="doccomment">/// An extrinsic with a Mandatory dispatch resulted in Error. This is indicative of either a</span>
-	<span class="doccomment">/// malicious validator or a buggy `provide_inherent`. In any case, it can result in dangerously</span>
-	<span class="doccomment">/// overweight blocks and therefore if found, invalidates the block.</span>
+	<span class="doccomment">/// malicious validator or a buggy `provide_inherent`. In any case, it can result in</span>
+	<span class="doccomment">/// dangerously overweight blocks and therefore if found, invalidates the block.</span>
 	<span class="ident">BadMandatory</span>,
 	<span class="doccomment">/// A transaction with a mandatory dispatch. This is invalid; only inherent extrinsics are</span>
 	<span class="doccomment">/// allowed to have mandatory dispatches.</span>

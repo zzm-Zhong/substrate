@@ -544,6 +544,8 @@
 <span id="533">533</span>
 <span id="534">534</span>
 <span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -563,7 +565,8 @@
 <span class="comment">// You should have received a copy of the GNU General Public License</span>
 <span class="comment">// along with this program. If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
 
-<span class="doccomment">//! Network packet message types. These get serialized and put into the lower level protocol payload.</span>
+<span class="doccomment">//! Network packet message types. These get serialized and put into the lower level protocol</span>
+<span class="doccomment">//! payload.</span>
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::generic</span>::{
 	<span class="ident">BlockAnnounce</span>, <span class="ident">FromBlock</span>, <span class="ident">RemoteCallRequest</span>, <span class="ident">RemoteChangesRequest</span>, <span class="ident">RemoteChangesResponse</span>,
@@ -939,7 +942,8 @@
 		<span class="kw">pub</span> <span class="ident">to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Hash</span><span class="op">&gt;</span>,
 		<span class="doccomment">/// Sequence direction.</span>
 		<span class="kw">pub</span> <span class="ident">direction</span>: <span class="ident">Direction</span>,
-		<span class="doccomment">/// Maximum number of blocks to return. An implementation defined maximum is used when unspecified.</span>
+		<span class="doccomment">/// Maximum number of blocks to return. An implementation defined maximum is used when</span>
+		<span class="doccomment">/// unspecified.</span>
 		<span class="kw">pub</span> <span class="ident">max</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 	}
 

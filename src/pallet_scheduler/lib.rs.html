@@ -1887,12 +1887,11 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Dispatchable Functions</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! * `schedule` - schedule a dispatch, which may be periodic, to occur at a</span>
-<span class="doccomment">//!   specified block and with a specified priority.</span>
-<span class="doccomment">//! * `cancel` - cancel a scheduled dispatch, specified by block number and</span>
-<span class="doccomment">//!   index.</span>
-<span class="doccomment">//! * `schedule_named` - augments the `schedule` interface with an additional</span>
-<span class="doccomment">//!   `Vec&lt;u8&gt;` parameter that can be used for identification.</span>
+<span class="doccomment">//! * `schedule` - schedule a dispatch, which may be periodic, to occur at a specified block and</span>
+<span class="doccomment">//!   with a specified priority.</span>
+<span class="doccomment">//! * `cancel` - cancel a scheduled dispatch, specified by block number and index.</span>
+<span class="doccomment">//! * `schedule_named` - augments the `schedule` interface with an additional `Vec&lt;u8&gt;` parameter</span>
+<span class="doccomment">//!   that can be used for identification.</span>
 <span class="doccomment">//! * `cancel_named` - the named complement to the cancel function.</span>
 
 <span class="comment">// Ensure we&#39;re `no_std` when compiling for Wasm.</span>
@@ -1999,8 +1998,8 @@
 			<span class="op">+</span> <span class="ident">GetDispatchInfo</span>
 			<span class="op">+</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">system::Call</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
-		<span class="doccomment">/// The maximum weight that may be scheduled per block for any dispatchables of less priority</span>
-		<span class="doccomment">/// than `schedule::HARD_DEADLINE`.</span>
+		<span class="doccomment">/// The maximum weight that may be scheduled per block for any dispatchables of less</span>
+		<span class="doccomment">/// priority than `schedule::HARD_DEADLINE`.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
 		<span class="kw">type</span> <span class="ident">MaximumWeight</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">Weight</span><span class="op">&gt;</span>;
 
@@ -3168,7 +3167,8 @@
 				<span class="ident">root</span>(),
 				<span class="ident">Call::Logger</span>(<span class="ident">LoggerCall::log</span>(<span class="number">69</span>, <span class="ident">MaximumSchedulerWeight::get</span>() <span class="op">/</span> <span class="number">2</span>))
 			));
-			<span class="comment">// With base weights, 69 and 42 should not fit together, but do because of hard deadlines</span>
+			<span class="comment">// With base weights, 69 and 42 should not fit together, but do because of hard</span>
+			<span class="comment">// deadlines</span>
 			<span class="ident">run_to_block</span>(<span class="number">4</span>);
 			<span class="macro">assert_eq!</span>(<span class="ident">logger::log</span>(), <span class="macro">vec!</span>[(<span class="ident">root</span>(), <span class="number">42u32</span>), (<span class="ident">root</span>(), <span class="number">69u32</span>)]);
 		});

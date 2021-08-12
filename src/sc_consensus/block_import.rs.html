@@ -703,8 +703,8 @@
 
 	<span class="doccomment">/// Auxiliary function for &quot;converting&quot; the transaction type.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Actually this just sets `StorageChanges::Changes` to `None` and makes rustc think that `Self` now</span>
-	<span class="doccomment">/// uses a different transaction type.</span>
+	<span class="doccomment">/// Actually this just sets `StorageChanges::Changes` to `None` and makes rustc think that</span>
+	<span class="doccomment">/// `Self` now uses a different transaction type.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_storage_changes_and_mutate</span><span class="op">&lt;</span><span class="ident">Transaction2</span><span class="op">&gt;</span>(
 		<span class="self">self</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BlockImportParams</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Transaction2</span><span class="op">&gt;</span> {

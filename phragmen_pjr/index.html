@@ -13,14 +13,14 @@
 which satisfies our PJR checker.</p>
 <h2 id="running-a-single-iteration" class="section-header"><a href="#running-a-single-iteration">Running a single iteration</a></h2>
 <p>Honggfuzz shuts down each individual loop iteration after a configurable time limit.
-It can be helpful to run a single iteration on your hardware to help benchmark how long that time
-limit should reasonably be. Simply run the program without the <code>fuzzing</code> configuration to run a
-single iteration: <code>cargo run --bin phragmen_pjr</code>.</p>
+It can be helpful to run a single iteration on your hardware to help benchmark how long that
+time limit should reasonably be. Simply run the program without the <code>fuzzing</code> configuration to
+run a single iteration: <code>cargo run --bin phragmen_pjr</code>.</p>
 <h2 id="running" class="section-header"><a href="#running">Running</a></h2>
 <p>Run with <code>HFUZZ_RUN_ARGS=&quot;-t 10&quot; cargo hfuzz run phragmen_pjr</code>.</p>
-<p>Note the environment variable: by default, <code>cargo hfuzz</code> shuts down each iteration after 1 second
-of runtime. We significantly increase that to ensure that the fuzzing gets a chance to complete.
-Running a single iteration can help determine an appropriate value for this parameter.</p>
+<p>Note the environment variable: by default, <code>cargo hfuzz</code> shuts down each iteration after 1
+second of runtime. We significantly increase that to ensure that the fuzzing gets a chance to
+complete. Running a single iteration can help determine an appropriate value for this parameter.</p>
 <h2 id="debugging-a-panic" class="section-header"><a href="#debugging-a-panic">Debugging a panic</a></h2>
 <p>Once a panic is found, it can be debugged with
 <code>HFUZZ_RUN_ARGS=&quot;-t 10&quot; cargo hfuzz run-debug phragmen_pjr hfuzz_workspace/phragmen_pjr/*.fuzz</code>.</p>

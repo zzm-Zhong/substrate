@@ -554,6 +554,8 @@
 <span id="543">543</span>
 <span id="544">544</span>
 <span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -861,8 +863,8 @@
 		<span class="ident">WasmExecutionMethod::Interpreted</span> <span class="op">=</span><span class="op">&gt;</span> {
 			<span class="comment">// Wasmi doesn&#39;t have any need in a cache directory.</span>
 			<span class="comment">//</span>
-			<span class="comment">// We drop the cache_path here to silence warnings that cache_path is not used if compiling</span>
-			<span class="comment">// without the `wasmtime` flag.</span>
+			<span class="comment">// We drop the cache_path here to silence warnings that cache_path is not used if</span>
+			<span class="comment">// compiling without the `wasmtime` flag.</span>
 			<span class="ident">drop</span>(<span class="ident">cache_path</span>);
 
 			<span class="ident">sc_executor_wasmi::create_runtime</span>(
@@ -918,8 +920,8 @@
 
 	<span class="ident">apis</span>.<span class="ident">chunks</span>(<span class="ident">RUNTIME_API_INFO_SIZE</span>)
 		.<span class="ident">map</span>(<span class="op">|</span><span class="ident">chunk</span><span class="op">|</span> {
-			<span class="comment">// `chunk` can be less than `RUNTIME_API_INFO_SIZE` if the total length of `apis` doesn&#39;t</span>
-			<span class="comment">// completely divide by `RUNTIME_API_INFO_SIZE`.</span>
+			<span class="comment">// `chunk` can be less than `RUNTIME_API_INFO_SIZE` if the total length of `apis`</span>
+			<span class="comment">// doesn&#39;t completely divide by `RUNTIME_API_INFO_SIZE`.</span>
 			<span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="ident">RUNTIME_API_INFO_SIZE</span>]<span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">chunk</span>)
 				.<span class="ident">map</span>(<span class="ident">sp_api::deserialize_runtime_api_info</span>)
 				.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WasmError::Other</span>(<span class="string">&quot;a clipped runtime api info declaration&quot;</span>.<span class="ident">to_owned</span>()))
@@ -927,8 +929,8 @@
 		.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>, <span class="ident">WasmError</span><span class="op">&gt;</span><span class="op">&gt;</span>()
 }
 
-<span class="doccomment">/// Take the runtime blob and scan it for the custom wasm sections containing the version information</span>
-<span class="doccomment">/// and construct the `RuntimeVersion` from them.</span>
+<span class="doccomment">/// Take the runtime blob and scan it for the custom wasm sections containing the version</span>
+<span class="doccomment">/// information and construct the `RuntimeVersion` from them.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// If there are no such sections, it returns `None`. If there is an error during decoding those</span>
 <span class="doccomment">/// sections, `Err` will be returned.</span>
@@ -937,8 +939,8 @@
 		<span class="comment">// We do not use `decode_version` here because the runtime_version section is not supposed</span>
 		<span class="comment">// to ever contain a legacy version. Apart from that `decode_version` relies on presence</span>
 		<span class="comment">// of a special API in the `apis` field to treat the input as a non-legacy version. However</span>
-		<span class="comment">// the structure found in the `runtime_version` always contain an empty `apis` field. Therefore</span>
-		<span class="comment">// the version read will be mistakenly treated as an legacy one.</span>
+		<span class="comment">// the structure found in the `runtime_version` always contain an empty `apis` field.</span>
+		<span class="comment">// Therefore the version read will be mistakenly treated as an legacy one.</span>
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoded_version</span> <span class="op">=</span> <span class="ident">sp_api::RuntimeVersion::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">version_section</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WasmError::Instantiation</span>(<span class="string">&quot;failed to decode version section&quot;</span>.<span class="ident">into</span>()))<span class="question-mark">?</span>;
 
@@ -968,8 +970,9 @@
 	<span class="comment">// the uncompressed code from now on.</span>
 	<span class="kw">let</span> <span class="ident">blob</span> <span class="op">=</span> <span class="ident">sc_executor_common::runtime_blob::RuntimeBlob::uncompress_if_needed</span>(<span class="kw-2">&amp;</span><span class="ident">code</span>)<span class="question-mark">?</span>;
 
-	<span class="comment">// Use the runtime blob to scan if there is any metadata embedded into the wasm binary pertaining</span>
-	<span class="comment">// to runtime version. We do it before consuming the runtime blob for creating the runtime.</span>
+	<span class="comment">// Use the runtime blob to scan if there is any metadata embedded into the wasm binary</span>
+	<span class="comment">// pertaining to runtime version. We do it before consuming the runtime blob for creating the</span>
+	<span class="comment">// runtime.</span>
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">read_embedded_version</span>(<span class="kw-2">&amp;</span><span class="ident">blob</span>)<span class="question-mark">?</span>;
 
 	<span class="kw">let</span> <span class="ident">runtime</span> <span class="op">=</span> <span class="ident">create_wasm_runtime_with_code</span>(
@@ -986,7 +989,8 @@
 	<span class="kw">if</span> <span class="ident">version</span>.<span class="ident">is_none</span>() {
 		<span class="comment">// Call to determine runtime version.</span>
 		<span class="kw">let</span> <span class="ident">version_result</span> <span class="op">=</span> {
-			<span class="comment">// `ext` is already implicitly handled as unwind safe, as we store it in a global variable.</span>
+			<span class="comment">// `ext` is already implicitly handled as unwind safe, as we store it in a global</span>
+			<span class="comment">// variable.</span>
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ext</span> <span class="op">=</span> <span class="ident">AssertUnwindSafe</span>(<span class="ident">ext</span>);
 
 			<span class="comment">// The following unwind safety assertion is OK because if the method call panics, the</span>

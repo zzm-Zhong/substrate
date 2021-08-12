@@ -109,6 +109,7 @@
 <span id="98"> 98</span>
 <span id="99"> 99</span>
 <span id="100">100</span>
+<span id="101">101</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -167,11 +168,11 @@
 		<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">sp_blockchain::Result</span><span class="op">&lt;</span>(<span class="ident">Block::Header</span>, <span class="ident">StorageProof</span>)<span class="op">&gt;</span>;
 
-	<span class="doccomment">/// Get proof for computation of (block, extrinsic) pairs where key has been changed at given blocks range.</span>
-	<span class="doccomment">/// `min` is the hash of the first block, which changes trie root is known to the requester - when we&#39;re using</span>
-	<span class="doccomment">/// changes tries from ascendants of this block, we should provide proofs for changes tries roots</span>
-	<span class="doccomment">/// `max` is the hash of the last block known to the requester - we can&#39;t use changes tries from descendants</span>
-	<span class="doccomment">/// of this block.</span>
+	<span class="doccomment">/// Get proof for computation of (block, extrinsic) pairs where key has been changed at given</span>
+	<span class="doccomment">/// blocks range. `min` is the hash of the first block, which changes trie root is known to the</span>
+	<span class="doccomment">/// requester - when we&#39;re using changes tries from ascendants of this block, we should provide</span>
+	<span class="doccomment">/// proofs for changes tries roots `max` is the hash of the last block known to the requester -</span>
+	<span class="doccomment">/// we can&#39;t use changes tries from descendants of this block.</span>
 	<span class="doccomment">/// Works only for runtimes that are supporting changes tries.</span>
 	<span class="kw">fn</span> <span class="ident">key_changes_proof</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -184,7 +185,8 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">sp_blockchain::Result</span><span class="op">&lt;</span><span class="ident">ChangesProof</span><span class="op">&lt;</span><span class="ident">Block::Header</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Given a `BlockId` iterate over all storage values starting at `start_key` exclusively,</span>
-	<span class="doccomment">/// building proofs until size limit is reached. Returns combined proof and the number of collected keys.</span>
+	<span class="doccomment">/// building proofs until size limit is reached. Returns combined proof and the number of</span>
+	<span class="doccomment">/// collected keys.</span>
 	<span class="kw">fn</span> <span class="ident">read_proof_collection</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,

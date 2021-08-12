@@ -1134,6 +1134,9 @@
 <span id="1123">1123</span>
 <span id="1124">1124</span>
 <span id="1125">1125</span>
+<span id="1126">1126</span>
+<span id="1127">1127</span>
+<span id="1128">1128</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1300,8 +1303,9 @@
 			<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::Rewarded</span>(<span class="ident">ledger</span>.<span class="ident">stash</span>, <span class="ident">imbalance</span>.<span class="ident">peek</span>()));
 		}
 
-		<span class="comment">// Track the number of payout ops to nominators. Note: `WeightInfo::payout_stakers_alive_staked`</span>
-		<span class="comment">// always assumes at least a validator is paid out, so we do not need to count their payout op.</span>
+		<span class="comment">// Track the number of payout ops to nominators. Note:</span>
+		<span class="comment">// `WeightInfo::payout_stakers_alive_staked` always assumes at least a validator is paid</span>
+		<span class="comment">// out, so we do not need to count their payout op.</span>
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">nominator_payout_count</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">0</span>;
 
 		<span class="comment">// Lets now calculate how this is split to the nominators.</span>
@@ -1443,6 +1447,7 @@
 		}
 	}
 
+	<span class="doccomment">///</span>
 	<span class="doccomment">/// * Increment `active_era.index`,</span>
 	<span class="doccomment">/// * reset `active_era.start`,</span>
 	<span class="doccomment">/// * update `BondedEras` and apply slashes.</span>
@@ -1811,7 +1816,8 @@
 		<span class="ident">all_voters</span>
 	}
 
-	<span class="doccomment">/// This is a very expensive function and result should be cached versus being called multiple times.</span>
+	<span class="doccomment">/// This is a very expensive function and result should be cached versus being called multiple</span>
+	<span class="doccomment">/// times.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_npos_targets</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span> {
 		<span class="ident">Validators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">v</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">v</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()
 	}

@@ -151,6 +151,7 @@
 <span id="140">140</span>
 <span id="141">141</span>
 <span id="142">142</span>
+<span id="143">143</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -171,6 +172,7 @@
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::pallet</span>::{<span class="ident">parse::helper::get_doc_literals</span>, <span class="ident">Def</span>};
 
+<span class="doccomment">///</span>
 <span class="doccomment">/// * impl various trait on Error</span>
 <span class="doccomment">/// * impl ModuleErrorMetadata for Error</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">expand_error</span>(<span class="ident">def</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Def</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">proc_macro2::TokenStream</span> {

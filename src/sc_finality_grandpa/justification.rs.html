@@ -258,6 +258,7 @@
 <span id="247">247</span>
 <span id="248">248</span>
 <span id="249">249</span>
+<span id="250">250</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -432,7 +433,8 @@
 
 			<span class="kw">match</span> <span class="ident">ancestry_chain</span>.<span class="ident">ancestry</span>(<span class="self">self</span>.<span class="ident">commit</span>.<span class="ident">target_hash</span>, <span class="ident">signed</span>.<span class="ident">precommit</span>.<span class="ident">target_hash</span>) {
 				<span class="prelude-val">Ok</span>(<span class="ident">route</span>) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="comment">// ancestry starts from parent hash but the precommit target hash has been visited</span>
+					<span class="comment">// ancestry starts from parent hash but the precommit target hash has been</span>
+					<span class="comment">// visited</span>
 					<span class="ident">visited_hashes</span>.<span class="ident">insert</span>(<span class="ident">signed</span>.<span class="ident">precommit</span>.<span class="ident">target_hash</span>);
 					<span class="kw">for</span> <span class="ident">hash</span> <span class="kw">in</span> <span class="ident">route</span> {
 						<span class="ident">visited_hashes</span>.<span class="ident">insert</span>(<span class="ident">hash</span>);

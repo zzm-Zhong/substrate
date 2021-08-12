@@ -505,7 +505,6 @@
 <span id="494">494</span>
 <span id="495">495</span>
 <span id="496">496</span>
-<span id="497">497</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -637,12 +636,11 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The block that emits this signal will contain changes trie (CT) that covers</span>
 	<span class="doccomment">/// blocks range [BEGIN; current block], where BEGIN is (order matters):</span>
-	<span class="doccomment">/// - LAST_TOP_LEVEL_DIGEST_BLOCK+1 if top level digest CT has ever been created</span>
-	<span class="doccomment">///   using current configuration AND the last top level digest CT has been created</span>
-	<span class="doccomment">///   at block LAST_TOP_LEVEL_DIGEST_BLOCK;</span>
-	<span class="doccomment">/// - LAST_CONFIGURATION_CHANGE_BLOCK+1 if there has been CT configuration change</span>
-	<span class="doccomment">///   before and the last configuration change happened at block</span>
-	<span class="doccomment">///   LAST_CONFIGURATION_CHANGE_BLOCK;</span>
+	<span class="doccomment">/// - LAST_TOP_LEVEL_DIGEST_BLOCK+1 if top level digest CT has ever been created using current</span>
+	<span class="doccomment">///   configuration AND the last top level digest CT has been created at block</span>
+	<span class="doccomment">///   LAST_TOP_LEVEL_DIGEST_BLOCK;</span>
+	<span class="doccomment">/// - LAST_CONFIGURATION_CHANGE_BLOCK+1 if there has been CT configuration change before and</span>
+	<span class="doccomment">///   the last configuration change happened at block LAST_CONFIGURATION_CHANGE_BLOCK;</span>
 	<span class="doccomment">/// - 1 otherwise.</span>
 	<span class="ident">NewConfiguration</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ChangesTrieConfiguration</span><span class="op">&gt;</span>),
 }

@@ -9,7 +9,7 @@
       gtag('config', 'UA-145158313-2');
 </script>
 
-<style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../pallet_democracy/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate pallet_democracy</p><div class="block version"><div class="narrow-helper"></div><p>Version 4.0.0-dev</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all pallet_democracy's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="pallet_democracy" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">pallet_democracy</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../clipboard.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/pallet_democracy/lib.rs.html#18-1894" title="goto source code">[src]</a></span></h1><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h1 id="democracy-pallet" class="section-header"><a href="#democracy-pallet">Democracy Pallet</a></h1>
+<style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../pallet_democracy/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate pallet_democracy</p><div class="block version"><div class="narrow-helper"></div><p>Version 4.0.0-dev</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all pallet_democracy's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="pallet_democracy" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">pallet_democracy</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../clipboard.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/pallet_democracy/lib.rs.html#18-1898" title="goto source code">[src]</a></span></h1><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h1 id="democracy-pallet" class="section-header"><a href="#democracy-pallet">Democracy Pallet</a></h1>
 <ul>
 <li><a href="pallet/trait.Config.html" title="Config"><code>Config</code></a></li>
 <li><a href="pallet/enum.Call.html" title="Call"><code>Call</code></a></li>
@@ -36,12 +36,12 @@ will be locked.</li>
 <li><strong>Conviction:</strong> An indication of a voter’s strength of belief in their vote. An increase
 of one in conviction indicates that a token holder is willing to lock their tokens for twice
 as many lock periods after enactment.</li>
-<li><strong>Vote:</strong> A value that can either be in approval (“Aye”) or rejection (“Nay”)
-of a particular referendum.</li>
+<li><strong>Vote:</strong> A value that can either be in approval (“Aye”) or rejection (“Nay”) of a particular
+referendum.</li>
 <li><strong>Proposal:</strong> A submission to the chain that represents an action that a proposer (either an
 account or an external origin) suggests that the system adopt.</li>
-<li><strong>Referendum:</strong> A proposal that is in the process of being voted on for
-either acceptance or rejection as a change to the system.</li>
+<li><strong>Referendum:</strong> A proposal that is in the process of being voted on for either acceptance or
+rejection as a change to the system.</li>
 <li><strong>Delegation:</strong> The act of granting your voting power to the decisions of another account for
 up to a certain conviction.</li>
 </ul>
@@ -77,45 +77,45 @@ keep the status quo.</li>
 </ul>
 <p>Preimage actions:</p>
 <ul>
-<li><code>note_preimage</code> - Registers the preimage for an upcoming proposal, requires
-a deposit that is returned once the proposal is enacted.</li>
+<li><code>note_preimage</code> - Registers the preimage for an upcoming proposal, requires a deposit that is
+returned once the proposal is enacted.</li>
 <li><code>note_preimage_operational</code> - same but provided by <code>T::OperationalPreimageOrigin</code>.</li>
-<li><code>note_imminent_preimage</code> - Registers the preimage for an upcoming proposal.
-Does not require a deposit, but the proposal must be in the dispatch queue.</li>
+<li><code>note_imminent_preimage</code> - Registers the preimage for an upcoming proposal. Does not require a
+deposit, but the proposal must be in the dispatch queue.</li>
 <li><code>note_imminent_preimage_operational</code> - same but provided by <code>T::OperationalPreimageOrigin</code>.</li>
-<li><code>reap_preimage</code> - Removes the preimage for an expired proposal. Will only
-work under the condition that it’s the same account that noted it and
-after the voting period, OR it’s a different account after the enactment period.</li>
+<li><code>reap_preimage</code> - Removes the preimage for an expired proposal. Will only work under the
+condition that it’s the same account that noted it and after the voting period, OR it’s a
+different account after the enactment period.</li>
 </ul>
 <h4 id="cancellation-origin" class="section-header"><a href="#cancellation-origin">Cancellation Origin</a></h4>
 <p>This call can only be made by the <code>CancellationOrigin</code>.</p>
 <ul>
-<li><code>emergency_cancel</code> - Schedules an emergency cancellation of a referendum.
-Can only happen once to a specific referendum.</li>
+<li><code>emergency_cancel</code> - Schedules an emergency cancellation of a referendum. Can only happen once
+to a specific referendum.</li>
 </ul>
 <h4 id="externalorigin" class="section-header"><a href="#externalorigin">ExternalOrigin</a></h4>
 <p>This call can only be made by the <code>ExternalOrigin</code>.</p>
 <ul>
-<li><code>external_propose</code> - Schedules a proposal to become a referendum once it is is legal
-for an externally proposed referendum.</li>
+<li><code>external_propose</code> - Schedules a proposal to become a referendum once it is is legal for an
+externally proposed referendum.</li>
 </ul>
 <h4 id="external-majority-origin" class="section-header"><a href="#external-majority-origin">External Majority Origin</a></h4>
 <p>This call can only be made by the <code>ExternalMajorityOrigin</code>.</p>
 <ul>
-<li><code>external_propose_majority</code> - Schedules a proposal to become a majority-carries
-referendum once it is legal for an externally proposed referendum.</li>
+<li><code>external_propose_majority</code> - Schedules a proposal to become a majority-carries referendum
+once it is legal for an externally proposed referendum.</li>
 </ul>
 <h4 id="external-default-origin" class="section-header"><a href="#external-default-origin">External Default Origin</a></h4>
 <p>This call can only be made by the <code>ExternalDefaultOrigin</code>.</p>
 <ul>
-<li><code>external_propose_default</code> - Schedules a proposal to become a negative-turnout-bias
-referendum once it is legal for an externally proposed referendum.</li>
+<li><code>external_propose_default</code> - Schedules a proposal to become a negative-turnout-bias referendum
+once it is legal for an externally proposed referendum.</li>
 </ul>
 <h4 id="fast-track-origin" class="section-header"><a href="#fast-track-origin">Fast Track Origin</a></h4>
 <p>This call can only be made by the <code>FastTrackOrigin</code>.</p>
 <ul>
-<li><code>fast_track</code> - Schedules the current externally proposed proposal that
-is “majority-carries” to become a referendum immediately.</li>
+<li><code>fast_track</code> - Schedules the current externally proposed proposal that is “majority-carries”
+to become a referendum immediately.</li>
 </ul>
 <h4 id="veto-origin" class="section-header"><a href="#veto-origin">Veto Origin</a></h4>
 <p>This call can only be made by the <code>VetoOrigin</code>.</p>

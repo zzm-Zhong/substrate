@@ -448,6 +448,8 @@
 <span id="437">437</span>
 <span id="438">438</span>
 <span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -497,6 +499,7 @@
 	<span class="prelude-val">Ok</span>(())
 }
 
+<span class="doccomment">///</span>
 <span class="doccomment">/// * if generics are unnamed: replace the first generic `_` by the generated prefix structure</span>
 <span class="doccomment">/// * if generics are named: reorder the generic, remove their name, and add the missing ones.</span>
 <span class="doccomment">/// * Add `#[allow(type_alias_bounds)]`</span>
@@ -601,6 +604,7 @@
 	<span class="prelude-val">Ok</span>(())
 }
 
+<span class="doccomment">///</span>
 <span class="doccomment">/// * generate StoragePrefix structs (e.g. for a storage `MyStorage` a struct with the name</span>
 <span class="doccomment">///   `_GeneratedPrefixForStorage$NameOfStorage` is generated) and implements StorageInstance trait.</span>
 <span class="doccomment">/// * if generics are unnamed: replace the first generic `_` by the generated prefix structure</span>

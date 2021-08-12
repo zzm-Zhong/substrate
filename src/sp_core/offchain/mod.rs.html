@@ -1184,8 +1184,8 @@
 
 	<span class="doccomment">/// Initiates a http request given HTTP verb and the URL.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Meta is a future-reserved field containing additional, parity-scale-codec encoded parameters.</span>
-	<span class="doccomment">/// Returns the id of newly started request.</span>
+	<span class="doccomment">/// Meta is a future-reserved field containing additional, parity-scale-codec encoded</span>
+	<span class="doccomment">/// parameters. Returns the id of newly started request.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Returns an error if:</span>
 	<span class="doccomment">/// - No new request identifier could be allocated.</span>
@@ -1228,8 +1228,8 @@
 	<span class="doccomment">/// - The request identifier is invalid.</span>
 	<span class="doccomment">/// - `http_response_wait` has already been called on this request.</span>
 	<span class="doccomment">/// - The deadline is reached.</span>
-	<span class="doccomment">/// - An I/O error has happened, for example the remote has closed our</span>
-	<span class="doccomment">///   request. The request is then considered invalid.</span>
+	<span class="doccomment">/// - An I/O error has happened, for example the remote has closed our request. The request is</span>
+	<span class="doccomment">///   then considered invalid.</span>
 	<span class="kw">fn</span> <span class="ident">http_request_write_body</span>(
 		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
 		<span class="ident">request_id</span>: <span class="ident">HttpRequestId</span>,
@@ -1280,8 +1280,8 @@
 	<span class="doccomment">/// Returns an error if:</span>
 	<span class="doccomment">/// - The request identifier is invalid.</span>
 	<span class="doccomment">/// - The deadline is reached.</span>
-	<span class="doccomment">/// - An I/O error has happened, for example the remote has closed our</span>
-	<span class="doccomment">///   request. The request is then considered invalid.</span>
+	<span class="doccomment">/// - An I/O error has happened, for example the remote has closed our request. The request is</span>
+	<span class="doccomment">///   then considered invalid.</span>
 	<span class="kw">fn</span> <span class="ident">http_response_read_body</span>(
 		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
 		<span class="ident">request_id</span>: <span class="ident">HttpRequestId</span>,

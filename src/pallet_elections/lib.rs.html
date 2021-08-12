@@ -1332,6 +1332,7 @@
 <span id="1321">1321</span>
 <span id="1322">1322</span>
 <span id="1323">1323</span>
+<span id="1324">1324</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1408,8 +1409,8 @@
 <span class="comment">// - remove inactive voter (either you or the target is removed; if the target, you get their</span>
 <span class="comment">//   &quot;voter&quot; bond back; O(1); one fewer DB entry, one DB change)</span>
 <span class="comment">// - submit candidacy (you pay a &quot;candidate&quot; bond; O(1); one extra DB entry, two DB changes)</span>
-<span class="comment">// - present winner/runner-up (you may pay a &quot;presentation&quot; bond of O(voters) if the presentation</span>
-<span class="comment">//   is invalid; O(voters) compute; ) protected operations:</span>
+<span class="comment">// - present winner/runner-up (you may pay a &quot;presentation&quot; bond of O(voters) if the presentation is</span>
+<span class="comment">//   invalid; O(voters) compute; ) protected operations:</span>
 <span class="comment">// - remove candidacy (remove all votes for a candidate) (one fewer DB entry, two DB changes)</span>
 
 <span class="comment">// to avoid a potentially problematic case of not-enough approvals prior to voting causing a</span>
@@ -1463,8 +1464,8 @@
 <span class="doccomment">/// Used to demonstrate the status of a particular index in the global voter list.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">RuntimeDebug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">CellStatus</span> {
-	<span class="doccomment">/// Any out of bound index. Means a push a must happen to the chunk pointed by `NextVoterSet&lt;T&gt;`.</span>
-	<span class="doccomment">/// Voting fee is applied in case a new chunk is created.</span>
+	<span class="doccomment">/// Any out of bound index. Means a push a must happen to the chunk pointed by</span>
+	<span class="doccomment">/// `NextVoterSet&lt;T&gt;`. Voting fee is applied in case a new chunk is created.</span>
 	<span class="ident">Head</span>,
 	<span class="doccomment">/// Already occupied by another voter. Voting fee is applied.</span>
 	<span class="ident">Occupied</span>,
@@ -2185,13 +2186,14 @@
 			<span class="prelude-val">None</span>
 		} <span class="kw">else</span> {
 			<span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::members</span>();
-			<span class="kw">let</span> (<span class="ident">next_possible</span>, <span class="ident">count</span>, <span class="ident">coming</span>) <span class="op">=</span>
-				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">tally_end</span>, <span class="ident">comers</span>, <span class="ident">leavers</span>)) <span class="op">=</span> <span class="self">Self</span><span class="ident">::next_finalize</span>() {
-					<span class="comment">// if there&#39;s a tally in progress, then next tally can begin immediately afterwards</span>
-					(<span class="ident">tally_end</span>, <span class="ident">c</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="ident">leavers</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="ident">comers</span> <span class="kw">as</span> <span class="ident">usize</span>, <span class="ident">comers</span>)
-				} <span class="kw">else</span> {
-					(<span class="op">&lt;</span><span class="ident">frame_system::Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::block_number</span>(), <span class="ident">c</span>.<span class="ident">len</span>(), <span class="number">0</span>)
-				};
+			<span class="kw">let</span> (<span class="ident">next_possible</span>, <span class="ident">count</span>, <span class="ident">coming</span>) <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">tally_end</span>, <span class="ident">comers</span>, <span class="ident">leavers</span>)) <span class="op">=</span>
+				<span class="self">Self</span><span class="ident">::next_finalize</span>()
+			{
+				<span class="comment">// if there&#39;s a tally in progress, then next tally can begin immediately afterwards</span>
+				(<span class="ident">tally_end</span>, <span class="ident">c</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="ident">leavers</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="ident">comers</span> <span class="kw">as</span> <span class="ident">usize</span>, <span class="ident">comers</span>)
+			} <span class="kw">else</span> {
+				(<span class="op">&lt;</span><span class="ident">frame_system::Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::block_number</span>(), <span class="ident">c</span>.<span class="ident">len</span>(), <span class="number">0</span>)
+			};
 			<span class="kw">if</span> <span class="ident">count</span> <span class="op">&lt;</span> <span class="ident">desired_seats</span> <span class="kw">as</span> <span class="ident">usize</span> {
 				<span class="prelude-val">Some</span>(<span class="ident">next_possible</span>)
 			} <span class="kw">else</span> {

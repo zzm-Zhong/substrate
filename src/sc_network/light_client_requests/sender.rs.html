@@ -1296,6 +1296,7 @@
 <span id="1285">1285</span>
 <span id="1286">1286</span>
 <span id="1287">1287</span>
+<span id="1288">1288</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1325,8 +1326,9 @@
 <span class="doccomment">//! 2. Forward the request to [`crate::request_responses::RequestResponsesBehaviour`] via</span>
 <span class="doccomment">//! [`OutEvent::SendRequest`](sender::OutEvent::SendRequest).</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! 3. Wait for the response and forward the response via the [`futures::channel::oneshot::Sender`] provided earlier</span>
-<span class="doccomment">//! with [`LightClientRequestSender::request`](sender::LightClientRequestSender::request).</span>
+<span class="doccomment">//! 3. Wait for the response and forward the response via the [`futures::channel::oneshot::Sender`]</span>
+<span class="doccomment">//! provided earlier with [`LightClientRequestSender::request`](sender::LightClientRequestSender::</span>
+<span class="doccomment">//! request).</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
 	<span class="ident">config::ProtocolId</span>,

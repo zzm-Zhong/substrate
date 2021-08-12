@@ -21,8 +21,8 @@ under a single topic to all peers who don’t have them yet, and <code>send_topi
 send all messages under a single topic to a specific peer.</p>
 <h1 id="usage" class="section-header"><a href="#usage">Usage</a></h1>
 <ul>
-<li>Implement the <code>Network</code> trait, representing the low-level networking primitives. It is
-already implemented on <code>sc_network::NetworkService</code>.</li>
+<li>Implement the <code>Network</code> trait, representing the low-level networking primitives. It is already
+implemented on <code>sc_network::NetworkService</code>.</li>
 <li>Implement the <code>Validator</code> trait. See the section below.</li>
 <li>Decide on a protocol name. Each gossiping protocol should have a different one.</li>
 <li>Build a <code>GossipEngine</code> using these three elements.</li>

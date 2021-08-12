@@ -166,10 +166,10 @@
 <span class="doccomment">/// Trait implementing how the storage optional value is converted into the queried type.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// It is implemented by:</span>
-<span class="doccomment">/// * `OptionQuery` which convert an optional value to an optional value, user when querying</span>
-<span class="doccomment">///   storage will get an optional value.</span>
-<span class="doccomment">/// * `ValueQuery` which convert an optional value to a value, user when querying storage will get</span>
-<span class="doccomment">///   a value.</span>
+<span class="doccomment">/// * `OptionQuery` which convert an optional value to an optional value, user when querying storage</span>
+<span class="doccomment">///   will get an optional value.</span>
+<span class="doccomment">/// * `ValueQuery` which convert an optional value to a value, user when querying storage will get a</span>
+<span class="doccomment">///   value.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">QueryKindTrait</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">OnEmpty</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Metadata for the storage kind.</span>
 	<span class="kw">const</span> <span class="ident">METADATA</span>: <span class="ident">StorageEntryModifier</span>;

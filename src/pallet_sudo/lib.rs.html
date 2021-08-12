@@ -301,6 +301,7 @@
 <span id="290">290</span>
 <span id="291">291</span>
 <span id="292">292</span>
+<span id="293">293</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -345,9 +346,9 @@
 <span class="doccomment">//! ### Executing Privileged Functions</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The Sudo pallet itself is not intended to be used within other pallets.</span>
-<span class="doccomment">//! Instead, you can build &quot;privileged functions&quot; (i.e. functions that require `Root` origin) in other pallets.</span>
-<span class="doccomment">//! You can execute these privileged functions by calling `sudo` with the sudo key account.</span>
-<span class="doccomment">//! Privileged functions cannot be directly executed via an extrinsic.</span>
+<span class="doccomment">//! Instead, you can build &quot;privileged functions&quot; (i.e. functions that require `Root` origin) in</span>
+<span class="doccomment">//! other pallets. You can execute these privileged functions by calling `sudo` with the sudo key</span>
+<span class="doccomment">//! account. Privileged functions cannot be directly executed via an extrinsic.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Learn more about privileged functions and `Root` origin in the [`Origin`] type documentation.</span>
 <span class="doccomment">//!</span>
@@ -356,7 +357,7 @@
 <span class="doccomment">//! This is an example of a pallet that exposes a privileged function:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
-<span class="doccomment">//!</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! #[frame_support::pallet]</span>
 <span class="doccomment">//! pub mod logger {</span>
 <span class="doccomment">//! 	use frame_support::pallet_prelude::*;</span>
@@ -485,7 +486,8 @@
 			<span class="prelude-val">Ok</span>(<span class="ident">Pays::No</span>.<span class="ident">into</span>())
 		}
 
-		<span class="doccomment">/// Authenticates the current sudo key and sets the given AccountId (`new`) as the new sudo key.</span>
+		<span class="doccomment">/// Authenticates the current sudo key and sets the given AccountId (`new`) as the new sudo</span>
+		<span class="doccomment">/// key.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// The dispatch origin for this call must be _Signed_.</span>
 		<span class="doccomment">///</span>

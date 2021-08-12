@@ -213,6 +213,8 @@
 <span id="202">202</span>
 <span id="203">203</span>
 <span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -246,7 +248,8 @@
 	<span class="ident">ops::DerefMut</span>,
 };
 
-<span class="doccomment">/// Marker trait for types that should be registered as [`Externalities`](crate::Externalities) extension.</span>
+<span class="doccomment">/// Marker trait for types that should be registered as [`Externalities`](crate::Externalities)</span>
+<span class="doccomment">/// extension.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// As extensions are stored as `Box&lt;Any&gt;`, this trait should give more confidence that the correct</span>
 <span class="doccomment">/// type is registered and requested.</span>
@@ -311,7 +314,8 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is a super trait of the [`Externalities`](crate::Externalities).</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ExtensionStore</span> {
-	<span class="doccomment">/// Tries to find a registered extension by the given `type_id` and returns it as a `&amp;mut dyn Any`.</span>
+	<span class="doccomment">/// Tries to find a registered extension by the given `type_id` and returns it as a `&amp;mut dyn</span>
+	<span class="doccomment">/// Any`.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// It is advised to use [`ExternalitiesExt::extension`](crate::ExternalitiesExt::extension)</span>
 	<span class="doccomment">/// instead of this function to get type system support and automatic type downcasting.</span>

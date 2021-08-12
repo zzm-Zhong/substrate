@@ -194,8 +194,8 @@
 
 <span class="doccomment">/// Safely and accurately compute `a * b / c`. The approach is:</span>
 <span class="doccomment">///   - Simply try `a * b / c`.</span>
-<span class="doccomment">///   - Else, convert them both into big numbers and re-try. `Err` is returned if the result</span>
-<span class="doccomment">///     cannot be safely casted back to u128.</span>
+<span class="doccomment">///   - Else, convert them both into big numbers and re-try. `Err` is returned if the result cannot</span>
+<span class="doccomment">///     be safely casted back to u128.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Invariant: c must be greater than or equal to 1.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multiply_by_rational</span>(<span class="kw-2">mut</span> <span class="ident">a</span>: <span class="ident">u128</span>, <span class="kw-2">mut</span> <span class="ident">b</span>: <span class="ident">u128</span>, <span class="kw-2">mut</span> <span class="ident">c</span>: <span class="ident">u128</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u128</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {

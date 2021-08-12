@@ -651,6 +651,7 @@
 <span id="640">640</span>
 <span id="641">641</span>
 <span id="642">642</span>
+<span id="643">643</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -761,7 +762,8 @@
 <span class="doccomment">/// A state snapshot config may be present and will be written to in that case.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OnlineConfig</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> {
-	<span class="doccomment">/// The block hash at which to get the runtime state. Will be latest finalized head if not provided.</span>
+	<span class="doccomment">/// The block hash at which to get the runtime state. Will be latest finalized head if not</span>
+	<span class="doccomment">/// provided.</span>
 	<span class="kw">pub</span> <span class="ident">at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">B::Hash</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// An optional state snapshot file to WRITE to, not for reading. Not written if set to `None`.</span>
 	<span class="kw">pub</span> <span class="ident">state_snapshot</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SnapshotConfig</span><span class="op">&gt;</span>,

@@ -709,8 +709,8 @@
 }
 
 <span class="comment">// NOTE: we could also implement this as:</span>
-<span class="comment">// impl&lt;T: Value, S1: Get&lt;u32&gt;, S2: Get&lt;u32&gt;&gt; PartialEq&lt;WeakBoundedVec&lt;T, S2&gt;&gt; for WeakBoundedVec&lt;T, S1&gt;</span>
-<span class="comment">// to allow comparison of bounded vectors with different bounds.</span>
+<span class="comment">// impl&lt;T: Value, S1: Get&lt;u32&gt;, S2: Get&lt;u32&gt;&gt; PartialEq&lt;WeakBoundedVec&lt;T, S2&gt;&gt; for WeakBoundedVec&lt;T,</span>
+<span class="comment">// S1&gt; to allow comparison of bounded vectors with different bounds.</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">PartialEq</span> <span class="kw">for</span> <span class="ident">WeakBoundedVec</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span>
 <span class="kw">where</span>
 	<span class="ident">T</span>: <span class="ident">PartialEq</span>,

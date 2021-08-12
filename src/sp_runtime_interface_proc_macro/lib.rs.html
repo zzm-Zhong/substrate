@@ -117,6 +117,7 @@
 <span id="106">106</span>
 <span id="107">107</span>
 <span id="108">108</span>
+<span id="109">109</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -142,9 +143,10 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! 1. The [`#[runtime_interface]`](attr.runtime_interface.html) attribute macro for generating the</span>
 <span class="doccomment">//!    runtime interfaces.</span>
-<span class="doccomment">//! 2. The [`PassByCodec`](derive.PassByCodec.html) derive macro for implementing `PassBy` with `Codec`.</span>
-<span class="doccomment">//! 3. The [`PassByEnum`](derive.PassByInner.html) derive macro for implementing `PassBy` with `Enum`.</span>
-<span class="doccomment">//! 4. The [`PassByInner`](derive.PassByInner.html) derive macro for implementing `PassBy` with `Inner`.</span>
+<span class="doccomment">//! 2. The [`PassByCodec`](derive.PassByCodec.html) derive macro for implementing `PassBy` with</span>
+<span class="doccomment">//! `Codec`. 3. The [`PassByEnum`](derive.PassByInner.html) derive macro for implementing `PassBy`</span>
+<span class="doccomment">//! with `Enum`. 4. The [`PassByInner`](derive.PassByInner.html) derive macro for implementing</span>
+<span class="doccomment">//! `PassBy` with `Inner`.</span>
 
 <span class="kw">use</span> <span class="ident">syn</span>::{
 	<span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseStream</span>},

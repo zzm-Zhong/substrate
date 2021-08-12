@@ -3041,6 +3041,7 @@
 <span id="3030">3030</span>
 <span id="3031">3031</span>
 <span id="3032">3032</span>
+<span id="3033">3033</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -3071,7 +3072,6 @@
 <span class="doccomment">//! The `ChainSync` struct maintains the state of the block requests. Whenever something happens on</span>
 <span class="doccomment">//! the network, or whenever a block has been successfully verified, call the appropriate method in</span>
 <span class="doccomment">//! order to update it.</span>
-<span class="doccomment">//!</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
 	<span class="ident">protocol::message</span>::{<span class="self">self</span>, <span class="ident">BlockAnnounce</span>, <span class="ident">BlockAttributes</span>, <span class="ident">BlockRequest</span>, <span class="ident">BlockResponse</span>},
@@ -3944,8 +3944,8 @@
 			<span class="comment">// If our best queued is more than `MAX_BLOCKS_TO_LOOK_BACKWARDS` blocks away from the</span>
 			<span class="comment">// common number, the peer best number is higher than our best queued and the common</span>
 			<span class="comment">// number is smaller than the last finalized block number, we should do an ancestor</span>
-			<span class="comment">// search to find a better common block. If the queue is full we wait till all blocks are</span>
-			<span class="comment">// imported though.</span>
+			<span class="comment">// search to find a better common block. If the queue is full we wait till all blocks</span>
+			<span class="comment">// are imported though.</span>
 			<span class="kw">if</span> <span class="ident">best_queued</span>.<span class="ident">saturating_sub</span>(<span class="ident">peer</span>.<span class="ident">common_number</span>) <span class="op">&gt;</span> <span class="ident">MAX_BLOCKS_TO_LOOK_BACKWARDS</span>.<span class="ident">into</span>() <span class="op">&amp;&amp;</span>
 				<span class="ident">best_queued</span> <span class="op">&lt;</span> <span class="ident">peer</span>.<span class="ident">best_number</span> <span class="op">&amp;&amp;</span>
 				<span class="ident">peer</span>.<span class="ident">common_number</span> <span class="op">&lt;</span> <span class="ident">last_finalized</span> <span class="op">&amp;&amp;</span>
@@ -4193,8 +4193,8 @@
 								<span class="ident">ancestry_request</span>::<span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>(<span class="ident">next_num</span>),
 							))
 						} <span class="kw">else</span> {
-							<span class="comment">// Ancestry search is complete. Check if peer is on a stale fork unknown to us and</span>
-							<span class="comment">// add it to sync targets if necessary.</span>
+							<span class="comment">// Ancestry search is complete. Check if peer is on a stale fork unknown</span>
+							<span class="comment">// to us and add it to sync targets if necessary.</span>
 							<span class="macro">trace!</span>(
 								<span class="ident">target</span>: <span class="string">&quot;sync&quot;</span>,
 								<span class="string">&quot;Ancestry search complete. Ours={} ({}), Theirs={} ({}), Common={:?} ({})&quot;</span>,
@@ -4818,8 +4818,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This should be polled until it returns [`Poll::Pending`].</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// If [`PollBlockAnnounceValidation::ImportHeader`] is returned, then the caller MUST try to import passed</span>
-	<span class="doccomment">/// header (call `on_block_data`). The network request isn&#39;t sent in this case.</span>
+	<span class="doccomment">/// If [`PollBlockAnnounceValidation::ImportHeader`] is returned, then the caller MUST try to</span>
+	<span class="doccomment">/// import passed header (call `on_block_data`). The network request isn&#39;t sent in this case.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">poll_block_announce_validation</span>(
 		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
 		<span class="ident">cx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">std::task::Context</span>,
@@ -5046,7 +5046,8 @@
 		})
 	}
 
-	<span class="doccomment">/// Find a block to start sync from. If we sync with state, that&#39;s the latest block we have state for.</span>
+	<span class="doccomment">/// Find a block to start sync from. If we sync with state, that&#39;s the latest block we have</span>
+	<span class="doccomment">/// state for.</span>
 	<span class="kw">fn</span> <span class="ident">reset_sync_start_point</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ClientError</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">info</span>();
 		<span class="kw">if</span> <span class="macro">matches!</span>(<span class="self">self</span>.<span class="ident">mode</span>, <span class="ident">SyncMode::LightState</span> { .. }) <span class="op">&amp;&amp;</span> <span class="ident">info</span>.<span class="ident">finalized_state</span>.<span class="ident">is_some</span>() {
@@ -5176,8 +5177,8 @@
 	}
 }
 
-<span class="doccomment">/// The ancestor search state expresses which algorithm, and its stateful parameters, we are using to</span>
-<span class="doccomment">/// try to find an ancestor block</span>
+<span class="doccomment">/// The ancestor search state expresses which algorithm, and its stateful parameters, we are using</span>
+<span class="doccomment">/// to try to find an ancestor block</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">AncestorSearchState</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Use exponential backoff to find an ancestor, then switch to binary search.</span>
@@ -5205,7 +5206,8 @@
 		<span class="ident">AncestorSearchState::ExponentialBackoff</span>(<span class="ident">next_distance_to_tip</span>) <span class="op">=</span><span class="op">&gt;</span> {
 			<span class="kw">let</span> <span class="ident">next_distance_to_tip</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">next_distance_to_tip</span>;
 			<span class="kw">if</span> <span class="ident">block_hash_match</span> <span class="op">&amp;&amp;</span> <span class="ident">next_distance_to_tip</span> <span class="op">=</span><span class="op">=</span> <span class="ident">One::one</span>() {
-				<span class="comment">// We found the ancestor in the first step so there is no need to execute binary search.</span>
+				<span class="comment">// We found the ancestor in the first step so there is no need to execute binary</span>
+				<span class="comment">// search.</span>
 				<span class="kw">return</span> <span class="prelude-val">None</span>
 			}
 			<span class="kw">if</span> <span class="ident">block_hash_match</span> {
@@ -5689,13 +5691,13 @@
 
 	<span class="doccomment">/// This test is a regression test as observed on a real network.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// The node is connected to multiple peers. Both of these peers are having a best block (1) that</span>
-	<span class="doccomment">/// is below our best block (3). Now peer 2 announces a fork of block 3 that we will</span>
+	<span class="doccomment">/// The node is connected to multiple peers. Both of these peers are having a best block (1)</span>
+	<span class="doccomment">/// that is below our best block (3). Now peer 2 announces a fork of block 3 that we will</span>
 	<span class="doccomment">/// request from peer 2. After importing the fork, peer 2 and then peer 1 will announce block 4.</span>
-	<span class="doccomment">/// But as peer 1 in our view is still at block 1, we will request block 2 (which we already have)</span>
-	<span class="doccomment">/// from it. In the meanwhile peer 2 sends us block 4 and 3 and we send another request for block</span>
-	<span class="doccomment">/// 2 to peer 2. Peer 1 answers with block 2 and then peer 2. This will need to succeed, as we</span>
-	<span class="doccomment">/// have requested block 2 from both peers.</span>
+	<span class="doccomment">/// But as peer 1 in our view is still at block 1, we will request block 2 (which we already</span>
+	<span class="doccomment">/// have) from it. In the meanwhile peer 2 sends us block 4 and 3 and we send another request</span>
+	<span class="doccomment">/// for block 2 to peer 2. Peer 1 answers with block 2 and then peer 2. This will need to</span>
+	<span class="doccomment">/// succeed, as we have requested block 2 from both peers.</span>
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">do_not_report_peer_on_block_response_for_block_request</span>() {
 		<span class="ident">sp_tracing::try_init_simple</span>();
@@ -5800,9 +5802,9 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The scenario is that the node is doing a full resync and is connected to some node that is</span>
 	<span class="doccomment">/// doing a major sync as well. This other node that is doing a major sync will finish before</span>
-	<span class="doccomment">/// our node and send a block announcement message, but we don&#39;t have seen any block announcement</span>
-	<span class="doccomment">/// from this node in its sync process. Meaning our common number didn&#39;t change. It is now expected</span>
-	<span class="doccomment">/// that we start an ancestor search to find the common number.</span>
+	<span class="doccomment">/// our node and send a block announcement message, but we don&#39;t have seen any block</span>
+	<span class="doccomment">/// announcement from this node in its sync process. Meaning our common number didn&#39;t change. It</span>
+	<span class="doccomment">/// is now expected that we start an ancestor search to find the common number.</span>
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">do_ancestor_search_when_common_block_to_best_qeued_gap_is_to_big</span>() {
 		<span class="ident">sp_tracing::try_init_simple</span>();

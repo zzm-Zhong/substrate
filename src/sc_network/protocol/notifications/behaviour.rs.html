@@ -2202,8 +2202,8 @@
 <span class="doccomment">/// - [`PeerState::Disabled`]: Has open TCP connection(s) unbeknownst to the peerset. No substream</span>
 <span class="doccomment">///   is open.</span>
 <span class="doccomment">/// - [`PeerState::Enabled`]: Has open TCP connection(s), acknowledged by the peerset.</span>
-<span class="doccomment">///   - Notifications substreams are open on at least one connection, and external</span>
-<span class="doccomment">///     API has been notified.</span>
+<span class="doccomment">///   - Notifications substreams are open on at least one connection, and external API has been</span>
+<span class="doccomment">///     notified.</span>
 <span class="doccomment">///   - Notifications substreams aren&#39;t open.</span>
 <span class="doccomment">/// - [`PeerState::Incoming`]: Has open TCP connection(s) and remote would like to open substreams.</span>
 <span class="doccomment">///   Peerset has been asked to attribute an inbound slot.</span>
@@ -3394,8 +3394,8 @@
 						.<span class="ident">iter</span>()
 						.<span class="ident">any</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">s</span>)<span class="op">|</span> <span class="macro">matches!</span>(<span class="ident">s</span>, <span class="ident">ConnectionState::OpenDesiredByRemote</span>));
 
-					<span class="comment">// If no connection is `OpenDesiredByRemote` anymore, clean up the peerset incoming</span>
-					<span class="comment">// request.</span>
+					<span class="comment">// If no connection is `OpenDesiredByRemote` anymore, clean up the peerset</span>
+					<span class="comment">// incoming request.</span>
 					<span class="kw">if</span> <span class="ident">no_desired_left</span> {
 						<span class="comment">// In the incoming state, we don&#39;t report &quot;Dropped&quot;. Instead we will just</span>
 						<span class="comment">// ignore the corresponding Accept/Reject.</span>

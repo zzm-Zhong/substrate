@@ -31,8 +31,8 @@ duration and the security parameter <code>c</code> (where <code>1 - c</code> rep
 the probability of a slot being empty).</p>
 </div></details><details class="rustdoc-toggle" open><summary><div id="associatedtype.EpochChangeTrigger" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/pallet_babe/lib.rs.html#140" title="goto source code">[src]</a></div><code>type <a href="#associatedtype.EpochChangeTrigger" class="type">EpochChangeTrigger</a>: <a class="trait" href="../trait.EpochChangeTrigger.html" title="trait pallet_babe::EpochChangeTrigger">EpochChangeTrigger</a></code></div></summary><div class="docblock"><p>BABE requires some logic to be triggered on every block to query for whether an epoch
 has ended and to perform the transition to the next epoch.</p>
-<p>Typically, the <code>ExternalTrigger</code> type should be used. An internal trigger should only be used
-when no other module is responsible for changing authority set.</p>
+<p>Typically, the <code>ExternalTrigger</code> type should be used. An internal trigger should only be
+used when no other module is responsible for changing authority set.</p>
 </div></details><details class="rustdoc-toggle" open><summary><div id="associatedtype.DisabledValidators" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/pallet_babe/lib.rs.html#145" title="goto source code">[src]</a></div><code>type <a href="#associatedtype.DisabledValidators" class="type">DisabledValidators</a>: <a class="trait" href="../../frame_support/traits/validation/trait.DisabledValidators.html" title="trait frame_support::traits::validation::DisabledValidators">DisabledValidators</a></code></div></summary><div class="docblock"><p>A way to check whether a given validator is disabled and should not be authoring blocks.
 Blocks authored by a disabled validator will lead to a panic as part of this module’s
 initialization.</p>

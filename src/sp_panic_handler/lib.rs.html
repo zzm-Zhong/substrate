@@ -192,6 +192,7 @@
 <span id="181">181</span>
 <span id="182">182</span>
 <span id="183">183</span>
+<span id="184">184</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -307,7 +308,8 @@ This is a bug. Please report it at:
 	}
 
 	<span class="doccomment">/// Create a new guard. While the guard is alive, panics that happen in the current thread will</span>
-	<span class="doccomment">/// **never** abort the process (even if `AbortGuard::force_abort()` guard will be created afterwards).</span>
+	<span class="doccomment">/// **never** abort the process (even if `AbortGuard::force_abort()` guard will be created</span>
+	<span class="doccomment">/// afterwards).</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">never_abort</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AbortGuard</span> {
 		<span class="ident">AbortGuard</span> { <span class="ident">previous_val</span>: <span class="ident">set_abort</span>(<span class="ident">OnPanic::NeverAbort</span>), <span class="ident">_not_send</span>: <span class="ident">PhantomData</span> }
 	}

@@ -250,6 +250,7 @@
 <span id="239">239</span>
 <span id="240">240</span>
 <span id="241">241</span>
+<span id="242">242</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -278,9 +279,10 @@
 	<span class="ident">Expr</span>, <span class="ident">ExprLit</span>, <span class="ident">FieldValue</span>, <span class="ident">ItemConst</span>, <span class="ident">Lit</span>,
 };
 
-<span class="doccomment">/// This macro accepts a `const` item that has a struct initializer expression of `RuntimeVersion`-like type.</span>
-<span class="doccomment">/// The macro will pass through this declaration and append an item declaration that will</span>
-<span class="doccomment">/// lead to emitting a wasm custom section with the contents of `RuntimeVersion`.</span>
+<span class="doccomment">/// This macro accepts a `const` item that has a struct initializer expression of</span>
+<span class="doccomment">/// `RuntimeVersion`-like type. The macro will pass through this declaration and append an item</span>
+<span class="doccomment">/// declaration that will lead to emitting a wasm custom section with the contents of</span>
+<span class="doccomment">/// `RuntimeVersion`.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decl_runtime_version_impl</span>(<span class="ident">input</span>: <span class="ident">proc_macro::TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">proc_macro::TokenStream</span> {
 	<span class="kw">let</span> <span class="ident">item</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">ItemConst</span>);
 	<span class="ident">decl_runtime_version_impl_inner</span>(<span class="ident">item</span>)
@@ -378,8 +380,8 @@
 			<span class="comment">// Intentionally ignored</span>
 			<span class="comment">//</span>
 			<span class="comment">// The definition will pass through for the declaration, however, it won&#39;t get into</span>
-			<span class="comment">// the &quot;runtime_version&quot; custom section. `impl_runtime_apis` is responsible for generating</span>
-			<span class="comment">// a custom section with the supported runtime apis descriptor.</span>
+			<span class="comment">// the &quot;runtime_version&quot; custom section. `impl_runtime_apis` is responsible for</span>
+			<span class="comment">// generating a custom section with the supported runtime apis descriptor.</span>
 		} <span class="kw">else</span> {
 			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<span class="ident">field_name</span>.<span class="ident">span</span>(), <span class="string">&quot;unknown field&quot;</span>))
 		}

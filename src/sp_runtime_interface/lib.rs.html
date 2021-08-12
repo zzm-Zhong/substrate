@@ -346,6 +346,8 @@
 <span id="335">335</span>
 <span id="336">336</span>
 <span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -375,11 +377,12 @@
 <span class="doccomment">//! # Using a type in a runtime interface</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Any type that should be used in a runtime interface as argument or return value needs to</span>
-<span class="doccomment">//! implement [`RIType`]. The associated type [`FFIType`](./trait.RIType.html#associatedtype.FFIType)</span>
-<span class="doccomment">//! is the type that is used in the FFI function to represent the actual type. For example `[T]` is</span>
-<span class="doccomment">//! represented by an `u64`. The slice pointer and the length will be mapped to an `u64` value.</span>
-<span class="doccomment">//! For more information see this [table](#ffi-type-and-conversion).</span>
-<span class="doccomment">//! The FFI function definition is used when calling from the wasm runtime into the node.</span>
+<span class="doccomment">//! implement [`RIType`]. The associated type</span>
+<span class="doccomment">//! [`FFIType`](./trait.RIType.html#associatedtype.FFIType) is the type that is used in the FFI</span>
+<span class="doccomment">//! function to represent the actual type. For example `[T]` is represented by an `u64`. The slice</span>
+<span class="doccomment">//! pointer and the length will be mapped to an `u64` value. For more information see this</span>
+<span class="doccomment">//! [table](#ffi-type-and-conversion). The FFI function definition is used when calling from the</span>
+<span class="doccomment">//! wasm runtime into the node.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Traits are used to convert from a type to the corresponding</span>
 <span class="doccomment">//! [`RIType::FFIType`](./trait.RIType.html#associatedtype.FFIType).</span>
@@ -442,13 +445,14 @@
 <span class="doccomment">//! | `&amp;str` | `u64` | &lt;code&gt;v.len() 32bit &lt;&lt; 32 &amp;#124; v.as_ptr() 32bit&lt;/code&gt; |</span>
 <span class="doccomment">//! | `&amp;[u8]` | `u64` | &lt;code&gt;v.len() 32bit &lt;&lt; 32 &amp;#124; v.as_ptr() 32bit&lt;/code&gt; |</span>
 <span class="doccomment">//! | `Vec&lt;u8&gt;` | `u64` | &lt;code&gt;v.len() 32bit &lt;&lt; 32 &amp;#124; v.as_ptr() 32bit&lt;/code&gt; |</span>
-<span class="doccomment">//! | `Vec&lt;T&gt; where T: Encode` | `u64` | `let e = v.encode();`&lt;br&gt;&lt;br&gt;&lt;code&gt;e.len() 32bit &lt;&lt; 32 &amp;#124; e.as_ptr() 32bit&lt;/code&gt; |</span>
-<span class="doccomment">//! | `&amp;[T] where T: Encode` | `u64` | `let e = v.encode();`&lt;br&gt;&lt;br&gt;&lt;code&gt;e.len() 32bit &lt;&lt; 32 &amp;#124; e.as_ptr() 32bit&lt;/code&gt; |</span>
-<span class="doccomment">//! | `[u8; N]` | `u32` | `v.as_ptr()` |</span>
-<span class="doccomment">//! | `*const T` | `u32` | `Identity` |</span>
-<span class="doccomment">//! | `Option&lt;T&gt;` | `u64` | `let e = v.encode();`&lt;br&gt;&lt;br&gt;&lt;code&gt;e.len() 32bit &lt;&lt; 32 &amp;#124; e.as_ptr() 32bit&lt;/code&gt; |</span>
-<span class="doccomment">//! | [`T where T: PassBy&lt;PassBy=Inner&gt;`](./pass_by#Inner) | Depends on inner | Depends on inner |</span>
-<span class="doccomment">//! | [`T where T: PassBy&lt;PassBy=Codec&gt;`](./pass_by#Codec)|`u64`|&lt;code&gt;v.len() 32bit &lt;&lt; 32 &amp;#124;v.as_ptr() 32bit&lt;/code&gt;|</span>
+<span class="doccomment">//! | `Vec&lt;T&gt; where T: Encode` | `u64` | `let e = v.encode();`&lt;br&gt;&lt;br&gt;&lt;code&gt;e.len() 32bit &lt;&lt; 32</span>
+<span class="doccomment">//! &amp;#124; e.as_ptr() 32bit&lt;/code&gt; | | `&amp;[T] where T: Encode` | `u64` | `let e =</span>
+<span class="doccomment">//! v.encode();`&lt;br&gt;&lt;br&gt;&lt;code&gt;e.len() 32bit &lt;&lt; 32 &amp;#124; e.as_ptr() 32bit&lt;/code&gt; | | `[u8; N]` |</span>
+<span class="doccomment">//! `u32` | `v.as_ptr()` | | `*const T` | `u32` | `Identity` |</span>
+<span class="doccomment">//! | `Option&lt;T&gt;` | `u64` | `let e = v.encode();`&lt;br&gt;&lt;br&gt;&lt;code&gt;e.len() 32bit &lt;&lt; 32 &amp;#124; e.as_ptr()</span>
+<span class="doccomment">//! 32bit&lt;/code&gt; | | [`T where T: PassBy&lt;PassBy=Inner&gt;`](./pass_by#Inner) | Depends on inner |</span>
+<span class="doccomment">//! Depends on inner | | [`T where T: PassBy&lt;PassBy=Codec&gt;`](./pass_by#Codec)|`u64`|&lt;code&gt;v.len()</span>
+<span class="doccomment">//! 32bit &lt;&lt; 32 &amp;#124;v.as_ptr() 32bit&lt;/code&gt;|</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! `Identity` means that the value is converted directly into the corresponding FFI type.</span>
 
@@ -468,10 +472,10 @@
 
 <span class="doccomment">/// Attribute macro for transforming a trait declaration into a runtime interface.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// A runtime interface is a fixed interface between a Substrate compatible runtime and the native</span>
-<span class="doccomment">/// node. This interface is callable from a native and a wasm runtime. The macro will generate the</span>
-<span class="doccomment">/// corresponding code for the native implementation and the code for calling from the wasm</span>
-<span class="doccomment">/// side to the native implementation.</span>
+<span class="doccomment">/// A runtime interface is a fixed interface between a Substrate compatible runtime and the</span>
+<span class="doccomment">/// native node. This interface is callable from a native and a wasm runtime. The macro will</span>
+<span class="doccomment">/// generate the corresponding code for the native implementation and the code for calling from</span>
+<span class="doccomment">/// the wasm side to the native implementation.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The macro expects the runtime interface declaration as trait declaration:</span>
 <span class="doccomment">///</span>
@@ -622,25 +626,25 @@
 <span class="doccomment">/// The macro supports any kind of argument type, as long as it implements [`RIType`] and the</span>
 <span class="doccomment">/// required `FromFFIValue`/`IntoFFIValue`. The macro will convert each</span>
 <span class="doccomment">/// argument to the corresponding FFI representation and will call into the host using this FFI</span>
-<span class="doccomment">/// representation. On the host each argument is converted back to the native representation and</span>
-<span class="doccomment">/// the native implementation is called. Any return value is handled in the same way.</span>
+<span class="doccomment">/// representation. On the host each argument is converted back to the native representation</span>
+<span class="doccomment">/// and the native implementation is called. Any return value is handled in the same way.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Wasm only interfaces</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Some interfaces are only required from within the wasm runtime e.g. the allocator interface.</span>
-<span class="doccomment">/// To support this, the macro can be called like `#[runtime_interface(wasm_only)]`. This instructs</span>
-<span class="doccomment">/// the macro to make two significant changes to the generated code:</span>
+<span class="doccomment">/// Some interfaces are only required from within the wasm runtime e.g. the allocator</span>
+<span class="doccomment">/// interface. To support this, the macro can be called like `#[runtime_interface(wasm_only)]`.</span>
+<span class="doccomment">/// This instructs the macro to make two significant changes to the generated code:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// 1. The generated functions are not callable from the native side.</span>
-<span class="doccomment">/// 2. The trait as shown above is not implemented for `Externalities` and is instead implemented</span>
-<span class="doccomment">///    for `FunctionExecutor` (from `sp-wasm-interface`).</span>
+<span class="doccomment">/// 2. The trait as shown above is not implemented for `Externalities` and is instead</span>
+<span class="doccomment">/// implemented    for `FunctionExecutor` (from `sp-wasm-interface`).</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Disable tracing</span>
 <span class="doccomment">/// By addding `no_tracing` to the list of options you can prevent the wasm-side interface from</span>
-<span class="doccomment">/// generating the default `sp-tracing`-calls. Note that this is rarely needed but only meant for</span>
-<span class="doccomment">/// the case when that would create a circular dependency. You usually _do not_ want to add this</span>
-<span class="doccomment">/// flag, as tracing doesn&#39;t cost you anything by default anyways (it is added as a no-op) but is</span>
-<span class="doccomment">/// super useful for debugging later.</span>
+<span class="doccomment">/// generating the default `sp-tracing`-calls. Note that this is rarely needed but only meant</span>
+<span class="doccomment">/// for the case when that would create a circular dependency. You usually _do not_ want to add</span>
+<span class="doccomment">/// this flag, as tracing doesn&#39;t cost you anything by default anyways (it is added as a no-op)</span>
+<span class="doccomment">/// but is super useful for debugging later.</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_runtime_interface_proc_macro::runtime_interface</span>;
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>

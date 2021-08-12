@@ -1552,6 +1552,13 @@
 <span id="1541">1541</span>
 <span id="1542">1542</span>
 <span id="1543">1543</span>
+<span id="1544">1544</span>
+<span id="1545">1545</span>
+<span id="1546">1546</span>
+<span id="1547">1547</span>
+<span id="1548">1548</span>
+<span id="1549">1549</span>
+<span id="1550">1550</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1573,8 +1580,9 @@
 <span class="doccomment">//! The unsigned phase, and its miner.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
-	<span class="ident">helpers</span>, <span class="ident">Call</span>, <span class="ident">CompactAccuracyOf</span>, <span class="ident">CompactOf</span>, <span class="ident">Config</span>, <span class="ident">ElectionCompute</span>, <span class="ident">Error</span>, <span class="ident">FeasibilityError</span>,
-	<span class="ident">Pallet</span>, <span class="ident">RawSolution</span>, <span class="ident">ReadySolution</span>, <span class="ident">RoundSnapshot</span>, <span class="ident">SolutionOrSnapshotSize</span>, <span class="ident">Weight</span>, <span class="ident">WeightInfo</span>,
+	<span class="ident">helpers</span>, <span class="ident">Call</span>, <span class="ident">Config</span>, <span class="ident">ElectionCompute</span>, <span class="ident">Error</span>, <span class="ident">FeasibilityError</span>, <span class="ident">Pallet</span>, <span class="ident">RawSolution</span>,
+	<span class="ident">ReadySolution</span>, <span class="ident">RoundSnapshot</span>, <span class="ident">SolutionAccuracyOf</span>, <span class="ident">SolutionOf</span>, <span class="ident">SolutionOrSnapshotSize</span>, <span class="ident">Weight</span>,
+	<span class="ident">WeightInfo</span>,
 };
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>};
 <span class="kw">use</span> <span class="ident">frame_support</span>::{<span class="ident">dispatch::DispatchResult</span>, <span class="ident">ensure</span>, <span class="ident">traits::Get</span>};
@@ -1582,7 +1590,7 @@
 <span class="kw">use</span> <span class="ident">sp_arithmetic::Perbill</span>;
 <span class="kw">use</span> <span class="ident">sp_npos_elections</span>::{
 	<span class="ident">assignment_ratio_to_staked_normalized</span>, <span class="ident">assignment_staked_to_ratio_normalized</span>, <span class="ident">is_score_better</span>,
-	<span class="ident">seq_phragmen</span>, <span class="ident">CompactSolution</span>, <span class="ident">ElectionResult</span>,
+	<span class="ident">seq_phragmen</span>, <span class="ident">ElectionResult</span>, <span class="ident">NposSolution</span>,
 };
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{
 	<span class="ident">offchain::storage</span>::{<span class="ident">MutateStorageError</span>, <span class="ident">StorageValueRef</span>},
@@ -1609,11 +1617,11 @@
 
 <span class="doccomment">/// The relative distribution of a voter&#39;s stake among the winning targets.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Assignment</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span>
-	<span class="ident">sp_npos_elections::Assignment</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">frame_system::Config</span><span class="op">&gt;</span><span class="ident">::AccountId</span>, <span class="ident">CompactAccuracyOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+	<span class="ident">sp_npos_elections::Assignment</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">frame_system::Config</span><span class="op">&gt;</span><span class="ident">::AccountId</span>, <span class="ident">SolutionAccuracyOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// The [`IndexAssignment`][sp_npos_elections::IndexAssignment] type specialized for a particular</span>
 <span class="doccomment">/// runtime `T`.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">IndexAssignmentOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">sp_npos_elections::IndexAssignmentOf</span><span class="op">&lt;</span><span class="ident">CompactOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">IndexAssignmentOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">sp_npos_elections::IndexAssignmentOf</span><span class="op">&lt;</span><span class="ident">SolutionOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MinerError</span> {
@@ -1786,7 +1794,7 @@
 	<span class="comment">//</span>
 	<span class="comment">// Performance: note that it internally clones the provided solution.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">basic_checks</span>(
-		<span class="ident">raw_solution</span>: <span class="kw-2">&amp;</span><span class="ident">RawSolution</span><span class="op">&lt;</span><span class="ident">CompactOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+		<span class="ident">raw_solution</span>: <span class="kw-2">&amp;</span><span class="ident">RawSolution</span><span class="op">&lt;</span><span class="ident">SolutionOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident">solution_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">MinerError</span><span class="op">&gt;</span> {
 		<span class="self">Self</span><span class="ident">::unsigned_pre_dispatch_checks</span>(<span class="ident">raw_solution</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> {
@@ -1812,7 +1820,7 @@
 	<span class="doccomment">/// [`Pallet::mine_check_save_submit`].</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mine_and_check</span>(
 		<span class="ident">iters</span>: <span class="ident">usize</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">RawSolution</span><span class="op">&lt;</span><span class="ident">CompactOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">SolutionOrSnapshotSize</span>), <span class="ident">MinerError</span><span class="op">&gt;</span> {
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">RawSolution</span><span class="op">&lt;</span><span class="ident">SolutionOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">SolutionOrSnapshotSize</span>), <span class="ident">MinerError</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> (<span class="ident">raw_solution</span>, <span class="ident">witness</span>) <span class="op">=</span> <span class="self">Self</span><span class="ident">::mine_solution</span>(<span class="ident">iters</span>)<span class="question-mark">?</span>;
 		<span class="self">Self</span><span class="ident">::basic_checks</span>(<span class="kw-2">&amp;</span><span class="ident">raw_solution</span>, <span class="string">&quot;mined&quot;</span>)<span class="question-mark">?</span>;
 		<span class="prelude-val">Ok</span>((<span class="ident">raw_solution</span>, <span class="ident">witness</span>))
@@ -1821,12 +1829,12 @@
 	<span class="doccomment">/// Mine a new npos solution.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mine_solution</span>(
 		<span class="ident">iters</span>: <span class="ident">usize</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">RawSolution</span><span class="op">&lt;</span><span class="ident">CompactOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">SolutionOrSnapshotSize</span>), <span class="ident">MinerError</span><span class="op">&gt;</span> {
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">RawSolution</span><span class="op">&lt;</span><span class="ident">SolutionOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">SolutionOrSnapshotSize</span>), <span class="ident">MinerError</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">RoundSnapshot</span> { <span class="ident">voters</span>, <span class="ident">targets</span> } <span class="op">=</span>
 			<span class="self">Self</span><span class="ident">::snapshot</span>().<span class="ident">ok_or</span>(<span class="ident">MinerError::SnapshotUnAvailable</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">desired_targets</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::desired_targets</span>().<span class="ident">ok_or</span>(<span class="ident">MinerError::SnapshotUnAvailable</span>)<span class="question-mark">?</span>;
 
-		<span class="ident">seq_phragmen</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">CompactAccuracyOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+		<span class="ident">seq_phragmen</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">SolutionAccuracyOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>(
 			<span class="ident">desired_targets</span> <span class="kw">as</span> <span class="ident">usize</span>,
 			<span class="ident">targets</span>,
 			<span class="ident">voters</span>,
@@ -1841,8 +1849,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Will always reduce the solution as well.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prepare_election_result</span>(
-		<span class="ident">election_result</span>: <span class="ident">ElectionResult</span><span class="op">&lt;</span><span class="ident">T::AccountId</span>, <span class="ident">CompactAccuracyOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">RawSolution</span><span class="op">&lt;</span><span class="ident">CompactOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">SolutionOrSnapshotSize</span>), <span class="ident">MinerError</span><span class="op">&gt;</span> {
+		<span class="ident">election_result</span>: <span class="ident">ElectionResult</span><span class="op">&lt;</span><span class="ident">T::AccountId</span>, <span class="ident">SolutionAccuracyOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">RawSolution</span><span class="op">&lt;</span><span class="ident">SolutionOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">SolutionOrSnapshotSize</span>), <span class="ident">MinerError</span><span class="op">&gt;</span> {
 		<span class="comment">// NOTE: This code path is generally not optimized as it is run offchain. Could use some at</span>
 		<span class="comment">// some point though.</span>
 
@@ -1859,11 +1867,11 @@
 		<span class="kw">let</span> <span class="ident">target_at</span> <span class="op">=</span> <span class="ident">helpers::target_at_fn</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">targets</span>);
 		<span class="kw">let</span> <span class="ident">stake_of</span> <span class="op">=</span> <span class="ident">helpers::stake_of_fn</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">voters</span>, <span class="kw-2">&amp;</span><span class="ident">cache</span>);
 
-		<span class="comment">// Compute the size of a compact solution comprised of the selected arguments.</span>
+		<span class="comment">// Compute the size of a solution comprised of the selected arguments.</span>
 		<span class="comment">//</span>
 		<span class="comment">// This function completes in `O(edges)`; it&#39;s expensive, but linear.</span>
 		<span class="kw">let</span> <span class="ident">encoded_size_of</span> <span class="op">=</span> <span class="op">|</span><span class="ident">assignments</span>: <span class="kw-2">&amp;</span>[<span class="ident">IndexAssignmentOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>]<span class="op">|</span> {
-			<span class="ident">CompactOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">compact</span><span class="op">|</span> <span class="ident">compact</span>.<span class="ident">encoded_size</span>())
+			<span class="ident">SolutionOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">encoded_size</span>())
 		};
 
 		<span class="kw">let</span> <span class="ident">ElectionResult</span> { <span class="ident">assignments</span>, <span class="ident">winners</span> } <span class="op">=</span> <span class="ident">election_result</span>;
@@ -1900,7 +1908,7 @@
 		};
 
 		<span class="comment">// convert to `IndexAssignment`. This improves the runtime complexity of repeatedly</span>
-		<span class="comment">// converting to `Compact`.</span>
+		<span class="comment">// converting to `Solution`.</span>
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">index_assignments</span> <span class="op">=</span> <span class="ident">sorted_assignments</span>
 			.<span class="ident">into_iter</span>()
 			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">assignment</span><span class="op">|</span> <span class="ident">IndexAssignmentOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="kw-2">&amp;</span><span class="ident">assignment</span>, <span class="kw-2">&amp;</span><span class="ident">voter_index</span>, <span class="kw-2">&amp;</span><span class="ident">target_index</span>))
@@ -1921,15 +1929,15 @@
 			<span class="kw-2">&amp;</span><span class="ident">encoded_size_of</span>,
 		)<span class="question-mark">?</span>;
 
-		<span class="comment">// now make compact.</span>
-		<span class="kw">let</span> <span class="ident">compact</span> <span class="op">=</span> <span class="ident">CompactOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="kw-2">&amp;</span><span class="ident">index_assignments</span>)<span class="question-mark">?</span>;
+		<span class="comment">// now make solution.</span>
+		<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">SolutionOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="kw-2">&amp;</span><span class="ident">index_assignments</span>)<span class="question-mark">?</span>;
 
 		<span class="comment">// re-calc score.</span>
 		<span class="kw">let</span> <span class="ident">winners</span> <span class="op">=</span> <span class="ident">sp_npos_elections::to_without_backing</span>(<span class="ident">winners</span>);
-		<span class="kw">let</span> <span class="ident">score</span> <span class="op">=</span> <span class="ident">compact</span>.<span class="ident">clone</span>().<span class="ident">score</span>(<span class="kw-2">&amp;</span><span class="ident">winners</span>, <span class="ident">stake_of</span>, <span class="ident">voter_at</span>, <span class="ident">target_at</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">score</span> <span class="op">=</span> <span class="ident">solution</span>.<span class="ident">clone</span>().<span class="ident">score</span>(<span class="kw-2">&amp;</span><span class="ident">winners</span>, <span class="ident">stake_of</span>, <span class="ident">voter_at</span>, <span class="ident">target_at</span>)<span class="question-mark">?</span>;
 
 		<span class="kw">let</span> <span class="ident">round</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::round</span>();
-		<span class="prelude-val">Ok</span>((<span class="ident">RawSolution</span> { <span class="ident">compact</span>, <span class="ident">score</span>, <span class="ident">round</span> }, <span class="ident">size</span>))
+		<span class="prelude-val">Ok</span>((<span class="ident">RawSolution</span> { <span class="ident">solution</span>, <span class="ident">score</span>, <span class="ident">round</span> }, <span class="ident">size</span>))
 	}
 
 	<span class="doccomment">/// Get a random number of iterations to run the balancing in the OCW.</span>
@@ -2057,7 +2065,7 @@
 		<span class="prelude-val">Ok</span>(())
 	}
 
-	<span class="doccomment">/// Find the maximum `len` that a compact can have in order to fit into the block weight.</span>
+	<span class="doccomment">/// Find the maximum `len` that a solution can have in order to fit into the block weight.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This only returns a value between zero and `size.nominators`.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">maximum_voter_for_weight</span><span class="op">&lt;</span><span class="ident">W</span>: <span class="ident">WeightInfo</span><span class="op">&gt;</span>(
@@ -2178,24 +2186,26 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// NOTE: Ideally, these tests should move more and more outside of this and more to the miner&#39;s</span>
 	<span class="doccomment">/// code, so that we do less and less storage reads here.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unsigned_pre_dispatch_checks</span>(<span class="ident">solution</span>: <span class="kw-2">&amp;</span><span class="ident">RawSolution</span><span class="op">&lt;</span><span class="ident">CompactOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unsigned_pre_dispatch_checks</span>(
+		<span class="ident">raw_solution</span>: <span class="kw-2">&amp;</span><span class="ident">RawSolution</span><span class="op">&lt;</span><span class="ident">SolutionOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
 		<span class="comment">// ensure solution is timely. Don&#39;t panic yet. This is a cheap check.</span>
 		<span class="macro">ensure!</span>(<span class="self">Self</span><span class="ident">::current_phase</span>().<span class="ident">is_unsigned_open</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::PreDispatchEarlySubmission</span>);
 
 		<span class="comment">// ensure round is current</span>
-		<span class="macro">ensure!</span>(<span class="self">Self</span><span class="ident">::round</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">solution</span>.<span class="ident">round</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::OcwCallWrongEra</span>);
+		<span class="macro">ensure!</span>(<span class="self">Self</span><span class="ident">::round</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">raw_solution</span>.<span class="ident">round</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::OcwCallWrongEra</span>);
 
 		<span class="comment">// ensure correct number of winners.</span>
 		<span class="macro">ensure!</span>(
 			<span class="self">Self</span><span class="ident">::desired_targets</span>().<span class="ident">unwrap_or_default</span>() <span class="op">=</span><span class="op">=</span>
-				<span class="ident">solution</span>.<span class="ident">compact</span>.<span class="ident">unique_targets</span>().<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>,
+				<span class="ident">raw_solution</span>.<span class="ident">solution</span>.<span class="ident">unique_targets</span>().<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>,
 			<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::PreDispatchWrongWinnerCount</span>,
 		);
 
 		<span class="comment">// ensure score is being improved. Panic henceforth.</span>
 		<span class="macro">ensure!</span>(
 			<span class="self">Self</span><span class="ident">::queued_solution</span>().<span class="ident">map_or</span>(<span class="bool-val">true</span>, <span class="op">|</span><span class="ident">q</span>: <span class="ident">ReadySolution</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">|</span> <span class="ident">is_score_better</span>::<span class="op">&lt;</span><span class="ident">Perbill</span><span class="op">&gt;</span>(
-				<span class="ident">solution</span>.<span class="ident">score</span>,
+				<span class="ident">raw_solution</span>.<span class="ident">score</span>,
 				<span class="ident">q</span>.<span class="ident">score</span>,
 				<span class="ident">T::SolutionImprovementThreshold::get</span>()
 			)),
@@ -2308,7 +2318,7 @@
 		<span class="ident">mock</span>::{
 			<span class="ident">roll_to</span>, <span class="ident">roll_to_with_ocw</span>, <span class="ident">trim_helpers</span>, <span class="ident">witness</span>, <span class="ident">BlockNumber</span>, <span class="ident">Call</span> <span class="kw">as</span> <span class="ident">OuterCall</span>,
 			<span class="ident">ExtBuilder</span>, <span class="ident">Extrinsic</span>, <span class="ident">MinerMaxWeight</span>, <span class="ident">MultiPhase</span>, <span class="ident">Origin</span>, <span class="ident">Runtime</span>, <span class="ident">System</span>,
-			<span class="ident">TestCompact</span>, <span class="ident">TrimHelpers</span>, <span class="ident">UnsignedPhase</span>,
+			<span class="ident">TestNposSolution</span>, <span class="ident">TrimHelpers</span>, <span class="ident">UnsignedPhase</span>,
 		},
 		<span class="ident">CurrentPhase</span>, <span class="ident">InvalidTransaction</span>, <span class="ident">Phase</span>, <span class="ident">QueuedSolution</span>, <span class="ident">TransactionSource</span>,
 		<span class="ident">TransactionValidityError</span>,
@@ -2327,7 +2337,8 @@
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">validate_unsigned_retracts_wrong_phase</span>() {
 		<span class="ident">ExtBuilder::default</span>().<span class="ident">desired_targets</span>(<span class="number">0</span>).<span class="ident">build_and_execute</span>(<span class="op">|</span><span class="op">|</span> {
-			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">RawSolution</span>::<span class="op">&lt;</span><span class="ident">TestCompact</span><span class="op">&gt;</span> { <span class="ident">score</span>: [<span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>], ..<span class="ident">Default::default</span>() };
+			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span>
+				<span class="ident">RawSolution</span>::<span class="op">&lt;</span><span class="ident">TestNposSolution</span><span class="op">&gt;</span> { <span class="ident">score</span>: [<span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>], ..<span class="ident">Default::default</span>() };
 			<span class="kw">let</span> <span class="ident">call</span> <span class="op">=</span> <span class="ident">Call::submit_unsigned</span>(<span class="ident">Box::new</span>(<span class="ident">solution</span>.<span class="ident">clone</span>()), <span class="ident">witness</span>());
 
 			<span class="comment">// initial</span>
@@ -2396,7 +2407,8 @@
 			<span class="ident">roll_to</span>(<span class="number">25</span>);
 			<span class="macro">assert!</span>(<span class="ident">MultiPhase::current_phase</span>().<span class="ident">is_unsigned</span>());
 
-			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">RawSolution</span>::<span class="op">&lt;</span><span class="ident">TestCompact</span><span class="op">&gt;</span> { <span class="ident">score</span>: [<span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>], ..<span class="ident">Default::default</span>() };
+			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span>
+				<span class="ident">RawSolution</span>::<span class="op">&lt;</span><span class="ident">TestNposSolution</span><span class="op">&gt;</span> { <span class="ident">score</span>: [<span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>], ..<span class="ident">Default::default</span>() };
 			<span class="kw">let</span> <span class="ident">call</span> <span class="op">=</span> <span class="ident">Call::submit_unsigned</span>(<span class="ident">Box::new</span>(<span class="ident">solution</span>.<span class="ident">clone</span>()), <span class="ident">witness</span>());
 
 			<span class="comment">// initial</span>
@@ -2433,9 +2445,9 @@
 			<span class="ident">roll_to</span>(<span class="number">25</span>);
 			<span class="macro">assert!</span>(<span class="ident">MultiPhase::current_phase</span>().<span class="ident">is_unsigned</span>());
 
-			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">RawSolution</span>::<span class="op">&lt;</span><span class="ident">TestCompact</span><span class="op">&gt;</span> { <span class="ident">score</span>: [<span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>], ..<span class="ident">Default::default</span>() };
-			<span class="kw">let</span> <span class="ident">call</span> <span class="op">=</span> <span class="ident">Call::submit_unsigned</span>(<span class="ident">Box::new</span>(<span class="ident">solution</span>.<span class="ident">clone</span>()), <span class="ident">witness</span>());
-			<span class="macro">assert_eq!</span>(<span class="ident">solution</span>.<span class="ident">compact</span>.<span class="ident">unique_targets</span>().<span class="ident">len</span>(), <span class="number">0</span>);
+			<span class="kw">let</span> <span class="ident">raw</span> <span class="op">=</span> <span class="ident">RawSolution</span>::<span class="op">&lt;</span><span class="ident">TestNposSolution</span><span class="op">&gt;</span> { <span class="ident">score</span>: [<span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>], ..<span class="ident">Default::default</span>() };
+			<span class="kw">let</span> <span class="ident">call</span> <span class="op">=</span> <span class="ident">Call::submit_unsigned</span>(<span class="ident">Box::new</span>(<span class="ident">raw</span>.<span class="ident">clone</span>()), <span class="ident">witness</span>());
+			<span class="macro">assert_eq!</span>(<span class="ident">raw</span>.<span class="ident">solution</span>.<span class="ident">unique_targets</span>().<span class="ident">len</span>(), <span class="number">0</span>);
 
 			<span class="comment">// won&#39;t work anymore.</span>
 			<span class="macro">assert!</span>(<span class="macro">matches!</span>(
@@ -2459,7 +2471,7 @@
 				<span class="macro">assert!</span>(<span class="ident">MultiPhase::current_phase</span>().<span class="ident">is_unsigned</span>());
 
 				<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span>
-					<span class="ident">RawSolution</span>::<span class="op">&lt;</span><span class="ident">TestCompact</span><span class="op">&gt;</span> { <span class="ident">score</span>: [<span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>], ..<span class="ident">Default::default</span>() };
+					<span class="ident">RawSolution</span>::<span class="op">&lt;</span><span class="ident">TestNposSolution</span><span class="op">&gt;</span> { <span class="ident">score</span>: [<span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>], ..<span class="ident">Default::default</span>() };
 				<span class="kw">let</span> <span class="ident">call</span> <span class="op">=</span> <span class="ident">Call::submit_unsigned</span>(<span class="ident">Box::new</span>(<span class="ident">solution</span>.<span class="ident">clone</span>()), <span class="ident">witness</span>());
 
 				<span class="macro">assert_eq!</span>(
@@ -2485,7 +2497,8 @@
 			<span class="macro">assert!</span>(<span class="ident">MultiPhase::current_phase</span>().<span class="ident">is_unsigned</span>());
 
 			<span class="comment">// This is in itself an invalid BS solution.</span>
-			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">RawSolution</span>::<span class="op">&lt;</span><span class="ident">TestCompact</span><span class="op">&gt;</span> { <span class="ident">score</span>: [<span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>], ..<span class="ident">Default::default</span>() };
+			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span>
+				<span class="ident">RawSolution</span>::<span class="op">&lt;</span><span class="ident">TestNposSolution</span><span class="op">&gt;</span> { <span class="ident">score</span>: [<span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>], ..<span class="ident">Default::default</span>() };
 			<span class="kw">let</span> <span class="ident">call</span> <span class="op">=</span> <span class="ident">Call::submit_unsigned</span>(<span class="ident">Box::new</span>(<span class="ident">solution</span>.<span class="ident">clone</span>()), <span class="ident">witness</span>());
 			<span class="kw">let</span> <span class="ident">outer_call</span>: <span class="ident">OuterCall</span> <span class="op">=</span> <span class="ident">call</span>.<span class="ident">into</span>();
 			<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">outer_call</span>.<span class="ident">dispatch</span>(<span class="ident">Origin::none</span>());
@@ -2501,7 +2514,8 @@
 			<span class="macro">assert!</span>(<span class="ident">MultiPhase::current_phase</span>().<span class="ident">is_unsigned</span>());
 
 			<span class="comment">// This solution is unfeasible as well, but we won&#39;t even get there.</span>
-			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">RawSolution</span>::<span class="op">&lt;</span><span class="ident">TestCompact</span><span class="op">&gt;</span> { <span class="ident">score</span>: [<span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>], ..<span class="ident">Default::default</span>() };
+			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span>
+				<span class="ident">RawSolution</span>::<span class="op">&lt;</span><span class="ident">TestNposSolution</span><span class="op">&gt;</span> { <span class="ident">score</span>: [<span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>], ..<span class="ident">Default::default</span>() };
 
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">correct_witness</span> <span class="op">=</span> <span class="ident">witness</span>();
 			<span class="ident">correct_witness</span>.<span class="ident">voters</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
@@ -2541,30 +2555,30 @@
 				<span class="ident">roll_to</span>(<span class="number">25</span>);
 				<span class="macro">assert!</span>(<span class="ident">MultiPhase::current_phase</span>().<span class="ident">is_unsigned</span>());
 
-				<span class="kw">let</span> (<span class="ident">solution</span>, <span class="ident">witness</span>) <span class="op">=</span> <span class="ident">MultiPhase::mine_solution</span>(<span class="number">2</span>).<span class="ident">unwrap</span>();
+				<span class="kw">let</span> (<span class="ident">raw</span>, <span class="ident">witness</span>) <span class="op">=</span> <span class="ident">MultiPhase::mine_solution</span>(<span class="number">2</span>).<span class="ident">unwrap</span>();
 				<span class="kw">let</span> <span class="ident">solution_weight</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Runtime</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::WeightInfo::submit_unsigned</span>(
 					<span class="ident">witness</span>.<span class="ident">voters</span>,
 					<span class="ident">witness</span>.<span class="ident">targets</span>,
-					<span class="ident">solution</span>.<span class="ident">compact</span>.<span class="ident">voter_count</span>() <span class="kw">as</span> <span class="ident">u32</span>,
-					<span class="ident">solution</span>.<span class="ident">compact</span>.<span class="ident">unique_targets</span>().<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>,
+					<span class="ident">raw</span>.<span class="ident">solution</span>.<span class="ident">voter_count</span>() <span class="kw">as</span> <span class="ident">u32</span>,
+					<span class="ident">raw</span>.<span class="ident">solution</span>.<span class="ident">unique_targets</span>().<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>,
 				);
 				<span class="comment">// default solution will have 5 edges (5 * 5 + 10)</span>
 				<span class="macro">assert_eq!</span>(<span class="ident">solution_weight</span>, <span class="number">35</span>);
-				<span class="macro">assert_eq!</span>(<span class="ident">solution</span>.<span class="ident">compact</span>.<span class="ident">voter_count</span>(), <span class="number">5</span>);
+				<span class="macro">assert_eq!</span>(<span class="ident">raw</span>.<span class="ident">solution</span>.<span class="ident">voter_count</span>(), <span class="number">5</span>);
 
 				<span class="comment">// now reduce the max weight</span>
 				<span class="op">&lt;</span><span class="ident">MinerMaxWeight</span><span class="op">&gt;</span><span class="ident">::set</span>(<span class="number">25</span>);
 
-				<span class="kw">let</span> (<span class="ident">solution</span>, <span class="ident">witness</span>) <span class="op">=</span> <span class="ident">MultiPhase::mine_solution</span>(<span class="number">2</span>).<span class="ident">unwrap</span>();
+				<span class="kw">let</span> (<span class="ident">raw</span>, <span class="ident">witness</span>) <span class="op">=</span> <span class="ident">MultiPhase::mine_solution</span>(<span class="number">2</span>).<span class="ident">unwrap</span>();
 				<span class="kw">let</span> <span class="ident">solution_weight</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Runtime</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::WeightInfo::submit_unsigned</span>(
 					<span class="ident">witness</span>.<span class="ident">voters</span>,
 					<span class="ident">witness</span>.<span class="ident">targets</span>,
-					<span class="ident">solution</span>.<span class="ident">compact</span>.<span class="ident">voter_count</span>() <span class="kw">as</span> <span class="ident">u32</span>,
-					<span class="ident">solution</span>.<span class="ident">compact</span>.<span class="ident">unique_targets</span>().<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>,
+					<span class="ident">raw</span>.<span class="ident">solution</span>.<span class="ident">voter_count</span>() <span class="kw">as</span> <span class="ident">u32</span>,
+					<span class="ident">raw</span>.<span class="ident">solution</span>.<span class="ident">unique_targets</span>().<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>,
 				);
 				<span class="comment">// default solution will have 5 edges (5 * 5 + 10)</span>
 				<span class="macro">assert_eq!</span>(<span class="ident">solution_weight</span>, <span class="number">25</span>);
-				<span class="macro">assert_eq!</span>(<span class="ident">solution</span>.<span class="ident">compact</span>.<span class="ident">voter_count</span>(), <span class="number">3</span>);
+				<span class="macro">assert_eq!</span>(<span class="ident">raw</span>.<span class="ident">solution</span>.<span class="ident">voter_count</span>(), <span class="number">3</span>);
 			})
 	}
 
@@ -2623,7 +2637,7 @@
 						<span class="ident">Assignment</span> { <span class="ident">who</span>: <span class="number">10</span>, <span class="ident">distribution</span>: <span class="macro">vec!</span>[(<span class="number">10</span>, <span class="ident">PerU16::one</span>())] },
 						<span class="ident">Assignment</span> {
 							<span class="ident">who</span>: <span class="number">7</span>,
-							<span class="comment">// note: this percent doesn&#39;t even matter, in compact it is 100%.</span>
+							<span class="comment">// note: this percent doesn&#39;t even matter, in solution it is 100%.</span>
 							<span class="ident">distribution</span>: <span class="macro">vec!</span>[(<span class="number">10</span>, <span class="ident">PerU16::one</span>())],
 						},
 					],
@@ -2645,7 +2659,7 @@
 						<span class="ident">Assignment</span> { <span class="ident">who</span>: <span class="number">7</span>, <span class="ident">distribution</span>: <span class="macro">vec!</span>[(<span class="number">10</span>, <span class="ident">PerU16::one</span>())] },
 						<span class="ident">Assignment</span> {
 							<span class="ident">who</span>: <span class="number">8</span>,
-							<span class="comment">// note: this percent doesn&#39;t even matter, in compact it is 100%.</span>
+							<span class="comment">// note: this percent doesn&#39;t even matter, in solution it is 100%.</span>
 							<span class="ident">distribution</span>: <span class="macro">vec!</span>[(<span class="number">10</span>, <span class="ident">PerU16::one</span>())],
 						},
 					],
@@ -2955,17 +2969,17 @@
 
 			<span class="comment">// given</span>
 			<span class="kw">let</span> <span class="ident">TrimHelpers</span> { <span class="kw-2">mut</span> <span class="ident">assignments</span>, <span class="ident">encoded_size_of</span>, .. } <span class="op">=</span> <span class="ident">trim_helpers</span>();
-			<span class="kw">let</span> <span class="ident">compact</span> <span class="op">=</span> <span class="ident">CompactOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
-			<span class="kw">let</span> <span class="ident">encoded_len</span> <span class="op">=</span> <span class="ident">compact</span>.<span class="ident">encoded_size</span>() <span class="kw">as</span> <span class="ident">u32</span>;
-			<span class="kw">let</span> <span class="ident">compact_clone</span> <span class="op">=</span> <span class="ident">compact</span>.<span class="ident">clone</span>();
+			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">SolutionOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
+			<span class="kw">let</span> <span class="ident">encoded_len</span> <span class="op">=</span> <span class="ident">solution</span>.<span class="ident">encoded_size</span>() <span class="kw">as</span> <span class="ident">u32</span>;
+			<span class="kw">let</span> <span class="ident">solution_clone</span> <span class="op">=</span> <span class="ident">solution</span>.<span class="ident">clone</span>();
 
 			<span class="comment">// when</span>
 			<span class="ident">MultiPhase::trim_assignments_length</span>(<span class="ident">encoded_len</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">assignments</span>, <span class="ident">encoded_size_of</span>)
 				.<span class="ident">unwrap</span>();
 
 			<span class="comment">// then</span>
-			<span class="kw">let</span> <span class="ident">compact</span> <span class="op">=</span> <span class="ident">CompactOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
-			<span class="macro">assert_eq!</span>(<span class="ident">compact</span>, <span class="ident">compact_clone</span>);
+			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">SolutionOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
+			<span class="macro">assert_eq!</span>(<span class="ident">solution</span>, <span class="ident">solution_clone</span>);
 		});
 	}
 
@@ -2976,9 +2990,9 @@
 
 			<span class="comment">// given</span>
 			<span class="kw">let</span> <span class="ident">TrimHelpers</span> { <span class="kw-2">mut</span> <span class="ident">assignments</span>, <span class="ident">encoded_size_of</span>, .. } <span class="op">=</span> <span class="ident">trim_helpers</span>();
-			<span class="kw">let</span> <span class="ident">compact</span> <span class="op">=</span> <span class="ident">CompactOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
-			<span class="kw">let</span> <span class="ident">encoded_len</span> <span class="op">=</span> <span class="ident">compact</span>.<span class="ident">encoded_size</span>();
-			<span class="kw">let</span> <span class="ident">compact_clone</span> <span class="op">=</span> <span class="ident">compact</span>.<span class="ident">clone</span>();
+			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">SolutionOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
+			<span class="kw">let</span> <span class="ident">encoded_len</span> <span class="op">=</span> <span class="ident">solution</span>.<span class="ident">encoded_size</span>();
+			<span class="kw">let</span> <span class="ident">solution_clone</span> <span class="op">=</span> <span class="ident">solution</span>.<span class="ident">clone</span>();
 
 			<span class="comment">// when</span>
 			<span class="ident">MultiPhase::trim_assignments_length</span>(
@@ -2989,9 +3003,9 @@
 			.<span class="ident">unwrap</span>();
 
 			<span class="comment">// then</span>
-			<span class="kw">let</span> <span class="ident">compact</span> <span class="op">=</span> <span class="ident">CompactOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
-			<span class="macro">assert_ne!</span>(<span class="ident">compact</span>, <span class="ident">compact_clone</span>);
-			<span class="macro">assert!</span>(<span class="ident">compact</span>.<span class="ident">encoded_size</span>() <span class="op">&lt;</span> <span class="ident">encoded_len</span>);
+			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">SolutionOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
+			<span class="macro">assert_ne!</span>(<span class="ident">solution</span>, <span class="ident">solution_clone</span>);
+			<span class="macro">assert!</span>(<span class="ident">solution</span>.<span class="ident">encoded_size</span>() <span class="op">&lt;</span> <span class="ident">encoded_len</span>);
 		});
 	}
 
@@ -3003,8 +3017,8 @@
 			<span class="comment">// given</span>
 			<span class="kw">let</span> <span class="ident">TrimHelpers</span> { <span class="ident">voters</span>, <span class="kw-2">mut</span> <span class="ident">assignments</span>, <span class="ident">encoded_size_of</span>, <span class="ident">voter_index</span> } <span class="op">=</span>
 				<span class="ident">trim_helpers</span>();
-			<span class="kw">let</span> <span class="ident">compact</span> <span class="op">=</span> <span class="ident">CompactOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
-			<span class="kw">let</span> <span class="ident">encoded_len</span> <span class="op">=</span> <span class="ident">compact</span>.<span class="ident">encoded_size</span>() <span class="kw">as</span> <span class="ident">u32</span>;
+			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">SolutionOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
+			<span class="kw">let</span> <span class="ident">encoded_len</span> <span class="op">=</span> <span class="ident">solution</span>.<span class="ident">encoded_size</span>() <span class="kw">as</span> <span class="ident">u32</span>;
 			<span class="kw">let</span> <span class="ident">count</span> <span class="op">=</span> <span class="ident">assignments</span>.<span class="ident">len</span>();
 			<span class="kw">let</span> <span class="ident">min_stake_voter</span> <span class="op">=</span> <span class="ident">voters</span>
 				.<span class="ident">iter</span>()
@@ -3031,15 +3045,15 @@
 		<span class="comment">// we shan&#39;t panic if assignments are initially empty.</span>
 		<span class="ident">ExtBuilder::default</span>().<span class="ident">build_and_execute</span>(<span class="op">|</span><span class="op">|</span> {
 			<span class="kw">let</span> <span class="ident">encoded_size_of</span> <span class="op">=</span> <span class="ident">Box::new</span>(<span class="op">|</span><span class="ident">assignments</span>: <span class="kw-2">&amp;</span>[<span class="ident">IndexAssignmentOf</span><span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span>]<span class="op">|</span> {
-				<span class="ident">CompactOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">compact</span><span class="op">|</span> <span class="ident">compact</span>.<span class="ident">encoded_size</span>())
+				<span class="ident">SolutionOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">assignments</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">solution</span><span class="op">|</span> <span class="ident">solution</span>.<span class="ident">encoded_size</span>())
 			});
 
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">assignments</span> <span class="op">=</span> <span class="macro">vec!</span>[];
 
 			<span class="comment">// since we have 16 fields, we need to store the length fields of 16 vecs, thus 16 bytes</span>
 			<span class="comment">// minimum.</span>
-			<span class="kw">let</span> <span class="ident">min_compact_size</span> <span class="op">=</span> <span class="ident">encoded_size_of</span>(<span class="kw-2">&amp;</span><span class="ident">assignments</span>).<span class="ident">unwrap</span>();
-			<span class="macro">assert_eq!</span>(<span class="ident">min_compact_size</span>, <span class="ident">CompactOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::LIMIT</span>);
+			<span class="kw">let</span> <span class="ident">min_solution_size</span> <span class="op">=</span> <span class="ident">encoded_size_of</span>(<span class="kw-2">&amp;</span><span class="ident">assignments</span>).<span class="ident">unwrap</span>();
+			<span class="macro">assert_eq!</span>(<span class="ident">min_solution_size</span>, <span class="ident">SolutionOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::LIMIT</span>);
 
 			<span class="comment">// all of this should not panic.</span>
 			<span class="ident">MultiPhase::trim_assignments_length</span>(<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">assignments</span>, <span class="ident">encoded_size_of</span>.<span class="ident">clone</span>())
@@ -3047,7 +3061,7 @@
 			<span class="ident">MultiPhase::trim_assignments_length</span>(<span class="number">1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">assignments</span>, <span class="ident">encoded_size_of</span>.<span class="ident">clone</span>())
 				.<span class="ident">unwrap</span>();
 			<span class="ident">MultiPhase::trim_assignments_length</span>(
-				<span class="ident">min_compact_size</span> <span class="kw">as</span> <span class="ident">u32</span>,
+				<span class="ident">min_solution_size</span> <span class="kw">as</span> <span class="ident">u32</span>,
 				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">assignments</span>,
 				<span class="ident">encoded_size_of</span>,
 			)
@@ -3061,10 +3075,10 @@
 			<span class="kw">let</span> <span class="ident">TrimHelpers</span> { <span class="kw-2">mut</span> <span class="ident">assignments</span>, <span class="ident">encoded_size_of</span>, .. } <span class="op">=</span> <span class="ident">trim_helpers</span>();
 			<span class="macro">assert!</span>(<span class="ident">assignments</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">0</span>);
 
-			<span class="comment">// trim to min compact size.</span>
-			<span class="kw">let</span> <span class="ident">min_compact_size</span> <span class="op">=</span> <span class="ident">CompactOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::LIMIT</span> <span class="kw">as</span> <span class="ident">u32</span>;
+			<span class="comment">// trim to min solution size.</span>
+			<span class="kw">let</span> <span class="ident">min_solution_size</span> <span class="op">=</span> <span class="ident">SolutionOf</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::LIMIT</span> <span class="kw">as</span> <span class="ident">u32</span>;
 			<span class="ident">MultiPhase::trim_assignments_length</span>(
-				<span class="ident">min_compact_size</span>,
+				<span class="ident">min_solution_size</span>,
 				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">assignments</span>,
 				<span class="ident">encoded_size_of</span>,
 			)
@@ -3084,14 +3098,14 @@
 			<span class="comment">// how long would the default solution be?</span>
 			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">MultiPhase::mine_solution</span>(<span class="number">0</span>).<span class="ident">unwrap</span>();
 			<span class="kw">let</span> <span class="ident">max_length</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Runtime</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::MinerMaxLength::get</span>();
-			<span class="kw">let</span> <span class="ident">solution_size</span> <span class="op">=</span> <span class="ident">solution</span>.<span class="number">0</span>.<span class="ident">compact</span>.<span class="ident">encoded_size</span>();
+			<span class="kw">let</span> <span class="ident">solution_size</span> <span class="op">=</span> <span class="ident">solution</span>.<span class="number">0</span>.<span class="ident">solution</span>.<span class="ident">encoded_size</span>();
 			<span class="macro">assert!</span>(<span class="ident">solution_size</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">max_length</span> <span class="kw">as</span> <span class="ident">usize</span>);
 
 			<span class="comment">// now set the max size to less than the actual size and regenerate</span>
 			<span class="op">&lt;</span><span class="ident">Runtime</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::MinerMaxLength::set</span>(<span class="ident">solution_size</span> <span class="kw">as</span> <span class="ident">u32</span> <span class="op">-</span> <span class="number">1</span>);
 			<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">MultiPhase::mine_solution</span>(<span class="number">0</span>).<span class="ident">unwrap</span>();
 			<span class="kw">let</span> <span class="ident">max_length</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Runtime</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::MinerMaxLength::get</span>();
-			<span class="kw">let</span> <span class="ident">solution_size</span> <span class="op">=</span> <span class="ident">solution</span>.<span class="number">0</span>.<span class="ident">compact</span>.<span class="ident">encoded_size</span>();
+			<span class="kw">let</span> <span class="ident">solution_size</span> <span class="op">=</span> <span class="ident">solution</span>.<span class="number">0</span>.<span class="ident">solution</span>.<span class="ident">encoded_size</span>();
 			<span class="macro">assert!</span>(<span class="ident">solution_size</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">max_length</span> <span class="kw">as</span> <span class="ident">usize</span>);
 		});
 	}

@@ -1072,6 +1072,7 @@
 <span id="1061">1061</span>
 <span id="1062">1062</span>
 <span id="1063">1063</span>
+<span id="1064">1064</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1112,7 +1113,7 @@
 };
 <span class="kw">use</span> <span class="ident">sc_client_db</span>::{<span class="ident">Backend</span>, <span class="ident">DatabaseSettings</span>};
 <span class="kw">use</span> <span class="ident">sc_consensus::import_queue::ImportQueue</span>;
-<span class="kw">use</span> <span class="ident">sc_executor</span>::{<span class="ident">NativeExecutionDispatch</span>, <span class="ident">NativeExecutor</span>, <span class="ident">RuntimeInfo</span>};
+<span class="kw">use</span> <span class="ident">sc_executor</span>::{<span class="ident">NativeExecutionDispatch</span>, <span class="ident">NativeExecutor</span>, <span class="ident">RuntimeVersionOf</span>};
 <span class="kw">use</span> <span class="ident">sc_keystore::LocalKeystore</span>;
 <span class="kw">use</span> <span class="ident">sc_network</span>::{
 	<span class="ident">block_request_handler</span>::{<span class="self">self</span>, <span class="ident">BlockRequestHandler</span>},
@@ -1329,8 +1330,9 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// # Note</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Using the [`LocalKeystore`] will result in loosing the ability to use any other keystore implementation, like</span>
-	<span class="doccomment">/// a remote keystore for example. Only use this if you a certain that you require it!</span>
+	<span class="doccomment">/// Using the [`LocalKeystore`] will result in loosing the ability to use any other keystore</span>
+	<span class="doccomment">/// implementation, like a remote keystore for example. Only use this if you a certain that you</span>
+	<span class="doccomment">/// require it!</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">local_keystore</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">LocalKeystore</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">local</span>.<span class="ident">clone</span>())
 	}
@@ -1529,7 +1531,7 @@
 <span class="op">&gt;</span>
 <span class="kw">where</span>
 	<span class="ident">Block</span>: <span class="ident">BlockT</span>,
-	<span class="ident">E</span>: <span class="ident">CodeExecutor</span> <span class="op">+</span> <span class="ident">RuntimeInfo</span>,
+	<span class="ident">E</span>: <span class="ident">CodeExecutor</span> <span class="op">+</span> <span class="ident">RuntimeVersionOf</span>,
 {
 	<span class="kw">let</span> <span class="ident">executor</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::client::LocalCallExecutor::new</span>(
 		<span class="ident">backend</span>.<span class="ident">clone</span>(),

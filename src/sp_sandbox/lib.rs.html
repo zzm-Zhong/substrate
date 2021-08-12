@@ -244,9 +244,9 @@
 <span class="doccomment">//! and without the performance penalty of full wasm emulation inside wasm.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This is achieved by using bindings to the wasm VM, which are published by the host API.</span>
-<span class="doccomment">//! This API is thin and consists of only a handful functions. It contains functions for instantiating</span>
-<span class="doccomment">//! modules and executing them, but doesn&#39;t contain functions for inspecting the module</span>
-<span class="doccomment">//! structure. The user of this library is supposed to read the wasm module.</span>
+<span class="doccomment">//! This API is thin and consists of only a handful functions. It contains functions for</span>
+<span class="doccomment">//! instantiating modules and executing them, but doesn&#39;t contain functions for inspecting the</span>
+<span class="doccomment">//! module structure. The user of this library is supposed to read the wasm module.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! When this crate is used in the `std` environment all these functions are implemented by directly</span>
 <span class="doccomment">//! calling the wasm VM.</span>
@@ -389,8 +389,8 @@
 	<span class="doccomment">/// run the `start` function (if it is present in the module) with the given `state`.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Returns `Err(Error::Module)` if this module can&#39;t be instantiated with the given</span>
-	<span class="doccomment">/// environment. If execution of `start` function generated a trap, then `Err(Error::Execution)` will</span>
-	<span class="doccomment">/// be returned.</span>
+	<span class="doccomment">/// environment. If execution of `start` function generated a trap, then `Err(Error::Execution)`</span>
+	<span class="doccomment">/// will be returned.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// [`EnvironmentDefinitionBuilder`]: struct.EnvironmentDefinitionBuilder.html</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
@@ -409,8 +409,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// - An export function name isn&#39;t a proper utf8 byte sequence,</span>
 	<span class="doccomment">/// - This module doesn&#39;t have an exported function with the given name,</span>
-	<span class="doccomment">/// - If types of the arguments passed to the function doesn&#39;t match function signature</span>
-	<span class="doccomment">///   then trap occurs (as if the exported function was called via call_indirect),</span>
+	<span class="doccomment">/// - If types of the arguments passed to the function doesn&#39;t match function signature then</span>
+	<span class="doccomment">///   trap occurs (as if the exported function was called via call_indirect),</span>
 	<span class="doccomment">/// - Trap occurred at the execution time.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">invoke</span>(
 		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,

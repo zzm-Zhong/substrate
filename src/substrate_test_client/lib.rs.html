@@ -507,6 +507,7 @@
 <span id="496">496</span>
 <span id="497">497</span>
 <span id="498">498</span>
+<span id="499">499</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -902,8 +903,9 @@
 	<span class="ident">C</span>: <span class="ident">BlockchainEvents</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
 	<span class="ident">B</span>: <span class="ident">BlockT</span>,
 {
-	<span class="doccomment">/// Wait for `count` blocks to be imported in the node and then exit. This function will not return if no blocks</span>
-	<span class="doccomment">/// are ever created, thus you should restrict the maximum amount of time of the test execution.</span>
+	<span class="doccomment">/// Wait for `count` blocks to be imported in the node and then exit. This function will not</span>
+	<span class="doccomment">/// return if no blocks are ever created, thus you should restrict the maximum amount of time of</span>
+	<span class="doccomment">/// the test execution.</span>
 	<span class="kw">fn</span> <span class="ident">wait_for_blocks</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">count</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 }
 

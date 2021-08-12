@@ -685,8 +685,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The `handicap` parameter gives a way to check the rent to a moment in the past instead</span>
 	<span class="doccomment">/// of current block. E.g. if the contract is going to be evicted at the current block,</span>
-	<span class="doccomment">/// `handicap = 1` can defer the eviction for 1 block. This is useful to handicap certain snitchers</span>
-	<span class="doccomment">/// relative to others.</span>
+	<span class="doccomment">/// `handicap = 1` can defer the eviction for 1 block. This is useful to handicap certain</span>
+	<span class="doccomment">/// snitchers relative to others.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// NOTE this function performs eviction eagerly. All changes are read and written directly to</span>
 	<span class="doccomment">/// storage.</span>
@@ -737,12 +737,12 @@
 	<span class="doccomment">/// accessed at the beginning of the current block. Returns `None` in case if the contract was</span>
 	<span class="doccomment">/// evicted before or as a result of the rent collection.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// The returned value is only an estimation. It doesn&#39;t take into account any top ups, changing the</span>
-	<span class="doccomment">/// rent allowance, or any problems coming from withdrawing the dues.</span>
+	<span class="doccomment">/// The returned value is only an estimation. It doesn&#39;t take into account any top ups, changing</span>
+	<span class="doccomment">/// the rent allowance, or any problems coming from withdrawing the dues.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// NOTE that this is not a side-effect free function! It will actually collect rent and then</span>
-	<span class="doccomment">/// compute the projection. This function is only used for implementation of an RPC method through</span>
-	<span class="doccomment">/// `RuntimeApi` meaning that the changes will be discarded anyway.</span>
+	<span class="doccomment">/// compute the projection. This function is only used for implementation of an RPC method</span>
+	<span class="doccomment">/// through `RuntimeApi` meaning that the changes will be discarded anyway.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">compute_projection</span>(<span class="ident">account</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RentProjectionResult</span><span class="op">&lt;</span><span class="ident">T::BlockNumber</span><span class="op">&gt;</span> {
 		<span class="kw">use</span> <span class="ident">ContractAccessError::IsTombstone</span>;
 
@@ -946,8 +946,8 @@
 
 	<span class="doccomment">/// Returns amount of funds available to consume by rent mechanism.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Rent mechanism cannot consume more than `rent_allowance` set by the contract and it cannot make</span>
-	<span class="doccomment">/// the balance lower than [`subsistence_threshold`].</span>
+	<span class="doccomment">/// Rent mechanism cannot consume more than `rent_allowance` set by the contract and it cannot</span>
+	<span class="doccomment">/// make the balance lower than [`subsistence_threshold`].</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// In case the toal_balance is below the subsistence threshold, this function returns `None`.</span>
 	<span class="kw">fn</span> <span class="ident">rent_budget</span>(
@@ -970,8 +970,8 @@
 
 	<span class="doccomment">/// Consider the case for rent payment of the given account and returns a `Verdict`.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Use `handicap` in case you want to change the reference block number. (To get more details see</span>
-	<span class="doccomment">/// `try_eviction` ).</span>
+	<span class="doccomment">/// Use `handicap` in case you want to change the reference block number. (To get more details</span>
+	<span class="doccomment">/// see `try_eviction` ).</span>
 	<span class="kw">fn</span> <span class="ident">consider_case</span>(
 		<span class="ident">account</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>,
 		<span class="ident">current_block_number</span>: <span class="ident">T::BlockNumber</span>,
@@ -1024,8 +1024,8 @@
 			.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="op">&lt;</span><span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::max_value</span>());
 		<span class="kw">let</span> <span class="ident">insufficient_rent</span> <span class="op">=</span> <span class="ident">rent_budget</span> <span class="op">&lt;</span> <span class="ident">dues</span>;
 
-		<span class="comment">// If the rent payment cannot be withdrawn due to locks on the account balance, then evict the</span>
-		<span class="comment">// account.</span>
+		<span class="comment">// If the rent payment cannot be withdrawn due to locks on the account balance, then evict</span>
+		<span class="comment">// the account.</span>
 		<span class="comment">//</span>
 		<span class="comment">// NOTE: This seems problematic because it provides a way to tombstone an account while</span>
 		<span class="comment">// avoiding the last rent payment. In effect, someone could retroactively set rent_allowance</span>
@@ -1155,8 +1155,8 @@
 <span class="kw">enum</span> <span class="ident">Verdict</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// The contract is exempted from paying rent.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// For example, it already paid its rent in the current block, or it has enough deposit for not</span>
-	<span class="doccomment">/// paying rent at all.</span>
+	<span class="doccomment">/// For example, it already paid its rent in the current block, or it has enough deposit for</span>
+	<span class="doccomment">/// not paying rent at all.</span>
 	<span class="ident">Exempt</span>,
 	<span class="doccomment">/// The contract cannot afford payment within its rent budget so it gets evicted. However,</span>
 	<span class="doccomment">/// because its balance is greater than the subsistence threshold it leaves a tombstone.</span>

@@ -516,14 +516,14 @@
 		<span class="kw">type</span> <span class="ident">SwapAction</span>: <span class="ident">SwapAction</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::AccountId</span>, <span class="self">Self</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Parameter</span>;
 		<span class="doccomment">/// Limit of proof size.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// Atomic swap is only atomic if once the proof is revealed, both parties can submit the proofs</span>
-		<span class="doccomment">/// on-chain. If A is the one that generates the proof, then it requires that either:</span>
+		<span class="doccomment">/// Atomic swap is only atomic if once the proof is revealed, both parties can submit the</span>
+		<span class="doccomment">/// proofs on-chain. If A is the one that generates the proof, then it requires that either:</span>
 		<span class="doccomment">/// - A&#39;s blockchain has the same proof length limit as B&#39;s blockchain.</span>
 		<span class="doccomment">/// - Or A&#39;s blockchain has shorter proof length limit as B&#39;s blockchain.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// If B sees A is on a blockchain with larger proof length limit, then it should kindly refuse</span>
-		<span class="doccomment">/// to accept the atomic swap request if A generates the proof, and asks that B generates the</span>
-		<span class="doccomment">/// proof instead.</span>
+		<span class="doccomment">/// If B sees A is on a blockchain with larger proof length limit, then it should kindly</span>
+		<span class="doccomment">/// refuse to accept the atomic swap request if A generates the proof, and asks that B</span>
+		<span class="doccomment">/// generates the proof instead.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
 		<span class="kw">type</span> <span class="ident">ProofLimit</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>;
 	}

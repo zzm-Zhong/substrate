@@ -66,6 +66,7 @@
 <span id="55">55</span>
 <span id="56">56</span>
 <span id="57">57</span>
+<span id="58">58</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -95,27 +96,28 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! To give you some examples:</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - wasmi allows reaching to non-exported mutable globals so that we could reset them.</span>
-<span class="doccomment">//!   Wasmtime doesn’t support that.</span>
+<span class="doccomment">//! - wasmi allows reaching to non-exported mutable globals so that we could reset them. Wasmtime</span>
+<span class="doccomment">//!   doesn’t support that.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!   We need to reset the globals because when we</span>
 <span class="doccomment">//!   execute the Substrate Runtime, we do not drop and create the instance anew, instead</span>
 <span class="doccomment">//!   we restore some selected parts of the state.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - stack depth metering can be performed via instrumentation or deferred to the engine and say</span>
-<span class="doccomment">//!   be added directly in machine code. Implementing this in machine code is rather cumbersome so</span>
+<span class="doccomment">//! - stack depth metering can be performed via instrumentation or deferred to the engine and say be</span>
+<span class="doccomment">//!   added directly in machine code. Implementing this in machine code is rather cumbersome so</span>
 <span class="doccomment">//!   instrumentation looks like a good solution.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!   Stack depth metering is needed to make a wasm blob</span>
-<span class="doccomment">//!   execution deterministic, which in turn is needed by the Parachain Validation Function in Polkadot.</span>
+<span class="doccomment">//!   execution deterministic, which in turn is needed by the Parachain Validation Function in</span>
+<span class="doccomment">//! Polkadot.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Inspection</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Inspection of a wasm module may be needed to extract some useful information, such as to extract</span>
 <span class="doccomment">//! data segment snapshot, which is helpful for quickly restoring the initial state of instances.</span>
 <span class="doccomment">//! Inspection can be also useful to prove that a wasm module possesses some properties, such as,</span>
-<span class="doccomment">//! is free of any floating point operations, which is a useful step towards making instances produced</span>
-<span class="doccomment">//! from such a module deterministic.</span>
+<span class="doccomment">//! is free of any floating point operations, which is a useful step towards making instances</span>
+<span class="doccomment">//! produced from such a module deterministic.</span>
 
 <span class="kw">mod</span> <span class="ident">data_segments_snapshot</span>;
 <span class="kw">mod</span> <span class="ident">globals_snapshot</span>;

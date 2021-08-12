@@ -175,6 +175,8 @@
 <span id="164">164</span>
 <span id="165">165</span>
 <span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -214,8 +216,9 @@
 	<span class="kw">pub</span> <span class="ident">base_fee</span>: <span class="ident">Balance</span>,
 	<span class="doccomment">/// The length fee, the amount paid for the encoded length (in bytes) of the transaction.</span>
 	<span class="kw">pub</span> <span class="ident">len_fee</span>: <span class="ident">Balance</span>,
-	<span class="doccomment">/// - `targeted_fee_adjustment`: This is a multiplier that can tune the final fee based on</span>
-	<span class="doccomment">///     the congestion of the network.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// - `targeted_fee_adjustment`: This is a multiplier that can tune the final fee based on the</span>
+	<span class="doccomment">///   congestion of the network.</span>
 	<span class="doccomment">/// - `weight_fee`: This amount is computed based on the weight of the transaction. Weight</span>
 	<span class="doccomment">/// accounts for the execution time of a transaction.</span>
 	<span class="doccomment">///</span>
@@ -238,8 +241,8 @@
 
 <span class="doccomment">/// The `FeeDetails` is composed of:</span>
 <span class="doccomment">///   - (Optional) `inclusion_fee`: Only the `Pays::Yes` transaction can have the inclusion fee.</span>
-<span class="doccomment">///   - `tip`: If included in the transaction, the tip will be added on top. Only</span>
-<span class="doccomment">///     signed transactions can have a tip.</span>
+<span class="doccomment">///   - `tip`: If included in the transaction, the tip will be added on top. Only signed</span>
+<span class="doccomment">///     transactions can have a tip.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Encode</span>, <span class="ident">Decode</span>, <span class="ident">Clone</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;camelCase&quot;</span>))]</span>
@@ -266,7 +269,8 @@
 	}
 }
 
-<span class="doccomment">/// Information related to a dispatchable&#39;s class, weight, and fee that can be queried from the runtime.</span>
+<span class="doccomment">/// Information related to a dispatchable&#39;s class, weight, and fee that can be queried from the</span>
+<span class="doccomment">/// runtime.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Encode</span>, <span class="ident">Decode</span>, <span class="ident">Default</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;camelCase&quot;</span>))]</span>

@@ -1700,7 +1700,6 @@
 <span id="1689">1689</span>
 <span id="1690">1690</span>
 <span id="1691">1691</span>
-<span id="1692">1692</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2252,15 +2251,14 @@
 
 <span class="macro">sp_npos_elections::generate_solution_type!</span>(
 	<span class="attribute">#[<span class="ident">compact</span>]</span>
-	<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NposCompactSolution16</span>::<span class="op">&lt;</span>
+	<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NposSolution16</span>::<span class="op">&lt;</span>
 		<span class="ident">VoterIndex</span> <span class="op">=</span> <span class="ident">u32</span>,
 		<span class="ident">TargetIndex</span> <span class="op">=</span> <span class="ident">u16</span>,
 		<span class="ident">Accuracy</span> <span class="op">=</span> <span class="ident">sp_runtime::PerU16</span>,
 	<span class="op">&gt;</span>(<span class="number">16</span>)
 );
 
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MAX_NOMINATIONS</span>: <span class="ident">u32</span> <span class="op">=</span>
-	<span class="op">&lt;</span><span class="ident">NposCompactSolution16</span> <span class="kw">as</span> <span class="ident">sp_npos_elections::CompactSolution</span><span class="op">&gt;</span><span class="ident">::LIMIT</span> <span class="kw">as</span> <span class="ident">u32</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MAX_NOMINATIONS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">NposSolution16</span> <span class="kw">as</span> <span class="ident">sp_npos_elections::NposSolution</span><span class="op">&gt;</span><span class="ident">::LIMIT</span> <span class="kw">as</span> <span class="ident">u32</span>;
 
 <span class="doccomment">/// The numbers configured here should always be more than the the maximum limits of staking pallet</span>
 <span class="doccomment">/// to ensure election snapshot will not run out of memory.</span>
@@ -2297,7 +2295,7 @@
 	<span class="kw">type</span> <span class="ident">RewardHandler</span> <span class="op">=</span> (); <span class="comment">// nothing to do upon rewards</span>
 	<span class="kw">type</span> <span class="ident">DataProvider</span> <span class="op">=</span> <span class="ident">Staking</span>;
 	<span class="kw">type</span> <span class="ident">OnChainAccuracy</span> <span class="op">=</span> <span class="ident">Perbill</span>;
-	<span class="kw">type</span> <span class="ident">CompactSolution</span> <span class="op">=</span> <span class="ident">NposCompactSolution16</span>;
+	<span class="kw">type</span> <span class="ident">Solution</span> <span class="op">=</span> <span class="ident">NposSolution16</span>;
 	<span class="kw">type</span> <span class="ident">Fallback</span> <span class="op">=</span> <span class="ident">Fallback</span>;
 	<span class="kw">type</span> <span class="ident">WeightInfo</span> <span class="op">=</span> <span class="ident">pallet_election_provider_multi_phase::weights::SubstrateWeight</span><span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span>;
 	<span class="kw">type</span> <span class="ident">ForceOrigin</span> <span class="op">=</span> <span class="ident">EnsureRootOrHalfCouncil</span>;

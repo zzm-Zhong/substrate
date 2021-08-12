@@ -686,6 +686,8 @@
 <span id="675">675</span>
 <span id="676">676</span>
 <span id="677">677</span>
+<span id="678">678</span>
+<span id="679">679</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1082,8 +1084,9 @@
 							},
 							<span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> {
 								<span class="comment">// we do not want to fail if single transaction import has failed</span>
-								<span class="comment">// nor we do want to propagate this error, because it could tx unknown to caller</span>
-								<span class="comment">// =&gt; let&#39;s just notify listeners (and issue debug message)</span>
+								<span class="comment">// nor we do want to propagate this error, because it could tx</span>
+								<span class="comment">// unknown to caller =&gt; let&#39;s just notify listeners (and issue debug</span>
+								<span class="comment">// message)</span>
 								<span class="macro">log::warn!</span>(
 									<span class="ident">target</span>: <span class="string">&quot;txpool&quot;</span>,
 									<span class="string">&quot;[{:?}] Removing invalid transaction from update: {}&quot;</span>,
@@ -1179,7 +1182,8 @@
 		<span class="comment">// Resubmit pruned transactions</span>
 		<span class="kw">let</span> <span class="ident">results</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">submit</span>(<span class="ident">pruned_xts</span>);
 
-		<span class="comment">// Collect the hashes of transactions that now became invalid (meaning that they are successfully pruned).</span>
+		<span class="comment">// Collect the hashes of transactions that now became invalid (meaning that they are</span>
+		<span class="comment">// successfully pruned).</span>
 		<span class="kw">let</span> <span class="ident">hashes</span> <span class="op">=</span> <span class="ident">results</span>.<span class="ident">into_iter</span>().<span class="ident">enumerate</span>().<span class="ident">filter_map</span>(<span class="op">|</span>(<span class="ident">idx</span>, <span class="ident">r</span>)<span class="op">|</span> {
 			<span class="kw">match</span> <span class="ident">r</span>.<span class="ident">map_err</span>(<span class="ident">error::IntoPoolError::into_pool_error</span>) {
 				<span class="prelude-val">Err</span>(<span class="prelude-val">Ok</span>(<span class="ident">error::Error::InvalidTransaction</span>(<span class="kw">_</span>))) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">pruned_hashes</span>[<span class="ident">idx</span>]),

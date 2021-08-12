@@ -1326,6 +1326,7 @@
 <span id="1315">1315</span>
 <span id="1316">1316</span>
 <span id="1317">1317</span>
+<span id="1318">1318</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1639,7 +1640,8 @@
 
 	<span class="doccomment">/// Initiates sending a request.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// If there is no established connection to the target peer, the behavior is determined by the choice of `connect`.</span>
+	<span class="doccomment">/// If there is no established connection to the target peer, the behavior is determined by the</span>
+	<span class="doccomment">/// choice of `connect`.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// An error is returned if the protocol doesn&#39;t match one that has been registered.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_request</span>(
@@ -2029,8 +2031,8 @@
 							<span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="ident">NetworkBehaviourAction::GenerateEvent</span>(<span class="ident">out</span>))
 						},
 
-						<span class="comment">// An inbound request failed, either while reading the request or due to failing</span>
-						<span class="comment">// to send a response.</span>
+						<span class="comment">// An inbound request failed, either while reading the request or due to</span>
+						<span class="comment">// failing to send a response.</span>
 						<span class="ident">RequestResponseEvent::InboundFailure</span> {
 							<span class="ident">request_id</span>, <span class="ident">peer</span>, <span class="ident">error</span>, ..
 						} <span class="op">=</span><span class="op">&gt;</span> {

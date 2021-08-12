@@ -2436,8 +2436,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Extrinsics can be split into:</span>
 	<span class="doccomment">/// 1. Inherents (no signature; created by validators during block production)</span>
-	<span class="doccomment">/// 2. Unsigned Transactions (no signature; represent &quot;system calls&quot; or other special kinds of calls)</span>
-	<span class="doccomment">/// 3. Signed Transactions (with signature; a regular transactions with known origin)</span>
+	<span class="doccomment">/// 2. Unsigned Transactions (no signature; represent &quot;system calls&quot; or other special kinds of</span>
+	<span class="doccomment">/// calls) 3. Signed Transactions (with signature; a regular transactions with known origin)</span>
 	<span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">_call</span>: <span class="self">Self</span><span class="ident">::Call</span>, <span class="ident">_signed_data</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::SignaturePayload</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
 		<span class="prelude-val">None</span>
 	}
@@ -2463,8 +2463,8 @@
 
 <span class="doccomment">/// A &quot;checkable&quot; piece of information, used by the standard Substrate Executive in order to</span>
 <span class="doccomment">/// check the validity of a piece of extrinsic information, usually by verifying the signature.</span>
-<span class="doccomment">/// Implement for pieces of information that require some additional context `Context` in order to be</span>
-<span class="doccomment">/// checked.</span>
+<span class="doccomment">/// Implement for pieces of information that require some additional context `Context` in order to</span>
+<span class="doccomment">/// be checked.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Checkable</span><span class="op">&lt;</span><span class="ident">Context</span><span class="op">&gt;</span>: <span class="ident">Sized</span> {
 	<span class="doccomment">/// Returned if `check` succeeds.</span>
 	<span class="kw">type</span> <span class="ident">Checked</span>;

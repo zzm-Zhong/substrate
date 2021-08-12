@@ -489,6 +489,7 @@
 <span id="478">478</span>
 <span id="479">479</span>
 <span id="480">480</span>
+<span id="481">481</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -931,7 +932,8 @@
 
 			<span class="comment">// Burn any dust if needed.</span>
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">burn</span>) <span class="op">=</span> <span class="ident">maybe_burn</span> {
-				<span class="comment">// Debit dust from supply; this will not saturate since it&#39;s already checked in prep.</span>
+				<span class="comment">// Debit dust from supply; this will not saturate since it&#39;s already checked in</span>
+				<span class="comment">// prep.</span>
 				<span class="macro">debug_assert!</span>(<span class="ident">details</span>.<span class="ident">supply</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">burn</span>, <span class="string">&quot;checked in prep; qed&quot;</span>);
 				<span class="ident">details</span>.<span class="ident">supply</span> <span class="op">=</span> <span class="ident">details</span>.<span class="ident">supply</span>.<span class="ident">saturating_sub</span>(<span class="ident">burn</span>);
 			}

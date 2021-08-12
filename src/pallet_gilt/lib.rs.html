@@ -936,8 +936,8 @@
 		<span class="ident">DurationTooBig</span>,
 		<span class="doccomment">/// The amount of the bid is less than the minimum allowed.</span>
 		<span class="ident">AmountTooSmall</span>,
-		<span class="doccomment">/// The queue for the bid&#39;s duration is full and the amount bid is too low to get in through</span>
-		<span class="doccomment">/// replacing an existing bid.</span>
+		<span class="doccomment">/// The queue for the bid&#39;s duration is full and the amount bid is too low to get in</span>
+		<span class="doccomment">/// through replacing an existing bid.</span>
 		<span class="ident">BidTooLow</span>,
 		<span class="doccomment">/// Gilt index is unknown.</span>
 		<span class="ident">Unknown</span>,
@@ -1148,8 +1148,8 @@
 	<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IssuanceInfo</span><span class="op">&lt;</span><span class="ident">Balance</span><span class="op">&gt;</span> {
 		<span class="doccomment">/// The balance held in reserve over all active gilts.</span>
 		<span class="kw">pub</span> <span class="ident">reserved</span>: <span class="ident">Balance</span>,
-		<span class="doccomment">/// The issuance not held in reserve for active gilts. Together with `reserved` this sums to</span>
-		<span class="doccomment">/// `Currency::total_issuance`.</span>
+		<span class="doccomment">/// The issuance not held in reserve for active gilts. Together with `reserved` this sums</span>
+		<span class="doccomment">/// to `Currency::total_issuance`.</span>
 		<span class="kw">pub</span> <span class="ident">non_gilt</span>: <span class="ident">Balance</span>,
 		<span class="doccomment">/// The balance that `reserved` is effectively worth, at present. This is not issued funds</span>
 		<span class="doccomment">/// and could be less than `reserved` (though in most cases should be greater).</span>
@@ -1228,8 +1228,8 @@
 								<span class="kw">let</span> <span class="ident">amount</span> <span class="op">=</span> <span class="ident">bid</span>.<span class="ident">amount</span>;
 								<span class="comment">// Can never overflow due to block above.</span>
 								<span class="ident">remaining</span> <span class="op">-</span><span class="op">=</span> <span class="ident">amount</span>;
-								<span class="comment">// Should never underflow since it should track the total of the bids</span>
-								<span class="comment">// exactly, but we&#39;ll be defensive.</span>
+								<span class="comment">// Should never underflow since it should track the total of the</span>
+								<span class="comment">// bids exactly, but we&#39;ll be defensive.</span>
 								<span class="ident">qs</span>[<span class="ident">queue_index</span>].<span class="number">1</span> <span class="op">=</span> <span class="ident">qs</span>[<span class="ident">queue_index</span>].<span class="number">1</span>.<span class="ident">saturating_sub</span>(<span class="ident">bid</span>.<span class="ident">amount</span>);
 
 								<span class="comment">// Now to activate the bid...</span>

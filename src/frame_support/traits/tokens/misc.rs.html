@@ -238,8 +238,8 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Balance</span>: <span class="ident">Zero</span><span class="op">&gt;</span> <span class="ident">WithdrawConsequence</span><span class="op">&lt;</span><span class="ident">Balance</span><span class="op">&gt;</span> {
-	<span class="doccomment">/// Convert the type into a `Result` with `DispatchError` as the error or the additional `Balance`</span>
-	<span class="doccomment">/// by which the account will be reduced.</span>
+	<span class="doccomment">/// Convert the type into a `Result` with `DispatchError` as the error or the additional</span>
+	<span class="doccomment">/// `Balance` by which the account will be reduced.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_result</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Balance</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span> {
 		<span class="kw">use</span> <span class="ident">WithdrawConsequence</span>::<span class="kw-2">*</span>;
 		<span class="kw">match</span> <span class="self">self</span> {

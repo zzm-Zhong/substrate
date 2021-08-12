@@ -441,6 +441,7 @@
 <span id="430">430</span>
 <span id="431">431</span>
 <span id="432">432</span>
+<span id="433">433</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -484,8 +485,8 @@
 
 <span class="doccomment">/// Derive macro for implementing [`PassBy`] with the [`Codec`] strategy.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This requires that the type implements [`Encode`](codec::Encode) and [`Decode`](codec::Decode)</span>
-<span class="doccomment">/// from `parity-scale-codec`.</span>
+<span class="doccomment">/// This requires that the type implements [`Encode`](codec::Encode) and</span>
+<span class="doccomment">/// [`Decode`](codec::Decode) from `parity-scale-codec`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Example</span>
 <span class="doccomment">///</span>
@@ -502,11 +503,12 @@
 
 <span class="doccomment">/// Derive macro for implementing [`PassBy`] with the [`Inner`] strategy.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Besides implementing [`PassBy`], this derive also implements the helper trait [`PassByInner`].</span>
+<span class="doccomment">/// Besides implementing [`PassBy`], this derive also implements the helper trait</span>
+<span class="doccomment">/// [`PassByInner`].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The type is required to be a struct with just one field. The field type needs to implement</span>
-<span class="doccomment">/// the required traits to pass it between the wasm and the native side. (See the runtime interface</span>
-<span class="doccomment">/// crate for more information about these traits.)</span>
+<span class="doccomment">/// the required traits to pass it between the wasm and the native side. (See the runtime</span>
+<span class="doccomment">/// interface crate for more information about these traits.)</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Example</span>
 <span class="doccomment">///</span>
@@ -530,8 +532,8 @@
 <span class="doccomment">/// Besides implementing [`PassBy`], this derive also implements `TryFrom&lt;u8&gt;` and</span>
 <span class="doccomment">/// `From&lt;Self&gt; for u8` for the type.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The type is required to be an enum with only unit variants and at maximum `256` variants. Also</span>
-<span class="doccomment">/// it is required that the type implements `Copy`.</span>
+<span class="doccomment">/// The type is required to be an enum with only unit variants and at maximum `256` variants.</span>
+<span class="doccomment">/// Also it is required that the type implements `Copy`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Example</span>
 <span class="doccomment">///</span>

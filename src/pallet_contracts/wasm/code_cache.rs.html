@@ -263,6 +263,7 @@
 <span id="252">252</span>
 <span id="253">253</span>
 <span id="254">254</span>
+<span id="255">255</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -289,9 +290,10 @@
 <span class="doccomment">//! - Before running contract code we check if the cached code has the schedule version that</span>
 <span class="doccomment">//! is equal to the current saved schedule.</span>
 <span class="doccomment">//! If it is equal then run the code, if it isn&#39;t reinstrument with the current schedule.</span>
-<span class="doccomment">//! - When we update the schedule we want it to have strictly greater version than the current saved one:</span>
-<span class="doccomment">//! this guarantees that every instrumented contract code in cache cannot have the version equal to the current one.</span>
-<span class="doccomment">//! Thus, before executing a contract it should be reinstrument with new schedule.</span>
+<span class="doccomment">//! - When we update the schedule we want it to have strictly greater version than the current saved</span>
+<span class="doccomment">//!   one:</span>
+<span class="doccomment">//! this guarantees that every instrumented contract code in cache cannot have the version equal to</span>
+<span class="doccomment">//! the current one. Thus, before executing a contract it should be reinstrument with new schedule.</span>
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::private::reinstrument</span>;

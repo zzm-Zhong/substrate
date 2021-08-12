@@ -1146,9 +1146,9 @@
 
 	<span class="comment">// Implementation Note:</span>
 	<span class="comment">// the original `tracing` crate generates these static metadata entries at every `span!` and</span>
-	<span class="comment">// `event!` location to allow for highly optimised filtering. For us to allow level-based emitting</span>
-	<span class="comment">// of wasm events we need these static metadata entries to inject into that system. We then provide</span>
-	<span class="comment">// generic `From`-implementations picking the right metadata to refer to.</span>
+	<span class="comment">// `event!` location to allow for highly optimised filtering. For us to allow level-based</span>
+	<span class="comment">// emitting of wasm events we need these static metadata entries to inject into that system. We</span>
+	<span class="comment">// then provide generic `From`-implementations picking the right metadata to refer to.</span>
 
 	<span class="kw">static</span> <span class="ident">SPAN_ERROR_METADATA</span>: <span class="ident">tracing_core::Metadata</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">tracing::Metadata::new</span>(
 		<span class="ident">WASM_TRACE_IDENTIFIER</span>,

@@ -203,6 +203,7 @@
 <span id="192">192</span>
 <span id="193">193</span>
 <span id="194">194</span>
+<span id="195">195</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -373,7 +374,8 @@
 	)]</span>
 	<span class="kw">pub</span> <span class="ident">execution_offchain_worker</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ExecutionStrategy</span><span class="op">&gt;</span>,
 
-	<span class="doccomment">/// The means of execution used when calling into the runtime while not syncing, importing or constructing blocks.</span>
+	<span class="doccomment">/// The means of execution used when calling into the runtime while not syncing, importing or</span>
+	<span class="doccomment">/// constructing blocks.</span>
 	<span class="attribute">#[<span class="ident">structopt</span>(
 		<span class="ident">long</span> <span class="op">=</span> <span class="string">&quot;execution-other&quot;</span>,
 		<span class="ident">value_name</span> <span class="op">=</span> <span class="string">&quot;STRATEGY&quot;</span>,

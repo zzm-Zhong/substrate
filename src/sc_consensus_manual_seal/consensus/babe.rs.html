@@ -388,6 +388,7 @@
 <span id="377">377</span>
 <span id="378">378</span>
 <span id="379">379</span>
+<span id="380">380</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -600,8 +601,9 @@
 		{
 			<span class="macro">vec!</span>[<span class="op">&lt;</span><span class="ident">DigestItemFor</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">CompatibleDigestItem</span><span class="op">&gt;</span><span class="ident">::babe_pre_digest</span>(<span class="ident">predigest</span>)]
 		} <span class="kw">else</span> {
-			<span class="comment">// well we couldn&#39;t claim a slot because this is an existing chain and we&#39;re not in the authorities.</span>
-			<span class="comment">// we need to tell BabeBlockImport that the epoch has changed, and we put ourselves in the authorities.</span>
+			<span class="comment">// well we couldn&#39;t claim a slot because this is an existing chain and we&#39;re not in the</span>
+			<span class="comment">// authorities. we need to tell BabeBlockImport that the epoch has changed, and we put</span>
+			<span class="comment">// ourselves in the authorities.</span>
 			<span class="kw">let</span> <span class="ident">predigest</span> <span class="op">=</span>
 				<span class="ident">PreDigest::SecondaryPlain</span>(<span class="ident">SecondaryPlainPreDigest</span> { <span class="ident">slot</span>, <span class="ident">authority_index</span>: <span class="number">0_u32</span> });
 

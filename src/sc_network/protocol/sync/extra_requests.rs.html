@@ -611,6 +611,7 @@
 <span id="600">600</span>
 <span id="601">601</span>
 <span id="602">602</span>
+<span id="603">603</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -790,8 +791,8 @@
 		}
 
 		<span class="kw">if</span> <span class="ident">best_finalized_number</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">best_seen_finalized_number</span> {
-			<span class="comment">// normally we&#39;ll receive finality notifications for every block =&gt; finalize would be enough</span>
-			<span class="comment">// but if many blocks are finalized at once, some notifications may be omitted</span>
+			<span class="comment">// normally we&#39;ll receive finality notifications for every block =&gt; finalize would be</span>
+			<span class="comment">// enough but if many blocks are finalized at once, some notifications may be omitted</span>
 			<span class="comment">// =&gt; let&#39;s use finalize_with_ancestors here</span>
 			<span class="kw">match</span> <span class="self">self</span>.<span class="ident">tree</span>.<span class="ident">finalize_with_ancestors</span>(
 				<span class="ident">best_finalized_hash</span>,
@@ -929,7 +930,8 @@
 			<span class="kw">for</span> (<span class="ident">peer</span>, <span class="ident">sync</span>) <span class="kw">in</span>
 				<span class="ident">peers</span>.<span class="ident">iter</span>().<span class="ident">filter</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">sync</span>)<span class="op">|</span> <span class="ident">sync</span>.<span class="ident">state</span> <span class="op">=</span><span class="op">=</span> <span class="ident">PeerSyncState::Available</span>)
 			{
-				<span class="comment">// only ask peers that have synced at least up to the block number that we&#39;re asking the extra for</span>
+				<span class="comment">// only ask peers that have synced at least up to the block number that we&#39;re asking</span>
+				<span class="comment">// the extra for</span>
 				<span class="kw">if</span> <span class="ident">sync</span>.<span class="ident">best_number</span> <span class="op">&lt;</span> <span class="ident">request</span>.<span class="number">1</span> {
 					<span class="kw">continue</span>
 				}

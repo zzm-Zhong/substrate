@@ -195,6 +195,7 @@
 <span id="184">184</span>
 <span id="185">185</span>
 <span id="186">186</span>
+<span id="187">187</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -336,7 +337,8 @@
 						<span class="comment">// should be 5 per signed extrinsic + 1 per unsigned</span>
 						<span class="comment">// we have 1 unsigned and the rest are signed in the block</span>
 						<span class="comment">// those 5 events per signed are:</span>
-						<span class="comment">//    - new account (RawEvent::NewAccount) as we always transfer fund to non-existant account</span>
+						<span class="comment">//    - new account (RawEvent::NewAccount) as we always transfer fund to</span>
+						<span class="comment">//      non-existant account</span>
 						<span class="comment">//    - endowed (RawEvent::Endowed) for this new account</span>
 						<span class="comment">//    - successful transfer (RawEvent::Transfer) for this transfer operation</span>
 						<span class="comment">//    - deposit event for charging transaction fee</span>

@@ -650,9 +650,9 @@
 
 <span class="doccomment">/// Compute the threshold corresponding to the standard PJR property</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `t-PJR` checks can check PJR according to an arbitrary threshold. The threshold can be any value,</span>
-<span class="doccomment">/// but the property gets stronger as the threshold gets smaller. The strongest possible `t-PJR` property</span>
-<span class="doccomment">/// corresponds to `t == 0`.</span>
+<span class="doccomment">/// `t-PJR` checks can check PJR according to an arbitrary threshold. The threshold can be any</span>
+<span class="doccomment">/// value, but the property gets stronger as the threshold gets smaller. The strongest possible</span>
+<span class="doccomment">/// `t-PJR` property corresponds to `t == 0`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// However, standard PJR is less stringent than that. This function returns the threshold whose</span>
 <span class="doccomment">/// strength corresponds to the standard PJR property.</span>
@@ -689,13 +689,13 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// ### Semantics</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The t-PJR property is defined in the paper [&quot;Validator Election in Nominated Proof-of-Stake&quot;][NPoS],</span>
-<span class="doccomment">/// section 5, definition 1.</span>
+<span class="doccomment">/// The t-PJR property is defined in the paper [&quot;Validator Election in Nominated</span>
+<span class="doccomment">/// Proof-of-Stake&quot;][NPoS], section 5, definition 1.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// In plain language, the t-PJR condition is: if there is a group of `N` voters</span>
 <span class="doccomment">/// who have `r` common candidates and can afford to support each of them with backing stake `t`</span>
-<span class="doccomment">/// (i.e `sum(stake(v) for v in voters) == r * t`), then this committee needs to be represented by at</span>
-<span class="doccomment">/// least `r` elected candidates.</span>
+<span class="doccomment">/// (i.e `sum(stake(v) for v in voters) == r * t`), then this committee needs to be represented by</span>
+<span class="doccomment">/// at least `r` elected candidates.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Section 5 of the NPoS paper shows that this property can be tested by: for a feasible solution,</span>
 <span class="doccomment">/// if `Max {score(c)} &lt; t` where c is every unelected candidate, then this solution is t-PJR. There</span>
@@ -735,8 +735,8 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [`pjr_check`] or [`t_pjr_check`] are typically easier to work with.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This function returns an `AccountId` in the `Err` case. This is the counter_example: the ID of the</span>
-<span class="doccomment">/// unelected candidate with the highest prescore, such that `pre_score(counter_example) &gt;= t`.</span>
+<span class="doccomment">/// This function returns an `AccountId` in the `Err` case. This is the counter_example: the ID of</span>
+<span class="doccomment">/// the unelected candidate with the highest prescore, such that `pre_score(counter_example) &gt;= t`.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pjr_check_core</span><span class="op">&lt;</span><span class="ident">AccountId</span>: <span class="ident">IdentifierT</span><span class="op">&gt;</span>(
 	<span class="ident">candidates</span>: <span class="kw-2">&amp;</span>[<span class="ident">CandidatePtr</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>],
 	<span class="ident">voters</span>: <span class="kw-2">&amp;</span>[<span class="ident">Voter</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>],
@@ -756,8 +756,8 @@
 <span class="doccomment">/// Validate a challenge to an election result.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// A challenge to an election result is valid if there exists some counter_example for which</span>
-<span class="doccomment">/// `pre_score(counter_example) &gt;= threshold`. Validating an existing counter_example is computationally</span>
-<span class="doccomment">/// cheaper than re-running the PJR check.</span>
+<span class="doccomment">/// `pre_score(counter_example) &gt;= threshold`. Validating an existing counter_example is</span>
+<span class="doccomment">/// computationally cheaper than re-running the PJR check.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This function uses the standard threshold.</span>
 <span class="doccomment">///</span>
@@ -779,8 +779,8 @@
 <span class="doccomment">/// Validate a challenge to an election result.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// A challenge to an election result is valid if there exists some counter_example for which</span>
-<span class="doccomment">/// `pre_score(counter_example) &gt;= threshold`. Validating an existing counter_example is computationally</span>
-<span class="doccomment">/// cheaper than re-running the PJR check.</span>
+<span class="doccomment">/// `pre_score(counter_example) &gt;= threshold`. Validating an existing counter_example is</span>
+<span class="doccomment">/// computationally cheaper than re-running the PJR check.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This function uses a supplied threshold.</span>
 <span class="doccomment">///</span>
@@ -800,8 +800,8 @@
 <span class="doccomment">/// Validate a challenge to an election result.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// A challenge to an election result is valid if there exists some counter_example for which</span>
-<span class="doccomment">/// `pre_score(counter_example) &gt;= threshold`. Validating an existing counter_example is computationally</span>
-<span class="doccomment">/// cheaper than re-running the PJR check.</span>
+<span class="doccomment">/// `pre_score(counter_example) &gt;= threshold`. Validating an existing counter_example is</span>
+<span class="doccomment">/// computationally cheaper than re-running the PJR check.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Returns `true` if the challenge is valid: the proposed solution does not satisfy PJR.</span>
 <span class="doccomment">/// Returns `false` if the challenge is invalid: the proposed solution does in fact satisfy PJR.</span>
@@ -837,8 +837,8 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// The ultimate goal, in any case, is to convert the election data into [`Candidate`] and [`Voter`]</span>
 <span class="doccomment">/// types defined by this crate, whilst setting correct value for some of their fields, namely:</span>
-<span class="doccomment">/// 1. Candidate [`backing_stake`](Candidate::backing_stake) and [`elected`](Candidate::elected) if they are a winner.</span>
-<span class="doccomment">/// 2. Voter edge [`weight`](Edge::weight) if they are backing a winner.</span>
+<span class="doccomment">/// 1. Candidate [`backing_stake`](Candidate::backing_stake) and [`elected`](Candidate::elected) if</span>
+<span class="doccomment">/// they are a winner. 2. Voter edge [`weight`](Edge::weight) if they are backing a winner.</span>
 <span class="doccomment">/// 3. Voter [`budget`](Voter::budget).</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// None of the `load` or `score` values are used and can be ignored. This is similar to</span>
@@ -1102,9 +1102,9 @@
 		<span class="ident">assert_core_failure</span>(<span class="kw-2">&amp;</span><span class="ident">candidates</span>, <span class="kw-2">&amp;</span><span class="ident">voters</span>, <span class="number">20</span>);
 	}
 
-	<span class="comment">// These next tests ensure that the threshold phase change property holds for us, but that&#39;s not their real purpose.</span>
-	<span class="comment">// They were written to help develop an intuition about what the threshold value actually means</span>
-	<span class="comment">// in layman&#39;s terms.</span>
+	<span class="comment">// These next tests ensure that the threshold phase change property holds for us, but that&#39;s not</span>
+	<span class="comment">// their real purpose. They were written to help develop an intuition about what the threshold</span>
+	<span class="comment">// value actually means in layman&#39;s terms.</span>
 	<span class="comment">//</span>
 	<span class="comment">// The results tend to support the intuition that the threshold is the voting power at and below</span>
 	<span class="comment">// which a voter&#39;s preferences can simply be ignored.</span>

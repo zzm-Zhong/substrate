@@ -385,13 +385,13 @@
 	<span class="doccomment">/// The version information may be embedded into the wasm binary itself. If it is not present,</span>
 	<span class="doccomment">/// then this function may fallback to the legacy way of reading the version.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// The legacy mechanism involves instantiating the passed wasm runtime and calling `Core_version`</span>
-	<span class="doccomment">/// on it. This is a very expensive operation.</span>
+	<span class="doccomment">/// The legacy mechanism involves instantiating the passed wasm runtime and calling</span>
+	<span class="doccomment">/// `Core_version` on it. This is a very expensive operation.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// `ext` is only needed in case the calling into runtime happens. Otherwise it is ignored.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Compressed wasm blobs are supported and will be decompressed if needed. If uncompression fails,</span>
-	<span class="doccomment">/// the error is returned.</span>
+	<span class="doccomment">/// Compressed wasm blobs are supported and will be decompressed if needed. If uncompression</span>
+	<span class="doccomment">/// fails, the error is returned.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// # Errors</span>
 	<span class="doccomment">///</span>

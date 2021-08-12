@@ -236,12 +236,6 @@
 <span id="225">225</span>
 <span id="226">226</span>
 <span id="227">227</span>
-<span id="228">228</span>
-<span id="229">229</span>
-<span id="230">230</span>
-<span id="231">231</span>
-<span id="232">232</span>
-<span id="233">233</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -290,19 +284,13 @@
 <span class="doccomment">/// [here](https://research.web3.foundation/en/latest/polkadot/economics/1-token-economics.html#inflation-model-with-parachains))</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Arguments are:</span>
-<span class="doccomment">/// * `stake`:</span>
-<span class="doccomment">///   The fraction of total issued tokens that actively staked behind</span>
-<span class="doccomment">///   validators. Known as `x` in the literature.</span>
-<span class="doccomment">///   Must be between 0 and 1.</span>
-<span class="doccomment">/// * `ideal_stake`:</span>
-<span class="doccomment">///   The fraction of total issued tokens that should be actively staked behind</span>
-<span class="doccomment">///   validators. Known as `x_ideal` in the literature.</span>
-<span class="doccomment">///   Must be between 0 and 1.</span>
-<span class="doccomment">/// * `falloff`:</span>
-<span class="doccomment">///   Known as `decay_rate` in the literature. A co-efficient dictating the strength of</span>
+<span class="doccomment">/// * `stake`: The fraction of total issued tokens that actively staked behind validators. Known as</span>
+<span class="doccomment">///   `x` in the literature. Must be between 0 and 1.</span>
+<span class="doccomment">/// * `ideal_stake`: The fraction of total issued tokens that should be actively staked behind</span>
+<span class="doccomment">///   validators. Known as `x_ideal` in the literature. Must be between 0 and 1.</span>
+<span class="doccomment">/// * `falloff`: Known as `decay_rate` in the literature. A co-efficient dictating the strength of</span>
 <span class="doccomment">///   the global incentivization to get the `ideal_stake`. A higher number results in less typical</span>
-<span class="doccomment">///   inflation at the cost of greater volatility for validators.</span>
-<span class="doccomment">///   Must be more than 0.01.</span>
+<span class="doccomment">///   inflation at the cost of greater volatility for validators. Must be more than 0.01.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">compute_inflation</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">PerThing</span><span class="op">&gt;</span>(<span class="ident">stake</span>: <span class="ident">P</span>, <span class="ident">ideal_stake</span>: <span class="ident">P</span>, <span class="ident">falloff</span>: <span class="ident">P</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">P</span> {
 	<span class="kw">if</span> <span class="ident">stake</span> <span class="op">&lt;</span> <span class="ident">ideal_stake</span> {
 		<span class="comment">// ideal_stake is more than 0 because it is strictly more than stake</span>

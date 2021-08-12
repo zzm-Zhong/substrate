@@ -493,6 +493,9 @@
 <span id="482">482</span>
 <span id="483">483</span>
 <span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -546,11 +549,12 @@
 <span class="doccomment">/// required for inclusion into changes trie of given block.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DigestBuildIterator</span><span class="op">&lt;</span><span class="ident">Number</span>: <span class="ident">BlockNumber</span><span class="op">&gt;</span> {
-	<span class="doccomment">/// Block we&#39;re building changes trie for. It could (logically) be a post-end block if we are creating</span>
-	<span class="doccomment">/// skewed digest.</span>
+	<span class="doccomment">/// Block we&#39;re building changes trie for. It could (logically) be a post-end block if we are</span>
+	<span class="doccomment">/// creating skewed digest.</span>
 	<span class="ident">block</span>: <span class="ident">Number</span>,
-	<span class="doccomment">/// Block that is a last block where current configuration is active. We have never yet created anything</span>
-	<span class="doccomment">/// after this block =&gt; digest that we&#39;re creating can&#39;t reference any blocks that are &gt;= end.</span>
+	<span class="doccomment">/// Block that is a last block where current configuration is active. We have never yet created</span>
+	<span class="doccomment">/// anything after this block =&gt; digest that we&#39;re creating can&#39;t reference any blocks that are</span>
+	<span class="doccomment">/// &gt;= end.</span>
 	<span class="ident">end</span>: <span class="ident">Number</span>,
 	<span class="doccomment">/// Interval of L1 digest blocks.</span>
 	<span class="ident">digest_interval</span>: <span class="ident">u32</span>,
@@ -941,7 +945,8 @@
 					<span class="number">256</span>, <span class="number">512</span>, <span class="number">768</span>, <span class="number">1024</span>, <span class="number">1280</span>,
 					<span class="comment">// level3 MUST point to previous 16-1 level1 digests, BUT there are only 3:</span>
 					<span class="number">1296</span>, <span class="number">1312</span>, <span class="number">1328</span>,
-					<span class="comment">// level3 MUST be a level1 digest of 16-1 previous blocks, BUT there are only 9:</span>
+					<span class="comment">// level3 MUST be a level1 digest of 16-1 previous blocks, BUT there are only</span>
+					<span class="comment">// 9:</span>
 					<span class="number">1329</span>, <span class="number">1330</span>, <span class="number">1331</span>, <span class="number">1332</span>, <span class="number">1333</span>, <span class="number">1334</span>, <span class="number">1335</span>, <span class="number">1336</span>, <span class="number">1337</span>,
 				]
 				.<span class="ident">iter</span>()
@@ -963,8 +968,9 @@
 				[
 					<span class="comment">// level3 MUST point to previous 16-1 level2 digests, BUT there are only 5:</span>
 					<span class="number">256</span>, <span class="number">512</span>, <span class="number">768</span>, <span class="number">1024</span>, <span class="number">1280</span>,
-					<span class="comment">// level3 MUST point to previous 16-1 level1 digests, BUT there are NO ANY L1-digests:</span>
-					<span class="comment">// level3 MUST be a level1 digest of 16-1 previous blocks, BUT there are only 3:</span>
+					<span class="comment">// level3 MUST point to previous 16-1 level1 digests, BUT there are NO ANY</span>
+					<span class="comment">// L1-digests: level3 MUST be a level1 digest of 16-1 previous blocks, BUT</span>
+					<span class="comment">// there are only 3:</span>
 					<span class="number">1281</span>, <span class="number">1282</span>, <span class="number">1283</span>,
 				]
 				.<span class="ident">iter</span>()

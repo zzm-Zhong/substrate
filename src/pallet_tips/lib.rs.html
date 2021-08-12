@@ -615,11 +615,11 @@
 <span class="doccomment">//! A subsystem to allow for an agile &quot;tipping&quot; process, whereby a reward may be given without first</span>
 <span class="doccomment">//! having a pre-determined stakeholder group come to consensus on how much should be paid.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! A group of `Tippers` is determined through the config `Config`. After half of these have declared</span>
-<span class="doccomment">//! some amount that they believe a particular reported reason deserves, then a countdown period is</span>
-<span class="doccomment">//! entered where any remaining members can declare their tip amounts also. After the close of the</span>
-<span class="doccomment">//! countdown period, the median of all declared tips is paid to the reported beneficiary, along</span>
-<span class="doccomment">//! with any finders fee, in case of a public (and bonded) original report.</span>
+<span class="doccomment">//! A group of `Tippers` is determined through the config `Config`. After half of these have</span>
+<span class="doccomment">//! declared some amount that they believe a particular reported reason deserves, then a countdown</span>
+<span class="doccomment">//! period is entered where any remaining members can declare their tip amounts also. After the</span>
+<span class="doccomment">//! close of the countdown period, the median of all declared tips is paid to the reported</span>
+<span class="doccomment">//! beneficiary, along with any finders fee, in case of a public (and bonded) original report.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Terminology</span>
@@ -707,8 +707,8 @@
 	<span class="ident">BlockNumber</span>: <span class="ident">Parameter</span>,
 	<span class="ident">Hash</span>: <span class="ident">Parameter</span>,
 <span class="op">&gt;</span> {
-	<span class="doccomment">/// The hash of the reason for the tip. The reason should be a human-readable UTF-8 encoded string. A URL would be</span>
-	<span class="doccomment">/// sensible.</span>
+	<span class="doccomment">/// The hash of the reason for the tip. The reason should be a human-readable UTF-8 encoded</span>
+	<span class="doccomment">/// string. A URL would be sensible.</span>
 	<span class="ident">reason</span>: <span class="ident">Hash</span>,
 	<span class="doccomment">/// The account to be tipped.</span>
 	<span class="ident">who</span>: <span class="ident">AccountId</span>,
@@ -1123,8 +1123,8 @@
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">migrate_retract_tip_for_tip_new</span>() {
-		<span class="doccomment">/// An open tipping &quot;motion&quot;. Retains all details of a tip including information on the finder</span>
-		<span class="doccomment">/// and the members who have voted.</span>
+		<span class="doccomment">/// An open tipping &quot;motion&quot;. Retains all details of a tip including information on the</span>
+		<span class="doccomment">/// finder and the members who have voted.</span>
 		<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Encode</span>, <span class="ident">Decode</span>, <span class="ident">RuntimeDebug</span>)]</span>
 		<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OldOpenTip</span><span class="op">&lt;</span>
 			<span class="ident">AccountId</span>: <span class="ident">Parameter</span>,
@@ -1132,15 +1132,15 @@
 			<span class="ident">BlockNumber</span>: <span class="ident">Parameter</span>,
 			<span class="ident">Hash</span>: <span class="ident">Parameter</span>,
 		<span class="op">&gt;</span> {
-			<span class="doccomment">/// The hash of the reason for the tip. The reason should be a human-readable UTF-8 encoded string. A URL would be</span>
-			<span class="doccomment">/// sensible.</span>
+			<span class="doccomment">/// The hash of the reason for the tip. The reason should be a human-readable UTF-8</span>
+			<span class="doccomment">/// encoded string. A URL would be sensible.</span>
 			<span class="ident">reason</span>: <span class="ident">Hash</span>,
 			<span class="doccomment">/// The account to be tipped.</span>
 			<span class="ident">who</span>: <span class="ident">AccountId</span>,
 			<span class="doccomment">/// The account who began this tip and the amount held on deposit.</span>
 			<span class="ident">finder</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">AccountId</span>, <span class="ident">Balance</span>)<span class="op">&gt;</span>,
-			<span class="doccomment">/// The block number at which this tip will close if `Some`. If `None`, then no closing is</span>
-			<span class="doccomment">/// scheduled.</span>
+			<span class="doccomment">/// The block number at which this tip will close if `Some`. If `None`, then no closing</span>
+			<span class="doccomment">/// is scheduled.</span>
 			<span class="ident">closes</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BlockNumber</span><span class="op">&gt;</span>,
 			<span class="doccomment">/// The members who have voted for this tip. Sorted by AccountId.</span>
 			<span class="ident">tips</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">AccountId</span>, <span class="ident">Balance</span>)<span class="op">&gt;</span>,

@@ -966,6 +966,7 @@
 <span id="955">955</span>
 <span id="956">956</span>
 <span id="957">957</span>
+<span id="958">958</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1104,8 +1105,8 @@
 		<span class="doccomment">/// BABE requires some logic to be triggered on every block to query for whether an epoch</span>
 		<span class="doccomment">/// has ended and to perform the transition to the next epoch.</span>
 		<span class="doccomment">///</span>
-		<span class="doccomment">/// Typically, the `ExternalTrigger` type should be used. An internal trigger should only be used</span>
-		<span class="doccomment">/// when no other module is responsible for changing authority set.</span>
+		<span class="doccomment">/// Typically, the `ExternalTrigger` type should be used. An internal trigger should only be</span>
+		<span class="doccomment">/// used when no other module is responsible for changing authority set.</span>
 		<span class="kw">type</span> <span class="ident">EpochChangeTrigger</span>: <span class="ident">EpochChangeTrigger</span>;
 
 		<span class="doccomment">/// A way to check whether a given validator is disabled and should not be authoring blocks.</span>
@@ -1250,7 +1251,8 @@
 	<span class="attribute">#[<span class="ident">pallet::getter</span>(<span class="kw">fn</span> <span class="ident">lateness</span>)]</span>
 	<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type</span> <span class="ident">Lateness</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">StorageValue</span><span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">T::BlockNumber</span>, <span class="ident">ValueQuery</span><span class="op">&gt;</span>;
 
-	<span class="doccomment">/// The configuration for the current epoch. Should never be `None` as it is initialized in genesis.</span>
+	<span class="doccomment">/// The configuration for the current epoch. Should never be `None` as it is initialized in</span>
+	<span class="doccomment">/// genesis.</span>
 	<span class="attribute">#[<span class="ident">pallet::storage</span>]</span>
 	<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type</span> <span class="ident">EpochConfig</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">StorageValue</span><span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">BabeEpochConfiguration</span><span class="op">&gt;</span>;
 
@@ -1465,11 +1467,11 @@
 		})
 	}
 
-	<span class="doccomment">/// DANGEROUS: Enact an epoch change. Should be done on every block where `should_epoch_change` has returned `true`,</span>
-	<span class="doccomment">/// and the caller is the only caller of this function.</span>
+	<span class="doccomment">/// DANGEROUS: Enact an epoch change. Should be done on every block where `should_epoch_change`</span>
+	<span class="doccomment">/// has returned `true`, and the caller is the only caller of this function.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Typically, this is not handled directly by the user, but by higher-level validator-set manager logic like</span>
-	<span class="doccomment">/// `pallet-session`.</span>
+	<span class="doccomment">/// Typically, this is not handled directly by the user, but by higher-level validator-set</span>
+	<span class="doccomment">/// manager logic like `pallet-session`.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">enact_epoch_change</span>(
 		<span class="ident">authorities</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">AuthorityId</span>, <span class="ident">BabeAuthorityWeight</span>)<span class="op">&gt;</span>,
 		<span class="ident">next_authorities</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">AuthorityId</span>, <span class="ident">BabeAuthorityWeight</span>)<span class="op">&gt;</span>,
