@@ -2065,6 +2065,7 @@
 <span id="2054">2054</span>
 <span id="2055">2055</span>
 <span id="2056">2056</span>
+<span id="2057">2057</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -3481,7 +3482,8 @@
 				<span class="comment">// Check that assignment.who is actually a voter (defensive-only).</span>
 				<span class="comment">// NOTE: while using the index map from `voter_index` is better than a blind linear</span>
 				<span class="comment">// search, this *still* has room for optimization. Note that we had the index when</span>
-				<span class="comment">// we did `solution -&gt; assignment` and we lost it. Ideal is to keep the index around.</span>
+				<span class="comment">// we did `solution -&gt; assignment` and we lost it. Ideal is to keep the index</span>
+				<span class="comment">// around.</span>
 
 				<span class="comment">// Defensive-only: must exist in the snapshot.</span>
 				<span class="kw">let</span> <span class="ident">snapshot_index</span> <span class="op">=</span>

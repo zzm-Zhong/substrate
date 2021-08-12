@@ -1871,9 +1871,6 @@
 <span id="1860">1860</span>
 <span id="1861">1861</span>
 <span id="1862">1862</span>
-<span id="1863">1863</span>
-<span id="1864">1864</span>
-<span id="1865">1865</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1946,7 +1943,6 @@
 	<span class="ident">NotCallable</span> <span class="op">=</span> <span class="number">8</span>,
 	<span class="doccomment">/// The call to `seal_debug_message` had no effect because debug message</span>
 	<span class="doccomment">/// recording was disabled.</span>
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-interface&quot;</span>)]</span>
 	<span class="ident">LoggingDisabled</span> <span class="op">=</span> <span class="number">9</span>,
 	<span class="doccomment">/// The call dispatched by `seal_call_runtime` was executed but returned an error.</span>
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-interface&quot;</span>)]</span>
@@ -2052,7 +2048,6 @@
 	<span class="doccomment">/// Weight of calling `seal_deposit_event` with the given number of topics and event size.</span>
 	<span class="ident">DepositEvent</span> { <span class="ident">num_topic</span>: <span class="ident">u32</span>, <span class="ident">len</span>: <span class="ident">u32</span> },
 	<span class="doccomment">/// Weight of calling `seal_debug_message`.</span>
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-interface&quot;</span>)]</span>
 	<span class="ident">DebugMessage</span>,
 	<span class="doccomment">/// Weight of calling `seal_set_rent_allowance`.</span>
 	<span class="ident">SetRentAllowance</span>,
@@ -2127,7 +2122,6 @@
 				.<span class="ident">deposit_event</span>
 				.<span class="ident">saturating_add</span>(<span class="ident">s</span>.<span class="ident">deposit_event_per_topic</span>.<span class="ident">saturating_mul</span>(<span class="ident">num_topic</span>.<span class="ident">into</span>()))
 				.<span class="ident">saturating_add</span>(<span class="ident">s</span>.<span class="ident">deposit_event_per_byte</span>.<span class="ident">saturating_mul</span>(<span class="ident">len</span>.<span class="ident">into</span>())),
-			<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-interface&quot;</span>)]</span>
 			<span class="ident">DebugMessage</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">s</span>.<span class="ident">debug_message</span>,
 			<span class="ident">SetRentAllowance</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">s</span>.<span class="ident">set_rent_allowance</span>,
 			<span class="ident">SetStorage</span>(<span class="ident">len</span>) <span class="op">=</span><span class="op">&gt;</span>
@@ -3625,7 +3619,7 @@
 	<span class="comment">// not being executed as an RPC. For example, they could allow users to disable logging</span>
 	<span class="comment">// through compile time flags (cargo features) for on-chain deployment. Additionally, the</span>
 	<span class="comment">// return value of this function can be cached in order to prevent further calls at runtime.</span>
-	[<span class="ident">__unstable__</span>] <span class="ident">seal_debug_message</span>(<span class="ident">ctx</span>, <span class="ident">str_ptr</span>: <span class="ident">u32</span>, <span class="ident">str_len</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ReturnCode</span> <span class="op">=</span><span class="op">&gt;</span> {
+	[<span class="ident">seal0</span>] <span class="ident">seal_debug_message</span>(<span class="ident">ctx</span>, <span class="ident">str_ptr</span>: <span class="ident">u32</span>, <span class="ident">str_len</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ReturnCode</span> <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="ident">ctx</span>.<span class="ident">charge_gas</span>(<span class="ident">RuntimeCosts::DebugMessage</span>)<span class="question-mark">?</span>;
 		<span class="kw">if</span> <span class="ident">ctx</span>.<span class="ident">ext</span>.<span class="ident">append_debug_buffer</span>(<span class="string">&quot;&quot;</span>) {
 			<span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">ctx</span>.<span class="ident">read_sandbox_memory</span>(<span class="ident">str_ptr</span>, <span class="ident">str_len</span>)<span class="question-mark">?</span>;
