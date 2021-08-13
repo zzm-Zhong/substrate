@@ -672,6 +672,8 @@
 <span id="661">661</span>
 <span id="662">662</span>
 <span id="663">663</span>
+<span id="664">664</span>
+<span id="665">665</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -938,8 +940,9 @@
 					<span class="kw">for</span> <span class="ident">sink</span> <span class="kw">in</span> <span class="ident">sinks</span> {
 						<span class="kw">match</span> <span class="ident">sink</span>.<span class="ident">start_send</span>(<span class="ident">notification</span>.<span class="ident">clone</span>()) {
 							<span class="prelude-val">Ok</span>(()) <span class="op">=</span><span class="op">&gt;</span> {},
-							<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">is_full</span>() <span class="op">=</span><span class="op">&gt;</span>
-								<span class="macro">unreachable!</span>(<span class="string">&quot;Previously ensured that all sinks are ready; qed.&quot;</span>),
+							<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">is_full</span>() <span class="op">=</span><span class="op">&gt;</span> {
+								<span class="macro">unreachable!</span>(<span class="string">&quot;Previously ensured that all sinks are ready; qed.&quot;</span>)
+							},
 							<span class="comment">// Receiver got dropped. Will be removed in next iteration (See (1)).</span>
 							<span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {},
 						}
@@ -1298,8 +1301,9 @@
 									.<span class="ident">and_modify</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">e</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>)
 									.<span class="ident">or_insert</span>(<span class="number">1</span>);
 							},
-							<span class="ident">Poll::Ready</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span>
-								<span class="macro">unreachable!</span>(<span class="string">&quot;Sender side of channel is never dropped&quot;</span>),
+							<span class="ident">Poll::Ready</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> {
+								<span class="macro">unreachable!</span>(<span class="string">&quot;Sender side of channel is never dropped&quot;</span>)
+							},
 							<span class="ident">Poll::Pending</span> <span class="op">=</span><span class="op">&gt;</span> {},
 						}
 					}

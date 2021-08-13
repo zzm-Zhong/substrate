@@ -234,6 +234,10 @@
 <span id="223">223</span>
 <span id="224">224</span>
 <span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -304,15 +308,19 @@
 <span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">UpgradeError</span> {
 	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
 		<span class="kw">match</span> <span class="self">self</span> {
-			<span class="ident">UpgradeError::UnknownDatabaseVersion</span> <span class="op">=</span><span class="op">&gt;</span>
-				<span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Database version cannot be read from exisiting db_version file&quot;</span>),
+			<span class="ident">UpgradeError::UnknownDatabaseVersion</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Database version cannot be read from exisiting db_version file&quot;</span>)
+			},
 			<span class="ident">UpgradeError::MissingDatabaseVersionFile</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Missing database version file&quot;</span>),
-			<span class="ident">UpgradeError::UnsupportedVersion</span>(<span class="ident">version</span>) <span class="op">=</span><span class="op">&gt;</span>
-				<span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Database version no longer supported: {}&quot;</span>, <span class="ident">version</span>),
-			<span class="ident">UpgradeError::FutureDatabaseVersion</span>(<span class="ident">version</span>) <span class="op">=</span><span class="op">&gt;</span>
-				<span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Database version comes from future version of the client: {}&quot;</span>, <span class="ident">version</span>),
-			<span class="ident">UpgradeError::DecodingJustificationBlock</span> <span class="op">=</span><span class="op">&gt;</span>
-				<span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Decodoning justification block failed&quot;</span>),
+			<span class="ident">UpgradeError::UnsupportedVersion</span>(<span class="ident">version</span>) <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Database version no longer supported: {}&quot;</span>, <span class="ident">version</span>)
+			},
+			<span class="ident">UpgradeError::FutureDatabaseVersion</span>(<span class="ident">version</span>) <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Database version comes from future version of the client: {}&quot;</span>, <span class="ident">version</span>)
+			},
+			<span class="ident">UpgradeError::DecodingJustificationBlock</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Decodoning justification block failed&quot;</span>)
+			},
 			<span class="ident">UpgradeError::Io</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Io error: {}&quot;</span>, <span class="ident">err</span>),
 		}
 	}

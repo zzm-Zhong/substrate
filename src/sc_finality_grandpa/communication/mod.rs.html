@@ -1058,6 +1058,9 @@
 <span id="1047">1047</span>
 <span id="1048">1048</span>
 <span id="1049">1049</span>
+<span id="1050">1050</span>
+<span id="1051">1051</span>
+<span id="1052">1052</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1745,18 +1748,21 @@
 	<span class="kw">fn</span> <span class="ident">start_send</span>(<span class="kw-2">mut</span> <span class="self">self</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="kw-2">mut</span> <span class="ident">msg</span>: <span class="ident">Message</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
 		<span class="comment">// if we&#39;ve voted on this round previously under the same key, send that vote instead</span>
 		<span class="kw">match</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">msg</span> {
-			<span class="ident">finality_grandpa::Message::PrimaryPropose</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">vote</span>) <span class="op">=</span><span class="op">&gt;</span>
+			<span class="ident">finality_grandpa::Message::PrimaryPropose</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">vote</span>) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">propose</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">has_voted</span>.<span class="ident">propose</span>() {
 					<span class="kw-2">*</span><span class="ident">vote</span> <span class="op">=</span> <span class="ident">propose</span>.<span class="ident">clone</span>();
-				},
-			<span class="ident">finality_grandpa::Message::Prevote</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">vote</span>) <span class="op">=</span><span class="op">&gt;</span>
+				}
+			},
+			<span class="ident">finality_grandpa::Message::Prevote</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">vote</span>) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">prevote</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">has_voted</span>.<span class="ident">prevote</span>() {
 					<span class="kw-2">*</span><span class="ident">vote</span> <span class="op">=</span> <span class="ident">prevote</span>.<span class="ident">clone</span>();
-				},
-			<span class="ident">finality_grandpa::Message::Precommit</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">vote</span>) <span class="op">=</span><span class="op">&gt;</span>
+				}
+			},
+			<span class="ident">finality_grandpa::Message::Precommit</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">vote</span>) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">precommit</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">has_voted</span>.<span class="ident">precommit</span>() {
 					<span class="kw-2">*</span><span class="ident">vote</span> <span class="op">=</span> <span class="ident">precommit</span>.<span class="ident">clone</span>();
-				},
+				}
+			},
 		}
 
 		<span class="comment">// when locals exist, sign messages on import</span>

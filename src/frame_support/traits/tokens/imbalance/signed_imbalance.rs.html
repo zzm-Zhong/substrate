@@ -79,6 +79,7 @@
 <span id="68">68</span>
 <span id="69">69</span>
 <span id="70">70</span>
+<span id="71">71</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -140,12 +141,13 @@
 				<span class="ident">SignedImbalance::Positive</span>(<span class="ident">one</span>.<span class="ident">merge</span>(<span class="ident">other</span>)),
 			(<span class="ident">SignedImbalance::Negative</span>(<span class="ident">one</span>), <span class="ident">SignedImbalance::Negative</span>(<span class="ident">other</span>)) <span class="op">=</span><span class="op">&gt;</span>
 				<span class="ident">SignedImbalance::Negative</span>(<span class="ident">one</span>.<span class="ident">merge</span>(<span class="ident">other</span>)),
-			(<span class="ident">SignedImbalance::Positive</span>(<span class="ident">one</span>), <span class="ident">SignedImbalance::Negative</span>(<span class="ident">other</span>)) <span class="op">=</span><span class="op">&gt;</span>
+			(<span class="ident">SignedImbalance::Positive</span>(<span class="ident">one</span>), <span class="ident">SignedImbalance::Negative</span>(<span class="ident">other</span>)) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">match</span> <span class="ident">one</span>.<span class="ident">offset</span>(<span class="ident">other</span>) {
 					<span class="ident">SameOrOther::Same</span>(<span class="ident">positive</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SignedImbalance::Positive</span>(<span class="ident">positive</span>),
 					<span class="ident">SameOrOther::Other</span>(<span class="ident">negative</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SignedImbalance::Negative</span>(<span class="ident">negative</span>),
 					<span class="ident">SameOrOther::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SignedImbalance::Positive</span>(<span class="ident">P::zero</span>()),
-				},
+				}
+			},
 			(<span class="ident">one</span>, <span class="ident">other</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">other</span>.<span class="ident">merge</span>(<span class="ident">one</span>),
 		}
 	}

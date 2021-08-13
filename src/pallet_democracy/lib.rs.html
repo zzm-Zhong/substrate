@@ -1907,6 +1907,7 @@
 <span id="1896">1896</span>
 <span id="1897">1897</span>
 <span id="1898">1898</span>
+<span id="1899">1899</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -3337,7 +3338,7 @@
 						}
 						<span class="ident">ReferendumInfoOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="ident">ref_index</span>, <span class="ident">ReferendumInfo::Ongoing</span>(<span class="ident">status</span>));
 					},
-					<span class="prelude-val">Some</span>(<span class="ident">ReferendumInfo::Finished</span> { <span class="ident">end</span>, <span class="ident">approved</span> }) <span class="op">=</span><span class="op">&gt;</span>
+					<span class="prelude-val">Some</span>(<span class="ident">ReferendumInfo::Finished</span> { <span class="ident">end</span>, <span class="ident">approved</span> }) <span class="op">=</span><span class="op">&gt;</span> {
 						<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">lock_periods</span>, <span class="ident">balance</span>)) <span class="op">=</span> <span class="ident">votes</span>[<span class="ident">i</span>].<span class="number">1</span>.<span class="ident">locked_if</span>(<span class="ident">approved</span>) {
 							<span class="kw">let</span> <span class="ident">unlock_at</span> <span class="op">=</span> <span class="ident">end</span> <span class="op">+</span> <span class="ident">T::EnactmentPeriod::get</span>() <span class="op">*</span> <span class="ident">lock_periods</span>.<span class="ident">into</span>();
 							<span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">frame_system::Pallet</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::block_number</span>();
@@ -3348,7 +3349,8 @@
 								);
 								<span class="ident">prior</span>.<span class="ident">accumulate</span>(<span class="ident">unlock_at</span>, <span class="ident">balance</span>)
 							}
-						},
+						}
+					},
 					<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {}, <span class="comment">// Referendum was cancelled.</span>
 				}
 				<span class="ident">votes</span>.<span class="ident">remove</span>(<span class="ident">i</span>);

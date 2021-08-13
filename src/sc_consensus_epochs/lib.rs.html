@@ -927,6 +927,7 @@
 <span id="916">916</span>
 <span id="917">917</span>
 <span id="918">918</span>
+<span id="919">919</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1491,12 +1492,13 @@
 							<span class="comment">// Ok, we found our node.</span>
 							<span class="comment">// and here we figure out which of the internal epochs</span>
 							<span class="comment">// of a genesis node to use based on their start slot.</span>
-							<span class="ident">PersistedEpochHeader::Genesis</span>(<span class="kw-2">ref</span> <span class="ident">epoch_0</span>, <span class="kw-2">ref</span> <span class="ident">epoch_1</span>) <span class="op">=</span><span class="op">&gt;</span>
+							<span class="ident">PersistedEpochHeader::Genesis</span>(<span class="kw-2">ref</span> <span class="ident">epoch_0</span>, <span class="kw-2">ref</span> <span class="ident">epoch_1</span>) <span class="op">=</span><span class="op">&gt;</span> {
 								<span class="kw">if</span> <span class="ident">epoch_1</span>.<span class="ident">start_slot</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">slot</span> {
 									(<span class="ident">EpochIdentifierPosition::Genesis1</span>, <span class="ident">epoch_1</span>.<span class="ident">clone</span>())
 								} <span class="kw">else</span> {
 									(<span class="ident">EpochIdentifierPosition::Genesis0</span>, <span class="ident">epoch_0</span>.<span class="ident">clone</span>())
-								},
+								}
+							},
 							<span class="ident">PersistedEpochHeader::Regular</span>(<span class="kw-2">ref</span> <span class="ident">epoch_n</span>) <span class="op">=</span><span class="op">&gt;</span>
 								(<span class="ident">EpochIdentifierPosition::Regular</span>, <span class="ident">epoch_n</span>.<span class="ident">clone</span>()),
 						},

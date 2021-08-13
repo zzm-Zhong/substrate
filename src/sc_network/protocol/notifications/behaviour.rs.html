@@ -2136,6 +2136,7 @@
 <span id="2125">2125</span>
 <span id="2126">2126</span>
 <span id="2127">2127</span>
+<span id="2128">2128</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2704,8 +2705,9 @@
 				<span class="kw-2">*</span><span class="ident">entry</span>.<span class="ident">into_mut</span>() <span class="op">=</span> <span class="ident">PeerState::Disabled</span> { <span class="ident">connections</span>, <span class="ident">backoff_until</span> }
 			},
 
-			<span class="ident">PeerState::Poisoned</span> <span class="op">=</span><span class="op">&gt;</span>
-				<span class="macro">error!</span>(<span class="ident">target</span>: <span class="string">&quot;sub-libp2p&quot;</span>, <span class="string">&quot;State of {:?} is poisoned&quot;</span>, <span class="ident">peer_id</span>),
+			<span class="ident">PeerState::Poisoned</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="macro">error!</span>(<span class="ident">target</span>: <span class="string">&quot;sub-libp2p&quot;</span>, <span class="string">&quot;State of {:?} is poisoned&quot;</span>, <span class="ident">peer_id</span>)
+			},
 		}
 	}
 

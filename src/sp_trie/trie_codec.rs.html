@@ -259,6 +259,7 @@
 <span id="248">248</span>
 <span id="249">249</span>
 <span id="250">250</span>
+<span id="251">251</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -343,8 +344,9 @@
 			<span class="ident">Error::TrieError</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Trie error: {}&quot;</span>, <span class="ident">e</span>),
 			<span class="ident">Error::IncompleteProof</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Incomplete proof&quot;</span>),
 			<span class="ident">Error::ExtraneousChildNode</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Child node content with no root in proof&quot;</span>),
-			<span class="ident">Error::ExtraneousChildProof</span>(<span class="ident">root</span>) <span class="op">=</span><span class="op">&gt;</span>
-				<span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Proof of child trie {:x?} not in parent proof&quot;</span>, <span class="ident">root</span>.<span class="ident">as_ref</span>()),
+			<span class="ident">Error::ExtraneousChildProof</span>(<span class="ident">root</span>) <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Proof of child trie {:x?} not in parent proof&quot;</span>, <span class="ident">root</span>.<span class="ident">as_ref</span>())
+			},
 			<span class="ident">Error::RootMismatch</span>(<span class="ident">root</span>, <span class="ident">expected</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(
 				<span class="ident">f</span>,
 				<span class="string">&quot;Verification error, root is {:x?}, expected: {:x?}&quot;</span>,

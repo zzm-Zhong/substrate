@@ -856,6 +856,7 @@
 <span id="845">845</span>
 <span id="846">846</span>
 <span id="847">847</span>
+<span id="848">848</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1178,8 +1179,9 @@
 
 		<span class="kw">for</span> <span class="ident">inherent</span> <span class="kw">in</span> <span class="ident">block_builder</span>.<span class="ident">create_inherents</span>(<span class="ident">inherent_data</span>)<span class="question-mark">?</span> {
 			<span class="kw">match</span> <span class="ident">block_builder</span>.<span class="ident">push</span>(<span class="ident">inherent</span>) {
-				<span class="prelude-val">Err</span>(<span class="ident">ApplyExtrinsicFailed</span>(<span class="ident">Validity</span>(<span class="ident">e</span>))) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">exhausted_resources</span>() <span class="op">=</span><span class="op">&gt;</span>
-					<span class="macro">warn!</span>(<span class="string">&quot;⚠️  Dropping non-mandatory inherent from overweight block.&quot;</span>),
+				<span class="prelude-val">Err</span>(<span class="ident">ApplyExtrinsicFailed</span>(<span class="ident">Validity</span>(<span class="ident">e</span>))) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">exhausted_resources</span>() <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="macro">warn!</span>(<span class="string">&quot;⚠️  Dropping non-mandatory inherent from overweight block.&quot;</span>)
+				},
 				<span class="prelude-val">Err</span>(<span class="ident">ApplyExtrinsicFailed</span>(<span class="ident">Validity</span>(<span class="ident">e</span>))) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">was_mandatory</span>() <span class="op">=</span><span class="op">&gt;</span> {
 					<span class="macro">error!</span>(
 						<span class="string">&quot;❌️ Mandatory inherent extrinsic returned error. Block cannot be produced.&quot;</span>

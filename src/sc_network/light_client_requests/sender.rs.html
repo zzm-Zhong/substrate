@@ -1297,6 +1297,12 @@
 <span id="1286">1286</span>
 <span id="1287">1287</span>
 <span id="1288">1288</span>
+<span id="1289">1289</span>
+<span id="1290">1290</span>
+<span id="1291">1291</span>
+<span id="1292">1292</span>
+<span id="1293">1293</span>
+<span id="1294">1294</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1513,14 +1519,15 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Reply</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">use</span> <span class="ident">schema::v1::light::response::Response</span>;
 		<span class="kw">match</span> <span class="ident">response</span>.<span class="ident">response</span> {
-			<span class="prelude-val">Some</span>(<span class="ident">Response::RemoteCallResponse</span>(<span class="ident">response</span>)) <span class="op">=</span><span class="op">&gt;</span>
+			<span class="prelude-val">Some</span>(<span class="ident">Response::RemoteCallResponse</span>(<span class="ident">response</span>)) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">if</span> <span class="kw">let</span> <span class="ident">Request::Call</span> { <span class="ident">request</span>, .. } <span class="op">=</span> <span class="ident">request</span> {
 					<span class="kw">let</span> <span class="ident">proof</span> <span class="op">=</span> <span class="ident">Decode::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">response</span>.<span class="ident">proof</span>.<span class="ident">as_ref</span>())<span class="question-mark">?</span>;
 					<span class="kw">let</span> <span class="ident">reply</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">checker</span>.<span class="ident">check_execution_proof</span>(<span class="ident">request</span>, <span class="ident">proof</span>)<span class="question-mark">?</span>;
 					<span class="prelude-val">Ok</span>(<span class="ident">Reply::VecU8</span>(<span class="ident">reply</span>))
 				} <span class="kw">else</span> {
 					<span class="prelude-val">Err</span>(<span class="ident">Error::UnexpectedResponse</span>)
-				},
+				}
+			},
 			<span class="prelude-val">Some</span>(<span class="ident">Response::RemoteReadResponse</span>(<span class="ident">response</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="ident">request</span> {
 				<span class="ident">Request::Read</span> { <span class="ident">request</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
 					<span class="kw">let</span> <span class="ident">proof</span> <span class="op">=</span> <span class="ident">Decode::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">response</span>.<span class="ident">proof</span>.<span class="ident">as_ref</span>())<span class="question-mark">?</span>;
@@ -1534,7 +1541,7 @@
 				},
 				<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">Error::UnexpectedResponse</span>),
 			},
-			<span class="prelude-val">Some</span>(<span class="ident">Response::RemoteChangesResponse</span>(<span class="ident">response</span>)) <span class="op">=</span><span class="op">&gt;</span>
+			<span class="prelude-val">Some</span>(<span class="ident">Response::RemoteChangesResponse</span>(<span class="ident">response</span>)) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">if</span> <span class="kw">let</span> <span class="ident">Request::Changes</span> { <span class="ident">request</span>, .. } <span class="op">=</span> <span class="ident">request</span> {
 					<span class="kw">let</span> <span class="ident">max_block</span> <span class="op">=</span> <span class="ident">Decode::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">response</span>.<span class="ident">max</span>.<span class="ident">as_ref</span>())<span class="question-mark">?</span>;
 					<span class="kw">let</span> <span class="ident">roots_proof</span> <span class="op">=</span> <span class="ident">Decode::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">response</span>.<span class="ident">roots_proof</span>.<span class="ident">as_ref</span>())<span class="question-mark">?</span>;
@@ -1559,8 +1566,9 @@
 					<span class="prelude-val">Ok</span>(<span class="ident">Reply::VecNumberU32</span>(<span class="ident">reply</span>))
 				} <span class="kw">else</span> {
 					<span class="prelude-val">Err</span>(<span class="ident">Error::UnexpectedResponse</span>)
-				},
-			<span class="prelude-val">Some</span>(<span class="ident">Response::RemoteHeaderResponse</span>(<span class="ident">response</span>)) <span class="op">=</span><span class="op">&gt;</span>
+				}
+			},
+			<span class="prelude-val">Some</span>(<span class="ident">Response::RemoteHeaderResponse</span>(<span class="ident">response</span>)) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">if</span> <span class="kw">let</span> <span class="ident">Request::Header</span> { <span class="ident">request</span>, .. } <span class="op">=</span> <span class="ident">request</span> {
 					<span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">response</span>.<span class="ident">header</span>.<span class="ident">is_empty</span>() {
 						<span class="prelude-val">None</span>
@@ -1572,7 +1580,8 @@
 					<span class="prelude-val">Ok</span>(<span class="ident">Reply::Header</span>(<span class="ident">reply</span>))
 				} <span class="kw">else</span> {
 					<span class="prelude-val">Err</span>(<span class="ident">Error::UnexpectedResponse</span>)
-				},
+				}
+			},
 			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">Error::UnexpectedResponse</span>),
 		}
 	}
@@ -2079,8 +2088,9 @@
 			<span class="ident">Request::Header</span> { <span class="ident">request</span>, <span class="ident">sender</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="ident">result</span> {
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">send</span>(<span class="prelude-val">Err</span>(<span class="ident">e</span>), <span class="ident">sender</span>),
 				<span class="prelude-val">Ok</span>(<span class="ident">Reply::Header</span>(<span class="ident">x</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">send</span>(<span class="prelude-val">Ok</span>(<span class="ident">x</span>), <span class="ident">sender</span>),
-				<span class="ident">reply</span> <span class="op">=</span><span class="op">&gt;</span>
-					<span class="macro">log::error!</span>(<span class="string">&quot;invalid reply for header request: {:?}, {:?}&quot;</span>, <span class="ident">reply</span>, <span class="ident">request</span>),
+				<span class="ident">reply</span> <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="macro">log::error!</span>(<span class="string">&quot;invalid reply for header request: {:?}, {:?}&quot;</span>, <span class="ident">reply</span>, <span class="ident">request</span>)
+				},
 			},
 			<span class="ident">Request::Read</span> { <span class="ident">request</span>, <span class="ident">sender</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="ident">result</span> {
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">send</span>(<span class="prelude-val">Err</span>(<span class="ident">e</span>), <span class="ident">sender</span>),
@@ -2090,8 +2100,9 @@
 			<span class="ident">Request::ReadChild</span> { <span class="ident">request</span>, <span class="ident">sender</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="ident">result</span> {
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">send</span>(<span class="prelude-val">Err</span>(<span class="ident">e</span>), <span class="ident">sender</span>),
 				<span class="prelude-val">Ok</span>(<span class="ident">Reply::MapVecU8OptVecU8</span>(<span class="ident">x</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">send</span>(<span class="prelude-val">Ok</span>(<span class="ident">x</span>), <span class="ident">sender</span>),
-				<span class="ident">reply</span> <span class="op">=</span><span class="op">&gt;</span>
-					<span class="macro">log::error!</span>(<span class="string">&quot;invalid reply for read child request: {:?}, {:?}&quot;</span>, <span class="ident">reply</span>, <span class="ident">request</span>),
+				<span class="ident">reply</span> <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="macro">log::error!</span>(<span class="string">&quot;invalid reply for read child request: {:?}, {:?}&quot;</span>, <span class="ident">reply</span>, <span class="ident">request</span>)
+				},
 			},
 			<span class="ident">Request::Call</span> { <span class="ident">request</span>, <span class="ident">sender</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="ident">result</span> {
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">send</span>(<span class="prelude-val">Err</span>(<span class="ident">e</span>), <span class="ident">sender</span>),
@@ -2101,8 +2112,9 @@
 			<span class="ident">Request::Changes</span> { <span class="ident">request</span>, <span class="ident">sender</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="ident">result</span> {
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">send</span>(<span class="prelude-val">Err</span>(<span class="ident">e</span>), <span class="ident">sender</span>),
 				<span class="prelude-val">Ok</span>(<span class="ident">Reply::VecNumberU32</span>(<span class="ident">x</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">send</span>(<span class="prelude-val">Ok</span>(<span class="ident">x</span>), <span class="ident">sender</span>),
-				<span class="ident">reply</span> <span class="op">=</span><span class="op">&gt;</span>
-					<span class="macro">log::error!</span>(<span class="string">&quot;invalid reply for changes request: {:?}, {:?}&quot;</span>, <span class="ident">reply</span>, <span class="ident">request</span>),
+				<span class="ident">reply</span> <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="macro">log::error!</span>(<span class="string">&quot;invalid reply for changes request: {:?}, {:?}&quot;</span>, <span class="ident">reply</span>, <span class="ident">request</span>)
+				},
 			},
 		}
 	}

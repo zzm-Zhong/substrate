@@ -1453,6 +1453,8 @@
 <span id="1442">1442</span>
 <span id="1443">1443</span>
 <span id="1444">1444</span>
+<span id="1445">1445</span>
+<span id="1446">1446</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1848,18 +1850,20 @@
 		<span class="comment">// Already rounded down</span>
 		<span class="ident">Rounding::Down</span> <span class="op">=</span><span class="op">&gt;</span> {},
 		<span class="comment">// Round up if the fractional part of the result is non-zero.</span>
-		<span class="ident">Rounding::Up</span> <span class="op">=</span><span class="op">&gt;</span>
+		<span class="ident">Rounding::Up</span> <span class="op">=</span><span class="op">&gt;</span> {
 			<span class="kw">if</span> <span class="ident">rem_mul_upper</span> <span class="op">%</span> <span class="ident">denom_upper</span> <span class="op">&gt;</span> <span class="number">0</span>.<span class="ident">into</span>() {
 				<span class="comment">// `rem * numer / denom` is less than `numer`, so this will not overflow.</span>
 				<span class="ident">rem_mul_div_inner</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>.<span class="ident">into</span>();
-			},
+			}
+		},
 		<span class="comment">// Round up if the fractional part of the result is greater than a half. An exact half is</span>
 		<span class="comment">// rounded down.</span>
-		<span class="ident">Rounding::Nearest</span> <span class="op">=</span><span class="op">&gt;</span>
+		<span class="ident">Rounding::Nearest</span> <span class="op">=</span><span class="op">&gt;</span> {
 			<span class="kw">if</span> <span class="ident">rem_mul_upper</span> <span class="op">%</span> <span class="ident">denom_upper</span> <span class="op">&gt;</span> <span class="ident">denom_upper</span> <span class="op">/</span> <span class="number">2</span>.<span class="ident">into</span>() {
 				<span class="comment">// `rem * numer / denom` is less than `numer`, so this will not overflow.</span>
 				<span class="ident">rem_mul_div_inner</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>.<span class="ident">into</span>();
-			},
+			}
+		},
 	}
 	<span class="ident">rem_mul_div_inner</span>.<span class="ident">into</span>()
 }
