@@ -173,7 +173,6 @@
 <span id="162">162</span>
 <span id="163">163</span>
 <span id="164">164</span>
-<span id="165">165</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -193,7 +192,7 @@
 <span class="comment">// limitations under the License.</span>
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
-<span class="kw">use</span> <span class="ident">futures_util</span>::{<span class="ident">future::Future</span>, <span class="ident">FutureExt</span>};
+<span class="kw">use</span> <span class="ident">futures_util::future::Future</span>;
 <span class="kw">use</span> <span class="ident">prometheus::core::Collector</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">prometheus</span>::{
 	<span class="self">self</span>,
@@ -244,8 +243,9 @@
 	<span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 	<span class="kw">use</span> <span class="ident">hyper</span>::{
 		<span class="ident">http::StatusCode</span>,
+		<span class="ident">server::Server</span>,
 		<span class="ident">service</span>::{<span class="ident">make_service_fn</span>, <span class="ident">service_fn</span>},
-		<span class="ident">Body</span>, <span class="ident">Request</span>, <span class="ident">Response</span>, <span class="ident">Server</span>,
+		<span class="ident">Body</span>, <span class="ident">Request</span>, <span class="ident">Response</span>,
 	};
 
 	<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">derive_more::Display</span>, <span class="ident">derive_more::From</span>)]</span>
@@ -330,10 +330,8 @@
 			}
 		});
 
-		<span class="kw">let</span> <span class="ident">server</span> <span class="op">=</span> <span class="ident">Server::builder</span>(<span class="ident">Incoming</span>(<span class="ident">listener</span>.<span class="ident">incoming</span>()))
-			.<span class="ident">executor</span>(<span class="ident">Executor</span>)
-			.<span class="ident">serve</span>(<span class="ident">service</span>)
-			.<span class="ident">boxed</span>();
+		<span class="kw">let</span> <span class="ident">server</span> <span class="op">=</span>
+			<span class="ident">Server::builder</span>(<span class="ident">Incoming</span>(<span class="ident">listener</span>.<span class="ident">incoming</span>())).<span class="ident">executor</span>(<span class="ident">Executor</span>).<span class="ident">serve</span>(<span class="ident">service</span>);
 
 		<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">server</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="ident">Into::into</span>);
 
