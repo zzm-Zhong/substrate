@@ -91,7 +91,7 @@
 <span class="doccomment">//! RPC Metadata</span>
 <span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
 
-<span class="kw">use</span> <span class="ident">jsonrpc_core::futures::sync::mpsc</span>;
+<span class="kw">use</span> <span class="ident">futures::channel::mpsc</span>;
 <span class="kw">use</span> <span class="ident">jsonrpc_pubsub</span>::{<span class="ident">PubSubMetadata</span>, <span class="ident">Session</span>};
 
 <span class="doccomment">/// RPC Metadata.</span>
@@ -113,20 +113,20 @@
 
 <span class="kw">impl</span> <span class="ident">Metadata</span> {
 	<span class="doccomment">/// Create new `Metadata` with session (Pub/Sub) support.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transport</span>: <span class="ident">mpsc::Sender</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transport</span>: <span class="ident">mpsc::UnboundedSender</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="ident">Metadata</span> { <span class="ident">session</span>: <span class="prelude-val">Some</span>(<span class="ident">Arc::new</span>(<span class="ident">Session::new</span>(<span class="ident">transport</span>))) }
 	}
 
 	<span class="doccomment">/// Create new `Metadata` for tests.</span>
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_test</span>() <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">mpsc::Receiver</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="self">Self</span>) {
-		<span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">mpsc::channel</span>(<span class="number">1</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_test</span>() <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">mpsc::UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="self">Self</span>) {
+		<span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">mpsc::unbounded</span>();
 		(<span class="ident">rx</span>, <span class="self">Self</span><span class="ident">::new</span>(<span class="ident">tx</span>))
 	}
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">mpsc::Sender</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Metadata</span> {
-	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">sender</span>: <span class="ident">mpsc::Sender</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">mpsc::UnboundedSender</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Metadata</span> {
+	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">sender</span>: <span class="ident">mpsc::UnboundedSender</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="self">Self</span><span class="ident">::new</span>(<span class="ident">sender</span>)
 	}
 }

@@ -522,17 +522,6 @@
 <span id="511">511</span>
 <span id="512">512</span>
 <span id="513">513</span>
-<span id="514">514</span>
-<span id="515">515</span>
-<span id="516">516</span>
-<span id="517">517</span>
-<span id="518">518</span>
-<span id="519">519</span>
-<span id="520">520</span>
-<span id="521">521</span>
-<span id="522">522</span>
-<span id="523">523</span>
-<span id="524">524</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -555,12 +544,7 @@
 <span class="doccomment">//! RPC API for GRANDPA.</span>
 <span class="attribute">#![<span class="ident">warn</span>(<span class="ident">missing_docs</span>)]</span>
 
-<span class="kw">use</span> <span class="ident">futures</span>::{<span class="ident">FutureExt</span>, <span class="ident">StreamExt</span>, <span class="ident">TryFutureExt</span>, <span class="ident">TryStreamExt</span>};
-<span class="kw">use</span> <span class="ident">jsonrpc_core::futures</span>::{
-	<span class="ident">future</span>::{<span class="ident">Executor</span> <span class="kw">as</span> <span class="ident">Executor01</span>, <span class="ident">Future</span> <span class="kw">as</span> <span class="ident">Future01</span>},
-	<span class="ident">sink::Sink</span> <span class="kw">as</span> <span class="ident">Sink01</span>,
-	<span class="ident">stream::Stream</span> <span class="kw">as</span> <span class="ident">Stream01</span>,
-};
+<span class="kw">use</span> <span class="ident">futures</span>::{<span class="ident">task::Spawn</span>, <span class="ident">FutureExt</span>, <span class="ident">SinkExt</span>, <span class="ident">StreamExt</span>, <span class="ident">TryFutureExt</span>};
 <span class="kw">use</span> <span class="ident">jsonrpc_derive::rpc</span>;
 <span class="kw">use</span> <span class="ident">jsonrpc_pubsub</span>::{<span class="ident">manager::SubscriptionManager</span>, <span class="ident">typed::Subscriber</span>, <span class="ident">SubscriptionId</span>};
 <span class="kw">use</span> <span class="ident">log::warn</span>;
@@ -578,8 +562,7 @@
 <span class="kw">use</span> <span class="ident">notification::JustificationNotification</span>;
 <span class="kw">use</span> <span class="ident">report</span>::{<span class="ident">ReportAuthoritySet</span>, <span class="ident">ReportVoterState</span>, <span class="ident">ReportedRoundStates</span>};
 
-<span class="kw">type</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span>
-	<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">jsonrpc_core::futures::Future</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">T</span>, <span class="ident">Error</span> <span class="op">=</span> <span class="ident">jsonrpc_core::Error</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>;
+<span class="kw">type</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">jsonrpc_core::BoxFuture</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">jsonrpc_core::Error</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// Provides RPC methods for interacting with GRANDPA.</span>
 <span class="attribute">#[<span class="ident">rpc</span>]</span>
@@ -644,7 +627,7 @@
 		<span class="ident">finality_proof_provider</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ProofProvider</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>
 	<span class="kw">where</span>
-		<span class="ident">E</span>: <span class="ident">Executor01</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Future01</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (), <span class="ident">Error</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+		<span class="ident">E</span>: <span class="ident">Spawn</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	{
 		<span class="kw">let</span> <span class="ident">manager</span> <span class="op">=</span> <span class="ident">SubscriptionManager::new</span>(<span class="ident">Arc::new</span>(<span class="ident">executor</span>));
 		<span class="self">Self</span> { <span class="ident">authority_set</span>, <span class="ident">voter_state</span>, <span class="ident">justification_stream</span>, <span class="ident">manager</span>, <span class="ident">finality_proof_provider</span> }
@@ -665,7 +648,7 @@
 	<span class="kw">fn</span> <span class="ident">round_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">ReportedRoundStates</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">round_states</span> <span class="op">=</span> <span class="ident">ReportedRoundStates::from</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">authority_set</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">voter_state</span>);
 		<span class="kw">let</span> <span class="ident">future</span> <span class="op">=</span> <span class="kw">async</span> <span class="kw">move</span> { <span class="ident">round_states</span> }.<span class="ident">boxed</span>();
-		<span class="ident">Box::new</span>(<span class="ident">future</span>.<span class="ident">map_err</span>(<span class="ident">jsonrpc_core::Error::from</span>).<span class="ident">compat</span>())
+		<span class="ident">future</span>.<span class="ident">map_err</span>(<span class="ident">jsonrpc_core::Error::from</span>).<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">subscribe_justifications</span>(
@@ -676,14 +659,11 @@
 		<span class="kw">let</span> <span class="ident">stream</span> <span class="op">=</span> <span class="self">self</span>
 			.<span class="ident">justification_stream</span>
 			.<span class="ident">subscribe</span>()
-			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="prelude-val">Ok</span>::<span class="op">&lt;</span><span class="kw">_</span>, ()<span class="op">&gt;</span>(<span class="ident">JustificationNotification::from</span>(<span class="ident">x</span>)))
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">warn!</span>(<span class="string">&quot;Notification stream error: {:?}&quot;</span>, <span class="ident">e</span>))
-			.<span class="ident">compat</span>();
+			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Ok</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">jsonrpc_core::Error</span><span class="op">&gt;</span>(<span class="ident">JustificationNotification::from</span>(<span class="ident">x</span>))));
 
 		<span class="self">self</span>.<span class="ident">manager</span>.<span class="ident">add</span>(<span class="ident">subscriber</span>, <span class="op">|</span><span class="ident">sink</span><span class="op">|</span> {
-			<span class="kw">let</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">stream</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">res</span><span class="op">|</span> <span class="prelude-val">Ok</span>(<span class="ident">res</span>));
-			<span class="ident">sink</span>.<span class="ident">sink_map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">warn!</span>(<span class="string">&quot;Error sending notifications: {:?}&quot;</span>, <span class="ident">e</span>))
-				.<span class="ident">send_all</span>(<span class="ident">stream</span>)
+			<span class="ident">stream</span>
+				.<span class="ident">forward</span>(<span class="ident">sink</span>.<span class="ident">sink_map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">warn!</span>(<span class="string">&quot;Error sending notifications: {:?}&quot;</span>, <span class="ident">e</span>)))
 				.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
 		});
 	}
@@ -702,15 +682,13 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EncodedFinalityProof</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">finality_proof_provider</span>.<span class="ident">rpc_prove_finality</span>(<span class="ident">block</span>);
 		<span class="kw">let</span> <span class="ident">future</span> <span class="op">=</span> <span class="kw">async</span> <span class="kw">move</span> { <span class="ident">result</span> }.<span class="ident">boxed</span>();
-		<span class="ident">Box::new</span>(
-			<span class="ident">future</span>
-				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-					<span class="macro">warn!</span>(<span class="string">&quot;Error proving finality: {}&quot;</span>, <span class="ident">e</span>);
-					<span class="ident">error::Error::ProveFinalityFailed</span>(<span class="ident">e</span>)
-				})
-				.<span class="ident">map_err</span>(<span class="ident">jsonrpc_core::Error::from</span>)
-				.<span class="ident">compat</span>(),
-		)
+		<span class="ident">future</span>
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
+				<span class="macro">warn!</span>(<span class="string">&quot;Error proving finality: {}&quot;</span>, <span class="ident">e</span>);
+				<span class="ident">error::Error::ProveFinalityFailed</span>(<span class="ident">e</span>)
+			})
+			.<span class="ident">map_err</span>(<span class="ident">jsonrpc_core::Error::from</span>)
+			.<span class="ident">boxed</span>()
 	}
 }
 
@@ -886,8 +864,8 @@
 		<span class="macro">assert_eq!</span>(<span class="ident">io</span>.<span class="ident">handle_request_sync</span>(<span class="ident">request</span>, <span class="ident">meta</span>), <span class="prelude-val">Some</span>(<span class="ident">response</span>.<span class="ident">into</span>()));
 	}
 
-	<span class="kw">fn</span> <span class="ident">setup_session</span>() <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">sc_rpc::Metadata</span>, <span class="ident">jsonrpc_core::futures::sync::mpsc::Receiver</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) {
-		<span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">jsonrpc_core::futures::sync::mpsc::channel</span>(<span class="number">1</span>);
+	<span class="kw">fn</span> <span class="ident">setup_session</span>() <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">sc_rpc::Metadata</span>, <span class="ident">futures::channel::mpsc::UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) {
+		<span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">futures::channel::mpsc::unbounded</span>();
 		<span class="kw">let</span> <span class="ident">meta</span> <span class="op">=</span> <span class="ident">sc_rpc::Metadata::new</span>(<span class="ident">tx</span>);
 		(<span class="ident">meta</span>, <span class="ident">rx</span>)
 	}
@@ -921,7 +899,7 @@
 		<span class="comment">// Unsubscribe again and fail</span>
 		<span class="macro">assert_eq!</span>(
 			<span class="ident">io</span>.<span class="ident">handle_request_sync</span>(<span class="kw-2">&amp;</span><span class="ident">unsub_req</span>, <span class="ident">meta</span>),
-			<span class="prelude-val">Some</span>(<span class="string">r#&quot;{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:false,&quot;id&quot;:1}&quot;#</span>.<span class="ident">into</span>()),
+			<span class="prelude-val">Some</span>(<span class="string">&quot;{\&quot;jsonrpc\&quot;:\&quot;2.0\&quot;,\&quot;error\&quot;:{\&quot;code\&quot;:-32602,\&quot;message\&quot;:\&quot;Invalid subscription id.\&quot;},\&quot;id\&quot;:1}&quot;</span>.<span class="ident">into</span>()),
 		);
 	}
 
@@ -943,7 +921,7 @@
 				<span class="string">r#&quot;{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;grandpa_unsubscribeJustifications&quot;,&quot;params&quot;:[&quot;FOO&quot;],&quot;id&quot;:1}&quot;#</span>,
 				<span class="ident">meta</span>.<span class="ident">clone</span>()
 			),
-			<span class="prelude-val">Some</span>(<span class="string">r#&quot;{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:false,&quot;id&quot;:1}&quot;#</span>.<span class="ident">into</span>())
+			<span class="prelude-val">Some</span>(<span class="string">&quot;{\&quot;jsonrpc\&quot;:\&quot;2.0\&quot;,\&quot;error\&quot;:{\&quot;code\&quot;:-32602,\&quot;message\&quot;:\&quot;Invalid subscription id.\&quot;},\&quot;id\&quot;:1}&quot;</span>.<span class="ident">into</span>())
 		);
 	}
 
@@ -1019,7 +997,7 @@
 		<span class="ident">justification_sender</span>.<span class="ident">notify</span>(<span class="op">|</span><span class="op">|</span> <span class="prelude-val">Ok</span>(<span class="ident">justification</span>.<span class="ident">clone</span>())).<span class="ident">unwrap</span>();
 
 		<span class="comment">// Inspect what we received</span>
-		<span class="kw">let</span> <span class="ident">recv</span> <span class="op">=</span> <span class="ident">receiver</span>.<span class="ident">take</span>(<span class="number">1</span>).<span class="ident">wait</span>().<span class="ident">flatten</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
+		<span class="kw">let</span> <span class="ident">recv</span> <span class="op">=</span> <span class="ident">futures::executor::block_on</span>(<span class="ident">receiver</span>.<span class="ident">take</span>(<span class="number">1</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>());
 		<span class="kw">let</span> <span class="ident">recv</span>: <span class="ident">Notification</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="kw-2">&amp;</span><span class="ident">recv</span>[<span class="number">0</span>]).<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">json_map</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">recv</span>.<span class="ident">params</span> {
 			<span class="ident">Params::Map</span>(<span class="ident">json_map</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">json_map</span>,

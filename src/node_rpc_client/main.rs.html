@@ -72,9 +72,6 @@
 <span id="61">61</span>
 <span id="62">62</span>
 <span id="63">63</span>
-<span id="64">64</span>
-<span id="65">65</span>
-<span id="66">66</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -100,24 +97,21 @@
 <span class="doccomment">//! This module shows how you can write a Rust RPC client that connects to a running</span>
 <span class="doccomment">//! substrate node and use statically typed RPC wrappers.</span>
 
-<span class="kw">use</span> <span class="ident">futures::Future</span>;
-<span class="kw">use</span> <span class="ident">hyper::rt</span>;
+<span class="kw">use</span> <span class="ident">futures</span>::{<span class="ident">Future</span>, <span class="ident">TryFutureExt</span>};
 <span class="kw">use</span> <span class="ident">jsonrpc_core_client</span>::{<span class="ident">transports::http</span>, <span class="ident">RpcError</span>};
 <span class="kw">use</span> <span class="ident">node_primitives::Hash</span>;
 <span class="kw">use</span> <span class="ident">sc_rpc::author</span>::{<span class="ident">hash::ExtrinsicOrHash</span>, <span class="ident">AuthorClient</span>};
 
-<span class="kw">fn</span> <span class="ident">main</span>() {
+<span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">RpcError</span><span class="op">&gt;</span> {
 	<span class="ident">sp_tracing::try_init_simple</span>();
 
-	<span class="ident">rt::run</span>(<span class="ident">rt::lazy</span>(<span class="op">|</span><span class="op">|</span> {
+	<span class="ident">futures::executor::block_on</span>(<span class="kw">async</span> {
 		<span class="kw">let</span> <span class="ident">uri</span> <span class="op">=</span> <span class="string">&quot;http://localhost:9933&quot;</span>;
 
 		<span class="ident">http::connect</span>(<span class="ident">uri</span>)
 			.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">client</span>: <span class="ident">AuthorClient</span><span class="op">&lt;</span><span class="ident">Hash</span>, <span class="ident">Hash</span><span class="op">&gt;</span><span class="op">|</span> <span class="ident">remove_all_extrinsics</span>(<span class="ident">client</span>))
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-				<span class="macro">println!</span>(<span class="string">&quot;Error: {:?}&quot;</span>, <span class="ident">e</span>);
-			})
-	}))
+			.<span class="kw">await</span>
+	})
 }
 
 <span class="doccomment">/// Remove all pending extrinsics from the node.</span>
@@ -130,7 +124,7 @@
 <span class="doccomment">/// to be removed and the extrinsics are going to be temporarily banned.</span>
 <span class="kw">fn</span> <span class="ident">remove_all_extrinsics</span>(
 	<span class="ident">client</span>: <span class="ident">AuthorClient</span><span class="op">&lt;</span><span class="ident">Hash</span>, <span class="ident">Hash</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (), <span class="ident">Error</span> <span class="op">=</span> <span class="ident">RpcError</span><span class="op">&gt;</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">RpcError</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 	<span class="ident">client</span>
 		.<span class="ident">pending_extrinsics</span>()
 		.<span class="ident">and_then</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">pending</span><span class="op">|</span> {
@@ -138,7 +132,7 @@
 				<span class="ident">pending</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">tx</span><span class="op">|</span> <span class="ident">ExtrinsicOrHash::Extrinsic</span>(<span class="ident">tx</span>.<span class="ident">into</span>())).<span class="ident">collect</span>(),
 			)
 		})
-		.<span class="ident">map</span>(<span class="op">|</span><span class="ident">removed</span><span class="op">|</span> {
+		.<span class="ident">map_ok</span>(<span class="op">|</span><span class="ident">removed</span><span class="op">|</span> {
 			<span class="macro">println!</span>(<span class="string">&quot;Removed extrinsics: {:?}&quot;</span>, <span class="ident">removed</span>);
 		})
 }

@@ -169,13 +169,13 @@
 	<span class="kw">fn</span> <span class="ident">on_request</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">X</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">request</span>: <span class="ident">Request</span>, <span class="ident">meta</span>: <span class="ident">M</span>, <span class="ident">next</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Either</span><span class="op">&lt;</span><span class="ident">FutureResponse</span>, <span class="ident">X</span><span class="op">&gt;</span>
 	<span class="kw">where</span>
 		<span class="ident">F</span>: <span class="ident">Fn</span>(<span class="ident">Request</span>, <span class="ident">M</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">X</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>,
-		<span class="ident">X</span>: <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span>, <span class="ident">Error</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+		<span class="ident">X</span>: <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	{
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">rpc_calls</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">metrics</span>.<span class="ident">rpc_calls</span> {
 			<span class="ident">rpc_calls</span>.<span class="ident">with_label_values</span>(<span class="kw-2">&amp;</span>[<span class="self">self</span>.<span class="ident">transport_label</span>.<span class="ident">as_str</span>()]).<span class="ident">inc</span>();
 		}
 
-		<span class="ident">Either::B</span>(<span class="ident">next</span>(<span class="ident">request</span>, <span class="ident">meta</span>))
+		<span class="ident">Either::Right</span>(<span class="ident">next</span>(<span class="ident">request</span>, <span class="ident">meta</span>))
 	}
 }
 </pre></div>

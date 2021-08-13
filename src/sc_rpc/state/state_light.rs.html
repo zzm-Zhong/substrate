@@ -837,59 +837,6 @@
 <span id="826">826</span>
 <span id="827">827</span>
 <span id="828">828</span>
-<span id="829">829</span>
-<span id="830">830</span>
-<span id="831">831</span>
-<span id="832">832</span>
-<span id="833">833</span>
-<span id="834">834</span>
-<span id="835">835</span>
-<span id="836">836</span>
-<span id="837">837</span>
-<span id="838">838</span>
-<span id="839">839</span>
-<span id="840">840</span>
-<span id="841">841</span>
-<span id="842">842</span>
-<span id="843">843</span>
-<span id="844">844</span>
-<span id="845">845</span>
-<span id="846">846</span>
-<span id="847">847</span>
-<span id="848">848</span>
-<span id="849">849</span>
-<span id="850">850</span>
-<span id="851">851</span>
-<span id="852">852</span>
-<span id="853">853</span>
-<span id="854">854</span>
-<span id="855">855</span>
-<span id="856">856</span>
-<span id="857">857</span>
-<span id="858">858</span>
-<span id="859">859</span>
-<span id="860">860</span>
-<span id="861">861</span>
-<span id="862">862</span>
-<span id="863">863</span>
-<span id="864">864</span>
-<span id="865">865</span>
-<span id="866">866</span>
-<span id="867">867</span>
-<span id="868">868</span>
-<span id="869">869</span>
-<span id="870">870</span>
-<span id="871">871</span>
-<span id="872">872</span>
-<span id="873">873</span>
-<span id="874">874</span>
-<span id="875">875</span>
-<span id="876">876</span>
-<span id="877">877</span>
-<span id="878">878</span>
-<span id="879">879</span>
-<span id="880">880</span>
-<span id="881">881</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -915,20 +862,13 @@
 <span class="kw">use</span> <span class="ident">futures</span>::{
 	<span class="ident">channel::oneshot</span>::{<span class="ident">channel</span>, <span class="ident">Sender</span>},
 	<span class="ident">future</span>::{<span class="ident">ready</span>, <span class="ident">Either</span>},
-	<span class="ident">FutureExt</span>, <span class="ident">StreamExt</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">TryFutureExt</span>, <span class="ident">TryStreamExt</span> <span class="kw">as</span> <span class="kw">_</span>,
+	<span class="ident">Future</span>, <span class="ident">FutureExt</span>, <span class="ident">SinkExt</span>, <span class="ident">Stream</span>, <span class="ident">StreamExt</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">TryFutureExt</span>, <span class="ident">TryStreamExt</span> <span class="kw">as</span> <span class="kw">_</span>,
 };
 <span class="kw">use</span> <span class="ident">hash_db::Hasher</span>;
 <span class="kw">use</span> <span class="ident">jsonrpc_pubsub</span>::{<span class="ident">manager::SubscriptionManager</span>, <span class="ident">typed::Subscriber</span>, <span class="ident">SubscriptionId</span>};
 <span class="kw">use</span> <span class="ident">log::warn</span>;
 <span class="kw">use</span> <span class="ident">parking_lot::Mutex</span>;
-<span class="kw">use</span> <span class="ident">rpc</span>::{
-	<span class="ident">futures</span>::{
-		<span class="ident">future</span>::{<span class="ident">result</span>, <span class="ident">Future</span>},
-		<span class="ident">stream::Stream</span>,
-		<span class="ident">Sink</span>,
-	},
-	<span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">RpcResult</span>,
-};
+<span class="kw">use</span> <span class="ident">rpc::Result</span> <span class="kw">as</span> <span class="ident">RpcResult</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
 	<span class="ident">collections</span>::{<span class="ident">hash_map::Entry</span>, <span class="ident">HashMap</span>, <span class="ident">HashSet</span>},
 	<span class="ident">sync::Arc</span>,
@@ -1064,6 +1004,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">F</span>, <span class="ident">Client</span><span class="op">&gt;</span> <span class="ident">StateBackend</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Client</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">LightState</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">F</span>, <span class="ident">Client</span><span class="op">&gt;</span>
 <span class="kw">where</span>
 	<span class="ident">Block</span>: <span class="ident">BlockT</span>,
+	<span class="ident">Block::Hash</span>: <span class="ident">Unpin</span>,
 	<span class="ident">Client</span>: <span class="ident">BlockchainEvents</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">HeaderBackend</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">F</span>: <span class="ident">Fetcher</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
@@ -1073,17 +1014,14 @@
 		<span class="ident">method</span>: <span class="ident">String</span>,
 		<span class="ident">call_data</span>: <span class="ident">Bytes</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">Bytes</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(
-			<span class="ident">call</span>(
-				<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">remote_blockchain</span>,
-				<span class="self">self</span>.<span class="ident">fetcher</span>.<span class="ident">clone</span>(),
-				<span class="self">self</span>.<span class="ident">block_or_best</span>(<span class="ident">block</span>),
-				<span class="ident">method</span>,
-				<span class="ident">call_data</span>,
-			)
-			.<span class="ident">boxed</span>()
-			.<span class="ident">compat</span>(),
+		<span class="ident">call</span>(
+			<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">remote_blockchain</span>,
+			<span class="self">self</span>.<span class="ident">fetcher</span>.<span class="ident">clone</span>(),
+			<span class="self">self</span>.<span class="ident">block_or_best</span>(<span class="ident">block</span>),
+			<span class="ident">method</span>,
+			<span class="ident">call_data</span>,
 		)
+		.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">storage_keys</span>(
@@ -1091,7 +1029,7 @@
 		<span class="ident">_block</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span>,
 		<span class="ident">_prefix</span>: <span class="ident">StorageKey</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StorageKey</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">result</span>(<span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>))))
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>)) }.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">storage_pairs</span>(
@@ -1099,7 +1037,7 @@
 		<span class="ident">_block</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span>,
 		<span class="ident">_prefix</span>: <span class="ident">StorageKey</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">StorageKey</span>, <span class="ident">StorageData</span>)<span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">result</span>(<span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>))))
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>)) }.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">storage_keys_paged</span>(
@@ -1109,11 +1047,11 @@
 		<span class="ident">_count</span>: <span class="ident">u32</span>,
 		<span class="ident">_start_key</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">StorageKey</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StorageKey</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">result</span>(<span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>))))
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>)) }.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">storage_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span>, <span class="kw">_</span>: <span class="ident">StorageKey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">result</span>(<span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>))))
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>)) }.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">storage</span>(
@@ -1121,21 +1059,18 @@
 		<span class="ident">block</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span>,
 		<span class="ident">key</span>: <span class="ident">StorageKey</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">StorageData</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(
-			<span class="ident">storage</span>(
-				<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">remote_blockchain</span>,
-				<span class="self">self</span>.<span class="ident">fetcher</span>.<span class="ident">clone</span>(),
-				<span class="self">self</span>.<span class="ident">block_or_best</span>(<span class="ident">block</span>),
-				<span class="macro">vec!</span>[<span class="ident">key</span>.<span class="number">0</span>.<span class="ident">clone</span>()],
-			)
-			.<span class="ident">boxed</span>()
-			.<span class="ident">compat</span>()
-			.<span class="ident">map</span>(<span class="kw">move</span> <span class="op">|</span><span class="kw-2">mut</span> <span class="ident">values</span><span class="op">|</span> {
-				<span class="ident">values</span>
-					.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>)
-					.<span class="ident">expect</span>(<span class="string">&quot;successful request has entries for all requested keys; qed&quot;</span>)
-			}),
+		<span class="ident">storage</span>(
+			<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">remote_blockchain</span>,
+			<span class="self">self</span>.<span class="ident">fetcher</span>.<span class="ident">clone</span>(),
+			<span class="self">self</span>.<span class="ident">block_or_best</span>(<span class="ident">block</span>),
+			<span class="macro">vec!</span>[<span class="ident">key</span>.<span class="number">0</span>.<span class="ident">clone</span>()],
 		)
+		.<span class="ident">map_ok</span>(<span class="kw">move</span> <span class="op">|</span><span class="kw-2">mut</span> <span class="ident">values</span><span class="op">|</span> {
+			<span class="ident">values</span>
+				.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>)
+				.<span class="ident">expect</span>(<span class="string">&quot;successful request has entries for all requested keys; qed&quot;</span>)
+		})
+		.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">storage_hash</span>(
@@ -1143,38 +1078,28 @@
 		<span class="ident">block</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span>,
 		<span class="ident">key</span>: <span class="ident">StorageKey</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">StateBackend::storage</span>(<span class="self">self</span>, <span class="ident">block</span>, <span class="ident">key</span>).<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">maybe_storage</span><span class="op">|</span> {
-			<span class="ident">result</span>(<span class="prelude-val">Ok</span>(<span class="ident">maybe_storage</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">storage</span><span class="op">|</span> <span class="ident">HashFor</span>::<span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="ident">::hash</span>(<span class="kw-2">&amp;</span><span class="ident">storage</span>.<span class="number">0</span>))))
-		}))
+		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">StateBackend::storage</span>(<span class="self">self</span>, <span class="ident">block</span>, <span class="ident">key</span>);
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="ident">res</span>.<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">r</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">HashFor</span>::<span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="ident">::hash</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>.<span class="number">0</span>))) }.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">metadata</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">Bytes</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">metadata</span> <span class="op">=</span>
-			<span class="self">self</span>.<span class="ident">call</span>(<span class="ident">block</span>, <span class="string">&quot;Metadata_metadata&quot;</span>.<span class="ident">into</span>(), <span class="ident">Bytes</span>(<span class="ident">Vec::new</span>()))
-				.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">metadata</span><span class="op">|</span> {
-					<span class="ident">OpaqueMetadata::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="ident">metadata</span>.<span class="number">0</span>[..]).<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">map_err</span>(
-						<span class="op">|</span><span class="ident">decode_err</span><span class="op">|</span> {
-							<span class="ident">client_err</span>(<span class="ident">ClientError::CallResultDecode</span>(
-								<span class="string">&quot;Unable to decode metadata&quot;</span>,
-								<span class="ident">decode_err</span>,
-							))
-						},
-					)
-				});
-
-		<span class="ident">Box::new</span>(<span class="ident">metadata</span>)
+		<span class="self">self</span>.<span class="ident">call</span>(<span class="ident">block</span>, <span class="string">&quot;Metadata_metadata&quot;</span>.<span class="ident">into</span>(), <span class="ident">Bytes</span>(<span class="ident">Vec::new</span>()))
+			.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">metadata</span><span class="op">|</span> <span class="kw">async</span> <span class="kw">move</span> {
+				<span class="ident">OpaqueMetadata::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="ident">metadata</span>.<span class="number">0</span>[..])
+					.<span class="ident">map</span>(<span class="ident">Into::into</span>)
+					.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">decode_err</span><span class="op">|</span> {
+						<span class="ident">client_err</span>(<span class="ident">ClientError::CallResultDecode</span>(
+							<span class="string">&quot;Unable to decode metadata&quot;</span>,
+							<span class="ident">decode_err</span>,
+						))
+					})
+			})
+			.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">runtime_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">RuntimeVersion</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(
-			<span class="ident">runtime_version</span>(
-				<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">remote_blockchain</span>,
-				<span class="self">self</span>.<span class="ident">fetcher</span>.<span class="ident">clone</span>(),
-				<span class="self">self</span>.<span class="ident">block_or_best</span>(<span class="ident">block</span>),
-			)
+		<span class="ident">runtime_version</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">remote_blockchain</span>, <span class="self">self</span>.<span class="ident">fetcher</span>.<span class="ident">clone</span>(), <span class="self">self</span>.<span class="ident">block_or_best</span>(<span class="ident">block</span>))
 			.<span class="ident">boxed</span>()
-			.<span class="ident">compat</span>(),
-		)
 	}
 
 	<span class="kw">fn</span> <span class="ident">query_storage</span>(
@@ -1183,7 +1108,7 @@
 		<span class="ident">_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span>,
 		<span class="ident">_keys</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StorageKey</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StorageChangeSet</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">result</span>(<span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>))))
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>)) }.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">query_storage_at</span>(
@@ -1191,7 +1116,7 @@
 		<span class="ident">_keys</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StorageKey</span><span class="op">&gt;</span>,
 		<span class="ident">_at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StorageChangeSet</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">result</span>(<span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>))))
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>)) }.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">read_proof</span>(
@@ -1199,7 +1124,7 @@
 		<span class="ident">_block</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span>,
 		<span class="ident">_keys</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StorageKey</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">ReadProof</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">result</span>(<span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>))))
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>)) }.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">subscribe_storage</span>(
@@ -1227,10 +1152,7 @@
 
 			<span class="kw">let</span> <span class="ident">changes_stream</span> <span class="op">=</span> <span class="ident">subscription_stream</span>::<span class="op">&lt;</span><span class="ident">Block</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(
 				<span class="ident">storage_subscriptions</span>.<span class="ident">clone</span>(),
-				<span class="self">self</span>.<span class="ident">client</span>
-					.<span class="ident">import_notification_stream</span>()
-					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">notification</span><span class="op">|</span> <span class="prelude-val">Ok</span>::<span class="op">&lt;</span><span class="kw">_</span>, ()<span class="op">&gt;</span>(<span class="ident">notification</span>.<span class="ident">hash</span>))
-					.<span class="ident">compat</span>(),
+				<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">import_notification_stream</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">notification</span><span class="op">|</span> <span class="ident">notification</span>.<span class="ident">hash</span>),
 				<span class="ident">display_error</span>(
 					<span class="ident">storage</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">remote_blockchain</span>, <span class="ident">fetcher</span>.<span class="ident">clone</span>(), <span class="ident">initial_block</span>, <span class="ident">initial_keys</span>)
 						.<span class="ident">map</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">r</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> (<span class="ident">initial_block</span>, <span class="ident">r</span>))),
@@ -1258,21 +1180,17 @@
 						.<span class="ident">as_ref</span>()
 						.<span class="ident">map</span>(<span class="op">|</span><span class="ident">old_value</span><span class="op">|</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">old_value</span> <span class="op">!</span><span class="op">=</span> <span class="ident">new_value</span>)
 						.<span class="ident">unwrap_or</span>(<span class="bool-val">true</span>);
-					<span class="kw">match</span> <span class="ident">value_differs</span> {
-						<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">StorageChangeSet</span> {
-							<span class="ident">block</span>,
-							<span class="ident">changes</span>: <span class="ident">new_value</span>
-								.<span class="ident">iter</span>()
-								.<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="ident">v</span>)<span class="op">|</span> (<span class="ident">k</span>.<span class="ident">clone</span>(), <span class="ident">v</span>.<span class="ident">clone</span>()))
-								.<span class="ident">collect</span>(),
-						}),
-						<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
-					}
+
+					<span class="ident">value_differs</span>.<span class="ident">then</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">StorageChangeSet</span> {
+						<span class="ident">block</span>,
+						<span class="ident">changes</span>: <span class="ident">new_value</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="ident">v</span>)<span class="op">|</span> (<span class="ident">k</span>.<span class="ident">clone</span>(), <span class="ident">v</span>.<span class="ident">clone</span>())).<span class="ident">collect</span>(),
+					})
 				},
 			);
 
-			<span class="ident">sink</span>.<span class="ident">sink_map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">warn!</span>(<span class="string">&quot;Error sending notifications: {:?}&quot;</span>, <span class="ident">e</span>))
-				.<span class="ident">send_all</span>(<span class="ident">changes_stream</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">changes</span><span class="op">|</span> <span class="prelude-val">Ok</span>(<span class="ident">changes</span>)))
+			<span class="ident">changes_stream</span>
+				.<span class="ident">map_ok</span>(<span class="prelude-val">Ok</span>)
+				.<span class="ident">forward</span>(<span class="ident">sink</span>.<span class="ident">sink_map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">warn!</span>(<span class="string">&quot;Error sending notifications: {:?}&quot;</span>, <span class="ident">e</span>)))
 				<span class="comment">// we ignore the resulting Stream (if the first stream is over we are unsubscribed)</span>
 				.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
 		});
@@ -1334,10 +1252,7 @@
 
 			<span class="kw">let</span> <span class="ident">versions_stream</span> <span class="op">=</span> <span class="ident">subscription_stream</span>::<span class="op">&lt;</span><span class="ident">Block</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(
 				<span class="ident">version_subscriptions</span>,
-				<span class="self">self</span>.<span class="ident">client</span>
-					.<span class="ident">import_notification_stream</span>()
-					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">notification</span><span class="op">|</span> <span class="prelude-val">Ok</span>::<span class="op">&lt;</span><span class="kw">_</span>, ()<span class="op">&gt;</span>(<span class="ident">notification</span>.<span class="ident">hash</span>))
-					.<span class="ident">compat</span>(),
+				<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">import_notification_stream</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">notification</span><span class="op">|</span> <span class="ident">notification</span>.<span class="ident">hash</span>),
 				<span class="ident">display_error</span>(
 					<span class="ident">runtime_version</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">remote_blockchain</span>, <span class="ident">fetcher</span>.<span class="ident">clone</span>(), <span class="ident">initial_block</span>)
 						.<span class="ident">map</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">r</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> (<span class="ident">initial_block</span>, <span class="ident">r</span>))),
@@ -1348,15 +1263,14 @@
 						.<span class="ident">as_ref</span>()
 						.<span class="ident">map</span>(<span class="op">|</span><span class="ident">old_version</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">old_version</span> <span class="op">!</span><span class="op">=</span> <span class="ident">new_version</span>)
 						.<span class="ident">unwrap_or</span>(<span class="bool-val">true</span>);
-					<span class="kw">match</span> <span class="ident">version_differs</span> {
-						<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">new_version</span>.<span class="ident">clone</span>()),
-						<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
-					}
+
+					<span class="ident">version_differs</span>.<span class="ident">then</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">new_version</span>.<span class="ident">clone</span>())
 				},
 			);
 
-			<span class="ident">sink</span>.<span class="ident">sink_map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">warn!</span>(<span class="string">&quot;Error sending notifications: {:?}&quot;</span>, <span class="ident">e</span>))
-				.<span class="ident">send_all</span>(<span class="ident">versions_stream</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">version</span><span class="op">|</span> <span class="prelude-val">Ok</span>(<span class="ident">version</span>)))
+			<span class="ident">versions_stream</span>
+				.<span class="ident">map_ok</span>(<span class="prelude-val">Ok</span>)
+				.<span class="ident">forward</span>(<span class="ident">sink</span>.<span class="ident">sink_map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">warn!</span>(<span class="string">&quot;Error sending notifications: {:?}&quot;</span>, <span class="ident">e</span>)))
 				<span class="comment">// we ignore the resulting Stream (if the first stream is over we are unsubscribed)</span>
 				.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
 		});
@@ -1376,7 +1290,7 @@
 		<span class="ident">_targets</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">_storage_keys</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">sp_rpc::tracing::TraceBlockResponse</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">result</span>(<span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>))))
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>)) }.<span class="ident">boxed</span>()
 	}
 }
 
@@ -1392,7 +1306,7 @@
 		<span class="ident">_storage_key</span>: <span class="ident">PrefixedStorageKey</span>,
 		<span class="ident">_keys</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StorageKey</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">ReadProof</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">result</span>(<span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>))))
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>)) }.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">storage_keys</span>(
@@ -1401,7 +1315,7 @@
 		<span class="ident">_storage_key</span>: <span class="ident">PrefixedStorageKey</span>,
 		<span class="ident">_prefix</span>: <span class="ident">StorageKey</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StorageKey</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">result</span>(<span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>))))
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>)) }.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">storage_keys_paged</span>(
@@ -1412,7 +1326,7 @@
 		<span class="ident">_count</span>: <span class="ident">u32</span>,
 		<span class="ident">_start_key</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">StorageKey</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StorageKey</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">result</span>(<span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>))))
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>)) }.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">storage</span>(
@@ -1453,7 +1367,7 @@
 				}
 			});
 
-		<span class="ident">Box::new</span>(<span class="ident">child_storage</span>.<span class="ident">boxed</span>().<span class="ident">compat</span>())
+		<span class="ident">child_storage</span>.<span class="ident">boxed</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">storage_hash</span>(
@@ -1462,11 +1376,9 @@
 		<span class="ident">storage_key</span>: <span class="ident">PrefixedStorageKey</span>,
 		<span class="ident">key</span>: <span class="ident">StorageKey</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">Box::new</span>(<span class="ident">ChildStateBackend::storage</span>(<span class="self">self</span>, <span class="ident">block</span>, <span class="ident">storage_key</span>, <span class="ident">key</span>).<span class="ident">and_then</span>(
-			<span class="op">|</span><span class="ident">maybe_storage</span><span class="op">|</span> {
-				<span class="ident">result</span>(<span class="prelude-val">Ok</span>(<span class="ident">maybe_storage</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">storage</span><span class="op">|</span> <span class="ident">HashFor</span>::<span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="ident">::hash</span>(<span class="kw-2">&amp;</span><span class="ident">storage</span>.<span class="number">0</span>))))
-			},
-		))
+		<span class="kw">let</span> <span class="ident">child_storage</span> <span class="op">=</span> <span class="ident">ChildStateBackend::storage</span>(<span class="self">self</span>, <span class="ident">block</span>, <span class="ident">storage_key</span>, <span class="ident">key</span>);
+
+		<span class="kw">async</span> <span class="kw">move</span> { <span class="ident">child_storage</span>.<span class="kw">await</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">r</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">HashFor</span>::<span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="ident">::hash</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>.<span class="number">0</span>))) }.<span class="ident">boxed</span>()
 	}
 }
 
@@ -1580,54 +1492,50 @@
 	<span class="ident">initial_request</span>: <span class="ident">InitialRequestFuture</span>,
 	<span class="ident">issue_request</span>: <span class="ident">IssueRequest</span>,
 	<span class="ident">compare_values</span>: <span class="ident">CompareValues</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">N</span>, <span class="ident">Error</span> <span class="op">=</span> ()<span class="op">&gt;</span>
+) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">N</span>, ()<span class="op">&gt;</span><span class="op">&gt;</span>
 <span class="kw">where</span>
 	<span class="ident">Block</span>: <span class="ident">BlockT</span>,
 	<span class="ident">Requests</span>: <span class="lifetime">&#39;static</span> <span class="op">+</span> <span class="ident">SharedRequests</span><span class="op">&lt;</span><span class="ident">Block::Hash</span>, <span class="ident">V</span><span class="op">&gt;</span>,
-	<span class="ident">FutureBlocksStream</span>: <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Block::Hash</span>, <span class="ident">Error</span> <span class="op">=</span> ()<span class="op">&gt;</span>,
+	<span class="ident">FutureBlocksStream</span>: <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Block::Hash</span><span class="op">&gt;</span>,
 	<span class="ident">V</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> <span class="op">+</span> <span class="ident">Clone</span>,
-	<span class="ident">InitialRequestFuture</span>:
-		<span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Block::Hash</span>, <span class="ident">V</span>), ()<span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+	<span class="ident">InitialRequestFuture</span>: <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Block::Hash</span>, <span class="ident">V</span>), ()<span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">IssueRequest</span>: <span class="lifetime">&#39;static</span> <span class="op">+</span> <span class="ident">Fn</span>(<span class="ident">Block::Hash</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IssueRequestFuture</span>,
-	<span class="ident">IssueRequestFuture</span>: <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V</span>, <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+	<span class="ident">IssueRequestFuture</span>: <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V</span>, <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">CompareValues</span>: <span class="ident">Fn</span>(<span class="ident">Block::Hash</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">V</span><span class="op">&gt;</span>, <span class="kw-2">&amp;</span><span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">N</span><span class="op">&gt;</span>,
 {
 	<span class="comment">// we need to send initial value first, then we&#39;ll only be sending if value has changed</span>
 	<span class="kw">let</span> <span class="ident">previous_value</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">Mutex::new</span>(<span class="prelude-val">None</span>));
 
 	<span class="comment">// prepare &#39;stream&#39; of initial values</span>
-	<span class="kw">let</span> <span class="ident">initial_value_stream</span> <span class="op">=</span> <span class="ident">ignore_error</span>(<span class="ident">initial_request</span>).<span class="ident">boxed</span>().<span class="ident">compat</span>().<span class="ident">into_stream</span>();
+	<span class="kw">let</span> <span class="ident">initial_value_stream</span> <span class="op">=</span> <span class="ident">initial_request</span>.<span class="ident">into_stream</span>();
 
 	<span class="comment">// prepare stream of future values</span>
 	<span class="comment">//</span>
 	<span class="comment">// we do not want to stop stream if single request fails</span>
 	<span class="comment">// (the warning should have been already issued by the request issuer)</span>
-	<span class="kw">let</span> <span class="ident">future_values_stream</span> <span class="op">=</span> <span class="ident">future_blocks_stream</span>.<span class="ident">and_then</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">block</span><span class="op">|</span> {
-		<span class="ident">ignore_error</span>(
+	<span class="kw">let</span> <span class="ident">future_values_stream</span> <span class="op">=</span> <span class="ident">future_blocks_stream</span>
+		.<span class="ident">then</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">block</span><span class="op">|</span> {
 			<span class="ident">maybe_share_remote_request</span>::<span class="op">&lt;</span><span class="ident">Block</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(
 				<span class="ident">shared_requests</span>.<span class="ident">clone</span>(),
 				<span class="ident">block</span>,
 				<span class="kw-2">&amp;</span><span class="ident">issue_request</span>,
 			)
-			.<span class="ident">map</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">r</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> (<span class="ident">block</span>, <span class="ident">v</span>))),
-		)
-		.<span class="ident">boxed</span>()
-		.<span class="ident">compat</span>()
-	});
+			.<span class="ident">map</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">r</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> (<span class="ident">block</span>, <span class="ident">v</span>)))
+		})
+		.<span class="ident">filter</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">ready</span>(<span class="ident">r</span>.<span class="ident">is_ok</span>()));
 
 	<span class="comment">// now let&#39;s return changed values for selected blocks</span>
 	<span class="ident">initial_value_stream</span>
 		.<span class="ident">chain</span>(<span class="ident">future_values_stream</span>)
-		.<span class="ident">filter_map</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">block_and_new_value</span><span class="op">|</span> {
-			<span class="ident">block_and_new_value</span>.<span class="ident">and_then</span>(<span class="op">|</span>(<span class="ident">block</span>, <span class="ident">new_value</span>)<span class="op">|</span> {
-				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">previous_value</span> <span class="op">=</span> <span class="ident">previous_value</span>.<span class="ident">lock</span>();
-				<span class="ident">compare_values</span>(<span class="ident">block</span>, <span class="ident">previous_value</span>.<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">new_value</span>).<span class="ident">map</span>(
-					<span class="op">|</span><span class="ident">notification_value</span><span class="op">|</span> {
-						<span class="kw-2">*</span><span class="ident">previous_value</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">new_value</span>);
-						<span class="ident">notification_value</span>
-					},
-				)
-			})
+		.<span class="ident">try_filter_map</span>(<span class="kw">move</span> <span class="op">|</span>(<span class="ident">block</span>, <span class="ident">new_value</span>)<span class="op">|</span> {
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">previous_value</span> <span class="op">=</span> <span class="ident">previous_value</span>.<span class="ident">lock</span>();
+			<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">compare_values</span>(<span class="ident">block</span>, <span class="ident">previous_value</span>.<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">new_value</span>).<span class="ident">map</span>(
+				<span class="op">|</span><span class="ident">notification_value</span><span class="op">|</span> {
+					<span class="kw-2">*</span><span class="ident">previous_value</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">new_value</span>);
+					<span class="ident">notification_value</span>
+				},
+			);
+			<span class="kw">async</span> <span class="kw">move</span> { <span class="prelude-val">Ok</span>(<span class="ident">res</span>) }
 		})
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
 }
@@ -1682,24 +1590,10 @@
 	})
 }
 
-<span class="doccomment">/// Convert successful future result into Ok(Some(result)) and error into Ok(None),</span>
-<span class="doccomment">/// displaying warning.</span>
-<span class="kw">fn</span> <span class="ident">ignore_error</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">future</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, ()<span class="op">&gt;</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-	<span class="ident">F</span>: <span class="ident">std::future::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, ()<span class="op">&gt;</span><span class="op">&gt;</span>,
-{
-	<span class="ident">future</span>.<span class="ident">then</span>(<span class="op">|</span><span class="ident">result</span><span class="op">|</span> {
-		<span class="ident">ready</span>(<span class="kw">match</span> <span class="ident">result</span> {
-			<span class="prelude-val">Ok</span>(<span class="ident">result</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">result</span>)),
-			<span class="prelude-val">Err</span>(()) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
-		})
-	})
-}
-
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
 	<span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-	<span class="kw">use</span> <span class="ident">rpc::futures::stream::futures_ordered</span>;
+	<span class="kw">use</span> <span class="ident">futures</span>::{<span class="ident">executor</span>, <span class="ident">stream</span>};
 	<span class="kw">use</span> <span class="ident">sp_core::H256</span>;
 	<span class="kw">use</span> <span class="ident">substrate_test_runtime_client::runtime::Block</span>;
 
@@ -1707,7 +1601,7 @@
 	<span class="kw">fn</span> <span class="ident">subscription_stream_works</span>() {
 		<span class="kw">let</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">subscription_stream</span>::<span class="op">&lt;</span><span class="ident">Block</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(
 			<span class="ident">SimpleSubscriptions::default</span>(),
-			<span class="ident">futures_ordered</span>(<span class="macro">vec!</span>[<span class="ident">result</span>(<span class="prelude-val">Ok</span>(<span class="ident">H256::from</span>([<span class="number">2</span>; <span class="number">32</span>]))), <span class="ident">result</span>(<span class="prelude-val">Ok</span>(<span class="ident">H256::from</span>([<span class="number">3</span>; <span class="number">32</span>])))]),
+			<span class="ident">stream::iter</span>(<span class="macro">vec!</span>[<span class="ident">H256::from</span>([<span class="number">2</span>; <span class="number">32</span>]), <span class="ident">H256::from</span>([<span class="number">3</span>; <span class="number">32</span>])]),
 			<span class="ident">ready</span>(<span class="prelude-val">Ok</span>((<span class="ident">H256::from</span>([<span class="number">1</span>; <span class="number">32</span>]), <span class="number">100</span>))),
 			<span class="op">|</span><span class="ident">block</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">block</span>[<span class="number">0</span>] {
 				<span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ready</span>(<span class="prelude-val">Ok</span>(<span class="number">100</span>)),
@@ -1720,14 +1614,14 @@
 			},
 		);
 
-		<span class="macro">assert_eq!</span>(<span class="ident">stream</span>.<span class="ident">collect</span>().<span class="ident">wait</span>(), <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[<span class="number">100</span>, <span class="number">200</span>]));
+		<span class="macro">assert_eq!</span>(<span class="ident">executor::block_on</span>(<span class="ident">stream</span>.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()), <span class="macro">vec!</span>[<span class="prelude-val">Ok</span>(<span class="number">100</span>), <span class="prelude-val">Ok</span>(<span class="number">200</span>)]);
 	}
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">subscription_stream_ignores_failed_requests</span>() {
 		<span class="kw">let</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">subscription_stream</span>::<span class="op">&lt;</span><span class="ident">Block</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span>(
 			<span class="ident">SimpleSubscriptions::default</span>(),
-			<span class="ident">futures_ordered</span>(<span class="macro">vec!</span>[<span class="ident">result</span>(<span class="prelude-val">Ok</span>(<span class="ident">H256::from</span>([<span class="number">2</span>; <span class="number">32</span>]))), <span class="ident">result</span>(<span class="prelude-val">Ok</span>(<span class="ident">H256::from</span>([<span class="number">3</span>; <span class="number">32</span>])))]),
+			<span class="ident">stream::iter</span>(<span class="macro">vec!</span>[<span class="ident">H256::from</span>([<span class="number">2</span>; <span class="number">32</span>]), <span class="ident">H256::from</span>([<span class="number">3</span>; <span class="number">32</span>])]),
 			<span class="ident">ready</span>(<span class="prelude-val">Ok</span>((<span class="ident">H256::from</span>([<span class="number">1</span>; <span class="number">32</span>]), <span class="number">100</span>))),
 			<span class="op">|</span><span class="ident">block</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">block</span>[<span class="number">0</span>] {
 				<span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ready</span>(<span class="prelude-val">Err</span>(<span class="ident">client_err</span>(<span class="ident">ClientError::NotAvailableOnLightClient</span>))),
@@ -1740,7 +1634,7 @@
 			},
 		);
 
-		<span class="macro">assert_eq!</span>(<span class="ident">stream</span>.<span class="ident">collect</span>().<span class="ident">wait</span>(), <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[<span class="number">100</span>, <span class="number">200</span>]));
+		<span class="macro">assert_eq!</span>(<span class="ident">executor::block_on</span>(<span class="ident">stream</span>.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()), <span class="macro">vec!</span>[<span class="prelude-val">Ok</span>(<span class="number">100</span>), <span class="prelude-val">Ok</span>(<span class="number">200</span>)]);
 	}
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
