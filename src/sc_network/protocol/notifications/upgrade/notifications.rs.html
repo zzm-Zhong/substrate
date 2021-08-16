@@ -1104,7 +1104,7 @@
 
 	<span class="kw">fn</span> <span class="ident">upgrade_outbound</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">socket</span>: <span class="ident">TSubstream</span>, <span class="ident">negotiated_name</span>: <span class="self">Self</span><span class="ident">::Info</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Future</span> {
 		<span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
-			<span class="ident">upgrade::write_with_len_prefix</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">socket</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">initial_message</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+			<span class="ident">upgrade::write_length_prefixed</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">socket</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">initial_message</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
 			<span class="comment">// Reading handshake.</span>
 			<span class="kw">let</span> <span class="ident">handshake_len</span> <span class="op">=</span> <span class="ident">unsigned_varint::aio::read_usize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">socket</span>).<span class="kw">await</span><span class="question-mark">?</span>;

@@ -396,6 +396,16 @@
 <span id="385">385</span>
 <span id="386">386</span>
 <span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -739,6 +749,11 @@
 						<span class="ident">address</span>,
 						<span class="ident">score</span>,
 					}),
+				<span class="ident">Poll::Ready</span>(<span class="ident">NetworkBehaviourAction::CloseConnection</span> { <span class="ident">peer_id</span>, <span class="ident">connection</span> }) <span class="op">=</span><span class="op">&gt;</span>
+					<span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="ident">NetworkBehaviourAction::CloseConnection</span> {
+						<span class="ident">peer_id</span>,
+						<span class="ident">connection</span>,
+					}),
 			}
 		}
 
@@ -771,6 +786,11 @@
 					<span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="ident">NetworkBehaviourAction::ReportObservedAddr</span> {
 						<span class="ident">address</span>,
 						<span class="ident">score</span>,
+					}),
+				<span class="ident">Poll::Ready</span>(<span class="ident">NetworkBehaviourAction::CloseConnection</span> { <span class="ident">peer_id</span>, <span class="ident">connection</span> }) <span class="op">=</span><span class="op">&gt;</span>
+					<span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="ident">NetworkBehaviourAction::CloseConnection</span> {
+						<span class="ident">peer_id</span>,
+						<span class="ident">connection</span>,
 					}),
 			}
 		}

@@ -1832,6 +1832,8 @@
 <span id="1821">1821</span>
 <span id="1822">1822</span>
 <span id="1823">1823</span>
+<span id="1824">1824</span>
+<span id="1825">1825</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -3410,6 +3412,8 @@
 				}),
 			<span class="ident">Poll::Ready</span>(<span class="ident">NetworkBehaviourAction::ReportObservedAddr</span> { <span class="ident">address</span>, <span class="ident">score</span> }) <span class="op">=</span><span class="op">&gt;</span>
 				<span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="ident">NetworkBehaviourAction::ReportObservedAddr</span> { <span class="ident">address</span>, <span class="ident">score</span> }),
+			<span class="ident">Poll::Ready</span>(<span class="ident">NetworkBehaviourAction::CloseConnection</span> { <span class="ident">peer_id</span>, <span class="ident">connection</span> }) <span class="op">=</span><span class="op">&gt;</span>
+				<span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="ident">NetworkBehaviourAction::CloseConnection</span> { <span class="ident">peer_id</span>, <span class="ident">connection</span> }),
 		};
 
 		<span class="kw">let</span> <span class="ident">outcome</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">event</span> {

@@ -441,7 +441,7 @@
 
 	<span class="kw">fn</span> <span class="ident">upgrade_inbound</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">socket</span>: <span class="ident">TSocket</span>, <span class="ident">_info</span>: <span class="self">Self</span><span class="ident">::Info</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::Future</span> {
 		<span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
-			<span class="kw">let</span> <span class="ident">packet</span> <span class="op">=</span> <span class="ident">upgrade::read_one</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">socket</span>, <span class="ident">MAX_PACKET_SIZE</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+			<span class="kw">let</span> <span class="ident">packet</span> <span class="op">=</span> <span class="ident">upgrade::read_length_prefixed</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">socket</span>, <span class="ident">MAX_PACKET_SIZE</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 			<span class="kw">let</span> <span class="ident">message</span>: <span class="ident">BitswapMessage</span> <span class="op">=</span> <span class="ident">Message::decode</span>(<span class="ident">packet</span>.<span class="ident">as_slice</span>())<span class="question-mark">?</span>;
 			<span class="prelude-val">Ok</span>(<span class="ident">message</span>)
 		})
@@ -469,7 +469,7 @@
 		<span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="self">self</span>.<span class="ident">encoded_len</span>());
 			<span class="self">self</span>.<span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">data</span>)<span class="question-mark">?</span>;
-			<span class="ident">upgrade::write_one</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">socket</span>, <span class="ident">data</span>).<span class="kw">await</span>
+			<span class="ident">upgrade::write_length_prefixed</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">socket</span>, <span class="ident">data</span>).<span class="kw">await</span>
 		})
 	}
 }
@@ -675,7 +675,7 @@
 	<span class="doccomment">/// Error parsing CID</span>
 	<span class="ident">BadCid</span>(<span class="ident">cid::Error</span>),
 	<span class="doccomment">/// Packet read error.</span>
-	<span class="ident">Read</span>(<span class="ident">upgrade::ReadOneError</span>),
+	<span class="ident">Read</span>(<span class="ident">io::Error</span>),
 	<span class="doccomment">/// Error sending response.</span>
 	<span class="attribute">#[<span class="ident">display</span>(<span class="ident">fmt</span> <span class="op">=</span> <span class="string">&quot;Failed to send response.&quot;</span>)]</span>
 	<span class="ident">SendResponse</span>,

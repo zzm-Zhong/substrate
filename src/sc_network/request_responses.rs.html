@@ -1327,6 +1327,11 @@
 <span id="1316">1316</span>
 <span id="1317">1317</span>
 <span id="1318">1318</span>
+<span id="1319">1319</span>
+<span id="1320">1320</span>
+<span id="1321">1321</span>
+<span id="1322">1322</span>
+<span id="1323">1323</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1897,6 +1902,11 @@
 								<span class="ident">address</span>,
 								<span class="ident">score</span>,
 							}),
+						<span class="ident">NetworkBehaviourAction::CloseConnection</span> { <span class="ident">peer_id</span>, <span class="ident">connection</span> } <span class="op">=</span><span class="op">&gt;</span>
+							<span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="ident">NetworkBehaviourAction::CloseConnection</span> {
+								<span class="ident">peer_id</span>,
+								<span class="ident">connection</span>,
+							}),
 					};
 
 					<span class="kw">match</span> <span class="ident">ev</span> {
@@ -2339,7 +2349,7 @@
 				<span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">swarm</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">swarms</span>.<span class="ident">remove</span>(<span class="number">0</span>);
 				<span class="kw">async</span> <span class="kw">move</span> {
 					<span class="kw">loop</span> {
-						<span class="kw">match</span> <span class="ident">swarm</span>.<span class="ident">next_event</span>().<span class="kw">await</span> {
+						<span class="kw">match</span> <span class="ident">swarm</span>.<span class="ident">select_next_some</span>().<span class="kw">await</span> {
 							<span class="ident">SwarmEvent::Behaviour</span>(<span class="ident">Event::InboundRequest</span> { <span class="ident">result</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
 								<span class="ident">result</span>.<span class="ident">unwrap</span>();
 							},
@@ -2358,7 +2368,7 @@
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">response_receiver</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
 			<span class="kw">loop</span> {
-				<span class="kw">match</span> <span class="ident">swarm</span>.<span class="ident">next_event</span>().<span class="kw">await</span> {
+				<span class="kw">match</span> <span class="ident">swarm</span>.<span class="ident">select_next_some</span>().<span class="kw">await</span> {
 					<span class="ident">SwarmEvent::ConnectionEstablished</span> { <span class="ident">peer_id</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
 						<span class="kw">let</span> (<span class="ident">sender</span>, <span class="ident">receiver</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
 						<span class="ident">swarm</span>.<span class="ident">behaviour_mut</span>().<span class="ident">send_request</span>(
@@ -2436,7 +2446,7 @@
 				<span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">swarm</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">swarms</span>.<span class="ident">remove</span>(<span class="number">0</span>);
 				<span class="kw">async</span> <span class="kw">move</span> {
 					<span class="kw">loop</span> {
-						<span class="kw">match</span> <span class="ident">swarm</span>.<span class="ident">next_event</span>().<span class="kw">await</span> {
+						<span class="kw">match</span> <span class="ident">swarm</span>.<span class="ident">select_next_some</span>().<span class="kw">await</span> {
 							<span class="ident">SwarmEvent::Behaviour</span>(<span class="ident">Event::InboundRequest</span> { <span class="ident">result</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
 								<span class="macro">assert!</span>(<span class="ident">result</span>.<span class="ident">is_ok</span>());
 								<span class="kw">break</span>
@@ -2456,7 +2466,7 @@
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">response_receiver</span> <span class="op">=</span> <span class="prelude-val">None</span>;
 
 			<span class="kw">loop</span> {
-				<span class="kw">match</span> <span class="ident">swarm</span>.<span class="ident">next_event</span>().<span class="kw">await</span> {
+				<span class="kw">match</span> <span class="ident">swarm</span>.<span class="ident">select_next_some</span>().<span class="kw">await</span> {
 					<span class="ident">SwarmEvent::ConnectionEstablished</span> { <span class="ident">peer_id</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
 						<span class="kw">let</span> (<span class="ident">sender</span>, <span class="ident">receiver</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
 						<span class="ident">swarm</span>.<span class="ident">behaviour_mut</span>().<span class="ident">send_request</span>(
@@ -2556,7 +2566,7 @@
 			.<span class="ident">spawn_obj</span>(
 				<span class="kw">async</span> <span class="kw">move</span> {
 					<span class="kw">loop</span> {
-						<span class="kw">match</span> <span class="ident">swarm_2</span>.<span class="ident">next_event</span>().<span class="kw">await</span> {
+						<span class="kw">match</span> <span class="ident">swarm_2</span>.<span class="ident">select_next_some</span>().<span class="kw">await</span> {
 							<span class="ident">SwarmEvent::Behaviour</span>(<span class="ident">Event::InboundRequest</span> { <span class="ident">result</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
 								<span class="ident">result</span>.<span class="ident">unwrap</span>();
 							},
@@ -2609,7 +2619,7 @@
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">num_responses</span> <span class="op">=</span> <span class="number">0</span>;
 
 			<span class="kw">loop</span> {
-				<span class="kw">match</span> <span class="ident">swarm_1</span>.<span class="ident">next_event</span>().<span class="kw">await</span> {
+				<span class="kw">match</span> <span class="ident">swarm_1</span>.<span class="ident">select_next_some</span>().<span class="kw">await</span> {
 					<span class="ident">SwarmEvent::ConnectionEstablished</span> { <span class="ident">peer_id</span>, .. } <span class="op">=</span><span class="op">&gt;</span> {
 						<span class="kw">let</span> (<span class="ident">sender_1</span>, <span class="ident">receiver_1</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
 						<span class="kw">let</span> (<span class="ident">sender_2</span>, <span class="ident">receiver_2</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();

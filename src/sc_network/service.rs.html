@@ -2195,8 +2195,6 @@
 <span id="2184">2184</span>
 <span id="2185">2185</span>
 <span id="2186">2186</span>
-<span id="2187">2187</span>
-<span id="2188">2188</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -3831,7 +3829,7 @@
 			}
 
 			<span class="comment">// Process the next action coming from the network.</span>
-			<span class="kw">let</span> <span class="ident">next_event</span> <span class="op">=</span> <span class="ident">this</span>.<span class="ident">network_service</span>.<span class="ident">next_event</span>();
+			<span class="kw">let</span> <span class="ident">next_event</span> <span class="op">=</span> <span class="ident">this</span>.<span class="ident">network_service</span>.<span class="ident">select_next_some</span>();
 			<span class="macro">futures::pin_mut!</span>(<span class="ident">next_event</span>);
 			<span class="kw">let</span> <span class="ident">poll_value</span> <span class="op">=</span> <span class="ident">next_event</span>.<span class="ident">poll_unpin</span>(<span class="ident">cx</span>);
 
@@ -4119,14 +4117,14 @@
 						}
 					}
 				},
-				<span class="ident">Poll::Ready</span>(<span class="ident">SwarmEvent::NewListenAddr</span>(<span class="ident">addr</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="macro">trace!</span>(<span class="ident">target</span>: <span class="string">&quot;sub-libp2p&quot;</span>, <span class="string">&quot;Libp2p =&gt; NewListenAddr({})&quot;</span>, <span class="ident">addr</span>);
+				<span class="ident">Poll::Ready</span>(<span class="ident">SwarmEvent::NewListenAddr</span> { <span class="ident">address</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="macro">trace!</span>(<span class="ident">target</span>: <span class="string">&quot;sub-libp2p&quot;</span>, <span class="string">&quot;Libp2p =&gt; NewListenAddr({})&quot;</span>, <span class="ident">address</span>);
 					<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">metrics</span>) <span class="op">=</span> <span class="ident">this</span>.<span class="ident">metrics</span>.<span class="ident">as_ref</span>() {
 						<span class="ident">metrics</span>.<span class="ident">listeners_local_addresses</span>.<span class="ident">inc</span>();
 					}
 				},
-				<span class="ident">Poll::Ready</span>(<span class="ident">SwarmEvent::ExpiredListenAddr</span>(<span class="ident">addr</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="macro">info!</span>(<span class="ident">target</span>: <span class="string">&quot;sub-libp2p&quot;</span>, <span class="string">&quot;📪 No longer listening on {}&quot;</span>, <span class="ident">addr</span>);
+				<span class="ident">Poll::Ready</span>(<span class="ident">SwarmEvent::ExpiredListenAddr</span> { <span class="ident">address</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="macro">info!</span>(<span class="ident">target</span>: <span class="string">&quot;sub-libp2p&quot;</span>, <span class="string">&quot;📪 No longer listening on {}&quot;</span>, <span class="ident">address</span>);
 					<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">metrics</span>) <span class="op">=</span> <span class="ident">this</span>.<span class="ident">metrics</span>.<span class="ident">as_ref</span>() {
 						<span class="ident">metrics</span>.<span class="ident">listeners_local_addresses</span>.<span class="ident">dec</span>();
 					}
@@ -4208,11 +4206,9 @@
 							.<span class="ident">inc</span>();
 					}
 				},
-				<span class="ident">Poll::Ready</span>(<span class="ident">SwarmEvent::UnknownPeerUnreachableAddr</span> { <span class="ident">address</span>, <span class="ident">error</span> }) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="macro">trace!</span>(<span class="ident">target</span>: <span class="string">&quot;sub-libp2p&quot;</span>, <span class="string">&quot;Libp2p =&gt; UnknownPeerUnreachableAddr({}): {}&quot;</span>,
-						<span class="ident">address</span>, <span class="ident">error</span>)
-				},
-				<span class="ident">Poll::Ready</span>(<span class="ident">SwarmEvent::ListenerClosed</span> { <span class="ident">reason</span>, <span class="ident">addresses</span> }) <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="ident">Poll::Ready</span>(<span class="ident">SwarmEvent::UnknownPeerUnreachableAddr</span> { <span class="ident">address</span>, <span class="ident">error</span> }) <span class="op">=</span><span class="op">&gt;</span>
+					<span class="macro">trace!</span>(<span class="ident">target</span>: <span class="string">&quot;sub-libp2p&quot;</span>, <span class="string">&quot;Libp2p =&gt; UnknownPeerUnreachableAddr({}): {}&quot;</span>, <span class="ident">address</span>, <span class="ident">error</span>),
+				<span class="ident">Poll::Ready</span>(<span class="ident">SwarmEvent::ListenerClosed</span> { <span class="ident">reason</span>, <span class="ident">addresses</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
 					<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">metrics</span>) <span class="op">=</span> <span class="ident">this</span>.<span class="ident">metrics</span>.<span class="ident">as_ref</span>() {
 						<span class="ident">metrics</span>.<span class="ident">listeners_local_addresses</span>.<span class="ident">sub</span>(<span class="ident">addresses</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u64</span>);
 					}
@@ -4231,7 +4227,7 @@
 						),
 					}
 				},
-				<span class="ident">Poll::Ready</span>(<span class="ident">SwarmEvent::ListenerError</span> { <span class="ident">error</span> }) <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="ident">Poll::Ready</span>(<span class="ident">SwarmEvent::ListenerError</span> { <span class="ident">error</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
 					<span class="macro">debug!</span>(<span class="ident">target</span>: <span class="string">&quot;sub-libp2p&quot;</span>, <span class="string">&quot;Libp2p =&gt; ListenerError: {}&quot;</span>, <span class="ident">error</span>);
 					<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">metrics</span>) <span class="op">=</span> <span class="ident">this</span>.<span class="ident">metrics</span>.<span class="ident">as_ref</span>() {
 						<span class="ident">metrics</span>.<span class="ident">listeners_errors_total</span>.<span class="ident">inc</span>();
