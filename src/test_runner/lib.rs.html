@@ -300,6 +300,13 @@
 <span id="289">289</span>
 <span id="290">290</span>
 <span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -365,12 +372,19 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! type BlockImport&lt;B, BE, C, SC&gt; = BabeBlockImport&lt;B, C, GrandpaBlockImport&lt;BE, B, C, SC&gt;&gt;;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! sc_executor::native_executor_instance!(</span>
-<span class="doccomment">//! 	pub Executor,</span>
-<span class="doccomment">//! 	node_runtime::api::dispatch,</span>
-<span class="doccomment">//! 	node_runtime::native_version,</span>
-<span class="doccomment">//! 	SignatureVerificationOverride,</span>
-<span class="doccomment">//! );</span>
+<span class="doccomment">//! pub struct Executor;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! impl sc_executor::NativeExecutionDispatch for Executor {</span>
+<span class="doccomment">//! 	type ExtendHostFunctions = SignatureVerificationOverride;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! 	fn dispatch(method: &amp;str, data: &amp;[u8]) -&gt; Option&lt;Vec&lt;u8&gt;&gt; {</span>
+<span class="doccomment">//! 		node_runtime::api::dispatch(method, data)</span>
+<span class="doccomment">//! 	}</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! 	fn native_version() -&gt; sc_executor::NativeVersion {</span>
+<span class="doccomment">//! 		node_runtime::native_version()</span>
+<span class="doccomment">//! 	}</span>
+<span class="doccomment">//! }</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! struct Requirements;</span>
 <span class="doccomment">//!</span>
