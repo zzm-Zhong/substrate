@@ -130,8 +130,8 @@
 		<span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">tokio::io::ReadBuf</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">std::io::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="ident">Pin::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Pin::into_inner</span>(<span class="self">self</span>).<span class="number">0</span>)
-			.<span class="ident">poll_read</span>(<span class="ident">cx</span>, <span class="ident">buf</span>.<span class="ident">initialized_mut</span>())
-			.<span class="ident">map_ok</span>(<span class="ident">drop</span>)
+			.<span class="ident">poll_read</span>(<span class="ident">cx</span>, <span class="ident">buf</span>.<span class="ident">initialize_unfilled</span>())
+			.<span class="ident">map_ok</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">buf</span>.<span class="ident">set_filled</span>(<span class="ident">s</span>))
 	}
 }
 
