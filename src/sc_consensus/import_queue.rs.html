@@ -586,7 +586,7 @@
 		<span class="ident">r</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">r</span>), <span class="comment">// Any other successful result means that the block is already imported.</span>
 	}
 
-	<span class="kw">let</span> <span class="ident">started</span> <span class="op">=</span> <span class="ident">wasm_timer::Instant::now</span>();
+	<span class="kw">let</span> <span class="ident">started</span> <span class="op">=</span> <span class="ident">std::time::Instant::now</span>();
 
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">import_block</span> <span class="op">=</span> <span class="ident">BlockImportParams::new</span>(<span class="ident">block_origin</span>, <span class="ident">header</span>);
 	<span class="ident">import_block</span>.<span class="ident">body</span> <span class="op">=</span> <span class="ident">block</span>.<span class="ident">body</span>;

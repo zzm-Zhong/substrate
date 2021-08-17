@@ -2136,7 +2136,6 @@
 <span id="2125">2125</span>
 <span id="2126">2126</span>
 <span id="2127">2127</span>
-<span id="2128">2128</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2182,9 +2181,8 @@
 	<span class="ident">str</span>,
 	<span class="ident">sync::Arc</span>,
 	<span class="ident">task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>},
-	<span class="ident">time::Duration</span>,
+	<span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">Instant</span>},
 };
-<span class="kw">use</span> <span class="ident">wasm_timer::Instant</span>;
 
 <span class="doccomment">/// Network behaviour that handles opening substreams for custom protocols with other peers.</span>
 <span class="doccomment">///</span>

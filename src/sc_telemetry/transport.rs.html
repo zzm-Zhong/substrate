@@ -153,24 +153,6 @@
 <span id="142">142</span>
 <span id="143">143</span>
 <span id="144">144</span>
-<span id="145">145</span>
-<span id="146">146</span>
-<span id="147">147</span>
-<span id="148">148</span>
-<span id="149">149</span>
-<span id="150">150</span>
-<span id="151">151</span>
-<span id="152">152</span>
-<span id="153">153</span>
-<span id="154">154</span>
-<span id="155">155</span>
-<span id="156">156</span>
-<span id="157">157</span>
-<span id="158">158</span>
-<span id="159">159</span>
-<span id="160">160</span>
-<span id="161">161</span>
-<span id="162">162</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -196,30 +178,15 @@
 	<span class="ident">ready</span>,
 	<span class="ident">task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>},
 };
-<span class="kw">use</span> <span class="ident">libp2p</span>::{
-	<span class="ident">core::transport</span>::{<span class="ident">timeout::TransportTimeout</span>, <span class="ident">OptionalTransport</span>},
-	<span class="ident">wasm_ext</span>, <span class="ident">Transport</span>,
-};
+<span class="kw">use</span> <span class="ident">libp2p</span>::{<span class="ident">core::transport::timeout::TransportTimeout</span>, <span class="ident">Transport</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">io</span>, <span class="ident">pin::Pin</span>, <span class="ident">time::Duration</span>};
 
 <span class="doccomment">/// Timeout after which a connection attempt is considered failed. Includes the WebSocket HTTP</span>
 <span class="doccomment">/// upgrading.</span>
 <span class="kw">const</span> <span class="ident">CONNECT_TIMEOUT</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">20</span>);
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">initialize_transport</span>(
-	<span class="ident">wasm_external_transport</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">wasm_ext::ExtTransport</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">WsTrans</span>, <span class="ident">io::Error</span><span class="op">&gt;</span> {
-	<span class="kw">let</span> <span class="ident">transport</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">wasm_external_transport</span>.<span class="ident">clone</span>() {
-		<span class="prelude-val">Some</span>(<span class="ident">t</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionalTransport::some</span>(<span class="ident">t</span>),
-		<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">OptionalTransport::none</span>(),
-	}
-	.<span class="ident">map</span>((<span class="op">|</span><span class="ident">inner</span>, <span class="kw">_</span><span class="op">|</span> <span class="ident">StreamSink::from</span>(<span class="ident">inner</span>)) <span class="kw">as</span> <span class="kw">fn</span>(<span class="kw">_</span>, <span class="kw">_</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">_</span>);
-
-	<span class="comment">// The main transport is the `wasm_external_transport`, but if we&#39;re on desktop we add</span>
-	<span class="comment">// support for TCP+WebSocket+DNS as a fallback. In practice, you&#39;re not expected to pass</span>
-	<span class="comment">// an external transport on desktop and the fallback is used all the time.</span>
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
-	<span class="kw">let</span> <span class="ident">transport</span> <span class="op">=</span> <span class="ident">transport</span>.<span class="ident">or_transport</span>({
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">initialize_transport</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">WsTrans</span>, <span class="ident">io::Error</span><span class="op">&gt;</span> {
+	<span class="kw">let</span> <span class="ident">transport</span> <span class="op">=</span> {
 		<span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="ident">block_on</span>(<span class="ident">libp2p::dns::DnsConfig::system</span>(<span class="ident">libp2p::tcp::TcpConfig::new</span>()))<span class="question-mark">?</span>;
 		<span class="ident">libp2p::websocket::framed::WsConfig::new</span>(<span class="ident">inner</span>).<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">connec</span>, <span class="kw">_</span><span class="op">|</span> {
 			<span class="kw">let</span> <span class="ident">connec</span> <span class="op">=</span> <span class="ident">connec</span>
@@ -231,7 +198,7 @@
 				.<span class="ident">map_ok</span>(<span class="op">|</span><span class="ident">data</span><span class="op">|</span> <span class="ident">data</span>.<span class="ident">into_bytes</span>());
 			<span class="ident">future::ready</span>(<span class="prelude-val">Ok</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">io::Error</span><span class="op">&gt;</span>(<span class="ident">connec</span>))
 		})
-	});
+	};
 
 	<span class="prelude-val">Ok</span>(<span class="ident">TransportTimeout::new</span>(
 		<span class="ident">transport</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">out</span>, <span class="kw">_</span><span class="op">|</span> {
@@ -260,9 +227,6 @@
 
 <span class="doccomment">/// Wraps around an `AsyncWrite` and implements `Sink`. Guarantees that each item being sent maps</span>
 <span class="doccomment">/// to one call of `write`.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// For some context, we put this object around the `wasm_ext::ExtTransport` in order to make sure</span>
-<span class="doccomment">/// that each telemetry message maps to one single call to `write` in the WASM FFI.</span>
 <span class="attribute">#[<span class="ident">pin_project::pin_project</span>]</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">StreamSink</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="attribute">#[<span class="ident">pin</span>]</span> <span class="ident">T</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>);
 

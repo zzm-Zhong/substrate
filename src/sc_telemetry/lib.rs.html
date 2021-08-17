@@ -529,15 +529,6 @@
 <span id="518">518</span>
 <span id="519">519</span>
 <span id="520">520</span>
-<span id="521">521</span>
-<span id="522">522</span>
-<span id="523">523</span>
-<span id="524">524</span>
-<span id="525">525</span>
-<span id="526">526</span>
-<span id="527">527</span>
-<span id="528">528</span>
-<span id="529">529</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -587,7 +578,6 @@
 	<span class="ident">sync</span>::{<span class="ident">atomic</span>, <span class="ident">Arc</span>},
 };
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">libp2p::wasm_ext::ExtTransport</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">log</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">serde_json</span>;
 
@@ -665,15 +655,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Only one is needed per process.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">buffer_size</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-		<span class="self">Self</span><span class="ident">::with_transport</span>(<span class="ident">buffer_size</span>, <span class="prelude-val">None</span>)
-	}
-
-	<span class="doccomment">/// Instantiate a new [`TelemetryWorker`] with the given [`ExtTransport`]</span>
-	<span class="doccomment">/// which can run in background.</span>
-	<span class="doccomment">///</span>
-	<span class="doccomment">/// Only one is needed per process.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_transport</span>(<span class="ident">buffer_size</span>: <span class="ident">usize</span>, <span class="ident">transport</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ExtTransport</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">transport</span> <span class="op">=</span> <span class="ident">initialize_transport</span>(<span class="ident">transport</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">transport</span> <span class="op">=</span> <span class="ident">initialize_transport</span>()<span class="question-mark">?</span>;
 		<span class="kw">let</span> (<span class="ident">message_sender</span>, <span class="ident">message_receiver</span>) <span class="op">=</span> <span class="ident">mpsc::channel</span>(<span class="ident">buffer_size</span>);
 		<span class="kw">let</span> (<span class="ident">register_sender</span>, <span class="ident">register_receiver</span>) <span class="op">=</span> <span class="ident">mpsc::unbounded</span>();
 

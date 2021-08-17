@@ -2193,8 +2193,6 @@
 <span id="2182">2182</span>
 <span id="2183">2183</span>
 <span id="2184">2184</span>
-<span id="2185">2185</span>
-<span id="2186">2186</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2489,10 +2487,9 @@
 			};
 
 			<span class="kw">let</span> (<span class="ident">transport</span>, <span class="ident">bandwidth</span>) <span class="op">=</span> {
-				<span class="kw">let</span> (<span class="ident">config_mem</span>, <span class="ident">config_wasm</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">params</span>.<span class="ident">network_config</span>.<span class="ident">transport</span> {
-					<span class="ident">TransportConfig::MemoryOnly</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="bool-val">true</span>, <span class="prelude-val">None</span>),
-					<span class="ident">TransportConfig::Normal</span> { <span class="ident">wasm_external_transport</span>, .. } <span class="op">=</span><span class="op">&gt;</span>
-						(<span class="bool-val">false</span>, <span class="ident">wasm_external_transport</span>),
+				<span class="kw">let</span> <span class="ident">config_mem</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">params</span>.<span class="ident">network_config</span>.<span class="ident">transport</span> {
+					<span class="ident">TransportConfig::MemoryOnly</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+					<span class="ident">TransportConfig::Normal</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
 				};
 
 				<span class="comment">// The yamux buffer size limit is configured to be equal to the maximum frame size</span>
@@ -2535,7 +2532,6 @@
 				<span class="ident">transport::build_transport</span>(
 					<span class="ident">local_identity</span>,
 					<span class="ident">config_mem</span>,
-					<span class="ident">config_wasm</span>,
 					<span class="ident">params</span>.<span class="ident">network_config</span>.<span class="ident">yamux_window_size</span>,
 					<span class="ident">yamux_maximum_buffer_size</span>,
 				)

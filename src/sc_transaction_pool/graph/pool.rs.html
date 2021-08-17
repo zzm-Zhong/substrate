@@ -1141,6 +1141,8 @@
 <span id="1130">1130</span>
 <span id="1131">1131</span>
 <span id="1132">1132</span>
+<span id="1133">1133</span>
+<span id="1134">1134</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1171,7 +1173,7 @@
 		<span class="ident">TransactionSource</span>, <span class="ident">TransactionTag</span> <span class="kw">as</span> <span class="ident">Tag</span>, <span class="ident">TransactionValidity</span>, <span class="ident">TransactionValidityError</span>,
 	},
 };
-<span class="kw">use</span> <span class="ident">wasm_timer::Instant</span>;
+<span class="kw">use</span> <span class="ident">std::time::Instant</span>;
 
 <span class="kw">use</span> <span class="kw">super</span>::{
 	<span class="ident">base_pool</span> <span class="kw">as</span> <span class="ident">base</span>,
@@ -1598,9 +1600,11 @@
 		<span class="ident">traits::Hash</span>,
 		<span class="ident">transaction_validity</span>::{<span class="ident">InvalidTransaction</span>, <span class="ident">TransactionSource</span>, <span class="ident">ValidTransaction</span>},
 	};
-	<span class="kw">use</span> <span class="ident">std::collections</span>::{<span class="ident">HashMap</span>, <span class="ident">HashSet</span>};
+	<span class="kw">use</span> <span class="ident">std</span>::{
+		<span class="ident">collections</span>::{<span class="ident">HashMap</span>, <span class="ident">HashSet</span>},
+		<span class="ident">time::Instant</span>,
+	};
 	<span class="kw">use</span> <span class="ident">substrate_test_runtime</span>::{<span class="ident">AccountId</span>, <span class="ident">Block</span>, <span class="ident">Extrinsic</span>, <span class="ident">Hashing</span>, <span class="ident">Transfer</span>, <span class="ident">H256</span>};
-	<span class="kw">use</span> <span class="ident">wasm_timer::Instant</span>;
 
 	<span class="kw">const</span> <span class="ident">INVALID_NONCE</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">254</span>;
 	<span class="kw">const</span> <span class="ident">SOURCE</span>: <span class="ident">TransactionSource</span> <span class="op">=</span> <span class="ident">TransactionSource::External</span>;

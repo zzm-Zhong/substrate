@@ -1043,7 +1043,6 @@
 <span id="1032">1032</span>
 <span id="1033">1033</span>
 <span id="1034">1034</span>
-<span id="1035">1035</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1093,9 +1092,8 @@
 	<span class="ident">pin::Pin</span>,
 	<span class="ident">sync::Arc</span>,
 	<span class="ident">task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>},
-	<span class="ident">time::Duration</span>,
+	<span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">Instant</span>},
 };
-<span class="kw">use</span> <span class="ident">wasm_timer::Instant</span>;
 
 <span class="kw">const</span> <span class="ident">LOG_PENDING_INTERVAL</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">15</span>);
 

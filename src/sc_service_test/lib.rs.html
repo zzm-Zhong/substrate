@@ -685,10 +685,6 @@
 <span id="674">674</span>
 <span id="675">675</span>
 <span id="676">676</span>
-<span id="677">677</span>
-<span id="678">678</span>
-<span id="679">679</span>
-<span id="680">680</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -913,11 +909,8 @@
 			.<span class="ident">collect</span>(),
 	);
 
-	<span class="ident">network_config</span>.<span class="ident">transport</span> <span class="op">=</span> <span class="ident">TransportConfig::Normal</span> {
-		<span class="ident">enable_mdns</span>: <span class="bool-val">false</span>,
-		<span class="ident">allow_private_ipv4</span>: <span class="bool-val">true</span>,
-		<span class="ident">wasm_external_transport</span>: <span class="prelude-val">None</span>,
-	};
+	<span class="ident">network_config</span>.<span class="ident">transport</span> <span class="op">=</span>
+		<span class="ident">TransportConfig::Normal</span> { <span class="ident">enable_mdns</span>: <span class="bool-val">false</span>, <span class="ident">allow_private_ipv4</span>: <span class="bool-val">true</span> };
 
 	<span class="ident">Configuration</span> {
 		<span class="ident">impl_name</span>: <span class="ident">String::from</span>(<span class="string">&quot;network-test-impl&quot;</span>),
@@ -948,7 +941,6 @@
 		<span class="ident">rpc_max_payload</span>: <span class="prelude-val">None</span>,
 		<span class="ident">prometheus_config</span>: <span class="prelude-val">None</span>,
 		<span class="ident">telemetry_endpoints</span>: <span class="prelude-val">None</span>,
-		<span class="ident">telemetry_external_transport</span>: <span class="prelude-val">None</span>,
 		<span class="ident">default_heap_pages</span>: <span class="prelude-val">None</span>,
 		<span class="ident">offchain_worker</span>: <span class="ident">Default::default</span>(),
 		<span class="ident">force_authoring</span>: <span class="bool-val">false</span>,

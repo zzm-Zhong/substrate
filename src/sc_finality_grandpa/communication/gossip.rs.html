@@ -2572,7 +2572,6 @@
 <span id="2561">2561</span>
 <span id="2562">2562</span>
 <span id="2563">2563</span>
-<span id="2564">2564</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2677,9 +2676,8 @@
 
 <span class="kw">use</span> <span class="ident">std</span>::{
 	<span class="ident">collections</span>::{<span class="ident">HashMap</span>, <span class="ident">HashSet</span>, <span class="ident">VecDeque</span>},
-	<span class="ident">time::Duration</span>,
+	<span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">Instant</span>},
 };
-<span class="kw">use</span> <span class="ident">wasm_timer::Instant</span>;
 
 <span class="kw">const</span> <span class="ident">REBROADCAST_AFTER</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">60</span> <span class="op">*</span> <span class="number">5</span>);
 <span class="kw">const</span> <span class="ident">CATCH_UP_REQUEST_TIMEOUT</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">45</span>);

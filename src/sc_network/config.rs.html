@@ -843,18 +843,6 @@
 <span id="832">832</span>
 <span id="833">833</span>
 <span id="834">834</span>
-<span id="835">835</span>
-<span id="836">836</span>
-<span id="837">837</span>
-<span id="838">838</span>
-<span id="839">839</span>
-<span id="840">840</span>
-<span id="841">841</span>
-<span id="842">842</span>
-<span id="843">843</span>
-<span id="844">844</span>
-<span id="845">845</span>
-<span id="846">846</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -887,7 +875,7 @@
 	},
 	<span class="ident">warp_request_handler::WarpSyncProvider</span>,
 };
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">libp2p</span>::{<span class="ident">build_multiaddr</span>, <span class="ident">core::PublicKey</span>, <span class="ident">identity</span>, <span class="ident">wasm_ext::ExtTransport</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">libp2p</span>::{<span class="ident">build_multiaddr</span>, <span class="ident">core::PublicKey</span>, <span class="ident">identity</span>};
 
 <span class="comment">// Note: this re-export shouldn&#39;t be part of the public API of the crate and will be removed in</span>
 <span class="comment">// the future.</span>
@@ -900,7 +888,7 @@
 <span class="kw">use</span> <span class="ident">futures::future</span>;
 <span class="kw">use</span> <span class="ident">libp2p</span>::{
 	<span class="ident">identity</span>::{<span class="ident">ed25519</span>, <span class="ident">Keypair</span>},
-	<span class="ident">multiaddr</span>, <span class="ident">wasm_ext</span>, <span class="ident">Multiaddr</span>, <span class="ident">PeerId</span>,
+	<span class="ident">multiaddr</span>, <span class="ident">Multiaddr</span>, <span class="ident">PeerId</span>,
 };
 <span class="kw">use</span> <span class="ident">prometheus_endpoint::Registry</span>;
 <span class="kw">use</span> <span class="ident">sc_consensus::ImportQueue</span>;
@@ -1348,11 +1336,7 @@
 			<span class="ident">extra_sets</span>: <span class="ident">Vec::new</span>(),
 			<span class="ident">client_version</span>: <span class="ident">client_version</span>.<span class="ident">into</span>(),
 			<span class="ident">node_name</span>: <span class="ident">node_name</span>.<span class="ident">into</span>(),
-			<span class="ident">transport</span>: <span class="ident">TransportConfig::Normal</span> {
-				<span class="ident">enable_mdns</span>: <span class="bool-val">false</span>,
-				<span class="ident">allow_private_ipv4</span>: <span class="bool-val">true</span>,
-				<span class="ident">wasm_external_transport</span>: <span class="prelude-val">None</span>,
-			},
+			<span class="ident">transport</span>: <span class="ident">TransportConfig::Normal</span> { <span class="ident">enable_mdns</span>: <span class="bool-val">false</span>, <span class="ident">allow_private_ipv4</span>: <span class="bool-val">true</span> },
 			<span class="ident">max_parallel_downloads</span>: <span class="number">5</span>,
 			<span class="ident">sync_mode</span>: <span class="ident">SyncMode::Full</span>,
 			<span class="ident">enable_dht_random_walk</span>: <span class="bool-val">true</span>,
@@ -1486,14 +1470,6 @@
 		<span class="doccomment">/// [RFC1918](https://tools.ietf.org/html/rfc1918)). Irrelevant for addresses that have</span>
 		<span class="doccomment">/// been passed in [`NetworkConfiguration::boot_nodes`].</span>
 		<span class="ident">allow_private_ipv4</span>: <span class="ident">bool</span>,
-
-		<span class="doccomment">/// Optional external implementation of a libp2p transport. Used in WASM contexts where we</span>
-		<span class="doccomment">/// need some binding between the networking provided by the operating system or</span>
-		<span class="doccomment">/// environment and libp2p.</span>
-		<span class="doccomment">///</span>
-		<span class="doccomment">/// This parameter exists whatever the target platform is, but it is expected to be set to</span>
-		<span class="doccomment">/// `Some` only when compiling for WASM.</span>
-		<span class="ident">wasm_external_transport</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">wasm_ext::ExtTransport</span><span class="op">&gt;</span>,
 	},
 
 	<span class="doccomment">/// Only allow connections within the same process.</span>

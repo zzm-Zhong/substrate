@@ -1331,7 +1331,6 @@
 <span id="1320">1320</span>
 <span id="1321">1321</span>
 <span id="1322">1322</span>
-<span id="1323">1323</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1395,9 +1394,8 @@
 	<span class="ident">io</span>, <span class="ident">iter</span>,
 	<span class="ident">pin::Pin</span>,
 	<span class="ident">task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>},
-	<span class="ident">time::Duration</span>,
+	<span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">Instant</span>},
 };
-<span class="kw">use</span> <span class="ident">wasm_timer::Instant</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">libp2p::request_response</span>::{<span class="ident">InboundFailure</span>, <span class="ident">OutboundFailure</span>, <span class="ident">RequestId</span>};
 

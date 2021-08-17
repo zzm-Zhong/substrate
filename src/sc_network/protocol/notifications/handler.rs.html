@@ -854,7 +854,6 @@
 <span id="843">843</span>
 <span id="844">844</span>
 <span id="845">845</span>
-<span id="846">846</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -946,9 +945,8 @@
 	<span class="ident">str</span>,
 	<span class="ident">sync::Arc</span>,
 	<span class="ident">task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>},
-	<span class="ident">time::Duration</span>,
+	<span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">Instant</span>},
 };
-<span class="kw">use</span> <span class="ident">wasm_timer::Instant</span>;
 
 <span class="doccomment">/// Number of pending notifications in asynchronous contexts.</span>
 <span class="doccomment">/// See [`NotificationsSink::reserve_notification`] for context.</span>

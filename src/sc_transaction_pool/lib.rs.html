@@ -863,7 +863,7 @@
 	<span class="ident">generic::BlockId</span>,
 	<span class="ident">traits</span>::{<span class="ident">AtLeast32Bit</span>, <span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">Extrinsic</span>, <span class="ident">Header</span> <span class="kw">as</span> <span class="ident">HeaderT</span>, <span class="ident">NumberFor</span>, <span class="ident">Zero</span>},
 };
-<span class="kw">use</span> <span class="ident">wasm_timer::Instant</span>;
+<span class="kw">use</span> <span class="ident">std::time::Instant</span>;
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::metrics::MetricsLink</span> <span class="kw">as</span> <span class="ident">PrometheusMetrics</span>;
 <span class="kw">use</span> <span class="ident">prometheus_endpoint::Registry</span> <span class="kw">as</span> <span class="ident">PrometheusRegistry</span>;

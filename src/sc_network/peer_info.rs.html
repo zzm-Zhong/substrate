@@ -405,7 +405,6 @@
 <span id="394">394</span>
 <span id="395">395</span>
 <span id="396">396</span>
-<span id="397">397</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -449,9 +448,8 @@
 	<span class="ident">error</span>, <span class="ident">io</span>,
 	<span class="ident">pin::Pin</span>,
 	<span class="ident">task</span>::{<span class="ident">Context</span>, <span class="ident">Poll</span>},
-	<span class="ident">time::Duration</span>,
+	<span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">Instant</span>},
 };
-<span class="kw">use</span> <span class="ident">wasm_timer::Instant</span>;
 
 <span class="doccomment">/// Time after we disconnect from a node before we purge its information from the cache.</span>
 <span class="kw">const</span> <span class="ident">CACHE_EXPIRE</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">10</span> <span class="op">*</span> <span class="number">60</span>);

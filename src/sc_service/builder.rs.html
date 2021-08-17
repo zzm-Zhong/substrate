@@ -1076,7 +1076,6 @@
 <span id="1065">1065</span>
 <span id="1066">1066</span>
 <span id="1067">1067</span>
-<span id="1068">1068</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1142,8 +1141,7 @@
 	<span class="ident">BuildStorage</span>,
 };
 <span class="kw">use</span> <span class="ident">sp_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedSender</span>};
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">str::FromStr</span>, <span class="ident">sync::Arc</span>};
-<span class="kw">use</span> <span class="ident">wasm_timer::SystemTime</span>;
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">str::FromStr</span>, <span class="ident">sync::Arc</span>, <span class="ident">time::SystemTime</span>};
 
 <span class="doccomment">/// A utility trait for building an RPC extension given a `DenyUnsafe` instance.</span>
 <span class="doccomment">/// This is useful since at service definition time we don&#39;t know whether the</span>

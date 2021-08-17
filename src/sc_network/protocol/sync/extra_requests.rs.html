@@ -611,7 +611,6 @@
 <span id="600">600</span>
 <span id="601">601</span>
 <span id="602">602</span>
-<span id="603">603</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -639,9 +638,8 @@
 <span class="kw">use</span> <span class="ident">sp_runtime::traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">NumberFor</span>, <span class="ident">Zero</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
 	<span class="ident">collections</span>::{<span class="ident">HashMap</span>, <span class="ident">HashSet</span>, <span class="ident">VecDeque</span>},
-	<span class="ident">time::Duration</span>,
+	<span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">Instant</span>},
 };
-<span class="kw">use</span> <span class="ident">wasm_timer::Instant</span>;
 
 <span class="comment">// Time to wait before trying to get the same extra data from the same peer.</span>
 <span class="kw">const</span> <span class="ident">EXTRA_RETRY_WAIT</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">10</span>);
