@@ -509,6 +509,11 @@
 <span id="498">498</span>
 <span id="499">499</span>
 <span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -539,7 +544,7 @@
 	<span class="ident">BadBlocks</span>, <span class="ident">ForkBlocks</span>,
 };
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sc_client_db</span>::{<span class="self">self</span>, <span class="ident">Backend</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sc_executor</span>::{<span class="self">self</span>, <span class="ident">NativeExecutor</span>, <span class="ident">WasmExecutionMethod</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sc_executor</span>::{<span class="self">self</span>, <span class="ident">NativeElseWasmExecutor</span>, <span class="ident">WasmExecutionMethod</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sc_service</span>::{<span class="ident">client</span>, <span class="ident">RpcHandlers</span>, <span class="ident">RpcSession</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_consensus</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_keyring</span>::{
@@ -585,14 +590,14 @@
 }
 
 <span class="doccomment">/// A builder for creating a test client instance.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TestClientBuilder</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span>, <span class="ident">Executor</span>, <span class="ident">Backend</span>, <span class="ident">G</span>: <span class="ident">GenesisInit</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TestClientBuilder</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span>, <span class="ident">ExecutorDispatch</span>, <span class="ident">Backend</span>, <span class="ident">G</span>: <span class="ident">GenesisInit</span><span class="op">&gt;</span> {
 	<span class="ident">execution_strategies</span>: <span class="ident">ExecutionStrategies</span>,
 	<span class="ident">genesis_init</span>: <span class="ident">G</span>,
 	<span class="doccomment">/// The key is an unprefixed storage key, this only contains</span>
 	<span class="doccomment">/// default child trie content.</span>
 	<span class="ident">child_storage_extension</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">StorageChild</span><span class="op">&gt;</span>,
 	<span class="ident">backend</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Backend</span><span class="op">&gt;</span>,
-	<span class="ident">_executor</span>: <span class="ident">std::marker::PhantomData</span><span class="op">&lt;</span><span class="ident">Executor</span><span class="op">&gt;</span>,
+	<span class="ident">_executor</span>: <span class="ident">std::marker::PhantomData</span><span class="op">&lt;</span><span class="ident">ExecutorDispatch</span><span class="op">&gt;</span>,
 	<span class="ident">keystore</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SyncCryptoStorePtr</span><span class="op">&gt;</span>,
 	<span class="ident">fork_blocks</span>: <span class="ident">ForkBlocks</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 	<span class="ident">bad_blocks</span>: <span class="ident">BadBlocks</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
@@ -600,16 +605,16 @@
 	<span class="ident">no_genesis</span>: <span class="ident">bool</span>,
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span>, <span class="ident">Executor</span>, <span class="ident">G</span>: <span class="ident">GenesisInit</span><span class="op">&gt;</span> <span class="ident">Default</span>
-	<span class="kw">for</span> <span class="ident">TestClientBuilder</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Executor</span>, <span class="ident">Backend</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>, <span class="ident">G</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span>, <span class="ident">ExecutorDispatch</span>, <span class="ident">G</span>: <span class="ident">GenesisInit</span><span class="op">&gt;</span> <span class="ident">Default</span>
+	<span class="kw">for</span> <span class="ident">TestClientBuilder</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">ExecutorDispatch</span>, <span class="ident">Backend</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>, <span class="ident">G</span><span class="op">&gt;</span>
 {
 	<span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="self">Self</span><span class="ident">::with_default_backend</span>()
 	}
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span>, <span class="ident">Executor</span>, <span class="ident">G</span>: <span class="ident">GenesisInit</span><span class="op">&gt;</span>
-	<span class="ident">TestClientBuilder</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Executor</span>, <span class="ident">Backend</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>, <span class="ident">G</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span>, <span class="ident">ExecutorDispatch</span>, <span class="ident">G</span>: <span class="ident">GenesisInit</span><span class="op">&gt;</span>
+	<span class="ident">TestClientBuilder</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">ExecutorDispatch</span>, <span class="ident">Backend</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>, <span class="ident">G</span><span class="op">&gt;</span>
 {
 	<span class="doccomment">/// Create new `TestClientBuilder` with default backend.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_default_backend</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -634,8 +639,8 @@
 	}
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span>, <span class="ident">Executor</span>, <span class="ident">Backend</span>, <span class="ident">G</span>: <span class="ident">GenesisInit</span><span class="op">&gt;</span>
-	<span class="ident">TestClientBuilder</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Executor</span>, <span class="ident">Backend</span>, <span class="ident">G</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span>, <span class="ident">ExecutorDispatch</span>, <span class="ident">Backend</span>, <span class="ident">G</span>: <span class="ident">GenesisInit</span><span class="op">&gt;</span>
+	<span class="ident">TestClientBuilder</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">ExecutorDispatch</span>, <span class="ident">Backend</span>, <span class="ident">G</span><span class="op">&gt;</span>
 {
 	<span class="doccomment">/// Create a new instance of the test client builder.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_backend</span>(<span class="ident">backend</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Backend</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
@@ -722,13 +727,13 @@
 	<span class="doccomment">/// Build the test client with the given native executor.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_with_executor</span><span class="op">&lt;</span><span class="ident">RuntimeApi</span><span class="op">&gt;</span>(
 		<span class="self">self</span>,
-		<span class="ident">executor</span>: <span class="ident">Executor</span>,
+		<span class="ident">executor</span>: <span class="ident">ExecutorDispatch</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> (
-		<span class="ident">client::Client</span><span class="op">&lt;</span><span class="ident">Backend</span>, <span class="ident">Executor</span>, <span class="ident">Block</span>, <span class="ident">RuntimeApi</span><span class="op">&gt;</span>,
+		<span class="ident">client::Client</span><span class="op">&lt;</span><span class="ident">Backend</span>, <span class="ident">ExecutorDispatch</span>, <span class="ident">Block</span>, <span class="ident">RuntimeApi</span><span class="op">&gt;</span>,
 		<span class="ident">sc_consensus::LongestChain</span><span class="op">&lt;</span><span class="ident">Backend</span>, <span class="ident">Block</span><span class="op">&gt;</span>,
 	)
 	<span class="kw">where</span>
-		<span class="ident">Executor</span>: <span class="ident">sc_client_api::CallExecutor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+		<span class="ident">ExecutorDispatch</span>: <span class="ident">sc_client_api::CallExecutor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 		<span class="ident">Backend</span>: <span class="ident">sc_client_api::backend::Backend</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 		<span class="op">&lt;</span><span class="ident">Backend</span> <span class="kw">as</span> <span class="ident">sc_client_api::backend::Backend</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::OffchainStorage</span>: <span class="lifetime">&#39;static</span>,
 	{
@@ -776,8 +781,13 @@
 	}
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span>, <span class="ident">E</span>, <span class="ident">Backend</span>, <span class="ident">G</span>: <span class="ident">GenesisInit</span><span class="op">&gt;</span>
-	<span class="ident">TestClientBuilder</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">client::LocalCallExecutor</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Backend</span>, <span class="ident">NativeExecutor</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">Backend</span>, <span class="ident">G</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span>, <span class="ident">D</span>, <span class="ident">Backend</span>, <span class="ident">G</span>: <span class="ident">GenesisInit</span><span class="op">&gt;</span>
+	<span class="ident">TestClientBuilder</span><span class="op">&lt;</span>
+		<span class="ident">Block</span>,
+		<span class="ident">client::LocalCallExecutor</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Backend</span>, <span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+		<span class="ident">Backend</span>,
+		<span class="ident">G</span>,
+	<span class="op">&gt;</span>
 {
 	<span class="doccomment">/// Build the test client with the given native executor.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_with_native_executor</span><span class="op">&lt;</span><span class="ident">RuntimeApi</span>, <span class="ident">I</span><span class="op">&gt;</span>(
@@ -786,20 +796,20 @@
 	) <span class="op">-</span><span class="op">&gt;</span> (
 		<span class="ident">client::Client</span><span class="op">&lt;</span>
 			<span class="ident">Backend</span>,
-			<span class="ident">client::LocalCallExecutor</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Backend</span>, <span class="ident">NativeExecutor</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+			<span class="ident">client::LocalCallExecutor</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Backend</span>, <span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 			<span class="ident">Block</span>,
 			<span class="ident">RuntimeApi</span>,
 		<span class="op">&gt;</span>,
 		<span class="ident">sc_consensus::LongestChain</span><span class="op">&lt;</span><span class="ident">Backend</span>, <span class="ident">Block</span><span class="op">&gt;</span>,
 	)
 	<span class="kw">where</span>
-		<span class="ident">I</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NativeExecutor</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-		<span class="ident">E</span>: <span class="ident">sc_executor::NativeExecutionDispatch</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+		<span class="ident">I</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+		<span class="ident">D</span>: <span class="ident">sc_executor::NativeExecutionDispatch</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 		<span class="ident">Backend</span>: <span class="ident">sc_client_api::backend::Backend</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	{
-		<span class="kw">let</span> <span class="ident">executor</span> <span class="op">=</span> <span class="ident">executor</span>
-			.<span class="ident">into</span>()
-			.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">NativeExecutor::new</span>(<span class="ident">WasmExecutionMethod::Interpreted</span>, <span class="prelude-val">None</span>, <span class="number">8</span>));
+		<span class="kw">let</span> <span class="ident">executor</span> <span class="op">=</span> <span class="ident">executor</span>.<span class="ident">into</span>().<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
+			<span class="ident">NativeElseWasmExecutor::new</span>(<span class="ident">WasmExecutionMethod::Interpreted</span>, <span class="prelude-val">None</span>, <span class="number">8</span>)
+		});
 		<span class="kw">let</span> <span class="ident">executor</span> <span class="op">=</span> <span class="ident">LocalCallExecutor::new</span>(
 			<span class="self">self</span>.<span class="ident">backend</span>.<span class="ident">clone</span>(),
 			<span class="ident">executor</span>,

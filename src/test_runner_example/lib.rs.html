@@ -140,6 +140,7 @@
 <span id="129">129</span>
 <span id="130">130</span>
 <span id="131">131</span>
+<span id="132">132</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -165,6 +166,7 @@
 <span class="kw">use</span> <span class="ident">grandpa::GrandpaBlockImport</span>;
 <span class="kw">use</span> <span class="ident">sc_consensus_babe::BabeBlockImport</span>;
 <span class="kw">use</span> <span class="ident">sc_consensus_manual_seal::consensus::babe::SlotTimestampProvider</span>;
+<span class="kw">use</span> <span class="ident">sc_executor::NativeElseWasmExecutor</span>;
 <span class="kw">use</span> <span class="ident">sc_service</span>::{<span class="ident">TFullBackend</span>, <span class="ident">TFullClient</span>};
 <span class="kw">use</span> <span class="ident">sp_runtime::generic::Era</span>;
 <span class="kw">use</span> <span class="ident">test_runner</span>::{<span class="ident">ChainInfo</span>, <span class="ident">SignatureVerificationOverride</span>};
@@ -173,9 +175,9 @@
 
 <span class="doccomment">/// A unit struct which implements `NativeExecutionDispatch` feeding in the</span>
 <span class="doccomment">/// hard-coded runtime.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Executor</span>;
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ExecutorDispatch</span>;
 
-<span class="kw">impl</span> <span class="ident">sc_executor::NativeExecutionDispatch</span> <span class="kw">for</span> <span class="ident">Executor</span> {
+<span class="kw">impl</span> <span class="ident">sc_executor::NativeExecutionDispatch</span> <span class="kw">for</span> <span class="ident">ExecutorDispatch</span> {
 	<span class="kw">type</span> <span class="ident">ExtendHostFunctions</span> <span class="op">=</span>
 		(<span class="ident">frame_benchmarking::benchmarking::HostFunctions</span>, <span class="ident">SignatureVerificationOverride</span>);
 
@@ -193,14 +195,14 @@
 
 <span class="kw">impl</span> <span class="ident">ChainInfo</span> <span class="kw">for</span> <span class="ident">NodeTemplateChainInfo</span> {
 	<span class="kw">type</span> <span class="ident">Block</span> <span class="op">=</span> <span class="ident">node_primitives::Block</span>;
-	<span class="kw">type</span> <span class="ident">Executor</span> <span class="op">=</span> <span class="ident">Executor</span>;
+	<span class="kw">type</span> <span class="ident">ExecutorDispatch</span> <span class="op">=</span> <span class="ident">ExecutorDispatch</span>;
 	<span class="kw">type</span> <span class="ident">Runtime</span> <span class="op">=</span> <span class="ident">node_runtime::Runtime</span>;
 	<span class="kw">type</span> <span class="ident">RuntimeApi</span> <span class="op">=</span> <span class="ident">node_runtime::RuntimeApi</span>;
 	<span class="kw">type</span> <span class="ident">SelectChain</span> <span class="op">=</span> <span class="ident">sc_consensus::LongestChain</span><span class="op">&lt;</span><span class="ident">TFullBackend</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Block</span><span class="op">&gt;</span>, <span class="self">Self</span><span class="ident">::Block</span><span class="op">&gt;</span>;
 	<span class="kw">type</span> <span class="ident">BlockImport</span> <span class="op">=</span> <span class="ident">BlockImport</span><span class="op">&lt;</span>
 		<span class="self">Self</span><span class="ident">::Block</span>,
 		<span class="ident">TFullBackend</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Block</span><span class="op">&gt;</span>,
-		<span class="ident">TFullClient</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Block</span>, <span class="self">Self</span><span class="ident">::RuntimeApi</span>, <span class="self">Self</span><span class="ident">::Executor</span><span class="op">&gt;</span>,
+		<span class="ident">TFullClient</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Block</span>, <span class="self">Self</span><span class="ident">::RuntimeApi</span>, <span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::ExecutorDispatch</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="self">Self</span><span class="ident">::SelectChain</span>,
 	<span class="op">&gt;</span>;
 	<span class="kw">type</span> <span class="ident">SignedExtras</span> <span class="op">=</span> <span class="ident">node_runtime::SignedExtra</span>;

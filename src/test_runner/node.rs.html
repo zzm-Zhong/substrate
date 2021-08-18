@@ -292,6 +292,11 @@
 <span id="281">281</span>
 <span id="282">282</span>
 <span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -324,6 +329,7 @@
 	<span class="ident">backend</span>::{<span class="self">self</span>, <span class="ident">Backend</span>},
 	<span class="ident">CallExecutor</span>, <span class="ident">ExecutorProvider</span>,
 };
+<span class="kw">use</span> <span class="ident">sc_executor::NativeElseWasmExecutor</span>;
 <span class="kw">use</span> <span class="ident">sc_service</span>::{<span class="ident">TFullBackend</span>, <span class="ident">TFullCallExecutor</span>, <span class="ident">TFullClient</span>, <span class="ident">TaskManager</span>};
 <span class="kw">use</span> <span class="ident">sc_transaction_pool_api::TransactionPool</span>;
 <span class="kw">use</span> <span class="ident">sp_api</span>::{<span class="ident">OverlayedChanges</span>, <span class="ident">StorageTransactionCache</span>};
@@ -346,7 +352,7 @@
 	<span class="doccomment">/// handle to the running node.</span>
 	<span class="ident">task_manager</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TaskManager</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// client instance</span>
-	<span class="ident">client</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">TFullClient</span><span class="op">&lt;</span><span class="ident">T::Block</span>, <span class="ident">T::RuntimeApi</span>, <span class="ident">T::Executor</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="ident">client</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">TFullClient</span><span class="op">&lt;</span><span class="ident">T::Block</span>, <span class="ident">T::RuntimeApi</span>, <span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="ident">T::ExecutorDispatch</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// transaction pool</span>
 	<span class="ident">pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span>
 		<span class="kw">dyn</span> <span class="ident">TransactionPool</span><span class="op">&lt;</span>
@@ -381,7 +387,9 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
 		<span class="ident">rpc_handler</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">MetaIoHandler</span><span class="op">&lt;</span><span class="ident">sc_rpc::Metadata</span>, <span class="ident">sc_rpc_server::RpcMiddleware</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident">task_manager</span>: <span class="ident">TaskManager</span>,
-		<span class="ident">client</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">TFullClient</span><span class="op">&lt;</span><span class="ident">T::Block</span>, <span class="ident">T::RuntimeApi</span>, <span class="ident">T::Executor</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+		<span class="ident">client</span>: <span class="ident">Arc</span><span class="op">&lt;</span>
+			<span class="ident">TFullClient</span><span class="op">&lt;</span><span class="ident">T::Block</span>, <span class="ident">T::RuntimeApi</span>, <span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="ident">T::ExecutorDispatch</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+		<span class="op">&gt;</span>,
 		<span class="ident">pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span>
 			<span class="kw">dyn</span> <span class="ident">TransactionPool</span><span class="op">&lt;</span>
 				<span class="ident">Block</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">ChainInfo</span><span class="op">&gt;</span><span class="ident">::Block</span>,
@@ -421,7 +429,9 @@
 	}
 
 	<span class="doccomment">/// Return a reference to the Client</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">TFullClient</span><span class="op">&lt;</span><span class="ident">T::Block</span>, <span class="ident">T::RuntimeApi</span>, <span class="ident">T::Executor</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">client</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">TFullClient</span><span class="op">&lt;</span><span class="ident">T::Block</span>, <span class="ident">T::RuntimeApi</span>, <span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="ident">T::ExecutorDispatch</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">clone</span>()
 	}
 
@@ -445,7 +455,7 @@
 	<span class="doccomment">/// Executes closure in an externalities provided environment.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_state</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">closure</span>: <span class="kw">impl</span> <span class="ident">FnOnce</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">R</span>
 	<span class="kw">where</span>
-		<span class="op">&lt;</span><span class="ident">TFullCallExecutor</span><span class="op">&lt;</span><span class="ident">T::Block</span>, <span class="ident">T::Executor</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">CallExecutor</span><span class="op">&lt;</span><span class="ident">T::Block</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Error</span>:
+		<span class="op">&lt;</span><span class="ident">TFullCallExecutor</span><span class="op">&lt;</span><span class="ident">T::Block</span>, <span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="ident">T::ExecutorDispatch</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">CallExecutor</span><span class="op">&lt;</span><span class="ident">T::Block</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Error</span>:
 			<span class="ident">std::fmt::Debug</span>,
 	{
 		<span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">BlockId::Hash</span>(<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">info</span>().<span class="ident">best_hash</span>);

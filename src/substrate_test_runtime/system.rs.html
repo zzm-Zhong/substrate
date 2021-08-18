@@ -921,7 +921,7 @@
 	<span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 
 	<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">wasm_binary_unwrap</span>, <span class="ident">Header</span>, <span class="ident">Transfer</span>};
-	<span class="kw">use</span> <span class="ident">sc_executor</span>::{<span class="ident">NativeExecutor</span>, <span class="ident">WasmExecutionMethod</span>};
+	<span class="kw">use</span> <span class="ident">sc_executor</span>::{<span class="ident">NativeElseWasmExecutor</span>, <span class="ident">WasmExecutionMethod</span>};
 	<span class="kw">use</span> <span class="ident">sp_core</span>::{
 		<span class="ident">map</span>,
 		<span class="ident">traits</span>::{<span class="ident">CodeExecutor</span>, <span class="ident">RuntimeCode</span>},
@@ -945,8 +945,8 @@
 		}
 	}
 
-	<span class="kw">fn</span> <span class="ident">executor</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">NativeExecutor</span><span class="op">&lt;</span><span class="ident">NativeDispatch</span><span class="op">&gt;</span> {
-		<span class="ident">NativeExecutor::new</span>(<span class="ident">WasmExecutionMethod::Interpreted</span>, <span class="prelude-val">None</span>, <span class="number">8</span>)
+	<span class="kw">fn</span> <span class="ident">executor</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="ident">NativeDispatch</span><span class="op">&gt;</span> {
+		<span class="ident">NativeElseWasmExecutor::new</span>(<span class="ident">WasmExecutionMethod::Interpreted</span>, <span class="prelude-val">None</span>, <span class="number">8</span>)
 	}
 
 	<span class="kw">fn</span> <span class="ident">new_test_ext</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestExternalities</span> {

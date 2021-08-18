@@ -307,6 +307,17 @@
 <span id="296">296</span>
 <span id="297">297</span>
 <span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -372,9 +383,9 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! type BlockImport&lt;B, BE, C, SC&gt; = BabeBlockImport&lt;B, C, GrandpaBlockImport&lt;BE, B, C, SC&gt;&gt;;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! pub struct Executor;</span>
+<span class="doccomment">//! pub struct ExecutorDispatch;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! impl sc_executor::NativeExecutionDispatch for Executor {</span>
+<span class="doccomment">//! impl sc_executor::NativeExecutionDispatch for ExecutorDispatch {</span>
 <span class="doccomment">//! 	type ExtendHostFunctions = SignatureVerificationOverride;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! 	fn dispatch(method: &amp;str, data: &amp;[u8]) -&gt; Option&lt;Vec&lt;u8&gt;&gt; {</span>
@@ -391,8 +402,8 @@
 <span class="doccomment">//! impl ChainInfo for Requirements {</span>
 <span class="doccomment">//!     /// Provide a Block type with an OpaqueExtrinsic</span>
 <span class="doccomment">//!     type Block = node_primitives::Block;</span>
-<span class="doccomment">//!     /// Provide an Executor type for the runtime</span>
-<span class="doccomment">//!     type Executor = Executor;</span>
+<span class="doccomment">//!     /// Provide an ExecutorDispatch type for the runtime</span>
+<span class="doccomment">//!     type ExecutorDispatch = ExecutorDispatch;</span>
 <span class="doccomment">//!     /// Provide the runtime itself</span>
 <span class="doccomment">//!     type Runtime = node_runtime::Runtime;</span>
 <span class="doccomment">//!     /// A touch of runtime api</span>
@@ -403,7 +414,7 @@
 <span class="doccomment">//! 	type BlockImport = BlockImport&lt;</span>
 <span class="doccomment">//! 		Self::Block,</span>
 <span class="doccomment">//! 		TFullBackend&lt;Self::Block&gt;,</span>
-<span class="doccomment">//! 		TFullClient&lt;Self::Block, Self::RuntimeApi, Self::Executor&gt;,</span>
+<span class="doccomment">//! 		TFullClient&lt;Self::Block, Self::RuntimeApi, NativeElseWasmExecutor&lt;Self::ExecutorDispatch&gt;&gt;,</span>
 <span class="doccomment">//! 		Self::SelectChain,</span>
 <span class="doccomment">//!     &gt;;</span>
 <span class="doccomment">//!     /// and a dash of SignedExtensions</span>
@@ -429,7 +440,7 @@
 <span class="doccomment">//!     /// The function signature tells you all you need to know. ;)</span>
 <span class="doccomment">//! 	fn create_client_parts(config: &amp;Configuration) -&gt; Result&lt;</span>
 <span class="doccomment">//! 		(</span>
-<span class="doccomment">//! 			Arc&lt;TFullClient&lt;Self::Block, Self::RuntimeApi, Self::Executor&gt;&gt;,</span>
+<span class="doccomment">//! 			Arc&lt;TFullClient&lt;Self::Block, Self::RuntimeApi, NativeElseWasmExecutor&lt;Self::ExecutorDispatch&gt;&gt;&gt;,</span>
 <span class="doccomment">//! 			Arc&lt;TFullBackend&lt;Self::Block&gt;&gt;,</span>
 <span class="doccomment">//! 			KeyStorePtr,</span>
 <span class="doccomment">//! 			TaskManager,</span>
@@ -438,7 +449,7 @@
 <span class="doccomment">//! 				dyn ConsensusDataProvider&lt;</span>
 <span class="doccomment">//! 					Self::Block,</span>
 <span class="doccomment">//! 					Transaction = TransactionFor&lt;</span>
-<span class="doccomment">//! 						TFullClient&lt;Self::Block, Self::RuntimeApi, Self::Executor&gt;,</span>
+<span class="doccomment">//! 						TFullClient&lt;Self::Block, Self::RuntimeApi, NativeElseWasmExecutor&lt;Self::ExecutorDispatch&gt;&gt;,</span>
 <span class="doccomment">//! 						Self::Block</span>
 <span class="doccomment">//! 					&gt;,</span>
 <span class="doccomment">//! 				&gt;</span>
@@ -453,7 +464,7 @@
 <span class="doccomment">//! 			backend,</span>
 <span class="doccomment">//! 			keystore,</span>
 <span class="doccomment">//! 			task_manager,</span>
-<span class="doccomment">//! 		) = new_full_parts::&lt;Self::Block, Self::RuntimeApi, Self::Executor&gt;(config)?;</span>
+<span class="doccomment">//! 		) = new_full_parts::&lt;Self::Block, Self::RuntimeApi, NativeElseWasmExecutor&lt;Self::ExecutorDispatch&gt;&gt;(config)?;</span>
 <span class="doccomment">//! 		let client = Arc::new(client);</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! 		let inherent_providers = InherentDataProviders::new();</span>
@@ -545,7 +556,7 @@
 <span class="doccomment">//! ```</span>
 
 <span class="kw">use</span> <span class="ident">sc_consensus::BlockImport</span>;
-<span class="kw">use</span> <span class="ident">sc_executor::NativeExecutionDispatch</span>;
+<span class="kw">use</span> <span class="ident">sc_executor</span>::{<span class="ident">NativeElseWasmExecutor</span>, <span class="ident">NativeExecutionDispatch</span>};
 <span class="kw">use</span> <span class="ident">sc_service::TFullClient</span>;
 <span class="kw">use</span> <span class="ident">sp_api</span>::{<span class="ident">ConstructRuntimeApi</span>, <span class="ident">TransactionFor</span>};
 <span class="kw">use</span> <span class="ident">sp_consensus::SelectChain</span>;
@@ -567,8 +578,8 @@
 	<span class="doccomment">/// Opaque block type</span>
 	<span class="kw">type</span> <span class="ident">Block</span>: <span class="ident">BlockT</span>;
 
-	<span class="doccomment">/// Executor type</span>
-	<span class="kw">type</span> <span class="ident">Executor</span>: <span class="ident">NativeExecutionDispatch</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>;
+	<span class="doccomment">/// ExecutorDispatch dispatch type</span>
+	<span class="kw">type</span> <span class="ident">ExecutorDispatch</span>: <span class="ident">NativeExecutionDispatch</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>;
 
 	<span class="doccomment">/// Runtime</span>
 	<span class="kw">type</span> <span class="ident">Runtime</span>: <span class="ident">frame_system::Config</span>;
@@ -577,7 +588,14 @@
 	<span class="kw">type</span> <span class="ident">RuntimeApi</span>: <span class="ident">Send</span>
 		<span class="op">+</span> <span class="ident">Sync</span>
 		<span class="op">+</span> <span class="lifetime">&#39;static</span>
-		<span class="op">+</span> <span class="ident">ConstructRuntimeApi</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Block</span>, <span class="ident">TFullClient</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Block</span>, <span class="self">Self</span><span class="ident">::RuntimeApi</span>, <span class="self">Self</span><span class="ident">::Executor</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+		<span class="op">+</span> <span class="ident">ConstructRuntimeApi</span><span class="op">&lt;</span>
+			<span class="self">Self</span><span class="ident">::Block</span>,
+			<span class="ident">TFullClient</span><span class="op">&lt;</span>
+				<span class="self">Self</span><span class="ident">::Block</span>,
+				<span class="self">Self</span><span class="ident">::RuntimeApi</span>,
+				<span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::ExecutorDispatch</span><span class="op">&gt;</span>,
+			<span class="op">&gt;</span>,
+		<span class="op">&gt;</span>;
 
 	<span class="doccomment">/// select chain type.</span>
 	<span class="kw">type</span> <span class="ident">SelectChain</span>: <span class="ident">SelectChain</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Block</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>;
@@ -590,7 +608,11 @@
 			<span class="self">Self</span><span class="ident">::Block</span>,
 			<span class="ident">Error</span> <span class="op">=</span> <span class="ident">sp_consensus::Error</span>,
 			<span class="ident">Transaction</span> <span class="op">=</span> <span class="ident">TransactionFor</span><span class="op">&lt;</span>
-				<span class="ident">TFullClient</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Block</span>, <span class="self">Self</span><span class="ident">::RuntimeApi</span>, <span class="self">Self</span><span class="ident">::Executor</span><span class="op">&gt;</span>,
+				<span class="ident">TFullClient</span><span class="op">&lt;</span>
+					<span class="self">Self</span><span class="ident">::Block</span>,
+					<span class="self">Self</span><span class="ident">::RuntimeApi</span>,
+					<span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::ExecutorDispatch</span><span class="op">&gt;</span>,
+				<span class="op">&gt;</span>,
 				<span class="self">Self</span><span class="ident">::Block</span>,
 			<span class="op">&gt;</span>,
 		<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>;

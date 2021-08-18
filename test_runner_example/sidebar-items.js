@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Executor","A unit struct which implements `NativeExecutionDispatch` feeding in the hard-coded runtime."]]});
+initSidebarItems({"struct":[["ExecutorDispatch","A unit struct which implements `NativeExecutionDispatch` feeding in the hard-coded runtime."]]});
