@@ -334,6 +334,15 @@
 <span id="323">323</span>
 <span id="324">324</span>
 <span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -391,6 +400,7 @@
 	<span class="kw">fn</span> <span class="ident">renounce_candidacy_members</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span>;
 	<span class="kw">fn</span> <span class="ident">renounce_candidacy_runners_up</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span>;
 	<span class="kw">fn</span> <span class="ident">remove_member_with_replacement</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span>;
+	<span class="kw">fn</span> <span class="ident">remove_member_without_replacement</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span>;
 	<span class="kw">fn</span> <span class="ident">remove_member_wrong_refund</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span>;
 	<span class="kw">fn</span> <span class="ident">clean_defunct_voters</span>(<span class="ident">v</span>: <span class="ident">u32</span>, <span class="ident">d</span>: <span class="ident">u32</span>, ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span>;
 	<span class="kw">fn</span> <span class="ident">election_phragmen</span>(<span class="ident">c</span>: <span class="ident">u32</span>, <span class="ident">v</span>: <span class="ident">u32</span>, <span class="ident">e</span>: <span class="ident">u32</span>, ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span>;
@@ -486,6 +496,9 @@
 		(<span class="number">76_153_000</span> <span class="kw">as</span> <span class="ident">Weight</span>)
 			.<span class="ident">saturating_add</span>(<span class="ident">T::DbWeight::get</span>().<span class="ident">reads</span>(<span class="number">5</span> <span class="kw">as</span> <span class="ident">Weight</span>))
 			.<span class="ident">saturating_add</span>(<span class="ident">T::DbWeight::get</span>().<span class="ident">writes</span>(<span class="number">5</span> <span class="kw">as</span> <span class="ident">Weight</span>))
+	}
+	<span class="kw">fn</span> <span class="ident">remove_member_without_replacement</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
+		<span class="ident">T::BlockWeights::get</span>().<span class="ident">max_block</span>
 	}
 	<span class="comment">// Storage: Elections RunnersUp (r:1 w:0)</span>
 	<span class="kw">fn</span> <span class="ident">remove_member_wrong_refund</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
@@ -615,6 +628,11 @@
 	<span class="comment">// Storage: Instance1Collective Proposals (r:1 w:0)</span>
 	<span class="comment">// Storage: Instance1Collective Members (r:0 w:1)</span>
 	<span class="kw">fn</span> <span class="ident">remove_member_with_replacement</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
+		(<span class="number">76_153_000</span> <span class="kw">as</span> <span class="ident">Weight</span>)
+			.<span class="ident">saturating_add</span>(<span class="ident">RocksDbWeight::get</span>().<span class="ident">reads</span>(<span class="number">5</span> <span class="kw">as</span> <span class="ident">Weight</span>))
+			.<span class="ident">saturating_add</span>(<span class="ident">RocksDbWeight::get</span>().<span class="ident">writes</span>(<span class="number">5</span> <span class="kw">as</span> <span class="ident">Weight</span>))
+	}
+	<span class="kw">fn</span> <span class="ident">remove_member_without_replacement</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
 		(<span class="number">76_153_000</span> <span class="kw">as</span> <span class="ident">Weight</span>)
 			.<span class="ident">saturating_add</span>(<span class="ident">RocksDbWeight::get</span>().<span class="ident">reads</span>(<span class="number">5</span> <span class="kw">as</span> <span class="ident">Weight</span>))
 			.<span class="ident">saturating_add</span>(<span class="ident">RocksDbWeight::get</span>().<span class="ident">writes</span>(<span class="number">5</span> <span class="kw">as</span> <span class="ident">Weight</span>))

@@ -548,6 +548,15 @@
 <span id="537">537</span>
 <span id="538">538</span>
 <span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
+<span id="548">548</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -572,7 +581,9 @@
 
 <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 
-<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks</span>, <span class="ident">impl_benchmark_test_suite</span>, <span class="ident">whitelist</span>};
+<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{
+	<span class="ident">account</span>, <span class="ident">benchmarks</span>, <span class="ident">impl_benchmark_test_suite</span>, <span class="ident">whitelist</span>, <span class="ident">BenchmarkError</span>, <span class="ident">BenchmarkResult</span>,
+};
 <span class="kw">use</span> <span class="ident">frame_support</span>::{<span class="ident">dispatch::DispatchResultWithPostInfo</span>, <span class="ident">traits::OnInitialize</span>};
 <span class="kw">use</span> <span class="ident">frame_system::RawOrigin</span>;
 
@@ -883,9 +894,16 @@
 		}
 	}
 
+	<span class="comment">// We use the max block weight for this extrinsic for now. See below.</span>
+	<span class="ident">remove_member_without_replacement</span> {}: {
+		<span class="prelude-val">Err</span>(<span class="ident">BenchmarkError::Override</span>(
+			<span class="ident">BenchmarkResult::from_weight</span>(<span class="ident">T::BlockWeights::get</span>().<span class="ident">max_block</span>)
+		))<span class="question-mark">?</span>;
+	}
+
 	<span class="comment">// -- Root ones</span>
 	<span class="attribute">#[<span class="ident">extra</span>]</span> <span class="comment">// this calls into phragmen and consumes a full block for now.</span>
-	<span class="ident">remove_member_without_replacement</span> {
+	<span class="ident">remove_member_without_replacement_extra</span> {
 		<span class="comment">// worse case is when we remove a member and we have no runner as a replacement. This</span>
 		<span class="comment">// triggers phragmen again. The only parameter is how many candidates will compete for the</span>
 		<span class="comment">// new slot.</span>

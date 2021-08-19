@@ -735,7 +735,7 @@
 }
 
 <span class="comment">// This is safe because `WasmtimeInstance` does not leak reference to `self.imports`</span>
-<span class="comment">// and all imports don&#39;t reference any anything, other than host functions and memory</span>
+<span class="comment">// and all imports don&#39;t reference anything, other than host functions and memory</span>
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Send</span> <span class="kw">for</span> <span class="ident">WasmtimeInstance</span> {}
 
 <span class="kw">impl</span> <span class="ident">WasmInstance</span> <span class="kw">for</span> <span class="ident">WasmtimeInstance</span> {

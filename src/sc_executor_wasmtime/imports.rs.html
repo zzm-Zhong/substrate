@@ -290,6 +290,8 @@
 <span id="279">279</span>
 <span id="280">280</span>
 <span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -548,7 +550,9 @@
 <span class="kw">fn</span> <span class="ident">wasmtime_func_sig</span>(<span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">wasmtime::FuncType</span> {
 	<span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="ident">func</span>.<span class="ident">signature</span>();
 	<span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="ident">signature</span>.<span class="ident">args</span>.<span class="ident">iter</span>().<span class="ident">cloned</span>().<span class="ident">map</span>(<span class="ident">into_wasmtime_val_type</span>);
+
 	<span class="kw">let</span> <span class="ident">results</span> <span class="op">=</span> <span class="ident">signature</span>.<span class="ident">return_value</span>.<span class="ident">iter</span>().<span class="ident">cloned</span>().<span class="ident">map</span>(<span class="ident">into_wasmtime_val_type</span>);
+
 	<span class="ident">wasmtime::FuncType::new</span>(<span class="ident">params</span>, <span class="ident">results</span>)
 }
 

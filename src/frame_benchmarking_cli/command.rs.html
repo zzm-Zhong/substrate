@@ -503,7 +503,7 @@
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>};
 <span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{
 	<span class="ident">Analysis</span>, <span class="ident">BenchmarkBatch</span>, <span class="ident">BenchmarkBatchSplitResults</span>, <span class="ident">BenchmarkList</span>, <span class="ident">BenchmarkParameter</span>,
-	<span class="ident">BenchmarkResults</span>, <span class="ident">BenchmarkSelector</span>,
+	<span class="ident">BenchmarkResult</span>, <span class="ident">BenchmarkSelector</span>,
 };
 <span class="kw">use</span> <span class="ident">frame_support::traits::StorageInfo</span>;
 <span class="kw">use</span> <span class="ident">linked_hash_map::LinkedHashMap</span>;
@@ -532,7 +532,7 @@
 	}
 
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">all_benchmarks</span> <span class="op">=</span>
-		<span class="ident">LinkedHashMap</span>::<span class="op">&lt;</span><span class="kw">_</span>, (<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkResults</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkResults</span><span class="op">&gt;</span>)<span class="op">&gt;</span><span class="ident">::new</span>();
+		<span class="ident">LinkedHashMap</span>::<span class="op">&lt;</span><span class="kw">_</span>, (<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkResult</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkResult</span><span class="op">&gt;</span>)<span class="op">&gt;</span><span class="ident">::new</span>();
 
 	<span class="ident">db_batches</span>
 		.<span class="ident">into_iter</span>()

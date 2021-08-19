@@ -3643,7 +3643,7 @@
 		<span class="attribute">#[<span class="ident">pallet::weight</span>(<span class="kw">if</span> <span class="kw-2">*</span><span class="ident">has_replacement</span> {
 			<span class="ident">T::WeightInfo::remove_member_with_replacement</span>()
 		} <span class="kw">else</span> {
-			<span class="ident">T::BlockWeights::get</span>().<span class="ident">max_block</span>
+			<span class="ident">T::WeightInfo::remove_member_without_replacement</span>()
 		})]</span>
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_member</span>(
 			<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,

@@ -597,7 +597,7 @@
 
 <span class="doccomment">//! Tools for analyzing the benchmark results.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::BenchmarkResults</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::BenchmarkResult</span>;
 <span class="kw">use</span> <span class="ident">core::convert::TryFrom</span>;
 <span class="kw">use</span> <span class="ident">linregress</span>::{<span class="ident">FormulaRegressionBuilder</span>, <span class="ident">RegressionDataBuilder</span>};
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -656,7 +656,7 @@
 <span class="kw">impl</span> <span class="ident">Analysis</span> {
 	<span class="comment">// Useful for when there are no components, and we just need an median value of the benchmark</span>
 	<span class="comment">// results. Note: We choose the median value because it is more robust to outliers.</span>
-	<span class="kw">fn</span> <span class="ident">median_value</span>(<span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkResults</span><span class="op">&gt;</span>, <span class="ident">selector</span>: <span class="ident">BenchmarkSelector</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">median_value</span>(<span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkResult</span><span class="op">&gt;</span>, <span class="ident">selector</span>: <span class="ident">BenchmarkSelector</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="ident">r</span>.<span class="ident">is_empty</span>() {
 			<span class="kw">return</span> <span class="prelude-val">None</span>
 		}
@@ -684,7 +684,7 @@
 		})
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">median_slopes</span>(<span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkResults</span><span class="op">&gt;</span>, <span class="ident">selector</span>: <span class="ident">BenchmarkSelector</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">median_slopes</span>(<span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkResult</span><span class="op">&gt;</span>, <span class="ident">selector</span>: <span class="ident">BenchmarkSelector</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="ident">r</span>[<span class="number">0</span>].<span class="ident">components</span>.<span class="ident">is_empty</span>() {
 			<span class="kw">return</span> <span class="self">Self</span><span class="ident">::median_value</span>(<span class="ident">r</span>, <span class="ident">selector</span>)
 		}
@@ -779,7 +779,7 @@
 		})
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">min_squares_iqr</span>(<span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkResults</span><span class="op">&gt;</span>, <span class="ident">selector</span>: <span class="ident">BenchmarkSelector</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">min_squares_iqr</span>(<span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkResult</span><span class="op">&gt;</span>, <span class="ident">selector</span>: <span class="ident">BenchmarkSelector</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="ident">r</span>[<span class="number">0</span>].<span class="ident">components</span>.<span class="ident">is_empty</span>() {
 			<span class="kw">return</span> <span class="self">Self</span><span class="ident">::median_value</span>(<span class="ident">r</span>, <span class="ident">selector</span>)
 		}
@@ -859,7 +859,7 @@
 		})
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max</span>(<span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkResults</span><span class="op">&gt;</span>, <span class="ident">selector</span>: <span class="ident">BenchmarkSelector</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max</span>(<span class="ident">r</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BenchmarkResult</span><span class="op">&gt;</span>, <span class="ident">selector</span>: <span class="ident">BenchmarkSelector</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">median_slopes</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::median_slopes</span>(<span class="ident">r</span>, <span class="ident">selector</span>);
 		<span class="kw">let</span> <span class="ident">min_squares</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::min_squares_iqr</span>(<span class="ident">r</span>, <span class="ident">selector</span>);
 
@@ -982,8 +982,8 @@
 		<span class="ident">storage_root_time</span>: <span class="ident">u128</span>,
 		<span class="ident">reads</span>: <span class="ident">u32</span>,
 		<span class="ident">writes</span>: <span class="ident">u32</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BenchmarkResults</span> {
-		<span class="ident">BenchmarkResults</span> {
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BenchmarkResult</span> {
+		<span class="ident">BenchmarkResult</span> {
 			<span class="ident">components</span>,
 			<span class="ident">extrinsic_time</span>,
 			<span class="ident">storage_root_time</span>,
