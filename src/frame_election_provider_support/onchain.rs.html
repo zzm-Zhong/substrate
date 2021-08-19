@@ -160,15 +160,6 @@
 <span id="149">149</span>
 <span id="150">150</span>
 <span id="151">151</span>
-<span id="152">152</span>
-<span id="153">153</span>
-<span id="154">154</span>
-<span id="155">155</span>
-<span id="156">156</span>
-<span id="157">157</span>
-<span id="158">158</span>
-<span id="159">159</span>
-<span id="160">160</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -190,7 +181,6 @@
 <span class="doccomment">//! An implementation of [`ElectionProvider`] that does an on-chain sequential phragmen.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">ElectionDataProvider</span>, <span class="ident">ElectionProvider</span>};
-<span class="kw">use</span> <span class="ident">frame_support</span>::{<span class="ident">traits::Get</span>, <span class="ident">weights::Weight</span>};
 <span class="kw">use</span> <span class="ident">sp_npos_elections</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">sp_std</span>::{<span class="ident">collections::btree_map::BTreeMap</span>, <span class="ident">marker::PhantomData</span>, <span class="ident">prelude</span>::<span class="kw-2">*</span>};
 
@@ -227,8 +217,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Note that this is similar to a pallet traits, but [`OnChainSequentialPhragmen`] is not a pallet.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Config</span> {
-	<span class="doccomment">/// The block limits.</span>
-	<span class="kw">type</span> <span class="ident">BlockWeights</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">frame_system::limits::BlockWeights</span><span class="op">&gt;</span>;
 	<span class="doccomment">/// The account identifier type.</span>
 	<span class="kw">type</span> <span class="ident">AccountId</span>: <span class="ident">IdentifierT</span>;
 	<span class="doccomment">/// The block number type.</span>
@@ -243,11 +231,10 @@
 	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
 	<span class="kw">type</span> <span class="ident">DataProvider</span> <span class="op">=</span> <span class="ident">T::DataProvider</span>;
 
-	<span class="kw">fn</span> <span class="ident">elect</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Supports</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>, <span class="ident">Weight</span>), <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> (<span class="ident">voters</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="self">Self</span><span class="ident">::DataProvider::voters</span>(<span class="prelude-val">None</span>).<span class="ident">map_err</span>(<span class="ident">Error::DataProvider</span>)<span class="question-mark">?</span>;
-		<span class="kw">let</span> (<span class="ident">targets</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="self">Self</span><span class="ident">::DataProvider::targets</span>(<span class="prelude-val">None</span>).<span class="ident">map_err</span>(<span class="ident">Error::DataProvider</span>)<span class="question-mark">?</span>;
-		<span class="kw">let</span> (<span class="ident">desired_targets</span>, <span class="kw">_</span>) <span class="op">=</span>
-			<span class="self">Self</span><span class="ident">::DataProvider::desired_targets</span>().<span class="ident">map_err</span>(<span class="ident">Error::DataProvider</span>)<span class="question-mark">?</span>;
+	<span class="kw">fn</span> <span class="ident">elect</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Supports</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
+		<span class="kw">let</span> <span class="ident">voters</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::DataProvider::voters</span>(<span class="prelude-val">None</span>).<span class="ident">map_err</span>(<span class="ident">Error::DataProvider</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">targets</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::DataProvider::targets</span>(<span class="prelude-val">None</span>).<span class="ident">map_err</span>(<span class="ident">Error::DataProvider</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">desired_targets</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::DataProvider::desired_targets</span>().<span class="ident">map_err</span>(<span class="ident">Error::DataProvider</span>)<span class="question-mark">?</span>;
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stake_map</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">T::AccountId</span>, <span class="ident">VoteWeight</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">BTreeMap::new</span>();
 
@@ -265,16 +252,13 @@
 		<span class="kw">let</span> <span class="ident">staked</span> <span class="op">=</span> <span class="ident">assignment_ratio_to_staked_normalized</span>(<span class="ident">assignments</span>, <span class="kw-2">&amp;</span><span class="ident">stake_of</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">winners</span> <span class="op">=</span> <span class="ident">to_without_backing</span>(<span class="ident">winners</span>);
 
-		<span class="ident">to_supports</span>(<span class="kw-2">&amp;</span><span class="ident">winners</span>, <span class="kw-2">&amp;</span><span class="ident">staked</span>)
-			.<span class="ident">map_err</span>(<span class="ident">Error::from</span>)
-			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> (<span class="ident">s</span>, <span class="ident">T::BlockWeights::get</span>().<span class="ident">max_block</span>))
+		<span class="ident">to_supports</span>(<span class="kw-2">&amp;</span><span class="ident">winners</span>, <span class="kw-2">&amp;</span><span class="ident">staked</span>).<span class="ident">map_err</span>(<span class="ident">Error::from</span>)
 	}
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
 	<span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-	<span class="kw">use</span> <span class="ident">frame_support::weights::Weight</span>;
 	<span class="kw">use</span> <span class="ident">sp_npos_elections::Support</span>;
 	<span class="kw">use</span> <span class="ident">sp_runtime::Perbill</span>;
 
@@ -282,7 +266,6 @@
 	<span class="kw">type</span> <span class="ident">BlockNumber</span> <span class="op">=</span> <span class="ident">u32</span>;
 	<span class="kw">struct</span> <span class="ident">Runtime</span>;
 	<span class="kw">impl</span> <span class="ident">Config</span> <span class="kw">for</span> <span class="ident">Runtime</span> {
-		<span class="kw">type</span> <span class="ident">BlockWeights</span> <span class="op">=</span> ();
 		<span class="kw">type</span> <span class="ident">AccountId</span> <span class="op">=</span> <span class="ident">AccountId</span>;
 		<span class="kw">type</span> <span class="ident">BlockNumber</span> <span class="op">=</span> <span class="ident">BlockNumber</span>;
 		<span class="kw">type</span> <span class="ident">Accuracy</span> <span class="op">=</span> <span class="ident">Perbill</span>;
@@ -296,21 +279,20 @@
 		<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::data_provider</span>;
 
 		<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DataProvider</span>;
-
 		<span class="kw">impl</span> <span class="ident">ElectionDataProvider</span><span class="op">&lt;</span><span class="ident">AccountId</span>, <span class="ident">BlockNumber</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DataProvider</span> {
 			<span class="kw">const</span> <span class="ident">MAXIMUM_VOTES_PER_VOTER</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">2</span>;
 			<span class="kw">fn</span> <span class="ident">voters</span>(
 				<span class="kw">_</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,
-			) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">data_provider::Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">AccountId</span>, <span class="ident">VoteWeight</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>)<span class="op">&gt;</span>, <span class="ident">Weight</span>)<span class="op">&gt;</span> {
-				<span class="prelude-val">Ok</span>((<span class="macro">vec!</span>[(<span class="number">1</span>, <span class="number">10</span>, <span class="macro">vec!</span>[<span class="number">10</span>, <span class="number">20</span>]), (<span class="number">2</span>, <span class="number">20</span>, <span class="macro">vec!</span>[<span class="number">30</span>, <span class="number">20</span>]), (<span class="number">3</span>, <span class="number">30</span>, <span class="macro">vec!</span>[<span class="number">10</span>, <span class="number">30</span>])], <span class="number">0</span>))
+			) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">data_provider::Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">AccountId</span>, <span class="ident">VoteWeight</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>)<span class="op">&gt;</span><span class="op">&gt;</span> {
+				<span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[(<span class="number">1</span>, <span class="number">10</span>, <span class="macro">vec!</span>[<span class="number">10</span>, <span class="number">20</span>]), (<span class="number">2</span>, <span class="number">20</span>, <span class="macro">vec!</span>[<span class="number">30</span>, <span class="number">20</span>]), (<span class="number">3</span>, <span class="number">30</span>, <span class="macro">vec!</span>[<span class="number">10</span>, <span class="number">30</span>])])
 			}
 
-			<span class="kw">fn</span> <span class="ident">targets</span>(<span class="kw">_</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">data_provider::Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>, <span class="ident">Weight</span>)<span class="op">&gt;</span> {
-				<span class="prelude-val">Ok</span>((<span class="macro">vec!</span>[<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>], <span class="number">0</span>))
+			<span class="kw">fn</span> <span class="ident">targets</span>(<span class="kw">_</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">data_provider::Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+				<span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>])
 			}
 
-			<span class="kw">fn</span> <span class="ident">desired_targets</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">data_provider::Result</span><span class="op">&lt;</span>(<span class="ident">u32</span>, <span class="ident">Weight</span>)<span class="op">&gt;</span> {
-				<span class="prelude-val">Ok</span>((<span class="number">2</span>, <span class="number">0</span>))
+			<span class="kw">fn</span> <span class="ident">desired_targets</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">data_provider::Result</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> {
+				<span class="prelude-val">Ok</span>(<span class="number">2</span>)
 			}
 
 			<span class="kw">fn</span> <span class="ident">next_election_prediction</span>(<span class="kw">_</span>: <span class="ident">BlockNumber</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BlockNumber</span> {
@@ -322,7 +304,7 @@
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">onchain_seq_phragmen_works</span>() {
 		<span class="macro">assert_eq!</span>(
-			<span class="ident">OnChainPhragmen::elect</span>().<span class="ident">unwrap</span>().<span class="number">0</span>,
+			<span class="ident">OnChainPhragmen::elect</span>().<span class="ident">unwrap</span>(),
 			<span class="macro">vec!</span>[
 				(<span class="number">10</span>, <span class="ident">Support</span> { <span class="ident">total</span>: <span class="number">25</span>, <span class="ident">voters</span>: <span class="macro">vec!</span>[(<span class="number">1</span>, <span class="number">10</span>), (<span class="number">3</span>, <span class="number">15</span>)] }),
 				(<span class="number">30</span>, <span class="ident">Support</span> { <span class="ident">total</span>: <span class="number">35</span>, <span class="ident">voters</span>: <span class="macro">vec!</span>[(<span class="number">2</span>, <span class="number">20</span>), (<span class="number">3</span>, <span class="number">15</span>)] })

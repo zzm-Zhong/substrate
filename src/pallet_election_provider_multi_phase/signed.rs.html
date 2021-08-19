@@ -941,6 +941,16 @@
 <span id="930">930</span>
 <span id="931">931</span>
 <span id="932">932</span>
+<span id="933">933</span>
+<span id="934">934</span>
+<span id="935">935</span>
+<span id="936">936</span>
+<span id="937">937</span>
+<span id="938">938</span>
+<span id="939">939</span>
+<span id="940">940</span>
+<span id="941">941</span>
+<span id="942">942</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1287,7 +1297,17 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This drains the [`SignedSubmissions`], potentially storing the best valid one in</span>
 	<span class="doccomment">/// [`QueuedSolution`].</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">finalize_signed_phase</span>() <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">bool</span>, <span class="ident">Weight</span>) {
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// This is a *self-weighing* function, it automatically registers its weight internally when</span>
+	<span class="doccomment">/// being called.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">finalize_signed_phase</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+		<span class="kw">let</span> (<span class="ident">weight</span>, <span class="ident">found_solution</span>) <span class="op">=</span> <span class="self">Self</span><span class="ident">::finalize_signed_phase_internal</span>();
+		<span class="self">Self</span><span class="ident">::register_weight</span>(<span class="ident">weight</span>);
+		<span class="ident">found_solution</span>
+	}
+
+	<span class="doccomment">/// The guts of [`finalized_signed_phase`], that does everything except registering its weight.</span>
+	<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">finalize_signed_phase_internal</span>() <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Weight</span>, <span class="ident">bool</span>) {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">all_submissions</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::signed_submissions</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">found_solution</span> <span class="op">=</span> <span class="bool-val">false</span>;
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">weight</span> <span class="op">=</span> <span class="ident">T::DbWeight::get</span>().<span class="ident">reads</span>(<span class="number">1</span>);
@@ -1346,9 +1366,9 @@
 			<span class="ident">found_solution</span>,
 			<span class="ident">discarded</span>
 		);
-		(<span class="ident">found_solution</span>, <span class="ident">weight</span>)
-	}
 
+		(<span class="ident">weight</span>, <span class="ident">found_solution</span>)
+	}
 	<span class="doccomment">/// Helper function for the case where a solution is accepted in the signed phase.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Extracted to facilitate with weight calculation.</span>
@@ -1512,7 +1532,7 @@
 			<span class="macro">assert_ok!</span>(<span class="ident">submit_with_witness</span>(<span class="ident">Origin::signed</span>(<span class="number">99</span>), <span class="ident">solution</span>));
 			<span class="macro">assert_eq!</span>(<span class="ident">balances</span>(<span class="kw-2">&amp;</span><span class="number">99</span>), (<span class="number">95</span>, <span class="number">5</span>));
 
-			<span class="macro">assert!</span>(<span class="ident">MultiPhase::finalize_signed_phase</span>().<span class="number">0</span>);
+			<span class="macro">assert!</span>(<span class="ident">MultiPhase::finalize_signed_phase</span>());
 			<span class="macro">assert_eq!</span>(<span class="ident">balances</span>(<span class="kw-2">&amp;</span><span class="number">99</span>), (<span class="number">100</span> <span class="op">+</span> <span class="number">7</span> <span class="op">+</span> <span class="number">8</span>, <span class="number">0</span>));
 		})
 	}
@@ -1533,7 +1553,7 @@
 			<span class="macro">assert_eq!</span>(<span class="ident">balances</span>(<span class="kw-2">&amp;</span><span class="number">99</span>), (<span class="number">95</span>, <span class="number">5</span>));
 
 			<span class="comment">// no good solution was stored.</span>
-			<span class="macro">assert!</span>(<span class="op">!</span><span class="ident">MultiPhase::finalize_signed_phase</span>().<span class="number">0</span>);
+			<span class="macro">assert!</span>(<span class="op">!</span><span class="ident">MultiPhase::finalize_signed_phase</span>());
 			<span class="comment">// and the bond is gone.</span>
 			<span class="macro">assert_eq!</span>(<span class="ident">balances</span>(<span class="kw-2">&amp;</span><span class="number">99</span>), (<span class="number">95</span>, <span class="number">0</span>));
 		})
@@ -1559,7 +1579,7 @@
 			<span class="macro">assert_eq!</span>(<span class="ident">balances</span>(<span class="kw-2">&amp;</span><span class="number">999</span>), (<span class="number">95</span>, <span class="number">5</span>));
 
 			<span class="comment">// _some_ good solution was stored.</span>
-			<span class="macro">assert!</span>(<span class="ident">MultiPhase::finalize_signed_phase</span>().<span class="number">0</span>);
+			<span class="macro">assert!</span>(<span class="ident">MultiPhase::finalize_signed_phase</span>());
 
 			<span class="comment">// 99 is rewarded.</span>
 			<span class="macro">assert_eq!</span>(<span class="ident">balances</span>(<span class="kw-2">&amp;</span><span class="number">99</span>), (<span class="number">100</span> <span class="op">+</span> <span class="number">7</span> <span class="op">+</span> <span class="number">8</span>, <span class="number">0</span>));
@@ -1750,7 +1770,7 @@
 			);
 
 			<span class="comment">// _some_ good solution was stored.</span>
-			<span class="macro">assert!</span>(<span class="ident">MultiPhase::finalize_signed_phase</span>().<span class="number">0</span>);
+			<span class="macro">assert!</span>(<span class="ident">MultiPhase::finalize_signed_phase</span>());
 
 			<span class="comment">// 99 is rewarded.</span>
 			<span class="macro">assert_eq!</span>(<span class="ident">balances</span>(<span class="kw-2">&amp;</span><span class="number">99</span>), (<span class="number">100</span> <span class="op">+</span> <span class="number">7</span> <span class="op">+</span> <span class="number">8</span>, <span class="number">0</span>));
@@ -1850,7 +1870,7 @@
 				<span class="ident">roll_to</span>(<span class="ident">block_number</span>);
 
 				<span class="macro">assert_eq!</span>(<span class="ident">SignedSubmissions</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::decode_len</span>().<span class="ident">unwrap_or_default</span>(), <span class="number">0</span>);
-				<span class="macro">assert_storage_noop!</span>(<span class="ident">MultiPhase::finalize_signed_phase</span>());
+				<span class="macro">assert_storage_noop!</span>(<span class="ident">MultiPhase::finalize_signed_phase_internal</span>());
 			}
 		})
 	}
@@ -1867,7 +1887,7 @@
 			<span class="macro">assert_ok!</span>(<span class="ident">submit_with_witness</span>(<span class="ident">Origin::signed</span>(<span class="number">99</span>), <span class="ident">solution</span>.<span class="ident">clone</span>()));
 
 			<span class="comment">// _some_ good solution was stored.</span>
-			<span class="macro">assert!</span>(<span class="ident">MultiPhase::finalize_signed_phase</span>().<span class="number">0</span>);
+			<span class="macro">assert!</span>(<span class="ident">MultiPhase::finalize_signed_phase</span>());
 
 			<span class="comment">// calling it again doesn&#39;t change anything</span>
 			<span class="macro">assert_storage_noop!</span>(<span class="ident">MultiPhase::finalize_signed_phase</span>());

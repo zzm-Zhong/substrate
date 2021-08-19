@@ -2224,19 +2224,19 @@
 
 	<span class="kw">struct</span> <span class="ident">TestWeight</span>;
 	<span class="kw">impl</span> <span class="kw">crate</span><span class="ident">::weights::WeightInfo</span> <span class="kw">for</span> <span class="ident">TestWeight</span> {
+		<span class="kw">fn</span> <span class="ident">elect_queued</span>(<span class="ident">a</span>: <span class="ident">u32</span>, <span class="ident">d</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
+			<span class="macro">unreachable!</span>()
+		}
+		<span class="kw">fn</span> <span class="ident">create_snapshot_internal</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
+			<span class="macro">unreachable!</span>()
+		}
 		<span class="kw">fn</span> <span class="ident">on_initialize_nothing</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
 			<span class="macro">unreachable!</span>()
 		}
 		<span class="kw">fn</span> <span class="ident">on_initialize_open_signed</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
 			<span class="macro">unreachable!</span>()
 		}
-		<span class="kw">fn</span> <span class="ident">on_initialize_open_unsigned_with_snapshot</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
-			<span class="macro">unreachable!</span>()
-		}
-		<span class="kw">fn</span> <span class="ident">elect_queued</span>(<span class="ident">_v</span>: <span class="ident">u32</span>, <span class="ident">_t</span>: <span class="ident">u32</span>, <span class="ident">_a</span>: <span class="ident">u32</span>, <span class="ident">_d</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
-			<span class="number">0</span>
-		}
-		<span class="kw">fn</span> <span class="ident">on_initialize_open_unsigned_without_snapshot</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
+		<span class="kw">fn</span> <span class="ident">on_initialize_open_unsigned</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
 			<span class="macro">unreachable!</span>()
 		}
 		<span class="kw">fn</span> <span class="ident">finalize_signed_phase_accept_solution</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {

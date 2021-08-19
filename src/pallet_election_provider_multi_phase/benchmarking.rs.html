@@ -529,6 +529,10 @@
 <span id="518">518</span>
 <span id="519">519</span>
 <span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -683,8 +687,6 @@
 }
 
 <span class="kw">fn</span> <span class="ident">set_up_data_provider</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span>(<span class="ident">v</span>: <span class="ident">u32</span>, <span class="ident">t</span>: <span class="ident">u32</span>) {
-	<span class="comment">// number of votes in snapshot.</span>
-
 	<span class="ident">T::DataProvider::clear</span>();
 	<span class="macro">log!</span>(
 		<span class="ident">info</span>,
@@ -724,37 +726,22 @@
 	}
 
 	<span class="ident">on_initialize_open_signed</span> {
-		<span class="comment">// NOTE: this benchmark currently doesn&#39;t have any components because the length of a db</span>
-		<span class="comment">// read/write is not captured. Otherwise, it is quite influenced by how much data</span>
-		<span class="comment">// `T::ElectionDataProvider` is reading and passing on.</span>
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">is_none</span>());
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::current_phase</span>().<span class="ident">is_off</span>());
 	}: {
-		<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::on_initialize_open_signed</span>().<span class="ident">unwrap</span>();
+		<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::on_initialize_open_signed</span>();
 	} <span class="ident">verify</span> {
-		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">is_some</span>());
+		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">is_none</span>());
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::current_phase</span>().<span class="ident">is_signed</span>());
 	}
 
-	<span class="ident">on_initialize_open_unsigned_with_snapshot</span> {
+	<span class="ident">on_initialize_open_unsigned</span> {
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">is_none</span>());
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::current_phase</span>().<span class="ident">is_off</span>());
 	}: {
-		<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::on_initialize_open_unsigned</span>(<span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="number">1u32</span>.<span class="ident">into</span>()).<span class="ident">unwrap</span>();
+		<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::on_initialize_open_unsigned</span>(<span class="bool-val">true</span>, <span class="number">1u32</span>.<span class="ident">into</span>())
 	} <span class="ident">verify</span> {
-		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">is_some</span>());
-		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::current_phase</span>().<span class="ident">is_unsigned</span>());
-	}
-
-	<span class="ident">on_initialize_open_unsigned_without_snapshot</span> {
-		<span class="comment">// need to assume signed phase was open before</span>
-		<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::on_initialize_open_signed</span>().<span class="ident">unwrap</span>();
-		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">is_some</span>());
-		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::current_phase</span>().<span class="ident">is_signed</span>());
-	}: {
-		<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::on_initialize_open_unsigned</span>(<span class="bool-val">false</span>, <span class="bool-val">true</span>, <span class="number">1u32</span>.<span class="ident">into</span>()).<span class="ident">unwrap</span>();
-	} <span class="ident">verify</span> {
-		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">is_some</span>());
+		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">is_none</span>());
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::current_phase</span>().<span class="ident">is_unsigned</span>());
 	}
 
@@ -791,30 +778,51 @@
 		<span class="macro">assert_eq!</span>(<span class="ident">T::Currency::reserved_balance</span>(<span class="kw-2">&amp;</span><span class="ident">receiver</span>), <span class="number">0u32</span>.<span class="ident">into</span>());
 	}
 
+	<span class="ident">create_snapshot_internal</span> {
+		<span class="comment">// number of votes in snapshot. Fixed to maximum.</span>
+		<span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">T::BenchmarkingConfig::SNAPSHOT_MAXIMUM_VOTERS</span>;
+		<span class="comment">// number of targets in snapshot. Fixed to maximum.</span>
+		<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="ident">T::BenchmarkingConfig::MAXIMUM_TARGETS</span>;
+
+		<span class="comment">// we don&#39;t directly need the data-provider to be populated, but it is just easy to use it.</span>
+		<span class="ident">set_up_data_provider</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">v</span>, <span class="ident">t</span>);
+		<span class="kw">let</span> <span class="ident">targets</span> <span class="op">=</span> <span class="ident">T::DataProvider::targets</span>(<span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">voters</span> <span class="op">=</span> <span class="ident">T::DataProvider::voters</span>(<span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">desired_targets</span> <span class="op">=</span> <span class="ident">T::DataProvider::desired_targets</span>()<span class="question-mark">?</span>;
+		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">is_none</span>());
+	}: {
+		<span class="op">&lt;</span><span class="ident">MultiPhase</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::create_snapshot_internal</span>(<span class="ident">targets</span>, <span class="ident">voters</span>, <span class="ident">desired_targets</span>)
+	} <span class="ident">verify</span> {
+		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">is_some</span>());
+		<span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot_metadata</span>().<span class="ident">ok_or</span>(<span class="string">&quot;metadata missing&quot;</span>)<span class="question-mark">?</span>.<span class="ident">voters</span>, <span class="ident">v</span> <span class="op">+</span> <span class="ident">t</span>);
+		<span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot_metadata</span>().<span class="ident">ok_or</span>(<span class="string">&quot;metadata missing&quot;</span>)<span class="question-mark">?</span>.<span class="ident">targets</span>, <span class="ident">t</span>);
+	}
+
 	<span class="comment">// a call to `&lt;Pallet as ElectionProvider&gt;::elect` where we only return the queued solution.</span>
 	<span class="ident">elect_queued</span> {
-		<span class="comment">// number of votes in snapshot.</span>
-		<span class="kw">let</span> <span class="ident">v</span> <span class="kw">in</span> (<span class="ident">T::BenchmarkingConfig::VOTERS</span>[<span class="number">0</span>]) .. <span class="ident">T::BenchmarkingConfig::VOTERS</span>[<span class="number">1</span>];
-		<span class="comment">// number of targets in snapshot.</span>
-		<span class="kw">let</span> <span class="ident">t</span> <span class="kw">in</span> (<span class="ident">T::BenchmarkingConfig::TARGETS</span>[<span class="number">0</span>]) .. <span class="ident">T::BenchmarkingConfig::TARGETS</span>[<span class="number">1</span>];
 		<span class="comment">// number of assignments, i.e. solution.len(). This means the active nominators, thus must be</span>
-		<span class="comment">// a subset of `v` component.</span>
+		<span class="comment">// a subset of `v`.</span>
 		<span class="kw">let</span> <span class="ident">a</span> <span class="kw">in</span> (<span class="ident">T::BenchmarkingConfig::ACTIVE_VOTERS</span>[<span class="number">0</span>]) .. <span class="ident">T::BenchmarkingConfig::ACTIVE_VOTERS</span>[<span class="number">1</span>];
-		<span class="comment">// number of desired targets. Must be a subset of `t` component.</span>
+		<span class="comment">// number of desired targets. Must be a subset of `t`.</span>
 		<span class="kw">let</span> <span class="ident">d</span> <span class="kw">in</span> (<span class="ident">T::BenchmarkingConfig::DESIRED_TARGETS</span>[<span class="number">0</span>]) .. <span class="ident">T::BenchmarkingConfig::DESIRED_TARGETS</span>[<span class="number">1</span>];
+
+		<span class="comment">// number of votes in snapshot. Not dominant.</span>
+		<span class="kw">let</span> <span class="ident">v</span>  <span class="op">=</span> <span class="ident">T::BenchmarkingConfig::VOTERS</span>[<span class="number">1</span>];
+		<span class="comment">// number of targets in snapshot. Not dominant.</span>
+		<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="ident">T::BenchmarkingConfig::TARGETS</span>[<span class="number">1</span>];
 
 		<span class="kw">let</span> <span class="ident">witness</span> <span class="op">=</span> <span class="ident">SolutionOrSnapshotSize</span> { <span class="ident">voters</span>: <span class="ident">v</span>, <span class="ident">targets</span>: <span class="ident">t</span> };
 		<span class="kw">let</span> <span class="ident">raw_solution</span> <span class="op">=</span> <span class="ident">solution_with_size</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">witness</span>, <span class="ident">a</span>, <span class="ident">d</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">ready_solution</span> <span class="op">=</span>
-			<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::feasibility_check</span>(<span class="ident">raw_solution</span>, <span class="ident">ElectionCompute::Signed</span>).<span class="ident">unwrap</span>();
+			<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::feasibility_check</span>(<span class="ident">raw_solution</span>, <span class="ident">ElectionCompute::Signed</span>)<span class="question-mark">?</span>;
+		<span class="op">&lt;</span><span class="ident">CurrentPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">Phase::Signed</span>);
+		<span class="comment">// assume a queued solution is stored, regardless of where it comes from.</span>
+		<span class="op">&lt;</span><span class="ident">QueuedSolution</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">ready_solution</span>);
 
 		<span class="comment">// these are set by the `solution_with_size` function.</span>
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">DesiredTargets</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>().<span class="ident">is_some</span>());
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">Snapshot</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>().<span class="ident">is_some</span>());
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">SnapshotMetadata</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>().<span class="ident">is_some</span>());
-		<span class="op">&lt;</span><span class="ident">CurrentPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">Phase::Signed</span>);
-		<span class="comment">// assume a queued solution is stored, regardless of where it comes from.</span>
-		<span class="op">&lt;</span><span class="ident">QueuedSolution</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">ready_solution</span>);
 	}: {
 		<span class="macro">assert_ok!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">ElectionProvider</span><span class="op">&lt;</span><span class="ident">T::AccountId</span>, <span class="ident">T::BlockNumber</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::elect</span>());
 	} <span class="ident">verify</span> {
@@ -835,7 +843,8 @@
 			..<span class="ident">Default::default</span>()
 		};
 
-		<span class="ident">MultiPhase</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::on_initialize_open_signed</span>().<span class="ident">expect</span>(<span class="string">&quot;should be ok to start signed phase&quot;</span>);
+		<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::create_snapshot</span>()<span class="question-mark">?</span>;
+		<span class="ident">MultiPhase</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::on_initialize_open_signed</span>();
 		<span class="op">&lt;</span><span class="ident">Round</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="number">1</span>);
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">signed_submissions</span> <span class="op">=</span> <span class="ident">SignedSubmissions</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>();
@@ -878,7 +887,7 @@
 		<span class="op">&lt;</span><span class="ident">CurrentPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">Phase::Unsigned</span>((<span class="bool-val">true</span>, <span class="number">1u32</span>.<span class="ident">into</span>())));
 
 		<span class="comment">// encode the most significant storage item that needs to be decoded in the dispatch.</span>
-		<span class="kw">let</span> <span class="ident">encoded_snapshot</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">unwrap</span>().<span class="ident">encode</span>();
+		<span class="kw">let</span> <span class="ident">encoded_snapshot</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">ok_or</span>(<span class="string">&quot;missing snapshot&quot;</span>)<span class="question-mark">?</span>.<span class="ident">encode</span>();
 		<span class="kw">let</span> <span class="ident">encoded_call</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Call</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::submit_unsigned</span>(<span class="ident">Box::new</span>(<span class="ident">raw_solution</span>.<span class="ident">clone</span>()), <span class="ident">witness</span>).<span class="ident">encode</span>();
 	}: {
 		<span class="macro">assert_ok!</span>(
@@ -889,8 +898,8 @@
 			)
 		);
 		<span class="kw">let</span> <span class="ident">_decoded_snap</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">RoundSnapshot</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Decode</span><span class="op">&gt;</span><span class="ident">::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">encoded_snapshot</span>)
-			.<span class="ident">unwrap</span>();
-		<span class="kw">let</span> <span class="ident">_decoded_call</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Call</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Decode</span><span class="op">&gt;</span><span class="ident">::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">encoded_call</span>).<span class="ident">unwrap</span>();
+			.<span class="ident">expect</span>(<span class="string">&quot;decoding should not fail; qed.&quot;</span>);
+		<span class="kw">let</span> <span class="ident">_decoded_call</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Call</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Decode</span><span class="op">&gt;</span><span class="ident">::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">encoded_call</span>).<span class="ident">expect</span>(<span class="string">&quot;decoding should not fail; qed.&quot;</span>);
 	} <span class="ident">verify</span> {
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::queued_solution</span>().<span class="ident">is_some</span>());
 	}
@@ -914,10 +923,11 @@
 		<span class="macro">assert_eq!</span>(<span class="ident">raw_solution</span>.<span class="ident">solution</span>.<span class="ident">unique_targets</span>().<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>, <span class="ident">d</span>);
 
 		<span class="comment">// encode the most significant storage item that needs to be decoded in the dispatch.</span>
-		<span class="kw">let</span> <span class="ident">encoded_snapshot</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">unwrap</span>().<span class="ident">encode</span>();
+		<span class="kw">let</span> <span class="ident">encoded_snapshot</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">ok_or</span>(<span class="string">&quot;snapshot missing&quot;</span>)<span class="question-mark">?</span>.<span class="ident">encode</span>();
 	}: {
 		<span class="macro">assert_ok!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::feasibility_check</span>(<span class="ident">raw_solution</span>, <span class="ident">ElectionCompute::Unsigned</span>));
-		<span class="kw">let</span> <span class="ident">_decoded_snap</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">RoundSnapshot</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Decode</span><span class="op">&gt;</span><span class="ident">::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">encoded_snapshot</span>).<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="ident">_decoded_snap</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">RoundSnapshot</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Decode</span><span class="op">&gt;</span><span class="ident">::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">encoded_snapshot</span>)
+			.<span class="ident">expect</span>(<span class="string">&quot;decoding should not fail; qed.&quot;</span>);
 	}
 
 	<span class="comment">// NOTE: this weight is not used anywhere, but the fact that it should succeed when execution in</span>
@@ -937,9 +947,8 @@
 		<span class="comment">// number of votes in snapshot. Fixed to maximum.</span>
 		<span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">T::BenchmarkingConfig::MINER_MAXIMUM_VOTERS</span>;
 		<span class="comment">// number of targets in snapshot. Fixed to maximum.</span>
-		<span class="kw">let</span> <span class="ident">t</span>  <span class="op">=</span> <span class="ident">T::BenchmarkingConfig::MAXIMUM_TARGETS</span>;
+		<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="ident">T::BenchmarkingConfig::MAXIMUM_TARGETS</span>;
 
-		<span class="ident">T::DataProvider::clear</span>();
 		<span class="ident">set_up_data_provider</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">v</span>, <span class="ident">t</span>);
 		<span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">frame_system::Pallet</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::block_number</span>();
 		<span class="op">&lt;</span><span class="ident">CurrentPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">Phase::Unsigned</span>((<span class="bool-val">true</span>, <span class="ident">now</span>)));
@@ -960,17 +969,16 @@
 		<span class="comment">// number of votes in snapshot. Fixed to maximum.</span>
 		<span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">T::BenchmarkingConfig::SNAPSHOT_MAXIMUM_VOTERS</span>;
 		<span class="comment">// number of targets in snapshot. Fixed to maximum.</span>
-		<span class="kw">let</span> <span class="ident">t</span>  <span class="op">=</span> <span class="ident">T::BenchmarkingConfig::MAXIMUM_TARGETS</span>;
+		<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="ident">T::BenchmarkingConfig::MAXIMUM_TARGETS</span>;
 
-		<span class="ident">T::DataProvider::clear</span>();
 		<span class="ident">set_up_data_provider</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">v</span>, <span class="ident">t</span>);
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">is_none</span>());
 	}: {
-		<span class="op">&lt;</span><span class="ident">MultiPhase</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::create_snapshot</span>().<span class="ident">unwrap</span>()
+		<span class="op">&lt;</span><span class="ident">MultiPhase</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::create_snapshot</span>()<span class="question-mark">?</span>
 	} <span class="ident">verify</span> {
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">is_some</span>());
-		<span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot_metadata</span>().<span class="ident">unwrap</span>().<span class="ident">voters</span>, <span class="ident">v</span> <span class="op">+</span> <span class="ident">t</span>);
-		<span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot_metadata</span>().<span class="ident">unwrap</span>().<span class="ident">targets</span>, <span class="ident">t</span>);
+		<span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot_metadata</span>().<span class="ident">ok_or</span>(<span class="string">&quot;snapshot missing&quot;</span>)<span class="question-mark">?</span>.<span class="ident">voters</span>, <span class="ident">v</span> <span class="op">+</span> <span class="ident">t</span>);
+		<span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::snapshot_metadata</span>().<span class="ident">ok_or</span>(<span class="string">&quot;snapshot missing&quot;</span>)<span class="question-mark">?</span>.<span class="ident">targets</span>, <span class="ident">t</span>);
 	}
 
 	<span class="attribute">#[<span class="ident">extra</span>]</span>
@@ -994,10 +1002,10 @@
 		<span class="comment">// assignments</span>
 		<span class="kw">let</span> <span class="ident">witness</span> <span class="op">=</span> <span class="ident">SolutionOrSnapshotSize</span> { <span class="ident">voters</span>: <span class="ident">v</span>, <span class="ident">targets</span>: <span class="ident">t</span> };
 		<span class="kw">let</span> <span class="ident">RawSolution</span> { <span class="ident">solution</span>, .. } <span class="op">=</span> <span class="ident">solution_with_size</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">witness</span>, <span class="ident">a</span>, <span class="ident">d</span>)<span class="question-mark">?</span>;
-		<span class="kw">let</span> <span class="ident">RoundSnapshot</span> { <span class="ident">voters</span>, <span class="ident">targets</span> } <span class="op">=</span> <span class="ident">MultiPhase</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="ident">RoundSnapshot</span> { <span class="ident">voters</span>, <span class="ident">targets</span> } <span class="op">=</span> <span class="ident">MultiPhase</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::snapshot</span>().<span class="ident">ok_or</span>(<span class="string">&quot;snapshot missing&quot;</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">voter_at</span> <span class="op">=</span> <span class="ident">helpers::voter_at_fn</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">voters</span>);
 		<span class="kw">let</span> <span class="ident">target_at</span> <span class="op">=</span> <span class="ident">helpers::target_at_fn</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">targets</span>);
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">assignments</span> <span class="op">=</span> <span class="ident">solution</span>.<span class="ident">into_assignment</span>(<span class="ident">voter_at</span>, <span class="ident">target_at</span>).<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">assignments</span> <span class="op">=</span> <span class="ident">solution</span>.<span class="ident">into_assignment</span>(<span class="ident">voter_at</span>, <span class="ident">target_at</span>).<span class="ident">expect</span>(<span class="string">&quot;solution generated by `solution_with_size` must be valid.&quot;</span>);
 
 		<span class="comment">// make a voter cache and some helper functions for access</span>
 		<span class="kw">let</span> <span class="ident">cache</span> <span class="op">=</span> <span class="ident">helpers::generate_voter_cache</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">voters</span>);

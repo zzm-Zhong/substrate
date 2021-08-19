@@ -1137,6 +1137,32 @@
 <span id="1126">1126</span>
 <span id="1127">1127</span>
 <span id="1128">1128</span>
+<span id="1129">1129</span>
+<span id="1130">1130</span>
+<span id="1131">1131</span>
+<span id="1132">1132</span>
+<span id="1133">1133</span>
+<span id="1134">1134</span>
+<span id="1135">1135</span>
+<span id="1136">1136</span>
+<span id="1137">1137</span>
+<span id="1138">1138</span>
+<span id="1139">1139</span>
+<span id="1140">1140</span>
+<span id="1141">1141</span>
+<span id="1142">1142</span>
+<span id="1143">1143</span>
+<span id="1144">1144</span>
+<span id="1145">1145</span>
+<span id="1146">1146</span>
+<span id="1147">1147</span>
+<span id="1148">1148</span>
+<span id="1149">1149</span>
+<span id="1150">1150</span>
+<span id="1151">1151</span>
+<span id="1152">1152</span>
+<span id="1153">1153</span>
+<span id="1154">1154</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1545,7 +1571,7 @@
 		<span class="ident">start_session_index</span>: <span class="ident">SessionIndex</span>,
 		<span class="ident">is_genesis</span>: <span class="ident">bool</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> (<span class="ident">election_result</span>, <span class="ident">weight</span>) <span class="op">=</span> <span class="kw">if</span> <span class="ident">is_genesis</span> {
+		<span class="kw">let</span> <span class="ident">election_result</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">is_genesis</span> {
 			<span class="ident">T::GenesisElectionProvider::elect</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 				<span class="macro">log!</span>(<span class="ident">warn</span>, <span class="string">&quot;genesis election provider failed due to {:?}&quot;</span>, <span class="ident">e</span>);
 				<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event::StakingElectionFailed</span>);
@@ -1558,13 +1584,7 @@
 		}
 		.<span class="ident">ok</span>()<span class="question-mark">?</span>;
 
-		<span class="op">&lt;</span><span class="ident">frame_system::Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::register_extra_weight_unchecked</span>(
-			<span class="ident">weight</span>,
-			<span class="ident">frame_support::weights::DispatchClass::Mandatory</span>,
-		);
-
 		<span class="kw">let</span> <span class="ident">exposures</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::collect_exposures</span>(<span class="ident">election_result</span>);
-
 		<span class="kw">if</span> (<span class="ident">exposures</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>) <span class="op">&lt;</span> <span class="self">Self</span><span class="ident">::minimum_validator_count</span>().<span class="ident">max</span>(<span class="number">1</span>) {
 			<span class="comment">// Session will panic if we ever return an empty validator set, thus max(1) ^^.</span>
 			<span class="kw">match</span> <span class="ident">CurrentEra</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>() {
@@ -1777,25 +1797,28 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This will use all on-chain nominators, and all the validators will inject a self vote.</span>
 	<span class="doccomment">///</span>
+	<span class="doccomment">/// This function is self-weighing as [`DispatchClass::Mandatory`].</span>
+	<span class="doccomment">///</span>
 	<span class="doccomment">/// ### Slashing</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// All nominations that have been submitted before the last non-zero slash of the validator are</span>
 	<span class="doccomment">/// auto-chilled.</span>
-	<span class="doccomment">///</span>
-	<span class="doccomment">/// Note that this is VERY expensive. Use with care.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_npos_voters</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">T::AccountId</span>, <span class="ident">VoteWeight</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">weight_of</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::slashable_balance_of_fn</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">all_voters</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
 
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">validator_count</span> <span class="op">=</span> <span class="number">0u32</span>;
 		<span class="kw">for</span> (<span class="ident">validator</span>, <span class="kw">_</span>) <span class="kw">in</span> <span class="op">&lt;</span><span class="ident">Validators</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::iter</span>() {
 			<span class="comment">// Append self vote.</span>
 			<span class="kw">let</span> <span class="ident">self_vote</span> <span class="op">=</span> (<span class="ident">validator</span>.<span class="ident">clone</span>(), <span class="ident">weight_of</span>(<span class="kw-2">&amp;</span><span class="ident">validator</span>), <span class="macro">vec!</span>[<span class="ident">validator</span>.<span class="ident">clone</span>()]);
 			<span class="ident">all_voters</span>.<span class="ident">push</span>(<span class="ident">self_vote</span>);
+			<span class="ident">validator_count</span>.<span class="ident">saturating_inc</span>();
 		}
 
 		<span class="comment">// Collect all slashing spans into a BTreeMap for further queries.</span>
 		<span class="kw">let</span> <span class="ident">slashing_spans</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">SlashingSpans</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">nominator_count</span> <span class="op">=</span> <span class="number">0u32</span>;
 		<span class="kw">for</span> (<span class="ident">nominator</span>, <span class="ident">nominations</span>) <span class="kw">in</span> <span class="ident">Nominators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::iter</span>() {
 			<span class="kw">let</span> <span class="ident">Nominations</span> { <span class="ident">submitted_in</span>, <span class="kw-2">mut</span> <span class="ident">targets</span>, <span class="ident">suppressed</span>: <span class="kw">_</span> } <span class="op">=</span> <span class="ident">nominations</span>;
 
@@ -1809,17 +1832,35 @@
 
 			<span class="kw">if</span> <span class="op">!</span><span class="ident">targets</span>.<span class="ident">is_empty</span>() {
 				<span class="kw">let</span> <span class="ident">vote_weight</span> <span class="op">=</span> <span class="ident">weight_of</span>(<span class="kw-2">&amp;</span><span class="ident">nominator</span>);
-				<span class="ident">all_voters</span>.<span class="ident">push</span>((<span class="ident">nominator</span>, <span class="ident">vote_weight</span>, <span class="ident">targets</span>))
+				<span class="ident">all_voters</span>.<span class="ident">push</span>((<span class="ident">nominator</span>, <span class="ident">vote_weight</span>, <span class="ident">targets</span>));
+				<span class="ident">nominator_count</span>.<span class="ident">saturating_inc</span>();
 			}
 		}
+
+		<span class="self">Self</span><span class="ident">::register_weight</span>(<span class="ident">T::WeightInfo::get_npos_voters</span>(
+			<span class="ident">validator_count</span>,
+			<span class="ident">nominator_count</span>,
+			<span class="ident">slashing_spans</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>,
+		));
 
 		<span class="ident">all_voters</span>
 	}
 
-	<span class="doccomment">/// This is a very expensive function and result should be cached versus being called multiple</span>
-	<span class="doccomment">/// times.</span>
+	<span class="doccomment">/// Get the targets for an upcoming npos election.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// This function is self-weighing as [`DispatchClass::Mandatory`].</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_npos_targets</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span> {
-		<span class="ident">Validators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">v</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">v</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">validator_count</span> <span class="op">=</span> <span class="number">0u32</span>;
+		<span class="kw">let</span> <span class="ident">targets</span> <span class="op">=</span> <span class="ident">Validators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::iter</span>()
+			.<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">v</span>, <span class="kw">_</span>)<span class="op">|</span> {
+				<span class="ident">validator_count</span>.<span class="ident">saturating_inc</span>();
+				<span class="ident">v</span>
+			})
+			.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
+
+		<span class="self">Self</span><span class="ident">::register_weight</span>(<span class="ident">T::WeightInfo::get_npos_targets</span>(<span class="ident">validator_count</span>));
+
+		<span class="ident">targets</span>
 	}
 
 	<span class="doccomment">/// This function will add a nominator to the `Nominators` storage map,</span>
@@ -1871,47 +1912,58 @@
 			<span class="bool-val">false</span>
 		}
 	}
+
+	<span class="doccomment">/// Register some amount of weight directly with the system pallet.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// This is always mandatory weight.</span>
+	<span class="kw">fn</span> <span class="ident">register_weight</span>(<span class="ident">weight</span>: <span class="ident">Weight</span>) {
+		<span class="op">&lt;</span><span class="ident">frame_system::Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::register_extra_weight_unchecked</span>(
+			<span class="ident">weight</span>,
+			<span class="ident">DispatchClass::Mandatory</span>,
+		);
+	}
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="ident">frame_election_provider_support::ElectionDataProvider</span><span class="op">&lt;</span><span class="ident">T::AccountId</span>, <span class="ident">T::BlockNumber</span><span class="op">&gt;</span>
 	<span class="kw">for</span> <span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
 	<span class="kw">const</span> <span class="ident">MAXIMUM_VOTES_PER_VOTER</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">T::MAX_NOMINATIONS</span>;
-	<span class="kw">fn</span> <span class="ident">desired_targets</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">data_provider::Result</span><span class="op">&lt;</span>(<span class="ident">u32</span>, <span class="ident">Weight</span>)<span class="op">&gt;</span> {
-		<span class="prelude-val">Ok</span>((<span class="self">Self</span><span class="ident">::validator_count</span>(), <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">frame_system::Config</span><span class="op">&gt;</span><span class="ident">::DbWeight::get</span>().<span class="ident">reads</span>(<span class="number">1</span>)))
+	<span class="kw">fn</span> <span class="ident">desired_targets</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">data_provider::Result</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> {
+		<span class="self">Self</span><span class="ident">::register_weight</span>(<span class="ident">T::DbWeight::get</span>().<span class="ident">reads</span>(<span class="number">1</span>));
+		<span class="prelude-val">Ok</span>(<span class="self">Self</span><span class="ident">::validator_count</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">voters</span>(
 		<span class="ident">maybe_max_len</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">data_provider::Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">T::AccountId</span>, <span class="ident">VoteWeight</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>)<span class="op">&gt;</span>, <span class="ident">Weight</span>)<span class="op">&gt;</span> {
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">data_provider::Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">T::AccountId</span>, <span class="ident">VoteWeight</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>)<span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">nominator_count</span> <span class="op">=</span> <span class="ident">CounterForNominators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>();
 		<span class="kw">let</span> <span class="ident">validator_count</span> <span class="op">=</span> <span class="ident">CounterForValidators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>();
+
 		<span class="kw">let</span> <span class="ident">voter_count</span> <span class="op">=</span> <span class="ident">nominator_count</span>.<span class="ident">saturating_add</span>(<span class="ident">validator_count</span>) <span class="kw">as</span> <span class="ident">usize</span>;
 		<span class="macro">debug_assert!</span>(<span class="op">&lt;</span><span class="ident">Nominators</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::iter</span>().<span class="ident">count</span>() <span class="kw">as</span> <span class="ident">u32</span> <span class="op">=</span><span class="op">=</span> <span class="ident">CounterForNominators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>());
 		<span class="macro">debug_assert!</span>(<span class="op">&lt;</span><span class="ident">Validators</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::iter</span>().<span class="ident">count</span>() <span class="kw">as</span> <span class="ident">u32</span> <span class="op">=</span><span class="op">=</span> <span class="ident">CounterForValidators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>());
+
+		<span class="comment">// register the extra 2 reads</span>
+		<span class="self">Self</span><span class="ident">::register_weight</span>(<span class="ident">T::DbWeight::get</span>().<span class="ident">reads</span>(<span class="number">2</span>));
 
 		<span class="kw">if</span> <span class="ident">maybe_max_len</span>.<span class="ident">map_or</span>(<span class="bool-val">false</span>, <span class="op">|</span><span class="ident">max_len</span><span class="op">|</span> <span class="ident">voter_count</span> <span class="op">&gt;</span> <span class="ident">max_len</span>) {
 			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Voter snapshot too big&quot;</span>)
 		}
 
-		<span class="kw">let</span> <span class="ident">slashing_span_count</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">SlashingSpans</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::iter</span>().<span class="ident">count</span>();
-		<span class="kw">let</span> <span class="ident">weight</span> <span class="op">=</span> <span class="ident">T::WeightInfo::get_npos_voters</span>(
-			<span class="ident">nominator_count</span>,
-			<span class="ident">validator_count</span>,
-			<span class="ident">slashing_span_count</span> <span class="kw">as</span> <span class="ident">u32</span>,
-		);
-		<span class="prelude-val">Ok</span>((<span class="self">Self</span><span class="ident">::get_npos_voters</span>(), <span class="ident">weight</span>))
+		<span class="prelude-val">Ok</span>(<span class="self">Self</span><span class="ident">::get_npos_voters</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">targets</span>(<span class="ident">maybe_max_len</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">data_provider::Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>, <span class="ident">Weight</span>)<span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">targets</span>(<span class="ident">maybe_max_len</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">data_provider::Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">target_count</span> <span class="op">=</span> <span class="ident">CounterForValidators</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>() <span class="kw">as</span> <span class="ident">usize</span>;
+
+		<span class="comment">// register the extra 1 read</span>
+		<span class="self">Self</span><span class="ident">::register_weight</span>(<span class="ident">T::DbWeight::get</span>().<span class="ident">reads</span>(<span class="number">1</span>));
 
 		<span class="kw">if</span> <span class="ident">maybe_max_len</span>.<span class="ident">map_or</span>(<span class="bool-val">false</span>, <span class="op">|</span><span class="ident">max_len</span><span class="op">|</span> <span class="ident">target_count</span> <span class="op">&gt;</span> <span class="ident">max_len</span>) {
 			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Target snapshot too big&quot;</span>)
 		}
 
-		<span class="kw">let</span> <span class="ident">weight</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">frame_system::Config</span><span class="op">&gt;</span><span class="ident">::DbWeight::get</span>().<span class="ident">reads</span>(<span class="ident">target_count</span> <span class="kw">as</span> <span class="ident">u64</span>);
-		<span class="prelude-val">Ok</span>((<span class="self">Self</span><span class="ident">::get_npos_targets</span>(), <span class="ident">weight</span>))
+		<span class="prelude-val">Ok</span>(<span class="self">Self</span><span class="ident">::get_npos_targets</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">next_election_prediction</span>(<span class="ident">now</span>: <span class="ident">T::BlockNumber</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T::BlockNumber</span> {
@@ -1947,7 +1999,7 @@
 		)
 	}
 
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>, <span class="ident">test</span>))]</span>
+	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>)]</span>
 	<span class="kw">fn</span> <span class="ident">add_voter</span>(<span class="ident">voter</span>: <span class="ident">T::AccountId</span>, <span class="ident">weight</span>: <span class="ident">VoteWeight</span>, <span class="ident">targets</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>) {
 		<span class="kw">use</span> <span class="ident">sp_std::convert::TryFrom</span>;
 		<span class="kw">let</span> <span class="ident">stake</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">weight</span>).<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
@@ -1967,7 +2019,7 @@
 		<span class="self">Self</span><span class="ident">::do_add_nominator</span>(<span class="kw-2">&amp;</span><span class="ident">voter</span>, <span class="ident">Nominations</span> { <span class="ident">targets</span>, <span class="ident">submitted_in</span>: <span class="number">0</span>, <span class="ident">suppressed</span>: <span class="bool-val">false</span> });
 	}
 
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>, <span class="ident">test</span>))]</span>
+	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>)]</span>
 	<span class="kw">fn</span> <span class="ident">add_target</span>(<span class="ident">target</span>: <span class="ident">T::AccountId</span>) {
 		<span class="kw">let</span> <span class="ident">stake</span> <span class="op">=</span> <span class="ident">MinValidatorBond</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>() <span class="op">*</span> <span class="number">100u32</span>.<span class="ident">into</span>();
 		<span class="op">&lt;</span><span class="ident">Bonded</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="ident">target</span>.<span class="ident">clone</span>(), <span class="ident">target</span>.<span class="ident">clone</span>());
@@ -1987,7 +2039,7 @@
 		);
 	}
 
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>, <span class="ident">test</span>))]</span>
+	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>)]</span>
 	<span class="kw">fn</span> <span class="ident">clear</span>() {
 		<span class="op">&lt;</span><span class="ident">Bonded</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::remove_all</span>(<span class="prelude-val">None</span>);
 		<span class="op">&lt;</span><span class="ident">Ledger</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::remove_all</span>(<span class="prelude-val">None</span>);
@@ -1995,7 +2047,7 @@
 		<span class="op">&lt;</span><span class="ident">Nominators</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::remove_all</span>(<span class="prelude-val">None</span>);
 	}
 
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>, <span class="ident">test</span>))]</span>
+	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>)]</span>
 	<span class="kw">fn</span> <span class="ident">put_snapshot</span>(
 		<span class="ident">voters</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">T::AccountId</span>, <span class="ident">VoteWeight</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
 		<span class="ident">targets</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>,

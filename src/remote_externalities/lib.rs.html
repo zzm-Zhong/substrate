@@ -937,7 +937,7 @@
 		<span class="kw">use</span> <span class="ident">serde_json::to_value</span>;
 		<span class="kw">let</span> <span class="ident">keys</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_keys_paged</span>(<span class="ident">prefix</span>, <span class="ident">at</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">keys_count</span> <span class="op">=</span> <span class="ident">keys</span>.<span class="ident">len</span>();
-		<span class="macro">info!</span>(<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>, <span class="string">&quot;Querying a total of {} keys&quot;</span>, <span class="ident">keys</span>.<span class="ident">len</span>());
+		<span class="macro">debug!</span>(<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>, <span class="string">&quot;Querying a total of {} keys&quot;</span>, <span class="ident">keys</span>.<span class="ident">len</span>());
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">key_values</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">KeyPair</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[];
 		<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">as_online</span>().<span class="ident">rpc_client</span>();
@@ -993,7 +993,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> <span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Save the given data as state snapshot.</span>
 	<span class="kw">fn</span> <span class="ident">save_state_snapshot</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">KeyPair</span>], <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
-		<span class="macro">info!</span>(<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>, <span class="string">&quot;writing to state snapshot file {:?}&quot;</span>, <span class="ident">path</span>);
+		<span class="macro">debug!</span>(<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>, <span class="string">&quot;writing to state snapshot file {:?}&quot;</span>, <span class="ident">path</span>);
 		<span class="ident">fs::write</span>(<span class="ident">path</span>, <span class="ident">data</span>.<span class="ident">encode</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="string">&quot;fs::write failed.&quot;</span>)<span class="question-mark">?</span>;
 		<span class="prelude-val">Ok</span>(())
 	}
@@ -1058,7 +1058,7 @@
 
 	<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">init_remote_client</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">online</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">as_online_mut</span>();
-		<span class="macro">info!</span>(<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>, <span class="string">&quot;initializing remote client to {:?}&quot;</span>, <span class="ident">online</span>.<span class="ident">transport</span>.<span class="ident">uri</span>);
+		<span class="macro">debug!</span>(<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>, <span class="string">&quot;initializing remote client to {:?}&quot;</span>, <span class="ident">online</span>.<span class="ident">transport</span>.<span class="ident">uri</span>);
 
 		<span class="comment">// First, initialize the ws client.</span>
 		<span class="kw">let</span> <span class="ident">ws_client</span> <span class="op">=</span> <span class="ident">WsClientBuilder::default</span>()
@@ -1090,7 +1090,7 @@
 			},
 		};
 
-		<span class="macro">info!</span>(
+		<span class="macro">debug!</span>(
 			<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>,
 			<span class="string">&quot;extending externalities with {} manually injected key-values&quot;</span>,
 			<span class="self">self</span>.<span class="ident">inject</span>.<span class="ident">len</span>()
@@ -1142,7 +1142,7 @@
 		<span class="kw">let</span> <span class="ident">kv</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">pre_build</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ext</span> <span class="op">=</span> <span class="ident">TestExternalities::new_empty</span>();
 
-		<span class="macro">info!</span>(<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>, <span class="string">&quot;injecting a total of {} keys&quot;</span>, <span class="ident">kv</span>.<span class="ident">len</span>());
+		<span class="macro">debug!</span>(<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>, <span class="string">&quot;injecting a total of {} keys&quot;</span>, <span class="ident">kv</span>.<span class="ident">len</span>());
 		<span class="kw">for</span> (<span class="ident">k</span>, <span class="ident">v</span>) <span class="kw">in</span> <span class="ident">kv</span> {
 			<span class="kw">let</span> (<span class="ident">k</span>, <span class="ident">v</span>) <span class="op">=</span> (<span class="ident">k</span>.<span class="number">0</span>, <span class="ident">v</span>.<span class="number">0</span>);
 			<span class="comment">// Insert the key,value pair into the test trie backend</span>
