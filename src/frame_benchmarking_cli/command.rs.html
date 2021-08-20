@@ -481,6 +481,22 @@
 <span id="470">470</span>
 <span id="471">471</span>
 <span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -891,6 +907,20 @@
 				<span class="macro">println!</span>();
 			}
 
+			<span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">no_storage_info</span> {
+				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">comments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Default::default</span>();
+				<span class="kw">crate</span><span class="ident">::writer::add_storage_comments</span>(
+					<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">comments</span>,
+					<span class="kw-2">&amp;</span><span class="ident">batch</span>.<span class="ident">db_results</span>,
+					<span class="kw-2">&amp;</span><span class="ident">storage_info</span>,
+				);
+				<span class="macro">println!</span>(<span class="string">&quot;Raw Storage Info\n========&quot;</span>);
+				<span class="kw">for</span> <span class="ident">comment</span> <span class="kw">in</span> <span class="ident">comments</span> {
+					<span class="macro">println!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">comment</span>);
+				}
+				<span class="macro">println!</span>(<span class="string">&quot;&quot;</span>);
+			}
+
 			<span class="comment">// Conduct analysis.</span>
 			<span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">no_median_slopes</span> {
 				<span class="macro">println!</span>(<span class="string">&quot;Median Slopes Analysis\n========&quot;</span>);
@@ -909,6 +939,7 @@
 				{
 					<span class="macro">println!</span>(<span class="string">&quot;Writes = {:?}&quot;</span>, <span class="ident">analysis</span>);
 				}
+				<span class="macro">println!</span>(<span class="string">&quot;&quot;</span>);
 			}
 			<span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">no_min_squares</span> {
 				<span class="macro">println!</span>(<span class="string">&quot;Min Squares Analysis\n========&quot;</span>);
@@ -927,6 +958,7 @@
 				{
 					<span class="macro">println!</span>(<span class="string">&quot;Writes = {:?}&quot;</span>, <span class="ident">analysis</span>);
 				}
+				<span class="macro">println!</span>(<span class="string">&quot;&quot;</span>);
 			}
 		}
 

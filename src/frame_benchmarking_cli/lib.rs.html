@@ -153,6 +153,13 @@
 <span id="142">142</span>
 <span id="143">143</span>
 <span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -297,6 +304,13 @@
 	<span class="doccomment">/// When nothing is provided, we list all benchmarks.</span>
 	<span class="attribute">#[<span class="ident">structopt</span>(<span class="ident">long</span>)]</span>
 	<span class="kw">pub</span> <span class="ident">list</span>: <span class="ident">bool</span>,
+
+	<span class="doccomment">/// If enabled, the storage info is not displayed in the output next to the analysis.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// This is independent of the storage info appearing in the *output file*. Use a Handlebar</span>
+	<span class="doccomment">/// template for that purpose.</span>
+	<span class="attribute">#[<span class="ident">structopt</span>(<span class="ident">long</span>)]</span>
+	<span class="kw">pub</span> <span class="ident">no_storage_info</span>: <span class="ident">bool</span>,
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="frame_benchmarking_cli" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>

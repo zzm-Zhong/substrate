@@ -975,7 +975,7 @@
 <span class="comment">// This function looks at the keys touched during the benchmark, and the storage info we collected</span>
 <span class="comment">// from the pallets, and creates comments with information about the storage keys touched during</span>
 <span class="comment">// each benchmark.</span>
-<span class="kw">fn</span> <span class="ident">add_storage_comments</span>(
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">add_storage_comments</span>(
 	<span class="ident">comments</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	<span class="ident">results</span>: <span class="kw-2">&amp;</span>[<span class="ident">BenchmarkResult</span>],
 	<span class="ident">storage_info</span>: <span class="kw-2">&amp;</span>[<span class="ident">StorageInfo</span>],
