@@ -1997,7 +1997,7 @@
 						},
 						<span class="comment">// We never start any other type of query.</span>
 						<span class="ident">e</span> <span class="op">=</span><span class="op">&gt;</span> {
-							<span class="macro">warn!</span>(<span class="ident">target</span>: <span class="string">&quot;sub-libp2p&quot;</span>, <span class="string">&quot;Libp2p =&gt; Unhandled Kademlia event: {:?}&quot;</span>, <span class="ident">e</span>)
+							<span class="macro">debug!</span>(<span class="ident">target</span>: <span class="string">&quot;sub-libp2p&quot;</span>, <span class="string">&quot;Libp2p =&gt; Unhandled Kademlia event: {:?}&quot;</span>, <span class="ident">e</span>)
 						},
 					},
 					<span class="ident">NetworkBehaviourAction::DialAddress</span> { <span class="ident">address</span> } <span class="op">=</span><span class="op">&gt;</span>
