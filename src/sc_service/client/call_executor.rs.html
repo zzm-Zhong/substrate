@@ -436,10 +436,6 @@
 <span id="425">425</span>
 <span id="426">426</span>
 <span id="427">427</span>
-<span id="428">428</span>
-<span id="429">429</span>
-<span id="430">430</span>
-<span id="431">431</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -655,7 +651,7 @@
 			<span class="ident">backend::changes_tries_state_at_block</span>(<span class="ident">at</span>, <span class="self">self</span>.<span class="ident">backend</span>.<span class="ident">changes_trie_storage</span>())<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage_transaction_cache</span> <span class="op">=</span> <span class="ident">storage_transaction_cache</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">borrow_mut</span>());
 
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">state</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">backend</span>.<span class="ident">state_at</span>(<span class="kw-2">*</span><span class="ident">at</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">state</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">backend</span>.<span class="ident">state_at</span>(<span class="kw-2">*</span><span class="ident">at</span>)<span class="question-mark">?</span>;
 
 		<span class="kw">let</span> <span class="ident">changes</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">changes</span>.<span class="ident">borrow_mut</span>();
 
@@ -663,20 +659,21 @@
 			<span class="ident">sp_blockchain::Error::UnknownBlock</span>(<span class="macro">format!</span>(<span class="string">&quot;Could not find block hash for {:?}&quot;</span>, <span class="ident">at</span>))
 		})<span class="question-mark">?</span>;
 
+		<span class="comment">// It is important to extract the runtime code here before we create the proof</span>
+		<span class="comment">// recorder to not record it. We also need to fetch the runtime code from `state` to</span>
+		<span class="comment">// make sure we use the caching layers.</span>
+		<span class="kw">let</span> <span class="ident">state_runtime_code</span> <span class="op">=</span> <span class="ident">sp_state_machine::backend::BackendRuntimeCode::new</span>(<span class="kw-2">&amp;</span><span class="ident">state</span>);
+
+		<span class="kw">let</span> <span class="ident">runtime_code</span> <span class="op">=</span>
+			<span class="ident">state_runtime_code</span>.<span class="ident">runtime_code</span>().<span class="ident">map_err</span>(<span class="ident">sp_blockchain::Error::RuntimeCode</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">runtime_code</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">check_override</span>(<span class="ident">runtime_code</span>, <span class="ident">at</span>)<span class="question-mark">?</span>;
+
 		<span class="kw">match</span> <span class="ident">recorder</span> {
 			<span class="prelude-val">Some</span>(<span class="ident">recorder</span>) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">let</span> <span class="ident">trie_state</span> <span class="op">=</span> <span class="ident">state</span>.<span class="ident">as_trie_backend</span>().<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
 					<span class="ident">Box::new</span>(<span class="ident">sp_state_machine::ExecutionError::UnableToGenerateProof</span>)
 						<span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">sp_state_machine::Error</span><span class="op">&gt;</span>
 				})<span class="question-mark">?</span>;
-
-				<span class="kw">let</span> <span class="ident">state_runtime_code</span> <span class="op">=</span>
-					<span class="ident">sp_state_machine::backend::BackendRuntimeCode::new</span>(<span class="ident">trie_state</span>);
-				<span class="comment">// It is important to extract the runtime code here before we create the proof</span>
-				<span class="comment">// recorder.</span>
-				<span class="kw">let</span> <span class="ident">runtime_code</span> <span class="op">=</span>
-					<span class="ident">state_runtime_code</span>.<span class="ident">runtime_code</span>().<span class="ident">map_err</span>(<span class="ident">sp_blockchain::Error::RuntimeCode</span>)<span class="question-mark">?</span>;
-				<span class="kw">let</span> <span class="ident">runtime_code</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">check_override</span>(<span class="ident">runtime_code</span>, <span class="ident">at</span>)<span class="question-mark">?</span>;
 
 				<span class="kw">let</span> <span class="ident">backend</span> <span class="op">=</span> <span class="ident">sp_state_machine::ProvingBackend::new_with_recorder</span>(
 					<span class="ident">trie_state</span>,
@@ -702,11 +699,6 @@
 				)
 			},
 			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-				<span class="kw">let</span> <span class="ident">state_runtime_code</span> <span class="op">=</span> <span class="ident">sp_state_machine::backend::BackendRuntimeCode::new</span>(<span class="kw-2">&amp;</span><span class="ident">state</span>);
-				<span class="kw">let</span> <span class="ident">runtime_code</span> <span class="op">=</span>
-					<span class="ident">state_runtime_code</span>.<span class="ident">runtime_code</span>().<span class="ident">map_err</span>(<span class="ident">sp_blockchain::Error::RuntimeCode</span>)<span class="question-mark">?</span>;
-				<span class="kw">let</span> <span class="ident">runtime_code</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">check_override</span>(<span class="ident">runtime_code</span>, <span class="ident">at</span>)<span class="question-mark">?</span>;
-
 				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">state_machine</span> <span class="op">=</span> <span class="ident">StateMachine::new</span>(
 					<span class="kw-2">&amp;</span><span class="ident">state</span>,
 					<span class="ident">changes_trie_state</span>,
@@ -752,7 +744,7 @@
 		<span class="ident">method</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
 		<span class="ident">call_data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">sp_blockchain::Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">StorageProof</span>)<span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">state</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">backend</span>.<span class="ident">state_at</span>(<span class="kw-2">*</span><span class="ident">at</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">state</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">backend</span>.<span class="ident">state_at</span>(<span class="kw-2">*</span><span class="ident">at</span>)<span class="question-mark">?</span>;
 
 		<span class="kw">let</span> <span class="ident">trie_backend</span> <span class="op">=</span> <span class="ident">state</span>.<span class="ident">as_trie_backend</span>().<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
 			<span class="ident">Box::new</span>(<span class="ident">sp_state_machine::ExecutionError::UnableToGenerateProof</span>)

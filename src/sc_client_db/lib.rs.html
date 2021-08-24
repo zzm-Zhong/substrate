@@ -3744,7 +3744,7 @@
 	}
 
 	<span class="kw">fn</span> <span class="ident">as_trie_backend</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">sp_state_machine::TrieBackend</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::TrieBackendStorage</span>, <span class="ident">HashFor</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">state</span>.<span class="ident">as_trie_backend</span>()
 	}
