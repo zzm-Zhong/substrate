@@ -946,8 +946,8 @@
 	}
 }
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 <span class="comment">// Wrapper for HTTP and WS servers that makes sure they are properly shut down.</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 <span class="kw">mod</span> <span class="ident">waiting</span> {
 	<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HttpServer</span>(<span class="kw">pub</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">sc_rpc_server::HttpServer</span><span class="op">&gt;</span>);
 	<span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">HttpServer</span> {

@@ -842,7 +842,7 @@
 			<span class="ident">consensus_data_provider</span>: <span class="prelude-val">None</span>,
 		});
 		<span class="ident">std::thread::spawn</span>(<span class="op">|</span><span class="op">|</span> {
-			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rt</span> <span class="op">=</span> <span class="ident">tokio::runtime::Runtime::new</span>().<span class="ident">unwrap</span>();
+			<span class="kw">let</span> <span class="ident">rt</span> <span class="op">=</span> <span class="ident">tokio::runtime::Runtime::new</span>().<span class="ident">unwrap</span>();
 			<span class="comment">// spawn the background authorship task</span>
 			<span class="ident">rt</span>.<span class="ident">block_on</span>(<span class="ident">future</span>);
 		});
@@ -899,7 +899,7 @@
 			<span class="ident">create_inherent_data_providers</span>: <span class="op">|</span><span class="kw">_</span>, <span class="kw">_</span><span class="op">|</span> <span class="kw">async</span> { <span class="prelude-val">Ok</span>(()) },
 		});
 		<span class="ident">std::thread::spawn</span>(<span class="op">|</span><span class="op">|</span> {
-			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rt</span> <span class="op">=</span> <span class="ident">tokio::runtime::Runtime::new</span>().<span class="ident">unwrap</span>();
+			<span class="kw">let</span> <span class="ident">rt</span> <span class="op">=</span> <span class="ident">tokio::runtime::Runtime::new</span>().<span class="ident">unwrap</span>();
 			<span class="comment">// spawn the background authorship task</span>
 			<span class="ident">rt</span>.<span class="ident">block_on</span>(<span class="ident">future</span>);
 		});
@@ -977,7 +977,7 @@
 			<span class="ident">create_inherent_data_providers</span>: <span class="op">|</span><span class="kw">_</span>, <span class="kw">_</span><span class="op">|</span> <span class="kw">async</span> { <span class="prelude-val">Ok</span>(()) },
 		});
 		<span class="ident">std::thread::spawn</span>(<span class="op">|</span><span class="op">|</span> {
-			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rt</span> <span class="op">=</span> <span class="ident">tokio::runtime::Runtime::new</span>().<span class="ident">unwrap</span>();
+			<span class="kw">let</span> <span class="ident">rt</span> <span class="op">=</span> <span class="ident">tokio::runtime::Runtime::new</span>().<span class="ident">unwrap</span>();
 			<span class="comment">// spawn the background authorship task</span>
 			<span class="ident">rt</span>.<span class="ident">block_on</span>(<span class="ident">future</span>);
 		});

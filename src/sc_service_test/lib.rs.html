@@ -682,9 +682,6 @@
 <span id="671">671</span>
 <span id="672">672</span>
 <span id="673">673</span>
-<span id="674">674</span>
-<span id="675">675</span>
-<span id="676">676</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -706,8 +703,7 @@
 
 <span class="doccomment">//! Service integration test utils.</span>
 
-<span class="kw">use</span> <span class="ident">futures</span>::{<span class="ident">FutureExt</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">TryFutureExt</span> <span class="kw">as</span> <span class="kw">_</span>};
-<span class="kw">use</span> <span class="ident">futures01</span>::{<span class="ident">Future</span>, <span class="ident">Poll</span>, <span class="ident">Stream</span>};
+<span class="kw">use</span> <span class="ident">futures</span>::{<span class="ident">task::Poll</span>, <span class="ident">Future</span>, <span class="ident">FutureExt</span>, <span class="ident">TryFutureExt</span> <span class="kw">as</span> <span class="kw">_</span>};
 <span class="kw">use</span> <span class="ident">log</span>::{<span class="ident">debug</span>, <span class="ident">info</span>};
 <span class="kw">use</span> <span class="ident">parking_lot::Mutex</span>;
 <span class="kw">use</span> <span class="ident">sc_client_api</span>::{<span class="ident">Backend</span>, <span class="ident">CallExecutor</span>};
@@ -724,9 +720,9 @@
 <span class="kw">use</span> <span class="ident">sc_transaction_pool_api::TransactionPool</span>;
 <span class="kw">use</span> <span class="ident">sp_blockchain::HeaderBackend</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{<span class="ident">generic::BlockId</span>, <span class="ident">traits::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>};
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">iter</span>, <span class="ident">net::Ipv4Addr</span>, <span class="ident">pin::Pin</span>, <span class="ident">sync::Arc</span>, <span class="ident">time::Duration</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">iter</span>, <span class="ident">net::Ipv4Addr</span>, <span class="ident">pin::Pin</span>, <span class="ident">sync::Arc</span>, <span class="ident">task::Context</span>, <span class="ident">time::Duration</span>};
 <span class="kw">use</span> <span class="ident">tempfile::TempDir</span>;
-<span class="kw">use</span> <span class="ident">tokio</span>::{<span class="ident">prelude::FutureExt</span>, <span class="ident">runtime::Runtime</span>, <span class="ident">timer::Interval</span>};
+<span class="kw">use</span> <span class="ident">tokio</span>::{<span class="ident">runtime::Runtime</span>, <span class="ident">time</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">client</span>;
@@ -745,7 +741,7 @@
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TestNetNode</span>:
-	<span class="ident">Clone</span> <span class="op">+</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (), <span class="ident">Error</span> <span class="op">=</span> <span class="ident">sc_service::Error</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>
+	<span class="ident">Clone</span> <span class="op">+</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">sc_service::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>
 {
 	<span class="kw">type</span> <span class="ident">Block</span>: <span class="ident">BlockT</span>;
 	<span class="kw">type</span> <span class="ident">Backend</span>: <span class="ident">Backend</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Block</span><span class="op">&gt;</span>;
@@ -797,11 +793,10 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">TBl</span>: <span class="ident">BlockT</span>, <span class="ident">TBackend</span>, <span class="ident">TExec</span>, <span class="ident">TRtApi</span>, <span class="ident">TExPool</span><span class="op">&gt;</span> <span class="ident">Future</span>
 	<span class="kw">for</span> <span class="ident">TestNetComponents</span><span class="op">&lt;</span><span class="ident">TBl</span>, <span class="ident">TBackend</span>, <span class="ident">TExec</span>, <span class="ident">TRtApi</span>, <span class="ident">TExPool</span><span class="op">&gt;</span>
 {
-	<span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> ();
-	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">sc_service::Error</span>;
+	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">sc_service::Error</span><span class="op">&gt;</span>;
 
-	<span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Item</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
-		<span class="ident">futures::compat::Compat::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">task_manager</span>.<span class="ident">lock</span>().<span class="ident">future</span>()).<span class="ident">poll</span>()
+	<span class="kw">fn</span> <span class="ident">poll</span>(<span class="self">self</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Context</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Output</span><span class="op">&gt;</span> {
+		<span class="ident">Pin::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">task_manager</span>.<span class="ident">lock</span>().<span class="ident">future</span>()).<span class="ident">poll</span>(<span class="ident">cx</span>)
 	}
 }
 
@@ -849,33 +844,36 @@
 	{
 		<span class="kw">let</span> <span class="ident">full_nodes</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">full_nodes</span>.<span class="ident">clone</span>();
 		<span class="kw">let</span> <span class="ident">light_nodes</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">light_nodes</span>.<span class="ident">clone</span>();
-		<span class="kw">let</span> <span class="ident">interval</span> <span class="op">=</span> <span class="ident">Interval::new_interval</span>(<span class="ident">Duration::from_millis</span>(<span class="number">100</span>))
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
-			.<span class="ident">for_each</span>(<span class="kw">move</span> <span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
+		<span class="kw">let</span> <span class="ident">future</span> <span class="op">=</span> <span class="kw">async</span> <span class="kw">move</span> {
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">interval</span> <span class="op">=</span> <span class="ident">time::interval</span>(<span class="ident">Duration::from_millis</span>(<span class="number">100</span>));
+
+			<span class="kw">loop</span> {
+				<span class="ident">interval</span>.<span class="ident">tick</span>().<span class="kw">await</span>;
+
 				<span class="kw">let</span> <span class="ident">full_ready</span> <span class="op">=</span> <span class="ident">full_nodes</span>
 					.<span class="ident">iter</span>()
 					.<span class="ident">all</span>(<span class="op">|</span><span class="kw-2">&amp;</span>(<span class="kw-2">ref</span> <span class="ident">id</span>, <span class="kw-2">ref</span> <span class="ident">service</span>, <span class="kw">_</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">full_predicate</span>(<span class="kw-2">*</span><span class="ident">id</span>, <span class="ident">service</span>));
 
 				<span class="kw">if</span> <span class="op">!</span><span class="ident">full_ready</span> {
-					<span class="kw">return</span> <span class="prelude-val">Ok</span>(())
+					<span class="kw">continue</span>
 				}
 
 				<span class="kw">let</span> <span class="ident">light_ready</span> <span class="op">=</span> <span class="ident">light_nodes</span>
 					.<span class="ident">iter</span>()
 					.<span class="ident">all</span>(<span class="op">|</span><span class="kw-2">&amp;</span>(<span class="kw-2">ref</span> <span class="ident">id</span>, <span class="kw-2">ref</span> <span class="ident">service</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">light_predicate</span>(<span class="kw-2">*</span><span class="ident">id</span>, <span class="ident">service</span>));
 
-				<span class="kw">if</span> <span class="op">!</span><span class="ident">light_ready</span> {
-					<span class="prelude-val">Ok</span>(())
-				} <span class="kw">else</span> {
-					<span class="prelude-val">Err</span>(())
+				<span class="kw">if</span> <span class="ident">light_ready</span> {
+					<span class="kw">return</span>
 				}
-			})
-			.<span class="ident">timeout</span>(<span class="ident">MAX_WAIT_TIME</span>);
+			}
+		};
 
-		<span class="kw">match</span> <span class="self">self</span>.<span class="ident">runtime</span>.<span class="ident">block_on</span>(<span class="ident">interval</span>) {
-			<span class="prelude-val">Ok</span>(()) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(<span class="string">&quot;interval always fails; qed&quot;</span>),
-			<span class="prelude-val">Err</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="kw">if</span> <span class="ident">err</span>.<span class="ident">is_inner</span>() <span class="op">=</span><span class="op">&gt;</span> (),
-			<span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Waited for too long&quot;</span>),
+		<span class="kw">if</span> <span class="self">self</span>
+			.<span class="ident">runtime</span>
+			.<span class="ident">block_on</span>(<span class="kw">async</span> <span class="kw">move</span> { <span class="ident">time::timeout</span>(<span class="ident">MAX_WAIT_TIME</span>, <span class="ident">future</span>).<span class="kw">await</span> })
+			.<span class="ident">is_err</span>()
+		{
+			<span class="macro">panic!</span>(<span class="string">&quot;Waited for too long&quot;</span>);
 		}
 	}
 }
@@ -994,11 +992,11 @@
 		<span class="ident">light</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">Configuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident">authorities</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">String</span>, <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">Configuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">F</span>, <span class="ident">U</span>), <span class="ident">Error</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
 	) {
-		<span class="kw">let</span> <span class="ident">executor</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">runtime</span>.<span class="ident">executor</span>();
+		<span class="kw">let</span> <span class="ident">handle</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">runtime</span>.<span class="ident">handle</span>().<span class="ident">clone</span>();
 		<span class="kw">let</span> <span class="ident">task_executor</span>: <span class="ident">TaskExecutor</span> <span class="op">=</span> {
-			<span class="kw">let</span> <span class="ident">executor</span> <span class="op">=</span> <span class="ident">executor</span>.<span class="ident">clone</span>();
+			<span class="kw">let</span> <span class="ident">executor</span> <span class="op">=</span> <span class="ident">handle</span>.<span class="ident">clone</span>();
 			(<span class="kw">move</span> <span class="op">|</span><span class="ident">fut</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">futures::Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">|</span> {
-				<span class="ident">executor</span>.<span class="ident">spawn</span>(<span class="ident">fut</span>.<span class="ident">unit_error</span>().<span class="ident">compat</span>());
+				<span class="ident">executor</span>.<span class="ident">spawn</span>(<span class="ident">fut</span>.<span class="ident">unit_error</span>());
 				<span class="kw">async</span> {}
 			})
 			.<span class="ident">into</span>()
@@ -1018,7 +1016,7 @@
 			<span class="kw">let</span> (<span class="ident">service</span>, <span class="ident">user_data</span>) <span class="op">=</span>
 				<span class="ident">authority</span>(<span class="ident">node_config</span>).<span class="ident">expect</span>(<span class="string">&quot;Error creating test node service&quot;</span>);
 
-			<span class="ident">executor</span>.<span class="ident">spawn</span>(<span class="ident">service</span>.<span class="ident">clone</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()));
+			<span class="ident">handle</span>.<span class="ident">spawn</span>(<span class="ident">service</span>.<span class="ident">clone</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()));
 			<span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="ident">addr</span>
 				.<span class="ident">with</span>(<span class="ident">multiaddr::Protocol::P2p</span>(<span class="ident">service</span>.<span class="ident">network</span>().<span class="ident">local_peer_id</span>().<span class="ident">clone</span>().<span class="ident">into</span>()));
 			<span class="self">self</span>.<span class="ident">authority_nodes</span>.<span class="ident">push</span>((<span class="self">self</span>.<span class="ident">nodes</span>, <span class="ident">service</span>, <span class="ident">user_data</span>, <span class="ident">addr</span>));
@@ -1038,7 +1036,7 @@
 			<span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="ident">node_config</span>.<span class="ident">network</span>.<span class="ident">listen_addresses</span>.<span class="ident">iter</span>().<span class="ident">next</span>().<span class="ident">unwrap</span>().<span class="ident">clone</span>();
 			<span class="kw">let</span> (<span class="ident">service</span>, <span class="ident">user_data</span>) <span class="op">=</span> <span class="ident">full</span>(<span class="ident">node_config</span>).<span class="ident">expect</span>(<span class="string">&quot;Error creating test node service&quot;</span>);
 
-			<span class="ident">executor</span>.<span class="ident">spawn</span>(<span class="ident">service</span>.<span class="ident">clone</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()));
+			<span class="ident">handle</span>.<span class="ident">spawn</span>(<span class="ident">service</span>.<span class="ident">clone</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()));
 			<span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="ident">addr</span>
 				.<span class="ident">with</span>(<span class="ident">multiaddr::Protocol::P2p</span>(<span class="ident">service</span>.<span class="ident">network</span>().<span class="ident">local_peer_id</span>().<span class="ident">clone</span>().<span class="ident">into</span>()));
 			<span class="self">self</span>.<span class="ident">full_nodes</span>.<span class="ident">push</span>((<span class="self">self</span>.<span class="ident">nodes</span>, <span class="ident">service</span>, <span class="ident">user_data</span>, <span class="ident">addr</span>));
@@ -1058,7 +1056,7 @@
 			<span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="ident">node_config</span>.<span class="ident">network</span>.<span class="ident">listen_addresses</span>.<span class="ident">iter</span>().<span class="ident">next</span>().<span class="ident">unwrap</span>().<span class="ident">clone</span>();
 			<span class="kw">let</span> <span class="ident">service</span> <span class="op">=</span> <span class="ident">light</span>(<span class="ident">node_config</span>).<span class="ident">expect</span>(<span class="string">&quot;Error creating test node service&quot;</span>);
 
-			<span class="ident">executor</span>.<span class="ident">spawn</span>(<span class="ident">service</span>.<span class="ident">clone</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()));
+			<span class="ident">handle</span>.<span class="ident">spawn</span>(<span class="ident">service</span>.<span class="ident">clone</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()));
 			<span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="ident">addr</span>
 				.<span class="ident">with</span>(<span class="ident">multiaddr::Protocol::P2p</span>(<span class="ident">service</span>.<span class="ident">network</span>().<span class="ident">local_peer_id</span>().<span class="ident">clone</span>().<span class="ident">into</span>()));
 			<span class="self">self</span>.<span class="ident">light_nodes</span>.<span class="ident">push</span>((<span class="self">self</span>.<span class="ident">nodes</span>, <span class="ident">service</span>, <span class="ident">addr</span>));
@@ -1094,7 +1092,7 @@
 
 	{
 		<span class="kw">let</span> <span class="ident">temp</span> <span class="op">=</span> <span class="ident">tempdir_with_prefix</span>(<span class="string">&quot;substrate-connectivity-test&quot;</span>);
-		<span class="kw">let</span> <span class="ident">runtime</span> <span class="op">=</span> {
+		{
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">network</span> <span class="op">=</span> <span class="ident">TestNet::new</span>(
 				<span class="kw-2">&amp;</span><span class="ident">temp</span>,
 				<span class="ident">spec</span>.<span class="ident">clone</span>(),
@@ -1132,11 +1130,7 @@
 					<span class="ident">connected</span> <span class="op">=</span><span class="op">=</span> <span class="ident">expected_light_connections</span>
 				},
 			);
-
-			<span class="ident">network</span>.<span class="ident">runtime</span>
 		};
-
-		<span class="ident">runtime</span>.<span class="ident">shutdown_now</span>().<span class="ident">wait</span>().<span class="ident">expect</span>(<span class="string">&quot;Error shutting down runtime&quot;</span>);
 
 		<span class="ident">temp</span>.<span class="ident">close</span>().<span class="ident">expect</span>(<span class="string">&quot;Error removing temp dir&quot;</span>);
 	}
