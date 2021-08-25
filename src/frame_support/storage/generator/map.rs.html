@@ -460,23 +460,6 @@
 <span id="449">449</span>
 <span id="450">450</span>
 <span id="451">451</span>
-<span id="452">452</span>
-<span id="453">453</span>
-<span id="454">454</span>
-<span id="455">455</span>
-<span id="456">456</span>
-<span id="457">457</span>
-<span id="458">458</span>
-<span id="459">459</span>
-<span id="460">460</span>
-<span id="461">461</span>
-<span id="462">462</span>
-<span id="463">463</span>
-<span id="464">464</span>
-<span id="465">465</span>
-<span id="466">466</span>
-<span id="467">467</span>
-<span id="468">468</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -496,8 +479,8 @@
 <span class="comment">// limitations under the License.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
-	<span class="ident">hash</span>::{<span class="ident">ReversibleStorageHasher</span>, <span class="ident">StorageHasher</span>, <span class="ident">Twox128</span>},
-	<span class="ident">storage</span>::{<span class="self">self</span>, <span class="ident">unhashed</span>, <span class="ident">KeyPrefixIterator</span>, <span class="ident">PrefixIterator</span>, <span class="ident">StorageAppend</span>},
+	<span class="ident">hash</span>::{<span class="ident">ReversibleStorageHasher</span>, <span class="ident">StorageHasher</span>},
+	<span class="ident">storage</span>::{<span class="self">self</span>, <span class="ident">storage_prefix</span>, <span class="ident">unhashed</span>, <span class="ident">KeyPrefixIterator</span>, <span class="ident">PrefixIterator</span>, <span class="ident">StorageAppend</span>},
 	<span class="ident">Never</span>,
 };
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>, <span class="ident">EncodeLike</span>, <span class="ident">FullCodec</span>, <span class="ident">FullEncode</span>};
@@ -532,16 +515,8 @@
 	<span class="doccomment">/// The full prefix; just the hash of `module_prefix` concatenated to the hash of</span>
 	<span class="doccomment">/// `storage_prefix`.</span>
 	<span class="kw">fn</span> <span class="ident">prefix_hash</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">module_prefix_hashed</span> <span class="op">=</span> <span class="ident">Twox128::hash</span>(<span class="self">Self</span><span class="ident">::module_prefix</span>());
-		<span class="kw">let</span> <span class="ident">storage_prefix_hashed</span> <span class="op">=</span> <span class="ident">Twox128::hash</span>(<span class="self">Self</span><span class="ident">::storage_prefix</span>());
-
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span>
-			<span class="ident">Vec::with_capacity</span>(<span class="ident">module_prefix_hashed</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="ident">storage_prefix_hashed</span>.<span class="ident">len</span>());
-
-		<span class="ident">result</span>.<span class="ident">extend_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">module_prefix_hashed</span>[..]);
-		<span class="ident">result</span>.<span class="ident">extend_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">storage_prefix_hashed</span>[..]);
-
-		<span class="ident">result</span>
+		<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">storage_prefix</span>(<span class="self">Self</span><span class="ident">::module_prefix</span>(), <span class="self">Self</span><span class="ident">::storage_prefix</span>());
+		<span class="ident">result</span>.<span class="ident">to_vec</span>()
 	}
 
 	<span class="doccomment">/// Convert an optional value retrieved from storage to the type queried.</span>
@@ -555,16 +530,12 @@
 	<span class="kw">where</span>
 		<span class="ident">KeyArg</span>: <span class="ident">EncodeLike</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>,
 	{
-		<span class="kw">let</span> <span class="ident">module_prefix_hashed</span> <span class="op">=</span> <span class="ident">Twox128::hash</span>(<span class="self">Self</span><span class="ident">::module_prefix</span>());
-		<span class="kw">let</span> <span class="ident">storage_prefix_hashed</span> <span class="op">=</span> <span class="ident">Twox128::hash</span>(<span class="self">Self</span><span class="ident">::storage_prefix</span>());
+		<span class="kw">let</span> <span class="ident">storage_prefix</span> <span class="op">=</span> <span class="ident">storage_prefix</span>(<span class="self">Self</span><span class="ident">::module_prefix</span>(), <span class="self">Self</span><span class="ident">::storage_prefix</span>());
 		<span class="kw">let</span> <span class="ident">key_hashed</span> <span class="op">=</span> <span class="ident">key</span>.<span class="ident">borrow</span>().<span class="ident">using_encoded</span>(<span class="self">Self</span><span class="ident">::Hasher::hash</span>);
 
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">final_key</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(
-			<span class="ident">module_prefix_hashed</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="ident">storage_prefix_hashed</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="ident">key_hashed</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>(),
-		);
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">final_key</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="ident">storage_prefix</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="ident">key_hashed</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>());
 
-		<span class="ident">final_key</span>.<span class="ident">extend_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">module_prefix_hashed</span>[..]);
-		<span class="ident">final_key</span>.<span class="ident">extend_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">storage_prefix_hashed</span>[..]);
+		<span class="ident">final_key</span>.<span class="ident">extend_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">storage_prefix</span>);
 		<span class="ident">final_key</span>.<span class="ident">extend_from_slice</span>(<span class="ident">key_hashed</span>.<span class="ident">as_ref</span>());
 
 		<span class="ident">final_key</span>
@@ -810,18 +781,13 @@
 
 	<span class="kw">fn</span> <span class="ident">migrate_key</span><span class="op">&lt;</span><span class="ident">OldHasher</span>: <span class="ident">StorageHasher</span>, <span class="ident">KeyArg</span>: <span class="ident">EncodeLike</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">key</span>: <span class="ident">KeyArg</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">old_key</span> <span class="op">=</span> {
-			<span class="kw">let</span> <span class="ident">module_prefix_hashed</span> <span class="op">=</span> <span class="ident">Twox128::hash</span>(<span class="self">Self</span><span class="ident">::module_prefix</span>());
-			<span class="kw">let</span> <span class="ident">storage_prefix_hashed</span> <span class="op">=</span> <span class="ident">Twox128::hash</span>(<span class="self">Self</span><span class="ident">::storage_prefix</span>());
+			<span class="kw">let</span> <span class="ident">storage_prefix</span> <span class="op">=</span> <span class="ident">storage_prefix</span>(<span class="self">Self</span><span class="ident">::module_prefix</span>(), <span class="self">Self</span><span class="ident">::storage_prefix</span>());
 			<span class="kw">let</span> <span class="ident">key_hashed</span> <span class="op">=</span> <span class="ident">key</span>.<span class="ident">borrow</span>().<span class="ident">using_encoded</span>(<span class="ident">OldHasher::hash</span>);
 
-			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">final_key</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(
-				<span class="ident">module_prefix_hashed</span>.<span class="ident">len</span>() <span class="op">+</span>
-					<span class="ident">storage_prefix_hashed</span>.<span class="ident">len</span>() <span class="op">+</span>
-					<span class="ident">key_hashed</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>(),
-			);
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">final_key</span> <span class="op">=</span>
+				<span class="ident">Vec::with_capacity</span>(<span class="ident">storage_prefix</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="ident">key_hashed</span>.<span class="ident">as_ref</span>().<span class="ident">len</span>());
 
-			<span class="ident">final_key</span>.<span class="ident">extend_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">module_prefix_hashed</span>[..]);
-			<span class="ident">final_key</span>.<span class="ident">extend_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">storage_prefix_hashed</span>[..]);
+			<span class="ident">final_key</span>.<span class="ident">extend_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">storage_prefix</span>);
 			<span class="ident">final_key</span>.<span class="ident">extend_from_slice</span>(<span class="ident">key_hashed</span>.<span class="ident">as_ref</span>());
 
 			<span class="ident">final_key</span>
