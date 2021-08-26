@@ -326,7 +326,17 @@ macro and other generic must declared as a normal declaration of type generic in
 <code>PalletInfo::name::&lt;Pallet&lt;..&gt;&gt;()</code> and the name of the storage type.
 E.g. if runtime names the pallet “MyExample” then the storage <code>type Foo&lt;T&gt; = ...</code> use the
 prefix: <code>Twox128(b&quot;MyExample&quot;) ++ Twox128(b&quot;Foo&quot;)</code>.</p>
-<p>The optional attribute <code>#[pallet::getter(fn $my_getter_fn_name)]</code> allow to define a
+<p>The optional attribute <code>#[pallet::storage_prefix = &quot;$custom_name&quot;]</code> allows to define a
+specific name to use for the prefix.</p>
+<p>E.g:</p>
+
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
+<span class="attribute">#[<span class="ident">pallet::storage</span>]</span>
+<span class="attribute">#[<span class="ident">pallet::storage_prefix</span> <span class="op">=</span> <span class="string">&quot;OtherName&quot;</span>]</span>
+<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type</span> <span class="ident">MyStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">StorageMap</span><span class="op">&lt;</span><span class="ident">Hasher</span> <span class="op">=</span> <span class="ident">Blake2_128Concat</span>, <span class="ident">Key</span> <span class="op">=</span> <span class="ident">u32</span>, <span class="ident">Value</span> <span class="op">=</span> <span class="ident">u32</span><span class="op">&gt;</span>;</pre></div>
+<p>In this case the final prefix used by the map is
+<code>Twox128(b&quot;MyExample&quot;) ++ Twox128(b&quot;OtherName&quot;)</code>.</p>
+<p>The optional attribute <code>#[pallet::getter(fn $my_getter_fn_name)]</code> allows to define a
 getter function on <code>Pallet</code>.</p>
 <p>E.g:</p>
 
@@ -610,6 +620,7 @@ important to bound <code>= ()</code> on every types.</p>
 	<span class="comment">// Another storage declaration</span>
 	<span class="attribute">#[<span class="ident">pallet::storage</span>]</span>
 	<span class="attribute">#[<span class="ident">pallet::getter</span>(<span class="kw">fn</span> <span class="ident">my_storage</span>)]</span>
+	<span class="attribute">#[<span class="ident">pallet::storage_prefix</span> <span class="op">=</span> <span class="string">&quot;SomeOtherName&quot;</span>]</span>
 	<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type</span> <span class="ident">MyStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span>
 		<span class="ident">StorageMap</span><span class="op">&lt;</span><span class="ident">Hasher</span> <span class="op">=</span> <span class="ident">Blake2_128Concat</span>, <span class="ident">Key</span> <span class="op">=</span> <span class="ident">u32</span>, <span class="ident">Value</span> <span class="op">=</span> <span class="ident">u32</span><span class="op">&gt;</span>;
 
@@ -749,6 +760,7 @@ important to bound <code>= ()</code> on every types.</p>
 
 	<span class="attribute">#[<span class="ident">pallet::storage</span>]</span>
 	<span class="attribute">#[<span class="ident">pallet::getter</span>(<span class="kw">fn</span> <span class="ident">my_storage</span>)]</span>
+	<span class="attribute">#[<span class="ident">pallet::storage_prefix</span> <span class="op">=</span> <span class="string">&quot;SomeOtherName&quot;</span>]</span>
 	<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type</span> <span class="ident">MyStorage</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">=</span>
 		<span class="ident">StorageMap</span><span class="op">&lt;</span><span class="ident">Hasher</span> <span class="op">=</span> <span class="ident">Blake2_128Concat</span>, <span class="ident">Key</span> <span class="op">=</span> <span class="ident">u32</span>, <span class="ident">Value</span> <span class="op">=</span> <span class="ident">u32</span><span class="op">&gt;</span>;
 

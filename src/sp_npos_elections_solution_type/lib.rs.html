@@ -252,6 +252,9 @@
 <span id="241">241</span>
 <span id="242">242</span>
 <span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -389,20 +392,23 @@
 }
 
 <span class="kw">fn</span> <span class="ident">check_attributes</span>(<span class="ident">input</span>: <span class="ident">ParseStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">syn::Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
-	<span class="kw">let</span> <span class="ident">attrs</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">call</span>(<span class="ident">syn::Attribute::parse_outer</span>).<span class="ident">unwrap_or_default</span>();
+	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">attrs</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">call</span>(<span class="ident">syn::Attribute::parse_outer</span>).<span class="ident">unwrap_or_default</span>();
 	<span class="kw">if</span> <span class="ident">attrs</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">1</span> {
-		<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">syn_err</span>(<span class="string">&quot;compact solution can accept only #[compact]&quot;</span>))
+		<span class="kw">let</span> <span class="ident">extra_attr</span> <span class="op">=</span> <span class="ident">attrs</span>.<span class="ident">pop</span>().<span class="ident">expect</span>(<span class="string">&quot;attributes vec with len &gt; 1 can be popped&quot;</span>);
+		<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">syn::Error::new_spanned</span>(
+			<span class="ident">extra_attr</span>.<span class="ident">clone</span>(),
+			<span class="string">&quot;compact solution can accept only #[compact]&quot;</span>,
+		))
 	}
-
-	<span class="prelude-val">Ok</span>(<span class="ident">attrs</span>.<span class="ident">iter</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">attr</span><span class="op">|</span> {
-		<span class="kw">if</span> <span class="ident">attr</span>.<span class="ident">path</span>.<span class="ident">segments</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span> {
-			<span class="kw">let</span> <span class="ident">segment</span> <span class="op">=</span> <span class="ident">attr</span>.<span class="ident">path</span>.<span class="ident">segments</span>.<span class="ident">first</span>().<span class="ident">expect</span>(<span class="string">&quot;Vec with len 1 can be popped.&quot;</span>);
-			<span class="kw">if</span> <span class="ident">segment</span>.<span class="ident">ident</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Ident::new</span>(<span class="string">&quot;compact&quot;</span>, <span class="ident">Span::call_site</span>()) {
-				<span class="kw">return</span> <span class="bool-val">true</span>
-			}
-		}
-		<span class="bool-val">false</span>
-	}))
+	<span class="kw">if</span> <span class="ident">attrs</span>.<span class="ident">is_empty</span>() {
+		<span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>)
+	}
+	<span class="kw">let</span> <span class="ident">attr</span> <span class="op">=</span> <span class="ident">attrs</span>.<span class="ident">pop</span>().<span class="ident">expect</span>(<span class="string">&quot;attributes vec with len 1 can be popped.&quot;</span>);
+	<span class="kw">if</span> <span class="ident">attr</span>.<span class="ident">path</span>.<span class="ident">is_ident</span>(<span class="string">&quot;compact&quot;</span>) {
+		<span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
+	} <span class="kw">else</span> {
+		<span class="prelude-val">Err</span>(<span class="ident">syn::Error::new_spanned</span>(<span class="ident">attr</span>.<span class="ident">clone</span>(), <span class="string">&quot;compact solution can accept only #[compact]&quot;</span>))
+	}
 }
 
 <span class="kw">impl</span> <span class="ident">Parse</span> <span class="kw">for</span> <span class="ident">SolutionDef</span> {

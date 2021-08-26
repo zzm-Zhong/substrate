@@ -2419,6 +2419,20 @@
 <span id="2408">2408</span>
 <span id="2409">2409</span>
 <span id="2410">2410</span>
+<span id="2411">2411</span>
+<span id="2412">2412</span>
+<span id="2413">2413</span>
+<span id="2414">2414</span>
+<span id="2415">2415</span>
+<span id="2416">2416</span>
+<span id="2417">2417</span>
+<span id="2418">2418</span>
+<span id="2419">2419</span>
+<span id="2420">2420</span>
+<span id="2421">2421</span>
+<span id="2422">2422</span>
+<span id="2423">2423</span>
+<span id="2424">2424</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -4115,7 +4129,19 @@
 <span class="doccomment">/// E.g. if runtime names the pallet &quot;MyExample&quot; then the storage `type Foo&lt;T&gt; = ...` use the</span>
 <span class="doccomment">/// prefix: `Twox128(b&quot;MyExample&quot;) ++ Twox128(b&quot;Foo&quot;)`.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The optional attribute `#[pallet::getter(fn $my_getter_fn_name)]` allow to define a</span>
+<span class="doccomment">/// The optional attribute `#[pallet::storage_prefix = &quot;$custom_name&quot;]` allows to define a</span>
+<span class="doccomment">/// specific name to use for the prefix.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// E.g:</span>
+<span class="doccomment">/// ```ignore</span>
+<span class="doccomment">/// #[pallet::storage]</span>
+<span class="doccomment">/// #[pallet::storage_prefix = &quot;OtherName&quot;]</span>
+<span class="doccomment">/// pub(super) type MyStorage&lt;T&gt; = StorageMap&lt;Hasher = Blake2_128Concat, Key = u32, Value = u32&gt;;</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// In this case the final prefix used by the map is</span>
+<span class="doccomment">/// `Twox128(b&quot;MyExample&quot;) ++ Twox128(b&quot;OtherName&quot;)`.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The optional attribute `#[pallet::getter(fn $my_getter_fn_name)]` allows to define a</span>
 <span class="doccomment">/// getter function on `Pallet`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// E.g:</span>
@@ -4445,6 +4471,7 @@
 <span class="doccomment">/// 	// Another storage declaration</span>
 <span class="doccomment">/// 	#[pallet::storage]</span>
 <span class="doccomment">/// 	#[pallet::getter(fn my_storage)]</span>
+<span class="doccomment">/// 	#[pallet::storage_prefix = &quot;SomeOtherName&quot;]</span>
 <span class="doccomment">/// 	pub(super) type MyStorage&lt;T&gt; =</span>
 <span class="doccomment">/// 		StorageMap&lt;Hasher = Blake2_128Concat, Key = u32, Value = u32&gt;;</span>
 <span class="doccomment">///</span>
@@ -4587,6 +4614,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// 	#[pallet::storage]</span>
 <span class="doccomment">/// 	#[pallet::getter(fn my_storage)]</span>
+<span class="doccomment">/// 	#[pallet::storage_prefix = &quot;SomeOtherName&quot;]</span>
 <span class="doccomment">/// 	pub(super) type MyStorage&lt;T, I = ()&gt; =</span>
 <span class="doccomment">/// 		StorageMap&lt;Hasher = Blake2_128Concat, Key = u32, Value = u32&gt;;</span>
 <span class="doccomment">///</span>
