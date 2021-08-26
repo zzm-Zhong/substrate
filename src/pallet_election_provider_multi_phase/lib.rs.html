@@ -2068,6 +2068,8 @@
 <span id="2057">2057</span>
 <span id="2058">2058</span>
 <span id="2059">2059</span>
+<span id="2060">2060</span>
+<span id="2061">2061</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -3307,7 +3309,9 @@
 		}
 
 		<span class="comment">// After election finalization, clear OCW solution storage.</span>
-		<span class="kw">if</span> <span class="op">&lt;</span><span class="ident">frame_system::Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::events</span>()
+		<span class="comment">//</span>
+		<span class="comment">// We can read the events here because offchain worker doesn&#39;t affect PoV.</span>
+		<span class="kw">if</span> <span class="op">&lt;</span><span class="ident">frame_system::Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::read_events_no_consensus</span>()
 			.<span class="ident">into_iter</span>()
 			.<span class="ident">filter_map</span>(<span class="op">|</span><span class="ident">event_record</span><span class="op">|</span> {
 				<span class="kw">let</span> <span class="ident">local_event</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::Event::from</span>(<span class="ident">event_record</span>.<span class="ident">event</span>);
