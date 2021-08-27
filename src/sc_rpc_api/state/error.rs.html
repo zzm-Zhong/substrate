@@ -87,14 +87,6 @@
 <span id="76">76</span>
 <span id="77">77</span>
 <span id="78">78</span>
-<span id="79">79</span>
-<span id="80">80</span>
-<span id="81">81</span>
-<span id="82">82</span>
-<span id="83">83</span>
-<span id="84">84</span>
-<span id="85">85</span>
-<span id="86">86</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -126,13 +118,13 @@
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">jsonrpc_core::BoxFuture</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// State RPC errors.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">derive_more::Display</span>, <span class="ident">derive_more::From</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">thiserror::Error</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Error</span> {
 	<span class="doccomment">/// Client error.</span>
-	<span class="attribute">#[<span class="ident">display</span>(<span class="ident">fmt</span> <span class="op">=</span> <span class="string">&quot;Client error: {}&quot;</span>, <span class="ident">_0</span>)]</span>
-	<span class="ident">Client</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>),
+	<span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Client error: {}&quot;</span>, .<span class="number">0</span>)]</span>
+	<span class="ident">Client</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>),
 	<span class="doccomment">/// Provided block range couldn&#39;t be resolved to a list of blocks.</span>
-	<span class="attribute">#[<span class="ident">display</span>(<span class="ident">fmt</span> <span class="op">=</span> <span class="string">&quot;Cannot resolve a block range [&#39;{:?}&#39; ... &#39;{:?}]. {}&quot;</span>, <span class="ident">from</span>, <span class="ident">to</span>, <span class="ident">details</span>)]</span>
+	<span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Cannot resolve a block range [&#39;{:?}&#39; ... &#39;{:?}]. {}&quot;</span>, .<span class="ident">from</span>, .<span class="ident">to</span>, .<span class="ident">details</span>)]</span>
 	<span class="ident">InvalidBlockRange</span> {
 		<span class="doccomment">/// Beginning of the block range.</span>
 		<span class="ident">from</span>: <span class="ident">String</span>,
@@ -142,7 +134,7 @@
 		<span class="ident">details</span>: <span class="ident">String</span>,
 	},
 	<span class="doccomment">/// Provided count exceeds maximum value.</span>
-	<span class="attribute">#[<span class="ident">display</span>(<span class="ident">fmt</span> <span class="op">=</span> <span class="string">&quot;count exceeds maximum value. value: {}, max: {}&quot;</span>, <span class="ident">value</span>, <span class="ident">max</span>)]</span>
+	<span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;count exceeds maximum value. value: {}, max: {}&quot;</span>, .<span class="ident">value</span>, .<span class="ident">max</span>)]</span>
 	<span class="ident">InvalidCount</span> {
 		<span class="doccomment">/// Provided value</span>
 		<span class="ident">value</span>: <span class="ident">u32</span>,
@@ -150,16 +142,8 @@
 		<span class="ident">max</span>: <span class="ident">u32</span>,
 	},
 	<span class="doccomment">/// Call to an unsafe RPC was denied.</span>
-	<span class="ident">UnsafeRpcCalled</span>(<span class="kw">crate</span><span class="ident">::policy::UnsafeRpcError</span>),
-}
-
-<span class="kw">impl</span> <span class="ident">std::error::Error</span> <span class="kw">for</span> <span class="ident">Error</span> {
-	<span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">std::error::Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
-		<span class="kw">match</span> <span class="self">self</span> {
-			<span class="ident">Error::Client</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">err</span>),
-			<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
-		}
-	}
+	<span class="attribute">#[<span class="ident">error</span>(<span class="ident">transparent</span>)]</span>
+	<span class="ident">UnsafeRpcCalled</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="kw">crate</span><span class="ident">::policy::UnsafeRpcError</span>),
 }
 
 <span class="doccomment">/// Base code for all state errors.</span>

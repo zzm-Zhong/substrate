@@ -362,6 +362,8 @@
 <span id="351">351</span>
 <span id="352">352</span>
 <span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -452,7 +454,7 @@
 
 				<span class="comment">// FIXME &lt;2329&gt;: Database seems to limit the block number to u32 for no reason</span>
 				<span class="kw">let</span> <span class="ident">block_num</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">num_or_hex</span>.<span class="ident">try_into</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
-					<span class="ident">Error::from</span>(<span class="macro">format!</span>(
+					<span class="ident">Error::Other</span>(<span class="macro">format!</span>(
 						<span class="string">&quot;`{:?}` &gt; u32::MAX, the max block number is u32.&quot;</span>,
 						<span class="ident">num_or_hex</span>
 					))
@@ -697,7 +699,9 @@
 		<span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">client</span>
 			.<span class="ident">header</span>(<span class="ident">BlockId::Hash</span>(<span class="ident">best_block_hash</span>()))
 			.<span class="ident">map_err</span>(<span class="ident">client_err</span>)
-			.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">header</span><span class="op">|</span> <span class="ident">header</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="string">&quot;Best header missing.&quot;</span>.<span class="ident">to_string</span>().<span class="ident">into</span>()))
+			.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">header</span><span class="op">|</span> {
+				<span class="ident">header</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Error::Other</span>(<span class="string">&quot;Best header missing.&quot;</span>.<span class="ident">to_string</span>()))
+			})
 			.<span class="ident">map_err</span>(<span class="ident">Into::into</span>);
 
 		<span class="comment">// send further subscriptions</span>
