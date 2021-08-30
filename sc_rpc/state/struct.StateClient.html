@@ -29,7 +29,7 @@ parameter.</p>
 Subsequent values in the vector represent changes to the previous state (diffs).</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.query_storage_at" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/sc_rpc_api/state/mod.rs.html#37" title="goto source code">[src]</a></div><a href="#method.query_storage_at" class="anchor"></a><code>pub fn <a href="#method.query_storage_at" class="fnname">query_storage_at</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;keys: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../../sp_storage/struct.StorageKey.html" title="struct sp_storage::StorageKey">StorageKey</a>, <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/alloc/struct.Global.html" title="struct alloc::alloc::Global">Global</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;at: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;Hash&gt;<br>) -&gt; impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html" title="trait core::future::future::Future">Future</a>&lt;Output = <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../../sp_storage/struct.StorageChangeSet.html" title="struct sp_storage::StorageChangeSet">StorageChangeSet</a>&lt;Hash&gt;, <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/alloc/struct.Global.html" title="struct alloc::alloc::Global">Global</a>&gt;, RpcError&gt;&gt;</code></div></summary><div class="docblock"><p>Query storage entries (by key) starting at block hash given as the second parameter.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.read_proof" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/sc_rpc_api/state/mod.rs.html#37" title="goto source code">[src]</a></div><a href="#method.read_proof" class="anchor"></a><code>pub fn <a href="#method.read_proof" class="fnname">read_proof</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;keys: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../../sp_storage/struct.StorageKey.html" title="struct sp_storage::StorageKey">StorageKey</a>, <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/alloc/struct.Global.html" title="struct alloc::alloc::Global">Global</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;hash: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;Hash&gt;<br>) -&gt; impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html" title="trait core::future::future::Future">Future</a>&lt;Output = <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="struct.ReadProof.html" title="struct sc_rpc::state::ReadProof">ReadProof</a>&lt;Hash&gt;, RpcError&gt;&gt;</code></div></summary><div class="docblock"><p>Returns proof of storage entries at a specific block’s state.</p>
-</div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.trace_block" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/sc_rpc_api/state/mod.rs.html#37" title="goto source code">[src]</a></div><a href="#method.trace_block" class="anchor"></a><code>pub fn <a href="#method.trace_block" class="fnname">trace_block</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;block: Hash, <br>&nbsp;&nbsp;&nbsp;&nbsp;targets: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;storage_keys: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;<br>) -&gt; impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html" title="trait core::future::future::Future">Future</a>&lt;Output = <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="enum" href="../../sp_rpc/tracing/enum.TraceBlockResponse.html" title="enum sp_rpc::tracing::TraceBlockResponse">TraceBlockResponse</a>, RpcError&gt;&gt;</code></div></summary><div class="docblock"><p>The <code>state_traceBlock</code> RPC provides a way to trace the re-execution of a single
+</div></details><details class="rustdoc-toggle method-toggle" open><summary><div id="method.trace_block" class="method has-srclink"><div class="rightside"><a class="srclink" href="../../src/sc_rpc_api/state/mod.rs.html#37" title="goto source code">[src]</a></div><a href="#method.trace_block" class="anchor"></a><code>pub fn <a href="#method.trace_block" class="fnname">trace_block</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;block: Hash, <br>&nbsp;&nbsp;&nbsp;&nbsp;targets: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;storage_keys: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, <br>&nbsp;&nbsp;&nbsp;&nbsp;methods: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;<br>) -&gt; impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/future/future/trait.Future.html" title="trait core::future::future::Future">Future</a>&lt;Output = <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="enum" href="../../sp_rpc/tracing/enum.TraceBlockResponse.html" title="enum sp_rpc::tracing::TraceBlockResponse">TraceBlockResponse</a>, RpcError&gt;&gt;</code></div></summary><div class="docblock"><p>The <code>state_traceBlock</code> RPC provides a way to trace the re-execution of a single
 block, collecting Spans and Events from both the client and the relevant WASM runtime.
 The Spans and Events are conceptually equivalent to those from the <a href="https://crates.io/crates/tracing">Tracing</a> crate.</p>
 <p>The structure of the traces follows that of the block execution pipeline, so meaningful
@@ -74,15 +74,55 @@ do not reduce time for actual block re-execution, they reduce the response paylo
 <p>Note: storage events primarily come from <em>primitives/state-machine/src/ext.rs</em>.
 The default filters can be overridden, see the <a href="#params">params section</a> for details.</p>
 <h3 id="curl-example" class="section-header"><a href="#curl-example"><code>curl</code> example</a></h3>
+<ul>
+<li>Get tracing spans and events</li>
+</ul>
 <pre><code class="language-text">curl \
 	-H &quot;Content-Type: application/json&quot; \
 	-d '{&quot;id&quot;:1, &quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;method&quot;: &quot;state_traceBlock&quot;, \
-		&quot;params&quot;: [&quot;0xb246acf1adea1f801ce15c77a5fa7d8f2eb8fed466978bcee172cc02cf64e264&quot;]}' \
+		&quot;params&quot;: [&quot;0xb246acf1adea1f801ce15c77a5fa7d8f2eb8fed466978bcee172cc02cf64e264&quot;, &quot;pallet,frame,state&quot;, &quot;&quot;, &quot;&quot;]}' \
+	http://localhost:9933/
+</code></pre>
+<ul>
+<li>Get tracing events with all <code>storage_keys</code></li>
+</ul>
+<pre><code class="language-text">curl \
+	-H &quot;Content-Type: application/json&quot; \
+	-d '{&quot;id&quot;:1, &quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;method&quot;: &quot;state_traceBlock&quot;, \
+		&quot;params&quot;: [&quot;0xb246acf1adea1f801ce15c77a5fa7d8f2eb8fed466978bcee172cc02cf64e264&quot;, &quot;state&quot;, &quot;&quot;, &quot;&quot;]}' \
+	http://localhost:9933/
+</code></pre>
+<ul>
+<li>Get tracing events with <code>storage_keys</code> (‘f0c365c3cf59d671eb72da0e7a4113c4’)</li>
+</ul>
+<pre><code class="language-text">curl \
+	-H &quot;Content-Type: application/json&quot; \
+	-d '{&quot;id&quot;:1, &quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;method&quot;: &quot;state_traceBlock&quot;, \
+		&quot;params&quot;: [&quot;0xb246acf1adea1f801ce15c77a5fa7d8f2eb8fed466978bcee172cc02cf64e264&quot;, &quot;state&quot;, &quot;f0c365c3cf59d671eb72da0e7a4113c4&quot;, &quot;&quot;]}' \
+	http://localhost:9933/
+</code></pre>
+<ul>
+<li>Get tracing events with <code>storage_keys</code> (‘f0c365c3cf59d671eb72da0e7a4113c4’) and method
+(‘Put’)</li>
+</ul>
+<pre><code class="language-text">curl \
+	-H &quot;Content-Type: application/json&quot; \
+	-d '{&quot;id&quot;:1, &quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;method&quot;: &quot;state_traceBlock&quot;, \
+		&quot;params&quot;: [&quot;0xb246acf1adea1f801ce15c77a5fa7d8f2eb8fed466978bcee172cc02cf64e264&quot;, &quot;state&quot;, &quot;f0c365c3cf59d671eb72da0e7a4113c4&quot;, &quot;Put&quot;]}' \
+	http://localhost:9933/
+</code></pre>
+<ul>
+<li>Get tracing events with all <code>storage_keys</code> and method (‘Put’)</li>
+</ul>
+<pre><code class="language-text">curl \
+	-H &quot;Content-Type: application/json&quot; \
+	-d '{&quot;id&quot;:1, &quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;method&quot;: &quot;state_traceBlock&quot;, \
+		&quot;params&quot;: [&quot;0xb246acf1adea1f801ce15c77a5fa7d8f2eb8fed466978bcee172cc02cf64e264&quot;, &quot;state&quot;, &quot;&quot;, &quot;Put&quot;]}' \
 	http://localhost:9933/
 </code></pre>
 <h3 id="params" class="section-header"><a href="#params">Params</a></h3>
 <ul>
-<li><code>block_hash</code> (param index 0): Hash of the block to trace.</li>
+<li><code>block</code> (param index 0): Hash of the block to trace.</li>
 <li><code>targets</code> (param index 1): String of comma separated (no spaces) targets. Specified
 targets match with trace targets by prefix (i.e if a target is in the beginning
 of a trace target it is considered a match). If an empty string is specified no
@@ -101,6 +141,10 @@ to track changes to account balances with the frame_system::Account storage item
 which is a map from <code>AccountId</code> to <code>AccountInfo</code>. The key filter for this would be
 the storage prefix for the map:
 <code>26aa394eea5630e07c48ae0c9558cef7b99d880ec681799c0cf30e8886371da9</code></li>
+<li><code>methods</code> (param index 3): String of comma separated (no spaces) tracing event method.
+If an empty string is specified no events will be filtered out. If anything other than
+an empty string is specified, events will be filtered by method (so non-method events will
+<strong>not</strong> show up).</li>
 </ul>
 <p>Additionally you would want to track the extrinsic index, which is under the
 <code>:extrinsic_index</code> key. The key for this would be the aforementioned string as bytes

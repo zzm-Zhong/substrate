@@ -290,6 +290,49 @@
 <span id="279">279</span>
 <span id="280">280</span>
 <span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -515,17 +558,55 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// ### `curl` example</span>
 	<span class="doccomment">///</span>
+	<span class="doccomment">/// - Get tracing spans and events</span>
 	<span class="doccomment">/// ```text</span>
 	<span class="doccomment">/// curl \</span>
 	<span class="doccomment">/// 	-H &quot;Content-Type: application/json&quot; \</span>
 	<span class="doccomment">/// 	-d &#39;{&quot;id&quot;:1, &quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;method&quot;: &quot;state_traceBlock&quot;, \</span>
-	<span class="doccomment">/// 		&quot;params&quot;: [&quot;0xb246acf1adea1f801ce15c77a5fa7d8f2eb8fed466978bcee172cc02cf64e264&quot;]}&#39; \</span>
+	<span class="doccomment">/// 		&quot;params&quot;: [&quot;0xb246acf1adea1f801ce15c77a5fa7d8f2eb8fed466978bcee172cc02cf64e264&quot;, &quot;pallet,frame,state&quot;, &quot;&quot;, &quot;&quot;]}&#39; \</span>
+	<span class="doccomment">/// 	http://localhost:9933/</span>
+	<span class="doccomment">/// ```</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// - Get tracing events with all `storage_keys`</span>
+	<span class="doccomment">/// ```text</span>
+	<span class="doccomment">/// curl \</span>
+	<span class="doccomment">/// 	-H &quot;Content-Type: application/json&quot; \</span>
+	<span class="doccomment">/// 	-d &#39;{&quot;id&quot;:1, &quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;method&quot;: &quot;state_traceBlock&quot;, \</span>
+	<span class="doccomment">/// 		&quot;params&quot;: [&quot;0xb246acf1adea1f801ce15c77a5fa7d8f2eb8fed466978bcee172cc02cf64e264&quot;, &quot;state&quot;, &quot;&quot;, &quot;&quot;]}&#39; \</span>
+	<span class="doccomment">/// 	http://localhost:9933/</span>
+	<span class="doccomment">/// ```</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// - Get tracing events with `storage_keys` (&#39;f0c365c3cf59d671eb72da0e7a4113c4&#39;)</span>
+	<span class="doccomment">/// ```text</span>
+	<span class="doccomment">/// curl \</span>
+	<span class="doccomment">/// 	-H &quot;Content-Type: application/json&quot; \</span>
+	<span class="doccomment">/// 	-d &#39;{&quot;id&quot;:1, &quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;method&quot;: &quot;state_traceBlock&quot;, \</span>
+	<span class="doccomment">/// 		&quot;params&quot;: [&quot;0xb246acf1adea1f801ce15c77a5fa7d8f2eb8fed466978bcee172cc02cf64e264&quot;, &quot;state&quot;, &quot;f0c365c3cf59d671eb72da0e7a4113c4&quot;, &quot;&quot;]}&#39; \</span>
+	<span class="doccomment">/// 	http://localhost:9933/</span>
+	<span class="doccomment">/// ```</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// - Get tracing events with `storage_keys` (&#39;f0c365c3cf59d671eb72da0e7a4113c4&#39;) and method</span>
+	<span class="doccomment">///   (&#39;Put&#39;)</span>
+	<span class="doccomment">/// ```text</span>
+	<span class="doccomment">/// curl \</span>
+	<span class="doccomment">/// 	-H &quot;Content-Type: application/json&quot; \</span>
+	<span class="doccomment">/// 	-d &#39;{&quot;id&quot;:1, &quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;method&quot;: &quot;state_traceBlock&quot;, \</span>
+	<span class="doccomment">/// 		&quot;params&quot;: [&quot;0xb246acf1adea1f801ce15c77a5fa7d8f2eb8fed466978bcee172cc02cf64e264&quot;, &quot;state&quot;, &quot;f0c365c3cf59d671eb72da0e7a4113c4&quot;, &quot;Put&quot;]}&#39; \</span>
+	<span class="doccomment">/// 	http://localhost:9933/</span>
+	<span class="doccomment">/// ```</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// - Get tracing events with all `storage_keys` and method (&#39;Put&#39;)</span>
+	<span class="doccomment">/// ```text</span>
+	<span class="doccomment">/// curl \</span>
+	<span class="doccomment">/// 	-H &quot;Content-Type: application/json&quot; \</span>
+	<span class="doccomment">/// 	-d &#39;{&quot;id&quot;:1, &quot;jsonrpc&quot;:&quot;2.0&quot;, &quot;method&quot;: &quot;state_traceBlock&quot;, \</span>
+	<span class="doccomment">/// 		&quot;params&quot;: [&quot;0xb246acf1adea1f801ce15c77a5fa7d8f2eb8fed466978bcee172cc02cf64e264&quot;, &quot;state&quot;, &quot;&quot;, &quot;Put&quot;]}&#39; \</span>
 	<span class="doccomment">/// 	http://localhost:9933/</span>
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// ### Params</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// - `block_hash` (param index 0): Hash of the block to trace.</span>
+	<span class="doccomment">/// - `block` (param index 0): Hash of the block to trace.</span>
 	<span class="doccomment">/// - `targets` (param index 1): String of comma separated (no spaces) targets. Specified</span>
 	<span class="doccomment">/// targets match with trace targets by prefix (i.e if a target is in the beginning</span>
 	<span class="doccomment">/// of a trace target it is considered a match). If an empty string is specified no</span>
@@ -544,6 +625,10 @@
 	<span class="doccomment">/// which is a map from `AccountId` to `AccountInfo`. The key filter for this would be</span>
 	<span class="doccomment">/// the storage prefix for the map:</span>
 	<span class="doccomment">/// `26aa394eea5630e07c48ae0c9558cef7b99d880ec681799c0cf30e8886371da9`</span>
+	<span class="doccomment">/// - `methods` (param index 3): String of comma separated (no spaces) tracing event method.</span>
+	<span class="doccomment">/// If an empty string is specified no events will be filtered out. If anything other than</span>
+	<span class="doccomment">/// an empty string is specified, events will be filtered by method (so non-method events will</span>
+	<span class="doccomment">/// **not** show up).</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Additionally you would want to track the extrinsic index, which is under the</span>
 	<span class="doccomment">/// `:extrinsic_index` key. The key for this would be the aforementioned string as bytes</span>
@@ -570,6 +655,7 @@
 		<span class="ident">block</span>: <span class="ident">Hash</span>,
 		<span class="ident">targets</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">storage_keys</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+		<span class="ident">methods</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FutureResult</span><span class="op">&lt;</span><span class="ident">sp_rpc::tracing::TraceBlockResponse</span><span class="op">&gt;</span>;
 }
 </pre></div>
