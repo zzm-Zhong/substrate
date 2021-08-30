@@ -1705,6 +1705,9 @@
 <span id="1694">1694</span>
 <span id="1695">1695</span>
 <span id="1696">1696</span>
+<span id="1697">1697</span>
+<span id="1698">1698</span>
+<span id="1699">1699</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2591,6 +2594,7 @@
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ImOnlineUnsignedPriority</span>: <span class="ident">TransactionPriority</span> <span class="op">=</span> <span class="ident">TransactionPriority::max_value</span>();
 	<span class="doccomment">/// We prioritize im-online heartbeats over election solution submission.</span>
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">StakingUnsignedPriority</span>: <span class="ident">TransactionPriority</span> <span class="op">=</span> <span class="ident">TransactionPriority::max_value</span>() <span class="op">/</span> <span class="number">2</span>;
+	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MaxAuthorities</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">100</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">LocalCall</span><span class="op">&gt;</span> <span class="ident">frame_system::offchain::CreateSignedTransaction</span><span class="op">&lt;</span><span class="ident">LocalCall</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Runtime</span>
@@ -2663,7 +2667,9 @@
 	<span class="kw">type</span> <span class="ident">OnOffenceHandler</span> <span class="op">=</span> <span class="ident">Staking</span>;
 }
 
-<span class="kw">impl</span> <span class="ident">pallet_authority_discovery::Config</span> <span class="kw">for</span> <span class="ident">Runtime</span> {}
+<span class="kw">impl</span> <span class="ident">pallet_authority_discovery::Config</span> <span class="kw">for</span> <span class="ident">Runtime</span> {
+	<span class="kw">type</span> <span class="ident">MaxAuthorities</span> <span class="op">=</span> <span class="ident">MaxAuthorities</span>;
+}
 
 <span class="kw">impl</span> <span class="ident">pallet_grandpa::Config</span> <span class="kw">for</span> <span class="ident">Runtime</span> {
 	<span class="kw">type</span> <span class="ident">Event</span> <span class="op">=</span> <span class="ident">Event</span>;
