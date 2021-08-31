@@ -420,17 +420,17 @@
 			},
 			<span class="ident">OutputType::Text</span> <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="macro">println!</span>(
-					<span class="string">&quot;Secret phrase `{}` is account:\n  \
+					<span class="string">&quot;Secret phrase:       {}\n  \
 					Secret seed:       {}\n  \
 					Public key (hex):  {}\n  \
-					Public key (SS58): {}\n  \
 					Account ID:        {}\n  \
+					Public key (SS58): {}\n  \
 					SS58 Address:      {}&quot;</span>,
 					<span class="ident">uri</span>,
 					<span class="ident">format_seed</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">seed</span>),
 					<span class="ident">format_public_key</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>.<span class="ident">clone</span>()),
+					<span class="ident">format_account_id</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>.<span class="ident">clone</span>()),
 					<span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
-					<span class="ident">format_account_id</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>),
 					<span class="ident">pair</span>.<span class="ident">public</span>().<span class="ident">into</span>().<span class="ident">into_account</span>().<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 				);
 			},
@@ -459,14 +459,14 @@
 					<span class="string">&quot;Secret Key URI `{}` is account:\n  \
 					Secret seed:       {}\n  \
 					Public key (hex):  {}\n  \
-					Public key (SS58): {}\n  \
 					Account ID:        {}\n  \
+					Public key (SS58): {}\n  \
 					SS58 Address:      {}&quot;</span>,
 					<span class="ident">uri</span>,
 					<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">seed</span>) <span class="op">=</span> <span class="ident">seed</span> { <span class="ident">format_seed</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">seed</span>) } <span class="kw">else</span> { <span class="string">&quot;n/a&quot;</span>.<span class="ident">into</span>() },
 					<span class="ident">format_public_key</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>.<span class="ident">clone</span>()),
+					<span class="ident">format_account_id</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>.<span class="ident">clone</span>()),
 					<span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
-					<span class="ident">format_account_id</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>),
 					<span class="ident">pair</span>.<span class="ident">public</span>().<span class="ident">into</span>().<span class="ident">into_account</span>().<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 				);
 			},
@@ -480,8 +480,8 @@
 					<span class="string">&quot;publicKeyUri&quot;</span>: <span class="ident">uri</span>,
 					<span class="string">&quot;networkId&quot;</span>: <span class="ident">String::from</span>(<span class="ident">network_override</span>),
 					<span class="string">&quot;publicKey&quot;</span>: <span class="ident">format_public_key</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>.<span class="ident">clone</span>()),
-					<span class="string">&quot;ss58PublicKey&quot;</span>: <span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 					<span class="string">&quot;accountId&quot;</span>: <span class="ident">format_account_id</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>.<span class="ident">clone</span>()),
+					<span class="string">&quot;ss58PublicKey&quot;</span>: <span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 					<span class="string">&quot;ss58Address&quot;</span>: <span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 				});
 
@@ -495,14 +495,14 @@
 					<span class="string">&quot;Public Key URI `{}` is account:\n  \
 					 Network ID/version: {}\n  \
 					 Public key (hex):   {}\n  \
-					 Public key (SS58):  {}\n  \
 					 Account ID:         {}\n  \
+					 Public key (SS58):  {}\n  \
 					 SS58 Address:       {}&quot;</span>,
 					<span class="ident">uri</span>,
 					<span class="ident">String::from</span>(<span class="ident">network_override</span>),
 					<span class="ident">format_public_key</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>.<span class="ident">clone</span>()),
-					<span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 					<span class="ident">format_account_id</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>.<span class="ident">clone</span>()),
+					<span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 					<span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 				);
 			},
@@ -534,8 +534,8 @@
 			<span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
 				<span class="string">&quot;networkId&quot;</span>: <span class="ident">String::from</span>(<span class="ident">network_override</span>),
 				<span class="string">&quot;publicKey&quot;</span>: <span class="ident">format_public_key</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>.<span class="ident">clone</span>()),
-				<span class="string">&quot;ss58PublicKey&quot;</span>: <span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 				<span class="string">&quot;accountId&quot;</span>: <span class="ident">format_account_id</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>.<span class="ident">clone</span>()),
+				<span class="string">&quot;ss58PublicKey&quot;</span>: <span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 				<span class="string">&quot;ss58Address&quot;</span>: <span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 			});
 
@@ -545,13 +545,13 @@
 			<span class="macro">println!</span>(
 				<span class="string">&quot;Network ID/version: {}\n  \
 				 Public key (hex):   {}\n  \
-				 Public key (SS58):  {}\n  \
 				 Account ID:         {}\n  \
+				 Public key (SS58):  {}\n  \
 				 SS58 Address:       {}&quot;</span>,
 				<span class="ident">String::from</span>(<span class="ident">network_override</span>),
 				<span class="ident">format_public_key</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>.<span class="ident">clone</span>()),
-				<span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 				<span class="ident">format_account_id</span>::<span class="op">&lt;</span><span class="ident">Pair</span><span class="op">&gt;</span>(<span class="ident">public_key</span>.<span class="ident">clone</span>()),
+				<span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 				<span class="ident">public_key</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">network_override</span>),
 			);
 		},
