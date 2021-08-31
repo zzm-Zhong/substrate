@@ -1224,7 +1224,7 @@
 
 				<span class="kw">if</span> <span class="ident">tracker</span>.<span class="ident">writes</span> <span class="op">&gt;</span> <span class="number">0</span> {
 					<span class="ident">writes</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
-					<span class="ident">repeat_writes</span> <span class="op">+</span><span class="op">=</span> <span class="ident">tracker</span>.<span class="ident">reads</span> <span class="op">-</span> <span class="number">1</span>;
+					<span class="ident">repeat_writes</span> <span class="op">+</span><span class="op">=</span> <span class="ident">tracker</span>.<span class="ident">writes</span> <span class="op">-</span> <span class="number">1</span>;
 				}
 			}
 		});
