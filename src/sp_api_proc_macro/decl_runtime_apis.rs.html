@@ -998,6 +998,7 @@
 <span id="987">987</span>
 <span id="988">988</span>
 <span id="989">989</span>
+<span id="990">990</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1184,7 +1185,7 @@
 		{
 			<span class="op">&lt;</span><span class="ident">R</span> <span class="kw">as</span> #<span class="ident">crate_::DecodeLimit</span><span class="op">&gt;</span><span class="ident">::decode_with_depth_limit</span>(
 				#<span class="ident">crate_::MAX_EXTRINSIC_DEPTH</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span>#<span class="ident">crate_::Encode::encode</span>(<span class="ident">input</span>)[..],
+				<span class="kw-2">&amp;</span>#<span class="ident">crate_::Encode::encode</span>(<span class="ident">input</span>)[..],
 			).<span class="ident">map_err</span>(<span class="ident">map_error</span>)
 		}
 	));
@@ -1381,6 +1382,7 @@
 		<span class="comment">// Generate the generator function</span>
 		<span class="ident">result</span>.<span class="ident">push</span>(<span class="macro">quote!</span>(
 			<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">test</span>))]</span>
+			<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::too_many_arguments</span>)]</span>
 			<span class="kw">pub</span> <span class="kw">fn</span> #<span class="ident">fn_name</span><span class="op">&lt;</span>
 				<span class="ident">R</span>: #<span class="ident">crate_::Encode</span> <span class="op">+</span> #<span class="ident">crate_::Decode</span> <span class="op">+</span> <span class="ident">PartialEq</span>,
 				<span class="ident">NC</span>: <span class="ident">FnOnce</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">R</span>, #<span class="ident">crate_::ApiError</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">std::panic::UnwindSafe</span>,
