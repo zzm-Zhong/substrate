@@ -462,6 +462,12 @@
 <span id="451">451</span>
 <span id="452">452</span>
 <span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -486,6 +492,7 @@
 <span class="kw">use</span> <span class="kw">crate</span>::{
 	<span class="ident">storage</span>::{<span class="ident">StorageDecodeLength</span>, <span class="ident">StorageTryAppend</span>},
 	<span class="ident">traits::Get</span>,
+	<span class="ident">WeakBoundedVec</span>,
 };
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>, <span class="ident">EncodeLike</span>, <span class="ident">MaxEncodedLen</span>};
 <span class="kw">use</span> <span class="ident">core</span>::{
@@ -510,8 +517,13 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Encode</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BoundedSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">T</span>], <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>);
 
-<span class="comment">// `BoundedSlice`s encode to something which will always decode into a `BoundedVec` or a `Vec`.</span>
+<span class="comment">// `BoundedSlice`s encode to something which will always decode into a `BoundedVec`,</span>
+<span class="comment">// `WeakBoundedVec`, or a `Vec`.</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>: <span class="ident">Encode</span> <span class="op">+</span> <span class="ident">Decode</span>, <span class="ident">S</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">EncodeLike</span><span class="op">&lt;</span><span class="ident">BoundedVec</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">BoundedSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span> {}
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>: <span class="ident">Encode</span> <span class="op">+</span> <span class="ident">Decode</span>, <span class="ident">S</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">EncodeLike</span><span class="op">&lt;</span><span class="ident">WeakBoundedVec</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span><span class="op">&gt;</span>
+	<span class="kw">for</span> <span class="ident">BoundedSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span>
+{
+}
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>: <span class="ident">Encode</span> <span class="op">+</span> <span class="ident">Decode</span>, <span class="ident">S</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">EncodeLike</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">BoundedSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span> {}
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">S</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">T</span>]<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">BoundedSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span> {
