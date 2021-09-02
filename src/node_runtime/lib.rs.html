@@ -1708,6 +1708,7 @@
 <span id="1697">1697</span>
 <span id="1698">1698</span>
 <span id="1699">1699</span>
+<span id="1700">1700</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2331,6 +2332,7 @@
 	<span class="kw">type</span> <span class="ident">EnactmentPeriod</span> <span class="op">=</span> <span class="ident">EnactmentPeriod</span>;
 	<span class="kw">type</span> <span class="ident">LaunchPeriod</span> <span class="op">=</span> <span class="ident">LaunchPeriod</span>;
 	<span class="kw">type</span> <span class="ident">VotingPeriod</span> <span class="op">=</span> <span class="ident">VotingPeriod</span>;
+	<span class="kw">type</span> <span class="ident">VoteLockingPeriod</span> <span class="op">=</span> <span class="ident">EnactmentPeriod</span>; <span class="comment">// Same as EnactmentPeriod</span>
 	<span class="kw">type</span> <span class="ident">MinimumDeposit</span> <span class="op">=</span> <span class="ident">MinimumDeposit</span>;
 	<span class="doccomment">/// A straight majority of the council can decide what their next motion is.</span>
 	<span class="kw">type</span> <span class="ident">ExternalOrigin</span> <span class="op">=</span>
