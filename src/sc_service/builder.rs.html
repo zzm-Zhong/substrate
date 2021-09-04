@@ -1118,6 +1118,7 @@
 };
 <span class="kw">use</span> <span class="ident">sc_telemetry</span>::{<span class="ident">telemetry</span>, <span class="ident">ConnectionMessage</span>, <span class="ident">Telemetry</span>, <span class="ident">TelemetryHandle</span>, <span class="ident">SUBSTRATE_INFO</span>};
 <span class="kw">use</span> <span class="ident">sc_transaction_pool_api::MaintainedTransactionPool</span>;
+<span class="kw">use</span> <span class="ident">sc_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedSender</span>};
 <span class="kw">use</span> <span class="ident">sp_api</span>::{<span class="ident">CallApiAt</span>, <span class="ident">ProvideRuntimeApi</span>};
 <span class="kw">use</span> <span class="ident">sp_blockchain</span>::{<span class="ident">HeaderBackend</span>, <span class="ident">HeaderMetadata</span>};
 <span class="kw">use</span> <span class="ident">sp_consensus::block_validation</span>::{
@@ -1130,7 +1131,6 @@
 	<span class="ident">traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">BlockIdTo</span>, <span class="ident">HashFor</span>, <span class="ident">Zero</span>},
 	<span class="ident">BuildStorage</span>,
 };
-<span class="kw">use</span> <span class="ident">sp_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedSender</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">str::FromStr</span>, <span class="ident">sync::Arc</span>, <span class="ident">time::SystemTime</span>};
 
 <span class="doccomment">/// A utility trait for building an RPC extension given a `DenyUnsafe` instance.</span>

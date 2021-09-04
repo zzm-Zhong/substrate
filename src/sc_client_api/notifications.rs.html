@@ -590,9 +590,9 @@
 
 <span class="kw">use</span> <span class="ident">fnv</span>::{<span class="ident">FnvHashMap</span>, <span class="ident">FnvHashSet</span>};
 <span class="kw">use</span> <span class="ident">prometheus_endpoint</span>::{<span class="ident">register</span>, <span class="ident">CounterVec</span>, <span class="ident">Opts</span>, <span class="ident">Registry</span>, <span class="ident">U64</span>};
+<span class="kw">use</span> <span class="ident">sc_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedReceiver</span>, <span class="ident">TracingUnboundedSender</span>};
 <span class="kw">use</span> <span class="ident">sp_core::storage</span>::{<span class="ident">StorageData</span>, <span class="ident">StorageKey</span>};
 <span class="kw">use</span> <span class="ident">sp_runtime::traits::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>;
-<span class="kw">use</span> <span class="ident">sp_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedReceiver</span>, <span class="ident">TracingUnboundedSender</span>};
 
 <span class="doccomment">/// Storage change set</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>

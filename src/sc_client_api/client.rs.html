@@ -339,8 +339,8 @@
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">blockchain::Info</span>, <span class="ident">notifications::StorageEventStream</span>};
 <span class="kw">use</span> <span class="ident">sc_transaction_pool_api::ChainEvent</span>;
+<span class="kw">use</span> <span class="ident">sc_utils::mpsc::TracingUnboundedReceiver</span>;
 <span class="kw">use</span> <span class="ident">sp_blockchain</span>;
-<span class="kw">use</span> <span class="ident">sp_utils::mpsc::TracingUnboundedReceiver</span>;
 
 <span class="doccomment">/// Type that implements `futures::Stream` of block import events.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ImportNotifications</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">TracingUnboundedReceiver</span><span class="op">&lt;</span><span class="ident">BlockImportNotification</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>;

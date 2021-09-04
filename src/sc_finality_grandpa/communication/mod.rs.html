@@ -1122,8 +1122,8 @@
 <span class="kw">use</span> <span class="ident">gossip</span>::{
 	<span class="ident">FullCatchUpMessage</span>, <span class="ident">FullCommitMessage</span>, <span class="ident">GossipMessage</span>, <span class="ident">GossipValidator</span>, <span class="ident">PeerReport</span>, <span class="ident">VoteMessage</span>,
 };
+<span class="kw">use</span> <span class="ident">sc_utils::mpsc::TracingUnboundedReceiver</span>;
 <span class="kw">use</span> <span class="ident">sp_finality_grandpa</span>::{<span class="ident">AuthorityId</span>, <span class="ident">AuthoritySignature</span>, <span class="ident">RoundNumber</span>, <span class="ident">SetId</span> <span class="kw">as</span> <span class="ident">SetIdNumber</span>};
-<span class="kw">use</span> <span class="ident">sp_utils::mpsc::TracingUnboundedReceiver</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">gossip</span>;
 <span class="kw">mod</span> <span class="ident">periodic</span>;

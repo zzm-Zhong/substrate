@@ -341,9 +341,9 @@
 <span class="kw">use</span> <span class="ident">sc_network</span>::{<span class="ident">config::Role</span>, <span class="ident">NetworkService</span>, <span class="ident">NetworkStatus</span>};
 <span class="kw">use</span> <span class="ident">sc_telemetry</span>::{<span class="ident">telemetry</span>, <span class="ident">TelemetryHandle</span>, <span class="ident">SUBSTRATE_INFO</span>};
 <span class="kw">use</span> <span class="ident">sc_transaction_pool_api</span>::{<span class="ident">MaintainedTransactionPool</span>, <span class="ident">PoolStatus</span>};
+<span class="kw">use</span> <span class="ident">sc_utils::metrics::register_globals</span>;
 <span class="kw">use</span> <span class="ident">sp_api::ProvideRuntimeApi</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime::traits</span>::{<span class="ident">Block</span>, <span class="ident">NumberFor</span>, <span class="ident">SaturatedConversion</span>, <span class="ident">UniqueSaturatedInto</span>};
-<span class="kw">use</span> <span class="ident">sp_utils::metrics::register_globals</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
 	<span class="ident">sync::Arc</span>,
 	<span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">Instant</span>},

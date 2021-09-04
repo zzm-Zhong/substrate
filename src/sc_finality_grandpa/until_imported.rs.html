@@ -1083,9 +1083,9 @@
 <span class="kw">use</span> <span class="ident">parking_lot::Mutex</span>;
 <span class="kw">use</span> <span class="ident">prometheus_endpoint</span>::{<span class="ident">register</span>, <span class="ident">Gauge</span>, <span class="ident">PrometheusError</span>, <span class="ident">Registry</span>, <span class="ident">U64</span>};
 <span class="kw">use</span> <span class="ident">sc_client_api</span>::{<span class="ident">BlockImportNotification</span>, <span class="ident">ImportNotifications</span>};
+<span class="kw">use</span> <span class="ident">sc_utils::mpsc::TracingUnboundedReceiver</span>;
 <span class="kw">use</span> <span class="ident">sp_finality_grandpa::AuthorityId</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime::traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">Header</span> <span class="kw">as</span> <span class="ident">HeaderT</span>, <span class="ident">NumberFor</span>};
-<span class="kw">use</span> <span class="ident">sp_utils::mpsc::TracingUnboundedReceiver</span>;
 
 <span class="kw">use</span> <span class="ident">std</span>::{
 	<span class="ident">collections</span>::{<span class="ident">HashMap</span>, <span class="ident">VecDeque</span>},
@@ -1607,8 +1607,8 @@
 	<span class="kw">use</span> <span class="ident">futures::future::Either</span>;
 	<span class="kw">use</span> <span class="ident">futures_timer::Delay</span>;
 	<span class="kw">use</span> <span class="ident">sc_client_api::BlockImportNotification</span>;
+	<span class="kw">use</span> <span class="ident">sc_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedSender</span>};
 	<span class="kw">use</span> <span class="ident">sp_consensus::BlockOrigin</span>;
-	<span class="kw">use</span> <span class="ident">sp_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedSender</span>};
 	<span class="kw">use</span> <span class="ident">substrate_test_runtime_client::runtime</span>::{<span class="ident">Block</span>, <span class="ident">Hash</span>, <span class="ident">Header</span>};
 
 	<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>

@@ -411,12 +411,12 @@
 };
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::graph</span>::{<span class="ident">ChainApi</span>, <span class="ident">ExtrinsicHash</span>, <span class="ident">NumberFor</span>, <span class="ident">Pool</span>, <span class="ident">ValidatedTransaction</span>};
+<span class="kw">use</span> <span class="ident">sc_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedReceiver</span>, <span class="ident">TracingUnboundedSender</span>};
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{
 	<span class="ident">generic::BlockId</span>,
 	<span class="ident">traits</span>::{<span class="ident">SaturatedConversion</span>, <span class="ident">Zero</span>},
 	<span class="ident">transaction_validity::TransactionValidityError</span>,
 };
-<span class="kw">use</span> <span class="ident">sp_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedReceiver</span>, <span class="ident">TracingUnboundedSender</span>};
 
 <span class="kw">use</span> <span class="ident">futures::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std::time::Duration</span>;

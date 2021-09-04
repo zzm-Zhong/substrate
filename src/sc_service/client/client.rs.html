@@ -2313,6 +2313,7 @@
 };
 <span class="kw">use</span> <span class="ident">sp_consensus</span>::{<span class="ident">BlockOrigin</span>, <span class="ident">BlockStatus</span>, <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">ConsensusError</span>};
 
+<span class="kw">use</span> <span class="ident">sc_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedSender</span>};
 <span class="kw">use</span> <span class="ident">sp_core</span>::{
 	<span class="ident">convert_hash</span>,
 	<span class="ident">storage</span>::{<span class="ident">well_known_keys</span>, <span class="ident">ChildInfo</span>, <span class="ident">PrefixedStorageKey</span>, <span class="ident">StorageData</span>, <span class="ident">StorageKey</span>},
@@ -2334,7 +2335,6 @@
 	<span class="ident">ChangesTrieConfigurationRange</span>, <span class="ident">ChangesTrieRootsStorage</span>, <span class="ident">ChangesTrieStorage</span>, <span class="ident">DBValue</span>,
 };
 <span class="kw">use</span> <span class="ident">sp_trie::StorageProof</span>;
-<span class="kw">use</span> <span class="ident">sp_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedSender</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
 	<span class="ident">collections</span>::{<span class="ident">BTreeMap</span>, <span class="ident">HashMap</span>, <span class="ident">HashSet</span>},
 	<span class="ident">marker::PhantomData</span>,

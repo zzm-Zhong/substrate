@@ -243,8 +243,8 @@
 <span class="kw">use</span> <span class="ident">futures</span>::{<span class="ident">channel::oneshot</span>, <span class="ident">FutureExt</span>};
 <span class="kw">use</span> <span class="ident">sc_rpc_api</span>::{<span class="ident">DenyUnsafe</span>, <span class="ident">Receiver</span>};
 <span class="kw">use</span> <span class="ident">sc_tracing::logging</span>;
+<span class="kw">use</span> <span class="ident">sc_utils::mpsc::TracingUnboundedSender</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime::traits</span>::{<span class="self">self</span>, <span class="ident">Header</span> <span class="kw">as</span> <span class="ident">HeaderT</span>};
-<span class="kw">use</span> <span class="ident">sp_utils::mpsc::TracingUnboundedSender</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
 	<span class="ident">gen_client::Client</span> <span class="kw">as</span> <span class="ident">SystemClient</span>,

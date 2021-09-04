@@ -280,9 +280,9 @@
 	<span class="ident">RemoteChangesRequest</span>, <span class="ident">RemoteHeaderRequest</span>, <span class="ident">RemoteReadChildRequest</span>, <span class="ident">RemoteReadRequest</span>,
 	<span class="ident">StorageProof</span>,
 };
+<span class="kw">use</span> <span class="ident">sc_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedReceiver</span>, <span class="ident">TracingUnboundedSender</span>};
 <span class="kw">use</span> <span class="ident">sp_blockchain::Error</span> <span class="kw">as</span> <span class="ident">ClientError</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime::traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">Header</span> <span class="kw">as</span> <span class="ident">HeaderT</span>, <span class="ident">NumberFor</span>};
-<span class="kw">use</span> <span class="ident">sp_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedReceiver</span>, <span class="ident">TracingUnboundedSender</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
 	<span class="ident">collections::HashMap</span>,
 	<span class="ident">pin::Pin</span>,

@@ -511,12 +511,12 @@
 
 <span class="kw">use</span> <span class="ident">sc_client_api::backend::Backend</span>;
 <span class="kw">use</span> <span class="ident">sc_telemetry::TelemetryHandle</span>;
+<span class="kw">use</span> <span class="ident">sc_utils::mpsc::TracingUnboundedReceiver</span>;
 <span class="kw">use</span> <span class="ident">sp_blockchain::HeaderMetadata</span>;
 <span class="kw">use</span> <span class="ident">sp_consensus::SelectChain</span>;
 <span class="kw">use</span> <span class="ident">sp_finality_grandpa::AuthorityId</span>;
 <span class="kw">use</span> <span class="ident">sp_keystore::SyncCryptoStorePtr</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime::traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">NumberFor</span>};
-<span class="kw">use</span> <span class="ident">sp_utils::mpsc::TracingUnboundedReceiver</span>;
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
 	<span class="ident">authorities::SharedAuthoritySet</span>,
@@ -885,8 +885,8 @@
 	};
 	<span class="kw">use</span> <span class="ident">assert_matches::assert_matches</span>;
 	<span class="kw">use</span> <span class="ident">sc_network::PeerId</span>;
+	<span class="kw">use</span> <span class="ident">sc_utils::mpsc::tracing_unbounded</span>;
 	<span class="kw">use</span> <span class="ident">sp_blockchain::HeaderBackend</span> <span class="kw">as</span> <span class="kw">_</span>;
-	<span class="kw">use</span> <span class="ident">sp_utils::mpsc::tracing_unbounded</span>;
 	<span class="kw">use</span> <span class="ident">substrate_test_runtime_client</span>::{<span class="ident">TestClientBuilder</span>, <span class="ident">TestClientBuilderExt</span>};
 
 	<span class="kw">use</span> <span class="ident">futures::executor</span>;

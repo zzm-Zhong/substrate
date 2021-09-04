@@ -1051,8 +1051,8 @@
 <span class="kw">use</span> <span class="ident">hyper</span>::{<span class="ident">client</span>, <span class="ident">Body</span>, <span class="ident">Client</span> <span class="kw">as</span> <span class="ident">HyperClient</span>};
 <span class="kw">use</span> <span class="ident">hyper_rustls::HttpsConnector</span>;
 <span class="kw">use</span> <span class="ident">log::error</span>;
+<span class="kw">use</span> <span class="ident">sc_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedReceiver</span>, <span class="ident">TracingUnboundedSender</span>};
 <span class="kw">use</span> <span class="ident">sp_core::offchain</span>::{<span class="ident">HttpError</span>, <span class="ident">HttpRequestId</span>, <span class="ident">HttpRequestStatus</span>, <span class="ident">Timestamp</span>};
-<span class="kw">use</span> <span class="ident">sp_utils::mpsc</span>::{<span class="ident">tracing_unbounded</span>, <span class="ident">TracingUnboundedReceiver</span>, <span class="ident">TracingUnboundedSender</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
 	<span class="ident">convert::TryFrom</span>,
 	<span class="ident">fmt</span>,
