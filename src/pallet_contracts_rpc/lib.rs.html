@@ -404,51 +404,6 @@
 <span id="393">393</span>
 <span id="394">394</span>
 <span id="395">395</span>
-<span id="396">396</span>
-<span id="397">397</span>
-<span id="398">398</span>
-<span id="399">399</span>
-<span id="400">400</span>
-<span id="401">401</span>
-<span id="402">402</span>
-<span id="403">403</span>
-<span id="404">404</span>
-<span id="405">405</span>
-<span id="406">406</span>
-<span id="407">407</span>
-<span id="408">408</span>
-<span id="409">409</span>
-<span id="410">410</span>
-<span id="411">411</span>
-<span id="412">412</span>
-<span id="413">413</span>
-<span id="414">414</span>
-<span id="415">415</span>
-<span id="416">416</span>
-<span id="417">417</span>
-<span id="418">418</span>
-<span id="419">419</span>
-<span id="420">420</span>
-<span id="421">421</span>
-<span id="422">422</span>
-<span id="423">423</span>
-<span id="424">424</span>
-<span id="425">425</span>
-<span id="426">426</span>
-<span id="427">427</span>
-<span id="428">428</span>
-<span id="429">429</span>
-<span id="430">430</span>
-<span id="431">431</span>
-<span id="432">432</span>
-<span id="433">433</span>
-<span id="434">434</span>
-<span id="435">435</span>
-<span id="436">436</span>
-<span id="437">437</span>
-<span id="438">438</span>
-<span id="439">439</span>
-<span id="440">440</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -474,9 +429,7 @@
 <span class="kw">use</span> <span class="ident">codec::Codec</span>;
 <span class="kw">use</span> <span class="ident">jsonrpc_core</span>::{<span class="ident">Error</span>, <span class="ident">ErrorCode</span>, <span class="prelude-ty">Result</span>};
 <span class="kw">use</span> <span class="ident">jsonrpc_derive::rpc</span>;
-<span class="kw">use</span> <span class="ident">pallet_contracts_primitives</span>::{
-	<span class="ident">Code</span>, <span class="ident">ContractExecResult</span>, <span class="ident">ContractInstantiateResult</span>, <span class="ident">RentProjection</span>,
-};
+<span class="kw">use</span> <span class="ident">pallet_contracts_primitives</span>::{<span class="ident">Code</span>, <span class="ident">ContractExecResult</span>, <span class="ident">ContractInstantiateResult</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">sp_api::ProvideRuntimeApi</span>;
 <span class="kw">use</span> <span class="ident">sp_blockchain::HeaderBackend</span>;
@@ -492,7 +445,6 @@
 
 <span class="kw">const</span> <span class="ident">RUNTIME_ERROR</span>: <span class="ident">i64</span> <span class="op">=</span> <span class="number">1</span>;
 <span class="kw">const</span> <span class="ident">CONTRACT_DOESNT_EXIST</span>: <span class="ident">i64</span> <span class="op">=</span> <span class="number">2</span>;
-<span class="kw">const</span> <span class="ident">CONTRACT_IS_A_TOMBSTONE</span>: <span class="ident">i64</span> <span class="op">=</span> <span class="number">3</span>;
 
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Weight</span> <span class="op">=</span> <span class="ident">u64</span>;
 
@@ -519,11 +471,6 @@
 			<span class="ident">DoesntExist</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Error</span> {
 				<span class="ident">code</span>: <span class="ident">ErrorCode::ServerError</span>(<span class="ident">CONTRACT_DOESNT_EXIST</span>),
 				<span class="ident">message</span>: <span class="string">&quot;The specified contract doesn&#39;t exist.&quot;</span>.<span class="ident">into</span>(),
-				<span class="ident">data</span>: <span class="prelude-val">None</span>,
-			},
-			<span class="ident">IsTombstone</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Error</span> {
-				<span class="ident">code</span>: <span class="ident">ErrorCode::ServerError</span>(<span class="ident">CONTRACT_IS_A_TOMBSTONE</span>),
-				<span class="ident">message</span>: <span class="string">&quot;The contract is a tombstone and doesn&#39;t have any storage.&quot;</span>.<span class="ident">into</span>(),
 				<span class="ident">data</span>: <span class="prelude-val">None</span>,
 			},
 		}
@@ -582,7 +529,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">instantiate_request</span>: <span class="ident">InstantiateRequest</span><span class="op">&lt;</span><span class="ident">AccountId</span>, <span class="ident">Hash</span><span class="op">&gt;</span>,
 		<span class="ident">at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BlockHash</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ContractInstantiateResult</span><span class="op">&lt;</span><span class="ident">AccountId</span>, <span class="ident">BlockNumber</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ContractInstantiateResult</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Returns the value under a specified storage `key` in a contract given by `address` param,</span>
 	<span class="doccomment">/// or `None` if it is not set.</span>
@@ -593,19 +540,6 @@
 		<span class="ident">key</span>: <span class="ident">H256</span>,
 		<span class="ident">at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BlockHash</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Bytes</span><span class="op">&gt;</span><span class="op">&gt;</span>;
-
-	<span class="doccomment">/// Returns the projected time a given contract will be able to sustain paying its rent.</span>
-	<span class="doccomment">///</span>
-	<span class="doccomment">/// The returned projection is relevant for the given block, i.e. it is as if the contract was</span>
-	<span class="doccomment">/// accessed at the beginning of that block.</span>
-	<span class="doccomment">///</span>
-	<span class="doccomment">/// Returns `None` if the contract is exempted from rent.</span>
-	<span class="attribute">#[<span class="ident">rpc</span>(<span class="ident">name</span> <span class="op">=</span> <span class="string">&quot;contracts_rentProjection&quot;</span>)]</span>
-	<span class="kw">fn</span> <span class="ident">rent_projection</span>(
-		<span class="kw-2">&amp;</span><span class="self">self</span>,
-		<span class="ident">address</span>: <span class="ident">AccountId</span>,
-		<span class="ident">at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BlockHash</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BlockNumber</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 }
 
 <span class="doccomment">/// An implementation of contract specific RPC methods.</span>
@@ -669,8 +603,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">instantiate_request</span>: <span class="ident">InstantiateRequest</span><span class="op">&lt;</span><span class="ident">AccountId</span>, <span class="ident">Hash</span><span class="op">&gt;</span>,
 		<span class="ident">at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ContractInstantiateResult</span><span class="op">&lt;</span><span class="ident">AccountId</span>, <span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Header</span> <span class="kw">as</span> <span class="ident">HeaderT</span><span class="op">&gt;</span><span class="ident">::Number</span><span class="op">&gt;</span><span class="op">&gt;</span>
-	{
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ContractInstantiateResult</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">api</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">runtime_api</span>();
 		<span class="kw">let</span> <span class="ident">at</span> <span class="op">=</span> <span class="ident">BlockId::hash</span>(<span class="ident">at</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span>
 			<span class="comment">// If the block hash is not supplied assume the best block.</span>
@@ -708,27 +641,6 @@
 			.<span class="ident">map</span>(<span class="ident">Bytes</span>);
 
 		<span class="prelude-val">Ok</span>(<span class="ident">result</span>)
-	}
-
-	<span class="kw">fn</span> <span class="ident">rent_projection</span>(
-		<span class="kw-2">&amp;</span><span class="self">self</span>,
-		<span class="ident">address</span>: <span class="ident">AccountId</span>,
-		<span class="ident">at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Header</span> <span class="kw">as</span> <span class="ident">HeaderT</span><span class="op">&gt;</span><span class="ident">::Number</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">api</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">runtime_api</span>();
-		<span class="kw">let</span> <span class="ident">at</span> <span class="op">=</span> <span class="ident">BlockId::hash</span>(<span class="ident">at</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span>
-			<span class="comment">// If the block hash is not supplied assume the best block.</span>
-			<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">info</span>().<span class="ident">best_hash</span>));
-
-		<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">api</span>
-			.<span class="ident">rent_projection</span>(<span class="kw-2">&amp;</span><span class="ident">at</span>, <span class="ident">address</span>)
-			.<span class="ident">map_err</span>(<span class="ident">runtime_error_into_rpc_err</span>)<span class="question-mark">?</span>
-			.<span class="ident">map_err</span>(<span class="ident">ContractAccessError</span>)<span class="question-mark">?</span>;
-
-		<span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">result</span> {
-			<span class="ident">RentProjection::NoEviction</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
-			<span class="ident">RentProjection::EvictionAt</span>(<span class="ident">block_num</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">block_num</span>),
-		})
 	}
 }
 
@@ -856,8 +768,7 @@
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">instantiate_result_should_serialize_deserialize_properly</span>() {
 		<span class="kw">fn</span> <span class="ident">test</span>(<span class="ident">expected</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
-			<span class="kw">let</span> <span class="ident">res</span>: <span class="ident">ContractInstantiateResult</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">u64</span><span class="op">&gt;</span> <span class="op">=</span>
-				<span class="ident">serde_json::from_str</span>(<span class="ident">expected</span>).<span class="ident">unwrap</span>();
+			<span class="kw">let</span> <span class="ident">res</span>: <span class="ident">ContractInstantiateResult</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="ident">expected</span>).<span class="ident">unwrap</span>();
 			<span class="kw">let</span> <span class="ident">actual</span> <span class="op">=</span> <span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">res</span>).<span class="ident">unwrap</span>();
 			<span class="macro">assert_eq!</span>(<span class="ident">actual</span>, <span class="ident">trim</span>(<span class="ident">expected</span>).<span class="ident">as_str</span>());
 		}
@@ -872,8 +783,7 @@
 					 &quot;flags&quot;: 5,
 					 &quot;data&quot;: &quot;0x1234&quot;
 				  },
-				  &quot;accountId&quot;: &quot;5CiPP&quot;,
-				  &quot;rentProjection&quot;: null
+				  &quot;accountId&quot;: &quot;5CiPP&quot;
 			   }
 			}
 		}&quot;#</span>,

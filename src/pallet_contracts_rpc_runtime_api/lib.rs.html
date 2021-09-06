@@ -82,15 +82,6 @@
 <span id="71">71</span>
 <span id="72">72</span>
 <span id="73">73</span>
-<span id="74">74</span>
-<span id="75">75</span>
-<span id="76">76</span>
-<span id="77">77</span>
-<span id="78">78</span>
-<span id="79">79</span>
-<span id="80">80</span>
-<span id="81">81</span>
-<span id="82">82</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -119,7 +110,7 @@
 
 <span class="kw">use</span> <span class="ident">codec::Codec</span>;
 <span class="kw">use</span> <span class="ident">pallet_contracts_primitives</span>::{
-	<span class="ident">Code</span>, <span class="ident">ContractExecResult</span>, <span class="ident">ContractInstantiateResult</span>, <span class="ident">GetStorageResult</span>, <span class="ident">RentProjectionResult</span>,
+	<span class="ident">Code</span>, <span class="ident">ContractExecResult</span>, <span class="ident">ContractInstantiateResult</span>, <span class="ident">GetStorageResult</span>,
 };
 <span class="kw">use</span> <span class="ident">sp_std::vec::Vec</span>;
 
@@ -152,26 +143,17 @@
 			<span class="ident">code</span>: <span class="ident">Code</span><span class="op">&lt;</span><span class="ident">Hash</span><span class="op">&gt;</span>,
 			<span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
 			<span class="ident">salt</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ContractInstantiateResult</span><span class="op">&lt;</span><span class="ident">AccountId</span>, <span class="ident">BlockNumber</span><span class="op">&gt;</span>;
+		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ContractInstantiateResult</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// Query a given storage key in a given contract.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// Returns `Ok(Some(Vec&lt;u8&gt;))` if the storage value exists under the given key in the</span>
 		<span class="doccomment">/// specified account and `Ok(None)` if it doesn&#39;t. If the account specified by the address</span>
-		<span class="doccomment">/// doesn&#39;t exist, or doesn&#39;t have a contract or if the contract is a tombstone, then `Err`</span>
-		<span class="doccomment">/// is returned.</span>
+		<span class="doccomment">/// doesn&#39;t exist, or doesn&#39;t have a contract then `Err` is returned.</span>
 		<span class="kw">fn</span> <span class="ident">get_storage</span>(
 			<span class="ident">address</span>: <span class="ident">AccountId</span>,
 			<span class="ident">key</span>: [<span class="ident">u8</span>; <span class="number">32</span>],
 		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">GetStorageResult</span>;
-
-		<span class="doccomment">/// Returns the projected time a given contract will be able to sustain paying its rent.</span>
-		<span class="doccomment">///</span>
-		<span class="doccomment">/// The returned projection is relevant for the current block, i.e. it is as if the contract</span>
-		<span class="doccomment">/// was accessed at the current block.</span>
-		<span class="doccomment">///</span>
-		<span class="doccomment">/// Returns `Err` if the contract is in a tombstone state or doesn&#39;t exist.</span>
-		<span class="kw">fn</span> <span class="ident">rent_projection</span>(<span class="ident">address</span>: <span class="ident">AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RentProjectionResult</span><span class="op">&lt;</span><span class="ident">BlockNumber</span><span class="op">&gt;</span>;
 	}
 }
 </pre></div>

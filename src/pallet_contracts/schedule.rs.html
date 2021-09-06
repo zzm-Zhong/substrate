@@ -765,22 +765,6 @@
 <span id="754">754</span>
 <span id="755">755</span>
 <span id="756">756</span>
-<span id="757">757</span>
-<span id="758">758</span>
-<span id="759">759</span>
-<span id="760">760</span>
-<span id="761">761</span>
-<span id="762">762</span>
-<span id="763">763</span>
-<span id="764">764</span>
-<span id="765">765</span>
-<span id="766">766</span>
-<span id="767">767</span>
-<span id="768">768</span>
-<span id="769">769</span>
-<span id="770">770</span>
-<span id="771">771</span>
-<span id="772">772</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1051,11 +1035,8 @@
 	<span class="doccomment">/// Weight of calling `seal_minimum_balance`.</span>
 	<span class="kw">pub</span> <span class="ident">minimum_balance</span>: <span class="ident">Weight</span>,
 
-	<span class="doccomment">/// Weight of calling `seal_tombstone_deposit`.</span>
-	<span class="kw">pub</span> <span class="ident">tombstone_deposit</span>: <span class="ident">Weight</span>,
-
-	<span class="doccomment">/// Weight of calling `seal_rent_allowance`.</span>
-	<span class="kw">pub</span> <span class="ident">rent_allowance</span>: <span class="ident">Weight</span>,
+	<span class="doccomment">/// Weight of calling `seal_contract_deposit`.</span>
+	<span class="kw">pub</span> <span class="ident">contract_deposit</span>: <span class="ident">Weight</span>,
 
 	<span class="doccomment">/// Weight of calling `seal_block_number`.</span>
 	<span class="kw">pub</span> <span class="ident">block_number</span>: <span class="ident">Weight</span>,
@@ -1084,12 +1065,6 @@
 	<span class="doccomment">/// Weight of calling `seal_terminate`.</span>
 	<span class="kw">pub</span> <span class="ident">terminate</span>: <span class="ident">Weight</span>,
 
-	<span class="doccomment">/// Weight of calling `seal_restore_to`.</span>
-	<span class="kw">pub</span> <span class="ident">restore_to</span>: <span class="ident">Weight</span>,
-
-	<span class="doccomment">/// Weight per delta key supplied to `seal_restore_to`.</span>
-	<span class="kw">pub</span> <span class="ident">restore_to_per_delta</span>: <span class="ident">Weight</span>,
-
 	<span class="doccomment">/// Weight of calling `seal_random`.</span>
 	<span class="kw">pub</span> <span class="ident">random</span>: <span class="ident">Weight</span>,
 
@@ -1104,9 +1079,6 @@
 
 	<span class="doccomment">/// Weight of calling `seal_debug_message`.</span>
 	<span class="kw">pub</span> <span class="ident">debug_message</span>: <span class="ident">Weight</span>,
-
-	<span class="doccomment">/// Weight of calling `seal_set_rent_allowance`.</span>
-	<span class="kw">pub</span> <span class="ident">set_rent_allowance</span>: <span class="ident">Weight</span>,
 
 	<span class="doccomment">/// Weight of calling `seal_set_storage`.</span>
 	<span class="kw">pub</span> <span class="ident">set_storage</span>: <span class="ident">Weight</span>,
@@ -1350,8 +1322,7 @@
 			<span class="ident">balance</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_balance</span>),
 			<span class="ident">value_transferred</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_value_transferred</span>),
 			<span class="ident">minimum_balance</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_minimum_balance</span>),
-			<span class="ident">tombstone_deposit</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_tombstone_deposit</span>),
-			<span class="ident">rent_allowance</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_rent_allowance</span>),
+			<span class="ident">contract_deposit</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_tombstone_deposit</span>),
 			<span class="ident">block_number</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_block_number</span>),
 			<span class="ident">now</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_now</span>),
 			<span class="ident">weight_to_fee</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_weight_to_fee</span>),
@@ -1361,8 +1332,6 @@
 			<span class="ident">r#return</span>: <span class="macro">cost!</span>(<span class="ident">seal_return</span>),
 			<span class="ident">return_per_byte</span>: <span class="macro">cost_byte!</span>(<span class="ident">seal_return_per_kb</span>),
 			<span class="ident">terminate</span>: <span class="macro">cost!</span>(<span class="ident">seal_terminate</span>),
-			<span class="ident">restore_to</span>: <span class="macro">cost!</span>(<span class="ident">seal_restore_to</span>),
-			<span class="ident">restore_to_per_delta</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_restore_to_per_delta</span>),
 			<span class="ident">random</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_random</span>),
 			<span class="ident">deposit_event</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_deposit_event</span>),
 			<span class="ident">deposit_event_per_topic</span>: <span class="macro">cost_batched_args!</span>(<span class="ident">seal_deposit_event_per_topic_and_kb</span>, <span class="number">1</span>, <span class="number">0</span>),
@@ -1372,7 +1341,6 @@
 				<span class="number">1</span>
 			),
 			<span class="ident">debug_message</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_debug_message</span>),
-			<span class="ident">set_rent_allowance</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_set_rent_allowance</span>),
 			<span class="ident">set_storage</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_set_storage</span>),
 			<span class="ident">set_storage_per_byte</span>: <span class="macro">cost_byte_batched!</span>(<span class="ident">seal_set_storage_per_kb</span>),
 			<span class="ident">clear_storage</span>: <span class="macro">cost_batched!</span>(<span class="ident">seal_clear_storage</span>),

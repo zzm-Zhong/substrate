@@ -160,32 +160,6 @@
 <span id="149">149</span>
 <span id="150">150</span>
 <span id="151">151</span>
-<span id="152">152</span>
-<span id="153">153</span>
-<span id="154">154</span>
-<span id="155">155</span>
-<span id="156">156</span>
-<span id="157">157</span>
-<span id="158">158</span>
-<span id="159">159</span>
-<span id="160">160</span>
-<span id="161">161</span>
-<span id="162">162</span>
-<span id="163">163</span>
-<span id="164">164</span>
-<span id="165">165</span>
-<span id="166">166</span>
-<span id="167">167</span>
-<span id="168">168</span>
-<span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
-<span id="172">172</span>
-<span id="173">173</span>
-<span id="174">174</span>
-<span id="175">175</span>
-<span id="176">176</span>
-<span id="177">177</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -259,35 +233,17 @@
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ContractExecResult</span> <span class="op">=</span> <span class="ident">ContractResult</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ExecReturnValue</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// Result type of a `bare_instantiate` call.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ContractInstantiateResult</span><span class="op">&lt;</span><span class="ident">AccountId</span>, <span class="ident">BlockNumber</span><span class="op">&gt;</span> <span class="op">=</span>
-	<span class="ident">ContractResult</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">InstantiateReturnValue</span><span class="op">&lt;</span><span class="ident">AccountId</span>, <span class="ident">BlockNumber</span><span class="op">&gt;</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ContractInstantiateResult</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span> <span class="op">=</span>
+	<span class="ident">ContractResult</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">InstantiateReturnValue</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// Result type of a `get_storage` call.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">GetStorageResult</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">ContractAccessError</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// Result type of a `rent_projection` call.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">RentProjectionResult</span><span class="op">&lt;</span><span class="ident">BlockNumber</span><span class="op">&gt;</span> <span class="op">=</span>
-	<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RentProjection</span><span class="op">&lt;</span><span class="ident">BlockNumber</span><span class="op">&gt;</span>, <span class="ident">ContractAccessError</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// The possible errors that can happen querying the storage of a contract.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Encode</span>, <span class="ident">Decode</span>, <span class="ident">RuntimeDebug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ContractAccessError</span> {
 	<span class="doccomment">/// The given address doesn&#39;t point to a contract.</span>
 	<span class="ident">DoesntExist</span>,
-	<span class="doccomment">/// The specified contract is a tombstone and thus cannot have any storage.</span>
-	<span class="ident">IsTombstone</span>,
-}
-
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Encode</span>, <span class="ident">Decode</span>, <span class="ident">RuntimeDebug</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>))]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;camelCase&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RentProjection</span><span class="op">&lt;</span><span class="ident">BlockNumber</span><span class="op">&gt;</span> {
-	<span class="doccomment">/// Eviction is projected to happen at the specified block number.</span>
-	<span class="ident">EvictionAt</span>(<span class="ident">BlockNumber</span>),
-	<span class="doccomment">/// No eviction is scheduled.</span>
-	<span class="doccomment">///</span>
-	<span class="doccomment">/// E.g. Contract accumulated enough funds to offset the rent storage costs.</span>
-	<span class="ident">NoEviction</span>,
 }
 
 <span class="macro">bitflags!</span> {
@@ -323,19 +279,11 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Encode</span>, <span class="ident">Decode</span>, <span class="ident">RuntimeDebug</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">derive</span>(<span class="ident">Serialize</span>, <span class="ident">Deserialize</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;camelCase&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InstantiateReturnValue</span><span class="op">&lt;</span><span class="ident">AccountId</span>, <span class="ident">BlockNumber</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InstantiateReturnValue</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// The output of the called constructor.</span>
 	<span class="kw">pub</span> <span class="ident">result</span>: <span class="ident">ExecReturnValue</span>,
 	<span class="doccomment">/// The account id of the new contract.</span>
 	<span class="kw">pub</span> <span class="ident">account_id</span>: <span class="ident">AccountId</span>,
-	<span class="doccomment">/// Information about when and if the new project will be evicted.</span>
-	<span class="doccomment">///</span>
-	<span class="doccomment">/// # Note</span>
-	<span class="doccomment">///</span>
-	<span class="doccomment">/// `None` if `bare_instantiate` was called with</span>
-	<span class="doccomment">/// `compute_projection` set to false. From the perspective of an RPC this means that</span>
-	<span class="doccomment">/// the runtime API did not request this value and this feature is therefore unsupported.</span>
-	<span class="kw">pub</span> <span class="ident">rent_projection</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RentProjection</span><span class="op">&lt;</span><span class="ident">BlockNumber</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// Reference to an existing code hash or a new wasm module.</span>
