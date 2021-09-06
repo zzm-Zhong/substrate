@@ -208,6 +208,7 @@
 <span id="197">197</span>
 <span id="198">198</span>
 <span id="199">199</span>
+<span id="200">200</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -285,8 +286,9 @@
 
 	<span class="doccomment">/// Apply the given transaction to this backend and set the root to the given value.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">apply_transaction</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">root</span>: <span class="ident">H::Out</span>, <span class="ident">transaction</span>: <span class="ident">MemoryDB</span><span class="op">&lt;</span><span class="ident">H</span><span class="op">&gt;</span>) {
-		<span class="self">self</span>.<span class="ident">backend_storage_mut</span>().<span class="ident">consolidate</span>(<span class="ident">transaction</span>);
-		<span class="self">self</span>.<span class="ident">essence</span>.<span class="ident">set_root</span>(<span class="ident">root</span>);
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span> <span class="op">=</span> <span class="ident">sp_std::mem::take</span>(<span class="self">self</span>).<span class="ident">into_storage</span>();
+		<span class="ident">storage</span>.<span class="ident">consolidate</span>(<span class="ident">transaction</span>);
+		<span class="kw-2">*</span><span class="self">self</span> <span class="op">=</span> <span class="ident">TrieBackend::new</span>(<span class="ident">storage</span>, <span class="ident">root</span>);
 	}
 
 	<span class="doccomment">/// Compare with another in-memory backend.</span>
