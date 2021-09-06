@@ -3042,6 +3042,9 @@
 <span id="3031">3031</span>
 <span id="3032">3032</span>
 <span id="3033">3033</span>
+<span id="3034">3034</span>
+<span id="3035">3035</span>
+<span id="3036">3036</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -3115,7 +3118,7 @@
 <span class="kw">mod</span> <span class="ident">warp</span>;
 
 <span class="doccomment">/// Maximum blocks to request in a single packet.</span>
-<span class="kw">const</span> <span class="ident">MAX_BLOCKS_TO_REQUEST</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">128</span>;
+<span class="kw">const</span> <span class="ident">MAX_BLOCKS_TO_REQUEST</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">64</span>;
 
 <span class="doccomment">/// Maximum blocks to store in the import queue.</span>
 <span class="kw">const</span> <span class="ident">MAX_IMPORTING_BLOCKS</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">2048</span>;
@@ -4099,12 +4102,14 @@
 			<span class="self">self</span>.<span class="ident">pending_requests</span>.<span class="ident">add</span>(<span class="ident">who</span>);
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">request</span>) <span class="op">=</span> <span class="ident">request</span> {
 				<span class="kw">match</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">peer</span>.<span class="ident">state</span> {
-					<span class="ident">PeerSyncState::DownloadingNew</span>(<span class="ident">start_block</span>) <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="ident">PeerSyncState::DownloadingNew</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
 						<span class="self">self</span>.<span class="ident">blocks</span>.<span class="ident">clear_peer_download</span>(<span class="ident">who</span>);
-						<span class="kw">let</span> <span class="ident">start_block</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">start_block</span>;
 						<span class="ident">peer</span>.<span class="ident">state</span> <span class="op">=</span> <span class="ident">PeerSyncState::Available</span>;
-						<span class="ident">validate_blocks</span>::<span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">blocks</span>, <span class="ident">who</span>, <span class="prelude-val">Some</span>(<span class="ident">request</span>))<span class="question-mark">?</span>;
-						<span class="self">self</span>.<span class="ident">blocks</span>.<span class="ident">insert</span>(<span class="ident">start_block</span>, <span class="ident">blocks</span>, <span class="ident">who</span>.<span class="ident">clone</span>());
+						<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">start_block</span>) <span class="op">=</span>
+							<span class="ident">validate_blocks</span>::<span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">blocks</span>, <span class="ident">who</span>, <span class="prelude-val">Some</span>(<span class="ident">request</span>))<span class="question-mark">?</span>
+						{
+							<span class="self">self</span>.<span class="ident">blocks</span>.<span class="ident">insert</span>(<span class="ident">start_block</span>, <span class="ident">blocks</span>, <span class="ident">who</span>.<span class="ident">clone</span>());
+						}
 						<span class="self">self</span>.<span class="ident">drain_blocks</span>()
 					},
 					<span class="ident">PeerSyncState::DownloadingStale</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -5360,13 +5365,14 @@
 }
 
 <span class="doccomment">/// Validate that the given `blocks` are correct.</span>
+<span class="doccomment">/// Returns the number of the first block in the sequence.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// It is expected that `blocks` are in asending order.</span>
+<span class="doccomment">/// It is expected that `blocks` are in ascending order.</span>
 <span class="kw">fn</span> <span class="ident">validate_blocks</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span><span class="op">&gt;</span>(
 	<span class="ident">blocks</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">message::BlockData</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">PeerId</span>,
 	<span class="ident">request</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BlockRequest</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">BadPeer</span><span class="op">&gt;</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NumberFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">BadPeer</span><span class="op">&gt;</span> {
 	<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">request</span>) <span class="op">=</span> <span class="ident">request</span> {
 		<span class="kw">if</span> <span class="prelude-val">Some</span>(<span class="ident">blocks</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="kw">_</span>) <span class="op">&gt;</span> <span class="ident">request</span>.<span class="ident">max</span> {
 			<span class="macro">debug!</span>(
@@ -5460,7 +5466,7 @@
 		}
 	}
 
-	<span class="prelude-val">Ok</span>(())
+	<span class="prelude-val">Ok</span>(<span class="ident">blocks</span>.<span class="ident">first</span>().<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">b</span><span class="op">|</span> <span class="ident">b</span>.<span class="ident">header</span>.<span class="ident">as_ref</span>()).<span class="ident">map</span>(<span class="op">|</span><span class="ident">h</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">h</span>.<span class="ident">number</span>()))
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
