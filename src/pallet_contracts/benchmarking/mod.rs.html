@@ -2554,6 +2554,108 @@
 <span id="2543">2543</span>
 <span id="2544">2544</span>
 <span id="2545">2545</span>
+<span id="2546">2546</span>
+<span id="2547">2547</span>
+<span id="2548">2548</span>
+<span id="2549">2549</span>
+<span id="2550">2550</span>
+<span id="2551">2551</span>
+<span id="2552">2552</span>
+<span id="2553">2553</span>
+<span id="2554">2554</span>
+<span id="2555">2555</span>
+<span id="2556">2556</span>
+<span id="2557">2557</span>
+<span id="2558">2558</span>
+<span id="2559">2559</span>
+<span id="2560">2560</span>
+<span id="2561">2561</span>
+<span id="2562">2562</span>
+<span id="2563">2563</span>
+<span id="2564">2564</span>
+<span id="2565">2565</span>
+<span id="2566">2566</span>
+<span id="2567">2567</span>
+<span id="2568">2568</span>
+<span id="2569">2569</span>
+<span id="2570">2570</span>
+<span id="2571">2571</span>
+<span id="2572">2572</span>
+<span id="2573">2573</span>
+<span id="2574">2574</span>
+<span id="2575">2575</span>
+<span id="2576">2576</span>
+<span id="2577">2577</span>
+<span id="2578">2578</span>
+<span id="2579">2579</span>
+<span id="2580">2580</span>
+<span id="2581">2581</span>
+<span id="2582">2582</span>
+<span id="2583">2583</span>
+<span id="2584">2584</span>
+<span id="2585">2585</span>
+<span id="2586">2586</span>
+<span id="2587">2587</span>
+<span id="2588">2588</span>
+<span id="2589">2589</span>
+<span id="2590">2590</span>
+<span id="2591">2591</span>
+<span id="2592">2592</span>
+<span id="2593">2593</span>
+<span id="2594">2594</span>
+<span id="2595">2595</span>
+<span id="2596">2596</span>
+<span id="2597">2597</span>
+<span id="2598">2598</span>
+<span id="2599">2599</span>
+<span id="2600">2600</span>
+<span id="2601">2601</span>
+<span id="2602">2602</span>
+<span id="2603">2603</span>
+<span id="2604">2604</span>
+<span id="2605">2605</span>
+<span id="2606">2606</span>
+<span id="2607">2607</span>
+<span id="2608">2608</span>
+<span id="2609">2609</span>
+<span id="2610">2610</span>
+<span id="2611">2611</span>
+<span id="2612">2612</span>
+<span id="2613">2613</span>
+<span id="2614">2614</span>
+<span id="2615">2615</span>
+<span id="2616">2616</span>
+<span id="2617">2617</span>
+<span id="2618">2618</span>
+<span id="2619">2619</span>
+<span id="2620">2620</span>
+<span id="2621">2621</span>
+<span id="2622">2622</span>
+<span id="2623">2623</span>
+<span id="2624">2624</span>
+<span id="2625">2625</span>
+<span id="2626">2626</span>
+<span id="2627">2627</span>
+<span id="2628">2628</span>
+<span id="2629">2629</span>
+<span id="2630">2630</span>
+<span id="2631">2631</span>
+<span id="2632">2632</span>
+<span id="2633">2633</span>
+<span id="2634">2634</span>
+<span id="2635">2635</span>
+<span id="2636">2636</span>
+<span id="2637">2637</span>
+<span id="2638">2638</span>
+<span id="2639">2639</span>
+<span id="2640">2640</span>
+<span id="2641">2641</span>
+<span id="2642">2642</span>
+<span id="2643">2643</span>
+<span id="2644">2644</span>
+<span id="2645">2645</span>
+<span id="2646">2646</span>
+<span id="2647">2647</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -2587,7 +2689,7 @@
 	<span class="ident">sandbox::Sandbox</span>,
 };
 <span class="kw">use</span> <span class="kw">crate</span>::{
-	<span class="ident">exec::StorageKey</span>,
+	<span class="ident">exec</span>::{<span class="ident">AccountIdOf</span>, <span class="ident">StorageKey</span>},
 	<span class="ident">rent::Rent</span>,
 	<span class="ident">schedule</span>::{<span class="ident">API_BENCHMARK_BATCH_SIZE</span>, <span class="ident">INSTR_BENCHMARK_BATCH_SIZE</span>},
 	<span class="ident">storage::Storage</span>,
@@ -2681,9 +2783,9 @@
 					.<span class="ident">saturating_mul</span>(<span class="op">&lt;</span><span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::from</span>(<span class="ident">storage_size</span>) <span class="op">/</span> <span class="number">2u32</span>.<span class="ident">into</span>())
 					.<span class="ident">saturating_add</span>(<span class="ident">T::DepositPerContract::get</span>());
 
-				(<span class="ident">storage_size</span>, <span class="ident">endowment</span>)
+				(<span class="prelude-val">Some</span>(<span class="ident">storage_size</span>), <span class="ident">endowment</span>)
 			},
-			<span class="ident">Endow::Max</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="number">0u32</span>.<span class="ident">into</span>(), <span class="ident">Endow::max</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>()),
+			<span class="ident">Endow::Max</span> <span class="op">=</span><span class="op">&gt;</span> (<span class="prelude-val">None</span>, <span class="ident">Endow::max</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>()),
 		};
 		<span class="ident">T::Currency::make_free_balance_be</span>(<span class="kw-2">&amp;</span><span class="ident">caller</span>, <span class="ident">caller_funding</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>());
 		<span class="kw">let</span> <span class="ident">salt</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0xff</span>];
@@ -2715,7 +2817,9 @@
 		};
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">contract</span> <span class="op">=</span> <span class="ident">result</span>.<span class="ident">alive_info</span>()<span class="question-mark">?</span>;
-		<span class="ident">contract</span>.<span class="ident">storage_size</span> <span class="op">=</span> <span class="ident">storage_size</span>;
+		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">size</span>) <span class="op">=</span> <span class="ident">storage_size</span> {
+			<span class="ident">contract</span>.<span class="ident">storage_size</span> <span class="op">=</span> <span class="ident">size</span>;
+		}
 		<span class="ident">ContractInfoOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="kw-2">&amp;</span><span class="ident">result</span>.<span class="ident">account_id</span>, <span class="ident">ContractInfo::Alive</span>(<span class="ident">contract</span>));
 
 		<span class="prelude-val">Ok</span>(<span class="ident">result</span>)
@@ -2833,6 +2937,24 @@
 <span class="doccomment">/// The funding that each account that either calls or instantiates contracts is funded with.</span>
 <span class="kw">fn</span> <span class="ident">caller_funding</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 	<span class="ident">BalanceOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::max_value</span>() <span class="op">/</span> <span class="number">2u32</span>.<span class="ident">into</span>()
+}
+
+<span class="doccomment">/// Load the specified contract file from disk by including it into the runtime.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// We need to load a different version of ink! contracts when the benchmark is run as</span>
+<span class="doccomment">/// a test. This is because ink! contracts depend on the sizes of types that are defined</span>
+<span class="doccomment">/// differently in the test environment. Solang is more lax in that regard.</span>
+<span class="macro">macro_rules!</span> <span class="ident">load_benchmark</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {{
+		<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">test</span>))]</span>
+		{
+			<span class="macro">include_bytes!</span>(<span class="macro">concat!</span>(<span class="string">&quot;../../benchmarks/&quot;</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="string">&quot;.wasm&quot;</span>))
+		}
+		<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+		{
+			<span class="macro">include_bytes!</span>(<span class="macro">concat!</span>(<span class="string">&quot;../../benchmarks/&quot;</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="string">&quot;_test.wasm&quot;</span>))
+		}
+	}};
 }
 
 <span class="macro">benchmarks!</span> {
@@ -5093,6 +5215,88 @@
 		<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>))]</span>
 		<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Run this bench with a native runtime in order to see the schedule.&quot;</span>);
 	}: {}
+
+	<span class="comment">// Execute one erc20 transfer using the ink! erc20 example contract.</span>
+	<span class="comment">//</span>
+	<span class="comment">// `g` is used to enable gas instrumentation to compare the performance impact of</span>
+	<span class="comment">// that instrumentation at runtime.</span>
+	<span class="attribute">#[<span class="ident">extra</span>]</span>
+	<span class="ident">ink_erc20_transfer</span> {
+		<span class="kw">let</span> <span class="ident">g</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="number">1</span>;
+		<span class="kw">let</span> <span class="ident">gas_metering</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">g</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> { <span class="bool-val">false</span> } <span class="kw">else</span> { <span class="bool-val">true</span> };
+		<span class="kw">let</span> <span class="ident">code</span> <span class="op">=</span> <span class="macro">load_benchmark!</span>(<span class="string">&quot;ink_erc20&quot;</span>);
+		<span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> {
+			<span class="kw">let</span> <span class="ident">new</span>: ([<span class="ident">u8</span>; <span class="number">4</span>], <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">=</span> ([<span class="number">0x9b</span>, <span class="number">0xae</span>, <span class="number">0x9d</span>, <span class="number">0x5e</span>], <span class="number">1000u32</span>.<span class="ident">into</span>());
+			<span class="ident">new</span>.<span class="ident">encode</span>()
+		};
+		<span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="ident">Contract</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::new</span>(
+			<span class="ident">WasmModule::instrumented</span>(<span class="ident">code</span>, <span class="ident">gas_metering</span>, <span class="bool-val">true</span>), <span class="ident">data</span>, <span class="ident">Endow::Max</span>,
+		)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> {
+			<span class="kw">let</span> <span class="ident">transfer</span>: ([<span class="ident">u8</span>; <span class="number">4</span>], <span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">=</span> (
+				[<span class="number">0x84</span>, <span class="number">0xa1</span>, <span class="number">0x5d</span>, <span class="number">0xa1</span>],
+				<span class="ident">account</span>::<span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>(<span class="string">&quot;receiver&quot;</span>, <span class="number">0</span>, <span class="number">0</span>),
+				<span class="number">1u32</span>.<span class="ident">into</span>(),
+			);
+			<span class="ident">transfer</span>.<span class="ident">encode</span>()
+		};
+	}: {
+		<span class="op">&lt;</span><span class="ident">Contracts</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::bare_call</span>(
+			<span class="ident">instance</span>.<span class="ident">caller</span>,
+			<span class="ident">instance</span>.<span class="ident">account_id</span>,
+			<span class="number">0u32</span>.<span class="ident">into</span>(),
+			<span class="ident">Weight::MAX</span>,
+			<span class="ident">data</span>,
+			<span class="bool-val">false</span>,
+		)
+		.<span class="ident">result</span><span class="question-mark">?</span>;
+	}
+
+	<span class="comment">// Execute one erc20 transfer using the open zeppelin erc20 contract compiled with solang.</span>
+	<span class="comment">//</span>
+	<span class="comment">// `g` is used to enable gas instrumentation to compare the performance impact of</span>
+	<span class="comment">// that instrumentation at runtime.</span>
+	<span class="attribute">#[<span class="ident">extra</span>]</span>
+	<span class="ident">solang_erc20_transfer</span> {
+		<span class="kw">let</span> <span class="ident">g</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="number">1</span>;
+		<span class="kw">let</span> <span class="ident">gas_metering</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">g</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> { <span class="bool-val">false</span> } <span class="kw">else</span> { <span class="bool-val">true</span> };
+		<span class="kw">let</span> <span class="ident">code</span> <span class="op">=</span> <span class="macro">include_bytes!</span>(<span class="string">&quot;../../benchmarks/solang_erc20.wasm&quot;</span>);
+		<span class="kw">let</span> <span class="ident">caller</span> <span class="op">=</span> <span class="ident">account</span>::<span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>(<span class="string">&quot;instantiator&quot;</span>, <span class="number">0</span>, <span class="number">0</span>);
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">balance</span> <span class="op">=</span> [<span class="number">0u8</span>; <span class="number">32</span>];
+		<span class="ident">balance</span>[<span class="number">0</span>] <span class="op">=</span> <span class="number">100</span>;
+		<span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> {
+			<span class="kw">let</span> <span class="ident">new</span>: ([<span class="ident">u8</span>; <span class="number">4</span>], <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>, [<span class="ident">u8</span>; <span class="number">32</span>], <span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">=</span> (
+				[<span class="number">0xa6</span>, <span class="number">0xf1</span>, <span class="number">0xf5</span>, <span class="number">0xe1</span>],
+				<span class="string">&quot;KSM&quot;</span>,
+				<span class="string">&quot;K&quot;</span>,
+				<span class="ident">balance</span>,
+				<span class="ident">caller</span>.<span class="ident">clone</span>(),
+			);
+			<span class="ident">new</span>.<span class="ident">encode</span>()
+		};
+		<span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="ident">Contract</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::with_caller</span>(
+			<span class="ident">caller</span>, <span class="ident">WasmModule::instrumented</span>(<span class="ident">code</span>, <span class="ident">gas_metering</span>, <span class="bool-val">true</span>), <span class="ident">data</span>, <span class="ident">Endow::Max</span>,
+		)<span class="question-mark">?</span>;
+		<span class="ident">balance</span>[<span class="number">0</span>] <span class="op">=</span> <span class="number">1</span>;
+		<span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> {
+			<span class="kw">let</span> <span class="ident">transfer</span>: ([<span class="ident">u8</span>; <span class="number">4</span>], <span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, [<span class="ident">u8</span>; <span class="number">32</span>]) <span class="op">=</span> (
+				[<span class="number">0x6a</span>, <span class="number">0x46</span>, <span class="number">0x73</span>, <span class="number">0x94</span>],
+				<span class="ident">account</span>::<span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>(<span class="string">&quot;receiver&quot;</span>, <span class="number">0</span>, <span class="number">0</span>),
+				<span class="ident">balance</span>,
+			);
+			<span class="ident">transfer</span>.<span class="ident">encode</span>()
+		};
+	}: {
+		<span class="op">&lt;</span><span class="ident">Contracts</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::bare_call</span>(
+			<span class="ident">instance</span>.<span class="ident">caller</span>,
+			<span class="ident">instance</span>.<span class="ident">account_id</span>,
+			<span class="number">0u32</span>.<span class="ident">into</span>(),
+			<span class="ident">Weight::MAX</span>,
+			<span class="ident">data</span>,
+			<span class="bool-val">false</span>,
+		)
+		.<span class="ident">result</span><span class="question-mark">?</span>;
+	}
 }
 
 <span class="macro">impl_benchmark_test_suite!</span>(

@@ -530,6 +530,42 @@
 <span id="519">519</span>
 <span id="520">520</span>
 <span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
+<span id="534">534</span>
+<span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
+<span id="538">538</span>
+<span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
+<span id="548">548</span>
+<span id="549">549</span>
+<span id="550">550</span>
+<span id="551">551</span>
+<span id="552">552</span>
+<span id="553">553</span>
+<span id="554">554</span>
+<span id="555">555</span>
+<span id="556">556</span>
+<span id="557">557</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -559,14 +595,12 @@
 
 <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Config</span>;
 <span class="kw">use</span> <span class="ident">frame_support::traits::Get</span>;
-<span class="kw">use</span> <span class="ident">pwasm_utils</span>::{
-	<span class="ident">parity_wasm</span>::{
-		<span class="ident">builder</span>,
-		<span class="ident">elements</span>::{
-			<span class="self">self</span>, <span class="ident">BlockType</span>, <span class="ident">CustomSection</span>, <span class="ident">FuncBody</span>, <span class="ident">Instruction</span>, <span class="ident">Instructions</span>, <span class="ident">Section</span>, <span class="ident">ValueType</span>,
-		},
+<span class="kw">use</span> <span class="ident">pwasm_utils::parity_wasm</span>::{
+	<span class="ident">builder</span>,
+	<span class="ident">elements</span>::{
+		<span class="self">self</span>, <span class="ident">BlockType</span>, <span class="ident">CustomSection</span>, <span class="ident">External</span>, <span class="ident">FuncBody</span>, <span class="ident">Instruction</span>, <span class="ident">Instructions</span>, <span class="ident">Module</span>,
+		<span class="ident">Section</span>, <span class="ident">ValueType</span>,
 	},
-	<span class="ident">stack_height::inject_limiter</span>,
 };
 <span class="kw">use</span> <span class="ident">sp_core::crypto::UncheckedFrom</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime::traits::Hash</span>;
@@ -774,9 +808,8 @@
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">code</span> <span class="op">=</span> <span class="ident">contract</span>.<span class="ident">build</span>();
 
-		<span class="comment">// Inject stack height metering</span>
 		<span class="kw">if</span> <span class="ident">def</span>.<span class="ident">inject_stack_metering</span> {
-			<span class="ident">code</span> <span class="op">=</span> <span class="ident">inject_limiter</span>(<span class="ident">code</span>, <span class="ident">T::Schedule::get</span>().<span class="ident">limits</span>.<span class="ident">stack_height</span>).<span class="ident">unwrap</span>();
+			<span class="ident">code</span> <span class="op">=</span> <span class="ident">inject_stack_metering</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">code</span>);
 		}
 
 		<span class="kw">let</span> <span class="ident">code</span> <span class="op">=</span> <span class="ident">code</span>.<span class="ident">to_bytes</span>().<span class="ident">unwrap</span>();
@@ -790,6 +823,34 @@
 	<span class="ident">T</span>: <span class="ident">Config</span>,
 	<span class="ident">T::AccountId</span>: <span class="ident">UncheckedFrom</span><span class="op">&lt;</span><span class="ident">T::Hash</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>,
 {
+	<span class="doccomment">/// Uses the supplied wasm module and instruments it when requested.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">instrumented</span>(<span class="ident">code</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="ident">inject_gas</span>: <span class="ident">bool</span>, <span class="ident">inject_stack</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+		<span class="kw">let</span> <span class="ident">module</span> <span class="op">=</span> {
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">module</span> <span class="op">=</span> <span class="ident">Module::from_bytes</span>(<span class="ident">code</span>).<span class="ident">unwrap</span>();
+			<span class="kw">if</span> <span class="ident">inject_gas</span> {
+				<span class="ident">module</span> <span class="op">=</span> <span class="ident">inject_gas_metering</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">module</span>);
+			}
+			<span class="kw">if</span> <span class="ident">inject_stack</span> {
+				<span class="ident">module</span> <span class="op">=</span> <span class="ident">inject_stack_metering</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">module</span>);
+			}
+			<span class="ident">module</span>
+		};
+		<span class="kw">let</span> <span class="ident">limits</span> <span class="op">=</span> <span class="ident">module</span>
+			.<span class="ident">import_section</span>()
+			.<span class="ident">unwrap</span>()
+			.<span class="ident">entries</span>()
+			.<span class="ident">iter</span>()
+			.<span class="ident">find_map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="kw">if</span> <span class="kw">let</span> <span class="ident">External::Memory</span>(<span class="ident">mem</span>) <span class="op">=</span> <span class="ident">e</span>.<span class="ident">external</span>() { <span class="prelude-val">Some</span>(<span class="ident">mem</span>) } <span class="kw">else</span> { <span class="prelude-val">None</span> })
+			.<span class="ident">unwrap</span>()
+			.<span class="ident">limits</span>()
+			.<span class="ident">clone</span>();
+		<span class="kw">let</span> <span class="ident">code</span> <span class="op">=</span> <span class="ident">module</span>.<span class="ident">to_bytes</span>().<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="ident">hash</span> <span class="op">=</span> <span class="ident">T::Hashing::hash</span>(<span class="kw-2">&amp;</span><span class="ident">code</span>);
+		<span class="kw">let</span> <span class="ident">memory</span> <span class="op">=</span>
+			<span class="ident">ImportedMemory</span> { <span class="ident">min_pages</span>: <span class="ident">limits</span>.<span class="ident">initial</span>(), <span class="ident">max_pages</span>: <span class="ident">limits</span>.<span class="ident">maximum</span>().<span class="ident">unwrap</span>() };
+		<span class="self">Self</span> { <span class="ident">code</span>, <span class="ident">hash</span>, <span class="ident">memory</span>: <span class="prelude-val">Some</span>(<span class="ident">memory</span>) }
+	}
+
 	<span class="doccomment">/// Creates a wasm module with an empty `call` and `deploy` function and nothing else.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dummy</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="ident">ModuleDefinition::default</span>().<span class="ident">into</span>()
@@ -1051,6 +1112,17 @@
 	<span class="ident">T::AccountId</span>: <span class="ident">UncheckedFrom</span><span class="op">&lt;</span><span class="ident">T::Hash</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>,
 {
 	<span class="ident">T::Schedule::get</span>().<span class="ident">limits</span>.<span class="ident">memory_pages</span>
+}
+
+<span class="kw">fn</span> <span class="ident">inject_gas_metering</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span>(<span class="ident">module</span>: <span class="ident">Module</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Module</span> {
+	<span class="kw">let</span> <span class="ident">schedule</span> <span class="op">=</span> <span class="ident">T::Schedule::get</span>();
+	<span class="kw">let</span> <span class="ident">gas_rules</span> <span class="op">=</span> <span class="ident">schedule</span>.<span class="ident">rules</span>(<span class="kw-2">&amp;</span><span class="ident">module</span>);
+	<span class="ident">pwasm_utils::inject_gas_counter</span>(<span class="ident">module</span>, <span class="kw-2">&amp;</span><span class="ident">gas_rules</span>, <span class="string">&quot;seal0&quot;</span>).<span class="ident">unwrap</span>()
+}
+
+<span class="kw">fn</span> <span class="ident">inject_stack_metering</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span>(<span class="ident">module</span>: <span class="ident">Module</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Module</span> {
+	<span class="kw">let</span> <span class="ident">height</span> <span class="op">=</span> <span class="ident">T::Schedule::get</span>().<span class="ident">limits</span>.<span class="ident">stack_height</span>;
+	<span class="ident">pwasm_utils::stack_height::inject_limiter</span>(<span class="ident">module</span>, <span class="ident">height</span>).<span class="ident">unwrap</span>()
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="pallet_contracts" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
