@@ -1786,6 +1786,108 @@
 <span id="1775">1775</span>
 <span id="1776">1776</span>
 <span id="1777">1777</span>
+<span id="1778">1778</span>
+<span id="1779">1779</span>
+<span id="1780">1780</span>
+<span id="1781">1781</span>
+<span id="1782">1782</span>
+<span id="1783">1783</span>
+<span id="1784">1784</span>
+<span id="1785">1785</span>
+<span id="1786">1786</span>
+<span id="1787">1787</span>
+<span id="1788">1788</span>
+<span id="1789">1789</span>
+<span id="1790">1790</span>
+<span id="1791">1791</span>
+<span id="1792">1792</span>
+<span id="1793">1793</span>
+<span id="1794">1794</span>
+<span id="1795">1795</span>
+<span id="1796">1796</span>
+<span id="1797">1797</span>
+<span id="1798">1798</span>
+<span id="1799">1799</span>
+<span id="1800">1800</span>
+<span id="1801">1801</span>
+<span id="1802">1802</span>
+<span id="1803">1803</span>
+<span id="1804">1804</span>
+<span id="1805">1805</span>
+<span id="1806">1806</span>
+<span id="1807">1807</span>
+<span id="1808">1808</span>
+<span id="1809">1809</span>
+<span id="1810">1810</span>
+<span id="1811">1811</span>
+<span id="1812">1812</span>
+<span id="1813">1813</span>
+<span id="1814">1814</span>
+<span id="1815">1815</span>
+<span id="1816">1816</span>
+<span id="1817">1817</span>
+<span id="1818">1818</span>
+<span id="1819">1819</span>
+<span id="1820">1820</span>
+<span id="1821">1821</span>
+<span id="1822">1822</span>
+<span id="1823">1823</span>
+<span id="1824">1824</span>
+<span id="1825">1825</span>
+<span id="1826">1826</span>
+<span id="1827">1827</span>
+<span id="1828">1828</span>
+<span id="1829">1829</span>
+<span id="1830">1830</span>
+<span id="1831">1831</span>
+<span id="1832">1832</span>
+<span id="1833">1833</span>
+<span id="1834">1834</span>
+<span id="1835">1835</span>
+<span id="1836">1836</span>
+<span id="1837">1837</span>
+<span id="1838">1838</span>
+<span id="1839">1839</span>
+<span id="1840">1840</span>
+<span id="1841">1841</span>
+<span id="1842">1842</span>
+<span id="1843">1843</span>
+<span id="1844">1844</span>
+<span id="1845">1845</span>
+<span id="1846">1846</span>
+<span id="1847">1847</span>
+<span id="1848">1848</span>
+<span id="1849">1849</span>
+<span id="1850">1850</span>
+<span id="1851">1851</span>
+<span id="1852">1852</span>
+<span id="1853">1853</span>
+<span id="1854">1854</span>
+<span id="1855">1855</span>
+<span id="1856">1856</span>
+<span id="1857">1857</span>
+<span id="1858">1858</span>
+<span id="1859">1859</span>
+<span id="1860">1860</span>
+<span id="1861">1861</span>
+<span id="1862">1862</span>
+<span id="1863">1863</span>
+<span id="1864">1864</span>
+<span id="1865">1865</span>
+<span id="1866">1866</span>
+<span id="1867">1867</span>
+<span id="1868">1868</span>
+<span id="1869">1869</span>
+<span id="1870">1870</span>
+<span id="1871">1871</span>
+<span id="1872">1872</span>
+<span id="1873">1873</span>
+<span id="1874">1874</span>
+<span id="1875">1875</span>
+<span id="1876">1876</span>
+<span id="1877">1877</span>
+<span id="1878">1878</span>
+<span id="1879">1879</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -3304,7 +3406,9 @@
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">prove_read_and_proof_check_works</span>() {
 		<span class="kw">let</span> <span class="ident">child_info</span> <span class="op">=</span> <span class="ident">ChildInfo::new_default</span>(<span class="string">b&quot;sub1&quot;</span>);
+		<span class="kw">let</span> <span class="ident">missing_child_info</span> <span class="op">=</span> <span class="ident">ChildInfo::new_default</span>(<span class="string">b&quot;sub1sub2&quot;</span>); <span class="comment">// key will include other child root to proof.</span>
 		<span class="kw">let</span> <span class="ident">child_info</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">child_info</span>;
+		<span class="kw">let</span> <span class="ident">missing_child_info</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">missing_child_info</span>;
 		<span class="comment">// fetch read proof from &#39;remote&#39; full node</span>
 		<span class="kw">let</span> <span class="ident">remote_backend</span> <span class="op">=</span> <span class="ident">trie_backend::tests::test_trie</span>();
 		<span class="kw">let</span> <span class="ident">remote_root</span> <span class="op">=</span> <span class="ident">remote_backend</span>.<span class="ident">storage_root</span>(<span class="ident">std::iter::empty</span>()).<span class="number">0</span>;
@@ -3342,11 +3446,111 @@
 			<span class="kw-2">&amp;</span>[<span class="string">b&quot;value2&quot;</span>],
 		)
 		.<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="ident">local_result3</span> <span class="op">=</span> <span class="ident">read_child_proof_check</span>::<span class="op">&lt;</span><span class="ident">BlakeTwo256</span>, <span class="kw">_</span><span class="op">&gt;</span>(
+			<span class="ident">remote_root</span>,
+			<span class="ident">remote_proof</span>.<span class="ident">clone</span>(),
+			<span class="ident">missing_child_info</span>,
+			<span class="kw-2">&amp;</span>[<span class="string">b&quot;dummy&quot;</span>],
+		)
+		.<span class="ident">unwrap</span>();
+
 		<span class="macro">assert_eq!</span>(
 			<span class="ident">local_result1</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>(),
 			<span class="macro">vec!</span>[(<span class="string">b&quot;value3&quot;</span>.<span class="ident">to_vec</span>(), <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="number">142</span>]))],
 		);
 		<span class="macro">assert_eq!</span>(<span class="ident">local_result2</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>(), <span class="macro">vec!</span>[(<span class="string">b&quot;value2&quot;</span>.<span class="ident">to_vec</span>(), <span class="prelude-val">None</span>)]);
+		<span class="macro">assert_eq!</span>(<span class="ident">local_result3</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>(), <span class="macro">vec!</span>[(<span class="string">b&quot;dummy&quot;</span>.<span class="ident">to_vec</span>(), <span class="prelude-val">None</span>)]);
+	}
+
+	<span class="attribute">#[<span class="ident">test</span>]</span>
+	<span class="kw">fn</span> <span class="ident">child_read_compact_stress_test</span>() {
+		<span class="kw">use</span> <span class="ident">rand</span>::{<span class="ident">rngs::SmallRng</span>, <span class="ident">RngCore</span>, <span class="ident">SeedableRng</span>};
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ChildInfo</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">StorageKey</span>, <span class="ident">StorageValue</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span>
+			<span class="ident">Default::default</span>();
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">seed</span> <span class="op">=</span> [<span class="number">0</span>; <span class="number">16</span>];
+		<span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">50u32</span> {
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">child_infos</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
+			<span class="kw-2">&amp;</span><span class="ident">seed</span>[<span class="number">0</span>..<span class="number">4</span>].<span class="ident">copy_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">i</span>.<span class="ident">to_be_bytes</span>()[..]);
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rand</span> <span class="op">=</span> <span class="ident">SmallRng::from_seed</span>(<span class="ident">seed</span>);
+
+			<span class="kw">let</span> <span class="ident">nb_child_trie</span> <span class="op">=</span> <span class="ident">rand</span>.<span class="ident">next_u32</span>() <span class="kw">as</span> <span class="ident">usize</span> <span class="op">%</span> <span class="number">25</span>;
+			<span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">nb_child_trie</span> {
+				<span class="kw">let</span> <span class="ident">key_len</span> <span class="op">=</span> <span class="number">1</span> <span class="op">+</span> (<span class="ident">rand</span>.<span class="ident">next_u32</span>() <span class="op">%</span> <span class="number">10</span>);
+				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">key</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="ident">key_len</span> <span class="kw">as</span> <span class="ident">usize</span>];
+				<span class="ident">rand</span>.<span class="ident">fill_bytes</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">key</span>[..]);
+				<span class="kw">let</span> <span class="ident">child_info</span> <span class="op">=</span> <span class="ident">ChildInfo::new_default</span>(<span class="ident">key</span>.<span class="ident">as_slice</span>());
+				<span class="kw">let</span> <span class="ident">nb_item</span> <span class="op">=</span> <span class="number">1</span> <span class="op">+</span> <span class="ident">rand</span>.<span class="ident">next_u32</span>() <span class="op">%</span> <span class="number">25</span>;
+				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">items</span> <span class="op">=</span> <span class="ident">BTreeMap::new</span>();
+				<span class="kw">for</span> <span class="ident">item</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">nb_item</span> {
+					<span class="kw">let</span> <span class="ident">key_len</span> <span class="op">=</span> <span class="number">1</span> <span class="op">+</span> (<span class="ident">rand</span>.<span class="ident">next_u32</span>() <span class="op">%</span> <span class="number">10</span>);
+					<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">key</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="ident">key_len</span> <span class="kw">as</span> <span class="ident">usize</span>];
+					<span class="ident">rand</span>.<span class="ident">fill_bytes</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">key</span>[..]);
+					<span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">item</span> <span class="kw">as</span> <span class="ident">u8</span>; <span class="ident">item</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">+</span> <span class="number">28</span>];
+					<span class="ident">items</span>.<span class="ident">insert</span>(<span class="ident">key</span>, <span class="ident">value</span>);
+				}
+				<span class="ident">child_infos</span>.<span class="ident">push</span>(<span class="ident">child_info</span>.<span class="ident">clone</span>());
+				<span class="ident">storage</span>.<span class="ident">insert</span>(<span class="prelude-val">Some</span>(<span class="ident">child_info</span>), <span class="ident">items</span>);
+			}
+
+			<span class="kw">let</span> <span class="ident">trie</span>: <span class="ident">InMemoryBackend</span><span class="op">&lt;</span><span class="ident">BlakeTwo256</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">storage</span>.<span class="ident">clone</span>().<span class="ident">into</span>();
+			<span class="kw">let</span> <span class="ident">trie_root</span> <span class="op">=</span> <span class="ident">trie</span>.<span class="ident">root</span>().<span class="ident">clone</span>();
+			<span class="kw">let</span> <span class="ident">backend</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::ProvingBackend::new</span>(<span class="kw-2">&amp;</span><span class="ident">trie</span>);
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">queries</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
+			<span class="kw">for</span> <span class="ident">c</span> <span class="kw">in</span> <span class="number">0</span>..(<span class="number">5</span> <span class="op">+</span> <span class="ident">nb_child_trie</span> <span class="op">/</span> <span class="number">2</span>) {
+				<span class="comment">// random existing query</span>
+				<span class="kw">let</span> <span class="ident">child_info</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">c</span> <span class="op">&lt;</span> <span class="number">5</span> {
+					<span class="comment">// 4 missing child trie</span>
+					<span class="kw">let</span> <span class="ident">key_len</span> <span class="op">=</span> <span class="number">1</span> <span class="op">+</span> (<span class="ident">rand</span>.<span class="ident">next_u32</span>() <span class="op">%</span> <span class="number">10</span>);
+					<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">key</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="ident">key_len</span> <span class="kw">as</span> <span class="ident">usize</span>];
+					<span class="ident">rand</span>.<span class="ident">fill_bytes</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">key</span>[..]);
+					<span class="ident">ChildInfo::new_default</span>(<span class="ident">key</span>.<span class="ident">as_slice</span>())
+				} <span class="kw">else</span> {
+					<span class="ident">child_infos</span>[<span class="ident">rand</span>.<span class="ident">next_u32</span>() <span class="kw">as</span> <span class="ident">usize</span> <span class="op">%</span> <span class="ident">nb_child_trie</span>].<span class="ident">clone</span>()
+				};
+
+				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">values</span>) <span class="op">=</span> <span class="ident">storage</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="prelude-val">Some</span>(<span class="ident">child_info</span>.<span class="ident">clone</span>())) {
+					<span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..(<span class="number">1</span> <span class="op">+</span> <span class="ident">values</span>.<span class="ident">len</span>() <span class="op">/</span> <span class="number">2</span>) {
+						<span class="kw">let</span> <span class="ident">ix</span> <span class="op">=</span> <span class="ident">rand</span>.<span class="ident">next_u32</span>() <span class="kw">as</span> <span class="ident">usize</span> <span class="op">%</span> <span class="ident">values</span>.<span class="ident">len</span>();
+						<span class="kw">for</span> (<span class="ident">i</span>, (<span class="ident">key</span>, <span class="ident">value</span>)) <span class="kw">in</span> <span class="ident">values</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
+							<span class="kw">if</span> <span class="ident">i</span> <span class="op">=</span><span class="op">=</span> <span class="ident">ix</span> {
+								<span class="macro">assert_eq!</span>(
+									<span class="kw-2">&amp;</span><span class="ident">backend</span>
+										.<span class="ident">child_storage</span>(<span class="kw-2">&amp;</span><span class="ident">child_info</span>, <span class="ident">key</span>.<span class="ident">as_slice</span>())
+										.<span class="ident">unwrap</span>()
+										.<span class="ident">unwrap</span>(),
+									<span class="ident">value</span>
+								);
+								<span class="ident">queries</span>.<span class="ident">push</span>((
+									<span class="ident">child_info</span>.<span class="ident">clone</span>(),
+									<span class="ident">key</span>.<span class="ident">clone</span>(),
+									<span class="prelude-val">Some</span>(<span class="ident">value</span>.<span class="ident">clone</span>()),
+								));
+								<span class="kw">break</span>
+							}
+						}
+					}
+				}
+				<span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">4</span> {
+					<span class="kw">let</span> <span class="ident">key_len</span> <span class="op">=</span> <span class="number">1</span> <span class="op">+</span> (<span class="ident">rand</span>.<span class="ident">next_u32</span>() <span class="op">%</span> <span class="number">10</span>);
+					<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">key</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="ident">key_len</span> <span class="kw">as</span> <span class="ident">usize</span>];
+					<span class="ident">rand</span>.<span class="ident">fill_bytes</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">key</span>[..]);
+					<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">backend</span>.<span class="ident">child_storage</span>(<span class="kw-2">&amp;</span><span class="ident">child_info</span>, <span class="ident">key</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
+					<span class="ident">queries</span>.<span class="ident">push</span>((<span class="ident">child_info</span>.<span class="ident">clone</span>(), <span class="ident">key</span>, <span class="ident">result</span>));
+				}
+			}
+
+			<span class="kw">let</span> <span class="ident">storage_proof</span> <span class="op">=</span> <span class="ident">backend</span>.<span class="ident">extract_proof</span>();
+			<span class="kw">let</span> <span class="ident">remote_proof</span> <span class="op">=</span> <span class="ident">test_compact</span>(<span class="ident">storage_proof</span>, <span class="kw-2">&amp;</span><span class="ident">trie_root</span>);
+			<span class="kw">let</span> <span class="ident">proof_check</span> <span class="op">=</span>
+				<span class="ident">create_proof_check_backend</span>::<span class="op">&lt;</span><span class="ident">BlakeTwo256</span><span class="op">&gt;</span>(<span class="ident">trie_root</span>, <span class="ident">remote_proof</span>).<span class="ident">unwrap</span>();
+
+			<span class="kw">for</span> (<span class="ident">child_info</span>, <span class="ident">key</span>, <span class="ident">expected</span>) <span class="kw">in</span> <span class="ident">queries</span> {
+				<span class="macro">assert_eq!</span>(
+					<span class="ident">proof_check</span>.<span class="ident">child_storage</span>(<span class="kw-2">&amp;</span><span class="ident">child_info</span>, <span class="ident">key</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>(),
+					<span class="ident">expected</span>,
+				);
+			}
+		}
 	}
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
