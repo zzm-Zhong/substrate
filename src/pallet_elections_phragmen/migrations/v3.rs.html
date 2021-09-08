@@ -175,6 +175,16 @@
 <span id="164">164</span>
 <span id="165">165</span>
 <span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -197,6 +207,7 @@
 
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>, <span class="ident">FullCodec</span>};
 <span class="kw">use</span> <span class="ident">frame_support</span>::{
+	<span class="ident">pallet_prelude::ValueQuery</span>,
 	<span class="ident">traits</span>::{<span class="ident">PalletInfoAccess</span>, <span class="ident">StorageVersion</span>},
 	<span class="ident">weights::Weight</span>,
 	<span class="ident">RuntimeDebug</span>, <span class="ident">Twox64Concat</span>,
@@ -230,13 +241,22 @@
 }
 
 <span class="macro">frame_support::generate_storage_alias!</span>(
-	<span class="ident">PhragmenElection</span>, <span class="ident">Candidates</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">V2ToV3</span><span class="op">&gt;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Value</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">T::AccountId</span>, <span class="ident">T::Balance</span>)<span class="op">&gt;</span><span class="op">&gt;</span>
+	<span class="ident">PhragmenElection</span>, <span class="ident">Candidates</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">V2ToV3</span><span class="op">&gt;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Value</span><span class="op">&lt;</span>
+		<span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">T::AccountId</span>, <span class="ident">T::Balance</span>)<span class="op">&gt;</span>,
+		<span class="ident">ValueQuery</span>
+	<span class="op">&gt;</span>
 );
 <span class="macro">frame_support::generate_storage_alias!</span>(
-	<span class="ident">PhragmenElection</span>, <span class="ident">Members</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">V2ToV3</span><span class="op">&gt;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Value</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">SeatHolder</span><span class="op">&lt;</span><span class="ident">T::AccountId</span>, <span class="ident">T::Balance</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>
+	<span class="ident">PhragmenElection</span>, <span class="ident">Members</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">V2ToV3</span><span class="op">&gt;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Value</span><span class="op">&lt;</span>
+		<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">SeatHolder</span><span class="op">&lt;</span><span class="ident">T::AccountId</span>, <span class="ident">T::Balance</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+		<span class="ident">ValueQuery</span>
+	<span class="op">&gt;</span>
 );
 <span class="macro">frame_support::generate_storage_alias!</span>(
-	<span class="ident">PhragmenElection</span>, <span class="ident">RunnersUp</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">V2ToV3</span><span class="op">&gt;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Value</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">SeatHolder</span><span class="op">&lt;</span><span class="ident">T::AccountId</span>, <span class="ident">T::Balance</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>
+	<span class="ident">PhragmenElection</span>, <span class="ident">RunnersUp</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">V2ToV3</span><span class="op">&gt;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Value</span><span class="op">&lt;</span>
+		<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">SeatHolder</span><span class="op">&lt;</span><span class="ident">T::AccountId</span>, <span class="ident">T::Balance</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+		<span class="ident">ValueQuery</span>
+	<span class="op">&gt;</span>
 );
 <span class="macro">frame_support::generate_storage_alias!</span>(
 	<span class="ident">PhragmenElection</span>, <span class="ident">Voting</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">V2ToV3</span><span class="op">&gt;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Map</span><span class="op">&lt;</span>
