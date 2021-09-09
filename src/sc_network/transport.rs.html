@@ -132,8 +132,6 @@
 <span id="121">121</span>
 <span id="122">122</span>
 <span id="123">123</span>
-<span id="124">124</span>
-<span id="125">125</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -162,10 +160,8 @@
 		<span class="ident">transport</span>::{<span class="ident">Boxed</span>, <span class="ident">OptionalTransport</span>},
 		<span class="ident">upgrade</span>,
 	},
-	<span class="ident">identity</span>, <span class="ident">mplex</span>, <span class="ident">noise</span>, <span class="ident">PeerId</span>, <span class="ident">Transport</span>,
+	<span class="ident">dns</span>, <span class="ident">identity</span>, <span class="ident">mplex</span>, <span class="ident">noise</span>, <span class="ident">tcp</span>, <span class="ident">websocket</span>, <span class="ident">PeerId</span>, <span class="ident">Transport</span>,
 };
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
-<span class="kw">use</span> <span class="ident">libp2p</span>::{<span class="ident">dns</span>, <span class="ident">tcp</span>, <span class="ident">websocket</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">sync::Arc</span>, <span class="ident">time::Duration</span>};
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::bandwidth::BandwidthSinks</span>;

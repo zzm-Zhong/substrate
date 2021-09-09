@@ -1172,16 +1172,6 @@
 <span id="1161">1161</span>
 <span id="1162">1162</span>
 <span id="1163">1163</span>
-<span id="1164">1164</span>
-<span id="1165">1165</span>
-<span id="1166">1166</span>
-<span id="1167">1167</span>
-<span id="1168">1168</span>
-<span id="1169">1169</span>
-<span id="1170">1170</span>
-<span id="1171">1171</span>
-<span id="1172">1172</span>
-<span id="1173">1173</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1235,8 +1225,6 @@
 <span class="kw">use</span> <span class="ident">futures::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">futures_timer::Delay</span>;
 <span class="kw">use</span> <span class="ident">ip_network::IpNetwork</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
-<span class="kw">use</span> <span class="ident">libp2p::mdns</span>::{<span class="ident">Mdns</span>, <span class="ident">MdnsConfig</span>, <span class="ident">MdnsEvent</span>};
 <span class="kw">use</span> <span class="ident">libp2p</span>::{
 	<span class="ident">core</span>::{
 		<span class="ident">connection</span>::{<span class="ident">ConnectionId</span>, <span class="ident">ListenerId</span>},
@@ -1251,6 +1239,7 @@
 		<span class="ident">GetClosestPeersError</span>, <span class="ident">Kademlia</span>, <span class="ident">KademliaBucketInserts</span>, <span class="ident">KademliaConfig</span>, <span class="ident">KademliaEvent</span>,
 		<span class="ident">QueryId</span>, <span class="ident">QueryResult</span>, <span class="ident">Quorum</span>, <span class="ident">Record</span>,
 	},
+	<span class="ident">mdns</span>::{<span class="ident">Mdns</span>, <span class="ident">MdnsConfig</span>, <span class="ident">MdnsEvent</span>},
 	<span class="ident">multiaddr::Protocol</span>,
 	<span class="ident">swarm</span>::{
 		<span class="ident">protocols_handler::multi::IntoMultiHandler</span>, <span class="ident">IntoProtocolsHandler</span>, <span class="ident">NetworkBehaviour</span>,
@@ -1341,9 +1330,6 @@
 
 	<span class="doccomment">/// Should MDNS discovery be supported?</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_mdns</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">value</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
-		<span class="kw">if</span> <span class="ident">value</span> <span class="op">&amp;&amp;</span> <span class="macro">cfg!</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>) {
-			<span class="macro">log::warn!</span>(<span class="ident">target</span>: <span class="string">&quot;sub-libp2p&quot;</span>, <span class="string">&quot;mDNS is not available on this platform&quot;</span>)
-		}
 		<span class="self">self</span>.<span class="ident">enable_mdns</span> <span class="op">=</span> <span class="ident">value</span>;
 		<span class="self">self</span>
 	}
@@ -1419,7 +1405,6 @@
 			<span class="ident">num_connections</span>: <span class="number">0</span>,
 			<span class="ident">allow_private_ipv4</span>,
 			<span class="ident">discovery_only_if_under_num</span>,
-			<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 			<span class="ident">mdns</span>: <span class="kw">if</span> <span class="ident">enable_mdns</span> {
 				<span class="ident">MdnsWrapper::Instantiating</span>(<span class="ident">Mdns::new</span>(<span class="ident">MdnsConfig::default</span>()).<span class="ident">boxed</span>())
 			} <span class="kw">else</span> {
@@ -1442,7 +1427,6 @@
 	<span class="doccomment">/// Kademlia requests and answers.</span>
 	<span class="ident">kademlias</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">ProtocolId</span>, <span class="ident">Kademlia</span><span class="op">&lt;</span><span class="ident">MemoryStore</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Discovers nodes on the local network.</span>
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 	<span class="ident">mdns</span>: <span class="ident">MdnsWrapper</span>,
 	<span class="doccomment">/// Stream that fires when we need to perform the next random Kademlia query. `None` if</span>
 	<span class="doccomment">/// random walking is disabled.</span>
@@ -1690,7 +1674,6 @@
 				<span class="ident">list_to_filter</span>.<span class="ident">extend</span>(<span class="ident">k</span>.<span class="ident">addresses_of_peer</span>(<span class="ident">peer_id</span>))
 			}
 
-			<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 			<span class="ident">list_to_filter</span>.<span class="ident">extend</span>(<span class="self">self</span>.<span class="ident">mdns</span>.<span class="ident">addresses_of_peer</span>(<span class="ident">peer_id</span>));
 
 			<span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">allow_private_ipv4</span> {
@@ -2025,7 +2008,6 @@
 		}
 
 		<span class="comment">// Poll mDNS.</span>
-		<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 		<span class="kw">while</span> <span class="kw">let</span> <span class="ident">Poll::Ready</span>(<span class="ident">ev</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">mdns</span>.<span class="ident">poll</span>(<span class="ident">cx</span>, <span class="ident">params</span>) {
 			<span class="kw">match</span> <span class="ident">ev</span> {
 				<span class="ident">NetworkBehaviourAction::GenerateEvent</span>(<span class="ident">event</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="ident">event</span> {
@@ -2075,14 +2057,12 @@
 
 <span class="doccomment">/// [`Mdns::new`] returns a future. Instead of forcing [`DiscoveryConfig::finish`] and all its</span>
 <span class="doccomment">/// callers to be async, lazily instantiate [`Mdns`].</span>
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 <span class="kw">enum</span> <span class="ident">MdnsWrapper</span> {
 	<span class="ident">Instantiating</span>(<span class="ident">futures::future::BoxFuture</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">std::io::Result</span><span class="op">&lt;</span><span class="ident">Mdns</span><span class="op">&gt;</span><span class="op">&gt;</span>),
 	<span class="ident">Ready</span>(<span class="ident">Mdns</span>),
 	<span class="ident">Disabled</span>,
 }
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 <span class="kw">impl</span> <span class="ident">MdnsWrapper</span> {
 	<span class="kw">fn</span> <span class="ident">addresses_of_peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">peer_id</span>: <span class="kw-2">&amp;</span><span class="ident">PeerId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Multiaddr</span><span class="op">&gt;</span> {
 		<span class="kw">match</span> <span class="self">self</span> {

@@ -292,7 +292,6 @@
 <span id="281">281</span>
 <span id="282">282</span>
 <span id="283">283</span>
-<span id="284">284</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -324,7 +323,7 @@
 
 <span class="kw">use</span> <span class="kw">super</span><span class="ident">::base_pool::Transaction</span>;
 
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>), <span class="ident">derive</span>(<span class="ident">parity_util_mem::MallocSizeOf</span>))]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">parity_util_mem::MallocSizeOf</span>)]</span>
 <span class="doccomment">/// Transaction with partially satisfied dependencies.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WaitingTransaction</span><span class="op">&lt;</span><span class="ident">Hash</span>, <span class="ident">Ex</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Transaction details.</span>
@@ -404,8 +403,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Contains transactions that are still awaiting for some other transactions that</span>
 <span class="doccomment">/// could provide a tag that they require.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>), <span class="ident">derive</span>(<span class="ident">parity_util_mem::MallocSizeOf</span>))]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">parity_util_mem::MallocSizeOf</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FutureTransactions</span><span class="op">&lt;</span><span class="ident">Hash</span>: <span class="ident">hash::Hash</span> <span class="op">+</span> <span class="ident">Eq</span>, <span class="ident">Ex</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// tags that are not yet provided by any transaction and we await for them</span>
 	<span class="ident">wanted_tags</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Tag</span>, <span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">Hash</span><span class="op">&gt;</span><span class="op">&gt;</span>,

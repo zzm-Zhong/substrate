@@ -554,8 +554,6 @@
 <span id="543">543</span>
 <span id="544">544</span>
 <span id="545">545</span>
-<span id="546">546</span>
-<span id="547">547</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -796,7 +794,6 @@
 			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">let</span> <span class="ident">code</span> <span class="op">=</span> <span class="ident">runtime_code</span>.<span class="ident">fetch_runtime_code</span>().<span class="ident">ok_or</span>(<span class="ident">WasmError::CodeNotFound</span>)<span class="question-mark">?</span>;
 
-				<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 				<span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">std::time::Instant::now</span>();
 
 				<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">create_versioned_wasm_runtime</span>(
@@ -813,7 +810,6 @@
 
 				<span class="kw">match</span> <span class="ident">result</span> {
 					<span class="prelude-val">Ok</span>(<span class="kw-2">ref</span> <span class="ident">result</span>) <span class="op">=</span><span class="op">&gt;</span> {
-						<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 						<span class="macro">log::debug!</span>(
 							<span class="ident">target</span>: <span class="string">&quot;wasm-runtime&quot;</span>,
 							<span class="string">&quot;Prepared new runtime version {:?} in {} ms.&quot;</span>,

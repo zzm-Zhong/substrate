@@ -1337,15 +1337,6 @@
 <span id="1326">1326</span>
 <span id="1327">1327</span>
 <span id="1328">1328</span>
-<span id="1329">1329</span>
-<span id="1330">1330</span>
-<span id="1331">1331</span>
-<span id="1332">1332</span>
-<span id="1333">1333</span>
-<span id="1334">1334</span>
-<span id="1335">1335</span>
-<span id="1336">1336</span>
-<span id="1337">1337</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -1414,8 +1405,6 @@
 	<span class="ident">meta</span>: <span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">Meta</span><span class="op">&lt;</span><span class="ident">NumberFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>, <span class="ident">Block::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="ident">cache</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">DbCacheSync</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="ident">header_metadata_cache</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">HeaderMetadataCache</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 	<span class="ident">io_stats</span>: <span class="ident">FrozenForDuration</span><span class="op">&lt;</span><span class="ident">kvdb::IoStats</span><span class="op">&gt;</span>,
 }
 
@@ -1451,7 +1440,6 @@
 			<span class="ident">meta</span>: <span class="ident">RwLock::new</span>(<span class="ident">meta</span>),
 			<span class="ident">cache</span>: <span class="ident">Arc::new</span>(<span class="ident">DbCacheSync</span>(<span class="ident">RwLock::new</span>(<span class="ident">cache</span>))),
 			<span class="ident">header_metadata_cache</span>,
-			<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 			<span class="ident">io_stats</span>: <span class="ident">FrozenForDuration::new</span>(<span class="ident">std::time::Duration::from_secs</span>(<span class="number">1</span>)),
 		})
 	}
@@ -1938,7 +1926,6 @@
 		<span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">cache</span>.<span class="ident">clone</span>())
 	}
 
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>))]</span>
 	<span class="kw">fn</span> <span class="ident">usage_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UsageInfo</span><span class="op">&gt;</span> {
 		<span class="kw">use</span> <span class="ident">sc_client_api</span>::{<span class="ident">IoInfo</span>, <span class="ident">MemoryInfo</span>, <span class="ident">MemorySize</span>};
 
@@ -1967,11 +1954,6 @@
 				<span class="ident">state_writes_nodes</span>: <span class="number">0</span>,
 			},
 		})
-	}
-
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>)]</span>
-	<span class="kw">fn</span> <span class="ident">usage_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UsageInfo</span><span class="op">&gt;</span> {
-		<span class="prelude-val">None</span>
 	}
 }
 

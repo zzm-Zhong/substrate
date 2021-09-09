@@ -1695,6 +1695,14 @@
 <span id="1684">1684</span>
 <span id="1685">1685</span>
 <span id="1686">1686</span>
+<span id="1687">1687</span>
+<span id="1688">1688</span>
+<span id="1689">1689</span>
+<span id="1690">1690</span>
+<span id="1691">1691</span>
+<span id="1692">1692</span>
+<span id="1693">1693</span>
+<span id="1694">1694</span>
 </pre><pre class="rust">
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -3283,6 +3291,14 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// .</span>
 	<span class="kw">fn</span> <span class="ident">current_block_number</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::BlockNumber</span>;
+
+	<span class="doccomment">/// Utility function only to be used in benchmarking scenarios, to be implemented optionally,</span>
+	<span class="doccomment">/// else a noop.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// It allows for setting the block number that will later be fetched</span>
+	<span class="doccomment">/// This is useful in case the block number provider is different than System</span>
+	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>)]</span>
+	<span class="kw">fn</span> <span class="ident">set_block_number</span>(<span class="ident">_block</span>: <span class="self">Self</span><span class="ident">::BlockNumber</span>) {}
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
