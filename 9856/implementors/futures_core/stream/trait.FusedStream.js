@@ -1,3 +1,0 @@
-(function() {var implementors = {};
-implementors["sc_utils"] = [{"text":"impl&lt;T&gt; FusedStream for <a class=\"struct\" href=\"sc_utils/mpsc/struct.TracingUnboundedReceiver.html\" title=\"struct sc_utils::mpsc::TracingUnboundedReceiver\">TracingUnboundedReceiver</a>&lt;T&gt;","synthetic":false,"types":["sc_utils::mpsc::inner::TracingUnboundedReceiver"]}];
-if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
