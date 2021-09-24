@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `primitives&#x2F;runtime&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><script defer type="text/javascript" src="https://substrate.dev/js/config.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `primitives&#x2F;runtime&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><script defer type="text/javascript" src="https://substrate.dev/js/config.js"></script>
 <script defer type="text/javascript" src="https://substrate.dev/js/klaro.min.js"></script>
 <script async type="opt-in" data-type="application/javascript"
 		data-src="https://www.googletagmanager.com/gtag/js?id=UA-145158313-2" data-name="googleAnalytics"></script>
@@ -9,7 +9,7 @@
       gtag('config', 'UA-145158313-2');
 </script>
 
-<style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../sp_runtime/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
+<style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../sp_runtime/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1031,8 +1031,7 @@
 <span id="1020">1020</span>
 <span id="1021">1021</span>
 <span id="1022">1022</span>
-</pre><pre class="rust">
-<span class="comment">// This file is part of Substrate.</span>
+</pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
 <span class="comment">// SPDX-License-Identifier: Apache-2.0</span>
@@ -1099,7 +1098,7 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">traits</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">transaction_validity</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::runtime_string</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::runtime_string</span>::<span class="kw-2">*</span>;
 
 <span class="comment">// Re-export Multiaddress</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">multiaddress::MultiAddress</span>;
@@ -1184,9 +1183,9 @@
 
 <span class="kw">impl</span> <span class="ident">IntoIterator</span> <span class="kw">for</span> <span class="ident">Justifications</span> {
 	<span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">Justification</span>;
-	<span class="kw">type</span> <span class="ident">IntoIter</span> <span class="op">=</span> <span class="ident">sp_std::vec::IntoIter</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Item</span><span class="op">&gt;</span>;
+	<span class="kw">type</span> <span class="ident">IntoIter</span> <span class="op">=</span> <span class="ident">sp_std::vec::IntoIter</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span>;
 
-	<span class="kw">fn</span> <span class="ident">into_iter</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::IntoIter</span> {
+	<span class="kw">fn</span> <span class="ident">into_iter</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::IntoIter</span> {
 		<span class="self">self</span>.<span class="number">0</span>.<span class="ident">into_iter</span>()
 	}
 }
@@ -1199,7 +1198,7 @@
 
 <span class="kw">use</span> <span class="ident">traits</span>::{<span class="ident">Lazy</span>, <span class="ident">Verify</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::traits::IdentifyAccount</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::traits::IdentifyAccount</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de::DeserializeOwned</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -1269,13 +1268,13 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ed25519::Signature</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MultiSignature</span> {
 	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">x</span>: <span class="ident">ed25519::Signature</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="self">Self</span><span class="ident">::Ed25519</span>(<span class="ident">x</span>)
+		<span class="ident"><span class="self">Self</span>::Ed25519</span>(<span class="ident">x</span>)
 	}
 }
 
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">MultiSignature</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ed25519::Signature</span> {
 	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> ();
-	<span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">m</span>: <span class="ident">MultiSignature</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">m</span>: <span class="ident">MultiSignature</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="kw">let</span> <span class="ident">MultiSignature::Ed25519</span>(<span class="ident">x</span>) <span class="op">=</span> <span class="ident">m</span> {
 			<span class="prelude-val">Ok</span>(<span class="ident">x</span>)
 		} <span class="kw">else</span> {
@@ -1286,13 +1285,13 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">sr25519::Signature</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MultiSignature</span> {
 	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">x</span>: <span class="ident">sr25519::Signature</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="self">Self</span><span class="ident">::Sr25519</span>(<span class="ident">x</span>)
+		<span class="ident"><span class="self">Self</span>::Sr25519</span>(<span class="ident">x</span>)
 	}
 }
 
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">MultiSignature</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">sr25519::Signature</span> {
 	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> ();
-	<span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">m</span>: <span class="ident">MultiSignature</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">m</span>: <span class="ident">MultiSignature</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="kw">let</span> <span class="ident">MultiSignature::Sr25519</span>(<span class="ident">x</span>) <span class="op">=</span> <span class="ident">m</span> {
 			<span class="prelude-val">Ok</span>(<span class="ident">x</span>)
 		} <span class="kw">else</span> {
@@ -1303,13 +1302,13 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ecdsa::Signature</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MultiSignature</span> {
 	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">x</span>: <span class="ident">ecdsa::Signature</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="self">Self</span><span class="ident">::Ecdsa</span>(<span class="ident">x</span>)
+		<span class="ident"><span class="self">Self</span>::Ecdsa</span>(<span class="ident">x</span>)
 	}
 }
 
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">MultiSignature</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ecdsa::Signature</span> {
 	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> ();
-	<span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">m</span>: <span class="ident">MultiSignature</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">m</span>: <span class="ident">MultiSignature</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="kw">let</span> <span class="ident">MultiSignature::Ecdsa</span>(<span class="ident">x</span>) <span class="op">=</span> <span class="ident">m</span> {
 			<span class="prelude-val">Ok</span>(<span class="ident">x</span>)
 		} <span class="kw">else</span> {
@@ -1320,7 +1319,7 @@
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">MultiSignature</span> {
 	<span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="self">Self</span><span class="ident">::Ed25519</span>(<span class="ident">Default::default</span>())
+		<span class="ident"><span class="self">Self</span>::Ed25519</span>(<span class="ident">Default::default</span>())
 	}
 }
 
@@ -1338,7 +1337,7 @@
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">MultiSigner</span> {
 	<span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="self">Self</span><span class="ident">::Ed25519</span>(<span class="ident">Default::default</span>())
+		<span class="ident"><span class="self">Self</span>::Ed25519</span>(<span class="ident">Default::default</span>())
 	}
 }
 
@@ -1353,9 +1352,9 @@
 <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MultiSigner</span> {
 	<span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
 		<span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-			<span class="self">Self</span><span class="ident">::Ed25519</span>(<span class="kw-2">ref</span> <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">who</span>.<span class="ident">as_ref</span>(),
-			<span class="self">Self</span><span class="ident">::Sr25519</span>(<span class="kw-2">ref</span> <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">who</span>.<span class="ident">as_ref</span>(),
-			<span class="self">Self</span><span class="ident">::Ecdsa</span>(<span class="kw-2">ref</span> <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">who</span>.<span class="ident">as_ref</span>(),
+			<span class="ident"><span class="self">Self</span>::Ed25519</span>(<span class="kw-2">ref</span> <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">who</span>.<span class="ident">as_ref</span>(),
+			<span class="ident"><span class="self">Self</span>::Sr25519</span>(<span class="kw-2">ref</span> <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">who</span>.<span class="ident">as_ref</span>(),
+			<span class="ident"><span class="self">Self</span>::Ecdsa</span>(<span class="kw-2">ref</span> <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">who</span>.<span class="ident">as_ref</span>(),
 		}
 	}
 }
@@ -1364,22 +1363,22 @@
 	<span class="kw">type</span> <span class="ident">AccountId</span> <span class="op">=</span> <span class="ident">AccountId32</span>;
 	<span class="kw">fn</span> <span class="ident">into_account</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AccountId32</span> {
 		<span class="kw">match</span> <span class="self">self</span> {
-			<span class="self">Self</span><span class="ident">::Ed25519</span>(<span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">32</span>]<span class="op">&gt;</span><span class="ident">::from</span>(<span class="ident">who</span>).<span class="ident">into</span>(),
-			<span class="self">Self</span><span class="ident">::Sr25519</span>(<span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">32</span>]<span class="op">&gt;</span><span class="ident">::from</span>(<span class="ident">who</span>).<span class="ident">into</span>(),
-			<span class="self">Self</span><span class="ident">::Ecdsa</span>(<span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">sp_io::hashing::blake2_256</span>(<span class="ident">who</span>.<span class="ident">as_ref</span>()).<span class="ident">into</span>(),
+			<span class="ident"><span class="self">Self</span>::Ed25519</span>(<span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">32</span>]<span class="op">&gt;</span><span class="ident">::from</span>(<span class="ident">who</span>).<span class="ident">into</span>(),
+			<span class="ident"><span class="self">Self</span>::Sr25519</span>(<span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">32</span>]<span class="op">&gt;</span><span class="ident">::from</span>(<span class="ident">who</span>).<span class="ident">into</span>(),
+			<span class="ident"><span class="self">Self</span>::Ecdsa</span>(<span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">sp_io::hashing::blake2_256</span>(<span class="ident">who</span>.<span class="ident">as_ref</span>()).<span class="ident">into</span>(),
 		}
 	}
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ed25519::Public</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MultiSigner</span> {
 	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">x</span>: <span class="ident">ed25519::Public</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="self">Self</span><span class="ident">::Ed25519</span>(<span class="ident">x</span>)
+		<span class="ident"><span class="self">Self</span>::Ed25519</span>(<span class="ident">x</span>)
 	}
 }
 
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">MultiSigner</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ed25519::Public</span> {
 	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> ();
-	<span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">m</span>: <span class="ident">MultiSigner</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">m</span>: <span class="ident">MultiSigner</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="kw">let</span> <span class="ident">MultiSigner::Ed25519</span>(<span class="ident">x</span>) <span class="op">=</span> <span class="ident">m</span> {
 			<span class="prelude-val">Ok</span>(<span class="ident">x</span>)
 		} <span class="kw">else</span> {
@@ -1390,13 +1389,13 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">sr25519::Public</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MultiSigner</span> {
 	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">x</span>: <span class="ident">sr25519::Public</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="self">Self</span><span class="ident">::Sr25519</span>(<span class="ident">x</span>)
+		<span class="ident"><span class="self">Self</span>::Sr25519</span>(<span class="ident">x</span>)
 	}
 }
 
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">MultiSigner</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">sr25519::Public</span> {
 	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> ();
-	<span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">m</span>: <span class="ident">MultiSigner</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">m</span>: <span class="ident">MultiSigner</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="kw">let</span> <span class="ident">MultiSigner::Sr25519</span>(<span class="ident">x</span>) <span class="op">=</span> <span class="ident">m</span> {
 			<span class="prelude-val">Ok</span>(<span class="ident">x</span>)
 		} <span class="kw">else</span> {
@@ -1407,13 +1406,13 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ecdsa::Public</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MultiSigner</span> {
 	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">x</span>: <span class="ident">ecdsa::Public</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="self">Self</span><span class="ident">::Ecdsa</span>(<span class="ident">x</span>)
+		<span class="ident"><span class="self">Self</span>::Ecdsa</span>(<span class="ident">x</span>)
 	}
 }
 
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">MultiSigner</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ecdsa::Public</span> {
 	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> ();
-	<span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">m</span>: <span class="ident">MultiSigner</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">m</span>: <span class="ident">MultiSigner</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="kw">let</span> <span class="ident">MultiSigner::Ecdsa</span>(<span class="ident">x</span>) <span class="op">=</span> <span class="ident">m</span> {
 			<span class="prelude-val">Ok</span>(<span class="ident">x</span>)
 		} <span class="kw">else</span> {
@@ -1426,9 +1425,9 @@
 <span class="kw">impl</span> <span class="ident">std::fmt::Display</span> <span class="kw">for</span> <span class="ident">MultiSigner</span> {
 	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">std::fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::fmt::Result</span> {
 		<span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-			<span class="self">Self</span><span class="ident">::Ed25519</span>(<span class="kw-2">ref</span> <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">fmt</span>, <span class="string">&quot;ed25519: {}&quot;</span>, <span class="ident">who</span>),
-			<span class="self">Self</span><span class="ident">::Sr25519</span>(<span class="kw-2">ref</span> <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">fmt</span>, <span class="string">&quot;sr25519: {}&quot;</span>, <span class="ident">who</span>),
-			<span class="self">Self</span><span class="ident">::Ecdsa</span>(<span class="kw-2">ref</span> <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">fmt</span>, <span class="string">&quot;ecdsa: {}&quot;</span>, <span class="ident">who</span>),
+			<span class="ident"><span class="self">Self</span>::Ed25519</span>(<span class="kw-2">ref</span> <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">fmt</span>, <span class="string">&quot;ed25519: {}&quot;</span>, <span class="ident">who</span>),
+			<span class="ident"><span class="self">Self</span>::Sr25519</span>(<span class="kw-2">ref</span> <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">fmt</span>, <span class="string">&quot;sr25519: {}&quot;</span>, <span class="ident">who</span>),
+			<span class="ident"><span class="self">Self</span>::Ecdsa</span>(<span class="kw-2">ref</span> <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">fmt</span>, <span class="string">&quot;ecdsa: {}&quot;</span>, <span class="ident">who</span>),
 		}
 	}
 }
@@ -1437,11 +1436,11 @@
 	<span class="kw">type</span> <span class="ident">Signer</span> <span class="op">=</span> <span class="ident">MultiSigner</span>;
 	<span class="kw">fn</span> <span class="ident">verify</span><span class="op">&lt;</span><span class="ident">L</span>: <span class="ident">Lazy</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">msg</span>: <span class="ident">L</span>, <span class="ident">signer</span>: <span class="kw-2">&amp;</span><span class="ident">AccountId32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
 		<span class="kw">match</span> (<span class="self">self</span>, <span class="ident">signer</span>) {
-			(<span class="self">Self</span><span class="ident">::Ed25519</span>(<span class="kw-2">ref</span> <span class="ident">sig</span>), <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span>
+			(<span class="ident"><span class="self">Self</span>::Ed25519</span>(<span class="kw-2">ref</span> <span class="ident">sig</span>), <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span>
 				<span class="ident">sig</span>.<span class="ident">verify</span>(<span class="ident">msg</span>, <span class="kw-2">&amp;</span><span class="ident">ed25519::Public::from_slice</span>(<span class="ident">who</span>.<span class="ident">as_ref</span>())),
-			(<span class="self">Self</span><span class="ident">::Sr25519</span>(<span class="kw-2">ref</span> <span class="ident">sig</span>), <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span>
+			(<span class="ident"><span class="self">Self</span>::Sr25519</span>(<span class="kw-2">ref</span> <span class="ident">sig</span>), <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span>
 				<span class="ident">sig</span>.<span class="ident">verify</span>(<span class="ident">msg</span>, <span class="kw-2">&amp;</span><span class="ident">sr25519::Public::from_slice</span>(<span class="ident">who</span>.<span class="ident">as_ref</span>())),
-			(<span class="self">Self</span><span class="ident">::Ecdsa</span>(<span class="kw-2">ref</span> <span class="ident">sig</span>), <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> {
+			(<span class="ident"><span class="self">Self</span>::Ecdsa</span>(<span class="kw-2">ref</span> <span class="ident">sig</span>), <span class="ident">who</span>) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">sp_io::hashing::blake2_256</span>(<span class="ident">msg</span>.<span class="ident">get</span>());
 				<span class="kw">match</span> <span class="ident">sp_io::crypto::secp256k1_ecdsa_recover_compressed</span>(<span class="ident">sig</span>.<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">m</span>) {
 					<span class="prelude-val">Ok</span>(<span class="ident">pubkey</span>) <span class="op">=</span><span class="op">&gt;</span>
@@ -1568,15 +1567,15 @@
 	}
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::traits::LookupError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DispatchError</span> {
-	<span class="kw">fn</span> <span class="ident">from</span>(<span class="kw">_</span>: <span class="kw">crate</span><span class="ident">::traits::LookupError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="self">Self</span><span class="ident">::CannotLookup</span>
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident"><span class="kw">crate</span>::traits::LookupError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DispatchError</span> {
+	<span class="kw">fn</span> <span class="ident">from</span>(<span class="kw">_</span>: <span class="ident"><span class="kw">crate</span>::traits::LookupError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+		<span class="ident"><span class="self">Self</span>::CannotLookup</span>
 	}
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::traits::BadOrigin</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DispatchError</span> {
-	<span class="kw">fn</span> <span class="ident">from</span>(<span class="kw">_</span>: <span class="kw">crate</span><span class="ident">::traits::BadOrigin</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="self">Self</span><span class="ident">::BadOrigin</span>
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident"><span class="kw">crate</span>::traits::BadOrigin</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DispatchError</span> {
+	<span class="kw">fn</span> <span class="ident">from</span>(<span class="kw">_</span>: <span class="ident"><span class="kw">crate</span>::traits::BadOrigin</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+		<span class="ident"><span class="self">Self</span>::BadOrigin</span>
 	}
 }
 
@@ -1616,7 +1615,7 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">TokenError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DispatchError</span> {
 	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">e</span>: <span class="ident">TokenError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchError</span> {
-		<span class="self">Self</span><span class="ident">::Token</span>(<span class="ident">e</span>)
+		<span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">e</span>)
 	}
 }
 
@@ -1644,13 +1643,13 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ArithmeticError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DispatchError</span> {
 	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">e</span>: <span class="ident">ArithmeticError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchError</span> {
-		<span class="self">Self</span><span class="ident">::Arithmetic</span>(<span class="ident">e</span>)
+		<span class="ident"><span class="self">Self</span>::Arithmetic</span>(<span class="ident">e</span>)
 	}
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DispatchError</span> {
 	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchError</span> {
-		<span class="self">Self</span><span class="ident">::Other</span>(<span class="ident">err</span>)
+		<span class="ident"><span class="self">Self</span>::Other</span>(<span class="ident">err</span>)
 	}
 }
 
@@ -1682,23 +1681,23 @@
 	<span class="kw">fn</span> <span class="ident">print</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
 		<span class="string">&quot;DispatchError&quot;</span>.<span class="ident">print</span>();
 		<span class="kw">match</span> <span class="self">self</span> {
-			<span class="self">Self</span><span class="ident">::Other</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">err</span>.<span class="ident">print</span>(),
-			<span class="self">Self</span><span class="ident">::CannotLookup</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Cannot lookup&quot;</span>.<span class="ident">print</span>(),
-			<span class="self">Self</span><span class="ident">::BadOrigin</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bad origin&quot;</span>.<span class="ident">print</span>(),
-			<span class="self">Self</span><span class="ident">::Module</span> { <span class="ident">index</span>, <span class="ident">error</span>, <span class="ident">message</span> } <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="ident"><span class="self">Self</span>::Other</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">err</span>.<span class="ident">print</span>(),
+			<span class="ident"><span class="self">Self</span>::CannotLookup</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Cannot lookup&quot;</span>.<span class="ident">print</span>(),
+			<span class="ident"><span class="self">Self</span>::BadOrigin</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Bad origin&quot;</span>.<span class="ident">print</span>(),
+			<span class="ident"><span class="self">Self</span>::Module</span> { <span class="ident">index</span>, <span class="ident">error</span>, <span class="ident">message</span> } <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="ident">index</span>.<span class="ident">print</span>();
 				<span class="ident">error</span>.<span class="ident">print</span>();
 				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">msg</span>) <span class="op">=</span> <span class="ident">message</span> {
 					<span class="ident">msg</span>.<span class="ident">print</span>();
 				}
 			},
-			<span class="self">Self</span><span class="ident">::ConsumerRemaining</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Consumer remaining&quot;</span>.<span class="ident">print</span>(),
-			<span class="self">Self</span><span class="ident">::NoProviders</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;No providers&quot;</span>.<span class="ident">print</span>(),
-			<span class="self">Self</span><span class="ident">::Token</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="ident"><span class="self">Self</span>::ConsumerRemaining</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Consumer remaining&quot;</span>.<span class="ident">print</span>(),
+			<span class="ident"><span class="self">Self</span>::NoProviders</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;No providers&quot;</span>.<span class="ident">print</span>(),
+			<span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="string">&quot;Token error: &quot;</span>.<span class="ident">print</span>();
 				<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span><span class="ident">::from</span>(<span class="kw-2">*</span><span class="ident">e</span>).<span class="ident">print</span>();
 			},
-			<span class="self">Self</span><span class="ident">::Arithmetic</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="ident"><span class="self">Self</span>::Arithmetic</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="string">&quot;Arithmetic error: &quot;</span>.<span class="ident">print</span>();
 				<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span><span class="ident">::from</span>(<span class="kw-2">*</span><span class="ident">e</span>).<span class="ident">print</span>();
 			},
@@ -1841,7 +1840,7 @@
 <span class="kw">impl</span> <span class="ident">OpaqueExtrinsic</span> {
 	<span class="doccomment">/// Convert an encoded extrinsic to an `OpaqueExtrinsic`.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_bytes</span>(<span class="kw-2">mut</span> <span class="ident">bytes</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">codec::Error</span><span class="op">&gt;</span> {
-		<span class="self">Self</span><span class="ident">::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>)
+		<span class="ident"><span class="self">Self</span>::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>)
 	}
 }
 
@@ -1942,8 +1941,8 @@
 	<span class="doccomment">/// Convert into the inner type.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_inner</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">R</span> {
 		<span class="kw">match</span> <span class="self">self</span> {
-			<span class="self">Self</span><span class="ident">::Commit</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">r</span>,
-			<span class="self">Self</span><span class="ident">::Rollback</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">r</span>,
+			<span class="ident"><span class="self">Self</span>::Commit</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">r</span>,
+			<span class="ident"><span class="self">Self</span>::Rollback</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">r</span>,
 		}
 	}
 }
@@ -1956,7 +1955,7 @@
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">opaque_extrinsic_serialization</span>() {
-		<span class="kw">let</span> <span class="ident">ex</span> <span class="op">=</span> <span class="kw">super</span><span class="ident">::OpaqueExtrinsic</span>(<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]);
+		<span class="kw">let</span> <span class="ident">ex</span> <span class="op">=</span> <span class="ident"><span class="kw">super</span>::OpaqueExtrinsic</span>(<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]);
 		<span class="macro">assert_eq!</span>(<span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">ex</span>).<span class="ident">unwrap</span>(), <span class="string">&quot;\&quot;0x1001020304\&quot;&quot;</span>.<span class="ident">to_owned</span>());
 	}
 
@@ -2054,7 +2053,7 @@
 		});
 	}
 }
-</pre></div>
+</code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="sp_runtime" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
 </body></html>

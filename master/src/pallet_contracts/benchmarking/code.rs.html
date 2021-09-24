@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;contracts&#x2F;src&#x2F;benchmarking&#x2F;code.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>code.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><script defer type="text/javascript" src="https://substrate.dev/js/config.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;contracts&#x2F;src&#x2F;benchmarking&#x2F;code.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>code.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><script defer type="text/javascript" src="https://substrate.dev/js/config.js"></script>
 <script defer type="text/javascript" src="https://substrate.dev/js/klaro.min.js"></script>
 <script async type="opt-in" data-type="application/javascript"
 		data-src="https://www.googletagmanager.com/gtag/js?id=UA-145158313-2" data-name="googleAnalytics"></script>
@@ -9,7 +9,7 @@
       gtag('config', 'UA-145158313-2');
 </script>
 
-<style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../pallet_contracts/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../pallet_contracts/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -566,8 +566,7 @@
 <span id="555">555</span>
 <span id="556">556</span>
 <span id="557">557</span>
-</pre><pre class="rust">
-<span class="comment">// This file is part of Substrate.</span>
+</pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
 <span class="comment">// SPDX-License-Identifier: Apache-2.0</span>
@@ -593,7 +592,7 @@
 <span class="doccomment">//! we define this simple definition of a contract that can be passed to `create_code` that</span>
 <span class="doccomment">//! compiles it down into a `WasmModule` that can be used as a contract&#39;s code.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Config</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Config</span>;
 <span class="kw">use</span> <span class="ident">frame_support::traits::Get</span>;
 <span class="kw">use</span> <span class="ident">pwasm_utils::parity_wasm</span>::{
 	<span class="ident">builder</span>,
@@ -875,7 +874,7 @@
 	<span class="doccomment">/// `instantiate_with_code` for different sizes of wasm modules. The generated module maximizes</span>
 	<span class="doccomment">/// instrumentation runtime by nesting blocks as deeply as possible given the byte budget.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sized</span>(<span class="ident">target_bytes</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="kw">use</span> <span class="self">self</span><span class="ident">::elements::Instruction</span>::{<span class="ident">End</span>, <span class="ident">I32Const</span>, <span class="ident">If</span>, <span class="ident">Return</span>};
+		<span class="kw">use</span> <span class="ident"><span class="self">self</span>::elements::Instruction</span>::{<span class="ident">End</span>, <span class="ident">I32Const</span>, <span class="ident">If</span>, <span class="ident">Return</span>};
 		<span class="comment">// Base size of a contract is 63 bytes and each expansion adds 6 bytes.</span>
 		<span class="comment">// We do one expansion less to account for the code section and function body</span>
 		<span class="comment">// size fields inside the binary wasm module representation which are leb128 encoded</span>
@@ -1100,7 +1099,7 @@
 
 	<span class="doccomment">/// Replace the locals of the supplied `body` with `num` i64 locals.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">inject_locals</span>(<span class="ident">body</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">FuncBody</span>, <span class="ident">num</span>: <span class="ident">u32</span>) {
-		<span class="kw">use</span> <span class="self">self</span><span class="ident">::elements::Local</span>;
+		<span class="kw">use</span> <span class="ident"><span class="self">self</span>::elements::Local</span>;
 		<span class="kw-2">*</span><span class="ident">body</span>.<span class="ident">locals_mut</span>() <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">Local::new</span>(<span class="ident">num</span>, <span class="ident">ValueType::I64</span>)];
 	}
 }
@@ -1124,7 +1123,7 @@
 	<span class="kw">let</span> <span class="ident">height</span> <span class="op">=</span> <span class="ident">T::Schedule::get</span>().<span class="ident">limits</span>.<span class="ident">stack_height</span>;
 	<span class="ident">pwasm_utils::stack_height::inject_limiter</span>(<span class="ident">module</span>, <span class="ident">height</span>).<span class="ident">unwrap</span>()
 }
-</pre></div>
+</code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="pallet_contracts" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
     <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script>
 </body></html>

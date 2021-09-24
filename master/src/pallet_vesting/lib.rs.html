@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;vesting&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><script defer type="text/javascript" src="https://substrate.dev/js/config.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;vesting&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><script defer type="text/javascript" src="https://substrate.dev/js/config.js"></script>
 <script defer type="text/javascript" src="https://substrate.dev/js/klaro.min.js"></script>
 <script async type="opt-in" data-type="application/javascript"
 		data-src="https://www.googletagmanager.com/gtag/js?id=UA-145158313-2" data-name="googleAnalytics"></script>
@@ -9,7 +9,7 @@
       gtag('config', 'UA-145158313-2');
 </script>
 
-<style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../pallet_vesting/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../pallet_vesting/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -778,8 +778,7 @@
 <span id="767">767</span>
 <span id="768">768</span>
 <span id="769">769</span>
-</pre><pre class="rust">
-<span class="comment">// This file is part of Substrate.</span>
+</pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
 <span class="comment">// SPDX-License-Identifier: Apache-2.0</span>
@@ -894,9 +893,9 @@
 	<span class="doccomment">/// Whether or not the filter says the schedule index should be removed.</span>
 	<span class="kw">fn</span> <span class="ident">should_remove</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
 		<span class="kw">match</span> <span class="self">self</span> {
-			<span class="self">Self</span><span class="ident">::Passive</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-			<span class="self">Self</span><span class="ident">::Remove</span>(<span class="ident">index1</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">index1</span> <span class="op">=</span><span class="op">=</span> <span class="ident">index</span>,
-			<span class="self">Self</span><span class="ident">::Merge</span>(<span class="ident">index1</span>, <span class="ident">index2</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">index1</span> <span class="op">=</span><span class="op">=</span> <span class="ident">index</span> <span class="op">|</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">index2</span> <span class="op">=</span><span class="op">=</span> <span class="ident">index</span>,
+			<span class="ident"><span class="self">Self</span>::Passive</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+			<span class="ident"><span class="self">Self</span>::Remove</span>(<span class="ident">index1</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">index1</span> <span class="op">=</span><span class="op">=</span> <span class="ident">index</span>,
+			<span class="ident"><span class="self">Self</span>::Merge</span>(<span class="ident">index1</span>, <span class="ident">index2</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">index1</span> <span class="op">=</span><span class="op">=</span> <span class="ident">index</span> <span class="op">|</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">index2</span> <span class="op">=</span><span class="op">=</span> <span class="ident">index</span>,
 		}
 	}
 
@@ -933,10 +932,10 @@
 		<span class="kw">type</span> <span class="ident">Event</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">IsType</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">frame_system::Config</span><span class="op">&gt;</span><span class="ident">::Event</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// The currency trait.</span>
-		<span class="kw">type</span> <span class="ident">Currency</span>: <span class="ident">LockableCurrency</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::AccountId</span><span class="op">&gt;</span>;
+		<span class="kw">type</span> <span class="ident">Currency</span>: <span class="ident">LockableCurrency</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::AccountId</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// Convert the block number into a balance.</span>
-		<span class="kw">type</span> <span class="ident">BlockNumberToBalance</span>: <span class="ident">Convert</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::BlockNumber</span>, <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+		<span class="kw">type</span> <span class="ident">BlockNumberToBalance</span>: <span class="ident">Convert</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::BlockNumber</span>, <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// The minimum amount transferred to call `vested_transfer`.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
@@ -1098,7 +1097,7 @@
 		)]</span>
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">vest</span>(<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
-			<span class="self">Self</span><span class="ident">::do_vest</span>(<span class="ident">who</span>)
+			<span class="ident"><span class="self">Self</span>::do_vest</span>(<span class="ident">who</span>)
 		}
 
 		<span class="doccomment">/// Unlock any vested funds of a `target` account.</span>
@@ -1125,7 +1124,7 @@
 		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
 			<span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">T::Lookup::lookup</span>(<span class="ident">target</span>)<span class="question-mark">?</span>;
-			<span class="self">Self</span><span class="ident">::do_vest</span>(<span class="ident">who</span>)
+			<span class="ident"><span class="self">Self</span>::do_vest</span>(<span class="ident">who</span>)
 		}
 
 		<span class="doccomment">/// Create a vested transfer.</span>
@@ -1155,7 +1154,7 @@
 		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
 			<span class="kw">let</span> <span class="ident">transactor</span> <span class="op">=</span> <span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="kw">let</span> <span class="ident">transactor</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">T::Lookup</span> <span class="kw">as</span> <span class="ident">StaticLookup</span><span class="op">&gt;</span><span class="ident">::unlookup</span>(<span class="ident">transactor</span>);
-			<span class="self">Self</span><span class="ident">::do_vested_transfer</span>(<span class="ident">transactor</span>, <span class="ident">target</span>, <span class="ident">schedule</span>)
+			<span class="ident"><span class="self">Self</span>::do_vested_transfer</span>(<span class="ident">transactor</span>, <span class="ident">target</span>, <span class="ident">schedule</span>)
 		}
 
 		<span class="doccomment">/// Force a vested transfer.</span>
@@ -1186,7 +1185,7 @@
 			<span class="ident">schedule</span>: <span class="ident">VestingInfo</span><span class="op">&lt;</span><span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">T::BlockNumber</span><span class="op">&gt;</span>,
 		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
 			<span class="ident">ensure_root</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
-			<span class="self">Self</span><span class="ident">::do_vested_transfer</span>(<span class="ident">source</span>, <span class="ident">target</span>, <span class="ident">schedule</span>)
+			<span class="ident"><span class="self">Self</span>::do_vested_transfer</span>(<span class="ident">source</span>, <span class="ident">target</span>, <span class="ident">schedule</span>)
 		}
 
 		<span class="doccomment">/// Merge two vesting schedules together, creating a new vesting schedule that unlocks over</span>
@@ -1226,13 +1225,13 @@
 			<span class="kw">let</span> <span class="ident">schedule1_index</span> <span class="op">=</span> <span class="ident">schedule1_index</span> <span class="kw">as</span> <span class="ident">usize</span>;
 			<span class="kw">let</span> <span class="ident">schedule2_index</span> <span class="op">=</span> <span class="ident">schedule2_index</span> <span class="kw">as</span> <span class="ident">usize</span>;
 
-			<span class="kw">let</span> <span class="ident">schedules</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::vesting</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>).<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NotVesting</span>)<span class="question-mark">?</span>;
+			<span class="kw">let</span> <span class="ident">schedules</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::vesting</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>).<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NotVesting</span>)<span class="question-mark">?</span>;
 			<span class="kw">let</span> <span class="ident">merge_action</span> <span class="op">=</span> <span class="ident">VestingAction::Merge</span>(<span class="ident">schedule1_index</span>, <span class="ident">schedule2_index</span>);
 
-			<span class="kw">let</span> (<span class="ident">schedules</span>, <span class="ident">locked_now</span>) <span class="op">=</span> <span class="self">Self</span><span class="ident">::exec_action</span>(<span class="ident">schedules</span>.<span class="ident">to_vec</span>(), <span class="ident">merge_action</span>)<span class="question-mark">?</span>;
+			<span class="kw">let</span> (<span class="ident">schedules</span>, <span class="ident">locked_now</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::exec_action</span>(<span class="ident">schedules</span>.<span class="ident">to_vec</span>(), <span class="ident">merge_action</span>)<span class="question-mark">?</span>;
 
-			<span class="self">Self</span><span class="ident">::write_vesting</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">schedules</span>)<span class="question-mark">?</span>;
-			<span class="self">Self</span><span class="ident">::write_lock</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">locked_now</span>);
+			<span class="ident"><span class="self">Self</span>::write_vesting</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">schedules</span>)<span class="question-mark">?</span>;
+			<span class="ident"><span class="self">Self</span>::write_lock</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">locked_now</span>);
 
 			<span class="prelude-val">Ok</span>(())
 		}
@@ -1304,7 +1303,7 @@
 		<span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> <span class="ident">T::Lookup::lookup</span>(<span class="ident">source</span>)<span class="question-mark">?</span>;
 
 		<span class="comment">// Check we can add to this account prior to any storage writes.</span>
-		<span class="self">Self</span><span class="ident">::can_add_vesting_schedule</span>(
+		<span class="ident"><span class="self">Self</span>::can_add_vesting_schedule</span>(
 			<span class="kw-2">&amp;</span><span class="ident">target</span>,
 			<span class="ident">schedule</span>.<span class="ident">locked</span>(),
 			<span class="ident">schedule</span>.<span class="ident">per_block</span>(),
@@ -1319,7 +1318,7 @@
 		)<span class="question-mark">?</span>;
 
 		<span class="comment">// We can&#39;t let this fail because the currency transfer has already happened.</span>
-		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::add_vesting_schedule</span>(
+		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::add_vesting_schedule</span>(
 			<span class="kw-2">&amp;</span><span class="ident">target</span>,
 			<span class="ident">schedule</span>.<span class="ident">locked</span>(),
 			<span class="ident">schedule</span>.<span class="ident">per_block</span>(),
@@ -1367,11 +1366,11 @@
 	<span class="kw">fn</span> <span class="ident">write_lock</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>, <span class="ident">total_locked_now</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
 		<span class="kw">if</span> <span class="ident">total_locked_now</span>.<span class="ident">is_zero</span>() {
 			<span class="ident">T::Currency::remove_lock</span>(<span class="ident">VESTING_ID</span>, <span class="ident">who</span>);
-			<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::VestingCompleted</span>(<span class="ident">who</span>.<span class="ident">clone</span>()));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::VestingCompleted</span>(<span class="ident">who</span>.<span class="ident">clone</span>()));
 		} <span class="kw">else</span> {
 			<span class="kw">let</span> <span class="ident">reasons</span> <span class="op">=</span> <span class="ident">WithdrawReasons::TRANSFER</span> <span class="op">|</span> <span class="ident">WithdrawReasons::RESERVE</span>;
 			<span class="ident">T::Currency::set_lock</span>(<span class="ident">VESTING_ID</span>, <span class="ident">who</span>, <span class="ident">total_locked_now</span>, <span class="ident">reasons</span>);
-			<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::VestingUpdated</span>(<span class="ident">who</span>.<span class="ident">clone</span>(), <span class="ident">total_locked_now</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::VestingUpdated</span>(<span class="ident">who</span>.<span class="ident">clone</span>(), <span class="ident">total_locked_now</span>));
 		};
 	}
 
@@ -1396,13 +1395,13 @@
 
 	<span class="doccomment">/// Unlock any vested funds of `who`.</span>
 	<span class="kw">fn</span> <span class="ident">do_vest</span>(<span class="ident">who</span>: <span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
-		<span class="kw">let</span> <span class="ident">schedules</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::vesting</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>).<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NotVesting</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">schedules</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::vesting</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>).<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NotVesting</span>)<span class="question-mark">?</span>;
 
 		<span class="kw">let</span> (<span class="ident">schedules</span>, <span class="ident">locked_now</span>) <span class="op">=</span>
-			<span class="self">Self</span><span class="ident">::exec_action</span>(<span class="ident">schedules</span>.<span class="ident">to_vec</span>(), <span class="ident">VestingAction::Passive</span>)<span class="question-mark">?</span>;
+			<span class="ident"><span class="self">Self</span>::exec_action</span>(<span class="ident">schedules</span>.<span class="ident">to_vec</span>(), <span class="ident">VestingAction::Passive</span>)<span class="question-mark">?</span>;
 
-		<span class="self">Self</span><span class="ident">::write_vesting</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">schedules</span>)<span class="question-mark">?</span>;
-		<span class="self">Self</span><span class="ident">::write_lock</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">locked_now</span>);
+		<span class="ident"><span class="self">Self</span>::write_vesting</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">schedules</span>)<span class="question-mark">?</span>;
+		<span class="ident"><span class="self">Self</span>::write_lock</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">locked_now</span>);
 
 		<span class="prelude-val">Ok</span>(())
 	}
@@ -1424,10 +1423,10 @@
 				<span class="comment">// Thus we know below that we can push the new merged schedule without error</span>
 				<span class="comment">// (assuming initial state was valid).</span>
 				<span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">schedules</span>, <span class="kw-2">mut</span> <span class="ident">locked_now</span>) <span class="op">=</span>
-					<span class="self">Self</span><span class="ident">::report_schedule_updates</span>(<span class="ident">schedules</span>.<span class="ident">to_vec</span>(), <span class="ident">action</span>);
+					<span class="ident"><span class="self">Self</span>::report_schedule_updates</span>(<span class="ident">schedules</span>.<span class="ident">to_vec</span>(), <span class="ident">action</span>);
 
 				<span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">frame_system::Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::block_number</span>();
-				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">new_schedule</span>) <span class="op">=</span> <span class="self">Self</span><span class="ident">::merge_vesting_info</span>(<span class="ident">now</span>, <span class="ident">schedule1</span>, <span class="ident">schedule2</span>) {
+				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">new_schedule</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::merge_vesting_info</span>(<span class="ident">now</span>, <span class="ident">schedule1</span>, <span class="ident">schedule2</span>) {
 					<span class="comment">// Merging created a new schedule so we:</span>
 					<span class="comment">// 1) need to add it to the accounts vesting schedule collection,</span>
 					<span class="ident">schedules</span>.<span class="ident">push</span>(<span class="ident">new_schedule</span>);
@@ -1440,7 +1439,7 @@
 
 				(<span class="ident">schedules</span>, <span class="ident">locked_now</span>)
 			},
-			<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::report_schedule_updates</span>(<span class="ident">schedules</span>.<span class="ident">to_vec</span>(), <span class="ident">action</span>),
+			<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::report_schedule_updates</span>(<span class="ident">schedules</span>.<span class="ident">to_vec</span>(), <span class="ident">action</span>),
 		};
 
 		<span class="macro">debug_assert!</span>(
@@ -1461,7 +1460,7 @@
 
 	<span class="doccomment">/// Get the amount that is currently being vested and cannot be transferred out of this account.</span>
 	<span class="kw">fn</span> <span class="ident">vesting_balance</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">v</span>) <span class="op">=</span> <span class="self">Self</span><span class="ident">::vesting</span>(<span class="ident">who</span>) {
+		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">v</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::vesting</span>(<span class="ident">who</span>) {
 			<span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">frame_system::Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::block_number</span>();
 			<span class="kw">let</span> <span class="ident">total_locked_now</span> <span class="op">=</span> <span class="ident">v</span>.<span class="ident">iter</span>().<span class="ident">fold</span>(<span class="ident">Zero::zero</span>(), <span class="op">|</span><span class="ident">total</span>, <span class="ident">schedule</span><span class="op">|</span> {
 				<span class="ident">schedule</span>.<span class="ident">locked_at</span>::<span class="op">&lt;</span><span class="ident">T::BlockNumberToBalance</span><span class="op">&gt;</span>(<span class="ident">now</span>).<span class="ident">saturating_add</span>(<span class="ident">total</span>)
@@ -1500,17 +1499,17 @@
 			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidScheduleParams</span>.<span class="ident">into</span>())
 		};
 
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">schedules</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::vesting</span>(<span class="ident">who</span>).<span class="ident">unwrap_or_default</span>();
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">schedules</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::vesting</span>(<span class="ident">who</span>).<span class="ident">unwrap_or_default</span>();
 
 		<span class="comment">// NOTE: we must push the new schedule so that `exec_action`</span>
 		<span class="comment">// will give the correct new locked amount.</span>
 		<span class="macro">ensure!</span>(<span class="ident">schedules</span>.<span class="ident">try_push</span>(<span class="ident">vesting_schedule</span>).<span class="ident">is_ok</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::AtMaxVestingSchedules</span>);
 
 		<span class="kw">let</span> (<span class="ident">schedules</span>, <span class="ident">locked_now</span>) <span class="op">=</span>
-			<span class="self">Self</span><span class="ident">::exec_action</span>(<span class="ident">schedules</span>.<span class="ident">to_vec</span>(), <span class="ident">VestingAction::Passive</span>)<span class="question-mark">?</span>;
+			<span class="ident"><span class="self">Self</span>::exec_action</span>(<span class="ident">schedules</span>.<span class="ident">to_vec</span>(), <span class="ident">VestingAction::Passive</span>)<span class="question-mark">?</span>;
 
-		<span class="self">Self</span><span class="ident">::write_vesting</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">schedules</span>)<span class="question-mark">?</span>;
-		<span class="self">Self</span><span class="ident">::write_lock</span>(<span class="ident">who</span>, <span class="ident">locked_now</span>);
+		<span class="ident"><span class="self">Self</span>::write_vesting</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">schedules</span>)<span class="question-mark">?</span>;
+		<span class="ident"><span class="self">Self</span>::write_lock</span>(<span class="ident">who</span>, <span class="ident">locked_now</span>);
 
 		<span class="prelude-val">Ok</span>(())
 	}
@@ -1538,17 +1537,17 @@
 
 	<span class="doccomment">/// Remove a vesting schedule for a given account.</span>
 	<span class="kw">fn</span> <span class="ident">remove_vesting_schedule</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>, <span class="ident">schedule_index</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
-		<span class="kw">let</span> <span class="ident">schedules</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::vesting</span>(<span class="ident">who</span>).<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NotVesting</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">schedules</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::vesting</span>(<span class="ident">who</span>).<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NotVesting</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">remove_action</span> <span class="op">=</span> <span class="ident">VestingAction::Remove</span>(<span class="ident">schedule_index</span> <span class="kw">as</span> <span class="ident">usize</span>);
 
-		<span class="kw">let</span> (<span class="ident">schedules</span>, <span class="ident">locked_now</span>) <span class="op">=</span> <span class="self">Self</span><span class="ident">::exec_action</span>(<span class="ident">schedules</span>.<span class="ident">to_vec</span>(), <span class="ident">remove_action</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> (<span class="ident">schedules</span>, <span class="ident">locked_now</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::exec_action</span>(<span class="ident">schedules</span>.<span class="ident">to_vec</span>(), <span class="ident">remove_action</span>)<span class="question-mark">?</span>;
 
-		<span class="self">Self</span><span class="ident">::write_vesting</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">schedules</span>)<span class="question-mark">?</span>;
-		<span class="self">Self</span><span class="ident">::write_lock</span>(<span class="ident">who</span>, <span class="ident">locked_now</span>);
+		<span class="ident"><span class="self">Self</span>::write_vesting</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">schedules</span>)<span class="question-mark">?</span>;
+		<span class="ident"><span class="self">Self</span>::write_lock</span>(<span class="ident">who</span>, <span class="ident">locked_now</span>);
 		<span class="prelude-val">Ok</span>(())
 	}
 }
-</pre></div>
+</code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="pallet_vesting" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
 </body></html>

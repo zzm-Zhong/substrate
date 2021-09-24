@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;example-offchain-worker&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><script defer type="text/javascript" src="https://substrate.dev/js/config.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;example-offchain-worker&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><script defer type="text/javascript" src="https://substrate.dev/js/config.js"></script>
 <script defer type="text/javascript" src="https://substrate.dev/js/klaro.min.js"></script>
 <script async type="opt-in" data-type="application/javascript"
 		data-src="https://www.googletagmanager.com/gtag/js?id=UA-145158313-2" data-name="googleAnalytics"></script>
@@ -9,7 +9,7 @@
       gtag('config', 'UA-145158313-2');
 </script>
 
-<style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../pallet_example_offchain_worker/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../pallet_example_offchain_worker/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -722,8 +722,7 @@
 <span id="711">711</span>
 <span id="712">712</span>
 <span id="713">713</span>
-</pre><pre class="rust">
-<span class="comment">// This file is part of Substrate.</span>
+</pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
 <span class="comment">// SPDX-License-Identifier: Apache-2.0</span>
@@ -806,7 +805,7 @@
 <span class="doccomment">/// We can use from supported crypto kinds (`sr25519`, `ed25519` and `ecdsa`) and augment</span>
 <span class="doccomment">/// the types with this pallet-specific identifier.</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">crypto</span> {
-	<span class="kw">use</span> <span class="kw">super</span><span class="ident">::KEY_TYPE</span>;
+	<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::KEY_TYPE</span>;
 	<span class="kw">use</span> <span class="ident">sp_core::sr25519::Signature</span> <span class="kw">as</span> <span class="ident">Sr25519Signature</span>;
 	<span class="kw">use</span> <span class="ident">sp_runtime</span>::{
 		<span class="ident">app_crypto</span>::{<span class="ident">app_crypto</span>, <span class="ident">sr25519</span>},
@@ -836,7 +835,7 @@
 	<span class="attribute">#[<span class="ident">pallet::config</span>]</span>
 	<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Config</span>: <span class="ident">CreateSignedTransaction</span><span class="op">&lt;</span><span class="ident">Call</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">frame_system::Config</span> {
 		<span class="doccomment">/// The identifier type for an offchain worker.</span>
-		<span class="kw">type</span> <span class="ident">AuthorityId</span>: <span class="ident">AppCrypto</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Public</span>, <span class="self">Self</span><span class="ident">::Signature</span><span class="op">&gt;</span>;
+		<span class="kw">type</span> <span class="ident">AuthorityId</span>: <span class="ident">AppCrypto</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Public</span>, <span class="ident"><span class="self">Self</span>::Signature</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// The overarching event type.</span>
 		<span class="kw">type</span> <span class="ident">Event</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">IsType</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">frame_system::Config</span><span class="op">&gt;</span><span class="ident">::Event</span><span class="op">&gt;</span>;
@@ -852,14 +851,14 @@
 		<span class="doccomment">/// every `GRACE_PERIOD` blocks. We use Local Storage to coordinate</span>
 		<span class="doccomment">/// sending between distinct runs of this offchain worker.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
-		<span class="kw">type</span> <span class="ident">GracePeriod</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::BlockNumber</span><span class="op">&gt;</span>;
+		<span class="kw">type</span> <span class="ident">GracePeriod</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::BlockNumber</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// Number of blocks of cooldown after unsigned transaction is included.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// This ensures that we only accept unsigned transactions once, every `UnsignedInterval`</span>
 		<span class="doccomment">/// blocks.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
-		<span class="kw">type</span> <span class="ident">UnsignedInterval</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::BlockNumber</span><span class="op">&gt;</span>;
+		<span class="kw">type</span> <span class="ident">UnsignedInterval</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::BlockNumber</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// A configuration for base priority of unsigned transactions.</span>
 		<span class="doccomment">///</span>
@@ -902,20 +901,20 @@
 			<span class="comment">// of the code to separate `impl` block.</span>
 			<span class="comment">// Here we call a helper function to calculate current average price.</span>
 			<span class="comment">// This function reads storage entries of the current state.</span>
-			<span class="kw">let</span> <span class="ident">average</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::average_price</span>();
+			<span class="kw">let</span> <span class="ident">average</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::average_price</span>();
 			<span class="macro">log::debug!</span>(<span class="string">&quot;Current price: {:?}&quot;</span>, <span class="ident">average</span>);
 
 			<span class="comment">// For this example we are going to send both signed and unsigned transactions</span>
 			<span class="comment">// depending on the block number.</span>
 			<span class="comment">// Usually it&#39;s enough to choose one or the other.</span>
-			<span class="kw">let</span> <span class="ident">should_send</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::choose_transaction_type</span>(<span class="ident">block_number</span>);
+			<span class="kw">let</span> <span class="ident">should_send</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::choose_transaction_type</span>(<span class="ident">block_number</span>);
 			<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">should_send</span> {
-				<span class="ident">TransactionType::Signed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::fetch_price_and_send_signed</span>(),
+				<span class="ident">TransactionType::Signed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::fetch_price_and_send_signed</span>(),
 				<span class="ident">TransactionType::UnsignedForAny</span> <span class="op">=</span><span class="op">&gt;</span>
-					<span class="self">Self</span><span class="ident">::fetch_price_and_send_unsigned_for_any_account</span>(<span class="ident">block_number</span>),
+					<span class="ident"><span class="self">Self</span>::fetch_price_and_send_unsigned_for_any_account</span>(<span class="ident">block_number</span>),
 				<span class="ident">TransactionType::UnsignedForAll</span> <span class="op">=</span><span class="op">&gt;</span>
-					<span class="self">Self</span><span class="ident">::fetch_price_and_send_unsigned_for_all_accounts</span>(<span class="ident">block_number</span>),
-				<span class="ident">TransactionType::Raw</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span><span class="ident">::fetch_price_and_send_raw_unsigned</span>(<span class="ident">block_number</span>),
+					<span class="ident"><span class="self">Self</span>::fetch_price_and_send_unsigned_for_all_accounts</span>(<span class="ident">block_number</span>),
+				<span class="ident">TransactionType::Raw</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::fetch_price_and_send_raw_unsigned</span>(<span class="ident">block_number</span>),
 				<span class="ident">TransactionType::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(()),
 			};
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">res</span> {
@@ -946,7 +945,7 @@
 			<span class="comment">// Retrieve sender of the transaction.</span>
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="comment">// Add the price to the on-chain list.</span>
-			<span class="self">Self</span><span class="ident">::add_price</span>(<span class="ident">who</span>, <span class="ident">price</span>);
+			<span class="ident"><span class="self">Self</span>::add_price</span>(<span class="ident">who</span>, <span class="ident">price</span>);
 			<span class="prelude-val">Ok</span>(().<span class="ident">into</span>())
 		}
 
@@ -975,7 +974,7 @@
 			<span class="comment">// This ensures that the function can only be called via unsigned transaction.</span>
 			<span class="ident">ensure_none</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="comment">// Add the price to the on-chain list, but mark it as coming from an empty address.</span>
-			<span class="self">Self</span><span class="ident">::add_price</span>(<span class="ident">Default::default</span>(), <span class="ident">price</span>);
+			<span class="ident"><span class="self">Self</span>::add_price</span>(<span class="ident">Default::default</span>(), <span class="ident">price</span>);
 			<span class="comment">// now increment the block number at which we expect next unsigned transaction.</span>
 			<span class="kw">let</span> <span class="ident">current_block</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">system::Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::block_number</span>();
 			<span class="op">&lt;</span><span class="ident">NextUnsignedAt</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">current_block</span> <span class="op">+</span> <span class="ident">T::UnsignedInterval::get</span>());
@@ -991,7 +990,7 @@
 			<span class="comment">// This ensures that the function can only be called via unsigned transaction.</span>
 			<span class="ident">ensure_none</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="comment">// Add the price to the on-chain list, but mark it as coming from an empty address.</span>
-			<span class="self">Self</span><span class="ident">::add_price</span>(<span class="ident">Default::default</span>(), <span class="ident">price_payload</span>.<span class="ident">price</span>);
+			<span class="ident"><span class="self">Self</span>::add_price</span>(<span class="ident">Default::default</span>(), <span class="ident">price_payload</span>.<span class="ident">price</span>);
 			<span class="comment">// now increment the block number at which we expect next unsigned transaction.</span>
 			<span class="kw">let</span> <span class="ident">current_block</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">system::Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::block_number</span>();
 			<span class="op">&lt;</span><span class="ident">NextUnsignedAt</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">current_block</span> <span class="op">+</span> <span class="ident">T::UnsignedInterval::get</span>());
@@ -1017,7 +1016,7 @@
 		<span class="doccomment">/// By default unsigned transactions are disallowed, but implementing the validator</span>
 		<span class="doccomment">/// here we make sure that some particular calls (the ones produced by offchain worker)</span>
 		<span class="doccomment">/// are being whitelisted and marked as valid.</span>
-		<span class="kw">fn</span> <span class="ident">validate_unsigned</span>(<span class="ident">_source</span>: <span class="ident">TransactionSource</span>, <span class="ident">call</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Call</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TransactionValidity</span> {
+		<span class="kw">fn</span> <span class="ident">validate_unsigned</span>(<span class="ident">_source</span>: <span class="ident">TransactionSource</span>, <span class="ident">call</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Call</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TransactionValidity</span> {
 			<span class="comment">// Firstly let&#39;s check that we call the right function.</span>
 			<span class="kw">if</span> <span class="kw">let</span> <span class="ident">Call::submit_price_unsigned_with_signed_payload</span> {
 				<span class="ident">price_payload</span>: <span class="kw-2">ref</span> <span class="ident">payload</span>,
@@ -1029,9 +1028,9 @@
 				<span class="kw">if</span> <span class="op">!</span><span class="ident">signature_valid</span> {
 					<span class="kw">return</span> <span class="ident">InvalidTransaction::BadProof</span>.<span class="ident">into</span>()
 				}
-				<span class="self">Self</span><span class="ident">::validate_transaction_parameters</span>(<span class="kw-2">&amp;</span><span class="ident">payload</span>.<span class="ident">block_number</span>, <span class="kw-2">&amp;</span><span class="ident">payload</span>.<span class="ident">price</span>)
+				<span class="ident"><span class="self">Self</span>::validate_transaction_parameters</span>(<span class="kw-2">&amp;</span><span class="ident">payload</span>.<span class="ident">block_number</span>, <span class="kw-2">&amp;</span><span class="ident">payload</span>.<span class="ident">price</span>)
 			} <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="ident">Call::submit_price_unsigned</span> { <span class="ident">block_number</span>, <span class="ident">price</span>: <span class="ident">new_price</span> } <span class="op">=</span> <span class="ident">call</span> {
-				<span class="self">Self</span><span class="ident">::validate_transaction_parameters</span>(<span class="ident">block_number</span>, <span class="ident">new_price</span>)
+				<span class="ident"><span class="self">Self</span>::validate_transaction_parameters</span>(<span class="ident">block_number</span>, <span class="ident">new_price</span>)
 			} <span class="kw">else</span> {
 				<span class="ident">InvalidTransaction::Call</span>.<span class="ident">into</span>()
 			}
@@ -1160,7 +1159,7 @@
 		}
 		<span class="comment">// Make an external HTTP request to fetch the current price.</span>
 		<span class="comment">// Note this call will block until response is received.</span>
-		<span class="kw">let</span> <span class="ident">price</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::fetch_price</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="string">&quot;Failed to fetch price&quot;</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">price</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::fetch_price</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="string">&quot;Failed to fetch price&quot;</span>)<span class="question-mark">?</span>;
 
 		<span class="comment">// Using `send_signed_transaction` associated type we create and submit a transaction</span>
 		<span class="comment">// representing the call, we&#39;ve just created.</span>
@@ -1194,7 +1193,7 @@
 
 		<span class="comment">// Make an external HTTP request to fetch the current price.</span>
 		<span class="comment">// Note this call will block until response is received.</span>
-		<span class="kw">let</span> <span class="ident">price</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::fetch_price</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="string">&quot;Failed to fetch price&quot;</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">price</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::fetch_price</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="string">&quot;Failed to fetch price&quot;</span>)<span class="question-mark">?</span>;
 
 		<span class="comment">// Received price is wrapped into a call to `submit_price_unsigned` public function of this</span>
 		<span class="comment">// pallet. This means that the transaction, when executed, will simply call that function</span>
@@ -1228,7 +1227,7 @@
 
 		<span class="comment">// Make an external HTTP request to fetch the current price.</span>
 		<span class="comment">// Note this call will block until response is received.</span>
-		<span class="kw">let</span> <span class="ident">price</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::fetch_price</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="string">&quot;Failed to fetch price&quot;</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">price</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::fetch_price</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="string">&quot;Failed to fetch price&quot;</span>)<span class="question-mark">?</span>;
 
 		<span class="comment">// -- Sign using any account</span>
 		<span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">result</span>) <span class="op">=</span> <span class="ident">Signer</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">T::AuthorityId</span><span class="op">&gt;</span><span class="ident">::any_account</span>()
@@ -1258,7 +1257,7 @@
 
 		<span class="comment">// Make an external HTTP request to fetch the current price.</span>
 		<span class="comment">// Note this call will block until response is received.</span>
-		<span class="kw">let</span> <span class="ident">price</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::fetch_price</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="string">&quot;Failed to fetch price&quot;</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">price</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::fetch_price</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="string">&quot;Failed to fetch price&quot;</span>)<span class="question-mark">?</span>;
 
 		<span class="comment">// -- Sign using all accounts</span>
 		<span class="kw">let</span> <span class="ident">transaction_results</span> <span class="op">=</span> <span class="ident">Signer</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">T::AuthorityId</span><span class="op">&gt;</span><span class="ident">::all_accounts</span>()
@@ -1321,7 +1320,7 @@
 			<span class="ident">http::Error::Unknown</span>
 		})<span class="question-mark">?</span>;
 
-		<span class="kw">let</span> <span class="ident">price</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">Self</span><span class="ident">::parse_price</span>(<span class="ident">body_str</span>) {
+		<span class="kw">let</span> <span class="ident">price</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident"><span class="self">Self</span>::parse_price</span>(<span class="ident">body_str</span>) {
 			<span class="prelude-val">Some</span>(<span class="ident">price</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">price</span>),
 			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="macro">log::warn!</span>(<span class="string">&quot;Unable to extract price from the response: {:?}&quot;</span>, <span class="ident">body_str</span>);
@@ -1367,11 +1366,11 @@
 			}
 		});
 
-		<span class="kw">let</span> <span class="ident">average</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::average_price</span>()
+		<span class="kw">let</span> <span class="ident">average</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::average_price</span>()
 			.<span class="ident">expect</span>(<span class="string">&quot;The average is not empty, because it was just mutated; qed&quot;</span>);
 		<span class="macro">log::info!</span>(<span class="string">&quot;Current average price is: {}&quot;</span>, <span class="ident">average</span>);
 		<span class="comment">// here we are raising the NewPrice event</span>
-		<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event::NewPrice</span>(<span class="ident">price</span>, <span class="ident">who</span>));
+		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NewPrice</span>(<span class="ident">price</span>, <span class="ident">who</span>));
 	}
 
 	<span class="doccomment">/// Calculate current average price.</span>
@@ -1404,7 +1403,7 @@
 		<span class="comment">// Note this doesn&#39;t make much sense when building an actual oracle, but this example</span>
 		<span class="comment">// is here mostly to show off offchain workers capabilities, not about building an</span>
 		<span class="comment">// oracle.</span>
-		<span class="kw">let</span> <span class="ident">avg_price</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::average_price</span>()
+		<span class="kw">let</span> <span class="ident">avg_price</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::average_price</span>()
 			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">price</span><span class="op">|</span> <span class="kw">if</span> <span class="kw-2">&amp;</span><span class="ident">price</span> <span class="op">&gt;</span> <span class="ident">new_price</span> { <span class="ident">price</span> <span class="op">-</span> <span class="ident">new_price</span> } <span class="kw">else</span> { <span class="ident">new_price</span> <span class="op">-</span> <span class="ident">price</span> })
 			.<span class="ident">unwrap_or</span>(<span class="number">0</span>);
 
@@ -1436,7 +1435,7 @@
 			.<span class="ident">build</span>()
 	}
 }
-</pre></div>
+</code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="pallet_example_offchain_worker" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
 </body></html>

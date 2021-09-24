@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;elections-phragmen&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><script defer type="text/javascript" src="https://substrate.dev/js/config.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;elections-phragmen&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><script defer type="text/javascript" src="https://substrate.dev/js/config.js"></script>
 <script defer type="text/javascript" src="https://substrate.dev/js/klaro.min.js"></script>
 <script async type="opt-in" data-type="application/javascript"
 		data-src="https://www.googletagmanager.com/gtag/js?id=UA-145158313-2" data-name="googleAnalytics"></script>
@@ -9,7 +9,7 @@
       gtag('config', 'UA-145158313-2');
 </script>
 
-<style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../pallet_elections_phragmen/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
+<style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../pallet_elections_phragmen/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -3162,8 +3162,7 @@
 <span id="3151">3151</span>
 <span id="3152">3152</span>
 <span id="3153">3153</span>
-</pre><pre class="rust">
-<span class="comment">// This file is part of Substrate.</span>
+</pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
 <span class="comment">// SPDX-License-Identifier: Apache-2.0</span>
@@ -3354,14 +3353,14 @@
 		<span class="kw">type</span> <span class="ident">PalletId</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">LockIdentifier</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// The currency that people are electing with.</span>
-		<span class="kw">type</span> <span class="ident">Currency</span>: <span class="ident">LockableCurrency</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::AccountId</span>, <span class="ident">Moment</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::BlockNumber</span><span class="op">&gt;</span>
-			<span class="op">+</span> <span class="ident">ReservableCurrency</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::AccountId</span><span class="op">&gt;</span>;
+		<span class="kw">type</span> <span class="ident">Currency</span>: <span class="ident">LockableCurrency</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::AccountId</span>, <span class="ident">Moment</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::BlockNumber</span><span class="op">&gt;</span>
+			<span class="op">+</span> <span class="ident">ReservableCurrency</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::AccountId</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// What to do when the members change.</span>
-		<span class="kw">type</span> <span class="ident">ChangeMembers</span>: <span class="ident">ChangeMembers</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::AccountId</span><span class="op">&gt;</span>;
+		<span class="kw">type</span> <span class="ident">ChangeMembers</span>: <span class="ident">ChangeMembers</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::AccountId</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// What to do with genesis members</span>
-		<span class="kw">type</span> <span class="ident">InitializeMembers</span>: <span class="ident">InitializeMembers</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::AccountId</span><span class="op">&gt;</span>;
+		<span class="kw">type</span> <span class="ident">InitializeMembers</span>: <span class="ident">InitializeMembers</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::AccountId</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// Convert a balance into a number used for election calculation.</span>
 		<span class="doccomment">/// This must fit into a `u64` but is allowed to be sensibly lossy.</span>
@@ -3400,7 +3399,7 @@
 		<span class="doccomment">/// round will happen. If set to zero, no elections are ever triggered and the module will</span>
 		<span class="doccomment">/// be in passive mode.</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>
-		<span class="kw">type</span> <span class="ident">TermDuration</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::BlockNumber</span><span class="op">&gt;</span>;
+		<span class="kw">type</span> <span class="ident">TermDuration</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::BlockNumber</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// Weight information for extrinsics in this pallet.</span>
 		<span class="kw">type</span> <span class="ident">WeightInfo</span>: <span class="ident">WeightInfo</span>;
@@ -3419,7 +3418,7 @@
 		<span class="kw">fn</span> <span class="ident">on_initialize</span>(<span class="ident">n</span>: <span class="ident">T::BlockNumber</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
 			<span class="kw">let</span> <span class="ident">term_duration</span> <span class="op">=</span> <span class="ident">T::TermDuration::get</span>();
 			<span class="kw">if</span> <span class="op">!</span><span class="ident">term_duration</span>.<span class="ident">is_zero</span>() <span class="op">&amp;&amp;</span> (<span class="ident">n</span> <span class="op">%</span> <span class="ident">term_duration</span>).<span class="ident">is_zero</span>() {
-				<span class="self">Self</span><span class="ident">::do_phragmen</span>()
+				<span class="ident"><span class="self">Self</span>::do_phragmen</span>()
 			} <span class="kw">else</span> {
 				<span class="number">0</span>
 			}
@@ -3482,7 +3481,7 @@
 			<span class="macro">ensure!</span>(<span class="ident">value</span> <span class="op">&gt;</span> <span class="ident">T::Currency::minimum_balance</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::LowBalance</span>);
 
 			<span class="comment">// Reserve bond.</span>
-			<span class="kw">let</span> <span class="ident">new_deposit</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::deposit_of</span>(<span class="ident">votes</span>.<span class="ident">len</span>());
+			<span class="kw">let</span> <span class="ident">new_deposit</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::deposit_of</span>(<span class="ident">votes</span>.<span class="ident">len</span>());
 			<span class="kw">let</span> <span class="ident">Voter</span> { <span class="ident">deposit</span>: <span class="ident">old_deposit</span>, .. } <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Voting</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>);
 			<span class="kw">match</span> <span class="ident">new_deposit</span>.<span class="ident">cmp</span>(<span class="kw-2">&amp;</span><span class="ident">old_deposit</span>) {
 				<span class="ident">Ordering::Greater</span> <span class="op">=</span><span class="op">&gt;</span> {
@@ -3516,8 +3515,8 @@
 		<span class="attribute">#[<span class="ident">pallet::weight</span>(<span class="ident">T::WeightInfo::remove_voter</span>())]</span>
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_voter</span>(<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResultWithPostInfo</span> {
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
-			<span class="macro">ensure!</span>(<span class="self">Self</span><span class="ident">::is_voter</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::MustBeVoter</span>);
-			<span class="self">Self</span><span class="ident">::do_remove_voter</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>);
+			<span class="macro">ensure!</span>(<span class="ident"><span class="self">Self</span>::is_voter</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::MustBeVoter</span>);
+			<span class="ident"><span class="self">Self</span>::do_remove_voter</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>);
 			<span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>.<span class="ident">into</span>())
 		}
 
@@ -3546,10 +3545,10 @@
 			<span class="kw">let</span> <span class="ident">actual_count</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Candidates</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::decode_len</span>().<span class="ident">unwrap_or</span>(<span class="number">0</span>);
 			<span class="macro">ensure!</span>(<span class="ident">actual_count</span> <span class="kw">as</span> <span class="ident">u32</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">candidate_count</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidWitnessData</span>);
 
-			<span class="kw">let</span> <span class="ident">index</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::is_candidate</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>).<span class="ident">err</span>().<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::DuplicatedCandidate</span>)<span class="question-mark">?</span>;
+			<span class="kw">let</span> <span class="ident">index</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::is_candidate</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>).<span class="ident">err</span>().<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::DuplicatedCandidate</span>)<span class="question-mark">?</span>;
 
-			<span class="macro">ensure!</span>(<span class="op">!</span><span class="self">Self</span><span class="ident">::is_member</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::MemberSubmit</span>);
-			<span class="macro">ensure!</span>(<span class="op">!</span><span class="self">Self</span><span class="ident">::is_runner_up</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::RunnerUpSubmit</span>);
+			<span class="macro">ensure!</span>(<span class="op">!</span><span class="ident"><span class="self">Self</span>::is_member</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::MemberSubmit</span>);
+			<span class="macro">ensure!</span>(<span class="op">!</span><span class="ident"><span class="self">Self</span>::is_runner_up</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::RunnerUpSubmit</span>);
 
 			<span class="ident">T::Currency::reserve</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">T::CandidacyBond::get</span>())
 				.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InsufficientCandidateFunds</span>)<span class="question-mark">?</span>;
@@ -3588,9 +3587,9 @@
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="kw">match</span> <span class="ident">renouncing</span> {
 				<span class="ident">Renouncing::Member</span> <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::remove_and_replace_member</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="bool-val">false</span>)
+					<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::remove_and_replace_member</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="bool-val">false</span>)
 						.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidRenouncing</span>)<span class="question-mark">?</span>;
-					<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event::Renounced</span>(<span class="ident">who</span>));
+					<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Renounced</span>(<span class="ident">who</span>));
 				},
 				<span class="ident">Renouncing::RunnerUp</span> <span class="op">=</span><span class="op">&gt;</span> {
 					<span class="op">&lt;</span><span class="ident">RunnersUp</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::try_mutate</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Error</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="op">|</span><span class="ident">runners_up</span><span class="op">|</span> {
@@ -3602,7 +3601,7 @@
 						<span class="kw">let</span> <span class="ident">SeatHolder</span> { <span class="ident">deposit</span>, .. } <span class="op">=</span> <span class="ident">runners_up</span>.<span class="ident">remove</span>(<span class="ident">index</span>);
 						<span class="kw">let</span> <span class="ident">_remainder</span> <span class="op">=</span> <span class="ident">T::Currency::unreserve</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">deposit</span>);
 						<span class="macro">debug_assert!</span>(<span class="ident">_remainder</span>.<span class="ident">is_zero</span>());
-						<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event::Renounced</span>(<span class="ident">who</span>));
+						<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Renounced</span>(<span class="ident">who</span>));
 						<span class="prelude-val">Ok</span>(())
 					})<span class="question-mark">?</span>;
 				},
@@ -3615,7 +3614,7 @@
 						<span class="kw">let</span> (<span class="ident">_removed</span>, <span class="ident">deposit</span>) <span class="op">=</span> <span class="ident">candidates</span>.<span class="ident">remove</span>(<span class="ident">index</span>);
 						<span class="kw">let</span> <span class="ident">_remainder</span> <span class="op">=</span> <span class="ident">T::Currency::unreserve</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">deposit</span>);
 						<span class="macro">debug_assert!</span>(<span class="ident">_remainder</span>.<span class="ident">is_zero</span>());
-						<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event::Renounced</span>(<span class="ident">who</span>));
+						<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Renounced</span>(<span class="ident">who</span>));
 						<span class="prelude-val">Ok</span>(())
 					})<span class="question-mark">?</span>;
 				},
@@ -3659,12 +3658,12 @@
 				))
 			}
 
-			<span class="kw">let</span> <span class="ident">had_replacement</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::remove_and_replace_member</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="bool-val">true</span>)<span class="question-mark">?</span>;
+			<span class="kw">let</span> <span class="ident">had_replacement</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::remove_and_replace_member</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="bool-val">true</span>)<span class="question-mark">?</span>;
 			<span class="macro">debug_assert_eq!</span>(<span class="ident">has_replacement</span>, <span class="ident">had_replacement</span>);
-			<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event::MemberKicked</span>(<span class="ident">who</span>.<span class="ident">clone</span>()));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::MemberKicked</span>(<span class="ident">who</span>.<span class="ident">clone</span>()));
 
 			<span class="kw">if</span> <span class="op">!</span><span class="ident">had_replacement</span> {
-				<span class="self">Self</span><span class="ident">::do_phragmen</span>();
+				<span class="ident"><span class="self">Self</span>::do_phragmen</span>();
 			}
 
 			<span class="comment">// no refund needed.</span>
@@ -3689,8 +3688,8 @@
 		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResultWithPostInfo</span> {
 			<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">ensure_root</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="op">&lt;</span><span class="ident">Voting</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::iter</span>()
-				.<span class="ident">filter</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">x</span>)<span class="op">|</span> <span class="self">Self</span><span class="ident">::is_defunct_voter</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">votes</span>))
-				.<span class="ident">for_each</span>(<span class="op">|</span>(<span class="ident">dv</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="self">Self</span><span class="ident">::do_remove_voter</span>(<span class="kw-2">&amp;</span><span class="ident">dv</span>));
+				.<span class="ident">filter</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">x</span>)<span class="op">|</span> <span class="ident"><span class="self">Self</span>::is_defunct_voter</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">votes</span>))
+				.<span class="ident">for_each</span>(<span class="op">|</span>(<span class="ident">dv</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident"><span class="self">Self</span>::do_remove_voter</span>(<span class="kw-2">&amp;</span><span class="ident">dv</span>));
 
 			<span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>.<span class="ident">into</span>())
 		}
@@ -3913,7 +3912,7 @@
 				<span class="kw">let</span> (<span class="ident">imbalance</span>, <span class="ident">_remainder</span>) <span class="op">=</span> <span class="ident">T::Currency::slash_reserved</span>(<span class="ident">who</span>, <span class="ident">removed</span>.<span class="ident">deposit</span>);
 				<span class="macro">debug_assert!</span>(<span class="ident">_remainder</span>.<span class="ident">is_zero</span>());
 				<span class="ident">T::LoserCandidate::on_unbalanced</span>(<span class="ident">imbalance</span>);
-				<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event::SeatHolderSlashed</span>(<span class="ident">who</span>.<span class="ident">clone</span>(), <span class="ident">removed</span>.<span class="ident">deposit</span>));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::SeatHolderSlashed</span>(<span class="ident">who</span>.<span class="ident">clone</span>(), <span class="ident">removed</span>.<span class="ident">deposit</span>));
 			} <span class="kw">else</span> {
 				<span class="ident">T::Currency::unreserve</span>(<span class="ident">who</span>, <span class="ident">removed</span>.<span class="ident">deposit</span>);
 			}
@@ -3937,7 +3936,7 @@
 		})<span class="question-mark">?</span>;
 
 		<span class="kw">let</span> <span class="ident">remaining_member_ids_sorted</span> <span class="op">=</span>
-			<span class="self">Self</span><span class="ident">::members</span>().<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>.<span class="ident">who</span>.<span class="ident">clone</span>()).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
+			<span class="ident"><span class="self">Self</span>::members</span>().<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>.<span class="ident">who</span>.<span class="ident">clone</span>()).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 		<span class="kw">let</span> <span class="ident">outgoing</span> <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="ident">who</span>.<span class="ident">clone</span>()];
 		<span class="kw">let</span> <span class="ident">maybe_current_prime</span> <span class="op">=</span> <span class="ident">T::ChangeMembers::get_prime</span>();
 		<span class="kw">let</span> <span class="ident">return_value</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">maybe_replacement</span> {
@@ -3974,7 +3973,7 @@
 	<span class="doccomment">/// Check if `who` is a candidate. It returns the insert index if the element does not exists as</span>
 	<span class="doccomment">/// an error.</span>
 	<span class="kw">fn</span> <span class="ident">is_candidate</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">usize</span><span class="op">&gt;</span> {
-		<span class="self">Self</span><span class="ident">::candidates</span>().<span class="ident">binary_search_by</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="number">0</span>.<span class="ident">cmp</span>(<span class="ident">who</span>)).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
+		<span class="ident"><span class="self">Self</span>::candidates</span>().<span class="ident">binary_search_by</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="number">0</span>.<span class="ident">cmp</span>(<span class="ident">who</span>)).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
 	}
 
 	<span class="doccomment">/// Check if `who` is a voter. It may or may not be a _current_ one.</span>
@@ -3984,17 +3983,17 @@
 
 	<span class="doccomment">/// Check if `who` is currently an active member.</span>
 	<span class="kw">fn</span> <span class="ident">is_member</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-		<span class="self">Self</span><span class="ident">::members</span>().<span class="ident">binary_search_by</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span>.<span class="ident">who</span>.<span class="ident">cmp</span>(<span class="ident">who</span>)).<span class="ident">is_ok</span>()
+		<span class="ident"><span class="self">Self</span>::members</span>().<span class="ident">binary_search_by</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span>.<span class="ident">who</span>.<span class="ident">cmp</span>(<span class="ident">who</span>)).<span class="ident">is_ok</span>()
 	}
 
 	<span class="doccomment">/// Check if `who` is currently an active runner-up.</span>
 	<span class="kw">fn</span> <span class="ident">is_runner_up</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-		<span class="self">Self</span><span class="ident">::runners_up</span>().<span class="ident">iter</span>().<span class="ident">position</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">r</span>.<span class="ident">who</span> <span class="op">=</span><span class="op">=</span> <span class="ident">who</span>).<span class="ident">is_some</span>()
+		<span class="ident"><span class="self">Self</span>::runners_up</span>().<span class="ident">iter</span>().<span class="ident">position</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">r</span>.<span class="ident">who</span> <span class="op">=</span><span class="op">=</span> <span class="ident">who</span>).<span class="ident">is_some</span>()
 	}
 
 	<span class="doccomment">/// Get the members&#39; account ids.</span>
 	<span class="kw">fn</span> <span class="ident">members_ids</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span> {
-		<span class="self">Self</span><span class="ident">::members</span>().<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span>.<span class="ident">who</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span><span class="op">&gt;</span>()
+		<span class="ident"><span class="self">Self</span>::members</span>().<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span>.<span class="ident">who</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span><span class="op">&gt;</span>()
 	}
 
 	<span class="doccomment">/// Get a concatenation of previous members and runners-up and their deposits.</span>
@@ -4002,10 +4001,10 @@
 	<span class="doccomment">/// These accounts are essentially treated as candidates.</span>
 	<span class="kw">fn</span> <span class="ident">implicit_candidates_with_deposit</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">T::AccountId</span>, <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
 		<span class="comment">// invariant: these two are always without duplicates.</span>
-		<span class="self">Self</span><span class="ident">::members</span>()
+		<span class="ident"><span class="self">Self</span>::members</span>()
 			.<span class="ident">into_iter</span>()
 			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> (<span class="ident">m</span>.<span class="ident">who</span>, <span class="ident">m</span>.<span class="ident">deposit</span>))
-			.<span class="ident">chain</span>(<span class="self">Self</span><span class="ident">::runners_up</span>().<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> (<span class="ident">r</span>.<span class="ident">who</span>, <span class="ident">r</span>.<span class="ident">deposit</span>)))
+			.<span class="ident">chain</span>(<span class="ident"><span class="self">Self</span>::runners_up</span>().<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> (<span class="ident">r</span>.<span class="ident">who</span>, <span class="ident">r</span>.<span class="ident">deposit</span>)))
 			.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()
 	}
 
@@ -4016,7 +4015,7 @@
 	<span class="doccomment">/// Reads Members, RunnersUp, Candidates and Voting(who) from database.</span>
 	<span class="kw">fn</span> <span class="ident">is_defunct_voter</span>(<span class="ident">votes</span>: <span class="kw-2">&amp;</span>[<span class="ident">T::AccountId</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
 		<span class="ident">votes</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> {
-			<span class="op">!</span><span class="self">Self</span><span class="ident">::is_member</span>(<span class="ident">v</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="self">Self</span><span class="ident">::is_runner_up</span>(<span class="ident">v</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="self">Self</span><span class="ident">::is_candidate</span>(<span class="ident">v</span>).<span class="ident">is_ok</span>()
+			<span class="op">!</span><span class="ident"><span class="self">Self</span>::is_member</span>(<span class="ident">v</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident"><span class="self">Self</span>::is_runner_up</span>(<span class="ident">v</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident"><span class="self">Self</span>::is_candidate</span>(<span class="ident">v</span>).<span class="ident">is_ok</span>()
 		})
 	}
 
@@ -4042,12 +4041,12 @@
 		<span class="kw">let</span> <span class="ident">desired_runners_up</span> <span class="op">=</span> <span class="ident">T::DesiredRunnersUp::get</span>() <span class="kw">as</span> <span class="ident">usize</span>;
 		<span class="kw">let</span> <span class="ident">num_to_elect</span> <span class="op">=</span> <span class="ident">desired_runners_up</span> <span class="op">+</span> <span class="ident">desired_seats</span>;
 
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">candidates_and_deposit</span> <span class="op">=</span> <span class="self">Self</span><span class="ident">::candidates</span>();
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">candidates_and_deposit</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::candidates</span>();
 		<span class="comment">// add all the previous members and runners-up as candidates as well.</span>
-		<span class="ident">candidates_and_deposit</span>.<span class="ident">append</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span><span class="ident">::implicit_candidates_with_deposit</span>());
+		<span class="ident">candidates_and_deposit</span>.<span class="ident">append</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident"><span class="self">Self</span>::implicit_candidates_with_deposit</span>());
 
 		<span class="kw">if</span> <span class="ident">candidates_and_deposit</span>.<span class="ident">len</span>().<span class="ident">is_zero</span>() {
-			<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event::EmptyTerm</span>);
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::EmptyTerm</span>);
 			<span class="kw">return</span> <span class="ident">T::DbWeight::get</span>().<span class="ident">reads</span>(<span class="number">5</span>)
 		}
 
@@ -4166,7 +4165,7 @@
 				{
 					<span class="kw">let</span> (<span class="ident">imbalance</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">T::Currency::slash_reserved</span>(<span class="ident">c</span>, <span class="kw-2">*</span><span class="ident">d</span>);
 					<span class="ident">T::LoserCandidate::on_unbalanced</span>(<span class="ident">imbalance</span>);
-					<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event::CandidateSlashed</span>(<span class="ident">c</span>.<span class="ident">clone</span>(), <span class="kw-2">*</span><span class="ident">d</span>));
+					<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::CandidateSlashed</span>(<span class="ident">c</span>.<span class="ident">clone</span>(), <span class="kw-2">*</span><span class="ident">d</span>));
 				}
 			});
 
@@ -4206,7 +4205,7 @@
 			<span class="comment">// clean candidates.</span>
 			<span class="op">&lt;</span><span class="ident">Candidates</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::kill</span>();
 
-			<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event::NewTerm</span>(<span class="ident">new_members_sorted_by_id</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NewTerm</span>(<span class="ident">new_members_sorted_by_id</span>));
 			<span class="op">&lt;</span><span class="ident">ElectionRounds</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::mutate</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">v</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>);
 		})
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
@@ -4215,7 +4214,7 @@
 				<span class="string">&quot;Failed to run election [{:?}].&quot;</span>,
 				<span class="ident">e</span>,
 			);
-			<span class="self">Self</span><span class="ident">::deposit_event</span>(<span class="ident">Event::ElectionError</span>);
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::ElectionError</span>);
 		});
 
 		<span class="ident">T::WeightInfo::election_phragmen</span>(<span class="ident">weight_candidates</span>, <span class="ident">weight_voters</span>, <span class="ident">weight_edges</span>)
@@ -4224,17 +4223,17 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="ident">Contains</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 	<span class="kw">fn</span> <span class="ident">contains</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-		<span class="self">Self</span><span class="ident">::is_member</span>(<span class="ident">who</span>)
+		<span class="ident"><span class="self">Self</span>::is_member</span>(<span class="ident">who</span>)
 	}
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="ident">SortedMembers</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 	<span class="kw">fn</span> <span class="ident">contains</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-		<span class="self">Self</span><span class="ident">::is_member</span>(<span class="ident">who</span>)
+		<span class="ident"><span class="self">Self</span>::is_member</span>(<span class="ident">who</span>)
 	}
 
 	<span class="kw">fn</span> <span class="ident">sorted_members</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span> {
-		<span class="self">Self</span><span class="ident">::members_ids</span>()
+		<span class="ident"><span class="self">Self</span>::members_ids</span>()
 	}
 
 	<span class="comment">// A special function to populate members in this pallet for passing Origin</span>
@@ -4294,7 +4293,7 @@
 		<span class="kw">type</span> <span class="ident">Hash</span> <span class="op">=</span> <span class="ident">H256</span>;
 		<span class="kw">type</span> <span class="ident">Hashing</span> <span class="op">=</span> <span class="ident">BlakeTwo256</span>;
 		<span class="kw">type</span> <span class="ident">AccountId</span> <span class="op">=</span> <span class="ident">u64</span>;
-		<span class="kw">type</span> <span class="ident">Lookup</span> <span class="op">=</span> <span class="ident">IdentityLookup</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::AccountId</span><span class="op">&gt;</span>;
+		<span class="kw">type</span> <span class="ident">Lookup</span> <span class="op">=</span> <span class="ident">IdentityLookup</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::AccountId</span><span class="op">&gt;</span>;
 		<span class="kw">type</span> <span class="ident">Header</span> <span class="op">=</span> <span class="ident">Header</span>;
 		<span class="kw">type</span> <span class="ident">Event</span> <span class="op">=</span> <span class="ident">Event</span>;
 		<span class="kw">type</span> <span class="ident">BlockHashCount</span> <span class="op">=</span> <span class="ident">BlockHashCount</span>;
@@ -5296,7 +5295,7 @@
 			<span class="ident">System::set_block_number</span>(<span class="number">5</span>);
 			<span class="ident">Elections::on_initialize</span>(<span class="ident">System::block_number</span>());
 
-			<span class="ident">System::assert_last_event</span>(<span class="ident">Event::Elections</span>(<span class="kw">super</span><span class="ident">::Event::EmptyTerm</span>));
+			<span class="ident">System::assert_last_event</span>(<span class="ident">Event::Elections</span>(<span class="ident"><span class="kw">super</span>::Event::EmptyTerm</span>));
 		})
 	}
 
@@ -5312,7 +5311,7 @@
 			<span class="ident">System::set_block_number</span>(<span class="number">5</span>);
 			<span class="ident">Elections::on_initialize</span>(<span class="ident">System::block_number</span>());
 
-			<span class="ident">System::assert_last_event</span>(<span class="ident">Event::Elections</span>(<span class="kw">super</span><span class="ident">::Event::NewTerm</span>(<span class="macro">vec!</span>[
+			<span class="ident">System::assert_last_event</span>(<span class="ident">Event::Elections</span>(<span class="ident"><span class="kw">super</span>::Event::NewTerm</span>(<span class="macro">vec!</span>[
 				(<span class="number">4</span>, <span class="number">40</span>),
 				(<span class="number">5</span>, <span class="number">50</span>),
 			])));
@@ -5326,7 +5325,7 @@
 			<span class="ident">System::set_block_number</span>(<span class="number">10</span>);
 			<span class="ident">Elections::on_initialize</span>(<span class="ident">System::block_number</span>());
 
-			<span class="ident">System::assert_last_event</span>(<span class="ident">Event::Elections</span>(<span class="kw">super</span><span class="ident">::Event::NewTerm</span>(<span class="macro">vec!</span>[])));
+			<span class="ident">System::assert_last_event</span>(<span class="ident">Event::Elections</span>(<span class="ident"><span class="kw">super</span>::Event::NewTerm</span>(<span class="macro">vec!</span>[])));
 
 			<span class="comment">// outgoing have lost their bond.</span>
 			<span class="macro">assert_eq!</span>(<span class="ident">balances</span>(<span class="kw-2">&amp;</span><span class="number">4</span>), (<span class="number">37</span>, <span class="number">0</span>));
@@ -5396,7 +5395,7 @@
 			<span class="macro">assert_eq!</span>(<span class="ident">Elections::election_rounds</span>(), <span class="number">1</span>);
 			<span class="macro">assert!</span>(<span class="ident">members_ids</span>().<span class="ident">is_empty</span>());
 
-			<span class="ident">System::assert_last_event</span>(<span class="ident">Event::Elections</span>(<span class="kw">super</span><span class="ident">::Event::NewTerm</span>(<span class="macro">vec!</span>[])));
+			<span class="ident">System::assert_last_event</span>(<span class="ident">Event::Elections</span>(<span class="ident"><span class="kw">super</span>::Event::NewTerm</span>(<span class="macro">vec!</span>[])));
 		});
 	}
 
@@ -5748,7 +5747,7 @@
 			<span class="comment">// 5 is an outgoing loser. will also get slashed.</span>
 			<span class="macro">assert_eq!</span>(<span class="ident">balances</span>(<span class="kw-2">&amp;</span><span class="number">5</span>), (<span class="number">45</span>, <span class="number">2</span>));
 
-			<span class="ident">System::assert_has_event</span>(<span class="ident">Event::Elections</span>(<span class="kw">super</span><span class="ident">::Event::NewTerm</span>(<span class="macro">vec!</span>[
+			<span class="ident">System::assert_has_event</span>(<span class="ident">Event::Elections</span>(<span class="ident"><span class="kw">super</span>::Event::NewTerm</span>(<span class="macro">vec!</span>[
 				(<span class="number">4</span>, <span class="number">40</span>),
 				(<span class="number">5</span>, <span class="number">50</span>),
 			])));
@@ -6316,7 +6315,7 @@
 		})
 	}
 }
-</pre></div>
+</code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="pallet_elections_phragmen" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
 </body></html>

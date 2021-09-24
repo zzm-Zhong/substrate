@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;support&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><script defer type="text/javascript" src="https://substrate.dev/js/config.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;support&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><script defer type="text/javascript" src="https://substrate.dev/js/config.js"></script>
 <script defer type="text/javascript" src="https://substrate.dev/js/klaro.min.js"></script>
 <script async type="opt-in" data-type="application/javascript"
 		data-src="https://www.googletagmanager.com/gtag/js?id=UA-145158313-2" data-name="googleAnalytics"></script>
@@ -9,7 +9,7 @@
       gtag('config', 'UA-145158313-2');
 </script>
 
-<style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../frame_support/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
+<style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../frame_support/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -2431,8 +2431,7 @@
 <span id="2420">2420</span>
 <span id="2421">2421</span>
 <span id="2422">2422</span>
-</pre><pre class="rust">
-<span class="comment">// This file is part of Substrate.</span>
+</pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
 <span class="comment">// SPDX-License-Identifier: Apache-2.0</span>
@@ -2502,9 +2501,9 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">unsigned</span> {
 	<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-	<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::sp_runtime::traits::ValidateUnsigned</span>;
+	<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::sp_runtime::traits::ValidateUnsigned</span>;
 	<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-	<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::sp_runtime::transaction_validity</span>::{
+	<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::sp_runtime::transaction_validity</span>::{
 		<span class="ident">TransactionSource</span>, <span class="ident">TransactionValidity</span>, <span class="ident">TransactionValidityError</span>, <span class="ident">UnknownTransaction</span>,
 	};
 }
@@ -2590,9 +2589,9 @@
 <span class="macro">macro_rules!</span> <span class="ident">generate_storage_alias</span> {
 	<span class="comment">// without generic for $name.</span>
 	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Map</span><span class="op">&lt;</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">key</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher</span>:<span class="ident">ty</span>), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">ty</span> $(, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">querytype</span>:<span class="ident">ty</span>)<span class="question-mark">?</span><span class="op">&gt;</span>) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::paste::paste!</span> {
-			<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
-			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage::types::StorageMap</span><span class="op">&lt;</span>
+		<span class="macro-nonterminal">$</span><span class="macro">crate::paste::paste!</span> {
+			<span class="macro-nonterminal">$</span><span class="macro">crate::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
+			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage::types::StorageMap</span><span class="op">&lt;</span>
 				[<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">Instance</span><span class="op">&gt;</span>],
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher</span>,
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">key</span>,
@@ -2606,9 +2605,9 @@
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>
 		<span class="op">=</span><span class="op">&gt;</span> <span class="ident">DoubleMap</span><span class="op">&lt;</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">key1</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher1</span>:<span class="ident">ty</span>), (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">key2</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher2</span>:<span class="ident">ty</span>), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">ty</span> $(, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">querytype</span>:<span class="ident">ty</span>)<span class="question-mark">?</span><span class="op">&gt;</span>
 	) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::paste::paste!</span> {
-			<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
-			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage::types::StorageDoubleMap</span><span class="op">&lt;</span>
+		<span class="macro-nonterminal">$</span><span class="macro">crate::paste::paste!</span> {
+			<span class="macro-nonterminal">$</span><span class="macro">crate::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
+			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage::types::StorageDoubleMap</span><span class="op">&lt;</span>
 				[<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">Instance</span><span class="op">&gt;</span>],
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher1</span>,
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">key1</span>,
@@ -2624,12 +2623,12 @@
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>
 		<span class="op">=</span><span class="op">&gt;</span> <span class="ident">NMap</span><span class="op">&lt;</span><span class="ident">Key</span><span class="op">&lt;</span>$((<span class="macro-nonterminal">$</span><span class="macro-nonterminal">key</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher</span>:<span class="ident">ty</span>)),<span class="op">+</span><span class="op">&gt;</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">ty</span> $(, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">querytype</span>:<span class="ident">ty</span>)<span class="question-mark">?</span><span class="op">&gt;</span>
 	) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::paste::paste!</span> {
-			<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
-			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage::types::StorageNMap</span><span class="op">&lt;</span>
+		<span class="macro-nonterminal">$</span><span class="macro">crate::paste::paste!</span> {
+			<span class="macro-nonterminal">$</span><span class="macro">crate::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
+			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage::types::StorageNMap</span><span class="op">&lt;</span>
 				[<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">Instance</span><span class="op">&gt;</span>],
 				(
-					$( <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage::types::Key</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">key</span><span class="op">&gt;</span>, )<span class="op">+</span>
+					$( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage::types::Key</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">key</span><span class="op">&gt;</span>, )<span class="op">+</span>
 				),
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>,
 				$( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">querytype</span> )<span class="question-mark">?</span>
@@ -2637,9 +2636,9 @@
 		}
 	};
 	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Value</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">ty</span> $(, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">querytype</span>:<span class="ident">ty</span>)<span class="question-mark">?</span><span class="op">&gt;</span>) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::paste::paste!</span> {
-			<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
-			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage::types::StorageValue</span><span class="op">&lt;</span>
+		<span class="macro-nonterminal">$</span><span class="macro">crate::paste::paste!</span> {
+			<span class="macro-nonterminal">$</span><span class="macro">crate::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
+			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage::types::StorageValue</span><span class="op">&lt;</span>
 				[<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">Instance</span><span class="op">&gt;</span>],
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>,
 				$( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">querytype</span> )<span class="question-mark">?</span>
@@ -2652,10 +2651,10 @@
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ident</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bounds</span>:<span class="ident">tt</span><span class="op">&gt;</span>
 		<span class="op">=</span><span class="op">&gt;</span> <span class="ident">Map</span><span class="op">&lt;</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">key</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher</span>:<span class="ident">ty</span>), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">ty</span> $(, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">querytype</span>:<span class="ident">ty</span>)<span class="question-mark">?</span><span class="op">&gt;</span>
 	) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::paste::paste!</span> {
-			<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
+		<span class="macro-nonterminal">$</span><span class="macro">crate::paste::paste!</span> {
+			<span class="macro-nonterminal">$</span><span class="macro">crate::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
 			<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">type_alias_bounds</span>)]</span>
-			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bounds</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage::types::StorageMap</span><span class="op">&lt;</span>
+			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bounds</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage::types::StorageMap</span><span class="op">&lt;</span>
 				[<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">Instance</span><span class="op">&gt;</span>],
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">key</span>,
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher</span>,
@@ -2669,10 +2668,10 @@
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ident</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bounds</span>:<span class="ident">tt</span><span class="op">&gt;</span>
 		<span class="op">=</span><span class="op">&gt;</span> <span class="ident">DoubleMap</span><span class="op">&lt;</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">key1</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher1</span>:<span class="ident">ty</span>), (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">key2</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher2</span>:<span class="ident">ty</span>), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">ty</span> $(, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">querytype</span>:<span class="ident">ty</span>)<span class="question-mark">?</span><span class="op">&gt;</span>
 	) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::paste::paste!</span> {
-			<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
+		<span class="macro-nonterminal">$</span><span class="macro">crate::paste::paste!</span> {
+			<span class="macro-nonterminal">$</span><span class="macro">crate::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
 			<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">type_alias_bounds</span>)]</span>
-			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bounds</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage::types::StorageDoubleMap</span><span class="op">&lt;</span>
+			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bounds</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage::types::StorageDoubleMap</span><span class="op">&lt;</span>
 				[<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">Instance</span><span class="op">&gt;</span>],
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">key1</span>,
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher1</span>,
@@ -2688,13 +2687,13 @@
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ident</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bounds</span>:<span class="ident">tt</span><span class="op">&gt;</span>
 		<span class="op">=</span><span class="op">&gt;</span> <span class="ident">NMap</span><span class="op">&lt;</span>$((<span class="macro-nonterminal">$</span><span class="macro-nonterminal">key</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher</span>:<span class="ident">ty</span>),)<span class="op">+</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">ty</span> $(, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">querytype</span>:<span class="ident">ty</span>)<span class="question-mark">?</span><span class="op">&gt;</span>
 	) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::paste::paste!</span> {
-			<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
+		<span class="macro-nonterminal">$</span><span class="macro">crate::paste::paste!</span> {
+			<span class="macro-nonterminal">$</span><span class="macro">crate::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
 			<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">type_alias_bounds</span>)]</span>
-			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bounds</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage::types::StorageNMap</span><span class="op">&lt;</span>
+			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bounds</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage::types::StorageNMap</span><span class="op">&lt;</span>
 				[<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">Instance</span><span class="op">&gt;</span>],
 				(
-					$( <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage::types::Key</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">key</span><span class="op">&gt;</span>, )<span class="op">+</span>
+					$( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage::types::Key</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">hasher</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">key</span><span class="op">&gt;</span>, )<span class="op">+</span>
 				),
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>,
 				$( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">querytype</span> )<span class="question-mark">?</span>
@@ -2702,10 +2701,10 @@
 		}
 	};
 	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span>:<span class="ident">ident</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bounds</span>:<span class="ident">tt</span><span class="op">&gt;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Value</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">ty</span> $(, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">querytype</span>:<span class="ident">ty</span>)<span class="question-mark">?</span><span class="op">&gt;</span>) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::paste::paste!</span> {
-			<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
+		<span class="macro-nonterminal">$</span><span class="macro">crate::paste::paste!</span> {
+			<span class="macro-nonterminal">$</span><span class="macro">crate::generate_storage_alias!</span>(@<span class="macro-nonterminal">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
 			<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">type_alias_bounds</span>)]</span>
-			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bounds</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage::types::StorageValue</span><span class="op">&lt;</span>
+			<span class="kw">type</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">t</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bounds</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage::types::StorageValue</span><span class="op">&lt;</span>
 				[<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">Instance</span><span class="op">&gt;</span>],
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>,
 				$( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">querytype</span> )<span class="question-mark">?</span>
@@ -2714,9 +2713,9 @@
 	};
 	<span class="comment">// helper used in all arms.</span>
 	(@<span class="ident">GENERATE_INSTANCE_STRUCT</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::paste::paste!</span> {
+		<span class="macro-nonterminal">$</span><span class="macro">crate::paste::paste!</span> {
 			<span class="kw">struct</span> [<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">Instance</span><span class="op">&gt;</span>];
-			<span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::traits::StorageInstance</span> <span class="kw">for</span> [<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">Instance</span><span class="op">&gt;</span>] {
+			<span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::StorageInstance</span> <span class="kw">for</span> [<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">Instance</span><span class="op">&gt;</span>] {
 				<span class="kw">fn</span> <span class="ident">pallet_prefix</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> { <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">pallet</span>) }
 				<span class="kw">const</span> <span class="ident">STORAGE_PREFIX</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);
 			}
@@ -2802,8 +2801,8 @@
 	) <span class="op">=</span><span class="op">&gt;</span> (
 		$( <span class="attribute">#[ <span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span> ]</span> )<span class="op">*</span>
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">vis</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>;
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::parameter_types!</span>(<span class="macro-nonterminal">IMPL_CONST</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> , <span class="macro-nonterminal">$</span><span class="kw">type</span> , <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>);
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::parameter_types!</span>( $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span> )<span class="op">*</span> );
+		<span class="macro-nonterminal">$</span><span class="macro">crate::parameter_types!</span>(<span class="macro-nonterminal">IMPL_CONST</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> , <span class="macro-nonterminal">$</span><span class="kw">type</span> , <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>);
+		<span class="macro-nonterminal">$</span><span class="macro">crate::parameter_types!</span>( $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span> )<span class="op">*</span> );
 	);
 	(
 		$( <span class="attribute">#[ <span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span> ]</span> )<span class="op">*</span>
@@ -2812,8 +2811,8 @@
 	) <span class="op">=</span><span class="op">&gt;</span> (
 		$( <span class="attribute">#[ <span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span> ]</span> )<span class="op">*</span>
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">vis</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>;
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::parameter_types!</span>(<span class="macro-nonterminal">IMPL</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>);
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::parameter_types!</span>( $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span> )<span class="op">*</span> );
+		<span class="macro-nonterminal">$</span><span class="macro">crate::parameter_types!</span>(<span class="macro-nonterminal">IMPL</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>);
+		<span class="macro-nonterminal">$</span><span class="macro">crate::parameter_types!</span>( $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span> )<span class="op">*</span> );
 	);
 	(
 		$( <span class="attribute">#[ <span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span>:<span class="ident">meta</span> ]</span> )<span class="op">*</span>
@@ -2822,8 +2821,8 @@
 	) <span class="op">=</span><span class="op">&gt;</span> (
 		$( <span class="attribute">#[ <span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span> ]</span> )<span class="op">*</span>
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">vis</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>;
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::parameter_types!</span>(<span class="macro-nonterminal">IMPL_STORAGE</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>);
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::parameter_types!</span>( $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span> )<span class="op">*</span> );
+		<span class="macro-nonterminal">$</span><span class="macro">crate::parameter_types!</span>(<span class="macro-nonterminal">IMPL_STORAGE</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>);
+		<span class="macro-nonterminal">$</span><span class="macro">crate::parameter_types!</span>( $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span> )<span class="op">*</span> );
 	);
 	() <span class="op">=</span><span class="op">&gt;</span> ();
 	(<span class="ident">IMPL_CONST</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -2834,9 +2833,9 @@
 			}
 		}
 
-		<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::traits::Get</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
+		<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::Get</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
 			<span class="kw">fn</span> <span class="ident">get</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">I</span> {
-				<span class="ident">I::from</span>(<span class="self">Self</span><span class="ident">::get</span>())
+				<span class="ident">I::from</span>(<span class="ident"><span class="self">Self</span>::get</span>())
 			}
 		}
 	};
@@ -2848,9 +2847,9 @@
 			}
 		}
 
-		<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::traits::Get</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
+		<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::Get</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
 			<span class="kw">fn</span> <span class="ident">get</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">I</span> {
-				<span class="ident">I::from</span>(<span class="self">Self</span><span class="ident">::get</span>())
+				<span class="ident">I::from</span>(<span class="ident"><span class="self">Self</span>::get</span>())
 			}
 		}
 	};
@@ -2859,7 +2858,7 @@
 			<span class="doccomment">/// Returns the key for this parameter type.</span>
 			<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused</span>)]</span>
 			<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">key</span>() <span class="op">-</span><span class="op">&gt;</span> [<span class="ident">u8</span>; <span class="number">16</span>] {
-				<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::sp_io::hashing::twox_128</span>(
+				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::sp_io::hashing::twox_128</span>(
 					<span class="macro">concat!</span>(<span class="string">&quot;:&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>), <span class="string">&quot;:&quot;</span>).<span class="ident">as_bytes</span>()
 				)
 			}
@@ -2870,7 +2869,7 @@
 			<span class="doccomment">/// environment.</span>
 			<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused</span>)]</span>
 			<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="macro-nonterminal">$</span><span class="kw">type</span>) {
-				<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage::unhashed::put</span>(<span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::key</span>(), <span class="ident">value</span>);
+				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage::unhashed::put</span>(<span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::key</span>(), <span class="ident">value</span>);
 			}
 
 			<span class="doccomment">/// Returns the value of this parameter type.</span>
@@ -2879,13 +2878,13 @@
 			<span class="doccomment">/// environment.</span>
 			<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused</span>)]</span>
 			<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">type</span> {
-				<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage::unhashed::get</span>(<span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::key</span>()).<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>)
+				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage::unhashed::get</span>(<span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::key</span>()).<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>)
 			}
 		}
 
-		<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::traits::Get</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
+		<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::Get</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
 			<span class="kw">fn</span> <span class="ident">get</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">I</span> {
-				<span class="ident">I::from</span>(<span class="self">Self</span><span class="ident">::get</span>())
+				<span class="ident">I::from</span>(<span class="ident"><span class="self">Self</span>::get</span>())
 			}
 		}
 	};
@@ -2894,11 +2893,11 @@
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">vis</span>:<span class="ident">vis</span> <span class="kw">static</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>: <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">expr</span>;
 		$( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span>:<span class="ident">tt</span> )<span class="op">*</span>
 	) <span class="op">=</span><span class="op">&gt;</span> (
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::parameter_types_impl_thread_local!</span>(
+		<span class="macro-nonterminal">$</span><span class="macro">crate::parameter_types_impl_thread_local!</span>(
 			$( <span class="attribute">#[ <span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span> ]</span> )<span class="op">*</span>
 			<span class="macro-nonterminal">$</span><span class="macro-nonterminal">vis</span> <span class="kw">static</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>: <span class="macro-nonterminal">$</span><span class="kw">type</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>;
 		);
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::parameter_types!</span>( $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span> )<span class="op">*</span> );
+		<span class="macro-nonterminal">$</span><span class="macro">crate::parameter_types!</span>( $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span> )<span class="op">*</span> );
 	);
 }
 
@@ -2919,11 +2918,11 @@
 			<span class="macro-nonterminal">$</span><span class="macro-nonterminal">vis</span>:<span class="ident">vis</span> <span class="kw">static</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>: <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">expr</span>;
 		)<span class="op">*</span>
 	) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::parameter_types_impl_thread_local!</span>(
+		<span class="macro-nonterminal">$</span><span class="macro">crate::parameter_types_impl_thread_local!</span>(
 			<span class="macro-nonterminal">IMPL_THREAD_LOCAL</span> $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">vis</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>, )<span class="op">*</span>
 		);
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::paste::item!</span> {
-			<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::parameter_types!</span>(
+		<span class="macro-nonterminal">$</span><span class="macro">crate::paste::item!</span> {
+			<span class="macro-nonterminal">$</span><span class="macro">crate::parameter_types!</span>(
 				$(
 					$( <span class="attribute">#[ <span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span> ]</span> )<span class="op">*</span>
 					<span class="macro-nonterminal">$</span><span class="macro-nonterminal">vis</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>: <span class="macro-nonterminal">$</span><span class="kw">type</span> <span class="op">=</span> [<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">snake</span>:<span class="ident">upper</span><span class="op">&gt;</span>].<span class="ident">with</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">borrow</span>().<span class="ident">clone</span>());
@@ -2940,7 +2939,7 @@
 		}
 	};
 	(<span class="ident">IMPL_THREAD_LOCAL</span> $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">vis</span>:<span class="ident">vis</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">expr</span>, )<span class="op">*</span> ) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::paste::item!</span> {
+		<span class="macro-nonterminal">$</span><span class="macro">crate::paste::item!</span> {
 			<span class="macro">thread_local!</span> {
 				$(
 					<span class="kw">pub</span> <span class="kw">static</span> [<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">snake</span>:<span class="ident">upper</span><span class="op">&gt;</span>]: <span class="ident">std::cell::RefCell</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span> <span class="op">=</span>
@@ -2962,20 +2961,20 @@
 	) <span class="op">=</span><span class="op">&gt;</span> (
 		$( <span class="attribute">#[ <span class="macro-nonterminal">$</span><span class="macro-nonterminal">attr</span> ]</span> )<span class="op">*</span>
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">vis</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>;
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::parameter_types!</span>{<span class="macro-nonterminal">IMPL</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> , <span class="macro-nonterminal">$</span><span class="kw">type</span> , <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>}
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::ord_parameter_types!</span>{<span class="macro-nonterminal">IMPL</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> , <span class="macro-nonterminal">$</span><span class="kw">type</span> , <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>}
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::ord_parameter_types!</span>{ $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span> )<span class="op">*</span> }
+		<span class="macro-nonterminal">$</span><span class="macro">crate::parameter_types!</span>{<span class="macro-nonterminal">IMPL</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> , <span class="macro-nonterminal">$</span><span class="kw">type</span> , <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>}
+		<span class="macro-nonterminal">$</span><span class="macro">crate::ord_parameter_types!</span>{<span class="macro-nonterminal">IMPL</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> , <span class="macro-nonterminal">$</span><span class="kw">type</span> , <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>}
+		<span class="macro-nonterminal">$</span><span class="macro">crate::ord_parameter_types!</span>{ $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span> )<span class="op">*</span> }
 	);
 	() <span class="op">=</span><span class="op">&gt;</span> ();
 	(<span class="ident">IMPL</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span> , <span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span> , <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::traits::SortedMembers</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
+		<span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::SortedMembers</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
 			<span class="kw">fn</span> <span class="ident">contains</span>(<span class="ident">t</span>: <span class="kw-2">&amp;</span><span class="macro-nonterminal">$</span><span class="kw">type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">bool</span> { <span class="kw-2">&amp;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span> <span class="op">=</span><span class="op">=</span> <span class="ident">t</span> }
-			<span class="kw">fn</span> <span class="ident">sorted_members</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::sp_std::prelude::Vec</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span> { <span class="macro">vec!</span>[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>] }
+			<span class="kw">fn</span> <span class="ident">sorted_members</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::sp_std::prelude::Vec</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span> { <span class="macro">vec!</span>[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>] }
 			<span class="kw">fn</span> <span class="ident">count</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> { <span class="number">1</span> }
 			<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>)]</span>
 			<span class="kw">fn</span> <span class="ident">add</span>(<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="macro-nonterminal">$</span><span class="kw">type</span>) {}
 		}
-		<span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::traits::Contains</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
+		<span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::Contains</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="kw">type</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
 			<span class="kw">fn</span> <span class="ident">contains</span>(<span class="ident">t</span>: <span class="kw-2">&amp;</span><span class="macro-nonterminal">$</span><span class="kw">type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">bool</span> { <span class="kw-2">&amp;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span> <span class="op">=</span><span class="op">=</span> <span class="ident">t</span> }
 		}
 	}
@@ -2993,9 +2992,9 @@
 	($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>:<span class="ident">tt</span>)<span class="op">+</span>) <span class="op">=</span><span class="op">&gt;</span> {
 		{
 			<span class="kw">use</span> <span class="ident">core::fmt::Write</span>;
-			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::sp_std::Writer::default</span>();
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::sp_std::Writer::default</span>();
 			<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="macro">core::write!</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">w</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>)<span class="op">+</span>);
-			<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::sp_io::misc::print_utf8</span>(<span class="kw-2">&amp;</span><span class="ident">w</span>.<span class="ident">inner</span>())
+			<span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::sp_io::misc::print_utf8</span>(<span class="kw-2">&amp;</span><span class="ident">w</span>.<span class="ident">inner</span>())
 		}
 	}
 }
@@ -3153,7 +3152,7 @@
 <span class="macro">macro_rules!</span> <span class="ident">ensure</span> {
 	( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">x</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">y</span>:<span class="ident">expr</span> $(,)<span class="question-mark">?</span> ) <span class="op">=</span><span class="op">&gt;</span> {{
 		<span class="kw">if</span> <span class="op">!</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">x</span> {
-			<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::fail!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">y</span>);
+			<span class="macro-nonterminal">$</span><span class="macro">crate::fail!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">y</span>);
 		}
 	}};
 }
@@ -3168,9 +3167,9 @@
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">x</span>:<span class="ident">expr</span>,
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">y</span>:<span class="ident">expr</span> $(,)<span class="question-mark">?</span>
 	) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage_root</span>();
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::assert_err!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">x</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">y</span>);
-		<span class="macro">assert_eq!</span>(<span class="ident">h</span>, <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage_root</span>());
+		<span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage_root</span>();
+		<span class="macro-nonterminal">$</span><span class="macro">crate::assert_err!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">x</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">y</span>);
+		<span class="macro">assert_eq!</span>(<span class="ident">h</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage_root</span>());
 	};
 }
 
@@ -3183,9 +3182,9 @@
 	(
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">x</span>:<span class="ident">expr</span>
 	) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage_root</span>();
+		<span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage_root</span>();
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">x</span>;
-		<span class="macro">assert_eq!</span>(<span class="ident">h</span>, <span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro-nonterminal">::storage_root</span>());
+		<span class="macro">assert_eq!</span>(<span class="ident">h</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::storage_root</span>());
 	};
 }
 
@@ -3206,7 +3205,7 @@
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
 <span class="macro">macro_rules!</span> <span class="ident">assert_err_ignore_postinfo</span> {
 	( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">x</span>:<span class="ident">expr</span> , <span class="macro-nonterminal">$</span><span class="macro-nonterminal">y</span>:<span class="ident">expr</span> $(,)<span class="question-mark">?</span> ) <span class="op">=</span><span class="op">&gt;</span> {
-		<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::assert_err!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">x</span>.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">error</span>), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">y</span>);
+		<span class="macro-nonterminal">$</span><span class="macro">crate::assert_err!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">x</span>.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">error</span>), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">y</span>);
 	};
 }
 
@@ -3215,7 +3214,7 @@
 <span class="macro">macro_rules!</span> <span class="ident">assert_err_with_weight</span> {
 	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">call</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">err</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">weight</span>:<span class="ident">expr</span> $(,)<span class="question-mark">?</span> ) <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">dispatch_err_with_post</span>) <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">call</span> {
-			<span class="macro-nonterminal">$</span><span class="kw">crate</span><span class="macro">::assert_err!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">call</span>.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">error</span>), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">err</span>);
+			<span class="macro-nonterminal">$</span><span class="macro">crate::assert_err!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">call</span>.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">error</span>), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">err</span>);
 			<span class="macro">assert_eq!</span>(<span class="ident">dispatch_err_with_post</span>.<span class="ident">post_info</span>.<span class="ident">actual_weight</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">weight</span>.<span class="ident">into</span>());
 		} <span class="kw">else</span> {
 			<span class="macro">panic!</span>(<span class="string">&quot;expected Err(_), got Ok(_).&quot;</span>)
@@ -3248,7 +3247,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">tests</span> {
 	<span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-	<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::metadata</span>::{
+	<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metadata</span>::{
 		<span class="ident">PalletStorageMetadata</span>, <span class="ident">StorageEntryMetadata</span>, <span class="ident">StorageEntryModifier</span>, <span class="ident">StorageEntryType</span>,
 		<span class="ident">StorageHasher</span>,
 	};
@@ -3259,7 +3258,7 @@
 	<span class="doccomment">/// A PalletInfo implementation which just panics.</span>
 	<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PanicPalletInfo</span>;
 
-	<span class="kw">impl</span> <span class="kw">crate</span><span class="ident">::traits::PalletInfo</span> <span class="kw">for</span> <span class="ident">PanicPalletInfo</span> {
+	<span class="kw">impl</span> <span class="ident"><span class="kw">crate</span>::traits::PalletInfo</span> <span class="kw">for</span> <span class="ident">PanicPalletInfo</span> {
 		<span class="kw">fn</span> <span class="ident">index</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
 			<span class="macro">unimplemented!</span>(<span class="string">&quot;PanicPalletInfo mustn&#39;t be triggered by tests&quot;</span>);
 		}
@@ -3271,20 +3270,20 @@
 	<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Config</span>: <span class="lifetime">&#39;static</span> {
 		<span class="kw">type</span> <span class="ident">BlockNumber</span>: <span class="ident">Codec</span> <span class="op">+</span> <span class="ident">EncodeLike</span> <span class="op">+</span> <span class="ident">Default</span> <span class="op">+</span> <span class="ident">TypeInfo</span>;
 		<span class="kw">type</span> <span class="ident">Origin</span>;
-		<span class="kw">type</span> <span class="ident">PalletInfo</span>: <span class="kw">crate</span><span class="ident">::traits::PalletInfo</span>;
-		<span class="kw">type</span> <span class="ident">DbWeight</span>: <span class="kw">crate</span><span class="ident">::traits::Get</span><span class="op">&lt;</span><span class="kw">crate</span><span class="ident">::weights::RuntimeDbWeight</span><span class="op">&gt;</span>;
+		<span class="kw">type</span> <span class="ident">PalletInfo</span>: <span class="ident"><span class="kw">crate</span>::traits::PalletInfo</span>;
+		<span class="kw">type</span> <span class="ident">DbWeight</span>: <span class="ident"><span class="kw">crate</span>::traits::Get</span><span class="op">&lt;</span><span class="ident"><span class="kw">crate</span>::weights::RuntimeDbWeight</span><span class="op">&gt;</span>;
 	}
 
 	<span class="kw">mod</span> <span class="ident">module</span> {
 		<span class="attribute">#![<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
 
-		<span class="kw">use</span> <span class="kw">super</span><span class="ident">::Config</span>;
+		<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Config</span>;
 
 		<span class="macro">decl_module!</span> {
 			<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Module</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw">enum</span> <span class="ident">Call</span> <span class="kw">where</span> <span class="ident">origin</span>: <span class="ident">T::Origin</span>, <span class="ident">system</span><span class="op">=</span><span class="self">self</span>  {}
 		}
 	}
-	<span class="kw">use</span> <span class="self">self</span><span class="ident">::module::Module</span>;
+	<span class="kw">use</span> <span class="ident"><span class="self">self</span>::module::Module</span>;
 
 	<span class="macro">decl_storage!</span> {
 		<span class="kw">trait</span> <span class="ident">Store</span> <span class="kw">for</span> <span class="ident">Module</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="ident">Test</span> {
@@ -3718,7 +3717,7 @@
 <span class="doccomment">/// Prelude to be used alongside pallet macro, for ease of use.</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">pallet_prelude</span> {
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>
-	<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::traits::GenesisBuild</span>;
+	<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::traits::GenesisBuild</span>;
 	<span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::{
 		<span class="ident">dispatch</span>::{<span class="ident">DispatchError</span>, <span class="ident">DispatchResult</span>, <span class="ident">DispatchResultWithPostInfo</span>, <span class="ident">Parameter</span>},
 		<span class="ident">ensure</span>,
@@ -4854,7 +4853,7 @@
 <span class="doccomment">/// 	```</span>
 <span class="doccomment">/// * use the newest nightly possible.</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">frame_support_procedural::pallet</span>;
-</pre></div>
+</code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="frame_support" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
 </body></html>
