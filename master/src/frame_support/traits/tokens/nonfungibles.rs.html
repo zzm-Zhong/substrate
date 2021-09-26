@@ -207,6 +207,31 @@
 <span id="196">196</span>
 <span id="197">197</span>
 <span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -236,7 +261,7 @@
 <span class="doccomment">//! Implementations of these traits may be converted to implementations of corresponding</span>
 <span class="doccomment">//! `nonfungible` traits by using the `nonfungible::ItemOf` type adapter.</span>
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::dispatch::DispatchResult</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::dispatch</span>::{<span class="ident">DispatchError</span>, <span class="ident">DispatchResult</span>};
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>};
 <span class="kw">use</span> <span class="ident">sp_runtime::TokenError</span>;
 <span class="kw">use</span> <span class="ident">sp_std::prelude</span>::<span class="kw-2">*</span>;
@@ -330,6 +355,31 @@
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Create</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>: <span class="ident">Inspect</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Create a `class` of nonfungible assets to be owned by `who` and managed by `admin`.</span>
 	<span class="kw">fn</span> <span class="ident">create_class</span>(<span class="ident">class</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::ClassId</span>, <span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">AccountId</span>, <span class="ident">admin</span>: <span class="kw-2">&amp;</span><span class="ident">AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span>;
+}
+
+<span class="doccomment">/// Trait for providing the ability to destroy classes of nonfungible assets.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Destroy</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>: <span class="ident">Inspect</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span> {
+	<span class="doccomment">/// The witness data needed to destroy an asset.</span>
+	<span class="kw">type</span> <span class="ident">DestroyWitness</span>;
+
+	<span class="doccomment">/// Provide the appropriate witness data needed to destroy an asset.</span>
+	<span class="kw">fn</span> <span class="ident">get_destroy_witness</span>(<span class="ident">class</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::ClassId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::DestroyWitness</span><span class="op">&gt;</span>;
+
+	<span class="doccomment">/// Destroy an existing fungible asset.</span>
+	<span class="doccomment">/// * `class`: The `ClassId` to be destroyed.</span>
+	<span class="doccomment">/// * `witness`: Any witness data that needs to be provided to complete the operation</span>
+	<span class="doccomment">///   successfully.</span>
+	<span class="doccomment">/// * `maybe_check_owner`: An optional account id that can be used to authorize the destroy</span>
+	<span class="doccomment">///   command. If not provided, we will not do any authorization checks before destroying the</span>
+	<span class="doccomment">///   asset.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// If successful, this function will return the actual witness data from the destroyed asset.</span>
+	<span class="doccomment">/// This may be different than the witness data provided, and can be used to refund weight.</span>
+	<span class="kw">fn</span> <span class="ident">destroy</span>(
+		<span class="ident">class</span>: <span class="ident"><span class="self">Self</span>::ClassId</span>,
+		<span class="ident">witness</span>: <span class="ident"><span class="self">Self</span>::DestroyWitness</span>,
+		<span class="ident">maybe_check_owner</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::DestroyWitness</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span>;
 }
 
 <span class="doccomment">/// Trait for providing an interface for multiple classes of NFT-like assets which may be minted,</span>

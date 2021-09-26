@@ -238,6 +238,42 @@
 <span id="227">227</span>
 <span id="228">228</span>
 <span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -466,6 +502,42 @@
 		};
 		<span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">fungibles::Balanced</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::slash</span>(<span class="ident">asset</span>, <span class="ident">who</span>, <span class="ident">actual</span>)
 	}
+}
+
+<span class="doccomment">/// Trait for providing the ability to create new fungible assets.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Create</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>: <span class="ident">Inspect</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span> {
+	<span class="doccomment">/// Create a new fungible asset.</span>
+	<span class="kw">fn</span> <span class="ident">create</span>(
+		<span class="ident">id</span>: <span class="ident"><span class="self">Self</span>::AssetId</span>,
+		<span class="ident">admin</span>: <span class="ident">AccountId</span>,
+		<span class="ident">is_sufficient</span>: <span class="ident">bool</span>,
+		<span class="ident">min_balance</span>: <span class="ident"><span class="self">Self</span>::Balance</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span>;
+}
+
+<span class="doccomment">/// Trait for providing the ability to destroy existing fungible assets.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Destroy</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>: <span class="ident">Inspect</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span> {
+	<span class="doccomment">/// The witness data needed to destroy an asset.</span>
+	<span class="kw">type</span> <span class="ident">DestroyWitness</span>;
+
+	<span class="doccomment">/// Provide the appropriate witness data needed to destroy an asset.</span>
+	<span class="kw">fn</span> <span class="ident">get_destroy_witness</span>(<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::AssetId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::DestroyWitness</span><span class="op">&gt;</span>;
+
+	<span class="doccomment">/// Destroy an existing fungible asset.</span>
+	<span class="doccomment">/// * `id`: The `AssetId` to be destroyed.</span>
+	<span class="doccomment">/// * `witness`: Any witness data that needs to be provided to complete the operation</span>
+	<span class="doccomment">///   successfully.</span>
+	<span class="doccomment">/// * `maybe_check_owner`: An optional account id that can be used to authorize the destroy</span>
+	<span class="doccomment">///   command. If not provided, we will not do any authorization checks before destroying the</span>
+	<span class="doccomment">///   asset.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// If successful, this function will return the actual witness data from the destroyed asset.</span>
+	<span class="doccomment">/// This may be different than the witness data provided, and can be used to refund weight.</span>
+	<span class="kw">fn</span> <span class="ident">destroy</span>(
+		<span class="ident">id</span>: <span class="ident"><span class="self">Self</span>::AssetId</span>,
+		<span class="ident">witness</span>: <span class="ident"><span class="self">Self</span>::DestroyWitness</span>,
+		<span class="ident">maybe_check_owner</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::DestroyWitness</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span>;
 }
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="frame_support" data-search-index-js="../../../../search-index.js" data-search-js="../../../../search.js"></div>
