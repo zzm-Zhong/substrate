@@ -515,7 +515,6 @@
 <span id="504">504</span>
 <span id="505">505</span>
 <span id="506">506</span>
-<span id="507">507</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -868,7 +867,6 @@
 
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::queued_solution</span>().<span class="ident">is_none</span>());
 		<span class="op">&lt;</span><span class="ident">CurrentPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">Phase::Unsigned</span>((<span class="bool-val">true</span>, <span class="number">1u32</span>.<span class="ident">into</span>())));
-
 	}: <span class="kw">_</span>(<span class="ident">RawOrigin::None</span>, <span class="ident">Box::new</span>(<span class="ident">raw_solution</span>), <span class="ident">witness</span>)
 	<span class="ident">verify</span> {
 		<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">MultiPhase</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::queued_solution</span>().<span class="ident">is_some</span>());
