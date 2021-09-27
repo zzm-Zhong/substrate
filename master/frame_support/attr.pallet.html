@@ -78,13 +78,15 @@ implemented for <code>Pallet</code> allowing to access the storage from pallet s
 <p>Thus when defining a storage named <code>Foo</code>, it can later be accessed from <code>Pallet</code> using
 <code>&lt;Pallet as Store&gt;::Foo</code>.</p>
 <p>To generate the full storage info (used for PoV calculation) use the attribute
-<code>#[pallet::set_storage_max_encoded_len]</code>, e.g.:</p>
+<code>#[pallet::generate_storage_info]</code>, e.g.:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore"><code><span class="attribute">#[<span class="ident">pallet::pallet</span>]</span>
-<span class="attribute">#[<span class="ident">pallet::set_storage_max_encoded_len</span>]</span>
+<span class="attribute">#[<span class="ident">pallet::generate_storage_info</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw">_</span>);</code></pre></div>
 <p>This require all storage to implement the trait <a href="traits/trait.StorageInfoTrait.html" title="traits::StorageInfoTrait"><code>traits::StorageInfoTrait</code></a>, thus all keys
-and value types must bound <a href="pallet_prelude/trait.MaxEncodedLen.html" title="pallet_prelude::MaxEncodedLen"><code>pallet_prelude::MaxEncodedLen</code></a>.</p>
+and value types must bound <a href="pallet_prelude/trait.MaxEncodedLen.html" title="pallet_prelude::MaxEncodedLen"><code>pallet_prelude::MaxEncodedLen</code></a>.
+Some individual storage can opt-out from this constraint by using <code>#[pallet::unbounded]</code>,
+see <code>#[pallet::storage]</code> documentation.</p>
 <p>As the macro implements <a href="dispatch/trait.GetStorageVersion.html" title="traits::GetStorageVersion"><code>traits::GetStorageVersion</code></a>, the current storage version needs to
 be communicated to the macro. This can be done by using the <code>storage_version</code> attribute:</p>
 
@@ -316,6 +318,10 @@ prefix to use, see how <code>Prefix</code> generic is implemented above.</p>
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore"><code><span class="attribute">#[<span class="ident">pallet::storage</span>]</span>
 <span class="attribute">#[<span class="ident">pallet::getter</span>(<span class="kw">fn</span> <span class="ident">my_storage</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type</span> <span class="ident">MyStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">StorageMap</span><span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">Blake2_128Concat</span>, <span class="ident">u32</span>, <span class="ident">u32</span><span class="op">&gt;</span>;</code></pre></div>
+<p>The optional attribute <code>#[pallet::unbounded]</code> allows to declare the storage as unbounded.
+When implementating the storage info (when #[pallet::generate_storage_info]` is specified
+on the pallet struct placeholder), the size of the storage will be declared as unbounded.
+This can be useful for storage which can never go into PoV (Proof of Validity).</p>
 <p>The optional attributes <code>#[cfg(..)]</code> allow conditional compilation for the storage.</p>
 <p>E.g:</p>
 

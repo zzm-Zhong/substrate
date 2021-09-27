@@ -2431,6 +2431,13 @@
 <span id="2420">2420</span>
 <span id="2421">2421</span>
 <span id="2422">2422</span>
+<span id="2423">2423</span>
+<span id="2424">2424</span>
+<span id="2425">2425</span>
+<span id="2426">2426</span>
+<span id="2427">2427</span>
+<span id="2428">2428</span>
+<span id="2429">2429</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -3844,15 +3851,17 @@
 <span class="doccomment">/// `&lt;Pallet as Store&gt;::Foo`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// To generate the full storage info (used for PoV calculation) use the attribute</span>
-<span class="doccomment">/// `#[pallet::set_storage_max_encoded_len]`, e.g.:</span>
+<span class="doccomment">/// `#[pallet::generate_storage_info]`, e.g.:</span>
 <span class="doccomment">/// ```ignore</span>
 <span class="doccomment">/// #[pallet::pallet]</span>
-<span class="doccomment">/// #[pallet::set_storage_max_encoded_len]</span>
+<span class="doccomment">/// #[pallet::generate_storage_info]</span>
 <span class="doccomment">/// pub struct Pallet&lt;T&gt;(_);</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This require all storage to implement the trait [`traits::StorageInfoTrait`], thus all keys</span>
 <span class="doccomment">/// and value types must bound [`pallet_prelude::MaxEncodedLen`].</span>
+<span class="doccomment">/// Some individual storage can opt-out from this constraint by using `#[pallet::unbounded]`,</span>
+<span class="doccomment">/// see `#[pallet::storage]` documentation.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// As the macro implements [`traits::GetStorageVersion`], the current storage version needs to</span>
 <span class="doccomment">/// be communicated to the macro. This can be done by using the `storage_version` attribute:</span>
@@ -4153,6 +4162,11 @@
 <span class="doccomment">/// #[pallet::getter(fn my_storage)]</span>
 <span class="doccomment">/// pub(super) type MyStorage&lt;T&gt; = StorageMap&lt;_, Blake2_128Concat, u32, u32&gt;;</span>
 <span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The optional attribute `#[pallet::unbounded]` allows to declare the storage as unbounded.</span>
+<span class="doccomment">/// When implementating the storage info (when #[pallet::generate_storage_info]` is specified</span>
+<span class="doccomment">/// on the pallet struct placeholder), the size of the storage will be declared as unbounded.</span>
+<span class="doccomment">/// This can be useful for storage which can never go into PoV (Proof of Validity).</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The optional attributes `#[cfg(..)]` allow conditional compilation for the storage.</span>
 <span class="doccomment">///</span>
