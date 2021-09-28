@@ -2438,6 +2438,28 @@
 <span id="2427">2427</span>
 <span id="2428">2428</span>
 <span id="2429">2429</span>
+<span id="2430">2430</span>
+<span id="2431">2431</span>
+<span id="2432">2432</span>
+<span id="2433">2433</span>
+<span id="2434">2434</span>
+<span id="2435">2435</span>
+<span id="2436">2436</span>
+<span id="2437">2437</span>
+<span id="2438">2438</span>
+<span id="2439">2439</span>
+<span id="2440">2440</span>
+<span id="2441">2441</span>
+<span id="2442">2442</span>
+<span id="2443">2443</span>
+<span id="2444">2444</span>
+<span id="2445">2445</span>
+<span id="2446">2446</span>
+<span id="2447">2447</span>
+<span id="2448">2448</span>
+<span id="2449">2449</span>
+<span id="2450">2450</span>
+<span id="2451">2451</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -3142,6 +3164,21 @@
 <span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">frame_support_procedural::require_transactional</span>;
 
+<span class="doccomment">/// Convert the current crate version into a [`CrateVersion`](crate::traits::CrateVersion).</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// It uses the `CARGO_PKG_VERSION_MAJOR`, `CARGO_PKG_VERSION_MINOR` and</span>
+<span class="doccomment">/// `CARGO_PKG_VERSION_PATCH` environment variables to fetch the crate version.</span>
+<span class="doccomment">/// This means that the [`CrateVersion`](crate::traits::CrateVersion)</span>
+<span class="doccomment">/// object will correspond to the version of the crate the macro is called in!</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Example</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// # use frame_support::{traits::CrateVersion, crate_to_crate_version};</span>
+<span class="doccomment">/// const Version: CrateVersion = crate_to_crate_version!();</span>
+<span class="doccomment">/// ```</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">frame_support_procedural::crate_to_crate_version</span>;
+
 <span class="doccomment">/// Return Err of the expression: `return Err($expression);`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Used as `fail!(expression)`.</span>
@@ -3259,6 +3296,7 @@
 		<span class="ident">StorageHasher</span>,
 	};
 	<span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Codec</span>, <span class="ident">EncodeLike</span>};
+	<span class="kw">use</span> <span class="ident">frame_support::traits::CrateVersion</span>;
 	<span class="kw">use</span> <span class="ident">sp_io::TestExternalities</span>;
 	<span class="kw">use</span> <span class="ident">sp_std::result</span>;
 
@@ -3270,6 +3308,12 @@
 			<span class="macro">unimplemented!</span>(<span class="string">&quot;PanicPalletInfo mustn&#39;t be triggered by tests&quot;</span>);
 		}
 		<span class="kw">fn</span> <span class="ident">name</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
+			<span class="macro">unimplemented!</span>(<span class="string">&quot;PanicPalletInfo mustn&#39;t be triggered by tests&quot;</span>);
+		}
+		<span class="kw">fn</span> <span class="ident">module_name</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
+			<span class="macro">unimplemented!</span>(<span class="string">&quot;PanicPalletInfo mustn&#39;t be triggered by tests&quot;</span>);
+		}
+		<span class="kw">fn</span> <span class="ident">crate_version</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">CrateVersion</span><span class="op">&gt;</span> {
 			<span class="macro">unimplemented!</span>(<span class="string">&quot;PanicPalletInfo mustn&#39;t be triggered by tests&quot;</span>);
 		}
 	}

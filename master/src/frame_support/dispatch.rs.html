@@ -2818,6 +2818,34 @@
 <span id="2807">2807</span>
 <span id="2808">2808</span>
 <span id="2809">2809</span>
+<span id="2810">2810</span>
+<span id="2811">2811</span>
+<span id="2812">2812</span>
+<span id="2813">2813</span>
+<span id="2814">2814</span>
+<span id="2815">2815</span>
+<span id="2816">2816</span>
+<span id="2817">2817</span>
+<span id="2818">2818</span>
+<span id="2819">2819</span>
+<span id="2820">2820</span>
+<span id="2821">2821</span>
+<span id="2822">2822</span>
+<span id="2823">2823</span>
+<span id="2824">2824</span>
+<span id="2825">2825</span>
+<span id="2826">2826</span>
+<span id="2827">2827</span>
+<span id="2828">2828</span>
+<span id="2829">2829</span>
+<span id="2830">2830</span>
+<span id="2831">2831</span>
+<span id="2832">2832</span>
+<span id="2833">2833</span>
+<span id="2834">2834</span>
+<span id="2835">2835</span>
+<span id="2836">2836</span>
+<span id="2837">2837</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -4971,6 +4999,18 @@
 					.<span class="ident">expect</span>(<span class="string">&quot;Pallet is part of the runtime because pallet `Config` trait is \
 						implemented by the runtime&quot;</span>)
 			}
+
+			<span class="kw">fn</span> <span class="ident">module_name</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
+				<span class="op">&lt;</span>
+					<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">trait_instance</span> <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">system::Config</span><span class="op">&gt;</span><span class="ident">::PalletInfo</span> <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::PalletInfo</span>
+				<span class="op">&gt;</span><span class="ident">::module_name</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>()
+					.<span class="ident">expect</span>(<span class="string">&quot;Pallet is part of the runtime because pallet `Config` trait is \
+						implemented by the runtime&quot;</span>)
+			}
+
+			<span class="kw">fn</span> <span class="ident">crate_version</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::CrateVersion</span> {
+				<span class="macro-nonterminal">$</span><span class="macro">crate::crate_to_crate_version!</span>()
+			}
 		}
 
 		<span class="comment">// Implement GetCallName for the Call.</span>
@@ -5349,8 +5389,8 @@
 	<span class="kw">use</span> <span class="kw">crate</span>::{
 		<span class="ident">metadata</span>::<span class="kw-2">*</span>,
 		<span class="ident">traits</span>::{
-			<span class="ident">Get</span>, <span class="ident">GetCallName</span>, <span class="ident">IntegrityTest</span>, <span class="ident">OnFinalize</span>, <span class="ident">OnIdle</span>, <span class="ident">OnInitialize</span>, <span class="ident">OnRuntimeUpgrade</span>,
-			<span class="ident">PalletInfo</span>,
+			<span class="ident">CrateVersion</span>, <span class="ident">Get</span>, <span class="ident">GetCallName</span>, <span class="ident">IntegrityTest</span>, <span class="ident">OnFinalize</span>, <span class="ident">OnIdle</span>, <span class="ident">OnInitialize</span>,
+			<span class="ident">OnRuntimeUpgrade</span>, <span class="ident">PalletInfo</span>,
 		},
 		<span class="ident">weights</span>::{<span class="ident">DispatchClass</span>, <span class="ident">DispatchInfo</span>, <span class="ident">Pays</span>, <span class="ident">RuntimeDbWeight</span>},
 	};
@@ -5449,6 +5489,22 @@
 			<span class="kw">let</span> <span class="ident">type_id</span> <span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span>();
 			<span class="kw">if</span> <span class="ident">type_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>() {
 				<span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="string">&quot;Test&quot;</span>)
+			}
+
+			<span class="prelude-val">None</span>
+		}
+		<span class="kw">fn</span> <span class="ident">module_name</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
+			<span class="kw">let</span> <span class="ident">type_id</span> <span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span>();
+			<span class="kw">if</span> <span class="ident">type_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>() {
+				<span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="string">&quot;tests&quot;</span>)
+			}
+
+			<span class="prelude-val">None</span>
+		}
+		<span class="kw">fn</span> <span class="ident">crate_version</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">CrateVersion</span><span class="op">&gt;</span> {
+			<span class="kw">let</span> <span class="ident">type_id</span> <span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span>();
+			<span class="kw">if</span> <span class="ident">type_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>() {
+				<span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="macro">frame_support::crate_to_crate_version!</span>())
 			}
 
 			<span class="prelude-val">None</span>

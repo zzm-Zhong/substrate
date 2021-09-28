@@ -1339,6 +1339,39 @@
 <span id="1328">1328</span>
 <span id="1329">1329</span>
 <span id="1330">1330</span>
+<span id="1331">1331</span>
+<span id="1332">1332</span>
+<span id="1333">1333</span>
+<span id="1334">1334</span>
+<span id="1335">1335</span>
+<span id="1336">1336</span>
+<span id="1337">1337</span>
+<span id="1338">1338</span>
+<span id="1339">1339</span>
+<span id="1340">1340</span>
+<span id="1341">1341</span>
+<span id="1342">1342</span>
+<span id="1343">1343</span>
+<span id="1344">1344</span>
+<span id="1345">1345</span>
+<span id="1346">1346</span>
+<span id="1347">1347</span>
+<span id="1348">1348</span>
+<span id="1349">1349</span>
+<span id="1350">1350</span>
+<span id="1351">1351</span>
+<span id="1352">1352</span>
+<span id="1353">1353</span>
+<span id="1354">1354</span>
+<span id="1355">1355</span>
+<span id="1356">1356</span>
+<span id="1357">1357</span>
+<span id="1358">1358</span>
+<span id="1359">1359</span>
+<span id="1360">1360</span>
+<span id="1361">1361</span>
+<span id="1362">1362</span>
+<span id="1363">1363</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1377,7 +1410,11 @@
 <span class="kw">use</span> <span class="ident">trie_db</span>::{<span class="ident">Trie</span>, <span class="ident">TrieMut</span>};
 
 <span class="kw">use</span> <span class="ident">cfg_if::cfg_if</span>;
-<span class="kw">use</span> <span class="ident">frame_support</span>::{<span class="ident">parameter_types</span>, <span class="ident">traits::KeyOwnerProofSystem</span>, <span class="ident">weights::RuntimeDbWeight</span>};
+<span class="kw">use</span> <span class="ident">frame_support</span>::{
+	<span class="ident">parameter_types</span>,
+	<span class="ident">traits</span>::{<span class="ident">CrateVersion</span>, <span class="ident">KeyOwnerProofSystem</span>},
+	<span class="ident">weights::RuntimeDbWeight</span>,
+};
 <span class="kw">use</span> <span class="ident">frame_system::limits</span>::{<span class="ident">BlockLength</span>, <span class="ident">BlockWeights</span>};
 <span class="kw">use</span> <span class="ident">sp_api</span>::{<span class="ident">decl_runtime_apis</span>, <span class="ident">impl_runtime_apis</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_core::hash::H256</span>;
@@ -1859,6 +1896,35 @@
 		}
 		<span class="kw">if</span> <span class="ident">type_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">pallet_babe::Pallet</span><span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="op">&gt;</span>() {
 			<span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="string">&quot;Babe&quot;</span>)
+		}
+
+		<span class="prelude-val">None</span>
+	}
+	<span class="kw">fn</span> <span class="ident">module_name</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
+		<span class="kw">let</span> <span class="ident">type_id</span> <span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span>();
+		<span class="kw">if</span> <span class="ident">type_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">system::Pallet</span><span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="op">&gt;</span>() {
+			<span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="string">&quot;system&quot;</span>)
+		}
+		<span class="kw">if</span> <span class="ident">type_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">pallet_timestamp::Pallet</span><span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="op">&gt;</span>() {
+			<span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="string">&quot;pallet_timestamp&quot;</span>)
+		}
+		<span class="kw">if</span> <span class="ident">type_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">pallet_babe::Pallet</span><span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="op">&gt;</span>() {
+			<span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="string">&quot;pallet_babe&quot;</span>)
+		}
+
+		<span class="prelude-val">None</span>
+	}
+	<span class="kw">fn</span> <span class="ident">crate_version</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="lifetime">&#39;static</span><span class="op">&gt;</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">CrateVersion</span><span class="op">&gt;</span> {
+		<span class="kw">use</span> <span class="ident">frame_support::traits::PalletInfoAccess</span> <span class="kw">as</span> <span class="kw">_</span>;
+		<span class="kw">let</span> <span class="ident">type_id</span> <span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span>();
+		<span class="kw">if</span> <span class="ident">type_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">system::Pallet</span><span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="op">&gt;</span>() {
+			<span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">system::Pallet</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::crate_version</span>())
+		}
+		<span class="kw">if</span> <span class="ident">type_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">pallet_timestamp::Pallet</span><span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="op">&gt;</span>() {
+			<span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">pallet_timestamp::Pallet</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::crate_version</span>())
+		}
+		<span class="kw">if</span> <span class="ident">type_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">sp_std::any::TypeId::of</span>::<span class="op">&lt;</span><span class="ident">pallet_babe::Pallet</span><span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="op">&gt;</span>() {
+			<span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">pallet_babe::Pallet</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span><span class="ident">::crate_version</span>())
 		}
 
 		<span class="prelude-val">None</span>
