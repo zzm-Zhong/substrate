@@ -490,6 +490,8 @@
 <span id="479">479</span>
 <span id="480">480</span>
 <span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -518,7 +520,7 @@
 <span class="doccomment">//! These roots and proofs of inclusion can be generated at any time during the current session.</span>
 <span class="doccomment">//! Afterwards, the proofs can be fed to a consensus module when reporting misbehavior.</span>
 
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Module</span> <span class="kw">as</span> <span class="ident">SessionModule</span>, <span class="ident">SessionIndex</span>};
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Pallet</span> <span class="kw">as</span> <span class="ident">SessionModule</span>, <span class="ident">SessionIndex</span>};
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>};
 <span class="kw">use</span> <span class="ident">frame_support</span>::{
 	<span class="ident">decl_module</span>, <span class="ident">decl_storage</span>, <span class="ident">print</span>,
@@ -606,11 +608,11 @@
 	<span class="kw">type</span> <span class="ident">ValidatorIdOf</span> <span class="op">=</span> <span class="ident">T::ValidatorIdOf</span>;
 
 	<span class="kw">fn</span> <span class="ident">session_index</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">sp_staking::SessionIndex</span> {
-		<span class="ident"><span class="kw">super</span>::Module</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::current_index</span>()
+		<span class="ident"><span class="kw">super</span>::Pallet</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::current_index</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">validators</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::ValidatorId</span><span class="op">&gt;</span> {
-		<span class="ident"><span class="kw">super</span>::Module</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::validators</span>()
+		<span class="ident"><span class="kw">super</span>::Pallet</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::validators</span>()
 	}
 }
 
@@ -858,11 +860,13 @@
 	<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::mock</span>::{
 		<span class="ident">force_new_session</span>, <span class="ident">set_next_validators</span>, <span class="ident">Session</span>, <span class="ident">System</span>, <span class="ident">Test</span>, <span class="ident">NEXT_VALIDATORS</span>,
 	};
+
+	<span class="kw">use</span> <span class="ident">sp_runtime</span>::{<span class="ident">key_types::DUMMY</span>, <span class="ident">testing::UintAuthorityId</span>};
+
 	<span class="kw">use</span> <span class="ident">frame_support</span>::{
-		<span class="ident">traits</span>::{<span class="ident">KeyOwnerProofSystem</span>, <span class="ident">OnInitialize</span>},
+		<span class="ident">traits</span>::{<span class="ident">GenesisBuild</span>, <span class="ident">KeyOwnerProofSystem</span>, <span class="ident">OnInitialize</span>},
 		<span class="ident">BasicExternalities</span>,
 	};
-	<span class="kw">use</span> <span class="ident">sp_runtime</span>::{<span class="ident">key_types::DUMMY</span>, <span class="ident">testing::UintAuthorityId</span>};
 
 	<span class="kw">type</span> <span class="ident">Historical</span> <span class="op">=</span> <span class="ident">Module</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>;
 

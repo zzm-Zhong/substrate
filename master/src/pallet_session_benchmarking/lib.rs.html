@@ -206,7 +206,7 @@
 	<span class="ident">traits</span>::{<span class="ident">KeyOwnerProofSystem</span>, <span class="ident">OnInitialize</span>},
 };
 <span class="kw">use</span> <span class="ident">frame_system::RawOrigin</span>;
-<span class="kw">use</span> <span class="ident">pallet_session</span>::{<span class="ident">historical::Module</span> <span class="kw">as</span> <span class="ident">Historical</span>, <span class="ident">Module</span> <span class="kw">as</span> <span class="ident">Session</span>, <span class="kw-2">*</span>};
+<span class="kw">use</span> <span class="ident">pallet_session</span>::{<span class="ident">historical::Module</span> <span class="kw">as</span> <span class="ident">Historical</span>, <span class="ident">Pallet</span> <span class="kw">as</span> <span class="ident">Session</span>, <span class="kw-2">*</span>};
 <span class="kw">use</span> <span class="ident">pallet_staking</span>::{
 	<span class="ident">benchmarking::create_validator_with_nominators</span>, <span class="ident">testing_utils::create_validators</span>,
 	<span class="ident">RewardDestination</span>,
@@ -215,7 +215,7 @@
 
 <span class="kw">const</span> <span class="ident">MAX_VALIDATORS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">1000</span>;
 
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span>(<span class="ident">pallet_session::Module</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span>(<span class="ident">pallet_session::Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Config</span>:
 	<span class="ident">pallet_session::Config</span> <span class="op">+</span> <span class="ident">pallet_session::historical::Config</span> <span class="op">+</span> <span class="ident">pallet_staking::Config</span>
 {
@@ -223,7 +223,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="ident">OnInitialize</span><span class="op">&lt;</span><span class="ident">T::BlockNumber</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 	<span class="kw">fn</span> <span class="ident">on_initialize</span>(<span class="ident">n</span>: <span class="ident">T::BlockNumber</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">frame_support::weights::Weight</span> {
-		<span class="ident">pallet_session::Module</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::on_initialize</span>(<span class="ident">n</span>)
+		<span class="ident">pallet_session::Pallet</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::on_initialize</span>(<span class="ident">n</span>)
 	}
 }
 
