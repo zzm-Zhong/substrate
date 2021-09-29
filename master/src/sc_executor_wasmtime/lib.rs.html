@@ -41,6 +41,16 @@
 <span id="30">30</span>
 <span id="31">31</span>
 <span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -59,7 +69,17 @@
 <span class="comment">// You should have received a copy of the GNU General Public License</span>
 <span class="comment">// along with this program. If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
 
-<span class="doccomment">/// ! Defines a `WasmRuntime` that uses the Wasmtime JIT to execute.</span>
+<span class="doccomment">//! Defines a `WasmRuntime` that uses the Wasmtime JIT to execute.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! You can choose a profiling strategy at runtime with</span>
+<span class="doccomment">//! environment variable `WASMTIME_PROFILING_STRATEGY`:</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! | `WASMTIME_PROFILING_STRATEGY` | Effect |</span>
+<span class="doccomment">//! |-------------|-------------------------|</span>
+<span class="doccomment">//! | undefined   | No profiling            |</span>
+<span class="doccomment">//! | `&quot;jitdump&quot;` | jitdump profiling       |</span>
+<span class="doccomment">//! | other value | No profiling (warning)  |</span>
+
 <span class="kw">mod</span> <span class="ident">host</span>;
 <span class="kw">mod</span> <span class="ident">imports</span>;
 <span class="kw">mod</span> <span class="ident">instance_wrapper</span>;

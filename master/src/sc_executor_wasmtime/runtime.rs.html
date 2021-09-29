@@ -663,6 +663,26 @@
 <span id="652">652</span>
 <span id="653">653</span>
 <span id="654">654</span>
+<span id="655">655</span>
+<span id="656">656</span>
+<span id="657">657</span>
+<span id="658">658</span>
+<span id="659">659</span>
+<span id="660">660</span>
+<span id="661">661</span>
+<span id="662">662</span>
+<span id="663">663</span>
+<span id="664">664</span>
+<span id="665">665</span>
+<span id="666">666</span>
+<span id="667">667</span>
+<span id="668">668</span>
+<span id="669">669</span>
+<span id="670">670</span>
+<span id="671">671</span>
+<span id="672">672</span>
+<span id="673">673</span>
+<span id="674">674</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -703,7 +723,10 @@
 <span class="kw">use</span> <span class="ident">std</span>::{
 	<span class="ident">path</span>::{<span class="ident">Path</span>, <span class="ident">PathBuf</span>},
 	<span class="ident">rc::Rc</span>,
-	<span class="ident">sync::Arc</span>,
+	<span class="ident">sync</span>::{
+		<span class="ident">atomic</span>::{<span class="ident">AtomicBool</span>, <span class="ident">Ordering</span>},
+		<span class="ident">Arc</span>,
+	},
 };
 <span class="kw">use</span> <span class="ident">wasmtime</span>::{<span class="ident">AsContext</span>, <span class="ident">AsContextMut</span>, <span class="ident">Engine</span>, <span class="ident">StoreLimits</span>};
 
@@ -986,6 +1009,23 @@ directory = \&quot;{cache_dir}\&quot;
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">config</span> <span class="op">=</span> <span class="ident">wasmtime::Config::new</span>();
 	<span class="ident">config</span>.<span class="ident">cranelift_opt_level</span>(<span class="ident">wasmtime::OptLevel::SpeedAndSize</span>);
 	<span class="ident">config</span>.<span class="ident">cranelift_nan_canonicalization</span>(<span class="ident">semantics</span>.<span class="ident">canonicalize_nans</span>);
+
+	<span class="kw">let</span> <span class="ident">profiler</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">std::env::var_os</span>(<span class="string">&quot;WASMTIME_PROFILING_STRATEGY&quot;</span>) {
+		<span class="prelude-val">Some</span>(<span class="ident">os_string</span>) <span class="kw">if</span> <span class="ident">os_string</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;jitdump&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">wasmtime::ProfilingStrategy::JitDump</span>,
+		<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">wasmtime::ProfilingStrategy::None</span>,
+		<span class="prelude-val">Some</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="comment">// Remember if we have already logged a warning due to an unknown profiling strategy.</span>
+			<span class="kw">static</span> <span class="ident">UNKNOWN_PROFILING_STRATEGY</span>: <span class="ident">AtomicBool</span> <span class="op">=</span> <span class="ident">AtomicBool::new</span>(<span class="bool-val">false</span>);
+			<span class="comment">// Make sure that the warning will not be relogged regularly.</span>
+			<span class="kw">if</span> <span class="op">!</span><span class="ident">UNKNOWN_PROFILING_STRATEGY</span>.<span class="ident">swap</span>(<span class="bool-val">true</span>, <span class="ident">Ordering::Relaxed</span>) {
+				<span class="macro">log::warn!</span>(<span class="string">&quot;WASMTIME_PROFILING_STRATEGY is set to unknown value, ignored.&quot;</span>);
+			}
+			<span class="ident">wasmtime::ProfilingStrategy::None</span>
+		},
+	};
+	<span class="ident">config</span>
+		.<span class="ident">profiler</span>(<span class="ident">profiler</span>)
+		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">WasmError::Instantiation</span>(<span class="macro">format!</span>(<span class="string">&quot;fail to set profiler: {}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
 
 	<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">DeterministicStackLimit</span> { <span class="ident">native_stack_max</span>, .. }) <span class="op">=</span>
 		<span class="ident">semantics</span>.<span class="ident">deterministic_stack_limit</span>
