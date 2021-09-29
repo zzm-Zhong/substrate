@@ -845,7 +845,7 @@
 
 	<span class="doccomment">/// Perform a call into the given runtime.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// The runtime is passed as a [`RuntimeBlob`]. The runtime will be isntantiated with the</span>
+	<span class="doccomment">/// The runtime is passed as a [`RuntimeBlob`]. The runtime will be instantiated with the</span>
 	<span class="doccomment">/// parameters this `WasmExecutor` was initialized with.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// In case of problems with during creation of the runtime or instantation, a `Err` is</span>
@@ -903,7 +903,7 @@
 		}
 
 		<span class="comment">// If the blob didn&#39;t have embedded runtime version section, we fallback to the legacy</span>
-		<span class="comment">// way of fetching the verison: i.e. instantiating the given instance and calling</span>
+		<span class="comment">// way of fetching the version: i.e. instantiating the given instance and calling</span>
 		<span class="comment">// `Core_version` on it.</span>
 
 		<span class="self">self</span>.<span class="ident">uncached_call</span>(
