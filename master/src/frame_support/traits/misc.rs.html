@@ -451,6 +451,55 @@
 <span id="440">440</span>
 <span id="441">441</span>
 <span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -470,10 +519,11 @@
 
 <span class="doccomment">//! Smaller traits used in FRAME which don&#39;t need their own file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">dispatch::Parameter</span>, <span class="ident">TypeInfo</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::dispatch::Parameter</span>;
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>, <span class="ident">EncodeLike</span>, <span class="ident">Input</span>, <span class="ident">MaxEncodedLen</span>};
+<span class="kw">use</span> <span class="ident">scale_info</span>::{<span class="ident">build::Fields</span>, <span class="ident">meta_type</span>, <span class="ident">Path</span>, <span class="ident">Type</span>, <span class="ident">TypeInfo</span>, <span class="ident">TypeParameter</span>};
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{<span class="ident">traits::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">DispatchError</span>};
-<span class="kw">use</span> <span class="ident">sp_std::vec::Vec</span>;
+<span class="kw">use</span> <span class="ident">sp_std::prelude</span>::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Anything that can have a `::len()` method.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Len</span> {
@@ -837,7 +887,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// The encoding is the encoding of `T` prepended with the compact encoding of its size in bytes.</span>
 <span class="doccomment">/// Thus the encoded value can be decoded as a `Vec&lt;u8&gt;`.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Default</span>, <span class="ident">Clone</span>, <span class="ident">MaxEncodedLen</span>, <span class="ident">TypeInfo</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Default</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">derive</span>(<span class="ident">serde::Serialize</span>, <span class="ident">serde::Deserialize</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WrapperOpaque</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw">pub</span> <span class="ident">T</span>);
 
@@ -845,8 +895,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Encode</span><span class="op">&gt;</span> <span class="ident">Encode</span> <span class="kw">for</span> <span class="ident">WrapperOpaque</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 	<span class="kw">fn</span> <span class="ident">size_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
-		<span class="comment">// Compact&lt;u32&gt; usually takes at most 4 bytes</span>
-		<span class="self">self</span>.<span class="number">0</span>.<span class="ident">size_hint</span>().<span class="ident">saturating_add</span>(<span class="number">4</span>)
+		<span class="self">self</span>.<span class="number">0</span>.<span class="ident">size_hint</span>().<span class="ident">saturating_add</span>(<span class="op">&lt;</span><span class="ident">codec::Compact</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::max_encoded_len</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">encode_to</span><span class="op">&lt;</span><span class="ident">O</span>: <span class="ident">codec::Output</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dest</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">O</span>) {
@@ -878,6 +927,37 @@
 	}
 }
 
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MaxEncodedLen</span><span class="op">&gt;</span> <span class="ident">MaxEncodedLen</span> <span class="kw">for</span> <span class="ident">WrapperOpaque</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">max_encoded_len</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
+		<span class="kw">let</span> <span class="ident">t_max_len</span> <span class="op">=</span> <span class="ident">T::max_encoded_len</span>();
+
+		<span class="comment">// See scale encoding https://substrate.dev/docs/en/knowledgebase/advanced/codec</span>
+		<span class="kw">if</span> <span class="ident">t_max_len</span> <span class="op">&lt;</span> <span class="number">64</span> {
+			<span class="ident">t_max_len</span> <span class="op">+</span> <span class="number">1</span>
+		} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">t_max_len</span> <span class="op">&lt;</span> <span class="number">2usize</span>.<span class="ident">pow</span>(<span class="number">14</span>) {
+			<span class="ident">t_max_len</span> <span class="op">+</span> <span class="number">2</span>
+		} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">t_max_len</span> <span class="op">&lt;</span> <span class="number">2usize</span>.<span class="ident">pow</span>(<span class="number">30</span>) {
+			<span class="ident">t_max_len</span> <span class="op">+</span> <span class="number">4</span>
+		} <span class="kw">else</span> {
+			<span class="op">&lt;</span><span class="ident">codec::Compact</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::max_encoded_len</span>().<span class="ident">saturating_add</span>(<span class="ident">T::max_encoded_len</span>())
+		}
+	}
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TypeInfo</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span> <span class="ident">TypeInfo</span> <span class="kw">for</span> <span class="ident">WrapperOpaque</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">type</span> <span class="ident">Identity</span> <span class="op">=</span> <span class="self">Self</span>;
+	<span class="kw">fn</span> <span class="ident">type_info</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Type</span> {
+		<span class="ident">Type::builder</span>()
+			.<span class="ident">path</span>(<span class="ident">Path::new</span>(<span class="string">&quot;WrapperOpaque&quot;</span>, <span class="macro">module_path!</span>()))
+			.<span class="ident">type_params</span>(<span class="macro">vec!</span>[<span class="ident">TypeParameter::new</span>(<span class="string">&quot;T&quot;</span>, <span class="prelude-val">Some</span>(<span class="ident">meta_type</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>()))])
+			.<span class="ident">composite</span>(
+				<span class="ident">Fields::unnamed</span>()
+					.<span class="ident">field</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">compact</span>::<span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>().<span class="ident">type_name</span>(<span class="string">&quot;EncodedLengthOfT&quot;</span>))
+					.<span class="ident">field</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">ty</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>().<span class="ident">type_name</span>(<span class="string">&quot;T&quot;</span>)),
+			)
+	}
+}
+
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">test</span> {
 	<span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
@@ -891,6 +971,24 @@
 		<span class="macro">assert_eq!</span>(<span class="ident">decoded_from_vec_u8</span>, <span class="number">3u32</span>);
 		<span class="kw">let</span> <span class="ident">decoded</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">WrapperOpaque</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="ident">encoded</span>[..]).<span class="ident">unwrap</span>();
 		<span class="macro">assert_eq!</span>(<span class="ident">decoded</span>.<span class="number">0</span>, <span class="number">3u32</span>);
+
+		<span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="ident">WrapperOpaque</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">63</span>]<span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::max_encoded_len</span>(), <span class="number">63</span> <span class="op">+</span> <span class="number">1</span>);
+		<span class="macro">assert_eq!</span>(
+			<span class="op">&lt;</span><span class="ident">WrapperOpaque</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">63</span>]<span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::max_encoded_len</span>(),
+			<span class="ident">WrapperOpaque</span>([<span class="number">0u8</span>; <span class="number">63</span>]).<span class="ident">encode</span>().<span class="ident">len</span>()
+		);
+
+		<span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="ident">WrapperOpaque</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">64</span>]<span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::max_encoded_len</span>(), <span class="number">64</span> <span class="op">+</span> <span class="number">2</span>);
+		<span class="macro">assert_eq!</span>(
+			<span class="op">&lt;</span><span class="ident">WrapperOpaque</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">64</span>]<span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::max_encoded_len</span>(),
+			<span class="ident">WrapperOpaque</span>([<span class="number">0u8</span>; <span class="number">64</span>]).<span class="ident">encode</span>().<span class="ident">len</span>()
+		);
+
+		<span class="macro">assert_eq!</span>(
+			<span class="op">&lt;</span><span class="ident">WrapperOpaque</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">2usize</span>.<span class="ident">pow</span>(<span class="number">14</span>) <span class="op">-</span> <span class="number">1</span>]<span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::max_encoded_len</span>(),
+			<span class="number">2usize</span>.<span class="ident">pow</span>(<span class="number">14</span>) <span class="op">-</span> <span class="number">1</span> <span class="op">+</span> <span class="number">2</span>
+		);
+		<span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="ident">WrapperOpaque</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">2usize</span>.<span class="ident">pow</span>(<span class="number">14</span>)]<span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::max_encoded_len</span>(), <span class="number">2usize</span>.<span class="ident">pow</span>(<span class="number">14</span>) <span class="op">+</span> <span class="number">4</span>);
 	}
 }
 </code></pre></div>
