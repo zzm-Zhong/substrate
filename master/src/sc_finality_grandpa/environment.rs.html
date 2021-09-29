@@ -1432,10 +1432,6 @@
 <span id="1421">1421</span>
 <span id="1422">1422</span>
 <span id="1423">1423</span>
-<span id="1424">1424</span>
-<span id="1425">1425</span>
-<span id="1426">1426</span>
-<span id="1427">1427</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -2603,7 +2599,7 @@
 	<span class="macro">debug!</span>(<span class="ident">target</span>: <span class="string">&quot;afg&quot;</span>, <span class="string">&quot;Finding best chain containing block {:?} with number limit {:?}&quot;</span>, <span class="ident">block</span>, <span class="ident">limit</span>);
 
 	<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">select_chain</span>.<span class="ident">finality_target</span>(<span class="ident">block</span>, <span class="prelude-val">None</span>).<span class="kw">await</span> {
-		<span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">best_hash</span>)) <span class="op">=</span><span class="op">&gt;</span> {
+		<span class="prelude-val">Ok</span>(<span class="ident">best_hash</span>) <span class="op">=</span><span class="op">&gt;</span> {
 			<span class="kw">let</span> <span class="ident">best_header</span> <span class="op">=</span> <span class="ident">client</span>
 				.<span class="ident">header</span>(<span class="ident">BlockId::Hash</span>(<span class="ident">best_hash</span>))<span class="question-mark">?</span>
 				.<span class="ident">expect</span>(<span class="string">&quot;Header known to exist after `finality_target` call; qed&quot;</span>);
@@ -2660,10 +2656,6 @@
 						<span class="ident">restricted_number</span> <span class="op">&lt;</span> <span class="ident">target_header</span>.<span class="ident">number</span>()
 				})
 				.<span class="ident">or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="prelude-val">Some</span>((<span class="ident">target_header</span>.<span class="ident">hash</span>(), <span class="kw-2">*</span><span class="ident">target_header</span>.<span class="ident">number</span>())))
-		},
-		<span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> {
-			<span class="macro">debug!</span>(<span class="ident">target</span>: <span class="string">&quot;afg&quot;</span>, <span class="string">&quot;Encountered error finding best chain containing {:?}: couldn&#39;t find target block&quot;</span>, <span class="ident">block</span>);
-			<span class="prelude-val">None</span>
 		},
 		<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
 			<span class="macro">debug!</span>(<span class="ident">target</span>: <span class="string">&quot;afg&quot;</span>, <span class="string">&quot;Encountered error finding best chain containing {:?}: {:?}&quot;</span>, <span class="ident">block</span>, <span class="ident">e</span>);
