@@ -1908,6 +1908,13 @@
 <span id="1897">1897</span>
 <span id="1898">1898</span>
 <span id="1899">1899</span>
+<span id="1900">1900</span>
+<span id="1901">1901</span>
+<span id="1902">1902</span>
+<span id="1903">1903</span>
+<span id="1904">1904</span>
+<span id="1905">1905</span>
+<span id="1906">1906</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -3636,7 +3643,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// # &lt;weight&gt;</span>
-	<span class="doccomment">/// If a referendum is launched or maturing, this will take full block weight. Otherwise:</span>
+	<span class="doccomment">/// If a referendum is launched or maturing, this will take full block weight if queue is not</span>
+	<span class="doccomment">/// empty. Otherwise:</span>
 	<span class="doccomment">/// - Complexity: `O(R)` where `R` is the number of unbaked referenda.</span>
 	<span class="doccomment">/// - Db reads: `LastTabledWasExternal`, `NextExternal`, `PublicProps`, `account`,</span>
 	<span class="doccomment">///   `ReferendumCount`, `LowestUnbaked`</span>
@@ -3647,18 +3655,24 @@
 		<span class="kw">let</span> <span class="ident">max_block_weight</span> <span class="op">=</span> <span class="ident">T::BlockWeights::get</span>().<span class="ident">max_block</span>;
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">weight</span> <span class="op">=</span> <span class="number">0</span>;
 
-		<span class="comment">// pick out another public referendum if it&#39;s time.</span>
-		<span class="kw">if</span> (<span class="ident">now</span> <span class="op">%</span> <span class="ident">T::LaunchPeriod::get</span>()).<span class="ident">is_zero</span>() {
-			<span class="comment">// Errors come from the queue being empty. we don&#39;t really care about that, and even if</span>
-			<span class="comment">// we did, there is nothing we can do here.</span>
-			<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::launch_next</span>(<span class="ident">now</span>);
-			<span class="ident">weight</span> <span class="op">=</span> <span class="ident">max_block_weight</span>;
-		}
-
 		<span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::lowest_unbaked</span>();
 		<span class="kw">let</span> <span class="ident">last</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::referendum_count</span>();
 		<span class="kw">let</span> <span class="ident">r</span> <span class="op">=</span> <span class="ident">last</span>.<span class="ident">saturating_sub</span>(<span class="ident">next</span>);
-		<span class="ident">weight</span> <span class="op">=</span> <span class="ident">weight</span>.<span class="ident">saturating_add</span>(<span class="ident">T::WeightInfo::on_initialize_base</span>(<span class="ident">r</span>));
+
+		<span class="comment">// pick out another public referendum if it&#39;s time.</span>
+		<span class="kw">if</span> (<span class="ident">now</span> <span class="op">%</span> <span class="ident">T::LaunchPeriod::get</span>()).<span class="ident">is_zero</span>() {
+			<span class="comment">// Errors come from the queue being empty. If the queue is not empty, it will take</span>
+			<span class="comment">// full block weight.</span>
+			<span class="kw">if</span> <span class="ident"><span class="self">Self</span>::launch_next</span>(<span class="ident">now</span>).<span class="ident">is_ok</span>() {
+				<span class="ident">weight</span> <span class="op">=</span> <span class="ident">max_block_weight</span>;
+			} <span class="kw">else</span> {
+				<span class="ident">weight</span> <span class="op">=</span>
+					<span class="ident">weight</span>.<span class="ident">saturating_add</span>(<span class="ident">T::WeightInfo::on_initialize_base_with_launch_period</span>(<span class="ident">r</span>));
+			}
+		} <span class="kw">else</span> {
+			<span class="ident">weight</span> <span class="op">=</span> <span class="ident">weight</span>.<span class="ident">saturating_add</span>(<span class="ident">T::WeightInfo::on_initialize_base</span>(<span class="ident">r</span>));
+		}
+
 		<span class="comment">// tally up votes for any expiring referenda.</span>
 		<span class="kw">for</span> (<span class="ident">index</span>, <span class="ident">info</span>) <span class="kw">in</span> <span class="ident"><span class="self">Self</span>::maturing_referenda_at_inner</span>(<span class="ident">now</span>, <span class="ident">next</span>..<span class="ident">last</span>).<span class="ident">into_iter</span>() {
 			<span class="kw">let</span> <span class="ident">approved</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::bake_referendum</span>(<span class="ident">now</span>, <span class="ident">index</span>, <span class="ident">info</span>)<span class="question-mark">?</span>;

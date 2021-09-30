@@ -784,6 +784,38 @@
 <span id="773">773</span>
 <span id="774">774</span>
 <span id="775">775</span>
+<span id="776">776</span>
+<span id="777">777</span>
+<span id="778">778</span>
+<span id="779">779</span>
+<span id="780">780</span>
+<span id="781">781</span>
+<span id="782">782</span>
+<span id="783">783</span>
+<span id="784">784</span>
+<span id="785">785</span>
+<span id="786">786</span>
+<span id="787">787</span>
+<span id="788">788</span>
+<span id="789">789</span>
+<span id="790">790</span>
+<span id="791">791</span>
+<span id="792">792</span>
+<span id="793">793</span>
+<span id="794">794</span>
+<span id="795">795</span>
+<span id="796">796</span>
+<span id="797">797</span>
+<span id="798">798</span>
+<span id="799">799</span>
+<span id="800">800</span>
+<span id="801">801</span>
+<span id="802">802</span>
+<span id="803">803</span>
+<span id="804">804</span>
+<span id="805">805</span>
+<span id="806">806</span>
+<span id="807">807</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -1208,7 +1240,39 @@
 		<span class="macro">assert_eq!</span>(<span class="ident">Democracy</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::referendum_count</span>(), <span class="ident">r</span>, <span class="string">&quot;referenda not created&quot;</span>);
 		<span class="macro">assert_eq!</span>(<span class="ident">Democracy</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::lowest_unbaked</span>(), <span class="number">0</span>, <span class="string">&quot;invalid referenda init&quot;</span>);
 
-	}: { <span class="ident">Democracy</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::on_initialize</span>(<span class="number">0u32</span>.<span class="ident">into</span>()) }
+	}: { <span class="ident">Democracy</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::on_initialize</span>(<span class="number">1u32</span>.<span class="ident">into</span>()) }
+	<span class="ident">verify</span> {
+		<span class="comment">// All should be on going</span>
+		<span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">r</span> {
+			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">value</span>) <span class="op">=</span> <span class="ident">ReferendumInfoOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>(<span class="ident">i</span>) {
+				<span class="kw">match</span> <span class="ident">value</span> {
+					<span class="ident">ReferendumInfo::Finished</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Referendum has been finished&quot;</span>.<span class="ident">into</span>()),
+					<span class="ident">ReferendumInfo::Ongoing</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> (),
+				}
+			}
+		}
+	}
+
+	<span class="ident">on_initialize_base_with_launch_period</span> {
+		<span class="kw">let</span> <span class="ident">r</span> <span class="kw">in</span> <span class="number">1</span> .. <span class="ident">MAX_REFERENDUMS</span>;
+
+		<span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">r</span> {
+			<span class="ident">add_referendum</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">i</span>)<span class="question-mark">?</span>;
+		}
+
+		<span class="kw">for</span> (<span class="ident">key</span>, <span class="kw-2">mut</span> <span class="ident">info</span>) <span class="kw">in</span> <span class="ident">ReferendumInfoOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::iter</span>() {
+			<span class="kw">if</span> <span class="kw">let</span> <span class="ident">ReferendumInfo::Ongoing</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">status</span>) <span class="op">=</span> <span class="ident">info</span> {
+				<span class="ident">status</span>.<span class="ident">end</span> <span class="op">+</span><span class="op">=</span> <span class="number">100u32</span>.<span class="ident">into</span>();
+			}
+			<span class="ident">ReferendumInfoOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="ident">key</span>, <span class="ident">info</span>);
+		}
+
+		<span class="macro">assert_eq!</span>(<span class="ident">Democracy</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::referendum_count</span>(), <span class="ident">r</span>, <span class="string">&quot;referenda not created&quot;</span>);
+		<span class="macro">assert_eq!</span>(<span class="ident">Democracy</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::lowest_unbaked</span>(), <span class="number">0</span>, <span class="string">&quot;invalid referenda init&quot;</span>);
+
+		<span class="kw">let</span> <span class="ident">block_number</span> <span class="op">=</span> <span class="ident">T::LaunchPeriod::get</span>();
+
+	}: { <span class="ident">Democracy</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::on_initialize</span>(<span class="ident">block_number</span>) }
 	<span class="ident">verify</span> {
 		<span class="comment">// All should be on going</span>
 		<span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">r</span> {
