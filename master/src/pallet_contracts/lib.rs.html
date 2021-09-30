@@ -758,11 +758,6 @@
 <span id="747">747</span>
 <span id="748">748</span>
 <span id="749">749</span>
-<span id="750">750</span>
-<span id="751">751</span>
-<span id="752">752</span>
-<span id="753">753</span>
-<span id="754">754</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -1134,49 +1129,44 @@
 	<span class="attribute">#[<span class="ident">pallet::event</span>]</span>
 	<span class="attribute">#[<span class="ident">pallet::generate_deposit</span>(<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">deposit_event</span>)]</span>
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> {
-		<span class="doccomment">/// Contract deployed by address at the specified address. \[deployer, contract\]</span>
-		<span class="ident">Instantiated</span>(<span class="ident">T::AccountId</span>, <span class="ident">T::AccountId</span>),
+		<span class="doccomment">/// Contract deployed by address at the specified address.</span>
+		<span class="ident">Instantiated</span> { <span class="ident">deployer</span>: <span class="ident">T::AccountId</span>, <span class="ident">contract</span>: <span class="ident">T::AccountId</span> },
 
 		<span class="doccomment">/// Contract has been removed.</span>
-		<span class="doccomment">/// \[contract, beneficiary\]</span>
-		<span class="doccomment">///</span>
-		<span class="doccomment">/// # Params</span>
-		<span class="doccomment">///</span>
-		<span class="doccomment">/// - `contract`: The contract that was terminated.</span>
-		<span class="doccomment">/// - `beneficiary`: The account that received the contracts remaining balance.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// # Note</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// The only way for a contract to be removed and emitting this event is by calling</span>
 		<span class="doccomment">/// `seal_terminate`.</span>
-		<span class="ident">Terminated</span>(<span class="ident">T::AccountId</span>, <span class="ident">T::AccountId</span>),
+		<span class="ident">Terminated</span> {
+			<span class="doccomment">/// The contract that was terminated.</span>
+			<span class="ident">contract</span>: <span class="ident">T::AccountId</span>,
+			<span class="doccomment">/// The account that received the contracts remaining balance</span>
+			<span class="ident">beneficiary</span>: <span class="ident">T::AccountId</span>,
+		},
 
-		<span class="doccomment">/// Code with the specified hash has been stored. \[code_hash\]</span>
-		<span class="ident">CodeStored</span>(<span class="ident">T::Hash</span>),
+		<span class="doccomment">/// Code with the specified hash has been stored.</span>
+		<span class="ident">CodeStored</span> { <span class="ident">code_hash</span>: <span class="ident">T::Hash</span> },
 
 		<span class="doccomment">/// Triggered when the current schedule is updated.</span>
-		<span class="doccomment">/// \[version\]</span>
-		<span class="doccomment">///</span>
-		<span class="doccomment">/// # Params</span>
-		<span class="doccomment">///</span>
-		<span class="doccomment">/// - `version`: The version of the newly set schedule.</span>
-		<span class="ident">ScheduleUpdated</span>(<span class="ident">u32</span>),
+		<span class="ident">ScheduleUpdated</span> {
+			<span class="doccomment">/// The version of the newly set schedule.</span>
+			<span class="ident">version</span>: <span class="ident">u32</span>,
+		},
 
 		<span class="doccomment">/// A custom event emitted by the contract.</span>
-		<span class="doccomment">/// \[contract, data\]</span>
-		<span class="doccomment">///</span>
-		<span class="doccomment">/// # Params</span>
-		<span class="doccomment">///</span>
-		<span class="doccomment">/// - `contract`: The contract that emitted the event.</span>
-		<span class="doccomment">/// - `data`: Data supplied by the contract. Metadata generated during contract compilation</span>
-		<span class="doccomment">///   is needed to decode it.</span>
-		<span class="ident">ContractEmitted</span>(<span class="ident">T::AccountId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>),
+		<span class="ident">ContractEmitted</span> {
+			<span class="doccomment">/// The contract that emitted the event.</span>
+			<span class="ident">contract</span>: <span class="ident">T::AccountId</span>,
+			<span class="doccomment">/// Data supplied by the contract. Metadata generated during contract compilation</span>
+			<span class="doccomment">/// is needed to decode it.</span>
+			<span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
+		},
 
 		<span class="doccomment">/// A code with the specified hash was removed.</span>
-		<span class="doccomment">/// \[code_hash\]</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// This happens when the last contract that uses this code hash was removed.</span>
-		<span class="ident">CodeRemoved</span>(<span class="ident">T::Hash</span>),
+		<span class="ident">CodeRemoved</span> { <span class="ident">code_hash</span>: <span class="ident">T::Hash</span> },
 	}
 
 	<span class="attribute">#[<span class="ident">pallet::error</span>]</span>
