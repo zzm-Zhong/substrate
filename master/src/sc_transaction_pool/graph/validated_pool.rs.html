@@ -714,7 +714,7 @@
 <span class="kw">use</span> <span class="ident">futures::channel::mpsc</span>::{<span class="ident">channel</span>, <span class="ident">Sender</span>};
 <span class="kw">use</span> <span class="ident">parking_lot</span>::{<span class="ident">Mutex</span>, <span class="ident">RwLock</span>};
 <span class="kw">use</span> <span class="ident">retain_mut::RetainMut</span>;
-<span class="kw">use</span> <span class="ident">sc_transaction_pool_api</span>::{<span class="ident">error</span>, <span class="ident">PoolStatus</span>};
+<span class="kw">use</span> <span class="ident">sc_transaction_pool_api</span>::{<span class="ident">error</span>, <span class="ident">PoolStatus</span>, <span class="ident">ReadyTransactions</span>};
 <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{
 	<span class="ident">generic::BlockId</span>,
@@ -1319,7 +1319,7 @@
 	}
 
 	<span class="doccomment">/// Get an iterator for ready transactions ordered by priority</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ready</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">TransactionFor</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ready</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">ReadyTransactions</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">TransactionFor</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> {
 		<span class="self">self</span>.<span class="ident">pool</span>.<span class="ident">read</span>().<span class="ident">ready</span>()
 	}
 

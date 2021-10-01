@@ -857,6 +857,10 @@
 <span id="846">846</span>
 <span id="847">847</span>
 <span id="848">848</span>
+<span id="849">849</span>
+<span id="850">850</span>
+<span id="851">851</span>
+<span id="852">852</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -1203,7 +1207,7 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">t2</span> <span class="op">=</span>
 			<span class="ident">futures_timer::Delay::new</span>(<span class="ident">deadline</span>.<span class="ident">saturating_duration_since</span>((<span class="self">self</span>.<span class="ident">now</span>)()) <span class="op">/</span> <span class="number">8</span>).<span class="ident">fuse</span>();
 
-		<span class="kw">let</span> <span class="ident">pending_iterator</span> <span class="op">=</span> <span class="macro">select!</span> {
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">pending_iterator</span> <span class="op">=</span> <span class="macro">select!</span> {
 			<span class="ident">res</span> <span class="op">=</span> <span class="ident">t1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">res</span>,
 			<span class="kw">_</span> <span class="op">=</span> <span class="ident">t2</span> <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="macro">log::warn!</span>(
@@ -1222,7 +1226,7 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">transaction_pushed</span> <span class="op">=</span> <span class="bool-val">false</span>;
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">hit_block_size_limit</span> <span class="op">=</span> <span class="bool-val">false</span>;
 
-		<span class="kw">for</span> <span class="ident">pending_tx</span> <span class="kw">in</span> <span class="ident">pending_iterator</span> {
+		<span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">pending_tx</span>) <span class="op">=</span> <span class="ident">pending_iterator</span>.<span class="ident">next</span>() {
 			<span class="kw">if</span> (<span class="self">self</span>.<span class="ident">now</span>)() <span class="op">&gt;</span> <span class="ident">deadline</span> {
 				<span class="macro">debug!</span>(
 					<span class="string">&quot;Consensus deadline reached when pushing block transactions, \
@@ -1237,6 +1241,7 @@
 			<span class="kw">let</span> <span class="ident">block_size</span> <span class="op">=</span>
 				<span class="ident">block_builder</span>.<span class="ident">estimate_block_size</span>(<span class="self">self</span>.<span class="ident">include_proof_in_block_size_estimation</span>);
 			<span class="kw">if</span> <span class="ident">block_size</span> <span class="op">+</span> <span class="ident">pending_tx_data</span>.<span class="ident">encoded_size</span>() <span class="op">&gt;</span> <span class="ident">block_size_limit</span> {
+				<span class="ident">pending_iterator</span>.<span class="ident">report_invalid</span>(<span class="kw-2">&amp;</span><span class="ident">pending_tx</span>);
 				<span class="kw">if</span> <span class="ident">skipped</span> <span class="op">&lt;</span> <span class="ident">MAX_SKIPPED_TRANSACTIONS</span> {
 					<span class="ident">skipped</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
 					<span class="macro">debug!</span>(
@@ -1259,6 +1264,7 @@
 					<span class="macro">debug!</span>(<span class="string">&quot;[{:?}] Pushed to the block.&quot;</span>, <span class="ident">pending_tx_hash</span>);
 				},
 				<span class="prelude-val">Err</span>(<span class="ident">ApplyExtrinsicFailed</span>(<span class="ident">Validity</span>(<span class="ident">e</span>))) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">exhausted_resources</span>() <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="ident">pending_iterator</span>.<span class="ident">report_invalid</span>(<span class="kw-2">&amp;</span><span class="ident">pending_tx</span>);
 					<span class="kw">if</span> <span class="ident">skipped</span> <span class="op">&lt;</span> <span class="ident">MAX_SKIPPED_TRANSACTIONS</span> {
 						<span class="ident">skipped</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
 						<span class="macro">debug!</span>(
@@ -1271,6 +1277,7 @@
 					}
 				},
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="kw">if</span> <span class="ident">skipped</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="ident">pending_iterator</span>.<span class="ident">report_invalid</span>(<span class="kw-2">&amp;</span><span class="ident">pending_tx</span>);
 					<span class="macro">trace!</span>(
 						<span class="string">&quot;[{:?}] Ignoring invalid transaction when skipping: {}&quot;</span>,
 						<span class="ident">pending_tx_hash</span>,
@@ -1278,6 +1285,7 @@
 					);
 				},
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="ident">pending_iterator</span>.<span class="ident">report_invalid</span>(<span class="kw-2">&amp;</span><span class="ident">pending_tx</span>);
 					<span class="macro">debug!</span>(<span class="string">&quot;[{:?}] Invalid transaction: {}&quot;</span>, <span class="ident">pending_tx_hash</span>, <span class="ident">e</span>);
 					<span class="ident">unqueue_invalid</span>.<span class="ident">push</span>(<span class="ident">pending_tx_hash</span>);
 				},

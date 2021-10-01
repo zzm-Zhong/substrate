@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["ConstructionBenchmark",""],["ConstructionBenchmarkDescription",""],["PoolTransaction",""],["Transactions",""]]});
+initSidebarItems({"struct":[["ConstructionBenchmark",""],["ConstructionBenchmarkDescription",""],["PoolTransaction",""],["Transactions",""],["TransactionsIterator",""]]});

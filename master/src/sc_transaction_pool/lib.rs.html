@@ -796,6 +796,7 @@
 <span id="785">785</span>
 <span id="786">786</span>
 <span id="787">787</span>
+<span id="788">788</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -854,7 +855,8 @@
 <span class="kw">use</span> <span class="ident">graph</span>::{<span class="ident">ExtrinsicHash</span>, <span class="ident">IsValidator</span>};
 <span class="kw">use</span> <span class="ident">sc_transaction_pool_api</span>::{
 	<span class="ident">ChainEvent</span>, <span class="ident">ImportNotificationStream</span>, <span class="ident">MaintainedTransactionPool</span>, <span class="ident">PoolFuture</span>, <span class="ident">PoolStatus</span>,
-	<span class="ident">TransactionFor</span>, <span class="ident">TransactionPool</span>, <span class="ident">TransactionSource</span>, <span class="ident">TransactionStatusStreamFor</span>, <span class="ident">TxHash</span>,
+	<span class="ident">ReadyTransactions</span>, <span class="ident">TransactionFor</span>, <span class="ident">TransactionPool</span>, <span class="ident">TransactionSource</span>,
+	<span class="ident">TransactionStatusStreamFor</span>, <span class="ident">TxHash</span>,
 };
 <span class="kw">use</span> <span class="ident">sp_core::traits::SpawnEssentialNamed</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{
@@ -867,7 +869,7 @@
 <span class="kw">use</span> <span class="ident">prometheus_endpoint::Registry</span> <span class="kw">as</span> <span class="ident">PrometheusRegistry</span>;
 
 <span class="kw">type</span> <span class="ident">BoxedReadyIterator</span><span class="op">&lt;</span><span class="ident">Hash</span>, <span class="ident">Data</span><span class="op">&gt;</span> <span class="op">=</span>
-	<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">graph::base_pool::Transaction</span><span class="op">&lt;</span><span class="ident">Hash</span>, <span class="ident">Data</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>;
+	<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ReadyTransactions</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">graph::base_pool::Transaction</span><span class="op">&lt;</span><span class="ident">Hash</span>, <span class="ident">Data</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span>;
 
 <span class="kw">type</span> <span class="ident">ReadyIteratorFor</span><span class="op">&lt;</span><span class="ident">PoolApi</span><span class="op">&gt;</span> <span class="op">=</span>
 	<span class="ident">BoxedReadyIterator</span><span class="op">&lt;</span><span class="ident">graph::ExtrinsicHash</span><span class="op">&lt;</span><span class="ident">PoolApi</span><span class="op">&gt;</span>, <span class="ident">graph::ExtrinsicFor</span><span class="op">&lt;</span><span class="ident">PoolApi</span><span class="op">&gt;</span><span class="op">&gt;</span>;
