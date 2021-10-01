@@ -1011,7 +1011,6 @@
 <span id="1000">1000</span>
 <span id="1001">1001</span>
 <span id="1002">1002</span>
-<span id="1003">1003</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -1093,13 +1092,13 @@
 
 <span class="kw">impl</span> <span class="ident">SetId</span> {
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="ident">SetId</span>(<span class="ident">id</span>)
+		<span class="self">Self</span>(<span class="ident">id</span>)
 	}
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SetId</span> {
 	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="ident">SetId</span>(<span class="ident">id</span>)
+		<span class="self">Self</span>(<span class="ident">id</span>)
 	}
 }
 
@@ -1121,12 +1120,12 @@
 <span class="kw">impl</span> <span class="ident">ReputationChange</span> {
 	<span class="doccomment">/// New reputation change with given delta and reason.</span>
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">value</span>: <span class="ident">i32</span>, <span class="ident">reason</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ReputationChange</span> {
-		<span class="ident">ReputationChange</span> { <span class="ident">value</span>, <span class="ident">reason</span> }
+		<span class="self">Self</span> { <span class="ident">value</span>, <span class="ident">reason</span> }
 	}
 
 	<span class="doccomment">/// New reputation change that forces minimum possible reputation.</span>
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new_fatal</span>(<span class="ident">reason</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ReputationChange</span> {
-		<span class="ident">ReputationChange</span> { <span class="ident">value</span>: <span class="ident">i32::MIN</span>, <span class="ident">reason</span> }
+		<span class="self">Self</span> { <span class="ident">value</span>: <span class="ident">i32::MIN</span>, <span class="ident">reason</span> }
 	}
 }
 
@@ -1222,8 +1221,8 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IncomingIndex</span>(<span class="kw">pub</span> <span class="ident">u64</span>);
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">IncomingIndex</span> {
-	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">val</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">IncomingIndex</span> {
-		<span class="ident">IncomingIndex</span>(<span class="ident">val</span>)
+	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">val</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+		<span class="self">Self</span>(<span class="ident">val</span>)
 	}
 }
 
@@ -1288,7 +1287,7 @@
 
 <span class="kw">impl</span> <span class="ident">Peerset</span> {
 	<span class="doccomment">/// Builds a new peerset from the given configuration.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_config</span>(<span class="ident">config</span>: <span class="ident">PeersetConfig</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Peerset</span>, <span class="ident">PeersetHandle</span>) {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_config</span>(<span class="ident">config</span>: <span class="ident">PeersetConfig</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="self">Self</span>, <span class="ident">PeersetHandle</span>) {
 		<span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">tracing_unbounded</span>(<span class="string">&quot;mpsc_peerset_messages&quot;</span>);
 
 		<span class="kw">let</span> <span class="ident">handle</span> <span class="op">=</span> <span class="ident">PeersetHandle</span> { <span class="ident">tx</span>: <span class="ident">tx</span>.<span class="ident">clone</span>() };
@@ -1296,7 +1295,7 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">peerset</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">Instant::now</span>();
 
-			<span class="ident">Peerset</span> {
+			<span class="self">Self</span> {
 				<span class="ident">data</span>: <span class="ident">peersstate::PeersState::new</span>(<span class="ident">config</span>.<span class="ident">sets</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">set</span><span class="op">|</span> {
 					<span class="ident">peersstate::SetConfig</span> { <span class="ident">in_peers</span>: <span class="ident">set</span>.<span class="ident">in_peers</span>, <span class="ident">out_peers</span>: <span class="ident">set</span>.<span class="ident">out_peers</span> }
 				})),
@@ -1336,7 +1335,7 @@
 	}
 
 	<span class="kw">fn</span> <span class="ident">on_add_reserved_peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">set_id</span>: <span class="ident">SetId</span>, <span class="ident">peer_id</span>: <span class="ident">PeerId</span>) {
-		<span class="kw">let</span> <span class="ident">newly_inserted</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">reserved_nodes</span>[<span class="ident">set_id</span>.<span class="number">0</span>].<span class="number">0</span>.<span class="ident">insert</span>(<span class="ident">peer_id</span>.<span class="ident">clone</span>());
+		<span class="kw">let</span> <span class="ident">newly_inserted</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">reserved_nodes</span>[<span class="ident">set_id</span>.<span class="number">0</span>].<span class="number">0</span>.<span class="ident">insert</span>(<span class="ident">peer_id</span>);
 		<span class="kw">if</span> <span class="op">!</span><span class="ident">newly_inserted</span> {
 			<span class="kw">return</span>
 		}
@@ -1436,8 +1435,7 @@
 
 		<span class="kw">match</span> <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">peer</span>(<span class="ident">set_id</span>.<span class="number">0</span>, <span class="kw-2">&amp;</span><span class="ident">peer_id</span>) {
 			<span class="ident">peersstate::Peer::Connected</span>(<span class="ident">peer</span>) <span class="op">=</span><span class="op">&gt;</span> {
-				<span class="self">self</span>.<span class="ident">message_queue</span>
-					.<span class="ident">push_back</span>(<span class="ident">Message::Drop</span> { <span class="ident">set_id</span>, <span class="ident">peer_id</span>: <span class="ident">peer</span>.<span class="ident">peer_id</span>().<span class="ident">clone</span>() });
+				<span class="self">self</span>.<span class="ident">message_queue</span>.<span class="ident">push_back</span>(<span class="ident">Message::Drop</span> { <span class="ident">set_id</span>, <span class="ident">peer_id</span>: <span class="kw-2">*</span><span class="ident">peer</span>.<span class="ident">peer_id</span>() });
 				<span class="ident">peer</span>.<span class="ident">disconnect</span>().<span class="ident">forget_peer</span>();
 			},
 			<span class="ident">peersstate::Peer::NotConnected</span>(<span class="ident">peer</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -1833,8 +1831,8 @@
 		};
 
 		<span class="kw">let</span> (<span class="ident">peerset</span>, <span class="ident">handle</span>) <span class="op">=</span> <span class="ident">Peerset::from_config</span>(<span class="ident">config</span>);
-		<span class="ident">handle</span>.<span class="ident">add_reserved_peer</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">reserved_peer</span>.<span class="ident">clone</span>());
-		<span class="ident">handle</span>.<span class="ident">add_reserved_peer</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">reserved_peer2</span>.<span class="ident">clone</span>());
+		<span class="ident">handle</span>.<span class="ident">add_reserved_peer</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">reserved_peer</span>);
+		<span class="ident">handle</span>.<span class="ident">add_reserved_peer</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">reserved_peer2</span>);
 
 		<span class="ident">assert_messages</span>(
 			<span class="ident">peerset</span>,
@@ -1859,22 +1857,22 @@
 			<span class="ident">sets</span>: <span class="macro">vec!</span>[<span class="ident">SetConfig</span> {
 				<span class="ident">in_peers</span>: <span class="number">2</span>,
 				<span class="ident">out_peers</span>: <span class="number">1</span>,
-				<span class="ident">bootnodes</span>: <span class="macro">vec!</span>[<span class="ident">bootnode</span>.<span class="ident">clone</span>()],
+				<span class="ident">bootnodes</span>: <span class="macro">vec!</span>[<span class="ident">bootnode</span>],
 				<span class="ident">reserved_nodes</span>: <span class="ident">Default::default</span>(),
 				<span class="ident">reserved_only</span>: <span class="bool-val">false</span>,
 			}],
 		};
 
 		<span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">peerset</span>, <span class="ident">_handle</span>) <span class="op">=</span> <span class="ident">Peerset::from_config</span>(<span class="ident">config</span>);
-		<span class="ident">peerset</span>.<span class="ident">incoming</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">incoming</span>.<span class="ident">clone</span>(), <span class="ident">ii</span>);
-		<span class="ident">peerset</span>.<span class="ident">incoming</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">incoming</span>.<span class="ident">clone</span>(), <span class="ident">ii4</span>);
-		<span class="ident">peerset</span>.<span class="ident">incoming</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">incoming2</span>.<span class="ident">clone</span>(), <span class="ident">ii2</span>);
-		<span class="ident">peerset</span>.<span class="ident">incoming</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">incoming3</span>.<span class="ident">clone</span>(), <span class="ident">ii3</span>);
+		<span class="ident">peerset</span>.<span class="ident">incoming</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">incoming</span>, <span class="ident">ii</span>);
+		<span class="ident">peerset</span>.<span class="ident">incoming</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">incoming</span>, <span class="ident">ii4</span>);
+		<span class="ident">peerset</span>.<span class="ident">incoming</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">incoming2</span>, <span class="ident">ii2</span>);
+		<span class="ident">peerset</span>.<span class="ident">incoming</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">incoming3</span>, <span class="ident">ii3</span>);
 
 		<span class="ident">assert_messages</span>(
 			<span class="ident">peerset</span>,
 			<span class="macro">vec!</span>[
-				<span class="ident">Message::Connect</span> { <span class="ident">set_id</span>: <span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">peer_id</span>: <span class="ident">bootnode</span>.<span class="ident">clone</span>() },
+				<span class="ident">Message::Connect</span> { <span class="ident">set_id</span>: <span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">peer_id</span>: <span class="ident">bootnode</span> },
 				<span class="ident">Message::Accept</span>(<span class="ident">ii</span>),
 				<span class="ident">Message::Accept</span>(<span class="ident">ii2</span>),
 				<span class="ident">Message::Reject</span>(<span class="ident">ii3</span>),
@@ -1897,7 +1895,7 @@
 		};
 
 		<span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">peerset</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">Peerset::from_config</span>(<span class="ident">config</span>);
-		<span class="ident">peerset</span>.<span class="ident">incoming</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">incoming</span>.<span class="ident">clone</span>(), <span class="ident">ii</span>);
+		<span class="ident">peerset</span>.<span class="ident">incoming</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">incoming</span>, <span class="ident">ii</span>);
 
 		<span class="ident">assert_messages</span>(<span class="ident">peerset</span>, <span class="macro">vec!</span>[<span class="ident">Message::Reject</span>(<span class="ident">ii</span>)]);
 	}
@@ -1911,15 +1909,15 @@
 			<span class="ident">sets</span>: <span class="macro">vec!</span>[<span class="ident">SetConfig</span> {
 				<span class="ident">in_peers</span>: <span class="number">0</span>,
 				<span class="ident">out_peers</span>: <span class="number">2</span>,
-				<span class="ident">bootnodes</span>: <span class="macro">vec!</span>[<span class="ident">bootnode</span>.<span class="ident">clone</span>()],
+				<span class="ident">bootnodes</span>: <span class="macro">vec!</span>[<span class="ident">bootnode</span>],
 				<span class="ident">reserved_nodes</span>: <span class="ident">Default::default</span>(),
 				<span class="ident">reserved_only</span>: <span class="bool-val">false</span>,
 			}],
 		};
 
 		<span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">peerset</span>, <span class="ident">_handle</span>) <span class="op">=</span> <span class="ident">Peerset::from_config</span>(<span class="ident">config</span>);
-		<span class="ident">peerset</span>.<span class="ident">add_to_peers_set</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">discovered</span>.<span class="ident">clone</span>());
-		<span class="ident">peerset</span>.<span class="ident">add_to_peers_set</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">discovered</span>.<span class="ident">clone</span>());
+		<span class="ident">peerset</span>.<span class="ident">add_to_peers_set</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">discovered</span>);
+		<span class="ident">peerset</span>.<span class="ident">add_to_peers_set</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">discovered</span>);
 		<span class="ident">peerset</span>.<span class="ident">add_to_peers_set</span>(<span class="ident">SetId::from</span>(<span class="number">0</span>), <span class="ident">discovered2</span>);
 
 		<span class="ident">assert_messages</span>(
@@ -1945,7 +1943,7 @@
 
 		<span class="comment">// We ban a node by setting its reputation under the threshold.</span>
 		<span class="kw">let</span> <span class="ident">peer_id</span> <span class="op">=</span> <span class="ident">PeerId::random</span>();
-		<span class="ident">handle</span>.<span class="ident">report_peer</span>(<span class="ident">peer_id</span>.<span class="ident">clone</span>(), <span class="ident">ReputationChange::new</span>(<span class="ident">BANNED_THRESHOLD</span> <span class="op">-</span> <span class="number">1</span>, <span class="string">&quot;&quot;</span>));
+		<span class="ident">handle</span>.<span class="ident">report_peer</span>(<span class="ident">peer_id</span>, <span class="ident">ReputationChange::new</span>(<span class="ident">BANNED_THRESHOLD</span> <span class="op">-</span> <span class="number">1</span>, <span class="string">&quot;&quot;</span>));
 
 		<span class="kw">let</span> <span class="ident">fut</span> <span class="op">=</span> <span class="ident">futures::future::poll_fn</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">cx</span><span class="op">|</span> {
 			<span class="comment">// We need one polling for the message to be processed.</span>
@@ -1988,7 +1986,7 @@
 
 		<span class="comment">// We ban a node by setting its reputation under the threshold.</span>
 		<span class="kw">let</span> <span class="ident">peer_id</span> <span class="op">=</span> <span class="ident">PeerId::random</span>();
-		<span class="ident">handle</span>.<span class="ident">report_peer</span>(<span class="ident">peer_id</span>.<span class="ident">clone</span>(), <span class="ident">ReputationChange::new</span>(<span class="ident">BANNED_THRESHOLD</span> <span class="op">-</span> <span class="number">1</span>, <span class="string">&quot;&quot;</span>));
+		<span class="ident">handle</span>.<span class="ident">report_peer</span>(<span class="ident">peer_id</span>, <span class="ident">ReputationChange::new</span>(<span class="ident">BANNED_THRESHOLD</span> <span class="op">-</span> <span class="number">1</span>, <span class="string">&quot;&quot;</span>));
 
 		<span class="kw">let</span> <span class="ident">fut</span> <span class="op">=</span> <span class="ident">futures::future::poll_fn</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">cx</span><span class="op">|</span> {
 			<span class="comment">// We need one polling for the message to be processed.</span>

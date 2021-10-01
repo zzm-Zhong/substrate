@@ -1000,14 +1000,14 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Role</span> {
-	<span class="doccomment">/// True for `Role::Authority`</span>
+	<span class="doccomment">/// True for [`Role::Authority`].</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_authority</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-		<span class="macro">matches!</span>(<span class="self">self</span>, <span class="ident">Role::Authority</span> { .. })
+		<span class="macro">matches!</span>(<span class="self">self</span>, <span class="ident"><span class="self">Self</span>::Authority</span> { .. })
 	}
 
-	<span class="doccomment">/// True for `Role::Light`</span>
+	<span class="doccomment">/// True for [`Role::Light`].</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_light</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-		<span class="macro">matches!</span>(<span class="self">self</span>, <span class="ident">Role::Light</span> { .. })
+		<span class="macro">matches!</span>(<span class="self">self</span>, <span class="ident"><span class="self">Self</span>::Light</span> { .. })
 	}
 }
 
@@ -1174,7 +1174,7 @@
 
 	<span class="kw">fn</span> <span class="ident">from_str</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Err</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> (<span class="ident">peer_id</span>, <span class="ident">multiaddr</span>) <span class="op">=</span> <span class="ident">parse_str_addr</span>(<span class="ident">s</span>)<span class="question-mark">?</span>;
-		<span class="prelude-val">Ok</span>(<span class="ident">MultiaddrWithPeerId</span> { <span class="ident">peer_id</span>, <span class="ident">multiaddr</span> })
+		<span class="prelude-val">Ok</span>(<span class="self">Self</span> { <span class="ident">peer_id</span>, <span class="ident">multiaddr</span> })
 	}
 }
 
