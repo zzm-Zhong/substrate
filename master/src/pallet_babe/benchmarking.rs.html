@@ -173,18 +173,18 @@
 	} <span class="ident">verify</span> {
 		<span class="macro">assert!</span>(<span class="ident">sp_consensus_babe::check_equivocation_proof</span>::<span class="op">&lt;</span><span class="ident">Header</span><span class="op">&gt;</span>(<span class="ident">equivocation_proof2</span>));
 	}
+
+	<span class="macro">impl_benchmark_test_suite!</span>(
+		<span class="ident">Pallet</span>,
+		<span class="ident"><span class="kw">crate</span>::mock::new_test_ext</span>(<span class="number">3</span>),
+		<span class="ident"><span class="kw">crate</span>::mock::Test</span>,
+	)
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
 	<span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 	<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::mock</span>::<span class="kw-2">*</span>;
-
-	<span class="macro">frame_benchmarking::impl_benchmark_test_suite!</span>(
-		<span class="ident">Pallet</span>,
-		<span class="ident"><span class="kw">crate</span>::mock::new_test_ext</span>(<span class="number">3</span>),
-		<span class="ident"><span class="kw">crate</span>::mock::Test</span>,
-	);
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">test_generate_equivocation_report_blob</span>() {

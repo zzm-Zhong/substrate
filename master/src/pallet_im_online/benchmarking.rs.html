@@ -137,7 +137,7 @@
 
 <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 
-<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">benchmarks</span>, <span class="ident">impl_benchmark_test_suite</span>};
+<span class="kw">use</span> <span class="ident">frame_benchmarking::benchmarks</span>;
 <span class="kw">use</span> <span class="ident">frame_support</span>::{<span class="ident">traits::UnfilteredDispatchable</span>, <span class="ident">WeakBoundedVec</span>};
 <span class="kw">use</span> <span class="ident">frame_system::RawOrigin</span>;
 <span class="kw">use</span> <span class="ident">sp_core</span>::{<span class="ident">offchain::OpaqueMultiaddr</span>, <span class="ident">OpaquePeerId</span>};
@@ -216,9 +216,9 @@
 			.<span class="ident">expect</span>(<span class="string">&quot;call is encoded above, encoding must be correct&quot;</span>)
 			.<span class="ident">dispatch_bypass_filter</span>(<span class="ident">RawOrigin::None</span>.<span class="ident">into</span>())<span class="question-mark">?</span>;
 	}
-}
 
-<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">ImOnline</span>, <span class="ident"><span class="kw">crate</span>::mock::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::mock::Runtime</span>);
+	<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">ImOnline</span>, <span class="ident"><span class="kw">crate</span>::mock::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::mock::Runtime</span>);
+}
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="pallet_im_online" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>

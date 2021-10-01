@@ -200,7 +200,7 @@
 
 <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 
-<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks</span>, <span class="ident">impl_benchmark_test_suite</span>, <span class="ident">whitelisted_caller</span>};
+<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks</span>, <span class="ident">whitelisted_caller</span>};
 <span class="kw">use</span> <span class="ident">frame_support::traits</span>::{<span class="ident">EnsureOrigin</span>, <span class="ident">OnInitialize</span>};
 <span class="kw">use</span> <span class="ident">frame_system::RawOrigin</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime::traits</span>::{<span class="ident">Bounded</span>, <span class="ident">Zero</span>};
@@ -342,9 +342,9 @@
 		<span class="macro">assert_eq!</span>(<span class="ident">Lottery</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::pot</span>().<span class="number">1</span>, <span class="number">0u32</span>.<span class="ident">into</span>());
 		<span class="macro">assert!</span>(<span class="op">!</span><span class="ident">T::Currency::free_balance</span>(<span class="kw-2">&amp;</span><span class="ident">winner</span>).<span class="ident">is_zero</span>())
 	}
-}
 
-<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Lottery</span>, <span class="ident"><span class="kw">crate</span>::mock::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::mock::Test</span>);
+	<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Lottery</span>, <span class="ident"><span class="kw">crate</span>::mock::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::mock::Test</span>);
+}
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="pallet_lottery" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>

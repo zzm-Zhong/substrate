@@ -131,7 +131,7 @@
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Pallet</span> <span class="kw">as</span> <span class="ident">Treasury</span>, <span class="kw-2">*</span>};
 
-<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks_instance_pallet</span>, <span class="ident">impl_benchmark_test_suite</span>};
+<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks_instance_pallet</span>};
 <span class="kw">use</span> <span class="ident">frame_support</span>::{<span class="ident">ensure</span>, <span class="ident">traits::OnInitialize</span>};
 <span class="kw">use</span> <span class="ident">frame_system::RawOrigin</span>;
 
@@ -204,9 +204,9 @@
 	}: {
 		<span class="ident">Treasury</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="kw">_</span><span class="op">&gt;</span><span class="ident">::on_initialize</span>(<span class="ident">T::BlockNumber::zero</span>());
 	}
-}
 
-<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Treasury</span>, <span class="ident"><span class="kw">crate</span>::tests::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::tests::Test</span>);
+	<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Treasury</span>, <span class="ident"><span class="kw">crate</span>::tests::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::tests::Test</span>);
+}
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="pallet_treasury" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>

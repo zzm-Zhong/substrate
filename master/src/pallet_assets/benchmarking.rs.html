@@ -451,7 +451,6 @@
 <span id="440">440</span>
 <span id="441">441</span>
 <span id="442">442</span>
-<span id="443">443</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -475,8 +474,7 @@
 
 <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{
-	<span class="ident">account</span>, <span class="ident">benchmarks_instance_pallet</span>, <span class="ident">impl_benchmark_test_suite</span>, <span class="ident">whitelist_account</span>,
-	<span class="ident">whitelisted_caller</span>,
+	<span class="ident">account</span>, <span class="ident">benchmarks_instance_pallet</span>, <span class="ident">whitelist_account</span>, <span class="ident">whitelisted_caller</span>,
 };
 <span class="kw">use</span> <span class="ident">frame_support</span>::{
 	<span class="ident">dispatch::UnfilteredDispatchable</span>,
@@ -892,9 +890,9 @@
 	<span class="ident">verify</span> {
 		<span class="ident">assert_last_event</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span>(<span class="ident">Event::ApprovalCancelled</span>(<span class="ident">id</span>, <span class="ident">caller</span>, <span class="ident">delegate</span>).<span class="ident">into</span>());
 	}
-}
 
-<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Assets</span>, <span class="ident"><span class="kw">crate</span>::mock::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::mock::Test</span>);
+	<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Assets</span>, <span class="ident"><span class="kw">crate</span>::mock::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::mock::Test</span>)
+}
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="pallet_assets" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>

@@ -85,6 +85,8 @@
 <span id="74">74</span>
 <span id="75">75</span>
 <span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -107,7 +109,7 @@
 <span class="attribute">#![<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>)]</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">benchmarks</span>, <span class="ident">impl_benchmark_test_suite</span>, <span class="ident">whitelisted_caller</span>};
+<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">benchmarks</span>, <span class="ident">whitelisted_caller</span>};
 <span class="kw">use</span> <span class="ident">frame_system::RawOrigin</span>;
 
 <span class="comment">// To actually run this benchmark on pallet-example, we need to put this pallet into the</span>
@@ -152,15 +154,17 @@
 		<span class="comment">// The benchmark execution phase could also be a closure with custom code</span>
 		<span class="ident">m</span>.<span class="ident">sort</span>();
 	}
-}
 
-<span class="comment">// This line generates test cases for benchmarking, and could be run by:</span>
-<span class="comment">//   `cargo test -p pallet-example --all-features`, you will see an additional line of:</span>
-<span class="comment">//   `test benchmarking::benchmark_tests::test_benchmarks ... ok` in the result.</span>
-<span class="comment">//</span>
-<span class="comment">// The line generates three steps per benchmark, with repeat=1 and the three steps are</span>
-<span class="comment">//   [low, mid, high] of the range.</span>
-<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Pallet</span>, <span class="ident"><span class="kw">crate</span>::tests::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::tests::Test</span>);
+	<span class="comment">// This line generates test cases for benchmarking, and could be run by:</span>
+	<span class="comment">//   `cargo test -p pallet-example --all-features`, you will see one line per case:</span>
+	<span class="comment">//   `test benchmarking::bench_sort_vector ... ok`</span>
+	<span class="comment">//   `test benchmarking::bench_accumulate_dummy ... ok`</span>
+	<span class="comment">//   `test benchmarking::bench_set_dummy_benchmark ... ok` in the result.</span>
+	<span class="comment">//</span>
+	<span class="comment">// The line generates three steps per benchmark, with repeat=1 and the three steps are</span>
+	<span class="comment">//   [low, mid, high] of the range.</span>
+	<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Pallet</span>, <span class="ident"><span class="kw">crate</span>::tests::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::tests::Test</span>)
+}
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="pallet_example" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>

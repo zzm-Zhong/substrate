@@ -566,8 +566,6 @@
 <span id="555">555</span>
 <span id="556">556</span>
 <span id="557">557</span>
-<span id="558">558</span>
-<span id="559">559</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -591,9 +589,7 @@
 
 <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 
-<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{
-	<span class="ident">account</span>, <span class="ident">benchmarks</span>, <span class="ident">impl_benchmark_test_suite</span>, <span class="ident">whitelist</span>, <span class="ident">BenchmarkError</span>, <span class="ident">BenchmarkResult</span>,
-};
+<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks</span>, <span class="ident">whitelist</span>, <span class="ident">BenchmarkError</span>, <span class="ident">BenchmarkResult</span>};
 <span class="kw">use</span> <span class="ident">frame_support</span>::{
 	<span class="ident">dispatch</span>::{<span class="ident">DispatchResultWithPostInfo</span>, <span class="ident">UnfilteredDispatchable</span>},
 	<span class="ident">traits::OnInitialize</span>,
@@ -1119,14 +1115,14 @@
 			<span class="ident">MEMBERS</span>.<span class="ident">with</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">m</span>.<span class="ident">borrow_mut</span>() <span class="op">=</span> <span class="macro">vec!</span>[]);
 		}
 	}
-}
 
-<span class="macro">impl_benchmark_test_suite!</span>(
-	<span class="ident">Elections</span>,
-	<span class="ident"><span class="kw">crate</span>::tests::ExtBuilder::default</span>().<span class="ident">desired_members</span>(<span class="number">13</span>).<span class="ident">desired_runners_up</span>(<span class="number">7</span>),
-	<span class="ident"><span class="kw">crate</span>::tests::Test</span>,
-	<span class="ident">exec_name</span> <span class="op">=</span> <span class="ident">build_and_execute</span>,
-);
+	<span class="macro">impl_benchmark_test_suite!</span>(
+		<span class="ident">Elections</span>,
+		<span class="ident"><span class="kw">crate</span>::tests::ExtBuilder::default</span>().<span class="ident">desired_members</span>(<span class="number">13</span>).<span class="ident">desired_runners_up</span>(<span class="number">7</span>),
+		<span class="ident"><span class="kw">crate</span>::tests::Test</span>,
+		<span class="ident">exec_name</span> <span class="op">=</span> <span class="ident">build_and_execute</span>,
+	);
+}
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="pallet_elections_phragmen" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>

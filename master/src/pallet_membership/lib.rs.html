@@ -816,8 +816,6 @@
 <span id="805">805</span>
 <span id="806">806</span>
 <span id="807">807</span>
-<span id="808">808</span>
-<span id="809">809</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -1177,9 +1175,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;runtime-benchmarks&quot;</span>)]</span>
 <span class="kw">mod</span> <span class="ident">benchmark</span> {
 	<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Pallet</span> <span class="kw">as</span> <span class="ident">Membership</span>, <span class="kw-2">*</span>};
-	<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{
-		<span class="ident">account</span>, <span class="ident">benchmarks_instance_pallet</span>, <span class="ident">impl_benchmark_test_suite</span>, <span class="ident">whitelist</span>,
-	};
+	<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks_instance_pallet</span>, <span class="ident">whitelist</span>};
 	<span class="kw">use</span> <span class="ident">frame_support</span>::{<span class="ident">assert_ok</span>, <span class="ident">traits::EnsureOrigin</span>};
 	<span class="kw">use</span> <span class="ident">frame_system::RawOrigin</span>;
 
@@ -1314,9 +1310,9 @@
 			<span class="macro">assert!</span>(<span class="op">&lt;</span><span class="ident">T::MembershipChanged</span><span class="op">&gt;</span><span class="ident">::get_prime</span>().<span class="ident">is_none</span>());
 			<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span> <span class="ident"><span class="kw">crate</span>::tests::clean</span>();
 		}
-	}
 
-	<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Membership</span>, <span class="ident"><span class="kw">crate</span>::tests::new_bench_ext</span>(), <span class="ident"><span class="kw">crate</span>::tests::Test</span>);
+		<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Membership</span>, <span class="ident"><span class="kw">crate</span>::tests::new_bench_ext</span>(), <span class="ident"><span class="kw">crate</span>::tests::Test</span>);
+	}
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>

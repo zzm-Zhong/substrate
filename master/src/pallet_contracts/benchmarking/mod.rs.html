@@ -2381,7 +2381,7 @@
 	<span class="ident">Pallet</span> <span class="kw">as</span> <span class="ident">Contracts</span>, <span class="kw-2">*</span>,
 };
 <span class="kw">use</span> <span class="ident">codec::Encode</span>;
-<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks</span>, <span class="ident">impl_benchmark_test_suite</span>, <span class="ident">whitelisted_caller</span>};
+<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks</span>, <span class="ident">whitelisted_caller</span>};
 <span class="kw">use</span> <span class="ident">frame_support::weights::Weight</span>;
 <span class="kw">use</span> <span class="ident">frame_system::RawOrigin</span>;
 <span class="kw">use</span> <span class="ident">pwasm_utils::parity_wasm::elements</span>::{<span class="ident">BlockType</span>, <span class="ident">BrTableData</span>, <span class="ident">Instruction</span>, <span class="ident">ValueType</span>};
@@ -4670,13 +4670,13 @@
 		)
 		.<span class="ident">result</span><span class="question-mark">?</span>;
 	}
-}
 
-<span class="macro">impl_benchmark_test_suite!</span>(
-	<span class="ident">Contracts</span>,
-	<span class="ident"><span class="kw">crate</span>::tests::ExtBuilder::default</span>().<span class="ident">build</span>(),
-	<span class="ident"><span class="kw">crate</span>::tests::Test</span>,
-);
+	<span class="macro">impl_benchmark_test_suite!</span>(
+		<span class="ident">Contracts</span>,
+		<span class="ident"><span class="kw">crate</span>::tests::ExtBuilder::default</span>().<span class="ident">build</span>(),
+		<span class="ident"><span class="kw">crate</span>::tests::Test</span>,
+	)
+}
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="pallet_contracts" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
     <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script>

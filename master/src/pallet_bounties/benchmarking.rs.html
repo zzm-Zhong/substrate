@@ -246,7 +246,7 @@
 
 <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 
-<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks</span>, <span class="ident">impl_benchmark_test_suite</span>, <span class="ident">whitelisted_caller</span>};
+<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks</span>, <span class="ident">whitelisted_caller</span>};
 <span class="kw">use</span> <span class="ident">frame_system::RawOrigin</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime::traits::Bounded</span>;
 
@@ -434,9 +434,9 @@
 		<span class="macro">ensure!</span>(<span class="ident">missed_any</span> <span class="op">=</span><span class="op">=</span> <span class="bool-val">false</span>, <span class="string">&quot;Missed some&quot;</span>);
 		<span class="ident">assert_last_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Event::BountyBecameActive</span>(<span class="ident">b</span> <span class="op">-</span> <span class="number">1</span>).<span class="ident">into</span>())
 	}
-}
 
-<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Bounties</span>, <span class="ident"><span class="kw">crate</span>::tests::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::tests::Test</span>);
+	<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Bounties</span>, <span class="ident"><span class="kw">crate</span>::tests::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::tests::Test</span>)
+}
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="pallet_bounties" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>

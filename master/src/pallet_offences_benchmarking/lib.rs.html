@@ -438,7 +438,7 @@
 
 <span class="kw">use</span> <span class="ident">sp_std</span>::{<span class="ident">prelude</span>::<span class="kw-2">*</span>, <span class="ident">vec</span>};
 
-<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks</span>, <span class="ident">impl_benchmark_test_suite</span>};
+<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">account</span>, <span class="ident">benchmarks</span>};
 <span class="kw">use</span> <span class="ident">frame_support::traits</span>::{<span class="ident">Currency</span>, <span class="ident">ValidatorSet</span>, <span class="ident">ValidatorSetWithIdentification</span>};
 <span class="kw">use</span> <span class="ident">frame_system</span>::{<span class="ident">Config</span> <span class="kw">as</span> <span class="ident">SystemConfig</span>, <span class="ident">Pallet</span> <span class="kw">as</span> <span class="ident">System</span>, <span class="ident">RawOrigin</span>};
 
@@ -814,9 +814,9 @@
 			<span class="op">+</span> <span class="ident">n</span> <span class="comment">// nominators slashed</span>
 		);
 	}
-}
 
-<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Pallet</span>, <span class="ident"><span class="kw">crate</span>::mock::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::mock::Test</span>);
+	<span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Pallet</span>, <span class="ident"><span class="kw">crate</span>::mock::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::mock::Test</span>);
+}
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="pallet_offences_benchmarking" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
