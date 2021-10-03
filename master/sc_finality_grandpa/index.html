@@ -46,8 +46,8 @@ included in the newly-finalized chain.</p>
 of each authority set, once they have been finalized. These blocks are guaranteed to
 have a justification unless they were triggered by a forced change.</p>
 </div><div class="item-left module-item"><a class="struct" href="struct.BeforeBestBlockBy.html" title="sc_finality_grandpa::BeforeBestBlockBy struct">BeforeBestBlockBy</a></div><div class="item-right docblock-short"><p>A custom voting rule that guarantees that our vote is always behind the best
-block by at least N blocks. In the best case our vote is exactly N blocks
-behind the best block.</p>
+block by at least N blocks, unless the base number is &lt; N blocks behind the
+best, in which case it votes for the base.</p>
 </div><div class="item-left module-item"><a class="struct" href="struct.Config.html" title="sc_finality_grandpa::Config struct">Config</a></div><div class="item-right docblock-short"><p>Configuration for the GRANDPA service</p>
 </div><div class="item-left module-item"><a class="struct" href="struct.FinalityProof.html" title="sc_finality_grandpa::FinalityProof struct">FinalityProof</a></div><div class="item-right docblock-short"><p>Finality for block B is proved by providing:</p>
 </div><div class="item-left module-item"><a class="struct" href="struct.FinalityProofProvider.html" title="sc_finality_grandpa::FinalityProofProvider struct">FinalityProofProvider</a></div><div class="item-right docblock-short"><p>Finality proof provider for serving network requests.</p>
@@ -95,7 +95,7 @@ extracts it.</p>
 </div><div class="item-left module-item"><a class="fn" href="fn.find_scheduled_change.html" title="sc_finality_grandpa::find_scheduled_change fn">find_scheduled_change</a></div><div class="item-right docblock-short"><p>Checks the given header for a consensus digest signalling a <strong>standard</strong> scheduled change and
 extracts it.</p>
 </div><div class="item-left module-item"><a class="fn" href="fn.grandpa_peers_set_config.html" title="sc_finality_grandpa::grandpa_peers_set_config fn">grandpa_peers_set_config</a></div><div class="item-right docblock-short"><p>Returns the configuration value to put in
-<a href="../sc_network/config/struct.NetworkConfiguration.html#structfield.extra_sets" title="sc_network::config::NetworkConfiguration::extra_sets"><code>sc_network::config::NetworkConfiguration::extra_sets</code></a>.</p>
+[<code>sc_network::config::NetworkConfiguration::extra_sets</code>].</p>
 </div><div class="item-left module-item"><a class="fn" href="fn.run_grandpa_observer.html" title="sc_finality_grandpa::run_grandpa_observer fn">run_grandpa_observer</a></div><div class="item-right docblock-short"><p>Run a GRANDPA observer as a task, the observer will finalize blocks only by
 listening for and validating GRANDPA commits instead of following the full
 protocol. Provide configuration and a link to a block import worker that has
