@@ -860,7 +860,7 @@
 			<span class="comment">//</span>
 			<span class="comment">// We drop the cache_path here to silence warnings that cache_path is not used if</span>
 			<span class="comment">// compiling without the `wasmtime` flag.</span>
-			<span class="ident">drop</span>(<span class="ident">cache_path</span>);
+			<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">cache_path</span>;
 
 			<span class="ident">sc_executor_wasmi::create_runtime</span>(
 				<span class="ident">blob</span>,

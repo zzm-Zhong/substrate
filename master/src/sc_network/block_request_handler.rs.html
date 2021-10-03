@@ -405,6 +405,7 @@
 <span id="394">394</span>
 <span id="395">395</span>
 <span id="396">396</span>
+<span id="397">397</span>
 </pre><pre class="rust"><code><span class="comment">// Copyright 2020 Parity Technologies (UK) Ltd.</span>
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -492,13 +493,14 @@
 	<span class="ident">support_multiple_justifications</span>: <span class="ident">bool</span>,
 }
 
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::derive_hash_xor_eq</span>)]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> <span class="ident">Hash</span> <span class="kw">for</span> <span class="ident">SeenRequestsKey</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
 	<span class="kw">fn</span> <span class="ident">hash</span><span class="op">&lt;</span><span class="ident">H</span>: <span class="ident">Hasher</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">H</span>) {
 		<span class="self">self</span>.<span class="ident">peer</span>.<span class="ident">hash</span>(<span class="ident">state</span>);
 		<span class="self">self</span>.<span class="ident">max_blocks</span>.<span class="ident">hash</span>(<span class="ident">state</span>);
 		<span class="self">self</span>.<span class="ident">direction</span>.<span class="ident">hash</span>(<span class="ident">state</span>);
 		<span class="self">self</span>.<span class="ident">attributes</span>.<span class="ident">hash</span>(<span class="ident">state</span>);
-
+		<span class="self">self</span>.<span class="ident">support_multiple_justifications</span>.<span class="ident">hash</span>(<span class="ident">state</span>);
 		<span class="kw">match</span> <span class="self">self</span>.<span class="ident">from</span> {
 			<span class="ident">BlockId::Hash</span>(<span class="ident">h</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">h</span>.<span class="ident">hash</span>(<span class="ident">state</span>),
 			<span class="ident">BlockId::Number</span>(<span class="ident">n</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">n</span>.<span class="ident">hash</span>(<span class="ident">state</span>),
