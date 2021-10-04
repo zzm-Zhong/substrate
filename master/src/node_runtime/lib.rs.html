@@ -1781,7 +1781,6 @@
 <span id="1770">1770</span>
 <span id="1771">1771</span>
 <span id="1772">1772</span>
-<span id="1773">1773</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -3512,7 +3511,6 @@
 			<span class="macro">add_benchmark!</span>(<span class="ident">params</span>, <span class="ident">batches</span>, <span class="ident">pallet_utility</span>, <span class="ident">Utility</span>);
 			<span class="macro">add_benchmark!</span>(<span class="ident">params</span>, <span class="ident">batches</span>, <span class="ident">pallet_vesting</span>, <span class="ident">Vesting</span>);
 
-			<span class="kw">if</span> <span class="ident">batches</span>.<span class="ident">is_empty</span>() { <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;Benchmark not found for this pallet.&quot;</span>.<span class="ident">into</span>()) }
 			<span class="prelude-val">Ok</span>(<span class="ident">batches</span>)
 		}
 	}
