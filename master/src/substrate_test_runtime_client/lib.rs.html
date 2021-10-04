@@ -450,6 +450,10 @@
 <span id="439">439</span>
 <span id="440">440</span>
 <span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -489,7 +493,7 @@
 <span class="kw">use</span> <span class="ident">sp_core</span>::{
 	<span class="ident">sr25519</span>,
 	<span class="ident">storage</span>::{<span class="ident">ChildInfo</span>, <span class="ident">Storage</span>, <span class="ident">StorageChild</span>},
-	<span class="ident">ChangesTrieConfiguration</span>,
+	<span class="ident">ChangesTrieConfiguration</span>, <span class="ident">Pair</span>,
 };
 <span class="kw">use</span> <span class="ident">sp_runtime::traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">Hash</span> <span class="kw">as</span> <span class="ident">HashT</span>, <span class="ident">HashFor</span>, <span class="ident">Header</span> <span class="kw">as</span> <span class="ident">HeaderT</span>, <span class="ident">NumberFor</span>};
 <span class="kw">use</span> <span class="ident">substrate_test_runtime::genesismap</span>::{<span class="ident">additional_storage_with_genesis</span>, <span class="ident">GenesisConfig</span>};
@@ -570,11 +574,15 @@
 				<span class="ident">sr25519::Public::from</span>(<span class="ident">Sr25519Keyring::Bob</span>).<span class="ident">into</span>(),
 				<span class="ident">sr25519::Public::from</span>(<span class="ident">Sr25519Keyring::Charlie</span>).<span class="ident">into</span>(),
 			],
-			<span class="macro">vec!</span>[
-				<span class="ident">AccountKeyring::Alice</span>.<span class="ident">into</span>(),
-				<span class="ident">AccountKeyring::Bob</span>.<span class="ident">into</span>(),
-				<span class="ident">AccountKeyring::Charlie</span>.<span class="ident">into</span>(),
-			],
+			(<span class="number">0</span>..<span class="number">16_usize</span>)
+				.<span class="ident">into_iter</span>()
+				.<span class="ident">map</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <span class="ident">AccountKeyring::numeric</span>(<span class="ident">i</span>).<span class="ident">public</span>())
+				.<span class="ident">chain</span>(<span class="macro">vec!</span>[
+					<span class="ident">AccountKeyring::Alice</span>.<span class="ident">into</span>(),
+					<span class="ident">AccountKeyring::Bob</span>.<span class="ident">into</span>(),
+					<span class="ident">AccountKeyring::Charlie</span>.<span class="ident">into</span>(),
+				])
+				.<span class="ident">collect</span>(),
 			<span class="number">1000</span>,
 			<span class="self">self</span>.<span class="ident">heap_pages_override</span>,
 			<span class="self">self</span>.<span class="ident">extra_storage</span>.<span class="ident">clone</span>(),

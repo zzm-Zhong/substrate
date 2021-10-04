@@ -239,6 +239,17 @@
 <span id="228">228</span>
 <span id="229">229</span>
 <span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -330,8 +341,19 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">public</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Public</span> {
 		<span class="self">self</span>.<span class="ident">pair</span>().<span class="ident">public</span>()
 	}
+
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_seed</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
 		<span class="macro">format!</span>(<span class="string">&quot;//{}&quot;</span>, <span class="self">self</span>)
+	}
+
+	<span class="doccomment">/// Create a crypto `Pair` from a numeric value.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">numeric</span>(<span class="ident">idx</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pair</span> {
+		<span class="ident">Pair::from_string</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;//{}&quot;</span>, <span class="ident">idx</span>), <span class="prelude-val">None</span>).<span class="ident">expect</span>(<span class="string">&quot;numeric values are known good; qed&quot;</span>)
+	}
+
+	<span class="doccomment">/// Get account id of a `numeric` account.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">numeric_id</span>(<span class="ident">idx</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AccountId32</span> {
+		(<span class="kw-2">*</span><span class="ident"><span class="self">Self</span>::numeric</span>(<span class="ident">idx</span>).<span class="ident">public</span>().<span class="ident">as_array_ref</span>()).<span class="ident">into</span>()
 	}
 }
 
