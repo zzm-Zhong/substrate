@@ -345,8 +345,6 @@
 <span id="334">334</span>
 <span id="335">335</span>
 <span id="336">336</span>
-<span id="337">337</span>
-<span id="338">338</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -365,6 +363,7 @@
 <span class="comment">// You should have received a copy of the GNU General Public License</span>
 <span class="comment">// along with this program. If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
 
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::logging::fast_local_time::FastLocalTime</span>;
 <span class="kw">use</span> <span class="ident">ansi_term::Colour</span>;
 <span class="kw">use</span> <span class="ident">regex::Regex</span>;
 <span class="kw">use</span> <span class="ident">std::fmt</span>::{<span class="self">self</span>, <span class="ident">Write</span>};
@@ -372,16 +371,13 @@
 <span class="kw">use</span> <span class="ident">tracing_log::NormalizeEvent</span>;
 <span class="kw">use</span> <span class="ident">tracing_subscriber</span>::{
 	<span class="ident">field::RecordFields</span>,
-	<span class="ident">fmt</span>::{
-		<span class="ident">time</span>::{<span class="ident">FormatTime</span>, <span class="ident">SystemTime</span>},
-		<span class="ident">FmtContext</span>, <span class="ident">FormatEvent</span>, <span class="ident">FormatFields</span>,
-	},
+	<span class="ident">fmt</span>::{<span class="ident">time::FormatTime</span>, <span class="ident">FmtContext</span>, <span class="ident">FormatEvent</span>, <span class="ident">FormatFields</span>},
 	<span class="ident">layer::Context</span>,
 	<span class="ident">registry</span>::{<span class="ident">LookupSpan</span>, <span class="ident">SpanRef</span>},
 };
 
 <span class="doccomment">/// A pre-configured event formatter.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventFormat</span><span class="op">&lt;</span><span class="ident">T</span> <span class="op">=</span> <span class="ident">SystemTime</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventFormat</span><span class="op">&lt;</span><span class="ident">T</span> <span class="op">=</span> <span class="ident">FastLocalTime</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Use the given timer for log message timestamps.</span>
 	<span class="kw">pub</span> <span class="ident">timer</span>: <span class="ident">T</span>,
 	<span class="doccomment">/// Sets whether or not an event&#39;s target is displayed.</span>
