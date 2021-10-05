@@ -2061,16 +2061,6 @@
 <span id="2050">2050</span>
 <span id="2051">2051</span>
 <span id="2052">2052</span>
-<span id="2053">2053</span>
-<span id="2054">2054</span>
-<span id="2055">2055</span>
-<span id="2056">2056</span>
-<span id="2057">2057</span>
-<span id="2058">2058</span>
-<span id="2059">2059</span>
-<span id="2060">2060</span>
-<span id="2061">2061</span>
-<span id="2062">2062</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -3274,8 +3264,12 @@
 		<span class="kw">match</span> <span class="ident">current_phase</span> {
 			<span class="ident">Phase::Unsigned</span>((<span class="bool-val">true</span>, <span class="ident">opened</span>)) <span class="kw">if</span> <span class="ident">opened</span> <span class="op">=</span><span class="op">=</span> <span class="ident">now</span> <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="comment">// Mine a new solution, cache it, and attempt to submit it</span>
-				<span class="kw">let</span> <span class="ident">initial_output</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::ensure_offchain_repeat_frequency</span>(<span class="ident">now</span>)
-					.<span class="ident">and_then</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident"><span class="self">Self</span>::mine_check_save_submit</span>());
+				<span class="kw">let</span> <span class="ident">initial_output</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::ensure_offchain_repeat_frequency</span>(<span class="ident">now</span>).<span class="ident">and_then</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
+					<span class="comment">// This is executed at the beginning of each round. Any cache is now invalid.</span>
+					<span class="comment">// Clear it.</span>
+					<span class="ident">unsigned::kill_ocw_solution</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>();
+					<span class="ident"><span class="self">Self</span>::mine_check_save_submit</span>()
+				});
 				<span class="macro">log!</span>(<span class="ident">debug</span>, <span class="string">&quot;initial offchain thread output: {:?}&quot;</span>, <span class="ident">initial_output</span>);
 			},
 			<span class="ident">Phase::Unsigned</span>((<span class="bool-val">true</span>, <span class="ident">opened</span>)) <span class="kw">if</span> <span class="ident">opened</span> <span class="op">&lt;</span> <span class="ident">now</span> <span class="op">=</span><span class="op">&gt;</span> {
@@ -3286,20 +3280,6 @@
 				<span class="macro">log!</span>(<span class="ident">debug</span>, <span class="string">&quot;resubmit offchain thread output: {:?}&quot;</span>, <span class="ident">resubmit_output</span>);
 			},
 			<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {},
-		}
-
-		<span class="comment">// After election finalization, clear OCW solution storage.</span>
-		<span class="comment">//</span>
-		<span class="comment">// We can read the events here because offchain worker doesn&#39;t affect PoV.</span>
-		<span class="kw">if</span> <span class="op">&lt;</span><span class="ident">frame_system::Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::read_events_no_consensus</span>()
-			.<span class="ident">into_iter</span>()
-			.<span class="ident">filter_map</span>(<span class="op">|</span><span class="ident">event_record</span><span class="op">|</span> {
-				<span class="kw">let</span> <span class="ident">local_event</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">T</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::Event::from</span>(<span class="ident">event_record</span>.<span class="ident">event</span>);
-				<span class="ident">local_event</span>.<span class="ident">try_into</span>().<span class="ident">ok</span>()
-			})
-			.<span class="ident">any</span>(<span class="op">|</span><span class="ident">event</span><span class="op">|</span> <span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">Event::ElectionFinalized</span>(<span class="kw">_</span>)))
-		{
-			<span class="ident">unsigned::kill_ocw_solution</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>();
 		}
 	}
 
