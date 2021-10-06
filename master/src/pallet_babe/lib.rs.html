@@ -1937,8 +1937,8 @@
 		<span class="ident"><span class="self">Self</span>::enact_epoch_change</span>(<span class="ident">bounded_authorities</span>, <span class="ident">next_bounded_authorities</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">on_disabled</span>(<span class="ident">i</span>: <span class="ident">usize</span>) {
-		<span class="ident"><span class="self">Self</span>::deposit_consensus</span>(<span class="ident">ConsensusLog::OnDisabled</span>(<span class="ident">i</span> <span class="kw">as</span> <span class="ident">u32</span>))
+	<span class="kw">fn</span> <span class="ident">on_disabled</span>(<span class="ident">i</span>: <span class="ident">u32</span>) {
+		<span class="ident"><span class="self">Self</span>::deposit_consensus</span>(<span class="ident">ConsensusLog::OnDisabled</span>(<span class="ident">i</span>))
 	}
 }
 

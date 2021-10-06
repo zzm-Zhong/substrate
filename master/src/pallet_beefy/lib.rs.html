@@ -352,7 +352,7 @@
 		}
 	}
 
-	<span class="kw">fn</span> <span class="ident">on_disabled</span>(<span class="ident">i</span>: <span class="ident">usize</span>) {
+	<span class="kw">fn</span> <span class="ident">on_disabled</span>(<span class="ident">i</span>: <span class="ident">u32</span>) {
 		<span class="kw">let</span> <span class="ident">log</span>: <span class="ident">DigestItem</span><span class="op">&lt;</span><span class="ident">T::Hash</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">DigestItem::Consensus</span>(
 			<span class="ident">BEEFY_ENGINE_ID</span>,
 			<span class="ident">ConsensusLog</span>::<span class="op">&lt;</span><span class="ident">T::BeefyId</span><span class="op">&gt;</span><span class="ident">::OnDisabled</span>(<span class="ident">i</span> <span class="kw">as</span> <span class="ident">AuthorityIndex</span>).<span class="ident">encode</span>(),

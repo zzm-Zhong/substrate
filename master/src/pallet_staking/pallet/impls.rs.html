@@ -1312,6 +1312,16 @@
 <span id="1301">1301</span>
 <span id="1302">1302</span>
 <span id="1303">1303</span>
+<span id="1304">1304</span>
+<span id="1305">1305</span>
+<span id="1306">1306</span>
+<span id="1307">1307</span>
+<span id="1308">1308</span>
+<span id="1309">1309</span>
+<span id="1310">1310</span>
+<span id="1311">1311</span>
+<span id="1312">1312</span>
+<span id="1313">1313</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1616,6 +1626,13 @@
 				<span class="ident"><span class="self">Self</span>::start_era</span>(<span class="ident">start_session</span>);
 			}
 		}
+
+		<span class="comment">// disable all offending validators that have been disabled for the whole era</span>
+		<span class="kw">for</span> (<span class="ident">index</span>, <span class="ident">disabled</span>) <span class="kw">in</span> <span class="op">&lt;</span><span class="ident">OffendingValidators</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>() {
+			<span class="kw">if</span> <span class="ident">disabled</span> {
+				<span class="ident">T::SessionInterface::disable_validator</span>(<span class="ident">index</span>);
+			}
+		}
 	}
 
 	<span class="doccomment">/// End a session potentially ending an era.</span>
@@ -1688,6 +1705,9 @@
 			<span class="comment">// Set ending era reward.</span>
 			<span class="op">&lt;</span><span class="ident">ErasValidatorReward</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="kw-2">&amp;</span><span class="ident">active_era</span>.<span class="ident">index</span>, <span class="ident">validator_payout</span>);
 			<span class="ident">T::RewardRemainder::on_unbalanced</span>(<span class="ident">T::Currency::issue</span>(<span class="ident">rest</span>));
+
+			<span class="comment">// Clear offending validators.</span>
+			<span class="op">&lt;</span><span class="ident">OffendingValidators</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::kill</span>();
 		}
 	}
 
