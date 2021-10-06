@@ -601,6 +601,13 @@
 <span id="590">590</span>
 <span id="591">591</span>
 <span id="592">592</span>
+<span id="593">593</span>
+<span id="594">594</span>
+<span id="595">595</span>
+<span id="596">596</span>
+<span id="597">597</span>
+<span id="598">598</span>
+<span id="599">599</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -844,6 +851,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Note: the directory is random per process execution. This directory is used as base path</span>
 	<span class="doccomment">/// which includes: database, node key and keystore.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// When `--dev` is given and no explicit `--base-path`, this option is implied.</span>
 	<span class="attribute">#[<span class="ident">structopt</span>(<span class="ident">long</span>, <span class="ident">conflicts_with</span> <span class="op">=</span> <span class="string">&quot;base-path&quot;</span>)]</span>
 	<span class="kw">pub</span> <span class="ident">tmp</span>: <span class="ident">bool</span>,
 }
@@ -1047,7 +1056,12 @@
 		<span class="prelude-val">Ok</span>(<span class="kw">if</span> <span class="self">self</span>.<span class="ident">tmp</span> {
 			<span class="prelude-val">Some</span>(<span class="ident">BasePath::new_temp_dir</span>()<span class="question-mark">?</span>)
 		} <span class="kw">else</span> {
-			<span class="self">self</span>.<span class="ident">shared_params</span>().<span class="ident">base_path</span>()
+			<span class="kw">match</span> <span class="self">self</span>.<span class="ident">shared_params</span>().<span class="ident">base_path</span>() {
+				<span class="prelude-val">Some</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">r</span>),
+				<span class="comment">// If `dev` is enabled, we use the temp base path.</span>
+				<span class="prelude-val">None</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">shared_params</span>().<span class="ident">is_dev</span>() <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">BasePath::new_temp_dir</span>()<span class="question-mark">?</span>),
+				<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+			}
 		})
 	}
 }
