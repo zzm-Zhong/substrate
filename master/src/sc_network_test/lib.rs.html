@@ -1207,6 +1207,48 @@
 <span id="1196">1196</span>
 <span id="1197">1197</span>
 <span id="1198">1198</span>
+<span id="1199">1199</span>
+<span id="1200">1200</span>
+<span id="1201">1201</span>
+<span id="1202">1202</span>
+<span id="1203">1203</span>
+<span id="1204">1204</span>
+<span id="1205">1205</span>
+<span id="1206">1206</span>
+<span id="1207">1207</span>
+<span id="1208">1208</span>
+<span id="1209">1209</span>
+<span id="1210">1210</span>
+<span id="1211">1211</span>
+<span id="1212">1212</span>
+<span id="1213">1213</span>
+<span id="1214">1214</span>
+<span id="1215">1215</span>
+<span id="1216">1216</span>
+<span id="1217">1217</span>
+<span id="1218">1218</span>
+<span id="1219">1219</span>
+<span id="1220">1220</span>
+<span id="1221">1221</span>
+<span id="1222">1222</span>
+<span id="1223">1223</span>
+<span id="1224">1224</span>
+<span id="1225">1225</span>
+<span id="1226">1226</span>
+<span id="1227">1227</span>
+<span id="1228">1228</span>
+<span id="1229">1229</span>
+<span id="1230">1230</span>
+<span id="1231">1231</span>
+<span id="1232">1232</span>
+<span id="1233">1233</span>
+<span id="1234">1234</span>
+<span id="1235">1235</span>
+<span id="1236">1236</span>
+<span id="1237">1237</span>
+<span id="1238">1238</span>
+<span id="1239">1239</span>
+<span id="1240">1240</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1237,8 +1279,10 @@
 	<span class="ident">pin::Pin</span>,
 	<span class="ident">sync::Arc</span>,
 	<span class="ident">task</span>::{<span class="ident">Context</span> <span class="kw">as</span> <span class="ident">FutureContext</span>, <span class="ident">Poll</span>},
+	<span class="ident">time::Duration</span>,
 };
 
+<span class="kw">use</span> <span class="ident">async_std::future::timeout</span>;
 <span class="kw">use</span> <span class="ident">futures</span>::{<span class="ident">future::BoxFuture</span>, <span class="ident">prelude</span>::<span class="kw-2">*</span>};
 <span class="kw">use</span> <span class="ident">libp2p</span>::{<span class="ident">build_multiaddr</span>, <span class="ident">PeerId</span>};
 <span class="kw">use</span> <span class="ident">log::trace</span>;
@@ -1262,7 +1306,7 @@
 	},
 	<span class="ident">light_client_requests</span>::{<span class="self">self</span>, <span class="ident">handler::LightClientRequestHandler</span>},
 	<span class="ident">state_request_handler</span>::{<span class="self">self</span>, <span class="ident">StateRequestHandler</span>},
-	<span class="ident">Multiaddr</span>, <span class="ident">NetworkService</span>, <span class="ident">NetworkWorker</span>,
+	<span class="ident">warp_request_handler</span>, <span class="ident">Multiaddr</span>, <span class="ident">NetworkService</span>, <span class="ident">NetworkWorker</span>,
 };
 <span class="kw">use</span> <span class="ident">sc_service::client::Client</span>;
 <span class="kw">use</span> <span class="ident">sp_blockchain</span>::{
@@ -1275,6 +1319,7 @@
 };
 <span class="kw">use</span> <span class="ident">sp_core::H256</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{
+	<span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>},
 	<span class="ident">generic</span>::{<span class="ident">BlockId</span>, <span class="ident">OpaqueDigestItemId</span>},
 	<span class="ident">traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">Header</span> <span class="kw">as</span> <span class="ident">HeaderT</span>, <span class="ident">NumberFor</span>},
 	<span class="ident">Justification</span>, <span class="ident">Justifications</span>,
@@ -1859,6 +1904,33 @@
 	}
 }
 
+<span class="kw">struct</span> <span class="ident">TestWarpSyncProvider</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span>(<span class="ident">Arc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">HeaderBackend</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>);
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> <span class="ident">warp_request_handler::WarpSyncProvider</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TestWarpSyncProvider</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">generate</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">_start</span>: <span class="ident">B::Hash</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">warp_request_handler::EncodedProof</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+		<span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">info</span>();
+		<span class="kw">let</span> <span class="ident">best_header</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">header</span>(<span class="ident">BlockId::hash</span>(<span class="ident">info</span>.<span class="ident">best_hash</span>)).<span class="ident">unwrap</span>().<span class="ident">unwrap</span>();
+		<span class="prelude-val">Ok</span>(<span class="ident">warp_request_handler::EncodedProof</span>(<span class="ident">best_header</span>.<span class="ident">encode</span>()))
+	}
+	<span class="kw">fn</span> <span class="ident">verify</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">proof</span>: <span class="kw-2">&amp;</span><span class="ident">warp_request_handler::EncodedProof</span>,
+		<span class="ident">_set_id</span>: <span class="ident">warp_request_handler::SetId</span>,
+		<span class="ident">_authorities</span>: <span class="ident">warp_request_handler::AuthorityList</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">warp_request_handler::VerificationResult</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span><span class="op">&gt;</span>
+	{
+		<span class="kw">let</span> <span class="ident">warp_request_handler::EncodedProof</span>(<span class="ident">encoded</span>) <span class="op">=</span> <span class="ident">proof</span>;
+		<span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">B::Header::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">encoded</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
+		<span class="prelude-val">Ok</span>(<span class="ident">warp_request_handler::VerificationResult::Complete</span>(<span class="number">0</span>, <span class="ident">Default::default</span>(), <span class="ident">header</span>))
+	}
+	<span class="kw">fn</span> <span class="ident">current_authorities</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">warp_request_handler::AuthorityList</span> {
+		<span class="ident">Default::default</span>()
+	}
+}
+
 <span class="doccomment">/// Configuration for a full peer.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FullPeerConfig</span> {
@@ -1944,7 +2016,7 @@
 			(<span class="prelude-val">Some</span>(<span class="ident">keep_blocks</span>), <span class="bool-val">false</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TestClientBuilder::with_pruning_window</span>(<span class="ident">keep_blocks</span>),
 			(<span class="prelude-val">None</span>, <span class="bool-val">false</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TestClientBuilder::with_default_backend</span>(),
 		};
-		<span class="kw">if</span> <span class="macro">matches!</span>(<span class="ident">config</span>.<span class="ident">sync_mode</span>, <span class="ident">SyncMode::Fast</span> { .. }) {
+		<span class="kw">if</span> <span class="macro">matches!</span>(<span class="ident">config</span>.<span class="ident">sync_mode</span>, <span class="ident">SyncMode::Fast</span> { .. } <span class="op">|</span> <span class="ident">SyncMode::Warp</span>) {
 			<span class="ident">test_client_builder</span> <span class="op">=</span> <span class="ident">test_client_builder</span>.<span class="ident">set_no_genesis</span>();
 		}
 		<span class="kw">let</span> <span class="ident">backend</span> <span class="op">=</span> <span class="ident">test_client_builder</span>.<span class="ident">backend</span>();
@@ -2023,6 +2095,15 @@
 			<span class="ident">protocol_config</span>
 		};
 
+		<span class="kw">let</span> <span class="ident">warp_sync</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">TestWarpSyncProvider</span>(<span class="ident">client</span>.<span class="ident">clone</span>()));
+
+		<span class="kw">let</span> <span class="ident">warp_protocol_config</span> <span class="op">=</span> {
+			<span class="kw">let</span> (<span class="ident">handler</span>, <span class="ident">protocol_config</span>) <span class="op">=</span>
+				<span class="ident">warp_request_handler::RequestHandler::new</span>(<span class="ident">protocol_id</span>.<span class="ident">clone</span>(), <span class="ident">warp_sync</span>.<span class="ident">clone</span>());
+			<span class="self">self</span>.<span class="ident">spawn_task</span>(<span class="ident">handler</span>.<span class="ident">run</span>().<span class="ident">boxed</span>());
+			<span class="ident">protocol_config</span>
+		};
+
 		<span class="kw">let</span> <span class="ident">network</span> <span class="op">=</span> <span class="ident">NetworkWorker::new</span>(<span class="ident">sc_network::config::Params</span> {
 			<span class="ident">role</span>: <span class="kw">if</span> <span class="ident">config</span>.<span class="ident">is_authority</span> { <span class="ident">Role::Authority</span> } <span class="kw">else</span> { <span class="ident">Role::Full</span> },
 			<span class="ident">executor</span>: <span class="prelude-val">None</span>,
@@ -2042,7 +2123,7 @@
 			<span class="ident">block_request_protocol_config</span>,
 			<span class="ident">state_request_protocol_config</span>,
 			<span class="ident">light_client_request_protocol_config</span>,
-			<span class="ident">warp_sync</span>: <span class="prelude-val">None</span>,
+			<span class="ident">warp_sync</span>: <span class="prelude-val">Some</span>((<span class="ident">warp_sync</span>, <span class="ident">warp_protocol_config</span>)),
 		})
 		.<span class="ident">unwrap</span>();
 
@@ -2226,10 +2307,13 @@
 	<span class="doccomment">/// Blocks the current thread until we are sync&#39;ed.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Calls `poll_until_sync` repeatedly.</span>
+	<span class="doccomment">/// (If we&#39;ve not synced within 10 mins then panic rather than hang.)</span>
 	<span class="kw">fn</span> <span class="ident">block_until_sync</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-		<span class="ident">futures::executor::block_on</span>(<span class="ident">futures::future::poll_fn</span>::<span class="op">&lt;</span>(), <span class="kw">_</span><span class="op">&gt;</span>(<span class="op">|</span><span class="ident">cx</span><span class="op">|</span> {
-			<span class="self">self</span>.<span class="ident">poll_until_sync</span>(<span class="ident">cx</span>)
-		}));
+		<span class="ident">futures::executor::block_on</span>(<span class="ident">timeout</span>(
+			<span class="ident">Duration::from_secs</span>(<span class="number">10</span> <span class="op">*</span> <span class="number">60</span>),
+			<span class="ident">futures::future::poll_fn</span>::<span class="op">&lt;</span>(), <span class="kw">_</span><span class="op">&gt;</span>(<span class="op">|</span><span class="ident">cx</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">poll_until_sync</span>(<span class="ident">cx</span>)),
+		))
+		.<span class="ident">expect</span>(<span class="string">&quot;sync didn&#39;t happen within 10 mins&quot;</span>);
 	}
 
 	<span class="doccomment">/// Blocks the current thread until there are no pending packets.</span>

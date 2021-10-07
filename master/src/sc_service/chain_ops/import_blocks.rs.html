@@ -519,7 +519,7 @@
 <span class="kw">use</span> <span class="ident">futures_timer::Delay</span>;
 <span class="kw">use</span> <span class="ident">log</span>::{<span class="ident">info</span>, <span class="ident">warn</span>};
 <span class="kw">use</span> <span class="ident">sc_chain_spec::ChainSpec</span>;
-<span class="kw">use</span> <span class="ident">sc_client_api::UsageProvider</span>;
+<span class="kw">use</span> <span class="ident">sc_client_api::HeaderBackend</span>;
 <span class="kw">use</span> <span class="ident">sc_consensus::import_queue</span>::{
 	<span class="ident">BlockImportError</span>, <span class="ident">BlockImportStatus</span>, <span class="ident">ImportQueue</span>, <span class="ident">IncomingBlock</span>, <span class="ident">Link</span>,
 };
@@ -793,7 +793,7 @@
 	<span class="ident">binary</span>: <span class="ident">bool</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-	<span class="ident">C</span>: <span class="ident">UsageProvider</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+	<span class="ident">C</span>: <span class="ident">HeaderBackend</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">B</span>: <span class="ident">BlockT</span> <span class="op">+</span> <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">serde::Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
 	<span class="ident">IQ</span>: <span class="ident">ImportQueue</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
@@ -935,7 +935,7 @@
 					<span class="macro">info!</span>(
 						<span class="string">&quot;🎉 Imported {} blocks. Best: #{}&quot;</span>,
 						<span class="ident">read_block_count</span>,
-						<span class="ident">client</span>.<span class="ident">usage_info</span>().<span class="ident">chain</span>.<span class="ident">best_number</span>
+						<span class="ident">client</span>.<span class="ident">info</span>().<span class="ident">best_number</span>
 					);
 					<span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="prelude-val">Ok</span>(()))
 				} <span class="kw">else</span> {
@@ -966,7 +966,7 @@
 
 		<span class="ident">queue</span>.<span class="ident">poll_actions</span>(<span class="ident">cx</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">link</span>);
 
-		<span class="kw">let</span> <span class="ident">best_number</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">usage_info</span>().<span class="ident">chain</span>.<span class="ident">best_number</span>;
+		<span class="kw">let</span> <span class="ident">best_number</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">info</span>().<span class="ident">best_number</span>;
 		<span class="ident">speedometer</span>.<span class="ident">notify_user</span>(<span class="ident">best_number</span>);
 
 		<span class="kw">if</span> <span class="ident">link</span>.<span class="ident">has_error</span> {

@@ -81,7 +81,7 @@
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error::Error</span>;
 <span class="kw">use</span> <span class="ident">codec::Encode</span>;
 <span class="kw">use</span> <span class="ident">futures</span>::{<span class="ident">future</span>, <span class="ident">prelude</span>::<span class="kw-2">*</span>};
-<span class="kw">use</span> <span class="ident">sc_client_api</span>::{<span class="ident">BlockBackend</span>, <span class="ident">UsageProvider</span>};
+<span class="kw">use</span> <span class="ident">sc_client_api</span>::{<span class="ident">BlockBackend</span>, <span class="ident">HeaderBackend</span>};
 <span class="kw">use</span> <span class="ident">sc_consensus::import_queue::ImportQueue</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{<span class="ident">generic::BlockId</span>, <span class="ident">traits::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>};
 
@@ -95,7 +95,7 @@
 	<span class="ident">block_id</span>: <span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-	<span class="ident">C</span>: <span class="ident">BlockBackend</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">UsageProvider</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+	<span class="ident">C</span>: <span class="ident">BlockBackend</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">HeaderBackend</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">B</span>: <span class="ident">BlockT</span> <span class="op">+</span> <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">serde::Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
 	<span class="ident">IQ</span>: <span class="ident">ImportQueue</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {

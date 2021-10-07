@@ -1785,6 +1785,13 @@
 <span id="1774">1774</span>
 <span id="1775">1775</span>
 <span id="1776">1776</span>
+<span id="1777">1777</span>
+<span id="1778">1778</span>
+<span id="1779">1779</span>
+<span id="1780">1780</span>
+<span id="1781">1781</span>
+<span id="1782">1782</span>
+<span id="1783">1783</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -3365,8 +3372,12 @@
 							<span class="kw-2">*</span><span class="ident">block</span>.<span class="ident">header</span>.<span class="ident">parent_hash</span>(),
 							<span class="ident">next_epoch</span>,
 						)
-						.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ConsensusError::ClientImport</span>(<span class="macro">format!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
-
+						.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
+							<span class="ident">ConsensusError::ClientImport</span>(<span class="macro">format!</span>(
+								<span class="string">&quot;Error importing epoch changes: {:?}&quot;</span>,
+								<span class="ident">e</span>
+							))
+						})<span class="question-mark">?</span>;
 					<span class="prelude-val">Ok</span>(())
 				};
 
@@ -3454,6 +3465,9 @@
 	<span class="ident">Client</span>: <span class="ident">HeaderBackend</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">HeaderMetadata</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Error</span> <span class="op">=</span> <span class="ident">sp_blockchain::Error</span><span class="op">&gt;</span>,
 {
 	<span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">info</span>();
+	<span class="kw">if</span> <span class="ident">info</span>.<span class="ident">block_gap</span>.<span class="ident">is_none</span>() {
+		<span class="ident">epoch_changes</span>.<span class="ident">clear_gap</span>();
+	}
 
 	<span class="kw">let</span> <span class="ident">finalized_slot</span> <span class="op">=</span> {
 		<span class="kw">let</span> <span class="ident">finalized_header</span> <span class="op">=</span> <span class="ident">client</span>
