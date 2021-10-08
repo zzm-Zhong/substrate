@@ -1778,6 +1778,8 @@
 <span id="1767">1767</span>
 <span id="1768">1768</span>
 <span id="1769">1769</span>
+<span id="1770">1770</span>
+<span id="1771">1771</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -1860,6 +1862,8 @@
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">pallet_balances::Call</span> <span class="kw">as</span> <span class="ident">BalancesCall</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">test</span>))]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">pallet_staking::StakerStatus</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">test</span>))]</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">pallet_sudo::Call</span> <span class="kw">as</span> <span class="ident">SudoCall</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">test</span>))]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_runtime::BuildStorage</span>;
 

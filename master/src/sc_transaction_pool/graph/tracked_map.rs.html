@@ -183,19 +183,6 @@
 <span id="172">172</span>
 <span id="173">173</span>
 <span id="174">174</span>
-<span id="175">175</span>
-<span id="176">176</span>
-<span id="177">177</span>
-<span id="178">178</span>
-<span id="179">179</span>
-<span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -255,11 +242,6 @@
 		<span class="ident">std::cmp::max</span>(<span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">load</span>(<span class="ident">AtomicOrdering::Relaxed</span>), <span class="number">0</span>) <span class="kw">as</span> <span class="ident">usize</span>
 	}
 
-	<span class="doccomment">/// Read-only clone of the interior.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ReadOnlyTrackedMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span><span class="op">&gt;</span> {
-		<span class="ident">ReadOnlyTrackedMap</span>(<span class="self">self</span>.<span class="ident">index</span>.<span class="ident">clone</span>())
-	}
-
 	<span class="doccomment">/// Lock map for read.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TrackedMapReadAccess</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span><span class="op">&gt;</span> {
 		<span class="ident">TrackedMapReadAccess</span> { <span class="ident">inner_guard</span>: <span class="self">self</span>.<span class="ident">index</span>.<span class="ident">read</span>() }
@@ -275,18 +257,10 @@
 	}
 }
 
-<span class="doccomment">/// Read-only access to map.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// The only thing can be done is .read().</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ReadOnlyTrackedMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span><span class="op">&gt;</span>(<span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>);
-
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span><span class="op">&gt;</span> <span class="ident">ReadOnlyTrackedMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-	<span class="ident">K</span>: <span class="ident">Eq</span> <span class="op">+</span> <span class="ident">std::hash::Hash</span>,
-{
-	<span class="doccomment">/// Lock map for read.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TrackedMapReadAccess</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span><span class="op">&gt;</span> {
-		<span class="ident">TrackedMapReadAccess</span> { <span class="ident">inner_guard</span>: <span class="self">self</span>.<span class="number">0</span>.<span class="ident">read</span>() }
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">Clone</span>, <span class="ident">V</span>: <span class="ident">Clone</span><span class="op">&gt;</span> <span class="ident">TrackedMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span><span class="op">&gt;</span> {
+	<span class="doccomment">/// Clone the inner map.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clone_map</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span><span class="op">&gt;</span> {
+		<span class="self">self</span>.<span class="ident">index</span>.<span class="ident">read</span>().<span class="ident">clone</span>()
 	}
 }
 

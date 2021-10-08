@@ -886,6 +886,90 @@
 <span id="875">875</span>
 <span id="876">876</span>
 <span id="877">877</span>
+<span id="878">878</span>
+<span id="879">879</span>
+<span id="880">880</span>
+<span id="881">881</span>
+<span id="882">882</span>
+<span id="883">883</span>
+<span id="884">884</span>
+<span id="885">885</span>
+<span id="886">886</span>
+<span id="887">887</span>
+<span id="888">888</span>
+<span id="889">889</span>
+<span id="890">890</span>
+<span id="891">891</span>
+<span id="892">892</span>
+<span id="893">893</span>
+<span id="894">894</span>
+<span id="895">895</span>
+<span id="896">896</span>
+<span id="897">897</span>
+<span id="898">898</span>
+<span id="899">899</span>
+<span id="900">900</span>
+<span id="901">901</span>
+<span id="902">902</span>
+<span id="903">903</span>
+<span id="904">904</span>
+<span id="905">905</span>
+<span id="906">906</span>
+<span id="907">907</span>
+<span id="908">908</span>
+<span id="909">909</span>
+<span id="910">910</span>
+<span id="911">911</span>
+<span id="912">912</span>
+<span id="913">913</span>
+<span id="914">914</span>
+<span id="915">915</span>
+<span id="916">916</span>
+<span id="917">917</span>
+<span id="918">918</span>
+<span id="919">919</span>
+<span id="920">920</span>
+<span id="921">921</span>
+<span id="922">922</span>
+<span id="923">923</span>
+<span id="924">924</span>
+<span id="925">925</span>
+<span id="926">926</span>
+<span id="927">927</span>
+<span id="928">928</span>
+<span id="929">929</span>
+<span id="930">930</span>
+<span id="931">931</span>
+<span id="932">932</span>
+<span id="933">933</span>
+<span id="934">934</span>
+<span id="935">935</span>
+<span id="936">936</span>
+<span id="937">937</span>
+<span id="938">938</span>
+<span id="939">939</span>
+<span id="940">940</span>
+<span id="941">941</span>
+<span id="942">942</span>
+<span id="943">943</span>
+<span id="944">944</span>
+<span id="945">945</span>
+<span id="946">946</span>
+<span id="947">947</span>
+<span id="948">948</span>
+<span id="949">949</span>
+<span id="950">950</span>
+<span id="951">951</span>
+<span id="952">952</span>
+<span id="953">953</span>
+<span id="954">954</span>
+<span id="955">955</span>
+<span id="956">956</span>
+<span id="957">957</span>
+<span id="958">958</span>
+<span id="959">959</span>
+<span id="960">960</span>
+<span id="961">961</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -908,20 +992,25 @@
 
 <span class="doccomment">//! Service implementation. Specialized wrapper over substrate service.</span>
 
+<span class="kw">use</span> <span class="ident">codec::Encode</span>;
+<span class="kw">use</span> <span class="ident">frame_system_rpc_runtime_api::AccountNonceApi</span>;
 <span class="kw">use</span> <span class="ident">futures::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">node_executor::ExecutorDispatch</span>;
 <span class="kw">use</span> <span class="ident">node_primitives::Block</span>;
 <span class="kw">use</span> <span class="ident">node_runtime::RuntimeApi</span>;
-<span class="kw">use</span> <span class="ident">sc_client_api</span>::{<span class="ident">ExecutorProvider</span>, <span class="ident">RemoteBackend</span>};
+<span class="kw">use</span> <span class="ident">sc_client_api</span>::{<span class="ident">BlockBackend</span>, <span class="ident">ExecutorProvider</span>, <span class="ident">RemoteBackend</span>};
 <span class="kw">use</span> <span class="ident">sc_consensus_babe</span>::{<span class="self">self</span>, <span class="ident">SlotProportion</span>};
 <span class="kw">use</span> <span class="ident">sc_executor::NativeElseWasmExecutor</span>;
 <span class="kw">use</span> <span class="ident">sc_network</span>::{<span class="ident">Event</span>, <span class="ident">NetworkService</span>};
 <span class="kw">use</span> <span class="ident">sc_service</span>::{<span class="ident">config::Configuration</span>, <span class="ident">error::Error</span> <span class="kw">as</span> <span class="ident">ServiceError</span>, <span class="ident">RpcHandlers</span>, <span class="ident">TaskManager</span>};
 <span class="kw">use</span> <span class="ident">sc_telemetry</span>::{<span class="ident">Telemetry</span>, <span class="ident">TelemetryWorker</span>};
-<span class="kw">use</span> <span class="ident">sp_runtime::traits::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>;
+<span class="kw">use</span> <span class="ident">sp_api::ProvideRuntimeApi</span>;
+<span class="kw">use</span> <span class="ident">sp_core::crypto::Pair</span>;
+<span class="kw">use</span> <span class="ident">sp_runtime</span>::{<span class="ident">generic</span>, <span class="ident">traits::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">SaturatedConversion</span>};
 <span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
 
-<span class="kw">type</span> <span class="ident">FullClient</span> <span class="op">=</span>
+<span class="doccomment">/// The full client type definition.</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">FullClient</span> <span class="op">=</span>
 	<span class="ident">sc_service::TFullClient</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">RuntimeApi</span>, <span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="ident">ExecutorDispatch</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 <span class="kw">type</span> <span class="ident">FullBackend</span> <span class="op">=</span> <span class="ident">sc_service::TFullBackend</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>;
 <span class="kw">type</span> <span class="ident">FullSelectChain</span> <span class="op">=</span> <span class="ident">sc_consensus::LongestChain</span><span class="op">&lt;</span><span class="ident">FullBackend</span>, <span class="ident">Block</span><span class="op">&gt;</span>;
@@ -929,7 +1018,80 @@
 	<span class="ident">grandpa::GrandpaBlockImport</span><span class="op">&lt;</span><span class="ident">FullBackend</span>, <span class="ident">Block</span>, <span class="ident">FullClient</span>, <span class="ident">FullSelectChain</span><span class="op">&gt;</span>;
 <span class="kw">type</span> <span class="ident">LightClient</span> <span class="op">=</span>
 	<span class="ident">sc_service::TLightClient</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">RuntimeApi</span>, <span class="ident">NativeElseWasmExecutor</span><span class="op">&lt;</span><span class="ident">ExecutorDispatch</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+<span class="doccomment">/// The transaction pool type defintion.</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">TransactionPool</span> <span class="op">=</span> <span class="ident">sc_transaction_pool::FullPool</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">FullClient</span><span class="op">&gt;</span>;
 
+<span class="doccomment">/// Fetch the nonce of the given `account` from the chain state.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Note: Should only be used for tests.</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fetch_nonce</span>(<span class="ident">client</span>: <span class="kw-2">&amp;</span><span class="ident">FullClient</span>, <span class="ident">account</span>: <span class="ident">sp_core::sr25519::Pair</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+	<span class="kw">let</span> <span class="ident">best_hash</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">chain_info</span>().<span class="ident">best_hash</span>;
+	<span class="ident">client</span>
+		.<span class="ident">runtime_api</span>()
+		.<span class="ident">account_nonce</span>(<span class="kw-2">&amp;</span><span class="ident">generic::BlockId::Hash</span>(<span class="ident">best_hash</span>), <span class="ident">account</span>.<span class="ident">public</span>().<span class="ident">into</span>())
+		.<span class="ident">expect</span>(<span class="string">&quot;Fetching account nonce works; qed&quot;</span>)
+}
+
+<span class="doccomment">/// Create a transaction using the given `call`.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The transaction will be signed by `sender`. If `nonce` is `None` it will be fetched from the</span>
+<span class="doccomment">/// state of the best block.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Note: Should only be used for tests.</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_extrinsic</span>(
+	<span class="ident">client</span>: <span class="kw-2">&amp;</span><span class="ident">FullClient</span>,
+	<span class="ident">sender</span>: <span class="ident">sp_core::sr25519::Pair</span>,
+	<span class="ident">function</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">node_runtime::Call</span><span class="op">&gt;</span>,
+	<span class="ident">nonce</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">node_runtime::UncheckedExtrinsic</span> {
+	<span class="kw">let</span> <span class="ident">function</span> <span class="op">=</span> <span class="ident">function</span>.<span class="ident">into</span>();
+	<span class="kw">let</span> <span class="ident">genesis_hash</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">block_hash</span>(<span class="number">0</span>).<span class="ident">ok</span>().<span class="ident">flatten</span>().<span class="ident">expect</span>(<span class="string">&quot;Genesis block exists; qed&quot;</span>);
+	<span class="kw">let</span> <span class="ident">best_hash</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">chain_info</span>().<span class="ident">best_hash</span>;
+	<span class="kw">let</span> <span class="ident">best_block</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">chain_info</span>().<span class="ident">best_number</span>;
+	<span class="kw">let</span> <span class="ident">nonce</span> <span class="op">=</span> <span class="ident">nonce</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">fetch_nonce</span>(<span class="ident">client</span>, <span class="ident">sender</span>.<span class="ident">clone</span>()));
+
+	<span class="kw">let</span> <span class="ident">period</span> <span class="op">=</span> <span class="ident">node_runtime::BlockHashCount::get</span>()
+		.<span class="ident">checked_next_power_of_two</span>()
+		.<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span> <span class="op">/</span> <span class="number">2</span>)
+		.<span class="ident">unwrap_or</span>(<span class="number">2</span>) <span class="kw">as</span> <span class="ident">u64</span>;
+	<span class="kw">let</span> <span class="ident">tip</span> <span class="op">=</span> <span class="number">0</span>;
+	<span class="kw">let</span> <span class="ident">extra</span>: <span class="ident">node_runtime::SignedExtra</span> <span class="op">=</span> (
+		<span class="ident">frame_system::CheckSpecVersion</span>::<span class="op">&lt;</span><span class="ident">node_runtime::Runtime</span><span class="op">&gt;</span><span class="ident">::new</span>(),
+		<span class="ident">frame_system::CheckTxVersion</span>::<span class="op">&lt;</span><span class="ident">node_runtime::Runtime</span><span class="op">&gt;</span><span class="ident">::new</span>(),
+		<span class="ident">frame_system::CheckGenesis</span>::<span class="op">&lt;</span><span class="ident">node_runtime::Runtime</span><span class="op">&gt;</span><span class="ident">::new</span>(),
+		<span class="ident">frame_system::CheckEra</span>::<span class="op">&lt;</span><span class="ident">node_runtime::Runtime</span><span class="op">&gt;</span><span class="ident">::from</span>(<span class="ident">generic::Era::mortal</span>(
+			<span class="ident">period</span>,
+			<span class="ident">best_block</span>.<span class="ident">saturated_into</span>(),
+		)),
+		<span class="ident">frame_system::CheckNonce</span>::<span class="op">&lt;</span><span class="ident">node_runtime::Runtime</span><span class="op">&gt;</span><span class="ident">::from</span>(<span class="ident">nonce</span>),
+		<span class="ident">frame_system::CheckWeight</span>::<span class="op">&lt;</span><span class="ident">node_runtime::Runtime</span><span class="op">&gt;</span><span class="ident">::new</span>(),
+		<span class="ident">pallet_transaction_payment::ChargeTransactionPayment</span>::<span class="op">&lt;</span><span class="ident">node_runtime::Runtime</span><span class="op">&gt;</span><span class="ident">::from</span>(<span class="ident">tip</span>),
+	);
+
+	<span class="kw">let</span> <span class="ident">raw_payload</span> <span class="op">=</span> <span class="ident">node_runtime::SignedPayload::from_raw</span>(
+		<span class="ident">function</span>.<span class="ident">clone</span>(),
+		<span class="ident">extra</span>.<span class="ident">clone</span>(),
+		(
+			<span class="ident">node_runtime::VERSION</span>.<span class="ident">spec_version</span>,
+			<span class="ident">node_runtime::VERSION</span>.<span class="ident">transaction_version</span>,
+			<span class="ident">genesis_hash</span>,
+			<span class="ident">best_hash</span>,
+			(),
+			(),
+			(),
+		),
+	);
+	<span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="ident">raw_payload</span>.<span class="ident">using_encoded</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">sender</span>.<span class="ident">sign</span>(<span class="ident">e</span>));
+
+	<span class="ident">node_runtime::UncheckedExtrinsic::new_signed</span>(
+		<span class="ident">function</span>.<span class="ident">clone</span>(),
+		<span class="ident">sp_runtime::AccountId32::from</span>(<span class="ident">sender</span>.<span class="ident">public</span>()).<span class="ident">into</span>(),
+		<span class="ident">node_runtime::Signature::Sr25519</span>(<span class="ident">signature</span>.<span class="ident">clone</span>()),
+		<span class="ident">extra</span>.<span class="ident">clone</span>(),
+	)
+}
+
+<span class="doccomment">/// Creates a new partial node.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_partial</span>(
 	<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Configuration</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>
@@ -1099,11 +1261,16 @@
 	})
 }
 
+<span class="doccomment">/// Result of [`new_full_base`].</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NewFullBase</span> {
+	<span class="doccomment">/// The task manager of the node.</span>
 	<span class="kw">pub</span> <span class="ident">task_manager</span>: <span class="ident">TaskManager</span>,
+	<span class="doccomment">/// The client instance of the node.</span>
 	<span class="kw">pub</span> <span class="ident">client</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">FullClient</span><span class="op">&gt;</span>,
+	<span class="doccomment">/// The networking service of the node.</span>
 	<span class="kw">pub</span> <span class="ident">network</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">NetworkService</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	<span class="kw">pub</span> <span class="ident">transaction_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">sc_transaction_pool::FullPool</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">FullClient</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="doccomment">/// The transaction pool of the node.</span>
+	<span class="kw">pub</span> <span class="ident">transaction_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">TransactionPool</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// Creates a full service from the configuration.</span>
@@ -1321,6 +1488,7 @@
 	<span class="ident">new_full_base</span>(<span class="ident">config</span>, <span class="op">|</span><span class="kw">_</span>, <span class="kw">_</span><span class="op">|</span> ()).<span class="ident">map</span>(<span class="op">|</span><span class="ident">NewFullBase</span> { <span class="ident">task_manager</span>, .. }<span class="op">|</span> <span class="ident">task_manager</span>)
 }
 
+<span class="doccomment">/// Creates a light service from the configuration.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_light_base</span>(
 	<span class="kw-2">mut</span> <span class="ident">config</span>: <span class="ident">Configuration</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>
