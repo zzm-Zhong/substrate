@@ -845,7 +845,7 @@
 		<span class="kw">let</span> <span class="ident">paritydb_path</span> <span class="op">=</span> <span class="ident">base_path</span>.<span class="ident">join</span>(<span class="string">&quot;paritydb&quot;</span>).<span class="ident">join</span>(<span class="ident">role_dir</span>);
 		<span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">database</span> {
 			<span class="ident">Database::RocksDb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DatabaseSource::RocksDb</span> { <span class="ident">path</span>: <span class="ident">rocksdb_path</span>, <span class="ident">cache_size</span> },
-			<span class="ident">Database::ParityDb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DatabaseSource::ParityDb</span> { <span class="ident">path</span>: <span class="ident">rocksdb_path</span> },
+			<span class="ident">Database::ParityDb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DatabaseSource::ParityDb</span> { <span class="ident">path</span>: <span class="ident">paritydb_path</span> },
 			<span class="ident">Database::Auto</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">DatabaseSource::Auto</span> { <span class="ident">paritydb_path</span>, <span class="ident">rocksdb_path</span>, <span class="ident">cache_size</span> },
 		})
 	}
