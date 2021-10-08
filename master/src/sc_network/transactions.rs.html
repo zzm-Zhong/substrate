@@ -498,11 +498,6 @@
 <span id="487">487</span>
 <span id="488">488</span>
 <span id="489">489</span>
-<span id="490">490</span>
-<span id="491">491</span>
-<span id="492">492</span>
-<span id="493">493</span>
-<span id="494">494</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -822,15 +817,10 @@
 				}
 			},
 			<span class="ident">Event::SyncDisconnected</span> { <span class="ident">remote</span> } <span class="op">=</span><span class="op">&gt;</span> {
-				<span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="ident">iter::once</span>(<span class="ident">multiaddr::Protocol::P2p</span>(<span class="ident">remote</span>.<span class="ident">into</span>()))
-					.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">multiaddr::Multiaddr</span><span class="op">&gt;</span>();
-				<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">service</span>.<span class="ident">remove_peers_from_reserved_set</span>(
+				<span class="self">self</span>.<span class="ident">service</span>.<span class="ident">remove_peers_from_reserved_set</span>(
 					<span class="self">self</span>.<span class="ident">protocol_name</span>.<span class="ident">clone</span>(),
-					<span class="ident">iter::once</span>(<span class="ident">addr</span>).<span class="ident">collect</span>(),
+					<span class="ident">iter::once</span>(<span class="ident">remote</span>).<span class="ident">collect</span>(),
 				);
-				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="ident">result</span> {
-					<span class="macro">log::error!</span>(<span class="ident">target</span>: <span class="string">&quot;sync&quot;</span>, <span class="string">&quot;Removing reserved peer failed: {}&quot;</span>, <span class="ident">err</span>);
-				}
 			},
 
 			<span class="ident">Event::NotificationStreamOpened</span> { <span class="ident">remote</span>, <span class="ident">protocol</span>, <span class="ident">role</span>, .. }
