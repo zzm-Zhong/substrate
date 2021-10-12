@@ -727,12 +727,6 @@
 <span id="716">716</span>
 <span id="717">717</span>
 <span id="718">718</span>
-<span id="719">719</span>
-<span id="720">720</span>
-<span id="721">721</span>
-<span id="722">722</span>
-<span id="723">723</span>
-<span id="724">724</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -776,13 +770,12 @@
 
 <span class="kw">mod</span> <span class="ident">worker</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::worker</span>::{<span class="ident">MiningBuild</span>, <span class="ident">MiningMetadata</span>, <span class="ident">MiningWorker</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::worker</span>::{<span class="ident">MiningBuild</span>, <span class="ident">MiningHandle</span>, <span class="ident">MiningMetadata</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::worker::UntilImportedOrTimeout</span>;
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>};
 <span class="kw">use</span> <span class="ident">futures</span>::{<span class="ident">Future</span>, <span class="ident">StreamExt</span>};
 <span class="kw">use</span> <span class="ident">log</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">parking_lot::Mutex</span>;
 <span class="kw">use</span> <span class="ident">prometheus_endpoint::Registry</span>;
 <span class="kw">use</span> <span class="ident">sc_client_api</span>::{<span class="self">self</span>, <span class="ident">backend::AuxStore</span>, <span class="ident">BlockOf</span>, <span class="ident">BlockchainEvents</span>};
 <span class="kw">use</span> <span class="ident">sc_consensus</span>::{
@@ -1260,7 +1253,7 @@
 	<span class="ident">build_time</span>: <span class="ident">Duration</span>,
 	<span class="ident">can_author_with</span>: <span class="ident">CAW</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> (
-	<span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">MiningWorker</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Algorithm</span>, <span class="ident">C</span>, <span class="ident">L</span>, <span class="op">&lt;</span><span class="ident">E::Proposer</span> <span class="kw">as</span> <span class="ident">Proposer</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Proof</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="ident">MiningHandle</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">Algorithm</span>, <span class="ident">C</span>, <span class="ident">L</span>, <span class="op">&lt;</span><span class="ident">E::Proposer</span> <span class="kw">as</span> <span class="ident">Proposer</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Proof</span><span class="op">&gt;</span>,
 	<span class="kw">impl</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> ()<span class="op">&gt;</span>,
 )
 <span class="kw">where</span>
@@ -1278,12 +1271,7 @@
 	<span class="ident">CAW</span>: <span class="ident">CanAuthorWith</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">timer</span> <span class="op">=</span> <span class="ident">UntilImportedOrTimeout::new</span>(<span class="ident">client</span>.<span class="ident">import_notification_stream</span>(), <span class="ident">timeout</span>);
-	<span class="kw">let</span> <span class="ident">worker</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">Mutex::new</span>(<span class="ident">MiningWorker</span> {
-		<span class="ident">build</span>: <span class="prelude-val">None</span>,
-		<span class="ident">algorithm</span>: <span class="ident">algorithm</span>.<span class="ident">clone</span>(),
-		<span class="ident">block_import</span>,
-		<span class="ident">justification_sync_link</span>,
-	}));
+	<span class="kw">let</span> <span class="ident">worker</span> <span class="op">=</span> <span class="ident">MiningHandle::new</span>(<span class="ident">algorithm</span>.<span class="ident">clone</span>(), <span class="ident">block_import</span>, <span class="ident">justification_sync_link</span>);
 	<span class="kw">let</span> <span class="ident">worker_ret</span> <span class="op">=</span> <span class="ident">worker</span>.<span class="ident">clone</span>();
 
 	<span class="kw">let</span> <span class="ident">task</span> <span class="op">=</span> <span class="kw">async</span> <span class="kw">move</span> {
@@ -1294,7 +1282,7 @@
 
 			<span class="kw">if</span> <span class="ident">sync_oracle</span>.<span class="ident">is_major_syncing</span>() {
 				<span class="macro">debug!</span>(<span class="ident">target</span>: <span class="string">&quot;pow&quot;</span>, <span class="string">&quot;Skipping proposal due to sync.&quot;</span>);
-				<span class="ident">worker</span>.<span class="ident">lock</span>().<span class="ident">on_major_syncing</span>();
+				<span class="ident">worker</span>.<span class="ident">on_major_syncing</span>();
 				<span class="kw">continue</span>
 			}
 
@@ -1322,7 +1310,7 @@
 				<span class="kw">continue</span>
 			}
 
-			<span class="kw">if</span> <span class="ident">worker</span>.<span class="ident">lock</span>().<span class="ident">best_hash</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">best_hash</span>) {
+			<span class="kw">if</span> <span class="ident">worker</span>.<span class="ident">best_hash</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">best_hash</span>) {
 				<span class="kw">continue</span>
 			}
 
@@ -1417,7 +1405,7 @@
 				<span class="ident">proposal</span>,
 			};
 
-			<span class="ident">worker</span>.<span class="ident">lock</span>().<span class="ident">on_build</span>(<span class="ident">build</span>);
+			<span class="ident">worker</span>.<span class="ident">on_build</span>(<span class="ident">build</span>);
 		}
 	};
 
