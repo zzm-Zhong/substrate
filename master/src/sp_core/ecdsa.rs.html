@@ -925,6 +925,7 @@
 <span id="914">914</span>
 <span id="915">915</span>
 <span id="916">916</span>
+<span id="917">917</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1567,7 +1568,10 @@
 <span class="kw">mod</span> <span class="ident">test</span> {
 	<span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 	<span class="kw">use</span> <span class="kw">crate</span>::{
-		<span class="ident">crypto</span>::{<span class="ident">set_default_ss58_version</span>, <span class="ident">PublicError</span>, <span class="ident">DEV_PHRASE</span>},
+		<span class="ident">crypto</span>::{
+			<span class="ident">set_default_ss58_version</span>, <span class="ident">PublicError</span>, <span class="ident">Ss58AddressFormat</span>, <span class="ident">Ss58AddressFormatRegistry</span>,
+			<span class="ident">DEV_PHRASE</span>,
+		},
 		<span class="ident">keccak_256</span>,
 	};
 	<span class="kw">use</span> <span class="ident">hex_literal::hex</span>;
@@ -1699,26 +1703,24 @@
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">ss58check_format_check_works</span>() {
-		<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::crypto::Ss58AddressFormat</span>;
 		<span class="kw">let</span> <span class="ident">pair</span> <span class="op">=</span> <span class="ident">Pair::from_seed</span>(<span class="string">b&quot;12345678901234567890123456789012&quot;</span>);
 		<span class="kw">let</span> <span class="ident">public</span> <span class="op">=</span> <span class="ident">pair</span>.<span class="ident">public</span>();
-		<span class="kw">let</span> <span class="ident">format</span> <span class="op">=</span> <span class="ident">Ss58AddressFormat::Reserved46</span>;
+		<span class="kw">let</span> <span class="ident">format</span> <span class="op">=</span> <span class="ident">Ss58AddressFormatRegistry::Reserved46Account</span>.<span class="ident">into</span>();
 		<span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">public</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">format</span>);
 		<span class="macro">assert_eq!</span>(<span class="ident">Public::from_ss58check_with_version</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>), <span class="prelude-val">Err</span>(<span class="ident">PublicError::FormatNotAllowed</span>));
 	}
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">ss58check_full_roundtrip_works</span>() {
-		<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::crypto::Ss58AddressFormat</span>;
 		<span class="kw">let</span> <span class="ident">pair</span> <span class="op">=</span> <span class="ident">Pair::from_seed</span>(<span class="string">b&quot;12345678901234567890123456789012&quot;</span>);
 		<span class="kw">let</span> <span class="ident">public</span> <span class="op">=</span> <span class="ident">pair</span>.<span class="ident">public</span>();
-		<span class="kw">let</span> <span class="ident">format</span> <span class="op">=</span> <span class="ident">Ss58AddressFormat::PolkadotAccount</span>;
+		<span class="kw">let</span> <span class="ident">format</span> <span class="op">=</span> <span class="ident">Ss58AddressFormatRegistry::PolkadotAccount</span>.<span class="ident">into</span>();
 		<span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">public</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">format</span>);
 		<span class="kw">let</span> (<span class="ident">k</span>, <span class="ident">f</span>) <span class="op">=</span> <span class="ident">Public::from_ss58check_with_version</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>).<span class="ident">unwrap</span>();
 		<span class="macro">assert_eq!</span>(<span class="ident">k</span>, <span class="ident">public</span>);
 		<span class="macro">assert_eq!</span>(<span class="ident">f</span>, <span class="ident">format</span>);
 
-		<span class="kw">let</span> <span class="ident">format</span> <span class="op">=</span> <span class="ident">Ss58AddressFormat::Custom</span>(<span class="number">64</span>);
+		<span class="kw">let</span> <span class="ident">format</span> <span class="op">=</span> <span class="ident">Ss58AddressFormat::custom</span>(<span class="number">64</span>);
 		<span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">public</span>.<span class="ident">to_ss58check_with_version</span>(<span class="ident">format</span>);
 		<span class="kw">let</span> (<span class="ident">k</span>, <span class="ident">f</span>) <span class="op">=</span> <span class="ident">Public::from_ss58check_with_version</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>).<span class="ident">unwrap</span>();
 		<span class="macro">assert_eq!</span>(<span class="ident">k</span>, <span class="ident">public</span>);
@@ -1732,10 +1734,10 @@
 		<span class="kw">if</span> <span class="ident">std::env::var</span>(<span class="string">&quot;RUN_CUSTOM_FORMAT_TEST&quot;</span>) <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Ok</span>(<span class="string">&quot;1&quot;</span>.<span class="ident">into</span>()) {
 			<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::crypto::Ss58AddressFormat</span>;
 			<span class="comment">// temp save default format version</span>
-			<span class="kw">let</span> <span class="ident">default_format</span> <span class="op">=</span> <span class="ident">Ss58AddressFormat::default</span>();
+			<span class="kw">let</span> <span class="ident">default_format</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::crypto::default_ss58_version</span>();
 			<span class="comment">// set current ss58 version is custom &quot;200&quot; `Ss58AddressFormat::Custom(200)`</span>
 
-			<span class="ident">set_default_ss58_version</span>(<span class="ident">Ss58AddressFormat::Custom</span>(<span class="number">200</span>));
+			<span class="ident">set_default_ss58_version</span>(<span class="ident">Ss58AddressFormat::custom</span>(<span class="number">200</span>));
 			<span class="comment">// custom addr encoded by version 200</span>
 			<span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="string">&quot;4pbsSkWcBaYoFHrKJZp5fDVUKbqSYD9dhZZGvpp3vQ5ysVs5ybV&quot;</span>;
 			<span class="ident">Public::from_ss58check</span>(<span class="kw-2">&amp;</span><span class="ident">addr</span>).<span class="ident">unwrap</span>();

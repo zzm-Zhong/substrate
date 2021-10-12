@@ -242,6 +242,14 @@
 <span id="231">231</span>
 <span id="232">232</span>
 <span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -266,7 +274,7 @@
 	<span class="ident">error</span>, <span class="ident">utils</span>, <span class="ident">with_crypto_scheme</span>, <span class="ident">CryptoSchemeFlag</span>, <span class="ident">NetworkSchemeFlag</span>, <span class="ident">OutputTypeFlag</span>,
 };
 <span class="kw">use</span> <span class="ident">rand</span>::{<span class="ident">rngs::OsRng</span>, <span class="ident">RngCore</span>};
-<span class="kw">use</span> <span class="ident">sp_core::crypto</span>::{<span class="ident">Ss58AddressFormat</span>, <span class="ident">Ss58Codec</span>};
+<span class="kw">use</span> <span class="ident">sp_core::crypto</span>::{<span class="ident">unwrap_or_default_ss58_version</span>, <span class="ident">Ss58AddressFormat</span>, <span class="ident">Ss58Codec</span>};
 <span class="kw">use</span> <span class="ident">sp_runtime::traits::IdentifyAccount</span>;
 <span class="kw">use</span> <span class="ident">structopt::StructOpt</span>;
 <span class="kw">use</span> <span class="ident">utils::print_from_uri</span>;
@@ -297,7 +305,10 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">error::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">formated_seed</span> <span class="op">=</span> <span class="macro">with_crypto_scheme!</span>(
 			<span class="self">self</span>.<span class="ident">crypto_scheme</span>.<span class="ident">scheme</span>,
-			<span class="ident">generate_key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">pattern</span>, <span class="self">self</span>.<span class="ident">network_scheme</span>.<span class="ident">network</span>.<span class="ident">clone</span>().<span class="ident">unwrap_or_default</span>()),
+			<span class="ident">generate_key</span>(
+				<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">pattern</span>,
+				<span class="ident">unwrap_or_default_ss58_version</span>(<span class="self">self</span>.<span class="ident">network_scheme</span>.<span class="ident">network</span>)
+			),
 		)<span class="question-mark">?</span>;
 
 		<span class="macro">with_crypto_scheme!</span>(
@@ -403,7 +414,10 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
 	<span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-	<span class="kw">use</span> <span class="ident">sp_core</span>::{<span class="ident">crypto::Ss58Codec</span>, <span class="ident">sr25519</span>, <span class="ident">Pair</span>};
+	<span class="kw">use</span> <span class="ident">sp_core</span>::{
+		<span class="ident">crypto</span>::{<span class="ident">default_ss58_version</span>, <span class="ident">Ss58AddressFormatRegistry</span>, <span class="ident">Ss58Codec</span>},
+		<span class="ident">sr25519</span>, <span class="ident">Pair</span>,
+	};
 	<span class="kw">use</span> <span class="ident">structopt::StructOpt</span>;
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;bench&quot;</span>)]</span>
 	<span class="kw">use</span> <span class="ident">test::Bencher</span>;
@@ -416,7 +430,7 @@
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">test_generation_with_single_char</span>() {
-		<span class="kw">let</span> <span class="ident">seed</span> <span class="op">=</span> <span class="ident">generate_key</span>::<span class="op">&lt;</span><span class="ident">sr25519::Pair</span><span class="op">&gt;</span>(<span class="string">&quot;ab&quot;</span>, <span class="ident">Default::default</span>()).<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="ident">seed</span> <span class="op">=</span> <span class="ident">generate_key</span>::<span class="op">&lt;</span><span class="ident">sr25519::Pair</span><span class="op">&gt;</span>(<span class="string">&quot;ab&quot;</span>, <span class="ident">default_ss58_version</span>()).<span class="ident">unwrap</span>();
 		<span class="macro">assert!</span>(<span class="ident">sr25519::Pair::from_seed_slice</span>(<span class="kw-2">&amp;</span><span class="ident">hex::decode</span>(<span class="kw-2">&amp;</span><span class="ident">seed</span>[<span class="number">2</span>..]).<span class="ident">unwrap</span>())
 			.<span class="ident">unwrap</span>()
 			.<span class="ident">public</span>()
@@ -426,11 +440,13 @@
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">generate_key_respects_network_override</span>() {
-		<span class="kw">let</span> <span class="ident">seed</span> <span class="op">=</span> <span class="ident">generate_key</span>::<span class="op">&lt;</span><span class="ident">sr25519::Pair</span><span class="op">&gt;</span>(<span class="string">&quot;ab&quot;</span>, <span class="ident">Ss58AddressFormat::PolkadotAccount</span>).<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="ident">seed</span> <span class="op">=</span>
+			<span class="ident">generate_key</span>::<span class="op">&lt;</span><span class="ident">sr25519::Pair</span><span class="op">&gt;</span>(<span class="string">&quot;ab&quot;</span>, <span class="ident">Ss58AddressFormatRegistry::PolkadotAccount</span>.<span class="ident">into</span>())
+				.<span class="ident">unwrap</span>();
 		<span class="macro">assert!</span>(<span class="ident">sr25519::Pair::from_seed_slice</span>(<span class="kw-2">&amp;</span><span class="ident">hex::decode</span>(<span class="kw-2">&amp;</span><span class="ident">seed</span>[<span class="number">2</span>..]).<span class="ident">unwrap</span>())
 			.<span class="ident">unwrap</span>()
 			.<span class="ident">public</span>()
-			.<span class="ident">to_ss58check_with_version</span>(<span class="ident">Ss58AddressFormat::PolkadotAccount</span>)
+			.<span class="ident">to_ss58check_with_version</span>(<span class="ident">Ss58AddressFormatRegistry::PolkadotAccount</span>.<span class="ident">into</span>())
 			.<span class="ident">contains</span>(<span class="string">&quot;ab&quot;</span>));
 	}
 
