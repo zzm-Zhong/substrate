@@ -554,6 +554,7 @@
 <span id="543">543</span>
 <span id="544">544</span>
 <span id="545">545</span>
+<span id="546">546</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -874,14 +875,15 @@
 		<span class="ident">WasmExecutionMethod::Compiled</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">sc_executor_wasmtime::create_runtime</span>(
 			<span class="ident">blob</span>,
 			<span class="ident">sc_executor_wasmtime::Config</span> {
-				<span class="ident">heap_pages</span>: <span class="ident">heap_pages</span> <span class="kw">as</span> <span class="ident">u32</span>,
-				<span class="ident">max_memory_pages</span>: <span class="prelude-val">None</span>,
+				<span class="ident">heap_pages</span>,
+				<span class="ident">max_memory_size</span>: <span class="prelude-val">None</span>,
 				<span class="ident">allow_missing_func_imports</span>,
 				<span class="ident">cache_path</span>: <span class="ident">cache_path</span>.<span class="ident">map</span>(<span class="ident">ToOwned::to_owned</span>),
 				<span class="ident">semantics</span>: <span class="ident">sc_executor_wasmtime::Semantics</span> {
 					<span class="ident">fast_instance_reuse</span>: <span class="bool-val">true</span>,
 					<span class="ident">deterministic_stack_limit</span>: <span class="prelude-val">None</span>,
 					<span class="ident">canonicalize_nans</span>: <span class="bool-val">false</span>,
+					<span class="ident">parallel_compilation</span>: <span class="bool-val">true</span>,
 				},
 			},
 			<span class="ident">host_functions</span>,

@@ -683,6 +683,12 @@
 <span id="672">672</span>
 <span id="673">673</span>
 <span id="674">674</span>
+<span id="675">675</span>
+<span id="676">676</span>
+<span id="677">677</span>
+<span id="678">678</span>
+<span id="679">679</span>
+<span id="680">680</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -762,7 +768,7 @@
 	<span class="ident">store</span>: <span class="ident">Store</span>,
 	<span class="ident">module</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">wasmtime::Module</span><span class="op">&gt;</span>,
 	<span class="ident">imports</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Imports</span><span class="op">&gt;</span>,
-	<span class="ident">heap_pages</span>: <span class="ident">u32</span>,
+	<span class="ident">heap_pages</span>: <span class="ident">u64</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">InstanceCreator</span> {
@@ -815,15 +821,15 @@
 <span class="kw">impl</span> <span class="ident">WasmtimeRuntime</span> {
 	<span class="doccomment">/// Creates the store respecting the set limits.</span>
 	<span class="kw">fn</span> <span class="ident">new_store</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Store</span> {
-		<span class="kw">let</span> <span class="ident">limits</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">max_memory_pages</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">max_memory_pages</span> {
-			<span class="ident">wasmtime::StoreLimitsBuilder::new</span>().<span class="ident">memory_pages</span>(<span class="ident">max_memory_pages</span>).<span class="ident">build</span>()
+		<span class="kw">let</span> <span class="ident">limits</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">max_memory_size</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">max_memory_size</span> {
+			<span class="ident">wasmtime::StoreLimitsBuilder::new</span>().<span class="ident">memory_size</span>(<span class="ident">max_memory_size</span>).<span class="ident">build</span>()
 		} <span class="kw">else</span> {
 			<span class="ident">Default::default</span>()
 		};
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">store</span> <span class="op">=</span> <span class="ident">Store::new</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">engine</span>, <span class="ident">StoreData</span> { <span class="ident">limits</span>, <span class="ident">host_state</span>: <span class="prelude-val">None</span> });
 
-		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">max_memory_pages</span>.<span class="ident">is_some</span>() {
+		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">max_memory_size</span>.<span class="ident">is_some</span>() {
 			<span class="ident">store</span>.<span class="ident">limiter</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">s</span>.<span class="ident">limits</span>);
 		}
 
@@ -1035,6 +1041,8 @@ directory = \&quot;{cache_dir}\&quot;
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">WasmError::Other</span>(<span class="macro">format!</span>(<span class="string">&quot;cannot set max wasm stack: {}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
 	}
 
+	<span class="ident">config</span>.<span class="ident">parallel_compilation</span>(<span class="ident">semantics</span>.<span class="ident">parallel_compilation</span>);
+
 	<span class="comment">// Be clear and specific about the extensions we support. If an update brings new features</span>
 	<span class="comment">// they should be introduced here as well.</span>
 	<span class="ident">config</span>.<span class="ident">wasm_reference_types</span>(<span class="bool-val">false</span>);
@@ -1066,7 +1074,7 @@ directory = \&quot;{cache_dir}\&quot;
 <span class="doccomment">/// usage in bytes.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The actual number of bytes consumed by a function is not trivial to compute  without going</span>
-<span class="doccomment">/// through full compilation. Therefore, it&#39;s expected that `native_stack_max` is grealy</span>
+<span class="doccomment">/// through full compilation. Therefore, it&#39;s expected that `native_stack_max` is greatly</span>
 <span class="doccomment">/// overestimated and thus never reached in practice. The stack overflow check introduced by the</span>
 <span class="doccomment">/// instrumentation and that relies on the logical item count should be reached first.</span>
 <span class="doccomment">///</span>
@@ -1084,7 +1092,7 @@ directory = \&quot;{cache_dir}\&quot;
 	<span class="doccomment">/// It&#39;s not specified how much bytes will be consumed by a stack frame for a given wasm</span>
 	<span class="doccomment">/// function after translation into machine code. It is also not quite trivial.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Therefore, this number should be choosen conservatively. It must be so large so that it can</span>
+	<span class="doccomment">/// Therefore, this number should be chosen conservatively. It must be so large so that it can</span>
 	<span class="doccomment">/// fit the [`logical_max`](Self::logical_max) logical values on the stack, according to the</span>
 	<span class="doccomment">/// current instrumentation algorithm.</span>
 	<span class="doccomment">///</span>
@@ -1094,7 +1102,7 @@ directory = \&quot;{cache_dir}\&quot;
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Semantics</span> {
 	<span class="doccomment">/// Enabling this will lead to some optimization shenanigans that make calling [`WasmInstance`]</span>
-	<span class="doccomment">/// extermely fast.</span>
+	<span class="doccomment">/// extremely fast.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Primarily this is achieved by not recreating the instance for each call and performing a</span>
 	<span class="doccomment">/// bare minimum clean up: reapplying the data segments and restoring the values for global</span>
@@ -1134,28 +1142,32 @@ directory = \&quot;{cache_dir}\&quot;
 	<span class="doccomment">/// developers. For PVFs, we want to ensure that execution is deterministic though. Therefore,</span>
 	<span class="doccomment">/// for PVF execution this flag is meant to be turned on.</span>
 	<span class="kw">pub</span> <span class="ident">canonicalize_nans</span>: <span class="ident">bool</span>,
+
+	<span class="doccomment">/// Configures wasmtime to use multiple threads for compiling.</span>
+	<span class="kw">pub</span> <span class="ident">parallel_compilation</span>: <span class="ident">bool</span>,
 }
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Config</span> {
 	<span class="doccomment">/// The number of wasm pages to be mounted after instantiation.</span>
-	<span class="kw">pub</span> <span class="ident">heap_pages</span>: <span class="ident">u32</span>,
+	<span class="kw">pub</span> <span class="ident">heap_pages</span>: <span class="ident">u64</span>,
 
-	<span class="doccomment">/// The total number of wasm pages an instance can request.</span>
+	<span class="doccomment">/// The total amount of memory in bytes an instance can request.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// If specified, the runtime will be able to allocate only that much of wasm memory pages.</span>
+	<span class="doccomment">/// If specified, the runtime will be able to allocate only that much of wasm memory.</span>
 	<span class="doccomment">/// This is the total number and therefore the [`heap_pages`] is accounted for.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// That means that the initial number of pages of a linear memory plus the [`heap_pages`]</span>
-	<span class="doccomment">/// should be less or equal to `max_memory_pages`, otherwise the instance won&#39;t be created.</span>
+	<span class="doccomment">/// multiplied by the wasm page size (64KiB) should be less than or equal to `max_memory_size`,</span>
+	<span class="doccomment">/// otherwise the instance won&#39;t be created.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Moreover, `memory.grow` will fail (return -1) if the sum of the number of currently mounted</span>
-	<span class="doccomment">/// pages and the number of additional pages exceeds `max_memory_pages`.</span>
+	<span class="doccomment">/// Moreover, `memory.grow` will fail (return -1) if the sum of sizes of currently mounted</span>
+	<span class="doccomment">/// and additional pages exceeds `max_memory_size`.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The default is `None`.</span>
-	<span class="kw">pub</span> <span class="ident">max_memory_pages</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">max_memory_size</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,
 
 	<span class="doccomment">/// The WebAssembly standard requires all imports of an instantiated module to be resolved,</span>
-	<span class="doccomment">/// othewise, the instantiation fails. If this option is set to `true`, then this behavior is</span>
+	<span class="doccomment">/// otherwise, the instantiation fails. If this option is set to `true`, then this behavior is</span>
 	<span class="doccomment">/// overriden and imports that are requested by the module and not provided by the host</span>
 	<span class="doccomment">/// functions will be resolved using stubs. These stubs will trap upon a call.</span>
 	<span class="kw">pub</span> <span class="ident">allow_missing_func_imports</span>: <span class="ident">bool</span>,
