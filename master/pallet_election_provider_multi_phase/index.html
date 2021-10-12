@@ -9,7 +9,7 @@
       gtag('config', 'UA-145158313-2');
 </script>
 
-<style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../pallet_election_provider_multi_phase/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><h2 class="location">Crate pallet_election_provider_multi_phase</h2><div class="block version"><div class="narrow-helper"></div><p>Version 4.0.0-dev</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all pallet_election_provider_multi_phase's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="pallet_election_provider_multi_phase" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">pallet_election_provider_multi_phase</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/pallet_election_provider_multi_phase/lib.rs.html#18-2052" title="goto source code">[src]</a></span></h1><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h1 id="multi-phase-offchain-election-provider-pallet" class="section-header"><a href="#multi-phase-offchain-election-provider-pallet">Multi phase, offchain election provider pallet.</a></h1>
+<style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../pallet_election_provider_multi_phase/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><h2 class="location">Crate pallet_election_provider_multi_phase</h2><div class="block version"><div class="narrow-helper"></div><p>Version 4.0.0-dev</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all pallet_election_provider_multi_phase's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="pallet_election_provider_multi_phase" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">pallet_election_provider_multi_phase</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/pallet_election_provider_multi_phase/lib.rs.html#18-2073" title="goto source code">[src]</a></span></h1><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h1 id="multi-phase-offchain-election-provider-pallet" class="section-header"><a href="#multi-phase-offchain-election-provider-pallet">Multi phase, offchain election provider pallet.</a></h1>
 <p>Currently, this election-provider has two distinct phases (see <a href="enum.Phase.html" title="Phase"><code>Phase</code></a>), <strong>signed</strong> and
 <strong>unsigned</strong>.</p>
 <h2 id="phases" class="section-header"><a href="#phases">Phases</a></h2>
@@ -51,11 +51,11 @@ ones, it is instantly rejected and no additional bond is reserved.</li>
 <p>A signed solution cannot be reversed, taken back, updated, or retracted. In other words, the
 origin can not bail out in any way, if their solution is queued.</p>
 <p>Upon the end of the signed phase, the solutions are examined from best to worse (i.e. <code>pop()</code>ed
-until drained). Each solution undergoes an expensive <code>Pallet::feasibility_check</code>, which
-ensures the score claimed by this score was correct, and it is valid based on the election data
-(i.e. votes and candidates). At each step, if the current best solution passes the feasibility
-check, it is considered to be the best one. The sender of the origin is rewarded, and the rest
-of the queued solutions get their deposit back and are discarded, without being checked.</p>
+until drained). Each solution undergoes an expensive <code>Pallet::feasibility_check</code>, which ensures
+the score claimed by this score was correct, and it is valid based on the election data (i.e.
+votes and candidates). At each step, if the current best solution passes the feasibility check,
+it is considered to be the best one. The sender of the origin is rewarded, and the rest of the
+queued solutions get their deposit back and are discarded, without being checked.</p>
 <p>The following example covers all of the cases at the end of the signed phase:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore"><code><span class="ident">Queue</span>
@@ -93,16 +93,32 @@ is a more <em>fail-safe</em> approach.</p>
 <h3 id="emergency-phase" class="section-header"><a href="#emergency-phase">Emergency Phase</a></h3>
 <p>If, for any of the below reasons:</p>
 <ol>
-<li>No signed or unsigned solution submitted &amp; Fallback is <code>None</code> or failed</li>
-<li>Internal error</li>
+<li>No <strong>signed</strong> or <strong>unsigned</strong> solution submitted, and no successful <a href="pallet/trait.Config.html#associatedtype.Fallback" title="Config::Fallback"><code>Config::Fallback</code></a> is
+provided</li>
+<li>Any other unforeseen internal error</li>
 </ol>
 <p>A call to <code>T::ElectionProvider::elect</code> is made, and <code>Ok(_)</code> cannot be returned, then the pallet
 proceeds to the <a href="enum.Phase.html#variant.Emergency" title="Phase::Emergency"><code>Phase::Emergency</code></a>. During this phase, any solution can be submitted from
-<a href="pallet/trait.Config.html#associatedtype.ForceOrigin" title="Config::ForceOrigin"><code>Config::ForceOrigin</code></a>, without any checking. Once submitted, the forced solution is kept in
-<a href="pallet/type.QueuedSolution.html" title="QueuedSolution"><code>QueuedSolution</code></a> until the next call to <code>T::ElectionProvider::elect</code>, where it is returned and
-<a href="enum.Phase.html" title="Phase"><code>Phase</code></a> goes back to <code>Off</code>.</p>
+<a href="pallet/trait.Config.html#associatedtype.ForceOrigin" title="Config::ForceOrigin"><code>Config::ForceOrigin</code></a>, without any checking, via <a href="pallet/struct.Pallet.html#method.set_emergency_election_result" title="Pallet::set_emergency_election_result"><code>Pallet::set_emergency_election_result</code></a>
+transaction. Hence, <code>[</code>Config::ForceOrigin<code>]</code> should only be set to a trusted origin, such as
+the council or root. Once submitted, the forced solution is kept in <a href="pallet/type.QueuedSolution.html" title="QueuedSolution"><code>QueuedSolution</code></a> until the
+next call to <code>T::ElectionProvider::elect</code>, where it is returned and <a href="enum.Phase.html" title="Phase"><code>Phase</code></a> goes back to
+<code>Off</code>.</p>
 <p>This implies that the user of this pallet (i.e. a staking pallet) should re-try calling
-<code>T::ElectionProvider::elect</code> in case of error until <code>OK(_)</code> is returned.</p>
+<code>T::ElectionProvider::elect</code> in case of error, until <code>OK(_)</code> is returned.</p>
+<p>To generate an emergency solution, one must only provide one argument: <a href="../sp_npos_elections/type.Supports.html" title="Supports"><code>Supports</code></a>. This is
+essentially a collection of elected winners for the election, and voters who support them. The
+supports can be generated by any means. In the simplest case, it could be manual. For example,
+in the case of massive network failure or misbehaviour, <a href="pallet/trait.Config.html#associatedtype.ForceOrigin" title="Config::ForceOrigin"><code>Config::ForceOrigin</code></a> might decide to
+select only a small number of emergency winners (which would greatly restrict the next validator
+set, if this pallet is used with <code>pallet-staking</code>). If the failure is for other technical
+reasons, then a simple and safe way to generate supports is using the staking-miner binary
+provided in the Polkadot repository. This binary has a subcommand named <code>emergency-solution</code>
+which is capable of connecting to a live network, and generating appropriate <code>supports</code> using a
+standard algorithm, and outputting the <code>supports</code> in hex format, ready for submission. Note that
+while this binary lives in the Polkadot repository, this particular subcommand of it can work
+against any substrate based-chain.</p>
+<p>See the <code>staking-miner</code> documentation in the Polkadot repository for more information.</p>
 <h2 id="feasible-solution-correct-solution" class="section-header"><a href="#feasible-solution-correct-solution">Feasible Solution (correct solution)</a></h2>
 <p>All submissions must undergo a feasibility check. Signed solutions are checked on by one at the
 end of the signed phase, and the unsigned solutions are checked on the spot. A feasible solution
@@ -114,13 +130,13 @@ is as follows:</p>
 <li>the claimed score is valid, based on the fixed point arithmetic accuracy.</li>
 </ol>
 <h2 id="accuracy" class="section-header"><a href="#accuracy">Accuracy</a></h2>
-<p>The accuracy of the election is configured via
-<a href="type.SolutionAccuracyOf.html" title="SolutionAccuracyOf"><code>SolutionAccuracyOf</code></a> which is the accuracy that the submitted solutions must adhere to.</p>
+<p>The accuracy of the election is configured via <a href="type.SolutionAccuracyOf.html" title="SolutionAccuracyOf"><code>SolutionAccuracyOf</code></a> which is the accuracy that
+the submitted solutions must adhere to.</p>
 <p>Note that the accuracy is of great importance. The offchain solution should be as small as
 possible, reducing solutions size/weight.</p>
 <h2 id="error-types" class="section-header"><a href="#error-types">Error types</a></h2>
-<p>This pallet provides a verbose error system to ease future debugging and debugging. The
-overall hierarchy of errors is as follows:</p>
+<p>This pallet provides a verbose error system to ease future debugging and debugging. The overall
+hierarchy of errors is as follows:</p>
 <ol>
 <li><a href="pallet/enum.Error.html" title="pallet::Error"><code>pallet::Error</code></a>: These are the errors that can be returned in the dispatchables of the
 pallet, either signed or unsigned. Since decomposition with nested enums is not possible
@@ -139,6 +155,8 @@ are helpful for logging and are thus nested as:
 <p>Note that there could be an overlap between these sub-errors. For example, A
 <code>SnapshotUnavailable</code> can happen in both miner and feasibility check phase.</p>
 <h2 id="future-plans" class="section-header"><a href="#future-plans">Future Plans</a></h2>
+<p><strong>Emergency-phase recovery script</strong>: This script should be taken out of staking-miner in
+polkadot and ideally live in <code>substrate/utils/frame/elections</code>.</p>
 <p><strong>Challenge Phase</strong>. We plan on adding a third phase to the pallet, called the challenge phase.
 This is a phase in which no further solutions are processed, and the current best solution might
 be challenged by anyone (signed or unsigned). The main plan here is to enforce the solution to
