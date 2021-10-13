@@ -448,6 +448,7 @@
 <span id="437">437</span>
 <span id="438">438</span>
 <span id="439">439</span>
+<span id="440">440</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -481,7 +482,8 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Unlike a standard `BTreeSet`, there is an enforced upper limit to the number of items in the</span>
 <span class="doccomment">/// set. All internal operations ensure this bound is respected.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Encode</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Encode</span>, <span class="ident">scale_info::TypeInfo</span>)]</span>
+<span class="attribute">#[<span class="ident">scale_info</span>(<span class="ident">skip_type_params</span>(<span class="ident">S</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BoundedBTreeSet</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span>(<span class="ident">BTreeSet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">Decode</span> <span class="kw">for</span> <span class="ident">BoundedBTreeSet</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span>

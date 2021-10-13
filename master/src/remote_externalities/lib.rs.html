@@ -663,6 +663,62 @@
 <span id="652">652</span>
 <span id="653">653</span>
 <span id="654">654</span>
+<span id="655">655</span>
+<span id="656">656</span>
+<span id="657">657</span>
+<span id="658">658</span>
+<span id="659">659</span>
+<span id="660">660</span>
+<span id="661">661</span>
+<span id="662">662</span>
+<span id="663">663</span>
+<span id="664">664</span>
+<span id="665">665</span>
+<span id="666">666</span>
+<span id="667">667</span>
+<span id="668">668</span>
+<span id="669">669</span>
+<span id="670">670</span>
+<span id="671">671</span>
+<span id="672">672</span>
+<span id="673">673</span>
+<span id="674">674</span>
+<span id="675">675</span>
+<span id="676">676</span>
+<span id="677">677</span>
+<span id="678">678</span>
+<span id="679">679</span>
+<span id="680">680</span>
+<span id="681">681</span>
+<span id="682">682</span>
+<span id="683">683</span>
+<span id="684">684</span>
+<span id="685">685</span>
+<span id="686">686</span>
+<span id="687">687</span>
+<span id="688">688</span>
+<span id="689">689</span>
+<span id="690">690</span>
+<span id="691">691</span>
+<span id="692">692</span>
+<span id="693">693</span>
+<span id="694">694</span>
+<span id="695">695</span>
+<span id="696">696</span>
+<span id="697">697</span>
+<span id="698">698</span>
+<span id="699">699</span>
+<span id="700">700</span>
+<span id="701">701</span>
+<span id="702">702</span>
+<span id="703">703</span>
+<span id="704">704</span>
+<span id="705">705</span>
+<span id="706">706</span>
+<span id="707">707</span>
+<span id="708">708</span>
+<span id="709">709</span>
+<span id="710">710</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -825,13 +881,16 @@
 
 <span class="doccomment">/// Builder for remote-externalities.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> {
-	<span class="doccomment">/// Custom key-pairs to be injected into the externalities.</span>
-	<span class="ident">inject</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">KeyPair</span><span class="op">&gt;</span>,
+	<span class="doccomment">/// Custom key-pairs to be injected into the externalities. The *hashed* keys and values must</span>
+	<span class="doccomment">/// be given.</span>
+	<span class="ident">hashed_key_values</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">KeyPair</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Storage entry key prefixes to be injected into the externalities. The *hashed* prefix must</span>
 	<span class="doccomment">/// be given.</span>
 	<span class="ident">hashed_prefixes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Storage entry keys to be injected into the externalities. The *hashed* key must be given.</span>
 	<span class="ident">hashed_keys</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="doccomment">/// The keys that will be excluded from the final externality. The *hashed* key must be given.</span>
+	<span class="ident">hashed_blacklist</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// connectivity mode, online or offline.</span>
 	<span class="ident">mode</span>: <span class="ident">Mode</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
 }
@@ -841,10 +900,11 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
 	<span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="self">Self</span> {
-			<span class="ident">inject</span>: <span class="ident">Default::default</span>(),
 			<span class="ident">mode</span>: <span class="ident">Default::default</span>(),
+			<span class="ident">hashed_key_values</span>: <span class="ident">Default::default</span>(),
 			<span class="ident">hashed_prefixes</span>: <span class="ident">Default::default</span>(),
 			<span class="ident">hashed_keys</span>: <span class="ident">Default::default</span>(),
+			<span class="ident">hashed_blacklist</span>: <span class="ident">Default::default</span>(),
 		}
 	}
 }
@@ -1100,12 +1160,26 @@
 			},
 		};
 
-		<span class="macro">debug!</span>(
-			<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>,
-			<span class="string">&quot;extending externalities with {} manually injected key-values&quot;</span>,
-			<span class="self">self</span>.<span class="ident">inject</span>.<span class="ident">len</span>()
-		);
-		<span class="ident">base_kv</span>.<span class="ident">extend</span>(<span class="self">self</span>.<span class="ident">inject</span>.<span class="ident">clone</span>());
+		<span class="comment">// inject manual key values.</span>
+		<span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">hashed_key_values</span>.<span class="ident">is_empty</span>() {
+			<span class="macro">debug!</span>(
+				<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>,
+				<span class="string">&quot;extending externalities with {} manually injected key-values&quot;</span>,
+				<span class="self">self</span>.<span class="ident">hashed_key_values</span>.<span class="ident">len</span>()
+			);
+			<span class="ident">base_kv</span>.<span class="ident">extend</span>(<span class="self">self</span>.<span class="ident">hashed_key_values</span>.<span class="ident">clone</span>());
+		}
+
+		<span class="comment">// exclude manual key values.</span>
+		<span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">hashed_blacklist</span>.<span class="ident">is_empty</span>() {
+			<span class="macro">debug!</span>(
+				<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>,
+				<span class="string">&quot;excluding externalities from {} keys&quot;</span>,
+				<span class="self">self</span>.<span class="ident">hashed_blacklist</span>.<span class="ident">len</span>()
+			);
+			<span class="ident">base_kv</span>.<span class="ident">retain</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">hashed_blacklist</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">k</span>.<span class="number">0</span>))
+		}
+
 		<span class="prelude-val">Ok</span>(<span class="ident">base_kv</span>)
 	}
 }
@@ -1118,13 +1192,12 @@
 	}
 
 	<span class="doccomment">/// Inject a manual list of key and values to the storage.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">inject_key_value</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">injections</span>: <span class="kw-2">&amp;</span>[<span class="ident">KeyPair</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">inject_hashed_key_value</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">injections</span>: <span class="kw-2">&amp;</span>[<span class="ident">KeyPair</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="ident">injections</span> {
-			<span class="self">self</span>.<span class="ident">inject</span>.<span class="ident">push</span>(<span class="ident">i</span>.<span class="ident">clone</span>());
+			<span class="self">self</span>.<span class="ident">hashed_key_values</span>.<span class="ident">push</span>(<span class="ident">i</span>.<span class="ident">clone</span>());
 		}
 		<span class="self">self</span>
 	}
-
 	<span class="doccomment">/// Inject a hashed prefix. This is treated as-is, and should be pre-hashed.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This should be used to inject a &quot;PREFIX&quot;, like a storage (double) map.</span>
@@ -1138,6 +1211,13 @@
 	<span class="doccomment">/// This should be used to inject a &quot;KEY&quot;, like a storage value.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">inject_hashed_key</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hashed</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="self">self</span>.<span class="ident">hashed_keys</span>.<span class="ident">push</span>(<span class="ident">hashed</span>.<span class="ident">to_vec</span>());
+		<span class="self">self</span>
+	}
+
+	<span class="doccomment">/// Blacklist this hashed key from the final externalities. This is treated as-is, and should be</span>
+	<span class="doccomment">/// pre-hashed.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">blacklist_hashed_key</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hashed</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+		<span class="self">self</span>.<span class="ident">hashed_blacklist</span>.<span class="ident">push</span>(<span class="ident">hashed</span>.<span class="ident">to_vec</span>());
 		<span class="self">self</span>
 	}
 
@@ -1206,11 +1286,43 @@
 			.<span class="ident">expect</span>(<span class="string">&quot;Can&#39;t read state snapshot file&quot;</span>)
 			.<span class="ident">execute_with</span>(<span class="op">|</span><span class="op">|</span> {});
 	}
+
+	<span class="attribute">#[<span class="ident">tokio::test</span>]</span>
+	<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">can_exclude_from_cache</span>() {
+		<span class="ident">init_logger</span>();
+
+		<span class="comment">// get the first key from the cache file.</span>
+		<span class="kw">let</span> <span class="ident">some_key</span> <span class="op">=</span> <span class="ident">Builder</span>::<span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="ident">::new</span>()
+			.<span class="ident">mode</span>(<span class="ident">Mode::Offline</span>(<span class="ident">OfflineConfig</span> {
+				<span class="ident">state_snapshot</span>: <span class="ident">SnapshotConfig::new</span>(<span class="string">&quot;test_data/proxy_test&quot;</span>),
+			}))
+			.<span class="ident">build</span>()
+			.<span class="kw">await</span>
+			.<span class="ident">expect</span>(<span class="string">&quot;Can&#39;t read state snapshot file&quot;</span>)
+			.<span class="ident">execute_with</span>(<span class="op">|</span><span class="op">|</span> {
+				<span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span>
+					<span class="ident">sp_io::storage::next_key</span>(<span class="kw-2">&amp;</span>[]).<span class="ident">expect</span>(<span class="string">&quot;some key must exist in the snapshot&quot;</span>);
+				<span class="macro">assert!</span>(<span class="ident">sp_io::storage::get</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>).<span class="ident">is_some</span>());
+				<span class="ident">key</span>
+			});
+
+		<span class="ident">Builder</span>::<span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="ident">::new</span>()
+			.<span class="ident">mode</span>(<span class="ident">Mode::Offline</span>(<span class="ident">OfflineConfig</span> {
+				<span class="ident">state_snapshot</span>: <span class="ident">SnapshotConfig::new</span>(<span class="string">&quot;test_data/proxy_test&quot;</span>),
+			}))
+			.<span class="ident">blacklist_hashed_key</span>(<span class="kw-2">&amp;</span><span class="ident">some_key</span>)
+			.<span class="ident">build</span>()
+			.<span class="kw">await</span>
+			.<span class="ident">expect</span>(<span class="string">&quot;Can&#39;t read state snapshot file&quot;</span>)
+			.<span class="ident">execute_with</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">assert!</span>(<span class="ident">sp_io::storage::get</span>(<span class="kw-2">&amp;</span><span class="ident">some_key</span>).<span class="ident">is_none</span>()));
+	}
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">test</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;remote-test&quot;</span>))]</span>
 <span class="kw">mod</span> <span class="ident">remote_tests</span> {
 	<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::test_prelude</span>::<span class="kw-2">*</span>;
+
+	<span class="kw">const</span> <span class="ident">REMOTE_INACCESSIBLE</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;Can&#39;t reach the remote node. Is it running?&quot;</span>;
 
 	<span class="attribute">#[<span class="ident">tokio::test</span>]</span>
 	<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">can_build_one_pallet</span>() {
@@ -1222,7 +1334,7 @@
 			}))
 			.<span class="ident">build</span>()
 			.<span class="kw">await</span>
-			.<span class="ident">expect</span>(<span class="string">&quot;Can&#39;t reach the remote node. Is it running?&quot;</span>)
+			.<span class="ident">expect</span>(<span class="ident">REMOTE_INACCESSIBLE</span>)
 			.<span class="ident">execute_with</span>(<span class="op">|</span><span class="op">|</span> {});
 	}
 
@@ -1240,7 +1352,7 @@
 			}))
 			.<span class="ident">build</span>()
 			.<span class="kw">await</span>
-			.<span class="ident">expect</span>(<span class="string">&quot;Can&#39;t reach the remote node. Is it running?&quot;</span>)
+			.<span class="ident">expect</span>(<span class="ident">REMOTE_INACCESSIBLE</span>)
 			.<span class="ident">execute_with</span>(<span class="op">|</span><span class="op">|</span> {});
 	}
 
@@ -1264,7 +1376,7 @@
 			}))
 			.<span class="ident">build</span>()
 			.<span class="kw">await</span>
-			.<span class="ident">expect</span>(<span class="string">&quot;Can&#39;t reach the remote node. Is it running?&quot;</span>)
+			.<span class="ident">expect</span>(<span class="ident">REMOTE_INACCESSIBLE</span>)
 			.<span class="ident">execute_with</span>(<span class="op">|</span><span class="op">|</span> {
 				<span class="comment">// Gav&#39;s polkadot account. 99% this will be in the council.</span>
 				<span class="kw">let</span> <span class="ident">gav_polkadot</span> <span class="op">=</span>
@@ -1290,7 +1402,7 @@
 			}))
 			.<span class="ident">build</span>()
 			.<span class="kw">await</span>
-			.<span class="ident">expect</span>(<span class="string">&quot;Can&#39;t reach the remote node. Is it running?&quot;</span>)
+			.<span class="ident">expect</span>(<span class="ident">REMOTE_INACCESSIBLE</span>)
 			.<span class="ident">execute_with</span>(<span class="op">|</span><span class="op">|</span> {});
 
 		<span class="kw">let</span> <span class="ident">to_delete</span> <span class="op">=</span> <span class="ident">std::fs::read_dir</span>(<span class="ident">SnapshotConfig::default</span>().<span class="ident">path</span>)
@@ -1313,7 +1425,7 @@
 		<span class="ident">Builder</span>::<span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="ident">::new</span>()
 			.<span class="ident">build</span>()
 			.<span class="kw">await</span>
-			.<span class="ident">expect</span>(<span class="string">&quot;Can&#39;t reach the remote node. Is it running?&quot;</span>)
+			.<span class="ident">expect</span>(<span class="ident">REMOTE_INACCESSIBLE</span>)
 			.<span class="ident">execute_with</span>(<span class="op">|</span><span class="op">|</span> {});
 	}
 }

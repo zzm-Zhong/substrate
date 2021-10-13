@@ -468,6 +468,7 @@
 <span id="457">457</span>
 <span id="458">458</span>
 <span id="459">459</span>
+<span id="460">460</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -514,7 +515,8 @@
 <span class="doccomment">/// A bounded slice.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Similar to a `BoundedVec`, but not owned and cannot be decoded.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Encode</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Encode</span>, <span class="ident">scale_info::TypeInfo</span>)]</span>
+<span class="attribute">#[<span class="ident">scale_info</span>(<span class="ident">skip_type_params</span>(<span class="ident">S</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BoundedSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">S</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">T</span>], <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>);
 
 <span class="comment">// `BoundedSlice`s encode to something which will always decode into a `BoundedVec`,</span>
