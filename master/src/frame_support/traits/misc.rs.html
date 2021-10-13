@@ -931,7 +931,7 @@
 	<span class="kw">fn</span> <span class="ident">max_encoded_len</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
 		<span class="kw">let</span> <span class="ident">t_max_len</span> <span class="op">=</span> <span class="ident">T::max_encoded_len</span>();
 
-		<span class="comment">// See scale encoding https://substrate.dev/docs/en/knowledgebase/advanced/codec</span>
+		<span class="comment">// See scale encoding https://docs.substrate.io/v3/advanced/scale-codec</span>
 		<span class="kw">if</span> <span class="ident">t_max_len</span> <span class="op">&lt;</span> <span class="number">64</span> {
 			<span class="ident">t_max_len</span> <span class="op">+</span> <span class="number">1</span>
 		} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">t_max_len</span> <span class="op">&lt;</span> <span class="number">2usize</span>.<span class="ident">pow</span>(<span class="number">14</span>) {

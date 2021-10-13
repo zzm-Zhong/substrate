@@ -1075,8 +1075,7 @@
 <span class="comment">// - assigns a dispatch class `operational` if the argument of the call is more than 1000.</span>
 <span class="comment">//</span>
 <span class="comment">// More information can be read at:</span>
-<span class="comment">//   - https://substrate.dev/docs/en/knowledgebase/learn-substrate/weight</span>
-<span class="comment">//   - https://substrate.dev/docs/en/knowledgebase/runtime/fees#default-weight-annotations</span>
+<span class="comment">//   - https://docs.substrate.io/v3/runtime/weights-and-fees</span>
 <span class="comment">//</span>
 <span class="comment">// Manually configuring weight is an advanced operation and what you really need may well be</span>
 <span class="comment">//   fulfilled by running the benchmarking toolchain. Refer to `benchmarking.rs` file.</span>
@@ -1307,7 +1306,8 @@
 
 			<span class="comment">// Print out log or debug message in the console via log::{error, warn, info, debug,</span>
 			<span class="comment">// trace}, accepting format strings similar to `println!`.</span>
-			<span class="comment">// https://substrate.dev/rustdocs/v3.0.0/log/index.html</span>
+			<span class="comment">// https://paritytech.github.io/substrate/master/sp_io/logging/fn.log.html</span>
+			<span class="comment">// https://paritytech.github.io/substrate/master/frame_support/constant.LOG_TARGET.html</span>
 			<span class="macro">info!</span>(<span class="string">&quot;New value is now: {:?}&quot;</span>, <span class="ident">new_value</span>);
 
 			<span class="comment">// Put the new value into storage.</span>

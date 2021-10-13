@@ -808,7 +808,7 @@
 	<span class="kw">fn</span> <span class="ident">max_encoded_len</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
 		<span class="comment">// BoundedVec&lt;T, S&gt; encodes like Vec&lt;T&gt; which encodes like [T], which is a compact u32</span>
 		<span class="comment">// plus each item in the slice:</span>
-		<span class="comment">// https://substrate.dev/rustdocs/v3.0.0/src/parity_scale_codec/codec.rs.html#798-808</span>
+		<span class="comment">// https://docs.substrate.io/v3/advanced/scale-codec</span>
 		<span class="ident">codec::Compact</span>(<span class="ident">S::get</span>())
 			.<span class="ident">encoded_size</span>()
 			.<span class="ident">saturating_add</span>(<span class="ident"><span class="self">Self</span>::bound</span>().<span class="ident">saturating_mul</span>(<span class="ident">T::max_encoded_len</span>()))

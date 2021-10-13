@@ -674,7 +674,7 @@ required, it needs to be split up into multiple bounds.</p>
 <h2 id="reserved-functions" class="section-header"><a href="#reserved-functions">Reserved Functions</a></h2>
 <p>The following are reserved function signatures:</p>
 <ul>
-<li><code>deposit_event</code>: Helper function for depositing an <a href="https://docs.substrate.dev/docs/event-enum">event</a>.
+<li><code>deposit_event</code>: Helper function for depositing an <a href="https://docs.substrate.io/v3/runtime/events-and-errors">event</a>.
 The default behavior is to call <code>deposit_event</code> from the <a href="../frame_system/index.html">System
 module</a>. However, you can write your own implementation for events
 in your runtime. To use the default behavior, add <code>fn deposit_event() = default;</code> to your
