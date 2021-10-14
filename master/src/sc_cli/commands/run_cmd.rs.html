@@ -608,6 +608,14 @@
 <span id="597">597</span>
 <span id="598">598</span>
 <span id="599">599</span>
+<span id="600">600</span>
+<span id="601">601</span>
+<span id="602">602</span>
+<span id="603">603</span>
+<span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
+<span id="607">607</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -736,6 +744,10 @@
 	<span class="doccomment">/// Maximum number of WS RPC server connections.</span>
 	<span class="attribute">#[<span class="ident">structopt</span>(<span class="ident">long</span> <span class="op">=</span> <span class="string">&quot;ws-max-connections&quot;</span>, <span class="ident">value_name</span> <span class="op">=</span> <span class="string">&quot;COUNT&quot;</span>)]</span>
 	<span class="kw">pub</span> <span class="ident">ws_max_connections</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,
+
+	<span class="doccomment">/// Set the the maximum WebSocket output buffer size in MiB. Default is 16.</span>
+	<span class="attribute">#[<span class="ident">structopt</span>(<span class="ident">long</span> <span class="op">=</span> <span class="string">&quot;ws-max-out-buffer-capacity&quot;</span>)]</span>
+	<span class="kw">pub</span> <span class="ident">ws_max_out_buffer_capacity</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,
 
 	<span class="doccomment">/// Specify browser Origins allowed to access the HTTP &amp; WS RPC servers.</span>
 	<span class="doccomment">///</span>
@@ -1042,6 +1054,10 @@
 
 	<span class="kw">fn</span> <span class="ident">rpc_max_payload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">rpc_max_payload</span>)
+	}
+
+	<span class="kw">fn</span> <span class="ident">ws_max_out_buffer_capacity</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+		<span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">ws_max_out_buffer_capacity</span>)
 	}
 
 	<span class="kw">fn</span> <span class="ident">transaction_pool</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TransactionPoolOptions</span><span class="op">&gt;</span> {

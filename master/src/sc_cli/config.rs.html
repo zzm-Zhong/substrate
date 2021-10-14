@@ -613,6 +613,12 @@
 <span id="602">602</span>
 <span id="603">603</span>
 <span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
+<span id="607">607</span>
+<span id="608">608</span>
+<span id="609">609</span>
+<span id="610">610</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -975,6 +981,11 @@
 		<span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
 	}
 
+	<span class="doccomment">/// Get maximum WS output buffer capacity.</span>
+	<span class="kw">fn</span> <span class="ident">ws_max_out_buffer_capacity</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+		<span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
+	}
+
 	<span class="doccomment">/// Get the prometheus configuration (`None` if disabled)</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// By default this is `None`.</span>
@@ -1128,6 +1139,7 @@
 			<span class="ident">rpc_ws_max_connections</span>: <span class="self">self</span>.<span class="ident">rpc_ws_max_connections</span>()<span class="question-mark">?</span>,
 			<span class="ident">rpc_cors</span>: <span class="self">self</span>.<span class="ident">rpc_cors</span>(<span class="ident">is_dev</span>)<span class="question-mark">?</span>,
 			<span class="ident">rpc_max_payload</span>: <span class="self">self</span>.<span class="ident">rpc_max_payload</span>()<span class="question-mark">?</span>,
+			<span class="ident">ws_max_out_buffer_capacity</span>: <span class="self">self</span>.<span class="ident">ws_max_out_buffer_capacity</span>()<span class="question-mark">?</span>,
 			<span class="ident">prometheus_config</span>: <span class="self">self</span>.<span class="ident">prometheus_config</span>(<span class="ident">DCV::prometheus_listen_port</span>())<span class="question-mark">?</span>,
 			<span class="ident">telemetry_endpoints</span>,
 			<span class="ident">default_heap_pages</span>: <span class="self">self</span>.<span class="ident">default_heap_pages</span>()<span class="question-mark">?</span>,
