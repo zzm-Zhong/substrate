@@ -14,12 +14,12 @@
     pub deterministic_stack_limit: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="struct.DeterministicStackLimit.html" title="struct sc_executor_wasmtime::DeterministicStackLimit">DeterministicStackLimit</a>&gt;,
     pub canonicalize_nans: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
     pub parallel_compilation: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
-}</code></pre></div><h2 id="fields" class="fields small-section-header">Fields<a href="#fields" class="anchor"></a></h2><span id="structfield.fast_instance_reuse" class="structfield small-section-header"><a href="#structfield.fast_instance_reuse" class="anchor field"></a><code>fast_instance_reuse: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span><div class="docblock"><p>Enabling this will lead to some optimization shenanigans that make calling <a href="../sc_executor_common/wasm_runtime/trait.WasmInstance.html" title="WasmInstance"><code>WasmInstance</code></a>
+}</code></pre></div><h2 id="fields" class="fields small-section-header">Fields<a href="#fields" class="anchor"></a></h2><span id="structfield.fast_instance_reuse" class="structfield small-section-header"><a href="#structfield.fast_instance_reuse" class="anchor field"></a><code>fast_instance_reuse: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span><div class="docblock"><p>Enabling this will lead to some optimization shenanigans that make calling [<code>WasmInstance</code>]
 extremely fast.</p>
 <p>Primarily this is achieved by not recreating the instance for each call and performing a
 bare minimum clean up: reapplying the data segments and restoring the values for global
 variables. The vast majority of the linear memory is not restored, meaning that effects
-of previous executions on the same <a href="../sc_executor_common/wasm_runtime/trait.WasmInstance.html" title="WasmInstance"><code>WasmInstance</code></a> can be observed there.</p>
+of previous executions on the same [<code>WasmInstance</code>] can be observed there.</p>
 <p>This is not a problem for a standard substrate runtime execution because it’s up to the
 runtime itself to make sure that it doesn’t involve any non-determinism.</p>
 <p>Since this feature depends on instrumentation, it can be set only if runtime is
