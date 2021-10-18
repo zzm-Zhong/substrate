@@ -3526,6 +3526,7 @@
 <span id="3515">3515</span>
 <span id="3516">3516</span>
 <span id="3517">3517</span>
+<span id="3518">3518</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -4604,13 +4605,14 @@
 		<span class="ident">F</span>: <span class="ident">FnOnce</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>,
 	{
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">value</span>.<span class="ident">lock</span>();
-		<span class="kw">if</span> <span class="ident">lock</span>.<span class="ident">at</span>.<span class="ident">elapsed</span>() <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">duration</span> <span class="op">|</span><span class="op">|</span> <span class="ident">lock</span>.<span class="ident">value</span>.<span class="ident">is_none</span>() {
+		<span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">std::time::Instant::now</span>();
+		<span class="kw">if</span> <span class="ident">now</span>.<span class="ident">saturating_duration_since</span>(<span class="ident">lock</span>.<span class="ident">at</span>) <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">duration</span> <span class="op">|</span><span class="op">|</span> <span class="ident">lock</span>.<span class="ident">value</span>.<span class="ident">is_none</span>() {
 			<span class="kw">let</span> <span class="ident">new_value</span> <span class="op">=</span> <span class="ident">f</span>();
-			<span class="ident">lock</span>.<span class="ident">at</span> <span class="op">=</span> <span class="ident">std::time::Instant::now</span>();
+			<span class="ident">lock</span>.<span class="ident">at</span> <span class="op">=</span> <span class="ident">now</span>;
 			<span class="ident">lock</span>.<span class="ident">value</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">new_value</span>.<span class="ident">clone</span>());
 			<span class="ident">new_value</span>
 		} <span class="kw">else</span> {
-			<span class="ident">lock</span>.<span class="ident">value</span>.<span class="ident">as_ref</span>().<span class="ident">expect</span>(<span class="string">&quot;checked with lock above&quot;</span>).<span class="ident">clone</span>()
+			<span class="ident">lock</span>.<span class="ident">value</span>.<span class="ident">as_ref</span>().<span class="ident">expect</span>(<span class="string">&quot;Checked with in branch above; qed&quot;</span>).<span class="ident">clone</span>()
 		}
 	}
 }
