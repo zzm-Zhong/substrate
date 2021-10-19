@@ -2211,6 +2211,15 @@
 <span id="2200">2200</span>
 <span id="2201">2201</span>
 <span id="2202">2202</span>
+<span id="2203">2203</span>
+<span id="2204">2204</span>
+<span id="2205">2205</span>
+<span id="2206">2206</span>
+<span id="2207">2207</span>
+<span id="2208">2208</span>
+<span id="2209">2209</span>
+<span id="2210">2210</span>
+<span id="2211">2211</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -3309,6 +3318,15 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Each `Multiaddr` must end with a `/p2p/` component containing the `PeerId`. It can also</span>
 	<span class="doccomment">/// consist of only `/p2p/&lt;peerid&gt;`.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// The node will start establishing/accepting connections and substreams to/from peers in this</span>
+	<span class="doccomment">/// set, if it doesn&#39;t have any substream open with them yet.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// Note however, if a call to this function results in less peers on the reserved set, they</span>
+	<span class="doccomment">/// will not necessarily get disconnected (depending on available free slots in the peer set).</span>
+	<span class="doccomment">/// If you want to also disconnect those removed peers, you will have to call</span>
+	<span class="doccomment">/// `remove_from_peers_set` on those in addition to updating the reserved set. You can omit</span>
+	<span class="doccomment">/// this step if the peer set is in reserved only mode.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Returns an `Err` if one of the given addresses is invalid or contains an</span>
 	<span class="doccomment">/// invalid peer ID (which includes the local peer ID).</span>
