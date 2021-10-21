@@ -112,10 +112,10 @@ be communicated to the macro. This can be done by using the <code>storage_versio
 <li><a href="traits/trait.OnGenesis.html" title="traits::OnGenesis"><code>traits::OnGenesis</code></a>: contains some logic to write pallet version into storage.</li>
 <li><code>PalletErrorTypeInfo</code>: provides the type information for the pallet error, if defined.</li>
 </ul>
-<p>It declare <code>type Module</code> type alias for <code>Pallet</code>, used by <a href="macro.construct_runtime.html" title="construct_runtime"><code>construct_runtime</code></a>.</p>
+<p>It declares <code>type Module</code> type alias for <code>Pallet</code>, used by <a href="macro.construct_runtime.html" title="construct_runtime"><code>construct_runtime</code></a>.</p>
 <p>It implements <a href="traits/trait.PalletInfoAccess.html" title="traits::PalletInfoAccess"><code>traits::PalletInfoAccess</code></a> on <code>Pallet</code> to ease access to pallet
 informations given by <a href="traits/trait.PalletInfo.html" title="frame_support::traits::PalletInfo"><code>frame_support::traits::PalletInfo</code></a>.
-(The implementation use the associated type <code>frame_system::Config::PalletInfo</code>).</p>
+(The implementation uses the associated type <code>frame_system::Config::PalletInfo</code>).</p>
 <p>It implements <a href="traits/trait.StorageInfoTrait.html" title="traits::StorageInfoTrait"><code>traits::StorageInfoTrait</code></a> on <code>Pallet</code> which give information about all
 storages.</p>
 <p>If the attribute generate_store is set then the macro creates the trait <code>Store</code> and

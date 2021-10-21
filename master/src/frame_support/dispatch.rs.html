@@ -2846,6 +2846,22 @@
 <span id="2835">2835</span>
 <span id="2836">2836</span>
 <span id="2837">2837</span>
+<span id="2838">2838</span>
+<span id="2839">2839</span>
+<span id="2840">2840</span>
+<span id="2841">2841</span>
+<span id="2842">2842</span>
+<span id="2843">2843</span>
+<span id="2844">2844</span>
+<span id="2845">2845</span>
+<span id="2846">2846</span>
+<span id="2847">2847</span>
+<span id="2848">2848</span>
+<span id="2849">2849</span>
+<span id="2850">2850</span>
+<span id="2851">2851</span>
+<span id="2852">2852</span>
+<span id="2853">2853</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -5010,6 +5026,22 @@
 
 			<span class="kw">fn</span> <span class="ident">crate_version</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::CrateVersion</span> {
 				<span class="macro-nonterminal">$</span><span class="macro">crate::crate_to_crate_version!</span>()
+			}
+		}
+
+		<span class="kw">impl</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">trait_instance</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">trait_name</span> $(<span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">instance</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">instantiable</span>)<span class="question-mark">?</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::PalletsInfoAccess</span>
+			<span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">mod_type</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">trait_instance</span> $(, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">instance</span>)<span class="question-mark">?</span><span class="op">&gt;</span> <span class="kw">where</span> $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">other_where_bounds</span> )<span class="op">*</span>
+		{
+			<span class="kw">fn</span> <span class="ident">count</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> { <span class="number">1</span> }
+			<span class="kw">fn</span> <span class="ident">accumulate</span>(<span class="ident">acc</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::sp_std::vec::Vec</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::PalletInfoData</span><span class="op">&gt;</span>) {
+				<span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::PalletInfoAccess</span>;
+				<span class="kw">let</span> <span class="ident">item</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::traits::PalletInfoData</span> {
+					<span class="ident">index</span>: <span class="ident"><span class="self">Self</span>::index</span>(),
+					<span class="ident">name</span>: <span class="ident"><span class="self">Self</span>::name</span>(),
+					<span class="ident">module_name</span>: <span class="ident"><span class="self">Self</span>::module_name</span>(),
+					<span class="ident">crate_version</span>: <span class="ident"><span class="self">Self</span>::crate_version</span>(),
+				};
+				<span class="ident">acc</span>.<span class="ident">push</span>(<span class="ident">item</span>);
 			}
 		}
 
