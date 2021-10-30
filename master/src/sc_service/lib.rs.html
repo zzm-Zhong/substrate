@@ -610,7 +610,6 @@
 <span id="599">599</span>
 <span id="600">600</span>
 <span id="601">601</span>
-<span id="602">602</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -662,10 +661,9 @@
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
 	<span class="ident">builder</span>::{
 		<span class="ident">build_network</span>, <span class="ident">build_offchain_workers</span>, <span class="ident">new_client</span>, <span class="ident">new_db_backend</span>, <span class="ident">new_full_client</span>,
-		<span class="ident">new_full_parts</span>, <span class="ident">new_light_parts</span>, <span class="ident">spawn_tasks</span>, <span class="ident">BuildNetworkParams</span>, <span class="ident">KeystoreContainer</span>,
-		<span class="ident">NetworkStarter</span>, <span class="ident">NoopRpcExtensionBuilder</span>, <span class="ident">RpcExtensionBuilder</span>, <span class="ident">SpawnTasksParams</span>,
-		<span class="ident">TFullBackend</span>, <span class="ident">TFullCallExecutor</span>, <span class="ident">TFullClient</span>, <span class="ident">TLightBackend</span>, <span class="ident">TLightBackendWithHash</span>,
-		<span class="ident">TLightCallExecutor</span>, <span class="ident">TLightClient</span>, <span class="ident">TLightClientWithBackend</span>,
+		<span class="ident">new_full_parts</span>, <span class="ident">spawn_tasks</span>, <span class="ident">BuildNetworkParams</span>, <span class="ident">KeystoreContainer</span>, <span class="ident">NetworkStarter</span>,
+		<span class="ident">NoopRpcExtensionBuilder</span>, <span class="ident">RpcExtensionBuilder</span>, <span class="ident">SpawnTasksParams</span>, <span class="ident">TFullBackend</span>,
+		<span class="ident">TFullCallExecutor</span>, <span class="ident">TFullClient</span>,
 	},
 	<span class="ident">client</span>::{<span class="ident">ClientConfig</span>, <span class="ident">LocalCallExecutor</span>},
 	<span class="ident">error::Error</span>,

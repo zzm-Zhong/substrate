@@ -1781,6 +1781,11 @@
 <span id="1770">1770</span>
 <span id="1771">1771</span>
 <span id="1772">1772</span>
+<span id="1773">1773</span>
+<span id="1774">1774</span>
+<span id="1775">1775</span>
+<span id="1776">1776</span>
+<span id="1777">1777</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -3392,7 +3397,7 @@
 			<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">frame_benchmarking::BenchmarkList</span><span class="op">&gt;</span>,
 			<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">frame_support::traits::StorageInfo</span><span class="op">&gt;</span>,
 		) {
-			<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">list_benchmark</span>, <span class="ident">Benchmarking</span>, <span class="ident">BenchmarkList</span>};
+			<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">list_benchmark</span>, <span class="ident">baseline</span>, <span class="ident">Benchmarking</span>, <span class="ident">BenchmarkList</span>};
 			<span class="kw">use</span> <span class="ident">frame_support::traits::StorageInfoTrait</span>;
 
 			<span class="comment">// Trying to add benchmarks directly to the Session Pallet caused cyclic dependency</span>
@@ -3401,9 +3406,11 @@
 			<span class="kw">use</span> <span class="ident">pallet_session_benchmarking::Pallet</span> <span class="kw">as</span> <span class="ident">SessionBench</span>;
 			<span class="kw">use</span> <span class="ident">pallet_offences_benchmarking::Pallet</span> <span class="kw">as</span> <span class="ident">OffencesBench</span>;
 			<span class="kw">use</span> <span class="ident">frame_system_benchmarking::Pallet</span> <span class="kw">as</span> <span class="ident">SystemBench</span>;
+			<span class="kw">use</span> <span class="ident">baseline::Pallet</span> <span class="kw">as</span> <span class="ident">BaselineBench</span>;
 
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">list</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="op">&lt;</span><span class="ident">BenchmarkList</span><span class="op">&gt;</span><span class="ident">::new</span>();
 
+			<span class="macro">list_benchmark!</span>(<span class="ident">list</span>, <span class="ident">extra</span>, <span class="ident">frame_benchmarking</span>, <span class="ident">BaselineBench</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span>);
 			<span class="macro">list_benchmark!</span>(<span class="ident">list</span>, <span class="ident">extra</span>, <span class="ident">pallet_assets</span>, <span class="ident">Assets</span>);
 			<span class="macro">list_benchmark!</span>(<span class="ident">list</span>, <span class="ident">extra</span>, <span class="ident">pallet_babe</span>, <span class="ident">Babe</span>);
 			<span class="macro">list_benchmark!</span>(<span class="ident">list</span>, <span class="ident">extra</span>, <span class="ident">pallet_bags_list</span>, <span class="ident">BagsList</span>);
@@ -3445,7 +3452,7 @@
 		<span class="kw">fn</span> <span class="ident">dispatch_benchmark</span>(
 			<span class="ident">config</span>: <span class="ident">frame_benchmarking::BenchmarkConfig</span>
 		) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">frame_benchmarking::BenchmarkBatch</span><span class="op">&gt;</span>, <span class="ident">sp_runtime::RuntimeString</span><span class="op">&gt;</span> {
-			<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">Benchmarking</span>, <span class="ident">BenchmarkBatch</span>, <span class="ident">add_benchmark</span>, <span class="ident">TrackedStorageKey</span>};
+			<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">baseline</span>, <span class="ident">Benchmarking</span>, <span class="ident">BenchmarkBatch</span>, <span class="ident">add_benchmark</span>, <span class="ident">TrackedStorageKey</span>};
 
 			<span class="comment">// Trying to add benchmarks directly to the Session Pallet caused cyclic dependency</span>
 			<span class="comment">// issues. To get around that, we separated the Session benchmarks into its own crate,</span>
@@ -3453,10 +3460,12 @@
 			<span class="kw">use</span> <span class="ident">pallet_session_benchmarking::Pallet</span> <span class="kw">as</span> <span class="ident">SessionBench</span>;
 			<span class="kw">use</span> <span class="ident">pallet_offences_benchmarking::Pallet</span> <span class="kw">as</span> <span class="ident">OffencesBench</span>;
 			<span class="kw">use</span> <span class="ident">frame_system_benchmarking::Pallet</span> <span class="kw">as</span> <span class="ident">SystemBench</span>;
+			<span class="kw">use</span> <span class="ident">baseline::Pallet</span> <span class="kw">as</span> <span class="ident">BaselineBench</span>;
 
 			<span class="kw">impl</span> <span class="ident">pallet_session_benchmarking::Config</span> <span class="kw">for</span> <span class="ident">Runtime</span> {}
 			<span class="kw">impl</span> <span class="ident">pallet_offences_benchmarking::Config</span> <span class="kw">for</span> <span class="ident">Runtime</span> {}
 			<span class="kw">impl</span> <span class="ident">frame_system_benchmarking::Config</span> <span class="kw">for</span> <span class="ident">Runtime</span> {}
+			<span class="kw">impl</span> <span class="ident">baseline::Config</span> <span class="kw">for</span> <span class="ident">Runtime</span> {}
 
 			<span class="kw">let</span> <span class="ident">whitelist</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TrackedStorageKey</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[
 				<span class="comment">// Block Number</span>
@@ -3478,6 +3487,7 @@
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">batches</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="op">&lt;</span><span class="ident">BenchmarkBatch</span><span class="op">&gt;</span><span class="ident">::new</span>();
 			<span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> (<span class="kw-2">&amp;</span><span class="ident">config</span>, <span class="kw-2">&amp;</span><span class="ident">whitelist</span>);
 
+			<span class="macro">add_benchmark!</span>(<span class="ident">params</span>, <span class="ident">batches</span>, <span class="ident">frame_benchmarking</span>, <span class="ident">BaselineBench</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span>);
 			<span class="macro">add_benchmark!</span>(<span class="ident">params</span>, <span class="ident">batches</span>, <span class="ident">pallet_assets</span>, <span class="ident">Assets</span>);
 			<span class="macro">add_benchmark!</span>(<span class="ident">params</span>, <span class="ident">batches</span>, <span class="ident">pallet_babe</span>, <span class="ident">Babe</span>);
 			<span class="macro">add_benchmark!</span>(<span class="ident">params</span>, <span class="ident">batches</span>, <span class="ident">pallet_balances</span>, <span class="ident">Balances</span>);

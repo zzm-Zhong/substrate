@@ -504,18 +504,6 @@
 <span id="493">493</span>
 <span id="494">494</span>
 <span id="495">495</span>
-<span id="496">496</span>
-<span id="497">497</span>
-<span id="498">498</span>
-<span id="499">499</span>
-<span id="500">500</span>
-<span id="501">501</span>
-<span id="502">502</span>
-<span id="503">503</span>
-<span id="504">504</span>
-<span id="505">505</span>
-<span id="506">506</span>
-<span id="507">507</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -936,7 +924,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod</span> <span class="ident">tests</span> {
 	<span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-	<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::service</span>::{<span class="ident">new_full_base</span>, <span class="ident">new_light_base</span>, <span class="ident">NewFullBase</span>};
+	<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::service</span>::{<span class="ident">new_full_base</span>, <span class="ident">NewFullBase</span>};
 	<span class="kw">use</span> <span class="ident">sc_service_test</span>;
 	<span class="kw">use</span> <span class="ident">sp_runtime::BuildStorage</span>;
 
@@ -984,28 +972,16 @@
 	<span class="kw">fn</span> <span class="ident">test_connectivity</span>() {
 		<span class="ident">sp_tracing::try_init_simple</span>();
 
-		<span class="ident">sc_service_test::connectivity</span>(
-			<span class="ident">integration_test_config_with_two_authorities</span>(),
-			<span class="op">|</span><span class="ident">config</span><span class="op">|</span> {
-				<span class="kw">let</span> <span class="ident">NewFullBase</span> { <span class="ident">task_manager</span>, <span class="ident">client</span>, <span class="ident">network</span>, <span class="ident">transaction_pool</span>, .. } <span class="op">=</span>
-					<span class="ident">new_full_base</span>(<span class="ident">config</span>, <span class="op">|</span><span class="kw">_</span>, <span class="kw">_</span><span class="op">|</span> ())<span class="question-mark">?</span>;
-				<span class="prelude-val">Ok</span>(<span class="ident">sc_service_test::TestNetComponents::new</span>(
-					<span class="ident">task_manager</span>,
-					<span class="ident">client</span>,
-					<span class="ident">network</span>,
-					<span class="ident">transaction_pool</span>,
-				))
-			},
-			<span class="op">|</span><span class="ident">config</span><span class="op">|</span> {
-				<span class="kw">let</span> (<span class="ident">keep_alive</span>, <span class="kw">_</span>, <span class="ident">client</span>, <span class="ident">network</span>, <span class="ident">transaction_pool</span>) <span class="op">=</span> <span class="ident">new_light_base</span>(<span class="ident">config</span>)<span class="question-mark">?</span>;
-				<span class="prelude-val">Ok</span>(<span class="ident">sc_service_test::TestNetComponents::new</span>(
-					<span class="ident">keep_alive</span>,
-					<span class="ident">client</span>,
-					<span class="ident">network</span>,
-					<span class="ident">transaction_pool</span>,
-				))
-			},
-		);
+		<span class="ident">sc_service_test::connectivity</span>(<span class="ident">integration_test_config_with_two_authorities</span>(), <span class="op">|</span><span class="ident">config</span><span class="op">|</span> {
+			<span class="kw">let</span> <span class="ident">NewFullBase</span> { <span class="ident">task_manager</span>, <span class="ident">client</span>, <span class="ident">network</span>, <span class="ident">transaction_pool</span>, .. } <span class="op">=</span>
+				<span class="ident">new_full_base</span>(<span class="ident">config</span>, <span class="op">|</span><span class="kw">_</span>, <span class="kw">_</span><span class="op">|</span> ())<span class="question-mark">?</span>;
+			<span class="prelude-val">Ok</span>(<span class="ident">sc_service_test::TestNetComponents::new</span>(
+				<span class="ident">task_manager</span>,
+				<span class="ident">client</span>,
+				<span class="ident">network</span>,
+				<span class="ident">transaction_pool</span>,
+			))
+		});
 	}
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>

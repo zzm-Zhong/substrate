@@ -2298,6 +2298,7 @@
 		<span class="ident">ProvideUncles</span>,
 	},
 	<span class="ident">execution_extensions::ExecutionExtensions</span>,
+	<span class="ident">light::ChangesProof</span>,
 	<span class="ident">notifications</span>::{<span class="ident">StorageEventStream</span>, <span class="ident">StorageNotifications</span>},
 	<span class="ident">CallExecutor</span>, <span class="ident">ExecutorProvider</span>, <span class="ident">KeyIterator</span>, <span class="ident">ProofProvider</span>, <span class="ident">UsageProvider</span>,
 };
@@ -2305,7 +2306,6 @@
 	<span class="ident">BlockCheckParams</span>, <span class="ident">BlockImportParams</span>, <span class="ident">ForkChoiceStrategy</span>, <span class="ident">ImportResult</span>, <span class="ident">StateAction</span>,
 };
 <span class="kw">use</span> <span class="ident">sc_executor::RuntimeVersion</span>;
-<span class="kw">use</span> <span class="ident">sc_light::fetcher::ChangesProof</span>;
 <span class="kw">use</span> <span class="ident">sc_telemetry</span>::{<span class="ident">telemetry</span>, <span class="ident">TelemetryHandle</span>, <span class="ident">SUBSTRATE_INFO</span>};
 <span class="kw">use</span> <span class="ident">sp_api</span>::{
 	<span class="ident">ApiExt</span>, <span class="ident">ApiRef</span>, <span class="ident">CallApiAt</span>, <span class="ident">CallApiAtParams</span>, <span class="ident">ConstructRuntimeApi</span>, <span class="ident">Core</span> <span class="kw">as</span> <span class="ident">CoreApi</span>,

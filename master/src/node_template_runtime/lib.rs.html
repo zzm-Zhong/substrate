@@ -523,6 +523,12 @@
 <span id="512">512</span>
 <span id="513">513</span>
 <span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>), <span class="ident">no_std</span>)]</span>
 <span class="comment">// `construct_runtime!` does a lot of recursion and requires us to increase the limit to 256.</span>
 <span class="attribute">#![<span class="ident">recursion_limit</span> <span class="op">=</span> <span class="string">&quot;256&quot;</span>]</span>
@@ -988,12 +994,14 @@
 			<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">frame_benchmarking::BenchmarkList</span><span class="op">&gt;</span>,
 			<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">frame_support::traits::StorageInfo</span><span class="op">&gt;</span>,
 		) {
-			<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">list_benchmark</span>, <span class="ident">Benchmarking</span>, <span class="ident">BenchmarkList</span>};
+			<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">list_benchmark</span>, <span class="ident">baseline</span>, <span class="ident">Benchmarking</span>, <span class="ident">BenchmarkList</span>};
 			<span class="kw">use</span> <span class="ident">frame_support::traits::StorageInfoTrait</span>;
 			<span class="kw">use</span> <span class="ident">frame_system_benchmarking::Pallet</span> <span class="kw">as</span> <span class="ident">SystemBench</span>;
+			<span class="kw">use</span> <span class="ident">baseline::Pallet</span> <span class="kw">as</span> <span class="ident">BaselineBench</span>;
 
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">list</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="op">&lt;</span><span class="ident">BenchmarkList</span><span class="op">&gt;</span><span class="ident">::new</span>();
 
+			<span class="macro">list_benchmark!</span>(<span class="ident">list</span>, <span class="ident">extra</span>, <span class="ident">frame_benchmarking</span>, <span class="ident">BaselineBench</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span>);
 			<span class="macro">list_benchmark!</span>(<span class="ident">list</span>, <span class="ident">extra</span>, <span class="ident">frame_system</span>, <span class="ident">SystemBench</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span>);
 			<span class="macro">list_benchmark!</span>(<span class="ident">list</span>, <span class="ident">extra</span>, <span class="ident">pallet_balances</span>, <span class="ident">Balances</span>);
 			<span class="macro">list_benchmark!</span>(<span class="ident">list</span>, <span class="ident">extra</span>, <span class="ident">pallet_timestamp</span>, <span class="ident">Timestamp</span>);
@@ -1007,10 +1015,13 @@
 		<span class="kw">fn</span> <span class="ident">dispatch_benchmark</span>(
 			<span class="ident">config</span>: <span class="ident">frame_benchmarking::BenchmarkConfig</span>
 		) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">frame_benchmarking::BenchmarkBatch</span><span class="op">&gt;</span>, <span class="ident">sp_runtime::RuntimeString</span><span class="op">&gt;</span> {
-			<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">Benchmarking</span>, <span class="ident">BenchmarkBatch</span>, <span class="ident">add_benchmark</span>, <span class="ident">TrackedStorageKey</span>};
+			<span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">baseline</span>, <span class="ident">Benchmarking</span>, <span class="ident">BenchmarkBatch</span>, <span class="ident">add_benchmark</span>, <span class="ident">TrackedStorageKey</span>};
 
 			<span class="kw">use</span> <span class="ident">frame_system_benchmarking::Pallet</span> <span class="kw">as</span> <span class="ident">SystemBench</span>;
+			<span class="kw">use</span> <span class="ident">baseline::Pallet</span> <span class="kw">as</span> <span class="ident">BaselineBench</span>;
+
 			<span class="kw">impl</span> <span class="ident">frame_system_benchmarking::Config</span> <span class="kw">for</span> <span class="ident">Runtime</span> {}
+			<span class="kw">impl</span> <span class="ident">baseline::Config</span> <span class="kw">for</span> <span class="ident">Runtime</span> {}
 
 			<span class="kw">let</span> <span class="ident">whitelist</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TrackedStorageKey</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[
 				<span class="comment">// Block Number</span>
@@ -1028,6 +1039,7 @@
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">batches</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="op">&lt;</span><span class="ident">BenchmarkBatch</span><span class="op">&gt;</span><span class="ident">::new</span>();
 			<span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> (<span class="kw-2">&amp;</span><span class="ident">config</span>, <span class="kw-2">&amp;</span><span class="ident">whitelist</span>);
 
+			<span class="macro">add_benchmark!</span>(<span class="ident">params</span>, <span class="ident">batches</span>, <span class="ident">frame_benchmarking</span>, <span class="ident">BaselineBench</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span>);
 			<span class="macro">add_benchmark!</span>(<span class="ident">params</span>, <span class="ident">batches</span>, <span class="ident">frame_system</span>, <span class="ident">SystemBench</span>::<span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span>);
 			<span class="macro">add_benchmark!</span>(<span class="ident">params</span>, <span class="ident">batches</span>, <span class="ident">pallet_balances</span>, <span class="ident">Balances</span>);
 			<span class="macro">add_benchmark!</span>(<span class="ident">params</span>, <span class="ident">batches</span>, <span class="ident">pallet_timestamp</span>, <span class="ident">Timestamp</span>);
