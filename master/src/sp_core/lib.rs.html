@@ -481,8 +481,6 @@
 <span id="470">470</span>
 <span id="471">471</span>
 <span id="472">472</span>
-<span id="473">473</span>
-<span id="474">474</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -603,15 +601,13 @@
 		<span class="kw">use</span> <span class="ident">ExecutionContext</span>::<span class="kw-2">*</span>;
 
 		<span class="kw">match</span> <span class="self">self</span> {
-			<span class="ident">Importing</span> <span class="op">|</span> <span class="ident">Syncing</span> <span class="op">|</span> <span class="ident">BlockConstruction</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">offchain::Capabilities::none</span>(),
+			<span class="ident">Importing</span> <span class="op">|</span> <span class="ident">Syncing</span> <span class="op">|</span> <span class="ident">BlockConstruction</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">offchain::Capabilities::empty</span>(),
 			<span class="comment">// Enable keystore, transaction pool and Offchain DB reads by default for offchain</span>
 			<span class="comment">// calls.</span>
-			<span class="ident">OffchainCall</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span> [
-				<span class="ident">offchain::Capability::Keystore</span>,
-				<span class="ident">offchain::Capability::OffchainDbRead</span>,
-				<span class="ident">offchain::Capability::TransactionPool</span>,
-			][..]
-				.<span class="ident">into</span>(),
+			<span class="ident">OffchainCall</span>(<span class="prelude-val">None</span>) <span class="op">=</span><span class="op">&gt;</span>
+				<span class="ident">offchain::Capabilities::KEYSTORE</span> <span class="op">|</span>
+					<span class="ident">offchain::Capabilities::OFFCHAIN_DB_READ</span> <span class="op">|</span>
+					<span class="ident">offchain::Capabilities::TRANSACTION_POOL</span>,
 			<span class="ident">OffchainCall</span>(<span class="prelude-val">Some</span>((<span class="kw">_</span>, <span class="ident">capabilities</span>))) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">capabilities</span>,
 		}
 	}

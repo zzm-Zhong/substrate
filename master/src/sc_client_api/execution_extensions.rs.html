@@ -412,13 +412,13 @@
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">extensions</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">extensions_factory</span>.<span class="ident">read</span>().<span class="ident">extensions_for</span>(<span class="ident">capabilities</span>);
 
-		<span class="kw">if</span> <span class="ident">capabilities</span>.<span class="ident">has</span>(<span class="ident">offchain::Capability::Keystore</span>) {
+		<span class="kw">if</span> <span class="ident">capabilities</span>.<span class="ident">contains</span>(<span class="ident">offchain::Capabilities::KEYSTORE</span>) {
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">keystore</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">keystore</span> {
 				<span class="ident">extensions</span>.<span class="ident">register</span>(<span class="ident">KeystoreExt</span>(<span class="ident">keystore</span>.<span class="ident">clone</span>()));
 			}
 		}
 
-		<span class="kw">if</span> <span class="ident">capabilities</span>.<span class="ident">has</span>(<span class="ident">offchain::Capability::TransactionPool</span>) {
+		<span class="kw">if</span> <span class="ident">capabilities</span>.<span class="ident">contains</span>(<span class="ident">offchain::Capabilities::TRANSACTION_POOL</span>) {
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">pool</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">transaction_pool</span>.<span class="ident">read</span>().<span class="ident">as_ref</span>().<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>.<span class="ident">upgrade</span>()) {
 				<span class="ident">extensions</span>
 					.<span class="ident">register</span>(<span class="ident">TransactionPoolExt</span>(
@@ -427,8 +427,8 @@
 			}
 		}
 
-		<span class="kw">if</span> <span class="ident">capabilities</span>.<span class="ident">has</span>(<span class="ident">offchain::Capability::OffchainDbRead</span>) <span class="op">|</span><span class="op">|</span>
-			<span class="ident">capabilities</span>.<span class="ident">has</span>(<span class="ident">offchain::Capability::OffchainDbWrite</span>)
+		<span class="kw">if</span> <span class="ident">capabilities</span>.<span class="ident">contains</span>(<span class="ident">offchain::Capabilities::OFFCHAIN_DB_READ</span>) <span class="op">|</span><span class="op">|</span>
+			<span class="ident">capabilities</span>.<span class="ident">contains</span>(<span class="ident">offchain::Capabilities::OFFCHAIN_DB_WRITE</span>)
 		{
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">offchain_db</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">offchain_db</span>.<span class="ident">as_ref</span>() {
 				<span class="ident">extensions</span>.<span class="ident">register</span>(<span class="ident">OffchainDbExt::new</span>(<span class="ident">offchain::LimitedExternalities::new</span>(
@@ -461,7 +461,7 @@
 			<span class="ident">ExecutionContext::BlockConstruction</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">strategies</span>.<span class="ident">block_construction</span>.<span class="ident">get_manager</span>(),
 			<span class="ident">ExecutionContext::Syncing</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">strategies</span>.<span class="ident">syncing</span>.<span class="ident">get_manager</span>(),
 			<span class="ident">ExecutionContext::Importing</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">strategies</span>.<span class="ident">importing</span>.<span class="ident">get_manager</span>(),
-			<span class="ident">ExecutionContext::OffchainCall</span>(<span class="prelude-val">Some</span>((<span class="kw">_</span>, <span class="ident">capabilities</span>))) <span class="kw">if</span> <span class="ident">capabilities</span>.<span class="ident">has_all</span>() <span class="op">=</span><span class="op">&gt;</span>
+			<span class="ident">ExecutionContext::OffchainCall</span>(<span class="prelude-val">Some</span>((<span class="kw">_</span>, <span class="ident">capabilities</span>))) <span class="kw">if</span> <span class="ident">capabilities</span>.<span class="ident">is_all</span>() <span class="op">=</span><span class="op">&gt;</span>
 				<span class="self">self</span>.<span class="ident">strategies</span>.<span class="ident">offchain_worker</span>.<span class="ident">get_manager</span>(),
 			<span class="ident">ExecutionContext::OffchainCall</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">strategies</span>.<span class="ident">other</span>.<span class="ident">get_manager</span>(),
 		};

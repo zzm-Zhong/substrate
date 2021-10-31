@@ -1,3 +1,4 @@
 (function() {var implementors = {};
 implementors["pallet_contracts_primitives"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/fmt/trait.Octal.html\" title=\"trait core::fmt::Octal\">Octal</a> for <a class=\"struct\" href=\"pallet_contracts_primitives/struct.ReturnFlags.html\" title=\"struct pallet_contracts_primitives::ReturnFlags\">ReturnFlags</a>","synthetic":false,"types":["pallet_contracts_primitives::ReturnFlags"]}];
+implementors["sp_core"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/fmt/trait.Octal.html\" title=\"trait core::fmt::Octal\">Octal</a> for <a class=\"struct\" href=\"sp_core/offchain/struct.Capabilities.html\" title=\"struct sp_core::offchain::Capabilities\">Capabilities</a>","synthetic":false,"types":["sp_core::offchain::Capabilities"]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
