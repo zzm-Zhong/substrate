@@ -1,4 +1,5 @@
 var N = null;var sourcesIndex = {};
+sourcesIndex["bags_list"] = {"name":"","files":["main.rs"]};
 sourcesIndex["beefy_gadget"] = {"name":"","files":["error.rs","gossip.rs","keystore.rs","lib.rs","metrics.rs","notification.rs","round.rs","worker.rs"]};
 sourcesIndex["beefy_gadget_rpc"] = {"name":"","files":["lib.rs","notification.rs"]};
 sourcesIndex["beefy_merkle_tree"] = {"name":"","files":["lib.rs"]};
@@ -44,7 +45,7 @@ sourcesIndex["pallet_aura"] = {"name":"","files":["lib.rs","migrations.rs"]};
 sourcesIndex["pallet_authority_discovery"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["pallet_authorship"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["pallet_babe"] = {"name":"","files":["benchmarking.rs","default_weights.rs","equivocation.rs","lib.rs","randomness.rs"]};
-sourcesIndex["pallet_bags_list"] = {"name":"","dirs":[{"name":"list","files":["mod.rs"]}],"files":["benchmarks.rs","lib.rs","weights.rs"]};
+sourcesIndex["pallet_bags_list"] = {"name":"","dirs":[{"name":"list","files":["mod.rs"]}],"files":["benchmarks.rs","lib.rs","mock.rs","weights.rs"]};
 sourcesIndex["pallet_balances"] = {"name":"","files":["benchmarking.rs","lib.rs","weights.rs"]};
 sourcesIndex["pallet_beefy"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["pallet_beefy_mmr"] = {"name":"","files":["lib.rs"]};

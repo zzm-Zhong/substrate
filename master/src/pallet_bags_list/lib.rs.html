@@ -376,8 +376,8 @@
 <span class="kw">mod</span> <span class="ident">benchmarks</span>;
 
 <span class="kw">mod</span> <span class="ident">list</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
-<span class="kw">mod</span> <span class="ident">mock</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">test</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;fuzz&quot;</span>))]</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">mock</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">weights</span>;

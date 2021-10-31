@@ -795,6 +795,8 @@
 <span id="784">784</span>
 <span id="785">785</span>
 <span id="786">786</span>
+<span id="787">787</span>
+<span id="788">788</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -1188,8 +1190,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// * there are no duplicate ids,</span>
 	<span class="doccomment">/// * length of this list is in sync with `CounterForListNodes`,</span>
-	<span class="doccomment">/// * and sanity-checks all bags. This will cascade down all the checks and makes sure all bags</span>
-	<span class="doccomment">///   are checked per *any* update to `List`.</span>
+	<span class="doccomment">/// * and sanity-checks all bags and nodes. This will cascade down all the checks and makes sure</span>
+	<span class="doccomment">/// all bags and nodes are checked per *any* update to `List`.</span>
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>
 	<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">sanity_check</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
 		<span class="kw">use</span> <span class="ident">frame_support::ensure</span>;
@@ -1211,7 +1213,6 @@
 			<span class="kw">let</span> <span class="ident">thresholds</span> <span class="op">=</span> <span class="ident">T::BagThresholds::get</span>().<span class="ident">iter</span>().<span class="ident">copied</span>();
 			<span class="kw">let</span> <span class="ident">thresholds</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">thresholds</span>.<span class="ident">clone</span>().<span class="ident">last</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">VoteWeight::MAX</span>) {
 				<span class="comment">// in the event that they included it, we don&#39;t need to make any changes</span>
-				<span class="comment">// Box::new(thresholds.collect()</span>
 				<span class="ident">thresholds</span>.<span class="ident">collect</span>()
 			} <span class="kw">else</span> {
 				<span class="comment">// otherwise, insert it here.</span>
@@ -1571,10 +1572,13 @@
 			<span class="string">&quot;node does not exist in the expected bag&quot;</span>
 		);
 
+		<span class="kw">let</span> <span class="ident">non_terminal_check</span> <span class="op">=</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">is_terminal</span>() <span class="op">&amp;&amp;</span>
+			<span class="ident">expected_bag</span>.<span class="ident">head</span>.<span class="ident">as_ref</span>() <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">id</span>) <span class="op">&amp;&amp;</span>
+			<span class="ident">expected_bag</span>.<span class="ident">tail</span>.<span class="ident">as_ref</span>() <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">id</span>);
+		<span class="kw">let</span> <span class="ident">terminal_check</span> <span class="op">=</span>
+			<span class="ident">expected_bag</span>.<span class="ident">head</span>.<span class="ident">as_ref</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">id</span>) <span class="op">|</span><span class="op">|</span> <span class="ident">expected_bag</span>.<span class="ident">tail</span>.<span class="ident">as_ref</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">id</span>);
 		<span class="macro">frame_support::ensure!</span>(
-			<span class="op">!</span><span class="self">self</span>.<span class="ident">is_terminal</span>() <span class="op">|</span><span class="op">|</span>
-				<span class="ident">expected_bag</span>.<span class="ident">head</span>.<span class="ident">as_ref</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">id</span>) <span class="op">|</span><span class="op">|</span>
-				<span class="ident">expected_bag</span>.<span class="ident">tail</span>.<span class="ident">as_ref</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">id</span>),
+			<span class="ident">non_terminal_check</span> <span class="op">|</span><span class="op">|</span> <span class="ident">terminal_check</span>,
 			<span class="string">&quot;a terminal node is neither its bag head or tail&quot;</span>
 		);
 
