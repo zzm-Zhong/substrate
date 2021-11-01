@@ -852,7 +852,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Note that even if the thresholds list does not have `VoteWeight::MAX` as its final member, this</span>
 <span class="doccomment">/// function behaves as if it does.</span>
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">notional_bag_for</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span>(<span class="ident">weight</span>: <span class="ident">VoteWeight</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VoteWeight</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notional_bag_for</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span>(<span class="ident">weight</span>: <span class="ident">VoteWeight</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VoteWeight</span> {
 	<span class="kw">let</span> <span class="ident">thresholds</span> <span class="op">=</span> <span class="ident">T::BagThresholds::get</span>();
 	<span class="kw">let</span> <span class="ident">idx</span> <span class="op">=</span> <span class="ident">thresholds</span>.<span class="ident">partition_point</span>(<span class="op">|</span><span class="kw-2">&amp;</span><span class="ident">threshold</span><span class="op">|</span> <span class="ident">weight</span> <span class="op">&gt;</span> <span class="ident">threshold</span>);
 	<span class="ident">thresholds</span>.<span class="ident">get</span>(<span class="ident">idx</span>).<span class="ident">copied</span>().<span class="ident">unwrap_or</span>(<span class="ident">VoteWeight::MAX</span>)
@@ -1489,7 +1489,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="ident">Node</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Get a node by id.</span>
-	<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">get</span>(<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Node</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Node</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="ident"><span class="kw">crate</span>::ListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::try_get</span>(<span class="ident">id</span>).<span class="ident">ok</span>()
 	}
 
@@ -1533,7 +1533,7 @@
 	}
 
 	<span class="doccomment">/// `true` when this voter is in the wrong bag.</span>
-	<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">is_misplaced</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">current_weight</span>: <span class="ident">VoteWeight</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_misplaced</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">current_weight</span>: <span class="ident">VoteWeight</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
 		<span class="ident">notional_bag_for</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">current_weight</span>) <span class="op">!</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">bag_upper</span>
 	}
 

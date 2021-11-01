@@ -1106,7 +1106,7 @@
 		};
 
 		<span class="kw">for</span> <span class="ident">prefix</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">hashed_prefixes</span> {
-			<span class="macro">debug!</span>(
+			<span class="macro">info!</span>(
 				<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>,
 				<span class="string">&quot;adding data for hashed prefix: {:?}&quot;</span>,
 				<span class="ident">HexDisplay::from</span>(<span class="ident">prefix</span>)
@@ -1118,7 +1118,7 @@
 
 		<span class="kw">for</span> <span class="ident">key</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">hashed_keys</span> {
 			<span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="ident">StorageKey</span>(<span class="ident">key</span>.<span class="ident">to_vec</span>());
-			<span class="macro">debug!</span>(<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>, <span class="string">&quot;adding data for hashed key: {:?}&quot;</span>, <span class="ident">HexDisplay::from</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>));
+			<span class="macro">info!</span>(<span class="ident">target</span>: <span class="ident">LOG_TARGET</span>, <span class="string">&quot;adding data for hashed key: {:?}&quot;</span>, <span class="ident">HexDisplay::from</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>));
 			<span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">rpc_get_storage</span>(<span class="ident">key</span>.<span class="ident">clone</span>(), <span class="prelude-val">Some</span>(<span class="ident">at</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
 			<span class="ident">keys_and_values</span>.<span class="ident">push</span>((<span class="ident">key</span>, <span class="ident">value</span>));
 		}
