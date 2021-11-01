@@ -607,6 +607,38 @@
 <span id="596">596</span>
 <span id="597">597</span>
 <span id="598">598</span>
+<span id="599">599</span>
+<span id="600">600</span>
+<span id="601">601</span>
+<span id="602">602</span>
+<span id="603">603</span>
+<span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
+<span id="607">607</span>
+<span id="608">608</span>
+<span id="609">609</span>
+<span id="610">610</span>
+<span id="611">611</span>
+<span id="612">612</span>
+<span id="613">613</span>
+<span id="614">614</span>
+<span id="615">615</span>
+<span id="616">616</span>
+<span id="617">617</span>
+<span id="618">618</span>
+<span id="619">619</span>
+<span id="620">620</span>
+<span id="621">621</span>
+<span id="622">622</span>
+<span id="623">623</span>
+<span id="624">624</span>
+<span id="625">625</span>
+<span id="626">626</span>
+<span id="627">627</span>
+<span id="628">628</span>
+<span id="629">629</span>
+<span id="630">630</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -1202,6 +1234,38 @@
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">output</span>) <span class="op">=</span> <span class="ident">output</span> {
 			<span class="kw">let</span> <span class="ident">stderr</span> <span class="op">=</span> <span class="ident">String::from_utf8</span>(<span class="ident">output</span>.<span class="ident">stderr</span>).<span class="ident">unwrap</span>();
 			<span class="macro">assert!</span>(<span class="ident">stderr</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">line</span>));
+		}
+	}
+
+	<span class="attribute">#[<span class="ident">test</span>]</span>
+	<span class="kw">fn</span> <span class="ident">control_characters_are_always_stripped_out_from_the_log_messages</span>() {
+		<span class="kw">const</span> <span class="ident">RAW_LINE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;$$START$$\x1B[1;32mIn\u{202a}\u{202e}\u{2066}\u{2069}ner\n\r\x7ftext!\u{80}\u{9f}\x1B[0m$$END$$&quot;</span>;
+		<span class="kw">const</span> <span class="ident">SANITIZED_LINE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;$$START$$Inner\ntext!$$END$$&quot;</span>;
+
+		<span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">run_test_in_another_process</span>(
+			<span class="string">&quot;control_characters_are_always_stripped_out_from_the_log_messages&quot;</span>,
+			<span class="op">|</span><span class="op">|</span> {
+				<span class="ident">std::env::set_var</span>(<span class="string">&quot;RUST_LOG&quot;</span>, <span class="string">&quot;trace&quot;</span>);
+				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">LoggerBuilder::new</span>(<span class="string">&quot;&quot;</span>);
+				<span class="ident">builder</span>.<span class="ident">with_colors</span>(<span class="bool-val">true</span>);
+				<span class="ident">builder</span>.<span class="ident">init</span>().<span class="ident">unwrap</span>();
+				<span class="macro">log::error!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">RAW_LINE</span>);
+			},
+		);
+
+		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">output</span>) <span class="op">=</span> <span class="ident">output</span> {
+			<span class="kw">let</span> <span class="ident">stderr</span> <span class="op">=</span> <span class="ident">String::from_utf8</span>(<span class="ident">output</span>.<span class="ident">stderr</span>).<span class="ident">unwrap</span>();
+			<span class="comment">// The log messages should always be sanitized.</span>
+			<span class="macro">assert!</span>(<span class="op">!</span><span class="ident">stderr</span>.<span class="ident">contains</span>(<span class="ident">RAW_LINE</span>));
+			<span class="macro">assert!</span>(<span class="ident">stderr</span>.<span class="ident">contains</span>(<span class="ident">SANITIZED_LINE</span>));
+
+			<span class="comment">// The part where the timestamp, the logging level, etc. is printed out doesn&#39;t</span>
+			<span class="comment">// always have to be sanitized unless it&#39;s necessary, and here it shouldn&#39;t be.</span>
+			<span class="macro">assert!</span>(<span class="ident">stderr</span>.<span class="ident">contains</span>(<span class="string">&quot;\x1B[31mERROR\x1B[0m&quot;</span>));
+
+			<span class="comment">// Make sure the logs aren&#39;t being duplicated.</span>
+			<span class="macro">assert_eq!</span>(<span class="ident">stderr</span>.<span class="ident">find</span>(<span class="string">&quot;ERROR&quot;</span>), <span class="ident">stderr</span>.<span class="ident">rfind</span>(<span class="string">&quot;ERROR&quot;</span>));
+			<span class="macro">assert_eq!</span>(<span class="ident">stderr</span>.<span class="ident">find</span>(<span class="ident">SANITIZED_LINE</span>), <span class="ident">stderr</span>.<span class="ident">rfind</span>(<span class="ident">SANITIZED_LINE</span>));
 		}
 	}
 }

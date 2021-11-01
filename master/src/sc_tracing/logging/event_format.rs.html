@@ -345,6 +345,31 @@
 <span id="334">334</span>
 <span id="335">335</span>
 <span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -409,7 +434,7 @@
 		<span class="ident">S</span>: <span class="ident">Subscriber</span> <span class="op">+</span> <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">LookupSpan</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
 		<span class="ident">N</span>: <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FormatFields</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	{
-		<span class="kw">let</span> <span class="ident">writer</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">MaybeColorWriter::new</span>(<span class="self">self</span>.<span class="ident">enable_color</span>, <span class="ident">writer</span>);
+		<span class="kw">let</span> <span class="ident">writer</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ControlCodeSanitizer::new</span>(<span class="op">!</span><span class="self">self</span>.<span class="ident">enable_color</span>, <span class="ident">writer</span>);
 		<span class="kw">let</span> <span class="ident">normalized_meta</span> <span class="op">=</span> <span class="ident">event</span>.<span class="ident">normalized_metadata</span>();
 		<span class="kw">let</span> <span class="ident">meta</span> <span class="op">=</span> <span class="ident">normalized_meta</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">metadata</span>());
 		<span class="ident">time::write</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">timer</span>, <span class="ident">writer</span>, <span class="self">self</span>.<span class="ident">enable_color</span>)<span class="question-mark">?</span>;
@@ -447,10 +472,18 @@
 			}
 		}
 
+		<span class="comment">// The writer only sanitizes its output once it&#39;s flushed, so if we don&#39;t actually need</span>
+		<span class="comment">// to sanitize everything we need to flush out what was already buffered as-is and only</span>
+		<span class="comment">// force-sanitize what follows.</span>
+		<span class="kw">if</span> <span class="op">!</span><span class="ident">writer</span>.<span class="ident">sanitize</span> {
+			<span class="ident">writer</span>.<span class="ident">flush</span>()<span class="question-mark">?</span>;
+			<span class="ident">writer</span>.<span class="ident">sanitize</span> <span class="op">=</span> <span class="bool-val">true</span>;
+		}
+
 		<span class="ident">ctx</span>.<span class="ident">format_fields</span>(<span class="ident">writer</span>, <span class="ident">event</span>)<span class="question-mark">?</span>;
 		<span class="macro">writeln!</span>(<span class="ident">writer</span>)<span class="question-mark">?</span>;
 
-		<span class="ident">writer</span>.<span class="ident">write</span>()
+		<span class="ident">writer</span>.<span class="ident">flush</span>()
 	}
 }
 
@@ -641,44 +674,61 @@
 	}
 }
 
-<span class="doccomment">/// A writer that may write to `inner_writer` with colors.</span>
+<span class="doccomment">/// A writer which (optionally) strips out terminal control codes from the logs.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This is used by [`EventFormat`] to kill colors when `enable_color` is `false`.</span>
+<span class="doccomment">/// This is used by [`EventFormat`] to sanitize the log messages.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// It is required to call [`MaybeColorWriter::write`] after all writes are done,</span>
+<span class="doccomment">/// It is required to call [`ControlCodeSanitizer::flush`] after all writes are done,</span>
 <span class="doccomment">/// because the content of these writes is buffered and will only be written to the</span>
 <span class="doccomment">/// `inner_writer` at that point.</span>
-<span class="kw">struct</span> <span class="ident">MaybeColorWriter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-	<span class="ident">enable_color</span>: <span class="ident">bool</span>,
+<span class="kw">struct</span> <span class="ident">ControlCodeSanitizer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+	<span class="ident">sanitize</span>: <span class="ident">bool</span>,
 	<span class="ident">buffer</span>: <span class="ident">String</span>,
 	<span class="ident">inner_writer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">fmt::Write</span>,
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">fmt::Write</span> <span class="kw">for</span> <span class="ident">MaybeColorWriter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">fmt::Write</span> <span class="kw">for</span> <span class="ident">ControlCodeSanitizer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
 	<span class="kw">fn</span> <span class="ident">write_str</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
 		<span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">push_str</span>(<span class="ident">buf</span>);
 		<span class="prelude-val">Ok</span>(())
 	}
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">MaybeColorWriter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+<span class="comment">// NOTE: When making any changes here make sure to also change this function in `sp-panic-handler`.</span>
+<span class="kw">fn</span> <span class="ident">strip_control_codes</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::borrow::Cow</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> {
+	<span class="macro">lazy_static::lazy_static!</span> {
+		<span class="kw">static</span> <span class="kw-2">ref</span> <span class="ident">RE</span>: <span class="ident">Regex</span> <span class="op">=</span> <span class="ident">Regex::new</span>(<span class="string">r#&quot;(?x)
+			\x1b\[[^m]+m|        # VT100 escape codes
+			[
+			  \x00-\x09\x0B-\x1F # ASCII control codes / Unicode C0 control codes, except \n
+			  \x7F               # ASCII delete
+			  \u{80}-\u{9F}      # Unicode C1 control codes
+			  \u{202A}-\u{202E}  # Unicode left-to-right / right-to-left control characters
+			  \u{2066}-\u{2069}  # Same as above
+			]
+		&quot;#</span>).<span class="ident">expect</span>(<span class="string">&quot;regex parsing doesn&#39;t fail; qed&quot;</span>);
+	}
+
+	<span class="ident">RE</span>.<span class="ident">replace_all</span>(<span class="ident">input</span>, <span class="string">&quot;&quot;</span>)
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ControlCodeSanitizer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Creates a new instance.</span>
-	<span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">enable_color</span>: <span class="ident">bool</span>, <span class="ident">inner_writer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">fmt::Write</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="self">Self</span> { <span class="ident">enable_color</span>, <span class="ident">inner_writer</span>, <span class="ident">buffer</span>: <span class="ident">String::new</span>() }
+	<span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">sanitize</span>: <span class="ident">bool</span>, <span class="ident">inner_writer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">fmt::Write</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+		<span class="self">Self</span> { <span class="ident">sanitize</span>, <span class="ident">inner_writer</span>, <span class="ident">buffer</span>: <span class="ident">String::new</span>() }
 	}
 
 	<span class="doccomment">/// Write the buffered content to the `inner_writer`.</span>
-	<span class="kw">fn</span> <span class="ident">write</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
-		<span class="macro">lazy_static::lazy_static!</span> {
-			<span class="kw">static</span> <span class="kw-2">ref</span> <span class="ident">RE</span>: <span class="ident">Regex</span> <span class="op">=</span> <span class="ident">Regex::new</span>(<span class="string">&quot;\x1b\\[[^m]+m&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Error initializing color regex&quot;</span>);
+	<span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">sanitize</span> {
+			<span class="kw">let</span> <span class="ident">replaced</span> <span class="op">=</span> <span class="ident">strip_control_codes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">buffer</span>);
+			<span class="self">self</span>.<span class="ident">inner_writer</span>.<span class="ident">write_str</span>(<span class="kw-2">&amp;</span><span class="ident">replaced</span>)<span class="question-mark">?</span>
+		} <span class="kw">else</span> {
+			<span class="self">self</span>.<span class="ident">inner_writer</span>.<span class="ident">write_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">buffer</span>)<span class="question-mark">?</span>
 		}
 
-		<span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">enable_color</span> {
-			<span class="kw">let</span> <span class="ident">replaced</span> <span class="op">=</span> <span class="ident">RE</span>.<span class="ident">replace_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">buffer</span>, <span class="string">&quot;&quot;</span>);
-			<span class="self">self</span>.<span class="ident">inner_writer</span>.<span class="ident">write_str</span>(<span class="kw-2">&amp;</span><span class="ident">replaced</span>)
-		} <span class="kw">else</span> {
-			<span class="self">self</span>.<span class="ident">inner_writer</span>.<span class="ident">write_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">buffer</span>)
-		}
+		<span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">clear</span>();
+		<span class="prelude-val">Ok</span>(())
 	}
 }
 </code></pre></div>

@@ -193,6 +193,67 @@
 <span id="182">182</span>
 <span id="183">183</span>
 <span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -220,6 +281,7 @@
 <span class="doccomment">//! temporarily be disabled by using an [`AbortGuard`].</span>
 
 <span class="kw">use</span> <span class="ident">backtrace::Backtrace</span>;
+<span class="kw">use</span> <span class="ident">regex::Regex</span>;
 <span class="kw">use</span> <span class="ident">std</span>::{
 	<span class="ident">cell::Cell</span>,
 	<span class="ident">io</span>::{<span class="self">self</span>, <span class="ident">Write</span>},
@@ -320,6 +382,24 @@ This is a bug. Please report it at:
 	}
 }
 
+<span class="comment">// NOTE: When making any changes here make sure to also change this function in `sc-tracing`.</span>
+<span class="kw">fn</span> <span class="ident">strip_control_codes</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::borrow::Cow</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> {
+	<span class="macro">lazy_static::lazy_static!</span> {
+		<span class="kw">static</span> <span class="kw-2">ref</span> <span class="ident">RE</span>: <span class="ident">Regex</span> <span class="op">=</span> <span class="ident">Regex::new</span>(<span class="string">r#&quot;(?x)
+			\x1b\[[^m]+m|        # VT100 escape codes
+			[
+			  \x00-\x09\x0B-\x1F # ASCII control codes / Unicode C0 control codes, except \n
+			  \x7F               # ASCII delete
+			  \u{80}-\u{9F}      # Unicode C1 control codes
+			  \u{202A}-\u{202E}  # Unicode left-to-right / right-to-left control characters
+			  \u{2066}-\u{2069}  # Same as above
+			]
+		&quot;#</span>).<span class="ident">expect</span>(<span class="string">&quot;regex parsing doesn&#39;t fail; qed&quot;</span>);
+	}
+
+	<span class="ident">RE</span>.<span class="ident">replace_all</span>(<span class="ident">input</span>, <span class="string">&quot;&quot;</span>)
+}
+
 <span class="doccomment">/// Function being called when a panic happens.</span>
 <span class="kw">fn</span> <span class="ident">panic_hook</span>(<span class="ident">info</span>: <span class="kw-2">&amp;</span><span class="ident">PanicInfo</span>, <span class="ident">report_url</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
 	<span class="kw">let</span> <span class="ident">location</span> <span class="op">=</span> <span class="ident">info</span>.<span class="ident">location</span>();
@@ -333,6 +413,8 @@ This is a bug. Please report it at:
 			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Box&lt;Any&gt;&quot;</span>,
 		},
 	};
+
+	<span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="ident">strip_control_codes</span>(<span class="kw-2">&amp;</span><span class="ident">msg</span>);
 
 	<span class="kw">let</span> <span class="ident">thread</span> <span class="op">=</span> <span class="ident">thread::current</span>();
 	<span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">thread</span>.<span class="ident">name</span>().<span class="ident">unwrap_or</span>(<span class="string">&quot;&lt;unnamed&gt;&quot;</span>);
@@ -375,6 +457,46 @@ This is a bug. Please report it at:
 		<span class="kw">let</span> <span class="ident">_guard</span> <span class="op">=</span> <span class="ident">AbortGuard::never_abort</span>();
 		<span class="kw">let</span> <span class="ident">_guard</span> <span class="op">=</span> <span class="ident">AbortGuard::force_abort</span>();
 		<span class="ident">std::panic::catch_unwind</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">panic!</span>()).<span class="ident">ok</span>();
+	}
+
+	<span class="kw">fn</span> <span class="ident">run_test_in_another_process</span>(
+		<span class="ident">test_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+		<span class="ident">test_body</span>: <span class="kw">impl</span> <span class="ident">FnOnce</span>(),
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">std::process::Output</span><span class="op">&gt;</span> {
+		<span class="kw">if</span> <span class="ident">std::env::var</span>(<span class="string">&quot;RUN_FORKED_TEST&quot;</span>).<span class="ident">is_ok</span>() {
+			<span class="ident">test_body</span>();
+			<span class="prelude-val">None</span>
+		} <span class="kw">else</span> {
+			<span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">std::process::Command::new</span>(<span class="ident">std::env::current_exe</span>().<span class="ident">unwrap</span>())
+				.<span class="ident">arg</span>(<span class="ident">test_name</span>)
+				.<span class="ident">env</span>(<span class="string">&quot;RUN_FORKED_TEST&quot;</span>, <span class="string">&quot;1&quot;</span>)
+				.<span class="ident">output</span>()
+				.<span class="ident">unwrap</span>();
+
+			<span class="macro">assert!</span>(<span class="ident">output</span>.<span class="ident">status</span>.<span class="ident">success</span>());
+			<span class="prelude-val">Some</span>(<span class="ident">output</span>)
+		}
+	}
+
+	<span class="attribute">#[<span class="ident">test</span>]</span>
+	<span class="kw">fn</span> <span class="ident">control_characters_are_always_stripped_out_from_the_panic_messages</span>() {
+		<span class="kw">const</span> <span class="ident">RAW_LINE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;$$START$$\x1B[1;32mIn\u{202a}\u{202e}\u{2066}\u{2069}ner\n\r\x7ftext!\u{80}\u{9f}\x1B[0m$$END$$&quot;</span>;
+		<span class="kw">const</span> <span class="ident">SANITIZED_LINE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;$$START$$Inner\ntext!$$END$$&quot;</span>;
+
+		<span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">run_test_in_another_process</span>(
+			<span class="string">&quot;control_characters_are_always_stripped_out_from_the_panic_messages&quot;</span>,
+			<span class="op">|</span><span class="op">|</span> {
+				<span class="ident">set</span>(<span class="string">&quot;test&quot;</span>, <span class="string">&quot;1.2.3&quot;</span>);
+				<span class="kw">let</span> <span class="ident">_guard</span> <span class="op">=</span> <span class="ident">AbortGuard::force_unwind</span>();
+				<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">std::panic::catch_unwind</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">panic!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">RAW_LINE</span>));
+			},
+		);
+
+		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">output</span>) <span class="op">=</span> <span class="ident">output</span> {
+			<span class="kw">let</span> <span class="ident">stderr</span> <span class="op">=</span> <span class="ident">String::from_utf8</span>(<span class="ident">output</span>.<span class="ident">stderr</span>).<span class="ident">unwrap</span>();
+			<span class="macro">assert!</span>(<span class="op">!</span><span class="ident">stderr</span>.<span class="ident">contains</span>(<span class="ident">RAW_LINE</span>));
+			<span class="macro">assert!</span>(<span class="ident">stderr</span>.<span class="ident">contains</span>(<span class="ident">SANITIZED_LINE</span>));
+		}
 	}
 }
 </code></pre></div>
