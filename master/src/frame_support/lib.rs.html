@@ -2506,6 +2506,8 @@
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">serde</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_core::Void</span>;
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_core_hashing_proc_macro</span>;
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_io</span>::{<span class="self">self</span>, <span class="ident">storage::root</span> <span class="kw">as</span> <span class="ident">storage_root</span>};
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_runtime::RuntimeDebug</span>;
@@ -2891,9 +2893,7 @@
 			<span class="doccomment">/// Returns the key for this parameter type.</span>
 			<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused</span>)]</span>
 			<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">key</span>() <span class="op">-</span><span class="op">&gt;</span> [<span class="ident">u8</span>; <span class="number">16</span>] {
-				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::sp_io::hashing::twox_128</span>(
-					<span class="macro">concat!</span>(<span class="string">&quot;:&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>), <span class="string">&quot;:&quot;</span>).<span class="ident">as_bytes</span>()
-				)
+				<span class="macro-nonterminal">$</span><span class="macro">crate::sp_core_hashing_proc_macro::twox_128!</span>(<span class="string">b&quot;:&quot;</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="string">b&quot;:&quot;</span>)
 			}
 
 			<span class="doccomment">/// Set the value of this parameter type in the storage.</span>
