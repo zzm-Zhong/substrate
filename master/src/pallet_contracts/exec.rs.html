@@ -3362,10 +3362,7 @@
 	<span class="kw">use</span> <span class="ident">pallet_contracts_primitives::ReturnFlags</span>;
 	<span class="kw">use</span> <span class="ident">pretty_assertions::assert_eq</span>;
 	<span class="kw">use</span> <span class="ident">sp_core::Bytes</span>;
-	<span class="kw">use</span> <span class="ident">sp_runtime</span>::{
-		<span class="ident">traits</span>::{<span class="ident">BadOrigin</span>, <span class="ident">Hash</span>},
-		<span class="ident">DispatchError</span>,
-	};
+	<span class="kw">use</span> <span class="ident">sp_runtime</span>::{<span class="ident">traits::Hash</span>, <span class="ident">DispatchError</span>};
 	<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">cell::RefCell</span>, <span class="ident">collections::HashMap</span>, <span class="ident">rc::Rc</span>};
 
 	<span class="kw">type</span> <span class="ident">System</span> <span class="op">=</span> <span class="ident">frame_system::Pallet</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>;
@@ -4382,7 +4379,10 @@
 			<span class="kw">let</span> <span class="ident">forbidden_call</span> <span class="op">=</span> <span class="ident">Call::Balances</span>(<span class="ident">BalanceCall::transfer</span> { <span class="ident">dest</span>: <span class="ident">CHARLIE</span>, <span class="ident">value</span>: <span class="number">22</span> });
 
 			<span class="comment">// simple cases: direct call</span>
-			<span class="macro">assert_err!</span>(<span class="ident">ctx</span>.<span class="ident">ext</span>.<span class="ident">call_runtime</span>(<span class="ident">forbidden_call</span>.<span class="ident">clone</span>()), <span class="ident">BadOrigin</span>);
+			<span class="macro">assert_err!</span>(
+				<span class="ident">ctx</span>.<span class="ident">ext</span>.<span class="ident">call_runtime</span>(<span class="ident">forbidden_call</span>.<span class="ident">clone</span>()),
+				<span class="ident">frame_system::Error</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::CallFiltered</span>
+			);
 
 			<span class="comment">// as part of a patch: return is OK (but it interrupted the batch)</span>
 			<span class="macro">assert_ok!</span>(<span class="ident">ctx</span>.<span class="ident">ext</span>.<span class="ident">call_runtime</span>(<span class="ident">Call::Utility</span>(<span class="ident">UtilCall::batch</span> {
@@ -4427,7 +4427,7 @@
 						<span class="ident">phase</span>: <span class="ident">Phase::Initialization</span>,
 						<span class="ident">event</span>: <span class="ident">MetaEvent::Utility</span>(<span class="ident">pallet_utility::Event::BatchInterrupted</span>(
 							<span class="number">1</span>,
-							<span class="ident">BadOrigin</span>.<span class="ident">into</span>()
+							<span class="ident">frame_system::Error</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::CallFiltered</span>.<span class="ident">into</span>()
 						),),
 						<span class="ident">topics</span>: <span class="macro">vec!</span>[],
 					},
