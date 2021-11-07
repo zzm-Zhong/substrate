@@ -674,7 +674,7 @@
 	<span class="ident">sync::Arc</span>,
 };
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_state_machine::Backend</span> <span class="kw">as</span> <span class="ident">StateBackend</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_state_machine</span>::{<span class="ident">Backend</span> <span class="kw">as</span> <span class="ident">StateBackend</span>, <span class="ident">KeyValueStates</span>};
 <span class="kw">use</span> <span class="ident">std::marker::PhantomData</span>;
 
 <span class="doccomment">/// Extracts the state backend type for the given backend.</span>

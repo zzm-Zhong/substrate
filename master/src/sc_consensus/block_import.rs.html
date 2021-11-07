@@ -575,7 +575,7 @@
 	<span class="doccomment">/// Target block hash.</span>
 	<span class="kw">pub</span> <span class="ident">block</span>: <span class="ident">B::Hash</span>,
 	<span class="doccomment">/// State keys and values.</span>
-	<span class="kw">pub</span> <span class="ident">state</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">state</span>: <span class="ident">sp_state_machine::KeyValueStates</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> <span class="ident">std::fmt::Debug</span> <span class="kw">for</span> <span class="ident">ImportedState</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {

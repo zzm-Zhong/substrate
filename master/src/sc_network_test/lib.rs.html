@@ -1238,6 +1238,13 @@
 <span id="1238">1238</span>
 <span id="1239">1239</span>
 <span id="1240">1240</span>
+<span id="1241">1241</span>
+<span id="1242">1242</span>
+<span id="1243">1243</span>
+<span id="1244">1244</span>
+<span id="1245">1245</span>
+<span id="1246">1246</span>
+<span id="1247">1247</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1937,6 +1944,8 @@
 	<span class="kw">pub</span> <span class="ident">is_authority</span>: <span class="ident">bool</span>,
 	<span class="doccomment">/// Syncing mode</span>
 	<span class="kw">pub</span> <span class="ident">sync_mode</span>: <span class="ident">SyncMode</span>,
+	<span class="doccomment">/// Extra genesis storage.</span>
+	<span class="kw">pub</span> <span class="ident">extra_storage</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">sp_core::storage::Storage</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Enable transaction indexing.</span>
 	<span class="kw">pub</span> <span class="ident">storage_chain</span>: <span class="ident">bool</span>,
 }
@@ -2005,6 +2014,11 @@
 			(<span class="prelude-val">Some</span>(<span class="ident">keep_blocks</span>), <span class="bool-val">false</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TestClientBuilder::with_pruning_window</span>(<span class="ident">keep_blocks</span>),
 			(<span class="prelude-val">None</span>, <span class="bool-val">false</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TestClientBuilder::with_default_backend</span>(),
 		};
+		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">storage</span>) <span class="op">=</span> <span class="ident">config</span>.<span class="ident">extra_storage</span> {
+			<span class="kw">let</span> <span class="ident">genesis_extra_storage</span> <span class="op">=</span> <span class="ident">test_client_builder</span>.<span class="ident">genesis_init_mut</span>().<span class="ident">extra_storage</span>();
+			<span class="kw-2">*</span><span class="ident">genesis_extra_storage</span> <span class="op">=</span> <span class="ident">storage</span>;
+		}
+
 		<span class="kw">if</span> <span class="macro">matches!</span>(<span class="ident">config</span>.<span class="ident">sync_mode</span>, <span class="ident">SyncMode::Fast</span> { .. } <span class="op">|</span> <span class="ident">SyncMode::Warp</span>) {
 			<span class="ident">test_client_builder</span> <span class="op">=</span> <span class="ident">test_client_builder</span>.<span class="ident">set_no_genesis</span>();
 		}
