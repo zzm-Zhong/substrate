@@ -529,10 +529,10 @@
 };
 
 <span class="doccomment">/// Number of blocks we will add to the queue before waiting for the queue to catch up.</span>
-<span class="kw">const</span> <span class="ident">MAX_PENDING_BLOCKS</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">1_024</span>;
+<span class="kw">const</span> <span class="ident">MAX_PENDING_BLOCKS</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">10_000</span>;
 
 <span class="doccomment">/// Number of milliseconds to wait until next poll.</span>
-<span class="kw">const</span> <span class="ident">DELAY_TIME</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">2_000</span>;
+<span class="kw">const</span> <span class="ident">DELAY_TIME</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">200</span>;
 
 <span class="doccomment">/// Number of milliseconds that must have passed between two updates.</span>
 <span class="kw">const</span> <span class="ident">TIME_BETWEEN_UPDATES</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">3_000</span>;
