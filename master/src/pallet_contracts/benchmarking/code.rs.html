@@ -555,6 +555,9 @@
 <span id="555">555</span>
 <span id="556">556</span>
 <span id="557">557</span>
+<span id="558">558</span>
+<span id="559">559</span>
+<span id="560">560</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -592,7 +595,10 @@
 };
 <span class="kw">use</span> <span class="ident">sp_core::crypto::UncheckedFrom</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime::traits::Hash</span>;
-<span class="kw">use</span> <span class="ident">sp_sandbox</span>::{<span class="ident">EnvironmentDefinitionBuilder</span>, <span class="ident">Memory</span>};
+<span class="kw">use</span> <span class="ident">sp_sandbox</span>::{
+	<span class="ident">default_executor</span>::{<span class="ident">EnvironmentDefinitionBuilder</span>, <span class="ident">Memory</span>},
+	<span class="ident">SandboxEnvironmentBuilder</span>, <span class="ident">SandboxMemory</span>,
+};
 <span class="kw">use</span> <span class="ident">sp_std</span>::{<span class="ident">borrow::ToOwned</span>, <span class="ident">prelude</span>::<span class="kw-2">*</span>};
 
 <span class="doccomment">/// Pass to `create_code` in order to create a compiled `WasmModule`.</span>

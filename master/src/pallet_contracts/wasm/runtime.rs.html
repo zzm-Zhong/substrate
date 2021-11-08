@@ -1761,6 +1761,11 @@
 <span id="1761">1761</span>
 <span id="1762">1762</span>
 <span id="1763">1763</span>
+<span id="1764">1764</span>
+<span id="1765">1765</span>
+<span id="1766">1766</span>
+<span id="1767">1767</span>
+<span id="1768">1768</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -1795,6 +1800,7 @@
 <span class="kw">use</span> <span class="ident">sp_core</span>::{<span class="ident">crypto::UncheckedFrom</span>, <span class="ident">Bytes</span>};
 <span class="kw">use</span> <span class="ident">sp_io::hashing</span>::{<span class="ident">blake2_128</span>, <span class="ident">blake2_256</span>, <span class="ident">keccak_256</span>, <span class="ident">sha2_256</span>};
 <span class="kw">use</span> <span class="ident">sp_runtime::traits::Bounded</span>;
+<span class="kw">use</span> <span class="ident">sp_sandbox::SandboxMemory</span>;
 <span class="kw">use</span> <span class="ident">sp_std::prelude</span>::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Every error that can be returned to a contract when it calls any of the host functions.</span>
@@ -2120,7 +2126,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Runtime</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span>: <span class="ident">Ext</span> <span class="op">+</span> <span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
 	<span class="ident">ext</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">E</span>,
 	<span class="ident">input_data</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	<span class="ident">memory</span>: <span class="ident">sp_sandbox::Memory</span>,
+	<span class="ident">memory</span>: <span class="ident">sp_sandbox::default_executor::Memory</span>,
 	<span class="ident">trap_reason</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TrapReason</span><span class="op">&gt;</span>,
 }
 
@@ -2130,7 +2136,11 @@
 	<span class="op">&lt;</span><span class="ident">E::T</span> <span class="kw">as</span> <span class="ident">frame_system::Config</span><span class="op">&gt;</span><span class="ident">::AccountId</span>:
 		<span class="ident">UncheckedFrom</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">E::T</span> <span class="kw">as</span> <span class="ident">frame_system::Config</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>,
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">ext</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">E</span>, <span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">memory</span>: <span class="ident">sp_sandbox::Memory</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
+		<span class="ident">ext</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">E</span>,
+		<span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
+		<span class="ident">memory</span>: <span class="ident">sp_sandbox::default_executor::Memory</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="ident">Runtime</span> { <span class="ident">ext</span>, <span class="ident">input_data</span>: <span class="prelude-val">Some</span>(<span class="ident">input_data</span>), <span class="ident">memory</span>, <span class="ident">trap_reason</span>: <span class="prelude-val">None</span> }
 	}
 

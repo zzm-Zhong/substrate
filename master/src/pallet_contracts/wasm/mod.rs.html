@@ -1990,6 +1990,7 @@
 <span id="1990">1990</span>
 <span id="1991">1991</span>
 <span id="1992">1992</span>
+<span id="1993">1993</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -2028,6 +2029,7 @@
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>};
 <span class="kw">use</span> <span class="ident">frame_support::dispatch::DispatchError</span>;
 <span class="kw">use</span> <span class="ident">sp_core::crypto::UncheckedFrom</span>;
+<span class="kw">use</span> <span class="ident">sp_sandbox</span>::{<span class="ident">SandboxEnvironmentBuilder</span>, <span class="ident">SandboxInstance</span>, <span class="ident">SandboxMemory</span>};
 <span class="kw">use</span> <span class="ident">sp_std::prelude</span>::<span class="kw-2">*</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">tests::MockExt</span>;
@@ -2174,8 +2176,8 @@
 		<span class="ident">function</span>: <span class="kw-2">&amp;</span><span class="ident">ExportedFunction</span>,
 		<span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecResult</span> {
-		<span class="kw">let</span> <span class="ident">memory</span> <span class="op">=</span>
-			<span class="ident">sp_sandbox::Memory::new</span>(<span class="self">self</span>.<span class="ident">initial</span>, <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">maximum</span>)).<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
+		<span class="kw">let</span> <span class="ident">memory</span> <span class="op">=</span> <span class="ident">sp_sandbox::default_executor::Memory::new</span>(<span class="self">self</span>.<span class="ident">initial</span>, <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">maximum</span>))
+			.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
 				<span class="comment">// unlike `.expect`, explicit panic preserves the source location.</span>
 				<span class="comment">// Needed as we can&#39;t use `RUST_BACKTRACE` in here.</span>
 				<span class="macro">panic!</span>(
@@ -2185,7 +2187,7 @@
 				)
 			});
 
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">imports</span> <span class="op">=</span> <span class="ident">sp_sandbox::EnvironmentDefinitionBuilder::new</span>();
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">imports</span> <span class="op">=</span> <span class="ident">sp_sandbox::default_executor::EnvironmentDefinitionBuilder::new</span>();
 		<span class="ident">imports</span>.<span class="ident">add_memory</span>(<span class="ident"><span class="self">self</span>::prepare::IMPORT_MODULE_MEMORY</span>, <span class="string">&quot;memory&quot;</span>, <span class="ident">memory</span>.<span class="ident">clone</span>());
 		<span class="ident">runtime::Env::impls</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="op">|</span><span class="ident">module</span>, <span class="ident">name</span>, <span class="ident">func_ptr</span><span class="op">|</span> {
 			<span class="ident">imports</span>.<span class="ident">add_host_func</span>(<span class="ident">module</span>, <span class="ident">name</span>, <span class="ident">func_ptr</span>);
@@ -2201,7 +2203,7 @@
 
 		<span class="comment">// Instantiate the instance from the instrumented module code and invoke the contract</span>
 		<span class="comment">// entrypoint.</span>
-		<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">sp_sandbox::Instance::new</span>(<span class="kw-2">&amp;</span><span class="ident">code</span>, <span class="kw-2">&amp;</span><span class="ident">imports</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">runtime</span>)
+		<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">sp_sandbox::default_executor::Instance::new</span>(<span class="kw-2">&amp;</span><span class="ident">code</span>, <span class="kw-2">&amp;</span><span class="ident">imports</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">runtime</span>)
 			.<span class="ident">and_then</span>(<span class="op">|</span><span class="kw-2">mut</span> <span class="ident">instance</span><span class="op">|</span> <span class="ident">instance</span>.<span class="ident">invoke</span>(<span class="ident">function</span>.<span class="ident">identifier</span>(), <span class="kw-2">&amp;</span>[], <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">runtime</span>));
 
 		<span class="ident">runtime</span>.<span class="ident">to_execution_result</span>(<span class="ident">result</span>)

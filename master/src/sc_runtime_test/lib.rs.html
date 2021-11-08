@@ -467,6 +467,48 @@
 <span id="467">467</span>
 <span id="468">468</span>
 <span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>), <span class="ident">no_std</span>)]</span>
 
 <span class="comment">// Make the WASM binary available.</span>
@@ -499,7 +541,7 @@
 	<span class="ident">traits</span>::{<span class="ident">BlakeTwo256</span>, <span class="ident">Hash</span>},
 };
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>))]</span>
-<span class="kw">use</span> <span class="ident">sp_sandbox::Value</span>;
+<span class="kw">use</span> <span class="ident">sp_sandbox</span>::{<span class="ident">SandboxEnvironmentBuilder</span>, <span class="ident">SandboxInstance</span>, <span class="ident">SandboxMemory</span>, <span class="ident">Value</span>};
 
 <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> {
 	<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
@@ -650,61 +692,6 @@
 			   <span class="string">b&quot;two&quot;</span>[..].<span class="ident">into</span>(),
 		   ],
 	   ).<span class="ident">as_ref</span>().<span class="ident">to_vec</span>()
-   }
-
-   <span class="kw">fn</span> <span class="ident">test_sandbox</span>(<span class="ident">code</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-	   <span class="ident">execute_sandboxed</span>(<span class="kw-2">&amp;</span><span class="ident">code</span>, <span class="kw-2">&amp;</span>[]).<span class="ident">is_ok</span>()
-   }
-
-   <span class="kw">fn</span> <span class="ident">test_sandbox_args</span>(<span class="ident">code</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-	   <span class="ident">execute_sandboxed</span>(
-		   <span class="kw-2">&amp;</span><span class="ident">code</span>,
-		   <span class="kw-2">&amp;</span>[
-			   <span class="ident">Value::I32</span>(<span class="number">0x12345678</span>),
-			   <span class="ident">Value::I64</span>(<span class="number">0x1234567887654321</span>),
-		   ],
-	   ).<span class="ident">is_ok</span>()
-   }
-
-   <span class="kw">fn</span> <span class="ident">test_sandbox_return_val</span>(<span class="ident">code</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-	   <span class="kw">let</span> <span class="ident">ok</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">execute_sandboxed</span>(
-		   <span class="kw-2">&amp;</span><span class="ident">code</span>,
-		   <span class="kw-2">&amp;</span>[
-			   <span class="ident">Value::I32</span>(<span class="number">0x1336</span>),
-		   ]
-	   ) {
-		   <span class="prelude-val">Ok</span>(<span class="ident">sp_sandbox::ReturnValue::Value</span>(<span class="ident">Value::I32</span>(<span class="number">0x1337</span>))) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
-		   <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-	   };
-
-	   <span class="ident">ok</span>
-   }
-
-   <span class="kw">fn</span> <span class="ident">test_sandbox_instantiate</span>(<span class="ident">code</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
-	   <span class="kw">let</span> <span class="ident">env_builder</span> <span class="op">=</span> <span class="ident">sp_sandbox::EnvironmentDefinitionBuilder::new</span>();
-	   <span class="kw">let</span> <span class="ident">code</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">sp_sandbox::Instance::new</span>(<span class="kw-2">&amp;</span><span class="ident">code</span>, <span class="kw-2">&amp;</span><span class="ident">env_builder</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ()) {
-		   <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="number">0</span>,
-		   <span class="prelude-val">Err</span>(<span class="ident">sp_sandbox::Error::Module</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="number">1</span>,
-		   <span class="prelude-val">Err</span>(<span class="ident">sp_sandbox::Error::Execution</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="number">2</span>,
-		   <span class="prelude-val">Err</span>(<span class="ident">sp_sandbox::Error::OutOfBounds</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="number">3</span>,
-	   };
-
-	   <span class="ident">code</span>
-   }
-
-   <span class="kw">fn</span> <span class="ident">test_sandbox_get_global_val</span>(<span class="ident">code</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i64</span> {
-	   <span class="kw">let</span> <span class="ident">env_builder</span> <span class="op">=</span> <span class="ident">sp_sandbox::EnvironmentDefinitionBuilder::new</span>();
-	   <span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">i</span>) <span class="op">=</span> <span class="ident">sp_sandbox::Instance::new</span>(<span class="kw-2">&amp;</span><span class="ident">code</span>, <span class="kw-2">&amp;</span><span class="ident">env_builder</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ()) {
-		   <span class="ident">i</span>
-	   } <span class="kw">else</span> {
-		   <span class="kw">return</span> <span class="number">20</span>;
-	   };
-
-	   <span class="kw">match</span> <span class="ident">instance</span>.<span class="ident">get_global_val</span>(<span class="string">&quot;test_global&quot;</span>) {
-		   <span class="prelude-val">Some</span>(<span class="ident">sp_sandbox::Value::I64</span>(<span class="ident">val</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">val</span>,
-		   <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30</span>,
-		   <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">40</span>,
-	   }
    }
 
    <span class="kw">fn</span> <span class="ident">test_offchain_index_set</span>() {
@@ -877,15 +864,112 @@
 	}
 }
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>))]</span>
-<span class="kw">fn</span> <span class="ident">execute_sandboxed</span>(
-	<span class="ident">code</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
-	<span class="ident">args</span>: <span class="kw-2">&amp;</span>[<span class="ident">Value</span>],
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">sp_sandbox::ReturnValue</span>, <span class="ident">sp_sandbox::HostError</span><span class="op">&gt;</span> {
-	<span class="kw">struct</span> <span class="ident">State</span> {
-		<span class="ident">counter</span>: <span class="ident">u32</span>,
+<span class="doccomment">/// A macro to define a test entrypoint for each available sandbox executor.</span>
+<span class="macro">macro_rules!</span> <span class="ident">wasm_export_sandbox_test_functions</span> {
+	(
+		$(
+			<span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(
+				$( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_name</span>:<span class="ident">ident</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_ty</span>:<span class="ident">ty</span> ),<span class="op">*</span> $(,)<span class="question-mark">?</span>
+			) $( <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ret_ty</span>:<span class="ident">ty</span> )<span class="question-mark">?</span> <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">SandboxInstance</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">state</span>:<span class="ident">ty</span><span class="op">&gt;</span> $(,)<span class="question-mark">?</span>
+			{ $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_impl</span>:<span class="ident">tt</span> )<span class="op">*</span> }
+		)<span class="op">*</span>
+	) <span class="op">=</span><span class="op">&gt;</span> {
+		$(
+				<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>))]</span>
+				<span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>( $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_name</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_ty</span>),<span class="op">*</span> ) $( <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ret_ty</span> )<span class="question-mark">?</span> <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">SandboxInstance</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">state</span><span class="op">&gt;</span> {
+					$( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_impl</span> )<span class="op">*</span>
+				}
+
+				<span class="macro">paste::paste!</span> {
+					<span class="macro">sp_core::wasm_export_functions!</span> {
+						<span class="kw">fn</span> [<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">_host</span><span class="op">&gt;</span>]( $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_name</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_ty</span>),<span class="op">*</span> ) $( <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ret_ty</span> )<span class="question-mark">?</span> {
+							<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>::<span class="op">&lt;</span><span class="ident">sp_sandbox::host_executor::Instance</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">state</span><span class="op">&gt;</span><span class="op">&gt;</span>( $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_name</span> ),<span class="op">*</span> )
+						}
+
+						<span class="kw">fn</span> [<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="ident">_embedded</span><span class="op">&gt;</span>]( $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_name</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_ty</span>),<span class="op">*</span> ) $( <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ret_ty</span> )<span class="question-mark">?</span> {
+							<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>::<span class="op">&lt;</span><span class="ident">sp_sandbox::embedded_executor::Instance</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">state</span><span class="op">&gt;</span><span class="op">&gt;</span>( $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg_name</span> ),<span class="op">*</span> )
+						}
+					}
+				}
+		)<span class="op">*</span>
+	};
+}
+
+<span class="macro">wasm_export_sandbox_test_functions!</span> {
+	<span class="kw">fn</span> <span class="ident">test_sandbox</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">code</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
+	<span class="kw">where</span>
+		<span class="ident">T</span>: <span class="ident">SandboxInstance</span><span class="op">&lt;</span><span class="ident">State</span><span class="op">&gt;</span>,
+	{
+		<span class="ident">execute_sandboxed</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">code</span>, <span class="kw-2">&amp;</span>[]).<span class="ident">is_ok</span>()
 	}
 
+	<span class="kw">fn</span> <span class="ident">test_sandbox_args</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">code</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
+	<span class="kw">where</span>
+		<span class="ident">T</span>: <span class="ident">SandboxInstance</span><span class="op">&lt;</span><span class="ident">State</span><span class="op">&gt;</span>,
+	{
+		<span class="ident">execute_sandboxed</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">code</span>, <span class="kw-2">&amp;</span>[<span class="ident">Value::I32</span>(<span class="number">0x12345678</span>), <span class="ident">Value::I64</span>(<span class="number">0x1234567887654321</span>)])
+			.<span class="ident">is_ok</span>()
+	}
+
+	<span class="kw">fn</span> <span class="ident">test_sandbox_return_val</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">code</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
+	<span class="kw">where</span>
+		<span class="ident">T</span>: <span class="ident">SandboxInstance</span><span class="op">&lt;</span><span class="ident">State</span><span class="op">&gt;</span>,
+	{
+		<span class="kw">let</span> <span class="ident">ok</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">execute_sandboxed</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">code</span>, <span class="kw-2">&amp;</span>[<span class="ident">Value::I32</span>(<span class="number">0x1336</span>)]) {
+			<span class="prelude-val">Ok</span>(<span class="ident">sp_sandbox::ReturnValue::Value</span>(<span class="ident">Value::I32</span>(<span class="number">0x1337</span>))) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+			<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+		};
+
+		<span class="ident">ok</span>
+	}
+
+	<span class="kw">fn</span> <span class="ident">test_sandbox_instantiate</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">code</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span>
+	<span class="kw">where</span>
+		<span class="ident">T</span>: <span class="ident">SandboxInstance</span><span class="op">&lt;</span>()<span class="op">&gt;</span>,
+	{
+		<span class="kw">let</span> <span class="ident">env_builder</span> <span class="op">=</span> <span class="ident">T::EnvironmentBuilder::new</span>();
+		<span class="kw">let</span> <span class="ident">code</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">T::new</span>(<span class="kw-2">&amp;</span><span class="ident">code</span>, <span class="kw-2">&amp;</span><span class="ident">env_builder</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ()) {
+			<span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="number">0</span>,
+			<span class="prelude-val">Err</span>(<span class="ident">sp_sandbox::Error::Module</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="number">1</span>,
+			<span class="prelude-val">Err</span>(<span class="ident">sp_sandbox::Error::Execution</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="number">2</span>,
+			<span class="prelude-val">Err</span>(<span class="ident">sp_sandbox::Error::OutOfBounds</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="number">3</span>,
+		};
+
+		<span class="ident">code</span>
+	}
+
+	<span class="kw">fn</span> <span class="ident">test_sandbox_get_global_val</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">code</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i64</span>
+	<span class="kw">where</span>
+		<span class="ident">T</span>: <span class="ident">SandboxInstance</span><span class="op">&lt;</span>()<span class="op">&gt;</span>,
+	{
+		<span class="kw">let</span> <span class="ident">env_builder</span> <span class="op">=</span> <span class="ident">T::EnvironmentBuilder::new</span>();
+		<span class="kw">let</span> <span class="ident">instance</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">i</span>) <span class="op">=</span> <span class="ident">T::new</span>(<span class="kw-2">&amp;</span><span class="ident">code</span>, <span class="kw-2">&amp;</span><span class="ident">env_builder</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ()) {
+			<span class="ident">i</span>
+		} <span class="kw">else</span> {
+			<span class="kw">return</span> <span class="number">20</span>
+		};
+
+		<span class="kw">match</span> <span class="ident">instance</span>.<span class="ident">get_global_val</span>(<span class="string">&quot;test_global&quot;</span>) {
+			<span class="prelude-val">Some</span>(<span class="ident">sp_sandbox::Value::I64</span>(<span class="ident">val</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">val</span>,
+			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">30</span>,
+			<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">40</span>,
+		}
+	}
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>))]</span>
+<span class="kw">struct</span> <span class="ident">State</span> {
+	<span class="ident">counter</span>: <span class="ident">u32</span>,
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>))]</span>
+<span class="kw">fn</span> <span class="ident">execute_sandboxed</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(
+	<span class="ident">code</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
+	<span class="ident">args</span>: <span class="kw-2">&amp;</span>[<span class="ident">Value</span>],
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">sp_sandbox::ReturnValue</span>, <span class="ident">sp_sandbox::HostError</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+	<span class="ident">T</span>: <span class="ident">sp_sandbox::SandboxInstance</span><span class="op">&lt;</span><span class="ident">State</span><span class="op">&gt;</span>,
+{
 	<span class="kw">fn</span> <span class="ident">env_assert</span>(
 		<span class="ident">_e</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">State</span>,
 		<span class="ident">args</span>: <span class="kw-2">&amp;</span>[<span class="ident">Value</span>],
@@ -915,10 +999,10 @@
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">state</span> <span class="op">=</span> <span class="ident">State</span> { <span class="ident">counter</span>: <span class="number">0</span> };
 
 	<span class="kw">let</span> <span class="ident">env_builder</span> <span class="op">=</span> {
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">env_builder</span> <span class="op">=</span> <span class="ident">sp_sandbox::EnvironmentDefinitionBuilder::new</span>();
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">env_builder</span> <span class="op">=</span> <span class="ident">T::EnvironmentBuilder::new</span>();
 		<span class="ident">env_builder</span>.<span class="ident">add_host_func</span>(<span class="string">&quot;env&quot;</span>, <span class="string">&quot;assert&quot;</span>, <span class="ident">env_assert</span>);
 		<span class="ident">env_builder</span>.<span class="ident">add_host_func</span>(<span class="string">&quot;env&quot;</span>, <span class="string">&quot;inc_counter&quot;</span>, <span class="ident">env_inc_counter</span>);
-		<span class="kw">let</span> <span class="ident">memory</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">sp_sandbox::Memory::new</span>(<span class="number">1</span>, <span class="prelude-val">Some</span>(<span class="number">16</span>)) {
+		<span class="kw">let</span> <span class="ident">memory</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">T::Memory::new</span>(<span class="number">1</span>, <span class="prelude-val">Some</span>(<span class="number">16</span>)) {
 			<span class="prelude-val">Ok</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">m</span>,
 			<span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(
 				<span class="string">&quot;
@@ -931,7 +1015,7 @@
 		<span class="ident">env_builder</span>
 	};
 
-	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">instance</span> <span class="op">=</span> <span class="ident">sp_sandbox::Instance::new</span>(<span class="ident">code</span>, <span class="kw-2">&amp;</span><span class="ident">env_builder</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">state</span>)<span class="question-mark">?</span>;
+	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">instance</span> <span class="op">=</span> <span class="ident">T::new</span>(<span class="ident">code</span>, <span class="kw-2">&amp;</span><span class="ident">env_builder</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">state</span>)<span class="question-mark">?</span>;
 	<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">invoke</span>(<span class="string">&quot;call&quot;</span>, <span class="ident">args</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">state</span>);
 
 	<span class="ident">result</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">sp_sandbox::HostError</span>)
