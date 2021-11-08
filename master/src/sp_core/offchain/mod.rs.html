@@ -797,6 +797,8 @@
 <span id="797">797</span>
 <span id="798">798</span>
 <span id="799">799</span>
+<span id="800">800</span>
+<span id="801">801</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -1061,21 +1063,23 @@
 	<span class="doccomment">/// Execution context extra capabilities.</span>
 	<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Capabilities</span>: <span class="ident">u32</span> {
 		<span class="doccomment">/// Access to transaction pool.</span>
-		<span class="kw">const</span> <span class="ident">TRANSACTION_POOL</span> <span class="op">=</span> <span class="number">0b0000_0001</span>;
+		<span class="kw">const</span> <span class="ident">TRANSACTION_POOL</span> <span class="op">=</span> <span class="number">0b0000_0000_0001</span>;
 		<span class="doccomment">/// External http calls.</span>
-		<span class="kw">const</span> <span class="ident">HTTP</span> <span class="op">=</span> <span class="number">0b0000_0010</span>;
+		<span class="kw">const</span> <span class="ident">HTTP</span> <span class="op">=</span> <span class="number">0b0000_0000_0010</span>;
 		<span class="doccomment">/// Keystore access.</span>
-		<span class="kw">const</span> <span class="ident">KEYSTORE</span> <span class="op">=</span> <span class="number">0b0000_0100</span>;
+		<span class="kw">const</span> <span class="ident">KEYSTORE</span> <span class="op">=</span> <span class="number">0b0000_0000_0100</span>;
 		<span class="doccomment">/// Randomness source.</span>
-		<span class="kw">const</span> <span class="ident">RANDOMNESS</span> <span class="op">=</span> <span class="number">0b0000_1000</span>;
+		<span class="kw">const</span> <span class="ident">RANDOMNESS</span> <span class="op">=</span> <span class="number">0b0000_0000_1000</span>;
 		<span class="doccomment">/// Access to opaque network state.</span>
-		<span class="kw">const</span> <span class="ident">NETWORK_STATE</span> <span class="op">=</span> <span class="number">0b0001_0000</span>;
+		<span class="kw">const</span> <span class="ident">NETWORK_STATE</span> <span class="op">=</span> <span class="number">0b0000_0001_0000</span>;
 		<span class="doccomment">/// Access to offchain worker DB (read only).</span>
-		<span class="kw">const</span> <span class="ident">OFFCHAIN_DB_READ</span> <span class="op">=</span> <span class="number">0b0010_0000</span>;
+		<span class="kw">const</span> <span class="ident">OFFCHAIN_DB_READ</span> <span class="op">=</span> <span class="number">0b0000_0010_0000</span>;
 		<span class="doccomment">/// Access to offchain worker DB (writes).</span>
-		<span class="kw">const</span> <span class="ident">OFFCHAIN_DB_WRITE</span> <span class="op">=</span> <span class="number">0b0100_0000</span>;
+		<span class="kw">const</span> <span class="ident">OFFCHAIN_DB_WRITE</span> <span class="op">=</span> <span class="number">0b0000_0100_0000</span>;
 		<span class="doccomment">/// Manage the authorized nodes</span>
-		<span class="kw">const</span> <span class="ident">NODE_AUTHORIZATION</span> <span class="op">=</span> <span class="number">0b1000_0000</span>;
+		<span class="kw">const</span> <span class="ident">NODE_AUTHORIZATION</span> <span class="op">=</span> <span class="number">0b0000_1000_0000</span>;
+		<span class="doccomment">/// Access time related functionality</span>
+		<span class="kw">const</span> <span class="ident">TIME</span> <span class="op">=</span> <span class="number">0b0001_0000_0000</span>;
 	}
 }
 
@@ -1340,12 +1344,12 @@
 	}
 
 	<span class="kw">fn</span> <span class="ident">timestamp</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Timestamp</span> {
-		<span class="self">self</span>.<span class="ident">check</span>(<span class="ident">Capabilities::HTTP</span>, <span class="string">&quot;timestamp&quot;</span>);
+		<span class="self">self</span>.<span class="ident">check</span>(<span class="ident">Capabilities::TIME</span>, <span class="string">&quot;timestamp&quot;</span>);
 		<span class="self">self</span>.<span class="ident">externalities</span>.<span class="ident">timestamp</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">sleep_until</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">deadline</span>: <span class="ident">Timestamp</span>) {
-		<span class="self">self</span>.<span class="ident">check</span>(<span class="ident">Capabilities::HTTP</span>, <span class="string">&quot;sleep_until&quot;</span>);
+		<span class="self">self</span>.<span class="ident">check</span>(<span class="ident">Capabilities::TIME</span>, <span class="string">&quot;sleep_until&quot;</span>);
 		<span class="self">self</span>.<span class="ident">externalities</span>.<span class="ident">sleep_until</span>(<span class="ident">deadline</span>)
 	}
 

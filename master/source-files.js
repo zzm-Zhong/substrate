@@ -32,7 +32,6 @@ sourcesIndex["node_executor"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["node_inspect"] = {"name":"","files":["cli.rs","command.rs","lib.rs"]};
 sourcesIndex["node_primitives"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["node_rpc"] = {"name":"","files":["lib.rs"]};
-sourcesIndex["node_rpc_client"] = {"name":"","files":["main.rs"]};
 sourcesIndex["node_runtime"] = {"name":"","files":["constants.rs","impls.rs","lib.rs","voter_bags.rs"]};
 sourcesIndex["node_runtime_generate_bags"] = {"name":"","files":["main.rs"]};
 sourcesIndex["node_template"] = {"name":"","files":["chain_spec.rs","cli.rs","command.rs","main.rs","rpc.rs","service.rs"]};
