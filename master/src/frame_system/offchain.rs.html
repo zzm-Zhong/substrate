@@ -793,10 +793,6 @@
 <span id="793">793</span>
 <span id="794">794</span>
 <span id="795">795</span>
-<span id="796">796</span>
-<span id="797">797</span>
-<span id="798">798</span>
-<span id="799">799</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -861,11 +857,7 @@
 	<span class="ident">app_crypto::RuntimeAppPublic</span>,
 	<span class="ident">traits</span>::{<span class="ident">Extrinsic</span> <span class="kw">as</span> <span class="ident">ExtrinsicT</span>, <span class="ident">IdentifyAccount</span>, <span class="ident">One</span>},
 };
-<span class="kw">use</span> <span class="ident">sp_std</span>::{
-	<span class="ident">collections::btree_set::BTreeSet</span>,
-	<span class="ident">convert</span>::{<span class="ident">TryFrom</span>, <span class="ident">TryInto</span>},
-	<span class="ident">prelude</span>::{<span class="ident">Box</span>, <span class="ident">Vec</span>},
-};
+<span class="kw">use</span> <span class="ident">sp_std</span>::{<span class="ident">collections::btree_set::BTreeSet</span>, <span class="ident">prelude</span>::<span class="kw-2">*</span>};
 
 <span class="doccomment">/// Marker struct used to flag using all supported keys to sign a payload.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ForAll</span> {}

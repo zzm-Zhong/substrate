@@ -77,7 +77,7 @@
 };
 <span class="kw">use</span> <span class="ident">remote_externalities</span>::{<span class="ident">Builder</span>, <span class="ident">Mode</span>, <span class="ident">OnlineConfig</span>};
 <span class="kw">use</span> <span class="ident">sp_runtime::traits::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>;
-<span class="kw">use</span> <span class="ident">sp_std::convert::TryInto</span>;
+<span class="kw">use</span> <span class="ident">sp_std::prelude</span>::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Execute the sanity check of the bags-list.</span>
 <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">execute</span><span class="op">&lt;</span><span class="ident">Runtime</span>: <span class="ident"><span class="kw">crate</span>::RuntimeT</span>, <span class="ident">Block</span>: <span class="ident">BlockT</span><span class="op">&gt;</span>(

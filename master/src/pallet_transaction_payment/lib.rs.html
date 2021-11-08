@@ -1574,7 +1574,6 @@
 <span id="1574">1574</span>
 <span id="1575">1575</span>
 <span id="1576">1576</span>
-<span id="1577">1577</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -1924,7 +1923,6 @@
 			<span class="comment">// given weight == u64, we build multipliers from `diff` of two weight values, which can</span>
 			<span class="comment">// at most be maximum block weight. Make sure that this can fit in a multiplier without</span>
 			<span class="comment">// loss.</span>
-			<span class="kw">use</span> <span class="ident">sp_std::convert::TryInto</span>;
 			<span class="macro">assert!</span>(
 				<span class="op">&lt;</span><span class="ident">Multiplier</span> <span class="kw">as</span> <span class="ident">sp_runtime::traits::Bounded</span><span class="op">&gt;</span><span class="ident">::max_value</span>() <span class="op">&gt;</span><span class="op">=</span>
 					<span class="ident">Multiplier::checked_from_integer</span>(

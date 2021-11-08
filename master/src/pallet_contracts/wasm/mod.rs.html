@@ -1990,7 +1990,6 @@
 <span id="1990">1990</span>
 <span id="1991">1991</span>
 <span id="1992">1992</span>
-<span id="1993">1993</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -3960,7 +3959,6 @@
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-interface&quot;</span>)]</span>
 	<span class="kw">fn</span> <span class="ident">call_runtime_works</span>() {
-		<span class="kw">use</span> <span class="ident">std::convert::TryInto</span>;
 		<span class="kw">let</span> <span class="ident">call</span> <span class="op">=</span> <span class="ident">Call::System</span>(<span class="ident">frame_system::Call::remark</span> { <span class="ident">remark</span>: <span class="string">b&quot;Hello World&quot;</span>.<span class="ident">to_vec</span>() });
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ext</span> <span class="op">=</span> <span class="ident">MockExt::default</span>();
 		<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">execute</span>(<span class="ident">CODE_CALL_RUNTIME</span>, <span class="ident">call</span>.<span class="ident">encode</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ext</span>).<span class="ident">unwrap</span>();

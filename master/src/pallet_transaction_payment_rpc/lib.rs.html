@@ -185,7 +185,7 @@
 	<span class="ident">generic::BlockId</span>,
 	<span class="ident">traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">MaybeDisplay</span>},
 };
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryInto</span>, <span class="ident">sync::Arc</span>};
+<span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
 
 <span class="attribute">#[<span class="ident">rpc</span>]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TransactionPaymentApi</span><span class="op">&lt;</span><span class="ident">BlockHash</span>, <span class="ident">ResponseType</span><span class="op">&gt;</span> {
