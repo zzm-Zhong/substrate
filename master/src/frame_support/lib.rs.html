@@ -2451,6 +2451,7 @@
 <span id="2451">2451</span>
 <span id="2452">2452</span>
 <span id="2453">2453</span>
+<span id="2454">2454</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -3783,6 +3784,7 @@
 		<span class="ident">PartialEqNoBound</span>, <span class="ident">RuntimeDebug</span>, <span class="ident">RuntimeDebugNoBound</span>, <span class="ident">Twox128</span>, <span class="ident">Twox256</span>, <span class="ident">Twox64Concat</span>,
 	};
 	<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>, <span class="ident">MaxEncodedLen</span>};
+	<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">scale_info::TypeInfo</span>;
 	<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sp_runtime</span>::{
 		<span class="ident">traits</span>::{<span class="ident">MaybeSerializeDeserialize</span>, <span class="ident">Member</span>, <span class="ident">ValidateUnsigned</span>},
 		<span class="ident">transaction_validity</span>::{
