@@ -3,7 +3,7 @@
  $(, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span> : <span class="ident">tt</span>) <span class="kw-2">*</span>) <span class="question-mark">?</span>) <span class="op">=</span><span class="op">&gt;</span> { ... };
 }</code></pre></div>
 </div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>This creates a test suite which runs the module’s benchmarks.</p>
-<p>When called in <code>pallet_example</code> as</p>
+<p>When called in <code>pallet_example_basic</code> as</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore"><code><span class="macro">impl_benchmark_test_suite!</span>(<span class="ident">Pallet</span>, <span class="ident"><span class="kw">crate</span>::tests::new_test_ext</span>(), <span class="ident"><span class="kw">crate</span>::tests::Test</span>);</code></pre></div>
 <p>It expands to the equivalent of:</p>
@@ -23,7 +23,7 @@
 		});
 	}
 }</code></pre></div>
-<p>When called inside the <code>benchmarks</code> macro of the <code>pallet_example</code> as</p>
+<p>When called inside the <code>benchmarks</code> macro of the <code>pallet_example_basic</code> as</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore"><code><span class="macro">benchmarks!</span> {
 	<span class="comment">// Benchmarks omitted for brevity</span>
