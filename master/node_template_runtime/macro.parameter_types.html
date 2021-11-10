@@ -26,7 +26,7 @@ the <code>value</code> is const.</p>
 <p>Using <code>storage</code> to create a storage parameter type. This type is special as it tries to load
 the value from the storage under a fixed key. If the value could not be found in the storage,
 the given default value will be returned. It is required that the value implements
-<a href="codec::Encode"><code>Encode</code></a> and <a href="codec::Decode"><code>Decode</code></a>. The key for looking up the value in
+<a href="../parity_scale_codec/codec/trait.Encode.html"><code>Encode</code></a> and <a href="../parity_scale_codec/codec/trait.Decode.html"><code>Decode</code></a>. The key for looking up the value in
 the storage is built using the following formula:</p>
 <p><code>twox_128(&quot;:&quot; ++ NAME ++ &quot;:&quot;)</code> where <code>NAME</code> is the name that is passed as type name.</p>
 </li>
