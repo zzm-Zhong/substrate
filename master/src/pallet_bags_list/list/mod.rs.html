@@ -779,13 +779,6 @@
 <span id="779">779</span>
 <span id="780">780</span>
 <span id="781">781</span>
-<span id="782">782</span>
-<span id="783">783</span>
-<span id="784">784</span>
-<span id="785">785</span>
-<span id="786">786</span>
-<span id="787">787</span>
-<span id="788">788</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -806,7 +799,7 @@
 <span class="doccomment">//! Implementation of a &quot;bags list&quot;: a semi-sorted list where ordering granularity is dictated by</span>
 <span class="doccomment">//! configurable thresholds that delineate the boundaries of bags. It uses a pattern of composite</span>
 <span class="doccomment">//! data structures, where multiple storage items are masked by one outer API. See [`ListNodes`],</span>
-<span class="doccomment">//! [`CounterForListNodes`] and [`ListBags`] for more information.</span>
+<span class="doccomment">//! [`ListBags`] for more information.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The outer API of this module is the [`List`] struct. It wraps all acceptable operations on top</span>
 <span class="doccomment">//! of the aggregate linked list. All operations with the bags list should happen through this</span>
@@ -865,17 +858,18 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="ident">List</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Remove all data associated with the list from storage. Parameter `items` is the number of</span>
-	<span class="doccomment">/// items to clear from the list. WARNING: `None` will clear all items and should generally not</span>
-	<span class="doccomment">/// be used in production as it could lead to an infinite number of storage accesses.</span>
+	<span class="doccomment">/// items to clear from the list.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// ## WARNING</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// `None` will clear all items and should generally not be used in production as it could lead</span>
+	<span class="doccomment">/// to a very large number of storage accesses.</span>
 	<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">clear</span>(<span class="ident">maybe_count</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
 		<span class="ident"><span class="kw">crate</span>::ListBags</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::remove_all</span>(<span class="ident">maybe_count</span>);
+		<span class="kw">let</span> <span class="ident">pre</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::ListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::count</span>();
 		<span class="ident"><span class="kw">crate</span>::ListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::remove_all</span>(<span class="ident">maybe_count</span>);
-		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">count</span>) <span class="op">=</span> <span class="ident">maybe_count</span> {
-			<span class="ident"><span class="kw">crate</span>::CounterForListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::mutate</span>(<span class="op">|</span><span class="ident">items</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">items</span> <span class="op">-</span> <span class="ident">count</span>);
-			<span class="ident">count</span>
-		} <span class="kw">else</span> {
-			<span class="ident"><span class="kw">crate</span>::CounterForListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::take</span>()
-		}
+		<span class="kw">let</span> <span class="ident">post</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::ListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::count</span>();
+		<span class="ident">pre</span>.<span class="ident">saturating_sub</span>(<span class="ident">post</span>)
 	}
 
 	<span class="doccomment">/// Regenerate all of the data from the given ids.</span>
@@ -1062,17 +1056,13 @@
 		<span class="comment">// new inserts are always the tail, so we must write the bag.</span>
 		<span class="ident">bag</span>.<span class="ident">put</span>();
 
-		<span class="ident"><span class="kw">crate</span>::CounterForListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::mutate</span>(<span class="op">|</span><span class="ident">prev_count</span><span class="op">|</span> {
-			<span class="kw-2">*</span><span class="ident">prev_count</span> <span class="op">=</span> <span class="ident">prev_count</span>.<span class="ident">saturating_add</span>(<span class="number">1</span>)
-		});
-
 		<span class="macro">crate::log!</span>(
 			<span class="ident">debug</span>,
 			<span class="string">&quot;inserted {:?} with weight {} into bag {:?}, new count is {}&quot;</span>,
 			<span class="ident">id</span>,
 			<span class="ident">weight</span>,
 			<span class="ident">bag_weight</span>,
-			<span class="ident"><span class="kw">crate</span>::CounterForListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>(),
+			<span class="ident"><span class="kw">crate</span>::ListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::count</span>(),
 		);
 
 		<span class="prelude-val">Ok</span>(())
@@ -1118,10 +1108,6 @@
 		<span class="kw">for</span> (<span class="kw">_</span>, <span class="ident">bag</span>) <span class="kw">in</span> <span class="ident">bags</span> {
 			<span class="ident">bag</span>.<span class="ident">put</span>();
 		}
-
-		<span class="ident"><span class="kw">crate</span>::CounterForListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::mutate</span>(<span class="op">|</span><span class="ident">prev_count</span><span class="op">|</span> {
-			<span class="kw-2">*</span><span class="ident">prev_count</span> <span class="op">=</span> <span class="ident">prev_count</span>.<span class="ident">saturating_sub</span>(<span class="ident">count</span>)
-		});
 
 		<span class="ident">count</span>
 	}
@@ -1178,7 +1164,7 @@
 	<span class="doccomment">/// is being used, after all other staking data (such as counter) has been updated. It checks:</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// * there are no duplicate ids,</span>
-	<span class="doccomment">/// * length of this list is in sync with `CounterForListNodes`,</span>
+	<span class="doccomment">/// * length of this list is in sync with `ListNodes::count()`,</span>
 	<span class="doccomment">/// * and sanity-checks all bags and nodes. This will cascade down all the checks and makes sure</span>
 	<span class="doccomment">/// all bags and nodes are checked per *any* update to `List`.</span>
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>
@@ -1191,7 +1177,7 @@
 		);
 
 		<span class="kw">let</span> <span class="ident">iter_count</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::iter</span>().<span class="ident">count</span>() <span class="kw">as</span> <span class="ident">u32</span>;
-		<span class="kw">let</span> <span class="ident">stored_count</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::CounterForListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>();
+		<span class="kw">let</span> <span class="ident">stored_count</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::ListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::count</span>();
 		<span class="kw">let</span> <span class="ident">nodes_count</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::ListNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::iter</span>().<span class="ident">count</span>() <span class="kw">as</span> <span class="ident">u32</span>;
 		<span class="macro">ensure!</span>(<span class="ident">iter_count</span> <span class="op">=</span><span class="op">=</span> <span class="ident">stored_count</span>, <span class="string">&quot;iter_count != stored_count&quot;</span>);
 		<span class="macro">ensure!</span>(<span class="ident">stored_count</span> <span class="op">=</span><span class="op">=</span> <span class="ident">nodes_count</span>, <span class="string">&quot;stored_count != nodes_count&quot;</span>);
