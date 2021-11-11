@@ -714,6 +714,9 @@
 <span id="714">714</span>
 <span id="715">715</span>
 <span id="716">716</span>
+<span id="717">717</span>
+<span id="718">718</span>
+<span id="719">719</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -997,7 +1000,10 @@
 };
 <span class="kw">use</span> <span class="ident">sp_externalities::Extensions</span>;
 <span class="kw">use</span> <span class="ident">sp_keystore</span>::{<span class="ident">testing::KeyStore</span>, <span class="ident">KeystoreExt</span>};
-<span class="kw">use</span> <span class="ident">sp_runtime::traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">NumberFor</span>};
+<span class="kw">use</span> <span class="ident">sp_runtime</span>::{
+	<span class="ident">traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">NumberFor</span>},
+	<span class="ident">DeserializeOwned</span>,
+};
 <span class="kw">use</span> <span class="ident">sp_state_machine</span>::{<span class="ident">OverlayedChanges</span>, <span class="ident">StateMachine</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">fmt::Debug</span>, <span class="ident">path::PathBuf</span>, <span class="ident">str::FromStr</span>};
 
@@ -1180,7 +1186,7 @@
 
 <span class="kw">impl</span> <span class="ident">State</span> {
 	<span class="doccomment">/// Create the [`remote_externalities::Builder`] from self.</span>
-	<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">builder</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">sc_cli::Result</span><span class="op">&lt;</span><span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>
+	<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">builder</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span> <span class="op">+</span> <span class="ident">DeserializeOwned</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">sc_cli::Result</span><span class="op">&lt;</span><span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>
 	<span class="kw">where</span>
 		<span class="ident">Block::Hash</span>: <span class="ident">FromStr</span>,
 		<span class="op">&lt;</span><span class="ident">Block::Hash</span> <span class="kw">as</span> <span class="ident">FromStr</span><span class="op">&gt;</span><span class="ident">::Err</span>: <span class="ident">Debug</span>,

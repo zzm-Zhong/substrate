@@ -98,17 +98,6 @@
 <span id="98"> 98</span>
 <span id="99"> 99</span>
 <span id="100">100</span>
-<span id="101">101</span>
-<span id="102">102</span>
-<span id="103">103</span>
-<span id="104">104</span>
-<span id="105">105</span>
-<span id="106">106</span>
-<span id="107">107</span>
-<span id="108">108</span>
-<span id="109">109</span>
-<span id="110">110</span>
-<span id="111">111</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -129,9 +118,10 @@
 <span class="doccomment">//! WS RPC API for one off RPC calls to a substrate node.</span>
 <span class="comment">// TODO: Consolidate one off RPC calls https://github.com/paritytech/substrate/issues/8988</span>
 
-<span class="kw">use</span> <span class="ident">jsonrpsee_ws_client</span>::{
-	<span class="ident">types</span>::{<span class="ident">traits::Client</span>, <span class="ident">v2::params::JsonRpcParams</span>},
-	<span class="ident">WsClient</span>, <span class="ident">WsClientBuilder</span>,
+<span class="kw">use</span> <span class="ident">jsonrpsee</span>::{
+	<span class="ident">rpc_params</span>,
+	<span class="ident">types::traits::Client</span>,
+	<span class="ident">ws_client</span>::{<span class="ident">WsClient</span>, <span class="ident">WsClientBuilder</span>},
 };
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{
 	<span class="ident">generic::SignedBlock</span>,
@@ -145,11 +135,10 @@
 	<span class="ident">Block::Header</span>: <span class="ident">serde::de::DeserializeOwned</span>,
 	<span class="ident">S</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,
 {
-	<span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">hash_to_json</span>::<span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>(<span class="ident">at</span>)<span class="question-mark">?</span>];
 	<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">build_client</span>(<span class="ident">from</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
 	<span class="ident">client</span>
-		.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">Block::Header</span><span class="op">&gt;</span>(<span class="string">&quot;chain_getHeader&quot;</span>, <span class="ident">JsonRpcParams::Array</span>(<span class="ident">params</span>))
+		.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">Block::Header</span><span class="op">&gt;</span>(<span class="string">&quot;chain_getHeader&quot;</span>, <span class="macro">rpc_params!</span>(<span class="ident">at</span>))
 		.<span class="kw">await</span>
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;chain_getHeader request failed: {:?}&quot;</span>, <span class="ident">e</span>))
 }
@@ -163,7 +152,7 @@
 	<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">build_client</span>(<span class="ident">from</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
 	<span class="ident">client</span>
-		.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span>(<span class="string">&quot;chain_getFinalizedHead&quot;</span>, <span class="ident">JsonRpcParams::NoParams</span>)
+		.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">Block::Hash</span><span class="op">&gt;</span>(<span class="string">&quot;chain_getFinalizedHead&quot;</span>, <span class="prelude-val">None</span>)
 		.<span class="kw">await</span>
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;chain_getFinalizedHead request failed: {:?}&quot;</span>, <span class="ident">e</span>))
 }
@@ -175,20 +164,13 @@
 	<span class="ident">Block</span>: <span class="ident">BlockT</span> <span class="op">+</span> <span class="ident">serde::de::DeserializeOwned</span>,
 	<span class="ident">Block::Header</span>: <span class="ident">HeaderT</span>,
 {
-	<span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">hash_to_json</span>::<span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>(<span class="ident">at</span>)<span class="question-mark">?</span>];
 	<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">build_client</span>(<span class="ident">from</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 	<span class="kw">let</span> <span class="ident">signed_block</span> <span class="op">=</span> <span class="ident">client</span>
-		.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">SignedBlock</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="string">&quot;chain_getBlock&quot;</span>, <span class="ident">JsonRpcParams::Array</span>(<span class="ident">params</span>))
+		.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">SignedBlock</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="string">&quot;chain_getBlock&quot;</span>, <span class="macro">rpc_params!</span>(<span class="ident">at</span>))
 		.<span class="kw">await</span>
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;chain_getBlock request failed: {:?}&quot;</span>, <span class="ident">e</span>))<span class="question-mark">?</span>;
 
 	<span class="prelude-val">Ok</span>(<span class="ident">signed_block</span>.<span class="ident">block</span>)
-}
-
-<span class="doccomment">/// Convert a block hash to a serde json value.</span>
-<span class="kw">fn</span> <span class="ident">hash_to_json</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span><span class="op">&gt;</span>(<span class="ident">hash</span>: <span class="ident">Block::Hash</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">serde_json::Value</span>, <span class="ident">String</span><span class="op">&gt;</span> {
-	<span class="ident">serde_json::to_value</span>(<span class="ident">hash</span>)
-		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;Block hash could not be converted to JSON: {:?}&quot;</span>, <span class="ident">e</span>))
 }
 
 <span class="doccomment">/// Build a website client that connects to `from`.</span>
@@ -210,13 +192,9 @@
 	<span class="ident">Block</span>: <span class="ident">BlockT</span> <span class="op">+</span> <span class="ident">serde::de::DeserializeOwned</span>,
 	<span class="ident">Block::Header</span>: <span class="ident">HeaderT</span>,
 {
-	<span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">at</span>) <span class="op">=</span> <span class="ident">at</span> { <span class="macro">vec!</span>[<span class="ident">hash_to_json</span>::<span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>(<span class="ident">at</span>)<span class="question-mark">?</span>] } <span class="kw">else</span> { <span class="macro">vec!</span>[] };
 	<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">build_client</span>(<span class="ident">from</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 	<span class="ident">client</span>
-		.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">sp_version::RuntimeVersion</span><span class="op">&gt;</span>(
-			<span class="string">&quot;state_getRuntimeVersion&quot;</span>,
-			<span class="ident">JsonRpcParams::Array</span>(<span class="ident">params</span>),
-		)
+		.<span class="ident">request</span>::<span class="op">&lt;</span><span class="ident">sp_version::RuntimeVersion</span><span class="op">&gt;</span>(<span class="string">&quot;state_getRuntimeVersion&quot;</span>, <span class="macro">rpc_params!</span>(<span class="ident">at</span>))
 		.<span class="kw">await</span>
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;state_getRuntimeVersion request failed: {:?}&quot;</span>, <span class="ident">e</span>))
 }

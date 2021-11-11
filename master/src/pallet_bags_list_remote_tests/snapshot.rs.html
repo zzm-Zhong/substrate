@@ -104,10 +104,10 @@
 
 <span class="kw">use</span> <span class="ident">frame_support::traits::PalletInfoAccess</span>;
 <span class="kw">use</span> <span class="ident">remote_externalities</span>::{<span class="ident">Builder</span>, <span class="ident">Mode</span>, <span class="ident">OnlineConfig</span>};
-<span class="kw">use</span> <span class="ident">sp_runtime::traits::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>;
+<span class="kw">use</span> <span class="ident">sp_runtime</span>::{<span class="ident">traits::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">DeserializeOwned</span>};
 
 <span class="doccomment">/// Execute create a snapshot from pallet-staking.</span>
-<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">execute</span><span class="op">&lt;</span><span class="ident">Runtime</span>: <span class="ident"><span class="kw">crate</span>::RuntimeT</span>, <span class="ident">Block</span>: <span class="ident">BlockT</span><span class="op">&gt;</span>(
+<span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">execute</span><span class="op">&lt;</span><span class="ident">Runtime</span>: <span class="ident"><span class="kw">crate</span>::RuntimeT</span>, <span class="ident">Block</span>: <span class="ident">BlockT</span> <span class="op">+</span> <span class="ident">DeserializeOwned</span><span class="op">&gt;</span>(
 	<span class="ident">voter_limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,
 	<span class="ident">currency_unit</span>: <span class="ident">u64</span>,
 	<span class="ident">ws_url</span>: <span class="ident">String</span>,
