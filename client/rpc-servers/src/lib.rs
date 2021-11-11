@@ -21,8 +21,8 @@
 #![warn(missing_docs)]
 
 use jsonrpsee::{
-	http_server::{AccessControlBuilder, HttpServerBuilder, HttpStopHandle},
-	ws_server::{WsServerBuilder, WsStopHandle},
+	http_server::{AccessControlBuilder, HttpServerBuilder, HttpServerHandle},
+	ws_server::{WsServerBuilder, WsServerHandle},
 	RpcModule,
 };
 
@@ -75,9 +75,9 @@ impl ServerMetrics {
 }*/
 
 /// Type alias for http server
-pub type HttpServer = HttpStopHandle;
+pub type HttpServer = HttpServerHandle;
 /// Type alias for ws server
-pub type WsServer = WsStopHandle;
+pub type WsServer = WsServerHandle;
 
 // TODO: (dp) port this stuff
 // impl ws::SessionStats for ServerMetrics {
@@ -97,7 +97,7 @@ pub fn start_http<M: Send + Sync + 'static>(
 	maybe_max_payload_mb: Option<usize>,
 	module: RpcModule<M>,
 	rt: tokio::runtime::Handle,
-) -> Result<HttpStopHandle, anyhow::Error> {
+) -> Result<HttpServerHandle, anyhow::Error> {
 	let max_request_body_size = maybe_max_payload_mb
 		.map(|mb| mb.saturating_mul(MEGABYTE))
 		.unwrap_or(RPC_MAX_PAYLOAD_DEFAULT);
@@ -137,7 +137,7 @@ pub fn start_ws<M: Send + Sync + 'static>(
 	maybe_max_payload_mb: Option<usize>,
 	module: RpcModule<M>,
 	rt: tokio::runtime::Handle,
-) -> Result<WsStopHandle, anyhow::Error> {
+) -> Result<WsServerHandle, anyhow::Error> {
 	let max_request_body_size = maybe_max_payload_mb
 		.map(|mb| mb.saturating_mul(MEGABYTE))
 		.unwrap_or(RPC_MAX_PAYLOAD_DEFAULT);
