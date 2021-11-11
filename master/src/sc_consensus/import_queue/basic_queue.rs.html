@@ -631,6 +631,10 @@
 <span id="631">631</span>
 <span id="632">632</span>
 <span id="633">633</span>
+<span id="634">634</span>
+<span id="635">635</span>
+<span id="636">636</span>
+<span id="637">637</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -722,7 +726,11 @@
 			<span class="ident">metrics</span>,
 		);
 
-		<span class="ident">spawner</span>.<span class="ident">spawn_essential_blocking</span>(<span class="string">&quot;basic-block-import-worker&quot;</span>, <span class="ident">future</span>.<span class="ident">boxed</span>());
+		<span class="ident">spawner</span>.<span class="ident">spawn_essential_blocking</span>(
+			<span class="string">&quot;basic-block-import-worker&quot;</span>,
+			<span class="prelude-val">Some</span>(<span class="string">&quot;block-import&quot;</span>),
+			<span class="ident">future</span>.<span class="ident">boxed</span>(),
+		);
 
 		<span class="self">Self</span> { <span class="ident">justification_sender</span>, <span class="ident">block_import_sender</span>, <span class="ident">result_port</span>, <span class="ident">_phantom</span>: <span class="ident">PhantomData</span> }
 	}

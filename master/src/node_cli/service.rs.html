@@ -765,6 +765,14 @@
 <span id="765">765</span>
 <span id="766">766</span>
 <span id="767">767</span>
+<span id="768">768</span>
+<span id="769">769</span>
+<span id="770">770</span>
+<span id="771">771</span>
+<span id="772">772</span>
+<span id="773">773</span>
+<span id="774">774</span>
+<span id="775">775</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -937,7 +945,7 @@
 	<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">client</span>);
 
 	<span class="kw">let</span> <span class="ident">telemetry</span> <span class="op">=</span> <span class="ident">telemetry</span>.<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">worker</span>, <span class="ident">telemetry</span>)<span class="op">|</span> {
-		<span class="ident">task_manager</span>.<span class="ident">spawn_handle</span>().<span class="ident">spawn</span>(<span class="string">&quot;telemetry&quot;</span>, <span class="ident">worker</span>.<span class="ident">run</span>());
+		<span class="ident">task_manager</span>.<span class="ident">spawn_handle</span>().<span class="ident">spawn</span>(<span class="string">&quot;telemetry&quot;</span>, <span class="prelude-val">None</span>, <span class="ident">worker</span>.<span class="ident">run</span>());
 		<span class="ident">telemetry</span>
 	});
 
@@ -1203,7 +1211,11 @@
 		};
 
 		<span class="kw">let</span> <span class="ident">babe</span> <span class="op">=</span> <span class="ident">sc_consensus_babe::start_babe</span>(<span class="ident">babe_config</span>)<span class="question-mark">?</span>;
-		<span class="ident">task_manager</span>.<span class="ident">spawn_essential_handle</span>().<span class="ident">spawn_blocking</span>(<span class="string">&quot;babe-proposer&quot;</span>, <span class="ident">babe</span>);
+		<span class="ident">task_manager</span>.<span class="ident">spawn_essential_handle</span>().<span class="ident">spawn_blocking</span>(
+			<span class="string">&quot;babe-proposer&quot;</span>,
+			<span class="prelude-val">Some</span>(<span class="string">&quot;block-authoring&quot;</span>),
+			<span class="ident">babe</span>,
+		);
 	}
 
 	<span class="comment">// Spawn authority discovery module.</span>
@@ -1230,9 +1242,11 @@
 				<span class="ident">prometheus_registry</span>.<span class="ident">clone</span>(),
 			);
 
-		<span class="ident">task_manager</span>
-			.<span class="ident">spawn_handle</span>()
-			.<span class="ident">spawn</span>(<span class="string">&quot;authority-discovery-worker&quot;</span>, <span class="ident">authority_discovery_worker</span>.<span class="ident">run</span>());
+		<span class="ident">task_manager</span>.<span class="ident">spawn_handle</span>().<span class="ident">spawn</span>(
+			<span class="string">&quot;authority-discovery-worker&quot;</span>,
+			<span class="prelude-val">Some</span>(<span class="string">&quot;networking&quot;</span>),
+			<span class="ident">authority_discovery_worker</span>.<span class="ident">run</span>(),
+		);
 	}
 
 	<span class="comment">// if the node isn&#39;t actively participating in consensus then it doesn&#39;t</span>
@@ -1270,9 +1284,11 @@
 
 		<span class="comment">// the GRANDPA voter task is considered infallible, i.e.</span>
 		<span class="comment">// if it fails we take down the service with it.</span>
-		<span class="ident">task_manager</span>
-			.<span class="ident">spawn_essential_handle</span>()
-			.<span class="ident">spawn_blocking</span>(<span class="string">&quot;grandpa-voter&quot;</span>, <span class="ident">grandpa::run_grandpa_voter</span>(<span class="ident">grandpa_config</span>)<span class="question-mark">?</span>);
+		<span class="ident">task_manager</span>.<span class="ident">spawn_essential_handle</span>().<span class="ident">spawn_blocking</span>(
+			<span class="string">&quot;grandpa-voter&quot;</span>,
+			<span class="prelude-val">None</span>,
+			<span class="ident">grandpa::run_grandpa_voter</span>(<span class="ident">grandpa_config</span>)<span class="question-mark">?</span>,
+		);
 	}
 
 	<span class="ident">network_starter</span>.<span class="ident">start_network</span>();
