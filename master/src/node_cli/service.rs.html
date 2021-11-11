@@ -763,6 +763,8 @@
 <span id="763">763</span>
 <span id="764">764</span>
 <span id="765">765</span>
+<span id="766">766</span>
+<span id="767">767</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -795,7 +797,7 @@
 <span class="kw">use</span> <span class="ident">sc_consensus_babe</span>::{<span class="self">self</span>, <span class="ident">SlotProportion</span>};
 <span class="kw">use</span> <span class="ident">sc_executor::NativeElseWasmExecutor</span>;
 <span class="kw">use</span> <span class="ident">sc_network</span>::{<span class="ident">Event</span>, <span class="ident">NetworkService</span>};
-<span class="kw">use</span> <span class="ident">sc_service</span>::{<span class="ident">config::Configuration</span>, <span class="ident">error::Error</span> <span class="kw">as</span> <span class="ident">ServiceError</span>, <span class="ident">TaskManager</span>};
+<span class="kw">use</span> <span class="ident">sc_service</span>::{<span class="ident">config::Configuration</span>, <span class="ident">error::Error</span> <span class="kw">as</span> <span class="ident">ServiceError</span>, <span class="ident">RpcHandlers</span>, <span class="ident">TaskManager</span>};
 <span class="kw">use</span> <span class="ident">sc_telemetry</span>::{<span class="ident">Telemetry</span>, <span class="ident">TelemetryWorker</span>};
 <span class="kw">use</span> <span class="ident">sp_api::ProvideRuntimeApi</span>;
 <span class="kw">use</span> <span class="ident">sp_core::crypto::Pair</span>;
@@ -1063,6 +1065,8 @@
 	<span class="kw">pub</span> <span class="ident">network</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">NetworkService</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// The transaction pool of the node.</span>
 	<span class="kw">pub</span> <span class="ident">transaction_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">TransactionPool</span><span class="op">&gt;</span>,
+	<span class="doccomment">/// The rpc handlers of the node.</span>
+	<span class="kw">pub</span> <span class="ident">rpc_handlers</span>: <span class="ident">RpcHandlers</span>,
 }
 
 <span class="doccomment">/// Creates a full service from the configuration.</span>
@@ -1123,7 +1127,7 @@
 	<span class="kw">let</span> <span class="ident">enable_grandpa</span> <span class="op">=</span> <span class="op">!</span><span class="ident">config</span>.<span class="ident">disable_grandpa</span>;
 	<span class="kw">let</span> <span class="ident">prometheus_registry</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">prometheus_registry</span>().<span class="ident">cloned</span>();
 
-	<span class="kw">let</span> <span class="ident">_rpc_handlers</span> <span class="op">=</span> <span class="ident">sc_service::spawn_tasks</span>(<span class="ident">sc_service::SpawnTasksParams</span> {
+	<span class="kw">let</span> <span class="ident">rpc_handlers</span> <span class="op">=</span> <span class="ident">sc_service::spawn_tasks</span>(<span class="ident">sc_service::SpawnTasksParams</span> {
 		<span class="ident">config</span>,
 		<span class="ident">backend</span>,
 		<span class="ident">client</span>: <span class="ident">client</span>.<span class="ident">clone</span>(),
@@ -1272,7 +1276,7 @@
 	}
 
 	<span class="ident">network_starter</span>.<span class="ident">start_network</span>();
-	<span class="prelude-val">Ok</span>(<span class="ident">NewFullBase</span> { <span class="ident">task_manager</span>, <span class="ident">client</span>, <span class="ident">network</span>, <span class="ident">transaction_pool</span> })
+	<span class="prelude-val">Ok</span>(<span class="ident">NewFullBase</span> { <span class="ident">task_manager</span>, <span class="ident">client</span>, <span class="ident">network</span>, <span class="ident">transaction_pool</span>, <span class="ident">rpc_handlers</span> })
 }
 
 <span class="doccomment">/// Builds a new service for a full client.</span>
