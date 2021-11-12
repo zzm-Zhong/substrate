@@ -1056,6 +1056,13 @@
 <span id="1056">1056</span>
 <span id="1057">1057</span>
 <span id="1058">1058</span>
+<span id="1059">1059</span>
+<span id="1060">1060</span>
+<span id="1061">1061</span>
+<span id="1062">1062</span>
+<span id="1063">1063</span>
+<span id="1064">1064</span>
+<span id="1065">1065</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1402,6 +1409,13 @@
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// NOTE: Does not enforce the expected `MaxMembers` limit on the amount of members, but</span>
 		<span class="doccomment">///       the weight estimations rely on it to estimate dispatchable weight.</span>
+		<span class="doccomment">///</span>
+		<span class="doccomment">/// # WARNING:</span>
+		<span class="doccomment">///</span>
+		<span class="doccomment">/// The `pallet-collective` can also be managed by logic outside of the pallet through the</span>
+		<span class="doccomment">/// implementation of the trait [`ChangeMembers`].</span>
+		<span class="doccomment">/// Any call to `set_members` must be careful that the member set doesn&#39;t get out of sync</span>
+		<span class="doccomment">/// with other logic managing the member set.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// # &lt;weight&gt;</span>
 		<span class="doccomment">/// ## Weight</span>

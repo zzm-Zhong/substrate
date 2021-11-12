@@ -39,6 +39,11 @@ weight estimation.</li>
 <p>Requires root origin.</p>
 <p>NOTE: Does not enforce the expected <code>MaxMembers</code> limit on the amount of members, but
 the weight estimations rely on it to estimate dispatchable weight.</p>
+<h1 id="warning" class="section-header"><a href="#warning">WARNING:</a></h1>
+<p>The <code>pallet-collective</code> can also be managed by logic outside of the pallet through the
+implementation of the trait <a href="../../frame_support/traits/members/trait.ChangeMembers.html" title="ChangeMembers"><code>ChangeMembers</code></a>.
+Any call to <code>set_members</code> must be careful that the member set doesn’t get out of sync
+with other logic managing the member set.</p>
 <h1 id="" class="section-header"><a href="#"><weight></a></h1><h2 id="weight" class="section-header"><a href="#weight">Weight</a></h2>
 <ul>
 <li><code>O(MP + N)</code> where:
