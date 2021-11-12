@@ -495,14 +495,6 @@
 <span id="495">495</span>
 <span id="496">496</span>
 <span id="497">497</span>
-<span id="498">498</span>
-<span id="499">499</span>
-<span id="500">500</span>
-<span id="501">501</span>
-<span id="502">502</span>
-<span id="503">503</span>
-<span id="504">504</span>
-<span id="505">505</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -550,20 +542,12 @@
 <span class="kw">use</span> <span class="ident">sc_service::client</span>::{<span class="ident">ClientConfig</span>, <span class="ident">LocalCallExecutor</span>};
 <span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
 <span class="kw">use</span> <span class="ident">sp_core::storage::ChildInfo</span>;
-<span class="kw">use</span> <span class="ident">sp_runtime</span>::{
-	<span class="ident">codec::Encode</span>,
-	<span class="ident">traits</span>::{<span class="ident">BlakeTwo256</span>, <span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>},
-	<span class="ident">OpaqueExtrinsic</span>,
-};
+<span class="kw">use</span> <span class="ident">sp_runtime</span>::{<span class="ident">codec::Encode</span>, <span class="ident">traits::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">OpaqueExtrinsic</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{
 	<span class="ident">collections</span>::{<span class="ident">HashMap</span>, <span class="ident">HashSet</span>},
 	<span class="ident">pin::Pin</span>,
 	<span class="ident">sync::Arc</span>,
 };
-
-<span class="doccomment">/// Test client light database backend.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">LightBackend</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="op">=</span>
-	<span class="ident">sc_light::Backend</span><span class="op">&lt;</span><span class="ident">sc_client_db::light::LightStorage</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>, <span class="ident">BlakeTwo256</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// A genesis storage initialization trait.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">GenesisInit</span>: <span class="ident">Default</span> {

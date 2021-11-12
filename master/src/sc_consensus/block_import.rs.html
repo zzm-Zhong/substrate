@@ -462,8 +462,8 @@
 
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{
-	<span class="ident">traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">DigestItemFor</span>, <span class="ident">HashFor</span>, <span class="ident">Header</span> <span class="kw">as</span> <span class="ident">HeaderT</span>, <span class="ident">NumberFor</span>},
-	<span class="ident">Justification</span>, <span class="ident">Justifications</span>,
+	<span class="ident">traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">HashFor</span>, <span class="ident">Header</span> <span class="kw">as</span> <span class="ident">HeaderT</span>, <span class="ident">NumberFor</span>},
+	<span class="ident">DigestItem</span>, <span class="ident">Justification</span>, <span class="ident">Justifications</span>,
 };
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">any::Any</span>, <span class="ident">borrow::Cow</span>, <span class="ident">collections::HashMap</span>, <span class="ident">sync::Arc</span>};
 
@@ -564,7 +564,7 @@
 <span class="doccomment">/// Precomputed storage.</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">StorageChanges</span><span class="op">&lt;</span><span class="ident">Block</span>: <span class="ident">BlockT</span>, <span class="ident">Transaction</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Changes coming from block execution.</span>
-	<span class="ident">Changes</span>(<span class="ident">sp_state_machine::StorageChanges</span><span class="op">&lt;</span><span class="ident">Transaction</span>, <span class="ident">HashFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>, <span class="ident">NumberFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>),
+	<span class="ident">Changes</span>(<span class="ident">sp_state_machine::StorageChanges</span><span class="op">&lt;</span><span class="ident">Transaction</span>, <span class="ident">HashFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>),
 	<span class="doccomment">/// Whole new state.</span>
 	<span class="ident">Import</span>(<span class="ident">ImportedState</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>),
 }
@@ -617,7 +617,7 @@
 	<span class="kw">pub</span> <span class="ident">justifications</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Justifications</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Digest items that have been added after the runtime for external</span>
 	<span class="doccomment">/// work, like a consensus signature.</span>
-	<span class="kw">pub</span> <span class="ident">post_digests</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">DigestItemFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">post_digests</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">DigestItem</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// The body of the block.</span>
 	<span class="kw">pub</span> <span class="ident">body</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Block::Extrinsic</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Indexed transaction body of the block.</span>

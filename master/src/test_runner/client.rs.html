@@ -241,9 +241,6 @@
 <span id="241">241</span>
 <span id="242">242</span>
 <span id="243">243</span>
-<span id="244">244</span>
-<span id="245">245</span>
-<span id="246">246</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -405,7 +402,6 @@
 			<span class="ident">transaction_pool</span>: <span class="ident">transaction_pool</span>.<span class="ident">clone</span>(),
 			<span class="ident">spawn_handle</span>: <span class="ident">task_manager</span>.<span class="ident">spawn_handle</span>(),
 			<span class="ident">import_queue</span>,
-			<span class="ident">on_demand</span>: <span class="prelude-val">None</span>,
 			<span class="ident">block_announce_validator_builder</span>: <span class="prelude-val">None</span>,
 			<span class="ident">warp_sync</span>: <span class="prelude-val">None</span>,
 		};
@@ -441,14 +437,12 @@
 			<span class="ident">backend</span>: <span class="ident">backend</span>.<span class="ident">clone</span>(),
 			<span class="ident">task_manager</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">task_manager</span>,
 			<span class="ident">keystore</span>: <span class="ident">keystore</span>.<span class="ident">sync_keystore</span>(),
-			<span class="ident">on_demand</span>: <span class="prelude-val">None</span>,
 			<span class="ident">transaction_pool</span>: <span class="ident">transaction_pool</span>.<span class="ident">clone</span>(),
 			<span class="ident">rpc_extensions_builder</span>: <span class="ident">Box::new</span>(<span class="kw">move</span> <span class="op">|</span><span class="kw">_</span>, <span class="kw">_</span><span class="op">|</span> {
 				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">io</span> <span class="op">=</span> <span class="ident">jsonrpc_core::IoHandler::default</span>();
 				<span class="ident">io</span>.<span class="ident">extend_with</span>(<span class="ident">ManualSealApi::to_delegate</span>(<span class="ident">ManualSeal::new</span>(<span class="ident">rpc_sink</span>.<span class="ident">clone</span>())));
 				<span class="prelude-val">Ok</span>(<span class="ident">io</span>)
 			}),
-			<span class="ident">remote_blockchain</span>: <span class="prelude-val">None</span>,
 			<span class="ident">network</span>,
 			<span class="ident">system_rpc_tx</span>,
 			<span class="ident">telemetry</span>: <span class="prelude-val">None</span>,

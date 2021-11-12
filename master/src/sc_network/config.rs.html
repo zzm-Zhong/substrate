@@ -826,12 +826,6 @@
 <span id="826">826</span>
 <span id="827">827</span>
 <span id="828">828</span>
-<span id="829">829</span>
-<span id="830">830</span>
-<span id="831">831</span>
-<span id="832">832</span>
-<span id="833">833</span>
-<span id="834">834</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -857,7 +851,6 @@
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">crate</span>::{
 	<span class="ident">chain::Client</span>,
-	<span class="ident">on_demand_layer</span>::{<span class="ident">AlwaysBadChecker</span>, <span class="ident">OnDemand</span>},
 	<span class="ident">request_responses</span>::{
 		<span class="ident">IncomingRequest</span>, <span class="ident">OutgoingResponse</span>, <span class="ident">ProtocolConfig</span> <span class="kw">as</span> <span class="ident">RequestResponseConfig</span>,
 	},
@@ -916,11 +909,6 @@
 
 	<span class="doccomment">/// Client that contains the blockchain.</span>
 	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Client</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-
-	<span class="doccomment">/// The `OnDemand` object acts as a &quot;receiver&quot; for block data requests from the client.</span>
-	<span class="doccomment">/// If `Some`, the network worker will process these requests and answer them.</span>
-	<span class="doccomment">/// Normally used only for light clients.</span>
-	<span class="kw">pub</span> <span class="ident">on_demand</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">OnDemand</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
 	<span class="doccomment">/// Pool of transactions.</span>
 	<span class="doccomment">///</span>

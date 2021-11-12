@@ -770,9 +770,6 @@
 <span id="770">770</span>
 <span id="771">771</span>
 <span id="772">772</span>
-<span id="773">773</span>
-<span id="774">774</span>
-<span id="775">775</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -1113,7 +1110,6 @@
 			<span class="ident">transaction_pool</span>: <span class="ident">transaction_pool</span>.<span class="ident">clone</span>(),
 			<span class="ident">spawn_handle</span>: <span class="ident">task_manager</span>.<span class="ident">spawn_handle</span>(),
 			<span class="ident">import_queue</span>,
-			<span class="ident">on_demand</span>: <span class="prelude-val">None</span>,
 			<span class="ident">block_announce_validator_builder</span>: <span class="prelude-val">None</span>,
 			<span class="ident">warp_sync</span>: <span class="prelude-val">Some</span>(<span class="ident">warp_sync</span>),
 		})<span class="question-mark">?</span>;
@@ -1144,8 +1140,6 @@
 		<span class="ident">rpc_extensions_builder</span>: <span class="ident">Box::new</span>(<span class="ident">rpc_extensions_builder</span>),
 		<span class="ident">transaction_pool</span>: <span class="ident">transaction_pool</span>.<span class="ident">clone</span>(),
 		<span class="ident">task_manager</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">task_manager</span>,
-		<span class="ident">on_demand</span>: <span class="prelude-val">None</span>,
-		<span class="ident">remote_blockchain</span>: <span class="prelude-val">None</span>,
 		<span class="ident">system_rpc_tx</span>,
 		<span class="ident">telemetry</span>: <span class="ident">telemetry</span>.<span class="ident">as_mut</span>(),
 	})<span class="question-mark">?</span>;
@@ -1317,7 +1311,7 @@
 	<span class="kw">use</span> <span class="ident">sc_service_test::TestNetNode</span>;
 	<span class="kw">use</span> <span class="ident">sc_transaction_pool_api</span>::{<span class="ident">ChainEvent</span>, <span class="ident">MaintainedTransactionPool</span>};
 	<span class="kw">use</span> <span class="ident">sp_consensus</span>::{<span class="ident">BlockOrigin</span>, <span class="ident">Environment</span>, <span class="ident">Proposer</span>};
-	<span class="kw">use</span> <span class="ident">sp_core</span>::{<span class="ident">crypto::Pair</span> <span class="kw">as</span> <span class="ident">CryptoPair</span>, <span class="ident">Public</span>, <span class="ident">H256</span>};
+	<span class="kw">use</span> <span class="ident">sp_core</span>::{<span class="ident">crypto::Pair</span> <span class="kw">as</span> <span class="ident">CryptoPair</span>, <span class="ident">Public</span>};
 	<span class="kw">use</span> <span class="ident">sp_inherents::InherentDataProvider</span>;
 	<span class="kw">use</span> <span class="ident">sp_keyring::AccountKeyring</span>;
 	<span class="kw">use</span> <span class="ident">sp_keystore</span>::{<span class="ident">SyncCryptoStore</span>, <span class="ident">SyncCryptoStorePtr</span>};
@@ -1396,7 +1390,7 @@
 					<span class="prelude-val">None</span>,
 				);
 
-				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">digest</span> <span class="op">=</span> <span class="ident">Digest</span>::<span class="op">&lt;</span><span class="ident">H256</span><span class="op">&gt;</span><span class="ident">::default</span>();
+				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">digest</span> <span class="op">=</span> <span class="ident">Digest::default</span>();
 
 				<span class="comment">// even though there&#39;s only one authority some slots might be empty,</span>
 				<span class="comment">// so we must keep trying the next slots until we can claim one.</span>

@@ -336,9 +336,6 @@
 <span id="336">336</span>
 <span id="337">337</span>
 <span id="338">338</span>
-<span id="339">339</span>
-<span id="340">340</span>
-<span id="341">341</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Service and ServiceFactory implementation. Specialized wrapper over substrate service.</span>
 
 <span class="kw">use</span> <span class="ident">node_template_runtime</span>::{<span class="self">self</span>, <span class="ident">opaque::Block</span>, <span class="ident">RuntimeApi</span>};
@@ -535,7 +532,6 @@
 			<span class="ident">transaction_pool</span>: <span class="ident">transaction_pool</span>.<span class="ident">clone</span>(),
 			<span class="ident">spawn_handle</span>: <span class="ident">task_manager</span>.<span class="ident">spawn_handle</span>(),
 			<span class="ident">import_queue</span>,
-			<span class="ident">on_demand</span>: <span class="prelude-val">None</span>,
 			<span class="ident">block_announce_validator_builder</span>: <span class="prelude-val">None</span>,
 			<span class="ident">warp_sync</span>: <span class="prelude-val">Some</span>(<span class="ident">warp_sync</span>),
 		})<span class="question-mark">?</span>;
@@ -575,8 +571,6 @@
 		<span class="ident">task_manager</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">task_manager</span>,
 		<span class="ident">transaction_pool</span>: <span class="ident">transaction_pool</span>.<span class="ident">clone</span>(),
 		<span class="ident">rpc_extensions_builder</span>,
-		<span class="ident">on_demand</span>: <span class="prelude-val">None</span>,
-		<span class="ident">remote_blockchain</span>: <span class="prelude-val">None</span>,
 		<span class="ident">backend</span>,
 		<span class="ident">system_rpc_tx</span>,
 		<span class="ident">config</span>,

@@ -431,10 +431,6 @@
 <span id="431">431</span>
 <span id="432">432</span>
 <span id="433">433</span>
-<span id="434">434</span>
-<span id="435">435</span>
-<span id="436">436</span>
-<span id="437">437</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -553,10 +549,6 @@
 			<span class="kw">fn</span> <span class="ident">into_storage_changes</span>(
 				<span class="kw-2">&amp;</span><span class="self">self</span>,
 				<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::StateBackend</span>,
-				<span class="kw">_</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>#<span class="ident">crate_::ChangesTrieState</span><span class="op">&lt;</span>
-					#<span class="ident">crate_::HashFor</span><span class="op">&lt;</span>#<span class="ident">block_type</span><span class="op">&gt;</span>,
-					#<span class="ident">crate_::NumberFor</span><span class="op">&lt;</span>#<span class="ident">block_type</span><span class="op">&gt;</span>,
-				<span class="op">&gt;</span><span class="op">&gt;</span>,
 				<span class="kw">_</span>: <span class="op">&lt;</span>#<span class="ident">block_type</span> <span class="kw">as</span> #<span class="ident">crate_::BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span>,
 			) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::result::Result</span><span class="op">&lt;</span>
 				#<span class="ident">crate_::StorageChanges</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::StateBackend</span>, #<span class="ident">block_type</span><span class="op">&gt;</span>,

@@ -439,14 +439,6 @@
 <span id="439">439</span>
 <span id="440">440</span>
 <span id="441">441</span>
-<span id="442">442</span>
-<span id="443">443</span>
-<span id="444">444</span>
-<span id="445">445</span>
-<span id="446">446</span>
-<span id="447">447</span>
-<span id="448">448</span>
-<span id="449">449</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -482,7 +474,7 @@
 <span class="kw">use</span> <span class="ident">sp_block_builder::BlockBuilder</span> <span class="kw">as</span> <span class="ident">BlockBuilderApi</span>;
 <span class="kw">use</span> <span class="ident">sp_blockchain</span>::{
 	<span class="ident">well_known_cache_keys</span>::{<span class="self">self</span>, <span class="ident">Id</span> <span class="kw">as</span> <span class="ident">CacheKeyId</span>},
-	<span class="ident">HeaderBackend</span>, <span class="ident">ProvideCache</span>,
+	<span class="ident">HeaderBackend</span>,
 };
 <span class="kw">use</span> <span class="ident">sp_consensus</span>::{<span class="ident">CanAuthorWith</span>, <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">ConsensusError</span>};
 <span class="kw">use</span> <span class="ident">sp_consensus_aura</span>::{
@@ -494,7 +486,8 @@
 <span class="kw">use</span> <span class="ident">sp_inherents</span>::{<span class="ident">CreateInherentDataProviders</span>, <span class="ident">InherentDataProvider</span> <span class="kw">as</span> <span class="kw">_</span>};
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{
 	<span class="ident">generic</span>::{<span class="ident">BlockId</span>, <span class="ident">OpaqueDigestItemId</span>},
-	<span class="ident">traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">DigestItemFor</span>, <span class="ident">Header</span>},
+	<span class="ident">traits</span>::{<span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">Header</span>},
+	<span class="ident">DigestItem</span>,
 };
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">fmt::Debug</span>, <span class="ident">hash::Hash</span>, <span class="ident">marker::PhantomData</span>, <span class="ident">sync::Arc</span>};
 
@@ -510,9 +503,8 @@
 	<span class="ident">hash</span>: <span class="ident">B::Hash</span>,
 	<span class="ident">authorities</span>: <span class="kw-2">&amp;</span>[<span class="ident">AuthorityId</span><span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span>],
 	<span class="ident">check_for_equivocation</span>: <span class="ident">CheckForEquivocation</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">CheckedHeader</span><span class="op">&lt;</span><span class="ident">B::Header</span>, (<span class="ident">Slot</span>, <span class="ident">DigestItemFor</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>)<span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">CheckedHeader</span><span class="op">&lt;</span><span class="ident">B::Header</span>, (<span class="ident">Slot</span>, <span class="ident">DigestItem</span>)<span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-	<span class="ident">DigestItemFor</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>: <span class="ident">CompatibleDigestItem</span><span class="op">&lt;</span><span class="ident">P::Signature</span><span class="op">&gt;</span>,
 	<span class="ident">P::Signature</span>: <span class="ident">Codec</span>,
 	<span class="ident">C</span>: <span class="ident">sc_client_api::backend::AuxStore</span>,
 	<span class="ident">P::Public</span>: <span class="ident">Encode</span> <span class="op">+</span> <span class="ident">Decode</span> <span class="op">+</span> <span class="ident">PartialEq</span> <span class="op">+</span> <span class="ident">Clone</span>,
@@ -638,14 +630,8 @@
 <span class="attribute">#[<span class="ident">async_trait::async_trait</span>]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span>, <span class="ident">C</span>, <span class="ident">P</span>, <span class="ident">CAW</span>, <span class="ident">CIDP</span><span class="op">&gt;</span> <span class="ident">Verifier</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AuraVerifier</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">P</span>, <span class="ident">CAW</span>, <span class="ident">CIDP</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-	<span class="ident">C</span>: <span class="ident">ProvideRuntimeApi</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>
-		<span class="op">+</span> <span class="ident">Send</span>
-		<span class="op">+</span> <span class="ident">Sync</span>
-		<span class="op">+</span> <span class="ident">sc_client_api::backend::AuxStore</span>
-		<span class="op">+</span> <span class="ident">ProvideCache</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>
-		<span class="op">+</span> <span class="ident">BlockOf</span>,
+	<span class="ident">C</span>: <span class="ident">ProvideRuntimeApi</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="ident">sc_client_api::backend::AuxStore</span> <span class="op">+</span> <span class="ident">BlockOf</span>,
 	<span class="ident">C::Api</span>: <span class="ident">BlockBuilderApi</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">AuraApi</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">AuthorityId</span><span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">ApiExt</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
-	<span class="ident">DigestItemFor</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>: <span class="ident">CompatibleDigestItem</span><span class="op">&lt;</span><span class="ident">P::Signature</span><span class="op">&gt;</span>,
 	<span class="ident">P</span>: <span class="ident">Pair</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">P::Public</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="ident">Hash</span> <span class="op">+</span> <span class="ident">Eq</span> <span class="op">+</span> <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">Decode</span> <span class="op">+</span> <span class="ident">Encode</span> <span class="op">+</span> <span class="ident">Debug</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">P::Signature</span>: <span class="ident">Encode</span> <span class="op">+</span> <span class="ident">Decode</span>,
@@ -834,7 +820,6 @@
 	<span class="ident">C</span>: <span class="lifetime">&#39;static</span>
 		<span class="op">+</span> <span class="ident">ProvideRuntimeApi</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>
 		<span class="op">+</span> <span class="ident">BlockOf</span>
-		<span class="op">+</span> <span class="ident">ProvideCache</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>
 		<span class="op">+</span> <span class="ident">Send</span>
 		<span class="op">+</span> <span class="ident">Sync</span>
 		<span class="op">+</span> <span class="ident">AuxStore</span>
@@ -844,7 +829,6 @@
 		<span class="op">+</span> <span class="ident">Send</span>
 		<span class="op">+</span> <span class="ident">Sync</span>
 		<span class="op">+</span> <span class="lifetime">&#39;static</span>,
-	<span class="ident">DigestItemFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>: <span class="ident">CompatibleDigestItem</span><span class="op">&lt;</span><span class="ident">P::Signature</span><span class="op">&gt;</span>,
 	<span class="ident">P</span>: <span class="ident">Pair</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">P::Public</span>: <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">Eq</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="ident">Hash</span> <span class="op">+</span> <span class="ident">Debug</span> <span class="op">+</span> <span class="ident">Encode</span> <span class="op">+</span> <span class="ident">Decode</span>,
 	<span class="ident">P::Signature</span>: <span class="ident">Encode</span> <span class="op">+</span> <span class="ident">Decode</span>,

@@ -99,10 +99,6 @@
 <span id="99"> 99</span>
 <span id="100">100</span>
 <span id="101">101</span>
-<span id="102">102</span>
-<span id="103">103</span>
-<span id="104">104</span>
-<span id="105">105</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -121,7 +117,7 @@
 <span class="comment">// You should have received a copy of the GNU General Public License</span>
 <span class="comment">// along with this program. If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
 <span class="kw">use</span> <span class="kw">crate</span>::{
-	<span class="ident">columns</span>, <span class="ident">light</span>,
+	<span class="ident">columns</span>,
 	<span class="ident">utils</span>::{<span class="ident">DatabaseType</span>, <span class="ident">NUM_COLUMNS</span>},
 };
 <span class="doccomment">/// A `Database` adapter for parity-db.</span>
@@ -165,10 +161,6 @@
 			<span class="ident">state_col</span>.<span class="ident">ref_counted</span> <span class="op">=</span> <span class="bool-val">true</span>;
 			<span class="ident">state_col</span>.<span class="ident">preimage</span> <span class="op">=</span> <span class="bool-val">true</span>;
 			<span class="ident">state_col</span>.<span class="ident">uniform</span> <span class="op">=</span> <span class="bool-val">true</span>;
-		},
-		<span class="ident">DatabaseType::Light</span> <span class="op">=</span><span class="op">&gt;</span> {
-			<span class="ident">config</span>.<span class="ident">columns</span>[<span class="ident">light::columns::HEADER</span> <span class="kw">as</span> <span class="ident">usize</span>].<span class="ident">compression</span> <span class="op">=</span>
-				<span class="ident">parity_db::CompressionType::Lz4</span>;
 		},
 	}
 

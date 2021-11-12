@@ -126,23 +126,6 @@
 <span id="126">126</span>
 <span id="127">127</span>
 <span id="128">128</span>
-<span id="129">129</span>
-<span id="130">130</span>
-<span id="131">131</span>
-<span id="132">132</span>
-<span id="133">133</span>
-<span id="134">134</span>
-<span id="135">135</span>
-<span id="136">136</span>
-<span id="137">137</span>
-<span id="138">138</span>
-<span id="139">139</span>
-<span id="140">140</span>
-<span id="141">141</span>
-<span id="142">142</span>
-<span id="143">143</span>
-<span id="144">144</span>
-<span id="145">145</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -167,8 +150,8 @@
 <span class="kw">use</span> <span class="ident">codec::Encode</span>;
 <span class="kw">use</span> <span class="ident">frame_benchmarking</span>::{<span class="ident">benchmarks</span>, <span class="ident">whitelisted_caller</span>};
 <span class="kw">use</span> <span class="ident">frame_support</span>::{<span class="ident">storage</span>, <span class="ident">traits::Get</span>, <span class="ident">weights::DispatchClass</span>};
-<span class="kw">use</span> <span class="ident">frame_system</span>::{<span class="ident">Call</span>, <span class="ident">DigestItemOf</span>, <span class="ident">Pallet</span> <span class="kw">as</span> <span class="ident">System</span>, <span class="ident">RawOrigin</span>};
-<span class="kw">use</span> <span class="ident">sp_core</span>::{<span class="ident">storage::well_known_keys</span>, <span class="ident">ChangesTrieConfiguration</span>};
+<span class="kw">use</span> <span class="ident">frame_system</span>::{<span class="ident">Call</span>, <span class="ident">Pallet</span> <span class="kw">as</span> <span class="ident">System</span>, <span class="ident">RawOrigin</span>};
+<span class="kw">use</span> <span class="ident">sp_core::storage::well_known_keys</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime::traits::Hash</span>;
 <span class="kw">use</span> <span class="ident">sp_std</span>::{<span class="ident">prelude</span>::<span class="kw-2">*</span>, <span class="ident">vec</span>};
 
@@ -205,23 +188,6 @@
 	<span class="ident">verify</span> {
 		<span class="kw">let</span> <span class="ident">current_code</span> <span class="op">=</span> <span class="ident">storage::unhashed::get_raw</span>(<span class="ident">well_known_keys::CODE</span>).<span class="ident">ok_or</span>(<span class="string">&quot;Code not stored.&quot;</span>)<span class="question-mark">?</span>;
 		<span class="macro">assert_eq!</span>(<span class="ident">current_code</span>.<span class="ident">len</span>(), <span class="number">4_000_000</span> <span class="kw">as</span> <span class="ident">usize</span>);
-	}
-
-	<span class="ident">set_changes_trie_config</span> {
-		<span class="kw">let</span> <span class="ident">d</span> <span class="op">=</span> <span class="number">1000</span>;
-
-		<span class="kw">let</span> <span class="ident">digest_item</span> <span class="op">=</span> <span class="ident">DigestItemOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::Other</span>(<span class="macro">vec!</span>[]);
-
-		<span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">d</span> {
-			<span class="ident">System</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::deposit_log</span>(<span class="ident">digest_item</span>.<span class="ident">clone</span>());
-		}
-		<span class="kw">let</span> <span class="ident">changes_trie_config</span> <span class="op">=</span> <span class="ident">ChangesTrieConfiguration</span> {
-			<span class="ident">digest_interval</span>: <span class="ident">d</span>,
-			<span class="ident">digest_levels</span>: <span class="ident">d</span>,
-		};
-	}: <span class="kw">_</span>(<span class="ident">RawOrigin::Root</span>, <span class="prelude-val">Some</span>(<span class="ident">changes_trie_config</span>))
-	<span class="ident">verify</span> {
-		<span class="macro">assert_eq!</span>(<span class="ident">System</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::digest</span>().<span class="ident">logs</span>.<span class="ident">len</span>(), (<span class="ident">d</span> <span class="op">+</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">usize</span>)
 	}
 
 	<span class="attribute">#[<span class="ident">skip_meta</span>]</span>

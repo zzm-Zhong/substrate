@@ -61,8 +61,6 @@
 <span id="61">61</span>
 <span id="62">62</span>
 <span id="63">63</span>
-<span id="64">64</span>
-<span id="65">65</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -90,7 +88,6 @@
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Codec</span>, <span class="ident">Encode</span>};
 <span class="kw">use</span> <span class="ident">sp_consensus_slots::Slot</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime::generic::DigestItem</span>;
-<span class="kw">use</span> <span class="ident">sp_std::fmt::Debug</span>;
 
 <span class="doccomment">/// A digest item which is usable with aura consensus.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CompatibleDigestItem</span><span class="op">&lt;</span><span class="ident">Signature</span><span class="op">&gt;</span>: <span class="ident">Sized</span> {
@@ -107,10 +104,9 @@
 	<span class="kw">fn</span> <span class="ident">as_aura_pre_digest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Slot</span><span class="op">&gt;</span>;
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Signature</span>, <span class="ident">Hash</span><span class="op">&gt;</span> <span class="ident">CompatibleDigestItem</span><span class="op">&lt;</span><span class="ident">Signature</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DigestItem</span><span class="op">&lt;</span><span class="ident">Hash</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Signature</span><span class="op">&gt;</span> <span class="ident">CompatibleDigestItem</span><span class="op">&lt;</span><span class="ident">Signature</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DigestItem</span>
 <span class="kw">where</span>
 	<span class="ident">Signature</span>: <span class="ident">Codec</span>,
-	<span class="ident">Hash</span>: <span class="ident">Debug</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="ident">Eq</span> <span class="op">+</span> <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">Codec</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
 	<span class="kw">fn</span> <span class="ident">aura_seal</span>(<span class="ident">signature</span>: <span class="ident">Signature</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="ident">DigestItem::Seal</span>(<span class="ident">AURA_ENGINE_ID</span>, <span class="ident">signature</span>.<span class="ident">encode</span>())
