@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;usr&#x2F;local&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;nalgebra-0.27.1&#x2F;src&#x2F;base&#x2F;statistics.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>statistics.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="https:&#x2F;&#x2F;nalgebra.org&#x2F;img&#x2F;favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../nalgebra/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;usr&#x2F;local&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;nalgebra-0.27.1&#x2F;src&#x2F;base&#x2F;statistics.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>statistics.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="https:&#x2F;&#x2F;nalgebra.org&#x2F;img&#x2F;favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../nalgebra/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -396,8 +396,8 @@
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">compress_rows</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">VectorSlice</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span>, <span class="ident">S::RStride</span>, <span class="ident">S::CStride</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RowOVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
+        <span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">VectorSlice</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span>, <span class="ident">S::RStride</span>, <span class="ident">S::CStride</span><span class="op">&gt;</span>) -&gt; <span class="ident">T</span>,
+    ) -&gt; <span class="ident">RowOVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">U1</span>, <span class="ident">C</span><span class="op">&gt;</span>,
     {
@@ -422,8 +422,8 @@
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">compress_rows_tr</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">VectorSlice</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span>, <span class="ident">S::RStride</span>, <span class="ident">S::CStride</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
+        <span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">VectorSlice</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span>, <span class="ident">S::RStride</span>, <span class="ident">S::CStride</span><span class="op">&gt;</span>) -&gt; <span class="ident">T</span>,
+    ) -&gt; <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>,
     {
@@ -446,15 +446,15 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">compress_columns</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">init</span>: <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>,
-        <span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>, <span class="ident">VectorSlice</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span>, <span class="ident">S::RStride</span>, <span class="ident">S::CStride</span><span class="op">&gt;</span>),
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>
+        <span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;mut</span> <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>, <span class="ident">VectorSlice</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span>, <span class="ident">S::RStride</span>, <span class="ident">S::CStride</span><span class="op">&gt;</span>),
+    ) -&gt; <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>,
     {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">init</span>;
 
         <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="self">self</span>.<span class="ident">ncols</span>() {
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">res</span>, <span class="self">self</span>.<span class="ident">column</span>(<span class="ident">i</span>))
+            <span class="ident">f</span>(<span class="kw-2">&amp;mut</span> <span class="ident">res</span>, <span class="self">self</span>.<span class="ident">column</span>(<span class="ident">i</span>))
         }
 
         <span class="ident">res</span>
@@ -480,7 +480,7 @@
     <span class="doccomment">/// assert_eq!(m.sum(), 21.0);</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">T</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">ClosedAdd</span> <span class="op">+</span> <span class="ident">Zero</span>,
     {
@@ -505,7 +505,7 @@
     <span class="doccomment">/// assert_eq!(mint.row_sum(), RowVector2::new(9,12));</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">row_sum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RowOVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">row_sum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">RowOVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">ClosedAdd</span> <span class="op">+</span> <span class="ident">Zero</span>,
         <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">U1</span>, <span class="ident">C</span><span class="op">&gt;</span>,
@@ -529,7 +529,7 @@
     <span class="doccomment">/// assert_eq!(mint.row_sum_tr(), Vector2::new(9,12));</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">row_sum_tr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">row_sum_tr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">ClosedAdd</span> <span class="op">+</span> <span class="ident">Zero</span>,
         <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>,
@@ -553,7 +553,7 @@
     <span class="doccomment">/// assert_eq!(mint.column_sum(), Vector3::new(3,7,11));</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">column_sum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">column_sum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">ClosedAdd</span> <span class="op">+</span> <span class="ident">Zero</span>,
         <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>,
@@ -582,7 +582,7 @@
     <span class="doccomment">/// assert_relative_eq!(m.variance(), 35.0 / 12.0, epsilon = 1.0e-8);</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">variance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">variance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">T</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">Field</span> <span class="op">+</span> <span class="ident">SupersetOf</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>,
     {
@@ -611,7 +611,7 @@
     <span class="doccomment">/// assert_eq!(m.row_variance(), RowVector3::new(2.25, 2.25, 2.25));</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">row_variance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RowOVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">row_variance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">RowOVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">Field</span> <span class="op">+</span> <span class="ident">SupersetOf</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>,
         <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">U1</span>, <span class="ident">C</span><span class="op">&gt;</span>,
@@ -631,7 +631,7 @@
     <span class="doccomment">/// assert_eq!(m.row_variance_tr(), Vector3::new(2.25, 2.25, 2.25));</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">row_variance_tr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">row_variance_tr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">Field</span> <span class="op">+</span> <span class="ident">SupersetOf</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>,
         <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>,
@@ -652,7 +652,7 @@
     <span class="doccomment">/// assert_relative_eq!(m.column_variance(), Vector2::new(2.0 / 3.0, 2.0 / 3.0), epsilon = 1.0e-8);</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">column_variance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">column_variance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">Field</span> <span class="op">+</span> <span class="ident">SupersetOf</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>,
         <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>,
@@ -691,7 +691,7 @@
     <span class="doccomment">/// assert_eq!(m.mean(), 3.5);</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mean</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mean</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">T</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">Field</span> <span class="op">+</span> <span class="ident">SupersetOf</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>,
     {
@@ -716,7 +716,7 @@
     <span class="doccomment">/// assert_eq!(m.row_mean(), RowVector3::new(2.5, 3.5, 4.5));</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">row_mean</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RowOVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">row_mean</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">RowOVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">Field</span> <span class="op">+</span> <span class="ident">SupersetOf</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>,
         <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">U1</span>, <span class="ident">C</span><span class="op">&gt;</span>,
@@ -736,7 +736,7 @@
     <span class="doccomment">/// assert_eq!(m.row_mean_tr(), Vector3::new(2.5, 3.5, 4.5));</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">row_mean_tr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">row_mean_tr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">Field</span> <span class="op">+</span> <span class="ident">SupersetOf</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>,
         <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">C</span><span class="op">&gt;</span>,
@@ -756,7 +756,7 @@
     <span class="doccomment">/// assert_eq!(m.column_mean(), Vector2::new(2.0, 5.0));</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">column_mean</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">column_mean</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">OVector</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">Field</span> <span class="op">+</span> <span class="ident">SupersetOf</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>,
         <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>,

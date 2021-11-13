@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `client&#x2F;network&#x2F;test&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../sc_network_test/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `client&#x2F;network&#x2F;test&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../sc_network_test/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1209,7 +1209,7 @@
 	<span class="doccomment">/// Create a new instance.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Every verified block will use `finalized` for the `BlockImportParams`.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">finalized</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">finalized</span>: <span class="ident">bool</span>) -&gt; <span class="self">Self</span> {
 		<span class="self">Self</span> { <span class="ident">finalized</span>, <span class="ident">fork_choice</span>: <span class="ident">ForkChoiceStrategy::LongestChain</span> }
 	}
 
@@ -1217,7 +1217,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Every verified block will use `finalized` for the `BlockImportParams` and</span>
 	<span class="doccomment">/// the given [`ForkChoiceStrategy`].</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_with_fork_choice</span>(<span class="ident">finalized</span>: <span class="ident">bool</span>, <span class="ident">fork_choice</span>: <span class="ident">ForkChoiceStrategy</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_with_fork_choice</span>(<span class="ident">finalized</span>: <span class="ident">bool</span>, <span class="ident">fork_choice</span>: <span class="ident">ForkChoiceStrategy</span>) -&gt; <span class="self">Self</span> {
 		<span class="self">Self</span> { <span class="ident">finalized</span>, <span class="ident">fork_choice</span> }
 	}
 }
@@ -1226,9 +1226,9 @@
 <span class="attribute">#[<span class="ident">async_trait::async_trait</span>]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> <span class="ident">Verifier</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PassThroughVerifier</span> {
 	<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">verify</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="kw-2">mut</span> <span class="ident">block</span>: <span class="ident">BlockImportParams</span><span class="op">&lt;</span><span class="ident">B</span>, ()<span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">BlockImportParams</span><span class="op">&lt;</span><span class="ident">B</span>, ()<span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">CacheKeyId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>)<span class="op">&gt;</span><span class="op">&gt;</span>), <span class="ident">String</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">BlockImportParams</span><span class="op">&lt;</span><span class="ident">B</span>, ()<span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">CacheKeyId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>)<span class="op">&gt;</span><span class="op">&gt;</span>), <span class="ident">String</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">maybe_keys</span> <span class="op">=</span> <span class="ident">block</span>
 			.<span class="ident">header</span>
 			.<span class="ident">digest</span>()
@@ -1257,50 +1257,50 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PeersClient</span> {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PeersFullClient</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PeersFullClient</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">clone</span>()
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_backend</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">substrate_test_runtime_client::Backend</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_backend</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">substrate_test_runtime_client::Backend</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">backend</span>.<span class="ident">clone</span>()
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_block_import</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BlockImportAdapter</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_block_import</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BlockImportAdapter</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
 		<span class="ident">BlockImportAdapter::new</span>(<span class="self">self</span>.<span class="ident">clone</span>())
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_aux</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ClientResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_aux</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">ClientResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">get_aux</span>(<span class="ident">key</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BlockchainInfo</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BlockchainInfo</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">info</span>()
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">header</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">block</span>: <span class="kw-2">&amp;</span><span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ClientResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Header</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	) -&gt; <span class="ident">ClientResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Header</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">header</span>(<span class="ident">block</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_state_at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block</span>: <span class="kw-2">&amp;</span><span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_state_at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block</span>: <span class="kw-2">&amp;</span><span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>) -&gt; <span class="ident">bool</span> {
 		<span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">header</span>(<span class="ident">block</span>).<span class="ident">unwrap</span>() {
-			<span class="prelude-val">Some</span>(<span class="ident">header</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">header</span>,
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="bool-val">false</span>,
+			<span class="prelude-val">Some</span>(<span class="ident">header</span>) =&gt; <span class="ident">header</span>,
+			<span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="bool-val">false</span>,
 		};
 		<span class="self">self</span>.<span class="ident">backend</span>.<span class="ident">have_state_at</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>.<span class="ident">hash</span>(), <span class="kw-2">*</span><span class="ident">header</span>.<span class="ident">number</span>())
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">justifications</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block</span>: <span class="kw-2">&amp;</span><span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ClientResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Justifications</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">justifications</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block</span>: <span class="kw-2">&amp;</span><span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>) -&gt; <span class="ident">ClientResult</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Justifications</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">justifications</span>(<span class="ident">block</span>)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">finality_notification_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FinalityNotifications</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">finality_notification_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">FinalityNotifications</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">finality_notification_stream</span>()
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">import_notification_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ImportNotifications</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">import_notification_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">ImportNotifications</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">import_notification_stream</span>()
 	}
 
@@ -1309,7 +1309,7 @@
 		<span class="ident">id</span>: <span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 		<span class="ident">justification</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Justification</span><span class="op">&gt;</span>,
 		<span class="ident">notify</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ClientResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+	) -&gt; <span class="ident">ClientResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">finalize_block</span>(<span class="ident">id</span>, <span class="ident">justification</span>, <span class="ident">notify</span>)
 	}
 }
@@ -1320,17 +1320,17 @@
 	<span class="kw">type</span> <span class="ident">Transaction</span> <span class="op">=</span> ();
 
 	<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">check_block</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">block</span>: <span class="ident">BlockCheckParams</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ImportResult</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ImportResult</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">check_block</span>(<span class="ident">block</span>).<span class="kw">await</span>
 	}
 
 	<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">import_block</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">block</span>: <span class="ident">BlockImportParams</span><span class="op">&lt;</span><span class="ident">Block</span>, ()<span class="op">&gt;</span>,
 		<span class="ident">cache</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">well_known_cache_keys::Id</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ImportResult</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ImportResult</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">import_block</span>(<span class="ident">block</span>.<span class="ident">clear_storage_changes_and_mutate</span>(), <span class="ident">cache</span>).<span class="kw">await</span>
 	}
 }
@@ -1358,35 +1358,35 @@
 	<span class="ident">B::Transaction</span>: <span class="ident">Send</span>,
 {
 	<span class="doccomment">/// Get this peer ID.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PeerId</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">PeerId</span> {
 		<span class="self">self</span>.<span class="ident">network</span>.<span class="ident">service</span>().<span class="ident">local_peer_id</span>().<span class="ident">clone</span>()
 	}
 
 	<span class="doccomment">/// Returns true if we&#39;re major syncing.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_major_syncing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_major_syncing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
 		<span class="self">self</span>.<span class="ident">network</span>.<span class="ident">service</span>().<span class="ident">is_major_syncing</span>()
 	}
 
 	<span class="comment">// Returns a clone of the local SelectChain, only available on full nodes</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">select_chain</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LongestChain</span><span class="op">&lt;</span><span class="ident">substrate_test_runtime_client::Backend</span>, <span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LongestChain</span><span class="op">&lt;</span><span class="ident">substrate_test_runtime_client::Backend</span>, <span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">select_chain</span>.<span class="ident">clone</span>()
 	}
 
 	<span class="doccomment">/// Returns the number of peers we&#39;re connected to.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">num_peers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">num_peers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">usize</span> {
 		<span class="self">self</span>.<span class="ident">network</span>.<span class="ident">num_connected_peers</span>()
 	}
 
 	<span class="doccomment">/// Returns the number of downloaded blocks.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">num_downloaded_blocks</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">num_downloaded_blocks</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">usize</span> {
 		<span class="self">self</span>.<span class="ident">network</span>.<span class="ident">num_downloaded_blocks</span>()
 	}
 
 	<span class="doccomment">/// Returns true if we have no peer.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_offline</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-		<span class="self">self</span>.<span class="ident">num_peers</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_offline</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
+		<span class="self">self</span>.<span class="ident">num_peers</span>() <span class="op">==</span> <span class="number">0</span>
 	}
 
 	<span class="doccomment">/// Request a justification for the given block.</span>
@@ -1410,11 +1410,11 @@
 	}
 
 	<span class="doccomment">/// Add blocks to the peer -- edit the block before adding</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_blocks</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">count</span>: <span class="ident">usize</span>, <span class="ident">origin</span>: <span class="ident">BlockOrigin</span>, <span class="ident">edit_block</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">H256</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_blocks</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">count</span>: <span class="ident">usize</span>, <span class="ident">origin</span>: <span class="ident">BlockOrigin</span>, <span class="ident">edit_block</span>: <span class="ident">F</span>) -&gt; <span class="ident">H256</span>
 	<span class="kw">where</span>
 		<span class="ident">F</span>: <span class="ident">FnMut</span>(
 			<span class="ident">BlockBuilder</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">PeersFullClient</span>, <span class="ident">substrate_test_runtime_client::Backend</span><span class="op">&gt;</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Block</span>,
+		) -&gt; <span class="ident">Block</span>,
 	{
 		<span class="kw">let</span> <span class="ident">best_hash</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">info</span>().<span class="ident">best_hash</span>;
 		<span class="self">self</span>.<span class="ident">generate_blocks_at</span>(
@@ -1431,7 +1431,7 @@
 	<span class="doccomment">/// Add blocks to the peer -- edit the block before adding. The chain will</span>
 	<span class="doccomment">/// start at the given block iD.</span>
 	<span class="kw">fn</span> <span class="ident">generate_blocks_at</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">at</span>: <span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 		<span class="ident">count</span>: <span class="ident">usize</span>,
 		<span class="ident">origin</span>: <span class="ident">BlockOrigin</span>,
@@ -1439,11 +1439,11 @@
 		<span class="ident">headers_only</span>: <span class="ident">bool</span>,
 		<span class="ident">inform_sync_about_new_best_block</span>: <span class="ident">bool</span>,
 		<span class="ident">announce_block</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">H256</span>
+	) -&gt; <span class="ident">H256</span>
 	<span class="kw">where</span>
 		<span class="ident">F</span>: <span class="ident">FnMut</span>(
 			<span class="ident">BlockBuilder</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">PeersFullClient</span>, <span class="ident">substrate_test_runtime_client::Backend</span><span class="op">&gt;</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Block</span>,
+		) -&gt; <span class="ident">Block</span>,
 	{
 		<span class="kw">let</span> <span class="ident">full_client</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">as_client</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">at</span> <span class="op">=</span> <span class="ident">full_client</span>.<span class="ident">header</span>(<span class="kw-2">&amp;</span><span class="ident">at</span>).<span class="ident">unwrap</span>().<span class="ident">unwrap</span>().<span class="ident">hash</span>();
@@ -1488,56 +1488,56 @@
 	}
 
 	<span class="doccomment">/// Push blocks to the peer (simplified: with or without a TX)</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">push_blocks</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">count</span>: <span class="ident">usize</span>, <span class="ident">with_tx</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">H256</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">push_blocks</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">count</span>: <span class="ident">usize</span>, <span class="ident">with_tx</span>: <span class="ident">bool</span>) -&gt; <span class="ident">H256</span> {
 		<span class="kw">let</span> <span class="ident">best_hash</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">info</span>().<span class="ident">best_hash</span>;
 		<span class="self">self</span>.<span class="ident">push_blocks_at</span>(<span class="ident">BlockId::Hash</span>(<span class="ident">best_hash</span>), <span class="ident">count</span>, <span class="ident">with_tx</span>)
 	}
 
 	<span class="doccomment">/// Push blocks to the peer (simplified: with or without a TX)</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">push_headers</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">count</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">H256</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">push_headers</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">count</span>: <span class="ident">usize</span>) -&gt; <span class="ident">H256</span> {
 		<span class="kw">let</span> <span class="ident">best_hash</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">info</span>().<span class="ident">best_hash</span>;
 		<span class="self">self</span>.<span class="ident">generate_tx_blocks_at</span>(<span class="ident">BlockId::Hash</span>(<span class="ident">best_hash</span>), <span class="ident">count</span>, <span class="bool-val">false</span>, <span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="bool-val">true</span>)
 	}
 
 	<span class="doccomment">/// Push blocks to the peer (simplified: with or without a TX) starting from</span>
 	<span class="doccomment">/// given hash.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">push_blocks_at</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">at</span>: <span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>, <span class="ident">count</span>: <span class="ident">usize</span>, <span class="ident">with_tx</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">H256</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">push_blocks_at</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">at</span>: <span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>, <span class="ident">count</span>: <span class="ident">usize</span>, <span class="ident">with_tx</span>: <span class="ident">bool</span>) -&gt; <span class="ident">H256</span> {
 		<span class="self">self</span>.<span class="ident">generate_tx_blocks_at</span>(<span class="ident">at</span>, <span class="ident">count</span>, <span class="ident">with_tx</span>, <span class="bool-val">false</span>, <span class="bool-val">true</span>, <span class="bool-val">true</span>)
 	}
 
 	<span class="doccomment">/// Push blocks to the peer (simplified: with or without a TX) starting from</span>
 	<span class="doccomment">/// given hash without informing the sync protocol about the new best block.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">push_blocks_at_without_informing_sync</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">at</span>: <span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 		<span class="ident">count</span>: <span class="ident">usize</span>,
 		<span class="ident">with_tx</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">H256</span> {
+	) -&gt; <span class="ident">H256</span> {
 		<span class="self">self</span>.<span class="ident">generate_tx_blocks_at</span>(<span class="ident">at</span>, <span class="ident">count</span>, <span class="ident">with_tx</span>, <span class="bool-val">false</span>, <span class="bool-val">false</span>, <span class="bool-val">true</span>)
 	}
 
 	<span class="doccomment">/// Push blocks to the peer (simplified: with or without a TX) starting from</span>
 	<span class="doccomment">/// given hash without announcing the block.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">push_blocks_at_without_announcing</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">at</span>: <span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 		<span class="ident">count</span>: <span class="ident">usize</span>,
 		<span class="ident">with_tx</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">H256</span> {
+	) -&gt; <span class="ident">H256</span> {
 		<span class="self">self</span>.<span class="ident">generate_tx_blocks_at</span>(<span class="ident">at</span>, <span class="ident">count</span>, <span class="ident">with_tx</span>, <span class="bool-val">false</span>, <span class="bool-val">true</span>, <span class="bool-val">false</span>)
 	}
 
 	<span class="doccomment">/// Push blocks/headers to the peer (simplified: with or without a TX) starting from</span>
 	<span class="doccomment">/// given hash.</span>
 	<span class="kw">fn</span> <span class="ident">generate_tx_blocks_at</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">at</span>: <span class="ident">BlockId</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 		<span class="ident">count</span>: <span class="ident">usize</span>,
 		<span class="ident">with_tx</span>: <span class="ident">bool</span>,
 		<span class="ident">headers_only</span>: <span class="ident">bool</span>,
 		<span class="ident">inform_sync_about_new_best_block</span>: <span class="ident">bool</span>,
 		<span class="ident">announce_block</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">H256</span> {
+	) -&gt; <span class="ident">H256</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">nonce</span> <span class="op">=</span> <span class="number">0</span>;
 		<span class="kw">if</span> <span class="ident">with_tx</span> {
 			<span class="self">self</span>.<span class="ident">generate_blocks_at</span>(
@@ -1572,7 +1572,7 @@
 		}
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">push_authorities_change_block</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">new_authorities</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AuthorityId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">H256</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">push_authorities_change_block</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">new_authorities</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AuthorityId</span><span class="op">&gt;</span>) -&gt; <span class="ident">H256</span> {
 		<span class="self">self</span>.<span class="ident">generate_blocks</span>(<span class="number">1</span>, <span class="ident">BlockOrigin::File</span>, <span class="op">|</span><span class="kw-2">mut</span> <span class="ident">builder</span><span class="op">|</span> {
 			<span class="ident">builder</span>.<span class="ident">push</span>(<span class="ident">Extrinsic::AuthoritiesChange</span>(<span class="ident">new_authorities</span>.<span class="ident">clone</span>())).<span class="ident">unwrap</span>();
 			<span class="ident">builder</span>.<span class="ident">build</span>().<span class="ident">unwrap</span>().<span class="ident">block</span>
@@ -1580,32 +1580,32 @@
 	}
 
 	<span class="doccomment">/// Get a reference to the client.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">PeersClient</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">PeersClient</span> {
 		<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">client</span>
 	}
 
 	<span class="doccomment">/// Get a reference to the network service.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">network_service</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">NetworkService</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">network_service</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">NetworkService</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">network</span>.<span class="ident">service</span>()
 	}
 
 	<span class="doccomment">/// Get a reference to the network worker.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">network</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">NetworkWorker</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">network</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">NetworkWorker</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span> {
 		<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">network</span>
 	}
 
 	<span class="doccomment">/// Test helper to compare the blockchain state of multiple (networked)</span>
 	<span class="doccomment">/// clients.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">blockchain_canon_equals</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">blockchain_canon_equals</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">bool</span> {
 		<span class="kw">if</span> <span class="kw">let</span> (<span class="prelude-val">Some</span>(<span class="ident">mine</span>), <span class="prelude-val">Some</span>(<span class="ident">others</span>)) <span class="op">=</span> (<span class="self">self</span>.<span class="ident">backend</span>.<span class="ident">clone</span>(), <span class="ident">other</span>.<span class="ident">backend</span>.<span class="ident">clone</span>()) {
-			<span class="ident">mine</span>.<span class="ident">blockchain</span>().<span class="ident">info</span>().<span class="ident">best_hash</span> <span class="op">=</span><span class="op">=</span> <span class="ident">others</span>.<span class="ident">blockchain</span>().<span class="ident">info</span>().<span class="ident">best_hash</span>
+			<span class="ident">mine</span>.<span class="ident">blockchain</span>().<span class="ident">info</span>().<span class="ident">best_hash</span> <span class="op">==</span> <span class="ident">others</span>.<span class="ident">blockchain</span>().<span class="ident">info</span>().<span class="ident">best_hash</span>
 		} <span class="kw">else</span> {
 			<span class="bool-val">false</span>
 		}
 	}
 
 	<span class="doccomment">/// Count the total number of imported blocks.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">blocks_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">blocks_count</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u64</span> {
 		<span class="self">self</span>.<span class="ident">backend</span>
 			.<span class="ident">as_ref</span>()
 			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">backend</span><span class="op">|</span> <span class="ident">backend</span>.<span class="ident">blockchain</span>().<span class="ident">info</span>().<span class="ident">best_number</span>)
@@ -1613,11 +1613,11 @@
 	}
 
 	<span class="doccomment">/// Return a collection of block hashes that failed verification</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">failed_verifications</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span>, <span class="ident">String</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">failed_verifications</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span>, <span class="ident">String</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">verifier</span>.<span class="ident">failed_verifications</span>.<span class="ident">lock</span>().<span class="ident">clone</span>()
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_block</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hash</span>: <span class="kw-2">&amp;</span><span class="ident">H256</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_block</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">hash</span>: <span class="kw-2">&amp;</span><span class="ident">H256</span>) -&gt; <span class="ident">bool</span> {
 		<span class="self">self</span>.<span class="ident">backend</span>
 			.<span class="ident">as_ref</span>()
 			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">backend</span><span class="op">|</span> <span class="ident">backend</span>.<span class="ident">blockchain</span>().<span class="ident">header</span>(<span class="ident">BlockId::hash</span>(<span class="kw-2">*</span><span class="ident">hash</span>)).<span class="ident">unwrap</span>().<span class="ident">is_some</span>())
@@ -1659,7 +1659,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> <span class="ident">BlockImportAdapter</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Create a new instance of `Self::Full`.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">inner</span>: <span class="ident">I</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">inner</span>: <span class="ident">I</span>) -&gt; <span class="self">Self</span> {
 		<span class="self">Self</span> { <span class="ident">inner</span> }
 	}
 }
@@ -1674,17 +1674,17 @@
 	<span class="kw">type</span> <span class="ident">Transaction</span> <span class="op">=</span> ();
 
 	<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">check_block</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">block</span>: <span class="ident">BlockCheckParams</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ImportResult</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ImportResult</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">check_block</span>(<span class="ident">block</span>).<span class="kw">await</span>
 	}
 
 	<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">import_block</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">block</span>: <span class="ident">BlockImportParams</span><span class="op">&lt;</span><span class="ident">Block</span>, ()<span class="op">&gt;</span>,
 		<span class="ident">cache</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">well_known_cache_keys::Id</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ImportResult</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ImportResult</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">import_block</span>(<span class="ident">block</span>.<span class="ident">clear_storage_changes_and_mutate</span>(), <span class="ident">cache</span>).<span class="kw">await</span>
 	}
 }
@@ -1698,9 +1698,9 @@
 <span class="attribute">#[<span class="ident">async_trait::async_trait</span>]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> <span class="ident">Verifier</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VerifierAdapter</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
 	<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">verify</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">block</span>: <span class="ident">BlockImportParams</span><span class="op">&lt;</span><span class="ident">B</span>, ()<span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">BlockImportParams</span><span class="op">&lt;</span><span class="ident">B</span>, ()<span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">CacheKeyId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>)<span class="op">&gt;</span><span class="op">&gt;</span>), <span class="ident">String</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">BlockImportParams</span><span class="op">&lt;</span><span class="ident">B</span>, ()<span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">CacheKeyId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>)<span class="op">&gt;</span><span class="op">&gt;</span>), <span class="ident">String</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">hash</span> <span class="op">=</span> <span class="ident">block</span>.<span class="ident">header</span>.<span class="ident">hash</span>();
 		<span class="self">self</span>.<span class="ident">verifier</span>.<span class="ident">lock</span>().<span class="kw">await</span>.<span class="ident">verify</span>(<span class="ident">block</span>).<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 			<span class="self">self</span>.<span class="ident">failed_verifications</span>.<span class="ident">lock</span>().<span class="ident">insert</span>(<span class="ident">hash</span>, <span class="ident">e</span>.<span class="ident">clone</span>());
@@ -1710,7 +1710,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">VerifierAdapter</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
-	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span> {
 		<span class="self">Self</span> {
 			<span class="ident">verifier</span>: <span class="self">self</span>.<span class="ident">verifier</span>.<span class="ident">clone</span>(),
 			<span class="ident">failed_verifications</span>: <span class="self">self</span>.<span class="ident">failed_verifications</span>.<span class="ident">clone</span>(),
@@ -1719,7 +1719,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> <span class="ident">VerifierAdapter</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
-	<span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">verifier</span>: <span class="kw">impl</span> <span class="ident">Verifier</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">verifier</span>: <span class="kw">impl</span> <span class="ident">Verifier</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>) -&gt; <span class="self">Self</span> {
 		<span class="ident">VerifierAdapter</span> {
 			<span class="ident">verifier</span>: <span class="ident">Arc::new</span>(<span class="ident">futures::lock::Mutex::new</span>(<span class="ident">Box::new</span>(<span class="ident">verifier</span>))),
 			<span class="ident">failed_verifications</span>: <span class="ident">Default::default</span>(),
@@ -1733,7 +1733,7 @@
 	<span class="kw">fn</span> <span class="ident">generate</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">_start</span>: <span class="ident">B::Hash</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">warp_request_handler::EncodedProof</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">warp_request_handler::EncodedProof</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">info</span>();
 		<span class="kw">let</span> <span class="ident">best_header</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">header</span>(<span class="ident">BlockId::hash</span>(<span class="ident">info</span>.<span class="ident">best_hash</span>)).<span class="ident">unwrap</span>().<span class="ident">unwrap</span>();
 		<span class="prelude-val">Ok</span>(<span class="ident">warp_request_handler::EncodedProof</span>(<span class="ident">best_header</span>.<span class="ident">encode</span>()))
@@ -1743,13 +1743,13 @@
 		<span class="ident">proof</span>: <span class="kw-2">&amp;</span><span class="ident">warp_request_handler::EncodedProof</span>,
 		<span class="ident">_set_id</span>: <span class="ident">warp_request_handler::SetId</span>,
 		<span class="ident">_authorities</span>: <span class="ident">warp_request_handler::AuthorityList</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">warp_request_handler::VerificationResult</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span><span class="op">&gt;</span>
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">warp_request_handler::VerificationResult</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span><span class="op">&gt;</span><span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">warp_request_handler::EncodedProof</span>(<span class="ident">encoded</span>) <span class="op">=</span> <span class="ident">proof</span>;
-		<span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">B::Header::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">encoded</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">B::Header::decode</span>(<span class="kw-2">&amp;mut</span> <span class="ident">encoded</span>.<span class="ident">as_slice</span>()).<span class="ident">unwrap</span>();
 		<span class="prelude-val">Ok</span>(<span class="ident">warp_request_handler::VerificationResult::Complete</span>(<span class="number">0</span>, <span class="ident">Default::default</span>(), <span class="ident">header</span>))
 	}
-	<span class="kw">fn</span> <span class="ident">current_authorities</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">warp_request_handler::AuthorityList</span> {
+	<span class="kw">fn</span> <span class="ident">current_authorities</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">warp_request_handler::AuthorityList</span> {
 		<span class="ident">Default::default</span>()
 	}
 }
@@ -1786,19 +1786,19 @@
 	<span class="kw">type</span> <span class="ident">PeerData</span>: <span class="ident">Default</span>;
 
 	<span class="doccomment">/// These two need to be implemented!</span>
-	<span class="kw">fn</span> <span class="ident">from_config</span>(<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">ProtocolConfig</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>;
+	<span class="kw">fn</span> <span class="ident">from_config</span>(<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">ProtocolConfig</span>) -&gt; <span class="self">Self</span>;
 	<span class="kw">fn</span> <span class="ident">make_verifier</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">client</span>: <span class="ident">PeersClient</span>,
 		<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">ProtocolConfig</span>,
 		<span class="ident">peer_data</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::PeerData</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Verifier</span>;
+	) -&gt; <span class="ident"><span class="self">Self</span>::Verifier</span>;
 
 	<span class="doccomment">/// Get reference to peer.</span>
-	<span class="kw">fn</span> <span class="ident">peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">i</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Peer</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::PeerData</span>, <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">peers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Peer</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::PeerData</span>, <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">mut_peers</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Peer</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::PeerData</span>, <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span><span class="op">&gt;</span>)<span class="op">&gt;</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+	<span class="kw">fn</span> <span class="ident">peer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">i</span>: <span class="ident">usize</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">Peer</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::PeerData</span>, <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">peers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Peer</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::PeerData</span>, <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">mut_peers</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Peer</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::PeerData</span>, <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span><span class="op">&gt;</span>)<span class="op">&gt;</span>(
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">closure</span>: <span class="ident">F</span>,
 	);
 
@@ -1806,18 +1806,18 @@
 	<span class="kw">fn</span> <span class="ident">make_block_import</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">client</span>: <span class="ident">PeersClient</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> (
+	) -&gt; (
 		<span class="ident">BlockImportAdapter</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span>,
 		<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BoxJustificationImport</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident"><span class="self">Self</span>::PeerData</span>,
 	);
 
-	<span class="kw">fn</span> <span class="ident">default_config</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtocolConfig</span> {
+	<span class="kw">fn</span> <span class="ident">default_config</span>() -&gt; <span class="ident">ProtocolConfig</span> {
 		<span class="ident">ProtocolConfig::default</span>()
 	}
 
 	<span class="doccomment">/// Create new test network with this many peers.</span>
-	<span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">n</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">n</span>: <span class="ident">usize</span>) -&gt; <span class="self">Self</span> {
 		<span class="macro">trace!</span>(<span class="ident">target</span>: <span class="string">&quot;test_network&quot;</span>, <span class="string">&quot;Creating test network&quot;</span>);
 		<span class="kw">let</span> <span class="ident">config</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::default_config</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">net</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::from_config</span>(<span class="kw-2">&amp;</span><span class="ident">config</span>);
@@ -1829,17 +1829,17 @@
 		<span class="ident">net</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">add_full_peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+	<span class="kw">fn</span> <span class="ident">add_full_peer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
 		<span class="self">self</span>.<span class="ident">add_full_peer_with_config</span>(<span class="ident">Default::default</span>())
 	}
 
 	<span class="doccomment">/// Add a full peer.</span>
-	<span class="kw">fn</span> <span class="ident">add_full_peer_with_config</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">config</span>: <span class="ident">FullPeerConfig</span>) {
+	<span class="kw">fn</span> <span class="ident">add_full_peer_with_config</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">config</span>: <span class="ident">FullPeerConfig</span>) {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">test_client_builder</span> <span class="op">=</span> <span class="kw">match</span> (<span class="ident">config</span>.<span class="ident">keep_blocks</span>, <span class="ident">config</span>.<span class="ident">storage_chain</span>) {
-			(<span class="prelude-val">Some</span>(<span class="ident">keep_blocks</span>), <span class="bool-val">true</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TestClientBuilder::with_tx_storage</span>(<span class="ident">keep_blocks</span>),
-			(<span class="prelude-val">None</span>, <span class="bool-val">true</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TestClientBuilder::with_tx_storage</span>(<span class="ident">u32::MAX</span>),
-			(<span class="prelude-val">Some</span>(<span class="ident">keep_blocks</span>), <span class="bool-val">false</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TestClientBuilder::with_pruning_window</span>(<span class="ident">keep_blocks</span>),
-			(<span class="prelude-val">None</span>, <span class="bool-val">false</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TestClientBuilder::with_default_backend</span>(),
+			(<span class="prelude-val">Some</span>(<span class="ident">keep_blocks</span>), <span class="bool-val">true</span>) =&gt; <span class="ident">TestClientBuilder::with_tx_storage</span>(<span class="ident">keep_blocks</span>),
+			(<span class="prelude-val">None</span>, <span class="bool-val">true</span>) =&gt; <span class="ident">TestClientBuilder::with_tx_storage</span>(<span class="ident">u32::MAX</span>),
+			(<span class="prelude-val">Some</span>(<span class="ident">keep_blocks</span>), <span class="bool-val">false</span>) =&gt; <span class="ident">TestClientBuilder::with_pruning_window</span>(<span class="ident">keep_blocks</span>),
+			(<span class="prelude-val">None</span>, <span class="bool-val">false</span>) =&gt; <span class="ident">TestClientBuilder::with_default_backend</span>(),
 		};
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">storage</span>) <span class="op">=</span> <span class="ident">config</span>.<span class="ident">extra_storage</span> {
 			<span class="kw">let</span> <span class="ident">genesis_extra_storage</span> <span class="op">=</span> <span class="ident">test_client_builder</span>.<span class="ident">genesis_init_mut</span>().<span class="ident">extra_storage</span>();
@@ -1993,7 +1993,7 @@
 	<span class="doccomment">/// Polls the testnet until all nodes are in sync.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Must be executed in a task context.</span>
-	<span class="kw">fn</span> <span class="ident">poll_until_sync</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">FutureContext</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">poll_until_sync</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">FutureContext</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">poll</span>(<span class="ident">cx</span>);
 
 		<span class="comment">// Return `NotReady` if there&#39;s a mismatch in the highest block number.</span>
@@ -2006,9 +2006,9 @@
 				<span class="kw">return</span> <span class="ident">Poll::Pending</span>
 			}
 			<span class="kw">match</span> (<span class="ident">highest</span>, <span class="ident">peer</span>.<span class="ident">client</span>.<span class="ident">info</span>().<span class="ident">best_hash</span>) {
-				(<span class="prelude-val">None</span>, <span class="ident">b</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">highest</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">b</span>),
-				(<span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">a</span>), <span class="kw-2">ref</span> <span class="ident">b</span>) <span class="kw">if</span> <span class="ident">a</span> <span class="op">=</span><span class="op">=</span> <span class="ident">b</span> <span class="op">=</span><span class="op">&gt;</span> {},
-				(<span class="prelude-val">Some</span>(<span class="kw">_</span>), <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">Poll::Pending</span>,
+				(<span class="prelude-val">None</span>, <span class="ident">b</span>) =&gt; <span class="ident">highest</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">b</span>),
+				(<span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">a</span>), <span class="kw-2">ref</span> <span class="ident">b</span>) <span class="kw">if</span> <span class="ident">a</span> <span class="op">==</span> <span class="ident">b</span> =&gt; {},
+				(<span class="prelude-val">Some</span>(<span class="kw">_</span>), <span class="kw">_</span>) =&gt; <span class="kw">return</span> <span class="ident">Poll::Pending</span>,
 			}
 		}
 		<span class="ident">Poll::Ready</span>(())
@@ -2017,7 +2017,7 @@
 	<span class="doccomment">/// Polls the testnet until theres&#39; no activiy of any kind.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Must be executed in a task context.</span>
-	<span class="kw">fn</span> <span class="ident">poll_until_idle</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">FutureContext</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">poll_until_idle</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">FutureContext</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">poll</span>(<span class="ident">cx</span>);
 
 		<span class="kw">for</span> <span class="ident">peer</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">peers</span>().<span class="ident">iter</span>() {
@@ -2034,11 +2034,11 @@
 	<span class="doccomment">/// Polls the testnet until all peers are connected to each other.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Must be executed in a task context.</span>
-	<span class="kw">fn</span> <span class="ident">poll_until_connected</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">FutureContext</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">poll_until_connected</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">FutureContext</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">poll</span>(<span class="ident">cx</span>);
 
 		<span class="kw">let</span> <span class="ident">num_peers</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">peers</span>().<span class="ident">len</span>();
-		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">peers</span>().<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">num_peers</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">num_peers</span> <span class="op">-</span> <span class="number">1</span>) {
+		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">peers</span>().<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">num_peers</span>() <span class="op">==</span> <span class="ident">num_peers</span> <span class="op">-</span> <span class="number">1</span>) {
 			<span class="kw">return</span> <span class="ident">Poll::Ready</span>(())
 		}
 
@@ -2049,7 +2049,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Calls `poll_until_sync` repeatedly.</span>
 	<span class="doccomment">/// (If we&#39;ve not synced within 10 mins then panic rather than hang.)</span>
-	<span class="kw">fn</span> <span class="ident">block_until_sync</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+	<span class="kw">fn</span> <span class="ident">block_until_sync</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
 		<span class="ident">futures::executor::block_on</span>(<span class="ident">timeout</span>(
 			<span class="ident">Duration::from_secs</span>(<span class="number">10</span> <span class="op">*</span> <span class="number">60</span>),
 			<span class="ident">futures::future::poll_fn</span>::<span class="op">&lt;</span>(), <span class="kw">_</span><span class="op">&gt;</span>(<span class="op">|</span><span class="ident">cx</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">poll_until_sync</span>(<span class="ident">cx</span>)),
@@ -2060,7 +2060,7 @@
 	<span class="doccomment">/// Blocks the current thread until there are no pending packets.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Calls `poll_until_idle` repeatedly with the runtime passed as parameter.</span>
-	<span class="kw">fn</span> <span class="ident">block_until_idle</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+	<span class="kw">fn</span> <span class="ident">block_until_idle</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
 		<span class="ident">futures::executor::block_on</span>(<span class="ident">futures::future::poll_fn</span>::<span class="op">&lt;</span>(), <span class="kw">_</span><span class="op">&gt;</span>(<span class="op">|</span><span class="ident">cx</span><span class="op">|</span> {
 			<span class="self">self</span>.<span class="ident">poll_until_idle</span>(<span class="ident">cx</span>)
 		}));
@@ -2069,14 +2069,14 @@
 	<span class="doccomment">/// Blocks the current thread until all peers are connected to each other.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Calls `poll_until_connected` repeatedly with the runtime passed as parameter.</span>
-	<span class="kw">fn</span> <span class="ident">block_until_connected</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+	<span class="kw">fn</span> <span class="ident">block_until_connected</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
 		<span class="ident">futures::executor::block_on</span>(<span class="ident">futures::future::poll_fn</span>::<span class="op">&lt;</span>(), <span class="kw">_</span><span class="op">&gt;</span>(<span class="op">|</span><span class="ident">cx</span><span class="op">|</span> {
 			<span class="self">self</span>.<span class="ident">poll_until_connected</span>(<span class="ident">cx</span>)
 		}));
 	}
 
 	<span class="doccomment">/// Polls the testnet. Processes all the pending actions.</span>
-	<span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">FutureContext</span>) {
+	<span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">FutureContext</span>) {
 		<span class="self">self</span>.<span class="ident">mut_peers</span>(<span class="op">|</span><span class="ident">peers</span><span class="op">|</span> {
 			<span class="kw">for</span> (<span class="ident">i</span>, <span class="ident">peer</span>) <span class="kw">in</span> <span class="ident">peers</span>.<span class="ident">into_iter</span>().<span class="ident">enumerate</span>() {
 				<span class="macro">trace!</span>(<span class="ident">target</span>: <span class="string">&quot;sync&quot;</span>, <span class="string">&quot;-- Polling {}: {}&quot;</span>, <span class="ident">i</span>, <span class="ident">peer</span>.<span class="ident">id</span>());
@@ -2114,7 +2114,7 @@
 
 <span class="kw">impl</span> <span class="ident">TestNet</span> {
 	<span class="doccomment">/// Create a `TestNet` that used the given fork choice rule.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_fork_choice</span>(<span class="ident">fork_choice</span>: <span class="ident">ForkChoiceStrategy</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_fork_choice</span>(<span class="ident">fork_choice</span>: <span class="ident">ForkChoiceStrategy</span>) -&gt; <span class="self">Self</span> {
 		<span class="self">Self</span> { <span class="ident">peers</span>: <span class="ident">Vec::new</span>(), <span class="ident">fork_choice</span> }
 	}
 }
@@ -2125,7 +2125,7 @@
 	<span class="kw">type</span> <span class="ident">BlockImport</span> <span class="op">=</span> <span class="ident">PeersClient</span>;
 
 	<span class="doccomment">/// Create new test network with peers and given config.</span>
-	<span class="kw">fn</span> <span class="ident">from_config</span>(<span class="ident">_config</span>: <span class="kw-2">&amp;</span><span class="ident">ProtocolConfig</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">fn</span> <span class="ident">from_config</span>(<span class="ident">_config</span>: <span class="kw-2">&amp;</span><span class="ident">ProtocolConfig</span>) -&gt; <span class="self">Self</span> {
 		<span class="ident">TestNet</span> { <span class="ident">peers</span>: <span class="ident">Vec::new</span>(), <span class="ident">fork_choice</span>: <span class="ident">ForkChoiceStrategy::LongestChain</span> }
 	}
 
@@ -2134,14 +2134,14 @@
 		<span class="ident">_client</span>: <span class="ident">PeersClient</span>,
 		<span class="ident">_config</span>: <span class="kw-2">&amp;</span><span class="ident">ProtocolConfig</span>,
 		<span class="ident">_peer_data</span>: <span class="kw-2">&amp;</span>(),
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Verifier</span> {
+	) -&gt; <span class="ident"><span class="self">Self</span>::Verifier</span> {
 		<span class="ident">PassThroughVerifier::new_with_fork_choice</span>(<span class="bool-val">false</span>, <span class="self">self</span>.<span class="ident">fork_choice</span>.<span class="ident">clone</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">make_block_import</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">client</span>: <span class="ident">PeersClient</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> (
+	) -&gt; (
 		<span class="ident">BlockImportAdapter</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span>,
 		<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BoxJustificationImport</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident"><span class="self">Self</span>::PeerData</span>,
@@ -2149,16 +2149,16 @@
 		(<span class="ident">client</span>.<span class="ident">as_block_import</span>(), <span class="prelude-val">None</span>, ())
 	}
 
-	<span class="kw">fn</span> <span class="ident">peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">i</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Peer</span><span class="op">&lt;</span>(), <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span> {
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">peers</span>[<span class="ident">i</span>]
+	<span class="kw">fn</span> <span class="ident">peer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">i</span>: <span class="ident">usize</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">Peer</span><span class="op">&lt;</span>(), <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span> {
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">peers</span>[<span class="ident">i</span>]
 	}
 
-	<span class="kw">fn</span> <span class="ident">peers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Peer</span><span class="op">&lt;</span>(), <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">peers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Peer</span><span class="op">&lt;</span>(), <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">mut_peers</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Peer</span><span class="op">&lt;</span>(), <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span><span class="op">&gt;</span>)<span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">closure</span>: <span class="ident">F</span>) {
-		<span class="ident">closure</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">peers</span>);
+	<span class="kw">fn</span> <span class="ident">mut_peers</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Peer</span><span class="op">&lt;</span>(), <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span><span class="op">&gt;</span>)<span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">closure</span>: <span class="ident">F</span>) {
+		<span class="ident">closure</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">peers</span>);
 	}
 }
 
@@ -2168,16 +2168,16 @@
 <span class="kw">impl</span> <span class="ident">JustificationImport</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ForceFinalized</span> {
 	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">ConsensusError</span>;
 
-	<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">on_start</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">H256</span>, <span class="ident">NumberFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
+	<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">on_start</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">H256</span>, <span class="ident">NumberFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
 		<span class="ident">Vec::new</span>()
 	}
 
 	<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">import_justification</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">hash</span>: <span class="ident">H256</span>,
 		<span class="ident">_number</span>: <span class="ident">NumberFor</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 		<span class="ident">justification</span>: <span class="ident">Justification</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="number">0</span>
 			.<span class="ident">finalize_block</span>(<span class="ident">BlockId::Hash</span>(<span class="ident">hash</span>), <span class="prelude-val">Some</span>(<span class="ident">justification</span>), <span class="bool-val">true</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">ConsensusError::InvalidJustification</span>.<span class="ident">into</span>())
@@ -2191,7 +2191,7 @@
 	<span class="kw">type</span> <span class="ident">PeerData</span> <span class="op">=</span> ();
 	<span class="kw">type</span> <span class="ident">BlockImport</span> <span class="op">=</span> <span class="ident">PeersClient</span>;
 
-	<span class="kw">fn</span> <span class="ident">from_config</span>(<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">ProtocolConfig</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">fn</span> <span class="ident">from_config</span>(<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">ProtocolConfig</span>) -&gt; <span class="self">Self</span> {
 		<span class="ident">JustificationTestNet</span>(<span class="ident">TestNet::from_config</span>(<span class="ident">config</span>))
 	}
 
@@ -2200,20 +2200,20 @@
 		<span class="ident">client</span>: <span class="ident">PeersClient</span>,
 		<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">ProtocolConfig</span>,
 		<span class="ident">peer_data</span>: <span class="kw-2">&amp;</span>(),
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Verifier</span> {
+	) -&gt; <span class="ident"><span class="self">Self</span>::Verifier</span> {
 		<span class="self">self</span>.<span class="number">0</span>.<span class="ident">make_verifier</span>(<span class="ident">client</span>, <span class="ident">config</span>, <span class="ident">peer_data</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">i</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Peer</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::PeerData</span>, <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">peer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">i</span>: <span class="ident">usize</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">Peer</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::PeerData</span>, <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="number">0</span>.<span class="ident">peer</span>(<span class="ident">i</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">peers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Peer</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::PeerData</span>, <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">peers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Peer</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::PeerData</span>, <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="number">0</span>.<span class="ident">peers</span>()
 	}
 
-	<span class="kw">fn</span> <span class="ident">mut_peers</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Peer</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::PeerData</span>, <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span><span class="op">&gt;</span>)<span class="op">&gt;</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+	<span class="kw">fn</span> <span class="ident">mut_peers</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Peer</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::PeerData</span>, <span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span><span class="op">&gt;</span>)<span class="op">&gt;</span>(
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">closure</span>: <span class="ident">F</span>,
 	) {
 		<span class="self">self</span>.<span class="number">0</span>.<span class="ident">mut_peers</span>(<span class="ident">closure</span>)
@@ -2222,7 +2222,7 @@
 	<span class="kw">fn</span> <span class="ident">make_block_import</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">client</span>: <span class="ident">PeersClient</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> (
+	) -&gt; (
 		<span class="ident">BlockImportAdapter</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::BlockImport</span><span class="op">&gt;</span>,
 		<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BoxJustificationImport</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident"><span class="self">Self</span>::PeerData</span>,

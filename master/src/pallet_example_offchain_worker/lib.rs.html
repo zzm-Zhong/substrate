@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;examples&#x2F;offchain-worker&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../pallet_example_offchain_worker/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;examples&#x2F;offchain-worker&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../pallet_example_offchain_worker/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -922,13 +922,13 @@
 			<span class="comment">// Usually it&#39;s enough to choose one or the other.</span>
 			<span class="kw">let</span> <span class="ident">should_send</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::choose_transaction_type</span>(<span class="ident">block_number</span>);
 			<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">should_send</span> {
-				<span class="ident">TransactionType::Signed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::fetch_price_and_send_signed</span>(),
-				<span class="ident">TransactionType::UnsignedForAny</span> <span class="op">=</span><span class="op">&gt;</span>
+				<span class="ident">TransactionType::Signed</span> =&gt; <span class="ident"><span class="self">Self</span>::fetch_price_and_send_signed</span>(),
+				<span class="ident">TransactionType::UnsignedForAny</span> =&gt;
 					<span class="ident"><span class="self">Self</span>::fetch_price_and_send_unsigned_for_any_account</span>(<span class="ident">block_number</span>),
-				<span class="ident">TransactionType::UnsignedForAll</span> <span class="op">=</span><span class="op">&gt;</span>
+				<span class="ident">TransactionType::UnsignedForAll</span> =&gt;
 					<span class="ident"><span class="self">Self</span>::fetch_price_and_send_unsigned_for_all_accounts</span>(<span class="ident">block_number</span>),
-				<span class="ident">TransactionType::Raw</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::fetch_price_and_send_raw_unsigned</span>(<span class="ident">block_number</span>),
-				<span class="ident">TransactionType::None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(()),
+				<span class="ident">TransactionType::Raw</span> =&gt; <span class="ident"><span class="self">Self</span>::fetch_price_and_send_raw_unsigned</span>(<span class="ident">block_number</span>),
+				<span class="ident">TransactionType::None</span> =&gt; <span class="prelude-val">Ok</span>(()),
 			};
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">res</span> {
 				<span class="macro">log::error!</span>(<span class="string">&quot;Error: {}&quot;</span>, <span class="ident">e</span>);
@@ -954,7 +954,7 @@
 		<span class="doccomment">/// This example is not focused on correctness of the oracle itself, but rather its</span>
 		<span class="doccomment">/// purpose is to showcase offchain worker capabilities.</span>
 		<span class="attribute">#[<span class="ident">pallet::weight</span>(<span class="number">0</span>)]</span>
-		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">submit_price</span>(<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">price</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResultWithPostInfo</span> {
+		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">submit_price</span>(<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">price</span>: <span class="ident">u32</span>) -&gt; <span class="ident">DispatchResultWithPostInfo</span> {
 			<span class="comment">// Retrieve sender of the transaction.</span>
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="comment">// Add the price to the on-chain list.</span>
@@ -983,7 +983,7 @@
 			<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 			<span class="ident">_block_number</span>: <span class="ident">T::BlockNumber</span>,
 			<span class="ident">price</span>: <span class="ident">u32</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResultWithPostInfo</span> {
+		) -&gt; <span class="ident">DispatchResultWithPostInfo</span> {
 			<span class="comment">// This ensures that the function can only be called via unsigned transaction.</span>
 			<span class="ident">ensure_none</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="comment">// Add the price to the on-chain list, but mark it as coming from an empty address.</span>
@@ -999,7 +999,7 @@
 			<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 			<span class="ident">price_payload</span>: <span class="ident">PricePayload</span><span class="op">&lt;</span><span class="ident">T::Public</span>, <span class="ident">T::BlockNumber</span><span class="op">&gt;</span>,
 			<span class="ident">_signature</span>: <span class="ident">T::Signature</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResultWithPostInfo</span> {
+		) -&gt; <span class="ident">DispatchResultWithPostInfo</span> {
 			<span class="comment">// This ensures that the function can only be called via unsigned transaction.</span>
 			<span class="ident">ensure_none</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="comment">// Add the price to the on-chain list, but mark it as coming from an empty address.</span>
@@ -1029,7 +1029,7 @@
 		<span class="doccomment">/// By default unsigned transactions are disallowed, but implementing the validator</span>
 		<span class="doccomment">/// here we make sure that some particular calls (the ones produced by offchain worker)</span>
 		<span class="doccomment">/// are being whitelisted and marked as valid.</span>
-		<span class="kw">fn</span> <span class="ident">validate_unsigned</span>(<span class="ident">_source</span>: <span class="ident">TransactionSource</span>, <span class="ident">call</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Call</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TransactionValidity</span> {
+		<span class="kw">fn</span> <span class="ident">validate_unsigned</span>(<span class="ident">_source</span>: <span class="ident">TransactionSource</span>, <span class="ident">call</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Call</span>) -&gt; <span class="ident">TransactionValidity</span> {
 			<span class="comment">// Firstly let&#39;s check that we call the right function.</span>
 			<span class="kw">if</span> <span class="kw">let</span> <span class="ident">Call::submit_price_unsigned_with_signed_payload</span> {
 				<span class="ident">price_payload</span>: <span class="kw-2">ref</span> <span class="ident">payload</span>,
@@ -1077,7 +1077,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">SigningTypes</span><span class="op">&gt;</span> <span class="ident">SignedPayload</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PricePayload</span><span class="op">&lt;</span><span class="ident">T::Public</span>, <span class="ident">T::BlockNumber</span><span class="op">&gt;</span> {
-	<span class="kw">fn</span> <span class="ident">public</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T::Public</span> {
+	<span class="kw">fn</span> <span class="ident">public</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">T::Public</span> {
 		<span class="self">self</span>.<span class="ident">public</span>.<span class="ident">clone</span>()
 	}
 }
@@ -1097,7 +1097,7 @@
 	<span class="doccomment">/// and local storage usage.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Returns a type of transaction that should be produced in current run.</span>
-	<span class="kw">fn</span> <span class="ident">choose_transaction_type</span>(<span class="ident">block_number</span>: <span class="ident">T::BlockNumber</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TransactionType</span> {
+	<span class="kw">fn</span> <span class="ident">choose_transaction_type</span>(<span class="ident">block_number</span>: <span class="ident">T::BlockNumber</span>) -&gt; <span class="ident">TransactionType</span> {
 		<span class="doccomment">/// A friendlier name for the error that is going to be returned in case we are in the grace</span>
 		<span class="doccomment">/// period.</span>
 		<span class="kw">const</span> <span class="ident">RECENTLY_SENT</span>: () <span class="op">=</span> ();
@@ -1116,10 +1116,10 @@
 			<span class="kw">match</span> <span class="ident">last_send</span> {
 				<span class="comment">// If we already have a value in storage and the block number is recent enough</span>
 				<span class="comment">// we avoid sending another transaction at this time.</span>
-				<span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">block</span>)) <span class="kw">if</span> <span class="ident">block_number</span> <span class="op">&lt;</span> <span class="ident">block</span> <span class="op">+</span> <span class="ident">T::GracePeriod::get</span>() <span class="op">=</span><span class="op">&gt;</span>
+				<span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">block</span>)) <span class="kw">if</span> <span class="ident">block_number</span> <span class="op">&lt;</span> <span class="ident">block</span> <span class="op">+</span> <span class="ident">T::GracePeriod::get</span>() =&gt;
 					<span class="prelude-val">Err</span>(<span class="ident">RECENTLY_SENT</span>),
 				<span class="comment">// In every other case we attempt to acquire the lock and send a transaction.</span>
-				<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">block_number</span>),
+				<span class="kw">_</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">block_number</span>),
 			}
 		});
 
@@ -1131,7 +1131,7 @@
 		<span class="comment">// written to in the meantime.</span>
 		<span class="kw">match</span> <span class="ident">res</span> {
 			<span class="comment">// The value has been set correctly, which means we can safely send a transaction now.</span>
-			<span class="prelude-val">Ok</span>(<span class="ident">block_number</span>) <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="prelude-val">Ok</span>(<span class="ident">block_number</span>) =&gt; {
 				<span class="comment">// Depending if the block is even or odd we will send a `Signed` or `Unsigned`</span>
 				<span class="comment">// transaction.</span>
 				<span class="comment">// Note that this logic doesn&#39;t really guarantee that the transactions will be sent</span>
@@ -1141,29 +1141,29 @@
 				<span class="comment">// the storage entry for that. (for instance store both block number and a flag</span>
 				<span class="comment">// indicating the type of next transaction to send).</span>
 				<span class="kw">let</span> <span class="ident">transaction_type</span> <span class="op">=</span> <span class="ident">block_number</span> <span class="op">%</span> <span class="number">3u32</span>.<span class="ident">into</span>();
-				<span class="kw">if</span> <span class="ident">transaction_type</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Zero::zero</span>() {
+				<span class="kw">if</span> <span class="ident">transaction_type</span> <span class="op">==</span> <span class="ident">Zero::zero</span>() {
 					<span class="ident">TransactionType::Signed</span>
-				} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">transaction_type</span> <span class="op">=</span><span class="op">=</span> <span class="ident">T::BlockNumber::from</span>(<span class="number">1u32</span>) {
+				} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">transaction_type</span> <span class="op">==</span> <span class="ident">T::BlockNumber::from</span>(<span class="number">1u32</span>) {
 					<span class="ident">TransactionType::UnsignedForAny</span>
-				} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">transaction_type</span> <span class="op">=</span><span class="op">=</span> <span class="ident">T::BlockNumber::from</span>(<span class="number">2u32</span>) {
+				} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">transaction_type</span> <span class="op">==</span> <span class="ident">T::BlockNumber::from</span>(<span class="number">2u32</span>) {
 					<span class="ident">TransactionType::UnsignedForAll</span>
 				} <span class="kw">else</span> {
 					<span class="ident">TransactionType::Raw</span>
 				}
 			},
 			<span class="comment">// We are in the grace period, we should not send a transaction this time.</span>
-			<span class="prelude-val">Err</span>(<span class="ident">MutateStorageError::ValueFunctionFailed</span>(<span class="ident">RECENTLY_SENT</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TransactionType::None</span>,
+			<span class="prelude-val">Err</span>(<span class="ident">MutateStorageError::ValueFunctionFailed</span>(<span class="ident">RECENTLY_SENT</span>)) =&gt; <span class="ident">TransactionType::None</span>,
 			<span class="comment">// We wanted to send a transaction, but failed to write the block number (acquire a</span>
 			<span class="comment">// lock). This indicates that another offchain worker that was running concurrently</span>
 			<span class="comment">// most likely executed the same logic and succeeded at writing to storage.</span>
 			<span class="comment">// Thus we don&#39;t really want to send the transaction, knowing that the other run</span>
 			<span class="comment">// already did.</span>
-			<span class="prelude-val">Err</span>(<span class="ident">MutateStorageError::ConcurrentModification</span>(<span class="kw">_</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TransactionType::None</span>,
+			<span class="prelude-val">Err</span>(<span class="ident">MutateStorageError::ConcurrentModification</span>(<span class="kw">_</span>)) =&gt; <span class="ident">TransactionType::None</span>,
 		}
 	}
 
 	<span class="doccomment">/// A helper function to fetch the price and send signed transaction.</span>
-	<span class="kw">fn</span> <span class="ident">fetch_price_and_send_signed</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">fetch_price_and_send_signed</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">signer</span> <span class="op">=</span> <span class="ident">Signer</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">T::AuthorityId</span><span class="op">&gt;</span><span class="ident">::all_accounts</span>();
 		<span class="kw">if</span> <span class="op">!</span><span class="ident">signer</span>.<span class="ident">can_sign</span>() {
 			<span class="kw">return</span> <span class="prelude-val">Err</span>(
@@ -1187,8 +1187,8 @@
 
 		<span class="kw">for</span> (<span class="ident">acc</span>, <span class="ident">res</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">results</span> {
 			<span class="kw">match</span> <span class="ident">res</span> {
-				<span class="prelude-val">Ok</span>(()) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">log::info!</span>(<span class="string">&quot;[{:?}] Submitted price of {} cents&quot;</span>, <span class="ident">acc</span>.<span class="ident">id</span>, <span class="ident">price</span>),
-				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">log::error!</span>(<span class="string">&quot;[{:?}] Failed to submit transaction: {:?}&quot;</span>, <span class="ident">acc</span>.<span class="ident">id</span>, <span class="ident">e</span>),
+				<span class="prelude-val">Ok</span>(()) =&gt; <span class="macro">log::info!</span>(<span class="string">&quot;[{:?}] Submitted price of {} cents&quot;</span>, <span class="ident">acc</span>.<span class="ident">id</span>, <span class="ident">price</span>),
+				<span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="macro">log::error!</span>(<span class="string">&quot;[{:?}] Failed to submit transaction: {:?}&quot;</span>, <span class="ident">acc</span>.<span class="ident">id</span>, <span class="ident">e</span>),
 			}
 		}
 
@@ -1196,7 +1196,7 @@
 	}
 
 	<span class="doccomment">/// A helper function to fetch the price and send a raw unsigned transaction.</span>
-	<span class="kw">fn</span> <span class="ident">fetch_price_and_send_raw_unsigned</span>(<span class="ident">block_number</span>: <span class="ident">T::BlockNumber</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">fetch_price_and_send_raw_unsigned</span>(<span class="ident">block_number</span>: <span class="ident">T::BlockNumber</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
 		<span class="comment">// Make sure we don&#39;t fetch the price if unsigned transaction is going to be rejected</span>
 		<span class="comment">// anyway.</span>
 		<span class="kw">let</span> <span class="ident">next_unsigned_at</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">NextUnsignedAt</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>();
@@ -1230,7 +1230,7 @@
 	<span class="doccomment">/// A helper function to fetch the price, sign payload and send an unsigned transaction</span>
 	<span class="kw">fn</span> <span class="ident">fetch_price_and_send_unsigned_for_any_account</span>(
 		<span class="ident">block_number</span>: <span class="ident">T::BlockNumber</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
 		<span class="comment">// Make sure we don&#39;t fetch the price if unsigned transaction is going to be rejected</span>
 		<span class="comment">// anyway.</span>
 		<span class="kw">let</span> <span class="ident">next_unsigned_at</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">NextUnsignedAt</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>();
@@ -1260,7 +1260,7 @@
 	<span class="doccomment">/// A helper function to fetch the price, sign payload and send an unsigned transaction</span>
 	<span class="kw">fn</span> <span class="ident">fetch_price_and_send_unsigned_for_all_accounts</span>(
 		<span class="ident">block_number</span>: <span class="ident">T::BlockNumber</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span> {
 		<span class="comment">// Make sure we don&#39;t fetch the price if unsigned transaction is going to be rejected</span>
 		<span class="comment">// anyway.</span>
 		<span class="kw">let</span> <span class="ident">next_unsigned_at</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">NextUnsignedAt</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>();
@@ -1291,7 +1291,7 @@
 	}
 
 	<span class="doccomment">/// Fetch current price and return the result in cents.</span>
-	<span class="kw">fn</span> <span class="ident">fetch_price</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u32</span>, <span class="ident">http::Error</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">fetch_price</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u32</span>, <span class="ident">http::Error</span><span class="op">&gt;</span> {
 		<span class="comment">// We want to keep the offchain worker execution time reasonable, so we set a hard-coded</span>
 		<span class="comment">// deadline to 2s to complete the external call.</span>
 		<span class="comment">// You can also wait idefinitely for the response, however you may still get a timeout</span>
@@ -1334,8 +1334,8 @@
 		})<span class="question-mark">?</span>;
 
 		<span class="kw">let</span> <span class="ident">price</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident"><span class="self">Self</span>::parse_price</span>(<span class="ident">body_str</span>) {
-			<span class="prelude-val">Some</span>(<span class="ident">price</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">price</span>),
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="prelude-val">Some</span>(<span class="ident">price</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">price</span>),
+			<span class="prelude-val">None</span> =&gt; {
 				<span class="macro">log::warn!</span>(<span class="string">&quot;Unable to extract price from the response: {:?}&quot;</span>, <span class="ident">body_str</span>);
 				<span class="prelude-val">Err</span>(<span class="ident">http::Error::Unknown</span>)
 			},
@@ -1349,17 +1349,17 @@
 	<span class="doccomment">/// Parse the price from the given JSON string using `lite-json`.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Returns `None` when parsing failed or `Some(price in cents)` when parsing is successful.</span>
-	<span class="kw">fn</span> <span class="ident">parse_price</span>(<span class="ident">price_str</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">parse_price</span>(<span class="ident">price_str</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">val</span> <span class="op">=</span> <span class="ident">lite_json::parse_json</span>(<span class="ident">price_str</span>);
 		<span class="kw">let</span> <span class="ident">price</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">val</span>.<span class="ident">ok</span>()<span class="question-mark">?</span> {
-			<span class="ident">JsonValue::Object</span>(<span class="ident">obj</span>) <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="ident">JsonValue::Object</span>(<span class="ident">obj</span>) =&gt; {
 				<span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">v</span>) <span class="op">=</span> <span class="ident">obj</span>.<span class="ident">into_iter</span>().<span class="ident">find</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">k</span>.<span class="ident">iter</span>().<span class="ident">copied</span>().<span class="ident">eq</span>(<span class="string">&quot;USD&quot;</span>.<span class="ident">chars</span>()))<span class="question-mark">?</span>;
 				<span class="kw">match</span> <span class="ident">v</span> {
-					<span class="ident">JsonValue::Number</span>(<span class="ident">number</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">number</span>,
-					<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">None</span>,
+					<span class="ident">JsonValue::Number</span>(<span class="ident">number</span>) =&gt; <span class="ident">number</span>,
+					<span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">None</span>,
 				}
 			},
-			<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">None</span>,
+			<span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">None</span>,
 		};
 
 		<span class="kw">let</span> <span class="ident">exp</span> <span class="op">=</span> <span class="ident">price</span>.<span class="ident">fraction_length</span>.<span class="ident">checked_sub</span>(<span class="number">2</span>).<span class="ident">unwrap_or</span>(<span class="number">0</span>);
@@ -1387,7 +1387,7 @@
 	}
 
 	<span class="doccomment">/// Calculate current average price.</span>
-	<span class="kw">fn</span> <span class="ident">average_price</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">average_price</span>() -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">prices</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Prices</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>();
 		<span class="kw">if</span> <span class="ident">prices</span>.<span class="ident">is_empty</span>() {
 			<span class="prelude-val">None</span>
@@ -1399,7 +1399,7 @@
 	<span class="kw">fn</span> <span class="ident">validate_transaction_parameters</span>(
 		<span class="ident">block_number</span>: <span class="kw-2">&amp;</span><span class="ident">T::BlockNumber</span>,
 		<span class="ident">new_price</span>: <span class="kw-2">&amp;</span><span class="ident">u32</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TransactionValidity</span> {
+	) -&gt; <span class="ident">TransactionValidity</span> {
 		<span class="comment">// Now let&#39;s check if the transaction has any chance to succeed.</span>
 		<span class="kw">let</span> <span class="ident">next_unsigned_at</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">NextUnsignedAt</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>();
 		<span class="kw">if</span> <span class="kw-2">&amp;</span><span class="ident">next_unsigned_at</span> <span class="op">&gt;</span> <span class="ident">block_number</span> {

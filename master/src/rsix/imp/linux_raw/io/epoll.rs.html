@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;usr&#x2F;local&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;rsix-0.23.9&#x2F;src&#x2F;imp&#x2F;linux_raw&#x2F;io&#x2F;epoll.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>epoll.rs - source</title><link rel="stylesheet" type="text/css" href="../../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../../../storage.js"></script><script src="../../../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../../../rsix/index.html'><div class='logo-container rust-logo'><img src='../../../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;usr&#x2F;local&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;rsix-0.23.9&#x2F;src&#x2F;imp&#x2F;linux_raw&#x2F;io&#x2F;epoll.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>epoll.rs - source</title><link rel="stylesheet" type="text/css" href="../../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../../../storage.js"></script><script src="../../../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../../../rsix/index.html'><div class='logo-container rust-logo'><img src='../../../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -597,7 +597,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">t</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">t</span>: <span class="ident">T</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">t</span>,
             <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>,
@@ -605,7 +605,7 @@
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">consume</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
+    <span class="kw">fn</span> <span class="ident">consume</span>(<span class="self">self</span>) -&gt; <span class="ident">T</span> {
         <span class="self">self</span>.<span class="ident">t</span>
     }
 }
@@ -614,13 +614,13 @@
     <span class="kw">type</span> <span class="ident">Target</span> <span class="op">=</span> <span class="ident">T</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">T</span> {
+    <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">T</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">t</span>
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>: <span class="ident">fmt::Debug</span><span class="op">&gt;</span> <span class="ident">fmt::Debug</span> <span class="kw">for</span> <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
         <span class="self">self</span>.<span class="ident">t</span>.<span class="ident">fmt</span>(<span class="ident">fmt</span>)
     }
 }
@@ -634,11 +634,11 @@
     <span class="kw">type</span> <span class="ident">Target</span>: <span class="ident">AsFd</span>;
 
     <span class="doccomment">/// Assume ownership of `data`, and returning a `Target`.</span>
-    <span class="kw">fn</span> <span class="ident">acquire</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="ident"><span class="self">Self</span>::Data</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">acquire</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="ident"><span class="self">Self</span>::Data</span>) -&gt; <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Encode `target` as a `u64`. The only requirement on this value is that</span>
     <span class="doccomment">/// it be decodable by `decode`.</span>
-    <span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span>;
+    <span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>) -&gt; <span class="ident">u64</span>;
 
     <span class="doccomment">/// Decode `raw`, which is a value encoded by `encode`, into a `Target`.</span>
     <span class="doccomment">///</span>
@@ -646,10 +646,10 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// `raw` must be a `u64` value returned from `encode`, from the same</span>
     <span class="doccomment">/// context, and within the context&#39;s lifetime.</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">raw</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>;
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">raw</span>: <span class="ident">u64</span>) -&gt; <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Release ownership of the value refered to by `target` and return it.</span>
-    <span class="kw">fn</span> <span class="ident">release</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Data</span>;
+    <span class="kw">fn</span> <span class="ident">release</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>) -&gt; <span class="ident"><span class="self">Self</span>::Data</span>;
 }
 
 <span class="doccomment">/// A type implementing [`Context`] where the `Data` type is `BorrowedFd&lt;&#39;a&gt;`.</span>
@@ -662,22 +662,22 @@
     <span class="kw">type</span> <span class="ident">Target</span> <span class="op">=</span> <span class="ident">BorrowedFd</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">acquire</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="ident"><span class="self">Self</span>::Data</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">acquire</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="ident"><span class="self">Self</span>::Data</span>) -&gt; <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span> {
         <span class="ident">Ref::new</span>(<span class="ident">data</span>)
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
+    <span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>) -&gt; <span class="ident">u64</span> {
         <span class="ident">target</span>.<span class="ident">as_raw_fd</span>() <span class="kw">as</span> <span class="ident">u64</span>
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">raw</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">raw</span>: <span class="ident">u64</span>) -&gt; <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span> {
         <span class="ident">Ref::new</span>(<span class="ident">BorrowedFd</span>::<span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="ident">::borrow_raw_fd</span>(<span class="ident">raw</span> <span class="kw">as</span> <span class="ident">RawFd</span>))
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">release</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Data</span> {
+    <span class="kw">fn</span> <span class="ident">release</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>) -&gt; <span class="ident"><span class="self">Self</span>::Data</span> {
         <span class="ident">target</span>.<span class="ident">consume</span>()
     }
 }
@@ -695,7 +695,7 @@
     <span class="doccomment">/// Creates a new empty `Owning`.</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::new_without_default</span>)]</span> <span class="comment">// This is a specialized type that doesn&#39;t need to be generically constructible.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>,
         }
@@ -707,7 +707,7 @@
     <span class="kw">type</span> <span class="ident">Target</span> <span class="op">=</span> <span class="ident">BorrowedFd</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span><span class="op">&gt;</span>;
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">acquire</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="ident"><span class="self">Self</span>::Data</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">acquire</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data</span>: <span class="ident"><span class="self">Self</span>::Data</span>) -&gt; <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">raw_fd</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">into_fd</span>().<span class="ident">into_raw_fd</span>();
         <span class="comment">// Safety: `epoll` will assign ownership of the file descriptor to the</span>
         <span class="comment">// kernel epoll object. We use `IntoFd`+`IntoRawFd` to consume the</span>
@@ -718,17 +718,17 @@
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
+    <span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>) -&gt; <span class="ident">u64</span> {
         <span class="ident">target</span>.<span class="ident">as_fd</span>().<span class="ident">as_raw_fd</span>() <span class="kw">as</span> <span class="ident">u64</span>
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">raw</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">raw</span>: <span class="ident">u64</span>) -&gt; <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;call</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span> {
         <span class="ident">Ref::new</span>(<span class="ident">BorrowedFd</span>::<span class="op">&lt;</span><span class="lifetime">&#39;context</span><span class="op">&gt;</span><span class="ident">::borrow_raw_fd</span>(<span class="ident">raw</span> <span class="kw">as</span> <span class="ident">RawFd</span>))
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">release</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Data</span> {
+    <span class="kw">fn</span> <span class="ident">release</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident"><span class="self">Self</span>::Target</span><span class="op">&gt;</span>) -&gt; <span class="ident"><span class="self">Self</span>::Data</span> {
         <span class="comment">// Safety: The file descriptor was held by the kernel epoll object and</span>
         <span class="comment">// is now being released, so we can create a new `OwnedFd` that assumes</span>
         <span class="comment">// ownership.</span>
@@ -751,7 +751,7 @@
     <span class="doccomment">/// descriptor from being implicity passed across `exec` boundaries.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;epoll_create1&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">flags</span>: <span class="ident">CreateFlags</span>, <span class="ident">context</span>: <span class="ident">Context</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">flags</span>: <span class="ident">CreateFlags</span>, <span class="ident">context</span>: <span class="ident">Context</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="comment">// Safety: We&#39;re calling `epoll_create1` via FFI and we know how it</span>
         <span class="comment">// behaves.</span>
         <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
@@ -770,7 +770,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">data</span>: <span class="ident">Context::Data</span>,
         <span class="ident">event_flags</span>: <span class="ident">EventFlags</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">Context::Target</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">Context::Target</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="comment">// Safety: We&#39;re calling `epoll_ctl` via FFI and we know how it</span>
         <span class="comment">// behaves.</span>
         <span class="kw">unsafe</span> {
@@ -798,7 +798,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">Context::Target</span><span class="op">&gt;</span>,
         <span class="ident">event_flags</span>: <span class="ident">EventFlags</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">raw_fd</span> <span class="op">=</span> <span class="ident">target</span>.<span class="ident">as_fd</span>().<span class="ident">as_raw_fd</span>();
         <span class="kw">let</span> <span class="ident">encoded</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">context</span>.<span class="ident">encode</span>(<span class="ident">target</span>);
         <span class="comment">// Safety: We&#39;re calling `epoll_ctl` via FFI and we know how it</span>
@@ -820,7 +820,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This also returns the owning `Data`.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;epoll_ctl&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">del</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">Context::Target</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">Context::Data</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">del</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">Context::Target</span><span class="op">&gt;</span>) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span><span class="ident">Context::Data</span><span class="op">&gt;</span> {
         <span class="comment">// Safety: We&#39;re calling `epoll_ctl` via FFI and we know how it</span>
         <span class="comment">// behaves.</span>
         <span class="kw">unsafe</span> {
@@ -838,9 +838,9 @@
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;epoll_wait&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wait</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;context</span> <span class="self">self</span>,
-        <span class="ident">event_list</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">EventVec</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span>, <span class="ident">Context</span><span class="op">&gt;</span>,
+        <span class="ident">event_list</span>: <span class="kw-2">&amp;mut</span> <span class="ident">EventVec</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span>, <span class="ident">Context</span><span class="op">&gt;</span>,
         <span class="ident">timeout</span>: <span class="ident">c_int</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="comment">// Safety: We&#39;re calling `epoll_wait` via FFI and we know how it</span>
         <span class="comment">// behaves.</span>
         <span class="kw">unsafe</span> {
@@ -861,14 +861,14 @@
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Iter</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span>, <span class="ident">Context</span>: <span class="ident"><span class="self">self</span>::Context</span><span class="op">&gt;</span> {
     <span class="ident">iter</span>: <span class="ident">std::slice::Iter</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span>, <span class="ident">Event</span><span class="op">&gt;</span>,
-    <span class="ident">context</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Context</span>,
+    <span class="ident">context</span>: <span class="kw-2">*const</span> <span class="ident">Context</span>,
     <span class="ident">_phantom</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;context</span> <span class="ident">Context</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span>, <span class="ident">Context</span>: <span class="ident"><span class="self">self</span>::Context</span><span class="op">&gt;</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">Iter</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span>, <span class="ident">Context</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> (<span class="ident">EventFlags</span>, <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span>, <span class="ident">Context::Target</span><span class="op">&gt;</span>);
 
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
         <span class="comment">// Safety: `self.context` is guaranteed to be valid because we hold</span>
         <span class="comment">// `&#39;context` for it. And we know this event is associated with this</span>
         <span class="comment">// context because `wait` sets both.</span>
@@ -894,13 +894,13 @@
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventVec</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span>, <span class="ident">Context</span>: <span class="ident"><span class="self">self</span>::Context</span><span class="op">&gt;</span> {
     <span class="ident">events</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&gt;</span>,
-    <span class="ident">context</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Context</span>,
+    <span class="ident">context</span>: <span class="kw-2">*const</span> <span class="ident">Context</span>,
     <span class="ident">_phantom</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;context</span> <span class="ident">Context</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span>, <span class="ident">Context</span>: <span class="ident"><span class="self">self</span>::Context</span><span class="op">&gt;</span> <span class="ident">EventVec</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span>, <span class="ident">Context</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_capacity</span>(<span class="ident">capacity</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_capacity</span>(<span class="ident">capacity</span>: <span class="ident">usize</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">events</span>: <span class="ident">Vec::with_capacity</span>(<span class="ident">capacity</span>),
             <span class="ident">context</span>: <span class="ident">null</span>(),
@@ -909,32 +909,32 @@
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">capacity</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">capacity</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">usize</span> {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">capacity</span>()
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reserve</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">additional</span>: <span class="ident">usize</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reserve</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">additional</span>: <span class="ident">usize</span>) {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">reserve</span>(<span class="ident">additional</span>);
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reserve_exact</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">additional</span>: <span class="ident">usize</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reserve_exact</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">additional</span>: <span class="ident">usize</span>) {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">reserve_exact</span>(<span class="ident">additional</span>);
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">clear</span>();
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shrink_to_fit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">shrink_to_fit</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">shrink_to_fit</span>();
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Iter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">Context</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Iter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">Context</span><span class="op">&gt;</span> {
         <span class="ident">Iter</span> {
             <span class="ident">iter</span>: <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">iter</span>(),
             <span class="ident">context</span>: <span class="self">self</span>.<span class="ident">context</span>,
@@ -948,7 +948,7 @@
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> (<span class="ident">EventFlags</span>, <span class="ident">Ref</span><span class="op">&lt;</span><span class="lifetime">&#39;context</span>, <span class="ident">Context::Target</span><span class="op">&gt;</span>);
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">into_iter</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::IntoIter</span> {
+    <span class="kw">fn</span> <span class="ident">into_iter</span>(<span class="self">self</span>) -&gt; <span class="ident"><span class="self">Self</span>::IntoIter</span> {
         <span class="self">self</span>.<span class="ident">iter</span>()
     }
 }

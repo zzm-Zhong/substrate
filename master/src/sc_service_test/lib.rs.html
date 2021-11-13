@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `client&#x2F;service&#x2F;test&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../sc_service_test/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `client&#x2F;service&#x2F;test&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../sc_service_test/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -618,7 +618,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">G</span>, <span class="ident">E</span>, <span class="ident">F</span>, <span class="ident">U</span><span class="op">&gt;</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">TestNet</span><span class="op">&lt;</span><span class="ident">G</span>, <span class="ident">E</span>, <span class="ident">F</span>, <span class="ident">U</span><span class="op">&gt;</span> {
-	<span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+	<span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
 		<span class="comment">// Drop the nodes before dropping the runtime, as the runtime otherwise waits for all</span>
 		<span class="comment">// futures to be ended and we run into a dead lock.</span>
 		<span class="self">self</span>.<span class="ident">full_nodes</span>.<span class="ident">drain</span>(..);
@@ -635,12 +635,12 @@
 	<span class="kw">type</span> <span class="ident">RuntimeApi</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>;
 	<span class="kw">type</span> <span class="ident">TransactionPool</span>: <span class="ident">TransactionPool</span><span class="op">&lt;</span><span class="ident">Block</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::Block</span><span class="op">&gt;</span>;
 
-	<span class="kw">fn</span> <span class="ident">client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Client</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Backend</span>, <span class="ident"><span class="self">Self</span>::Executor</span>, <span class="ident"><span class="self">Self</span>::Block</span>, <span class="ident"><span class="self">Self</span>::RuntimeApi</span><span class="op">&gt;</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">transaction_pool</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::TransactionPool</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Client</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Backend</span>, <span class="ident"><span class="self">Self</span>::Executor</span>, <span class="ident"><span class="self">Self</span>::Block</span>, <span class="ident"><span class="self">Self</span>::RuntimeApi</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">transaction_pool</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::TransactionPool</span><span class="op">&gt;</span>;
 	<span class="kw">fn</span> <span class="ident">network</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">sc_network::NetworkService</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Block</span>, <span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">spawn_handle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SpawnTaskHandle</span>;
+	) -&gt; <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">sc_network::NetworkService</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Block</span>, <span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">spawn_handle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">SpawnTaskHandle</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TestNetComponents</span><span class="op">&lt;</span><span class="ident">TBl</span>: <span class="ident">BlockT</span>, <span class="ident">TBackend</span>, <span class="ident">TExec</span>, <span class="ident">TRtApi</span>, <span class="ident">TExPool</span><span class="op">&gt;</span> {
@@ -658,7 +658,7 @@
 		<span class="ident">client</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Client</span><span class="op">&lt;</span><span class="ident">TBackend</span>, <span class="ident">TExec</span>, <span class="ident">TBl</span>, <span class="ident">TRtApi</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident">network</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">sc_network::NetworkService</span><span class="op">&lt;</span><span class="ident">TBl</span>, <span class="op">&lt;</span><span class="ident">TBl</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident">transaction_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">TExPool</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	) -&gt; <span class="self">Self</span> {
 		<span class="self">Self</span> { <span class="ident">client</span>, <span class="ident">transaction_pool</span>, <span class="ident">network</span>, <span class="ident">task_manager</span>: <span class="ident">Arc::new</span>(<span class="ident">Mutex::new</span>(<span class="ident">task_manager</span>)) }
 	}
 }
@@ -666,7 +666,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">TBl</span>: <span class="ident">BlockT</span>, <span class="ident">TBackend</span>, <span class="ident">TExec</span>, <span class="ident">TRtApi</span>, <span class="ident">TExPool</span><span class="op">&gt;</span> <span class="ident">Clone</span>
 	<span class="kw">for</span> <span class="ident">TestNetComponents</span><span class="op">&lt;</span><span class="ident">TBl</span>, <span class="ident">TBackend</span>, <span class="ident">TExec</span>, <span class="ident">TRtApi</span>, <span class="ident">TExPool</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span> {
 		<span class="self">Self</span> {
 			<span class="ident">task_manager</span>: <span class="self">self</span>.<span class="ident">task_manager</span>.<span class="ident">clone</span>(),
 			<span class="ident">client</span>: <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">clone</span>(),
@@ -681,8 +681,8 @@
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">sc_service::Error</span><span class="op">&gt;</span>;
 
-	<span class="kw">fn</span> <span class="ident">poll</span>(<span class="self">self</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Context</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Output</span><span class="op">&gt;</span> {
-		<span class="ident">Pin::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">task_manager</span>.<span class="ident">lock</span>().<span class="ident">future</span>()).<span class="ident">poll</span>(<span class="ident">cx</span>)
+	<span class="kw">fn</span> <span class="ident">poll</span>(<span class="self">self</span>: <span class="ident">Pin</span><span class="op">&lt;</span><span class="kw-2">&amp;mut</span> <span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">cx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Output</span><span class="op">&gt;</span> {
+		<span class="ident">Pin::new</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">task_manager</span>.<span class="ident">lock</span>().<span class="ident">future</span>()).<span class="ident">poll</span>(<span class="ident">cx</span>)
 	}
 }
 
@@ -701,18 +701,18 @@
 	<span class="kw">type</span> <span class="ident">RuntimeApi</span> <span class="op">=</span> <span class="ident">TRtApi</span>;
 	<span class="kw">type</span> <span class="ident">TransactionPool</span> <span class="op">=</span> <span class="ident">TExPool</span>;
 
-	<span class="kw">fn</span> <span class="ident">client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Client</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Backend</span>, <span class="ident"><span class="self">Self</span>::Executor</span>, <span class="ident"><span class="self">Self</span>::Block</span>, <span class="ident"><span class="self">Self</span>::RuntimeApi</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Client</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Backend</span>, <span class="ident"><span class="self">Self</span>::Executor</span>, <span class="ident"><span class="self">Self</span>::Block</span>, <span class="ident"><span class="self">Self</span>::RuntimeApi</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">clone</span>()
 	}
-	<span class="kw">fn</span> <span class="ident">transaction_pool</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::TransactionPool</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">transaction_pool</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::TransactionPool</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">transaction_pool</span>.<span class="ident">clone</span>()
 	}
 	<span class="kw">fn</span> <span class="ident">network</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">sc_network::NetworkService</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Block</span>, <span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	) -&gt; <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">sc_network::NetworkService</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Block</span>, <span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">network</span>.<span class="ident">clone</span>()
 	}
-	<span class="kw">fn</span> <span class="ident">spawn_handle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SpawnTaskHandle</span> {
+	<span class="kw">fn</span> <span class="ident">spawn_handle</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">SpawnTaskHandle</span> {
 		<span class="self">self</span>.<span class="ident">task_manager</span>.<span class="ident">lock</span>().<span class="ident">spawn_handle</span>()
 	}
 }
@@ -722,9 +722,9 @@
 	<span class="ident">F</span>: <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">U</span>: <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run_until_all_full</span><span class="op">&lt;</span><span class="ident">FP</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">full_predicate</span>: <span class="ident">FP</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run_until_all_full</span><span class="op">&lt;</span><span class="ident">FP</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">full_predicate</span>: <span class="ident">FP</span>)
 	<span class="kw">where</span>
-		<span class="ident">FP</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Fn</span>(<span class="ident">usize</span>, <span class="kw-2">&amp;</span><span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+		<span class="ident">FP</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Fn</span>(<span class="ident">usize</span>, <span class="kw-2">&amp;</span><span class="ident">F</span>) -&gt; <span class="ident">bool</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	{
 		<span class="kw">let</span> <span class="ident">full_nodes</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">full_nodes</span>.<span class="ident">clone</span>();
 		<span class="kw">let</span> <span class="ident">future</span> <span class="op">=</span> <span class="kw">async</span> <span class="kw">move</span> {
@@ -762,7 +762,7 @@
 	<span class="ident">key_seed</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	<span class="ident">base_port</span>: <span class="ident">u16</span>,
 	<span class="ident">root</span>: <span class="kw-2">&amp;</span><span class="ident">TempDir</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Configuration</span> {
+) -&gt; <span class="ident">Configuration</span> {
 	<span class="kw">let</span> <span class="ident">root</span> <span class="op">=</span> <span class="ident">root</span>.<span class="ident">path</span>().<span class="ident">join</span>(<span class="macro">format!</span>(<span class="string">&quot;node-{}&quot;</span>, <span class="ident">index</span>));
 
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">network_config</span> <span class="op">=</span> <span class="ident">NetworkConfiguration::new</span>(
@@ -835,10 +835,10 @@
 	<span class="kw">fn</span> <span class="ident">new</span>(
 		<span class="ident">temp</span>: <span class="kw-2">&amp;</span><span class="ident">TempDir</span>,
 		<span class="ident">spec</span>: <span class="ident">GenericChainSpec</span><span class="op">&lt;</span><span class="ident">G</span>, <span class="ident">E</span><span class="op">&gt;</span>,
-		<span class="ident">full</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">Configuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">F</span>, <span class="ident">U</span>), <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-		<span class="ident">authorities</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">String</span>, <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">Configuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">F</span>, <span class="ident">U</span>), <span class="ident">Error</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
+		<span class="ident">full</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">Configuration</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">F</span>, <span class="ident">U</span>), <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+		<span class="ident">authorities</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">String</span>, <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">Configuration</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">F</span>, <span class="ident">U</span>), <span class="ident">Error</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
 		<span class="ident">base_port</span>: <span class="ident">u16</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestNet</span><span class="op">&lt;</span><span class="ident">G</span>, <span class="ident">E</span>, <span class="ident">F</span>, <span class="ident">U</span><span class="op">&gt;</span> {
+	) -&gt; <span class="ident">TestNet</span><span class="op">&lt;</span><span class="ident">G</span>, <span class="ident">E</span>, <span class="ident">F</span>, <span class="ident">U</span><span class="op">&gt;</span> {
 		<span class="ident">sp_tracing::try_init_simple</span>();
 		<span class="ident">fdlimit::raise_fd_limit</span>();
 		<span class="kw">let</span> <span class="ident">runtime</span> <span class="op">=</span> <span class="ident">Runtime::new</span>().<span class="ident">expect</span>(<span class="string">&quot;Error creating tokio runtime&quot;</span>);
@@ -855,10 +855,10 @@
 	}
 
 	<span class="kw">fn</span> <span class="ident">insert_nodes</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">temp</span>: <span class="kw-2">&amp;</span><span class="ident">TempDir</span>,
-		<span class="ident">full</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">Configuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">F</span>, <span class="ident">U</span>), <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-		<span class="ident">authorities</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">String</span>, <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">Configuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">F</span>, <span class="ident">U</span>), <span class="ident">Error</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
+		<span class="ident">full</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">Configuration</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">F</span>, <span class="ident">U</span>), <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+		<span class="ident">authorities</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">String</span>, <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">Configuration</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">F</span>, <span class="ident">U</span>), <span class="ident">Error</span><span class="op">&gt;</span>)<span class="op">&gt;</span>,
 	) {
 		<span class="kw">let</span> <span class="ident">handle</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">runtime</span>.<span class="ident">handle</span>().<span class="ident">clone</span>();
 
@@ -905,7 +905,7 @@
 	}
 }
 
-<span class="kw">fn</span> <span class="ident">tempdir_with_prefix</span>(<span class="ident">prefix</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TempDir</span> {
+<span class="kw">fn</span> <span class="ident">tempdir_with_prefix</span>(<span class="ident">prefix</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">TempDir</span> {
 	<span class="ident">tempfile::Builder::new</span>()
 		.<span class="ident">prefix</span>(<span class="ident">prefix</span>)
 		.<span class="ident">tempdir</span>()
@@ -916,7 +916,7 @@
 <span class="kw">where</span>
 	<span class="ident">E</span>: <span class="ident">ChainSpecExtension</span> <span class="op">+</span> <span class="ident">Clone</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>,
 	<span class="ident">G</span>: <span class="ident">RuntimeGenesis</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-	<span class="ident">Fb</span>: <span class="ident">Fn</span>(<span class="ident">Configuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">Error</span><span class="op">&gt;</span>,
+	<span class="ident">Fb</span>: <span class="ident">Fn</span>(<span class="ident">Configuration</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">Error</span><span class="op">&gt;</span>,
 	<span class="ident">F</span>: <span class="ident">TestNetNode</span>,
 {
 	<span class="kw">const</span> <span class="ident">NUM_FULL_NODES</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">5</span>;
@@ -947,7 +947,7 @@
 			<span class="ident">network</span>.<span class="ident">run_until_all_full</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">_index</span>, <span class="ident">service</span><span class="op">|</span> {
 				<span class="kw">let</span> <span class="ident">connected</span> <span class="op">=</span> <span class="ident">service</span>.<span class="ident">network</span>().<span class="ident">num_connected</span>();
 				<span class="macro">debug!</span>(<span class="string">&quot;Got {}/{} full connections...&quot;</span>, <span class="ident">connected</span>, <span class="ident">expected_full_connections</span>);
-				<span class="ident">connected</span> <span class="op">=</span><span class="op">=</span> <span class="ident">expected_full_connections</span>
+				<span class="ident">connected</span> <span class="op">==</span> <span class="ident">expected_full_connections</span>
 			});
 		};
 
@@ -982,7 +982,7 @@
 			<span class="ident">network</span>.<span class="ident">run_until_all_full</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">_index</span>, <span class="ident">service</span><span class="op">|</span> {
 				<span class="kw">let</span> <span class="ident">connected</span> <span class="op">=</span> <span class="ident">service</span>.<span class="ident">network</span>().<span class="ident">num_connected</span>();
 				<span class="macro">debug!</span>(<span class="string">&quot;Got {}/{} full connections...&quot;</span>, <span class="ident">connected</span>, <span class="ident">expected_full_connections</span>);
-				<span class="ident">connected</span> <span class="op">=</span><span class="op">=</span> <span class="ident">expected_full_connections</span>
+				<span class="ident">connected</span> <span class="op">==</span> <span class="ident">expected_full_connections</span>
 			});
 		}
 		<span class="ident">temp</span>.<span class="ident">close</span>().<span class="ident">expect</span>(<span class="string">&quot;Error removing temp dir&quot;</span>);
@@ -995,10 +995,10 @@
 	<span class="kw-2">mut</span> <span class="ident">make_block_and_import</span>: <span class="ident">B</span>,
 	<span class="kw-2">mut</span> <span class="ident">extrinsic_factory</span>: <span class="ident">ExF</span>,
 ) <span class="kw">where</span>
-	<span class="ident">Fb</span>: <span class="ident">Fn</span>(<span class="ident">Configuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">F</span>, <span class="ident">U</span>), <span class="ident">Error</span><span class="op">&gt;</span>,
+	<span class="ident">Fb</span>: <span class="ident">Fn</span>(<span class="ident">Configuration</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">F</span>, <span class="ident">U</span>), <span class="ident">Error</span><span class="op">&gt;</span>,
 	<span class="ident">F</span>: <span class="ident">TestNetNode</span>,
-	<span class="ident">B</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">F</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">U</span>),
-	<span class="ident">ExF</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">F</span>, <span class="kw-2">&amp;</span><span class="ident">U</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="op">&lt;</span><span class="ident">F::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Extrinsic</span>,
+	<span class="ident">B</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">F</span>, <span class="kw-2">&amp;mut</span> <span class="ident">U</span>),
+	<span class="ident">ExF</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">F</span>, <span class="kw-2">&amp;</span><span class="ident">U</span>) -&gt; <span class="op">&lt;</span><span class="ident">F::Block</span> <span class="kw">as</span> <span class="ident">BlockT</span><span class="op">&gt;</span><span class="ident">::Extrinsic</span>,
 	<span class="ident">U</span>: <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">E</span>: <span class="ident">ChainSpecExtension</span> <span class="op">+</span> <span class="ident">Clone</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>,
 	<span class="ident">G</span>: <span class="ident">RuntimeGenesis</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
@@ -1017,9 +1017,9 @@
 	);
 	<span class="macro">info!</span>(<span class="string">&quot;Checking block sync&quot;</span>);
 	<span class="kw">let</span> <span class="ident">first_address</span> <span class="op">=</span> {
-		<span class="kw">let</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">first_service</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">first_user_data</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">network</span>.<span class="ident">full_nodes</span>[<span class="number">0</span>];
+		<span class="kw">let</span> <span class="kw-2">&amp;mut</span> (<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">first_service</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">first_user_data</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="ident">network</span>.<span class="ident">full_nodes</span>[<span class="number">0</span>];
 		<span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">NUM_BLOCKS</span> {
-			<span class="kw">if</span> <span class="ident">i</span> <span class="op">%</span> <span class="number">128</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+			<span class="kw">if</span> <span class="ident">i</span> <span class="op">%</span> <span class="number">128</span> <span class="op">==</span> <span class="number">0</span> {
 				<span class="macro">info!</span>(<span class="string">&quot;Generating #{}&quot;</span>, <span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>);
 			}
 
@@ -1042,7 +1042,7 @@
 	}
 
 	<span class="ident">network</span>.<span class="ident">run_until_all_full</span>(<span class="op">|</span><span class="ident">_index</span>, <span class="ident">service</span><span class="op">|</span> {
-		<span class="ident">service</span>.<span class="ident">client</span>().<span class="ident">info</span>().<span class="ident">best_number</span> <span class="op">=</span><span class="op">=</span> (<span class="ident">NUM_BLOCKS</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">into</span>()
+		<span class="ident">service</span>.<span class="ident">client</span>().<span class="ident">info</span>().<span class="ident">best_number</span> <span class="op">==</span> (<span class="ident">NUM_BLOCKS</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">into</span>()
 	});
 
 	<span class="macro">info!</span>(<span class="string">&quot;Checking extrinsic propagation&quot;</span>);
@@ -1059,7 +1059,7 @@
 	))
 	.<span class="ident">expect</span>(<span class="string">&quot;failed to submit extrinsic&quot;</span>);
 
-	<span class="ident">network</span>.<span class="ident">run_until_all_full</span>(<span class="op">|</span><span class="ident">_index</span>, <span class="ident">service</span><span class="op">|</span> <span class="ident">service</span>.<span class="ident">transaction_pool</span>().<span class="ident">ready</span>().<span class="ident">count</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span>);
+	<span class="ident">network</span>.<span class="ident">run_until_all_full</span>(<span class="op">|</span><span class="ident">_index</span>, <span class="ident">service</span><span class="op">|</span> <span class="ident">service</span>.<span class="ident">transaction_pool</span>().<span class="ident">ready</span>().<span class="ident">count</span>() <span class="op">==</span> <span class="number">1</span>);
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">consensus</span><span class="op">&lt;</span><span class="ident">G</span>, <span class="ident">E</span>, <span class="ident">Fb</span>, <span class="ident">F</span><span class="op">&gt;</span>(
@@ -1067,7 +1067,7 @@
 	<span class="ident">full_builder</span>: <span class="ident">Fb</span>,
 	<span class="ident">authorities</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">String</span><span class="op">&gt;</span>,
 ) <span class="kw">where</span>
-	<span class="ident">Fb</span>: <span class="ident">Fn</span>(<span class="ident">Configuration</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">Error</span><span class="op">&gt;</span>,
+	<span class="ident">Fb</span>: <span class="ident">Fn</span>(<span class="ident">Configuration</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">Error</span><span class="op">&gt;</span>,
 	<span class="ident">F</span>: <span class="ident">TestNetNode</span>,
 	<span class="ident">E</span>: <span class="ident">ChainSpecExtension</span> <span class="op">+</span> <span class="ident">Clone</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>,
 	<span class="ident">G</span>: <span class="ident">RuntimeGenesis</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `client&#x2F;network-gossip&#x2F;src&#x2F;state_machine.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>state_machine.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../sc_network_gossip/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `client&#x2F;network-gossip&#x2F;src&#x2F;state_machine.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>state_machine.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../sc_network_gossip/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -820,33 +820,33 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;g</span>, <span class="lifetime">&#39;p</span>, <span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> <span class="ident">ValidatorContext</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">NetworkContext</span><span class="op">&lt;</span><span class="lifetime">&#39;g</span>, <span class="lifetime">&#39;p</span>, <span class="ident">B</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Broadcast all messages with given topic to peers that do not have it yet.</span>
-	<span class="kw">fn</span> <span class="ident">broadcast_topic</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">topic</span>: <span class="ident">B::Hash</span>, <span class="ident">force</span>: <span class="ident">bool</span>) {
+	<span class="kw">fn</span> <span class="ident">broadcast_topic</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">topic</span>: <span class="ident">B::Hash</span>, <span class="ident">force</span>: <span class="ident">bool</span>) {
 		<span class="self">self</span>.<span class="ident">gossip</span>.<span class="ident">broadcast_topic</span>(<span class="self">self</span>.<span class="ident">network</span>, <span class="ident">topic</span>, <span class="ident">force</span>);
 	}
 
 	<span class="doccomment">/// Broadcast a message to all peers that have not received it previously.</span>
-	<span class="kw">fn</span> <span class="ident">broadcast_message</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">topic</span>: <span class="ident">B::Hash</span>, <span class="ident">message</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">force</span>: <span class="ident">bool</span>) {
+	<span class="kw">fn</span> <span class="ident">broadcast_message</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">topic</span>: <span class="ident">B::Hash</span>, <span class="ident">message</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">force</span>: <span class="ident">bool</span>) {
 		<span class="self">self</span>.<span class="ident">gossip</span>.<span class="ident">multicast</span>(<span class="self">self</span>.<span class="ident">network</span>, <span class="ident">topic</span>, <span class="ident">message</span>, <span class="ident">force</span>);
 	}
 
 	<span class="doccomment">/// Send addressed message to a peer.</span>
-	<span class="kw">fn</span> <span class="ident">send_message</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">PeerId</span>, <span class="ident">message</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) {
+	<span class="kw">fn</span> <span class="ident">send_message</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">PeerId</span>, <span class="ident">message</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) {
 		<span class="self">self</span>.<span class="ident">network</span>
 			.<span class="ident">write_notification</span>(<span class="ident">who</span>.<span class="ident">clone</span>(), <span class="self">self</span>.<span class="ident">gossip</span>.<span class="ident">protocol</span>.<span class="ident">clone</span>(), <span class="ident">message</span>);
 	}
 
 	<span class="doccomment">/// Send all messages with given topic to a peer.</span>
-	<span class="kw">fn</span> <span class="ident">send_topic</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">PeerId</span>, <span class="ident">topic</span>: <span class="ident">B::Hash</span>, <span class="ident">force</span>: <span class="ident">bool</span>) {
+	<span class="kw">fn</span> <span class="ident">send_topic</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">PeerId</span>, <span class="ident">topic</span>: <span class="ident">B::Hash</span>, <span class="ident">force</span>: <span class="ident">bool</span>) {
 		<span class="self">self</span>.<span class="ident">gossip</span>.<span class="ident">send_topic</span>(<span class="self">self</span>.<span class="ident">network</span>, <span class="ident">who</span>, <span class="ident">topic</span>, <span class="ident">force</span>);
 	}
 }
 
 <span class="kw">fn</span> <span class="ident">propagate</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">B</span>: <span class="ident">BlockT</span>, <span class="ident">I</span><span class="op">&gt;</span>(
-	<span class="ident">network</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
+	<span class="ident">network</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
 	<span class="ident">protocol</span>: <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span>,
 	<span class="ident">messages</span>: <span class="ident">I</span>,
 	<span class="ident">intent</span>: <span class="ident">MessageIntent</span>,
-	<span class="ident">peers</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">PeerId</span>, <span class="ident">PeerConsensus</span><span class="op">&lt;</span><span class="ident">B::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="ident">peers</span>: <span class="kw-2">&amp;mut</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">PeerId</span>, <span class="ident">PeerConsensus</span><span class="op">&lt;</span><span class="ident">B::Hash</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="ident">validator</span>: <span class="kw-2">&amp;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Validator</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 )
 <span class="comment">// (msg_hash, topic, message)</span>
@@ -858,13 +858,13 @@
 	<span class="kw">for</span> (<span class="ident">id</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">peer</span>) <span class="kw">in</span> <span class="ident">peers</span>.<span class="ident">iter_mut</span>() {
 		<span class="kw">for</span> (<span class="ident">message_hash</span>, <span class="ident">topic</span>, <span class="ident">message</span>) <span class="kw">in</span> <span class="ident">messages</span>.<span class="ident">clone</span>() {
 			<span class="kw">let</span> <span class="ident">intent</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">intent</span> {
-				<span class="ident">MessageIntent::Broadcast</span> { .. } <span class="op">=</span><span class="op">&gt;</span>
+				<span class="ident">MessageIntent::Broadcast</span> { .. } =&gt;
 					<span class="kw">if</span> <span class="ident">peer</span>.<span class="ident">known_messages</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">message_hash</span>) {
 						<span class="kw">continue</span>
 					} <span class="kw">else</span> {
 						<span class="ident">MessageIntent::Broadcast</span>
 					},
-				<span class="ident">MessageIntent::PeriodicRebroadcast</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="ident">MessageIntent::PeriodicRebroadcast</span> =&gt; {
 					<span class="kw">if</span> <span class="ident">peer</span>.<span class="ident">known_messages</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">message_hash</span>) {
 						<span class="ident">MessageIntent::PeriodicRebroadcast</span>
 					} <span class="kw">else</span> {
@@ -873,7 +873,7 @@
 						<span class="ident">MessageIntent::Broadcast</span>
 					}
 				},
-				<span class="ident">other</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">other</span>,
+				<span class="ident">other</span> =&gt; <span class="ident">other</span>,
 			};
 
 			<span class="kw">if</span> <span class="op">!</span><span class="ident">message_allowed</span>(<span class="ident">id</span>, <span class="ident">intent</span>, <span class="kw-2">&amp;</span><span class="ident">topic</span>, <span class="kw-2">&amp;</span><span class="ident">message</span>) {
@@ -911,14 +911,14 @@
 		<span class="ident">validator</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Validator</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident">protocol</span>: <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span>,
 		<span class="ident">metrics_registry</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Registry</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	) -&gt; <span class="self">Self</span> {
 		<span class="kw">let</span> <span class="ident">metrics</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">metrics_registry</span>.<span class="ident">map</span>(<span class="ident">Metrics::register</span>) {
-			<span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(<span class="ident">metrics</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">metrics</span>),
-			<span class="prelude-val">Some</span>(<span class="prelude-val">Err</span>(<span class="ident">e</span>)) <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(<span class="ident">metrics</span>)) =&gt; <span class="prelude-val">Some</span>(<span class="ident">metrics</span>),
+			<span class="prelude-val">Some</span>(<span class="prelude-val">Err</span>(<span class="ident">e</span>)) =&gt; {
 				<span class="macro">tracing::debug!</span>(<span class="ident">target</span>: <span class="string">&quot;gossip&quot;</span>, <span class="string">&quot;Failed to register metrics: {:?}&quot;</span>, <span class="ident">e</span>);
 				<span class="prelude-val">None</span>
 			},
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+			<span class="prelude-val">None</span> =&gt; <span class="prelude-val">None</span>,
 		};
 
 		<span class="ident">ConsensusGossip</span> {
@@ -933,7 +933,7 @@
 	}
 
 	<span class="doccomment">/// Handle new connected peer.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">network</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">who</span>: <span class="ident">PeerId</span>, <span class="ident">role</span>: <span class="ident">ObservedRole</span>) {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_peer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">network</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">who</span>: <span class="ident">PeerId</span>, <span class="ident">role</span>: <span class="ident">ObservedRole</span>) {
 		<span class="macro">tracing::trace!</span>(
 			<span class="ident">target</span>:<span class="string">&quot;gossip&quot;</span>,
 			<span class="op">%</span><span class="ident">who</span>,
@@ -945,11 +945,11 @@
 
 		<span class="kw">let</span> <span class="ident">validator</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">validator</span>.<span class="ident">clone</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">context</span> <span class="op">=</span> <span class="ident">NetworkContext</span> { <span class="ident">gossip</span>: <span class="self">self</span>, <span class="ident">network</span> };
-		<span class="ident">validator</span>.<span class="ident">new_peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">context</span>, <span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">role</span>);
+		<span class="ident">validator</span>.<span class="ident">new_peer</span>(<span class="kw-2">&amp;mut</span> <span class="ident">context</span>, <span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">role</span>);
 	}
 
 	<span class="kw">fn</span> <span class="ident">register_message_hashed</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">message_hash</span>: <span class="ident">B::Hash</span>,
 		<span class="ident">topic</span>: <span class="ident">B::Hash</span>,
 		<span class="ident">message</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
@@ -969,21 +969,21 @@
 	<span class="doccomment">/// the message&#39;s topic. No validation is performed on the message, if the</span>
 	<span class="doccomment">/// message is already expired it should be dropped on the next garbage</span>
 	<span class="doccomment">/// collection.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">register_message</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">topic</span>: <span class="ident">B::Hash</span>, <span class="ident">message</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">register_message</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">topic</span>: <span class="ident">B::Hash</span>, <span class="ident">message</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) {
 		<span class="kw">let</span> <span class="ident">message_hash</span> <span class="op">=</span> <span class="ident">HashFor</span>::<span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="ident">::hash</span>(<span class="kw-2">&amp;</span><span class="ident">message</span>[..]);
 		<span class="self">self</span>.<span class="ident">register_message_hashed</span>(<span class="ident">message_hash</span>, <span class="ident">topic</span>, <span class="ident">message</span>, <span class="prelude-val">None</span>);
 	}
 
 	<span class="doccomment">/// Call when a peer has been disconnected to stop tracking gossip status.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peer_disconnected</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">network</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">who</span>: <span class="ident">PeerId</span>) {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peer_disconnected</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">network</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">who</span>: <span class="ident">PeerId</span>) {
 		<span class="kw">let</span> <span class="ident">validator</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">validator</span>.<span class="ident">clone</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">context</span> <span class="op">=</span> <span class="ident">NetworkContext</span> { <span class="ident">gossip</span>: <span class="self">self</span>, <span class="ident">network</span> };
-		<span class="ident">validator</span>.<span class="ident">peer_disconnected</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">context</span>, <span class="kw-2">&amp;</span><span class="ident">who</span>);
+		<span class="ident">validator</span>.<span class="ident">peer_disconnected</span>(<span class="kw-2">&amp;mut</span> <span class="ident">context</span>, <span class="kw-2">&amp;</span><span class="ident">who</span>);
 		<span class="self">self</span>.<span class="ident">peers</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>);
 	}
 
 	<span class="doccomment">/// Perform periodic maintenance</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tick</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">network</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>) {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tick</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">network</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>) {
 		<span class="self">self</span>.<span class="ident">collect_garbage</span>();
 		<span class="kw">if</span> <span class="ident">Instant::now</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">next_broadcast</span> {
 			<span class="self">self</span>.<span class="ident">rebroadcast</span>(<span class="ident">network</span>);
@@ -992,7 +992,7 @@
 	}
 
 	<span class="doccomment">/// Rebroadcast all messages to all peers.</span>
-	<span class="kw">fn</span> <span class="ident">rebroadcast</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">network</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>) {
+	<span class="kw">fn</span> <span class="ident">rebroadcast</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">network</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>) {
 		<span class="kw">let</span> <span class="ident">messages</span> <span class="op">=</span> <span class="self">self</span>
 			.<span class="ident">messages</span>
 			.<span class="ident">iter</span>()
@@ -1002,15 +1002,15 @@
 			<span class="self">self</span>.<span class="ident">protocol</span>.<span class="ident">clone</span>(),
 			<span class="ident">messages</span>,
 			<span class="ident">MessageIntent::PeriodicRebroadcast</span>,
-			<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">peers</span>,
+			<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">peers</span>,
 			<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">validator</span>,
 		);
 	}
 
 	<span class="doccomment">/// Broadcast all messages with given topic.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">broadcast_topic</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">network</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">topic</span>: <span class="ident">B::Hash</span>, <span class="ident">force</span>: <span class="ident">bool</span>) {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">broadcast_topic</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">network</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">topic</span>: <span class="ident">B::Hash</span>, <span class="ident">force</span>: <span class="ident">bool</span>) {
 		<span class="kw">let</span> <span class="ident">messages</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">messages</span>.<span class="ident">iter</span>().<span class="ident">filter_map</span>(<span class="op">|</span><span class="ident">entry</span><span class="op">|</span> {
-			<span class="kw">if</span> <span class="ident">entry</span>.<span class="ident">topic</span> <span class="op">=</span><span class="op">=</span> <span class="ident">topic</span> {
+			<span class="kw">if</span> <span class="ident">entry</span>.<span class="ident">topic</span> <span class="op">==</span> <span class="ident">topic</span> {
 				<span class="prelude-val">Some</span>((<span class="kw-2">&amp;</span><span class="ident">entry</span>.<span class="ident">message_hash</span>, <span class="kw-2">&amp;</span><span class="ident">entry</span>.<span class="ident">topic</span>, <span class="kw-2">&amp;</span><span class="ident">entry</span>.<span class="ident">message</span>))
 			} <span class="kw">else</span> {
 				<span class="prelude-val">None</span>
@@ -1022,15 +1022,15 @@
 			<span class="self">self</span>.<span class="ident">protocol</span>.<span class="ident">clone</span>(),
 			<span class="ident">messages</span>,
 			<span class="ident">intent</span>,
-			<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">peers</span>,
+			<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">peers</span>,
 			<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">validator</span>,
 		);
 	}
 
 	<span class="doccomment">/// Prune old or no longer relevant consensus messages. Provide a predicate</span>
 	<span class="doccomment">/// for pruning, which returns `false` when the items with a given topic should be pruned.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">collect_garbage</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-		<span class="kw">let</span> <span class="ident">known_messages</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">known_messages</span>;
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">collect_garbage</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
+		<span class="kw">let</span> <span class="ident">known_messages</span> <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">known_messages</span>;
 		<span class="kw">let</span> <span class="ident">before</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">messages</span>.<span class="ident">len</span>();
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">message_expired</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">validator</span>.<span class="ident">message_expired</span>();
@@ -1057,10 +1057,10 @@
 	}
 
 	<span class="doccomment">/// Get valid messages received in the past for a topic (might have expired meanwhile).</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">messages_for</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">topic</span>: <span class="ident">B::Hash</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">TopicNotification</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;_</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">messages_for</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">topic</span>: <span class="ident">B::Hash</span>) -&gt; <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">TopicNotification</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;_</span> {
 		<span class="self">self</span>.<span class="ident">messages</span>
 			.<span class="ident">iter</span>()
-			.<span class="ident">filter</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">topic</span> <span class="op">=</span><span class="op">=</span> <span class="ident">topic</span>)
+			.<span class="ident">filter</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">topic</span> <span class="op">==</span> <span class="ident">topic</span>)
 			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">entry</span><span class="op">|</span> <span class="ident">TopicNotification</span> {
 				<span class="ident">message</span>: <span class="ident">entry</span>.<span class="ident">message</span>.<span class="ident">clone</span>(),
 				<span class="ident">sender</span>: <span class="ident">entry</span>.<span class="ident">sender</span>.<span class="ident">clone</span>(),
@@ -1070,11 +1070,11 @@
 	<span class="doccomment">/// Register incoming messages and return the ones that are new and valid (according to a gossip</span>
 	<span class="doccomment">/// validator) and should thus be forwarded to the upper layers.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">on_incoming</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-		<span class="ident">network</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+		<span class="ident">network</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
 		<span class="ident">who</span>: <span class="ident">PeerId</span>,
 		<span class="ident">messages</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">B::Hash</span>, <span class="ident">TopicNotification</span>)<span class="op">&gt;</span> {
+	) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">B::Hash</span>, <span class="ident">TopicNotification</span>)<span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">to_forward</span> <span class="op">=</span> <span class="macro">vec!</span>[];
 
 		<span class="kw">if</span> <span class="op">!</span><span class="ident">messages</span>.<span class="ident">is_empty</span>() {
@@ -1105,13 +1105,13 @@
 			<span class="kw">let</span> <span class="ident">validation</span> <span class="op">=</span> {
 				<span class="kw">let</span> <span class="ident">validator</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">validator</span>.<span class="ident">clone</span>();
 				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">context</span> <span class="op">=</span> <span class="ident">NetworkContext</span> { <span class="ident">gossip</span>: <span class="self">self</span>, <span class="ident">network</span> };
-				<span class="ident">validator</span>.<span class="ident">validate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">context</span>, <span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="kw-2">&amp;</span><span class="ident">message</span>)
+				<span class="ident">validator</span>.<span class="ident">validate</span>(<span class="kw-2">&amp;mut</span> <span class="ident">context</span>, <span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="kw-2">&amp;</span><span class="ident">message</span>)
 			};
 
 			<span class="kw">let</span> (<span class="ident">topic</span>, <span class="ident">keep</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">validation</span> {
-				<span class="ident">ValidationResult::ProcessAndKeep</span>(<span class="ident">topic</span>) <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">topic</span>, <span class="bool-val">true</span>),
-				<span class="ident">ValidationResult::ProcessAndDiscard</span>(<span class="ident">topic</span>) <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">topic</span>, <span class="bool-val">false</span>),
-				<span class="ident">ValidationResult::Discard</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="ident">ValidationResult::ProcessAndKeep</span>(<span class="ident">topic</span>) =&gt; (<span class="ident">topic</span>, <span class="bool-val">true</span>),
+				<span class="ident">ValidationResult::ProcessAndDiscard</span>(<span class="ident">topic</span>) =&gt; (<span class="ident">topic</span>, <span class="bool-val">false</span>),
+				<span class="ident">ValidationResult::Discard</span> =&gt; {
 					<span class="macro">tracing::trace!</span>(
 						<span class="ident">target</span>: <span class="string">&quot;gossip&quot;</span>,
 						<span class="op">%</span><span class="ident">who</span>,
@@ -1123,8 +1123,8 @@
 			};
 
 			<span class="kw">let</span> <span class="ident">peer</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">peers</span>.<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>) {
-				<span class="prelude-val">Some</span>(<span class="ident">peer</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">peer</span>,
-				<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="prelude-val">Some</span>(<span class="ident">peer</span>) =&gt; <span class="ident">peer</span>,
+				<span class="prelude-val">None</span> =&gt; {
 					<span class="macro">tracing::error!</span>(
 						<span class="ident">target</span>: <span class="string">&quot;gossip&quot;</span>,
 						<span class="op">%</span><span class="ident">who</span>,
@@ -1152,8 +1152,8 @@
 
 	<span class="doccomment">/// Send all messages with given topic to a peer.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_topic</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-		<span class="ident">network</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+		<span class="ident">network</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
 		<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">PeerId</span>,
 		<span class="ident">topic</span>: <span class="ident">B::Hash</span>,
 		<span class="ident">force</span>: <span class="ident">bool</span>,
@@ -1161,7 +1161,7 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">message_allowed</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">validator</span>.<span class="ident">message_allowed</span>();
 
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">peer</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">peers</span>.<span class="ident">get_mut</span>(<span class="ident">who</span>) {
-			<span class="kw">for</span> <span class="ident">entry</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">messages</span>.<span class="ident">iter</span>().<span class="ident">filter</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span>.<span class="ident">topic</span> <span class="op">=</span><span class="op">=</span> <span class="ident">topic</span>) {
+			<span class="kw">for</span> <span class="ident">entry</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">messages</span>.<span class="ident">iter</span>().<span class="ident">filter</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span>.<span class="ident">topic</span> <span class="op">==</span> <span class="ident">topic</span>) {
 				<span class="kw">let</span> <span class="ident">intent</span> <span class="op">=</span>
 					<span class="kw">if</span> <span class="ident">force</span> { <span class="ident">MessageIntent::ForcedBroadcast</span> } <span class="kw">else</span> { <span class="ident">MessageIntent::Broadcast</span> };
 
@@ -1193,8 +1193,8 @@
 
 	<span class="doccomment">/// Multicast a message to all peers.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">multicast</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-		<span class="ident">network</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+		<span class="ident">network</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>,
 		<span class="ident">topic</span>: <span class="ident">B::Hash</span>,
 		<span class="ident">message</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
 		<span class="ident">force</span>: <span class="ident">bool</span>,
@@ -1207,17 +1207,17 @@
 			<span class="self">self</span>.<span class="ident">protocol</span>.<span class="ident">clone</span>(),
 			<span class="ident">iter::once</span>((<span class="kw-2">&amp;</span><span class="ident">message_hash</span>, <span class="kw-2">&amp;</span><span class="ident">topic</span>, <span class="kw-2">&amp;</span><span class="ident">message</span>)),
 			<span class="ident">intent</span>,
-			<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">peers</span>,
+			<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">peers</span>,
 			<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">validator</span>,
 		);
 	}
 
 	<span class="doccomment">/// Send addressed message to a peer. The message is not kept or multicast</span>
 	<span class="doccomment">/// later on.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_message</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">network</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">PeerId</span>, <span class="ident">message</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_message</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">network</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>, <span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">PeerId</span>, <span class="ident">message</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) {
 		<span class="kw">let</span> <span class="ident">peer</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">peers</span>.<span class="ident">get_mut</span>(<span class="ident">who</span>) {
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span>,
-			<span class="prelude-val">Some</span>(<span class="ident">peer</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">peer</span>,
+			<span class="prelude-val">None</span> =&gt; <span class="kw">return</span>,
+			<span class="prelude-val">Some</span>(<span class="ident">peer</span>) =&gt; <span class="ident">peer</span>,
 		};
 
 		<span class="kw">let</span> <span class="ident">message_hash</span> <span class="op">=</span> <span class="ident">HashFor</span>::<span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="ident">::hash</span>(<span class="kw-2">&amp;</span><span class="ident">message</span>);
@@ -1241,7 +1241,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Metrics</span> {
-	<span class="kw">fn</span> <span class="ident">register</span>(<span class="ident">registry</span>: <span class="kw-2">&amp;</span><span class="ident">Registry</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">PrometheusError</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">register</span>(<span class="ident">registry</span>: <span class="kw-2">&amp;</span><span class="ident">Registry</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">PrometheusError</span><span class="op">&gt;</span> {
 		<span class="prelude-val">Ok</span>(<span class="self">Self</span> {
 			<span class="ident">registered_messages</span>: <span class="ident">register</span>(
 				<span class="ident">Counter::new</span>(
@@ -1276,7 +1276,7 @@
 	<span class="kw">type</span> <span class="ident">Block</span> <span class="op">=</span> <span class="ident">RawBlock</span><span class="op">&lt;</span><span class="ident">ExtrinsicWrapper</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 	<span class="macro">macro_rules!</span> <span class="ident">push_msg</span> {
-		(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">consensus</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">topic</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hash</span>: <span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">m</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
+		(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">consensus</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">topic</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hash</span>: <span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">m</span>:<span class="ident">expr</span>) =&gt; {
 			<span class="kw">if</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">consensus</span>.<span class="ident">known_messages</span>.<span class="ident">put</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">hash</span>, ()).<span class="ident">is_none</span>() {
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">consensus</span>.<span class="ident">messages</span>.<span class="ident">push</span>(<span class="ident">MessageEntry</span> {
 					<span class="ident">message_hash</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">hash</span>,
@@ -1292,10 +1292,10 @@
 	<span class="kw">impl</span> <span class="ident">Validator</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AllowAll</span> {
 		<span class="kw">fn</span> <span class="ident">validate</span>(
 			<span class="kw-2">&amp;</span><span class="self">self</span>,
-			<span class="ident">_context</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">ValidatorContext</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
+			<span class="ident">_context</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">ValidatorContext</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 			<span class="ident">_sender</span>: <span class="kw-2">&amp;</span><span class="ident">PeerId</span>,
 			<span class="ident">_data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ValidationResult</span><span class="op">&lt;</span><span class="ident">H256</span><span class="op">&gt;</span> {
+		) -&gt; <span class="ident">ValidationResult</span><span class="op">&lt;</span><span class="ident">H256</span><span class="op">&gt;</span> {
 			<span class="ident">ValidationResult::ProcessAndKeep</span>(<span class="ident">H256::default</span>())
 		}
 	}
@@ -1304,10 +1304,10 @@
 	<span class="kw">impl</span> <span class="ident">Validator</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DiscardAll</span> {
 		<span class="kw">fn</span> <span class="ident">validate</span>(
 			<span class="kw-2">&amp;</span><span class="self">self</span>,
-			<span class="ident">_context</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">ValidatorContext</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
+			<span class="ident">_context</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">ValidatorContext</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 			<span class="ident">_sender</span>: <span class="kw-2">&amp;</span><span class="ident">PeerId</span>,
 			<span class="ident">_data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ValidationResult</span><span class="op">&lt;</span><span class="ident">H256</span><span class="op">&gt;</span> {
+		) -&gt; <span class="ident">ValidationResult</span><span class="op">&lt;</span><span class="ident">H256</span><span class="op">&gt;</span> {
 			<span class="ident">ValidationResult::Discard</span>
 		}
 	}
@@ -1323,7 +1323,7 @@
 	}
 
 	<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">BlockT</span><span class="op">&gt;</span> <span class="ident">Network</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">NoOpNetwork</span> {
-		<span class="kw">fn</span> <span class="ident">event_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Event</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+		<span class="kw">fn</span> <span class="ident">event_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Stream</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Event</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 			<span class="macro">unimplemented!</span>();
 		}
 
@@ -1354,18 +1354,18 @@
 		<span class="kw">impl</span> <span class="ident">Validator</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AllowOne</span> {
 			<span class="kw">fn</span> <span class="ident">validate</span>(
 				<span class="kw-2">&amp;</span><span class="self">self</span>,
-				<span class="ident">_context</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> <span class="ident">ValidatorContext</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
+				<span class="ident">_context</span>: <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> <span class="ident">ValidatorContext</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>,
 				<span class="ident">_sender</span>: <span class="kw-2">&amp;</span><span class="ident">PeerId</span>,
 				<span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
-			) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ValidationResult</span><span class="op">&lt;</span><span class="ident">H256</span><span class="op">&gt;</span> {
-				<span class="kw">if</span> <span class="ident">data</span>[<span class="number">0</span>] <span class="op">=</span><span class="op">=</span> <span class="number">1</span> {
+			) -&gt; <span class="ident">ValidationResult</span><span class="op">&lt;</span><span class="ident">H256</span><span class="op">&gt;</span> {
+				<span class="kw">if</span> <span class="ident">data</span>[<span class="number">0</span>] <span class="op">==</span> <span class="number">1</span> {
 					<span class="ident">ValidationResult::ProcessAndKeep</span>(<span class="ident">H256::default</span>())
 				} <span class="kw">else</span> {
 					<span class="ident">ValidationResult::Discard</span>
 				}
 			}
 
-			<span class="kw">fn</span> <span class="ident">message_expired</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">FnMut</span>(<span class="ident">H256</span>, <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> <span class="op">+</span> <span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+			<span class="kw">fn</span> <span class="ident">message_expired</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">FnMut</span>(<span class="ident">H256</span>, <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">bool</span> <span class="op">+</span> <span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
 				<span class="ident">Box::new</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">_topic</span>, <span class="ident">data</span><span class="op">|</span> <span class="ident">data</span>[<span class="number">0</span>] <span class="op">!</span><span class="op">=</span> <span class="number">1</span>)
 			}
 		}
@@ -1433,17 +1433,17 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">network</span> <span class="op">=</span> <span class="ident">NoOpNetwork::default</span>();
 
 		<span class="kw">let</span> <span class="ident">peer_id</span> <span class="op">=</span> <span class="ident">PeerId::random</span>();
-		<span class="ident">consensus</span>.<span class="ident">new_peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">network</span>, <span class="ident">peer_id</span>, <span class="ident">ObservedRole::Full</span>);
+		<span class="ident">consensus</span>.<span class="ident">new_peer</span>(<span class="kw-2">&amp;mut</span> <span class="ident">network</span>, <span class="ident">peer_id</span>, <span class="ident">ObservedRole::Full</span>);
 		<span class="macro">assert!</span>(<span class="ident">consensus</span>.<span class="ident">peers</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">peer_id</span>));
 
-		<span class="ident">consensus</span>.<span class="ident">peer_disconnected</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">network</span>, <span class="ident">peer_id</span>);
+		<span class="ident">consensus</span>.<span class="ident">peer_disconnected</span>(<span class="kw-2">&amp;mut</span> <span class="ident">network</span>, <span class="ident">peer_id</span>);
 		<span class="macro">assert!</span>(<span class="op">!</span><span class="ident">consensus</span>.<span class="ident">peers</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">peer_id</span>));
 	}
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">on_incoming_ignores_discarded_messages</span>() {
 		<span class="kw">let</span> <span class="ident">to_forward</span> <span class="op">=</span> <span class="ident">ConsensusGossip</span>::<span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">Arc::new</span>(<span class="ident">DiscardAll</span>), <span class="string">&quot;/foo&quot;</span>.<span class="ident">into</span>(), <span class="prelude-val">None</span>)
-			.<span class="ident">on_incoming</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">NoOpNetwork::default</span>(), <span class="ident">PeerId::random</span>(), <span class="macro">vec!</span>[<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]);
+			.<span class="ident">on_incoming</span>(<span class="kw-2">&amp;mut</span> <span class="ident">NoOpNetwork::default</span>(), <span class="ident">PeerId::random</span>(), <span class="macro">vec!</span>[<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]]);
 
 		<span class="macro">assert!</span>(
 			<span class="ident">to_forward</span>.<span class="ident">is_empty</span>(),
@@ -1459,7 +1459,7 @@
 
 		<span class="kw">let</span> <span class="ident">to_forward</span> <span class="op">=</span> <span class="ident">ConsensusGossip</span>::<span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">Arc::new</span>(<span class="ident">AllowAll</span>), <span class="string">&quot;/foo&quot;</span>.<span class="ident">into</span>(), <span class="prelude-val">None</span>)
 			.<span class="ident">on_incoming</span>(
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">network</span>,
+				<span class="kw-2">&amp;mut</span> <span class="ident">network</span>,
 				<span class="comment">// Unregistered peer.</span>
 				<span class="ident">remote</span>.<span class="ident">clone</span>(),
 				<span class="macro">vec!</span>[<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]],

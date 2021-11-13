@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;elections&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../pallet_elections/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;elections&#x2F;src&#x2F;lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../pallet_elections/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1572,14 +1572,14 @@
 		<span class="comment">// TODO: rename to snake case after https://github.com/paritytech/substrate/issues/8826 fixed.</span>
 		<span class="doccomment">/// The chunk size of the voter vector.</span>
 		<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_snake_case</span>)]</span>
-		<span class="kw">fn</span> <span class="ident">VOTER_SET_SIZE</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+		<span class="kw">fn</span> <span class="ident">VOTER_SET_SIZE</span>() -&gt; <span class="ident">u32</span> {
 			<span class="ident">VOTER_SET_SIZE</span> <span class="kw">as</span> <span class="ident">u32</span>
 		}
 
 		<span class="comment">// TODO: rename to snake case after https://github.com/paritytech/substrate/issues/8826 fixed.</span>
 		<span class="doccomment">/// The chunk size of the approval vector.</span>
 		<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_snake_case</span>)]</span>
-		<span class="kw">fn</span> <span class="ident">APPROVAL_SET_SIZE</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+		<span class="kw">fn</span> <span class="ident">APPROVAL_SET_SIZE</span>() -&gt; <span class="ident">u32</span> {
 			<span class="ident">APPROVAL_SET_SIZE</span> <span class="kw">as</span> <span class="ident">u32</span>
 		}
 	}
@@ -1698,7 +1698,7 @@
 
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>
 	<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">GenesisConfig</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-		<span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+		<span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
 			<span class="ident">GenesisConfig</span> {
 				<span class="ident">presentation_duration</span>: <span class="ident">Default::default</span>(),
 				<span class="ident">term_duration</span>: <span class="ident">Default::default</span>(),
@@ -1778,7 +1778,7 @@
 
 	<span class="attribute">#[<span class="ident">pallet::hooks</span>]</span>
 	<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="ident">Hooks</span><span class="op">&lt;</span><span class="ident">BlockNumberFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Pallet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-		<span class="kw">fn</span> <span class="ident">on_initialize</span>(<span class="ident">n</span>: <span class="ident">T::BlockNumber</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Weight</span> {
+		<span class="kw">fn</span> <span class="ident">on_initialize</span>(<span class="ident">n</span>: <span class="ident">T::BlockNumber</span>) -&gt; <span class="ident">Weight</span> {
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::end_block</span>(<span class="ident">n</span>) {
 				<span class="ident">print</span>(<span class="string">&quot;Guru meditation&quot;</span>);
 				<span class="ident">print</span>(<span class="ident">e</span>);
@@ -1835,7 +1835,7 @@
 			<span class="attribute">#[<span class="ident">pallet::compact</span>]</span> <span class="ident">index</span>: <span class="ident">VoteIndex</span>,
 			<span class="ident">hint</span>: <span class="ident">SetIndex</span>,
 			<span class="attribute">#[<span class="ident">pallet::compact</span>]</span> <span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+		) -&gt; <span class="ident">DispatchResult</span> {
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="ident"><span class="self">Self</span>::do_set_approvals</span>(<span class="ident">who</span>, <span class="ident">votes</span>, <span class="ident">index</span>, <span class="ident">hint</span>, <span class="ident">value</span>)
 		}
@@ -1863,7 +1863,7 @@
 			<span class="ident">who</span>: <span class="op">&lt;</span><span class="ident">T::Lookup</span> <span class="kw">as</span> <span class="ident">StaticLookup</span><span class="op">&gt;</span><span class="ident">::Source</span>,
 			<span class="attribute">#[<span class="ident">pallet::compact</span>]</span> <span class="ident">who_index</span>: <span class="ident">u32</span>,
 			<span class="attribute">#[<span class="ident">pallet::compact</span>]</span> <span class="ident">assumed_vote_index</span>: <span class="ident">VoteIndex</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+		) -&gt; <span class="ident">DispatchResult</span> {
 			<span class="kw">let</span> <span class="ident">reporter</span> <span class="op">=</span> <span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">T::Lookup::lookup</span>(<span class="ident">who</span>)<span class="question-mark">?</span>;
 
@@ -1873,7 +1873,7 @@
 			<span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::voter_info</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>).<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InactiveTarget</span>)<span class="question-mark">?</span>;
 			<span class="kw">let</span> <span class="ident">last_active</span> <span class="op">=</span> <span class="ident">info</span>.<span class="ident">last_active</span>;
 
-			<span class="macro">ensure!</span>(<span class="ident">assumed_vote_index</span> <span class="op">=</span><span class="op">=</span> <span class="ident"><span class="self">Self</span>::vote_index</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidVoteIndex</span>);
+			<span class="macro">ensure!</span>(<span class="ident">assumed_vote_index</span> <span class="op">==</span> <span class="ident"><span class="self">Self</span>::vote_index</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidVoteIndex</span>);
 			<span class="macro">ensure!</span>(
 				<span class="ident">assumed_vote_index</span> <span class="op">&gt;</span> <span class="ident">last_active</span> <span class="op">+</span> <span class="ident">T::InactiveGracePeriod::get</span>(),
 				<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::ReapGrace</span>,
@@ -1885,8 +1885,8 @@
 				<span class="ident"><span class="self">Self</span>::voter_at</span>(<span class="ident">reporter_index</span>).<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidReporterIndex</span>)<span class="question-mark">?</span>;
 			<span class="kw">let</span> <span class="ident">assumed_who</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::voter_at</span>(<span class="ident">who_index</span>).<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidTargetIndex</span>)<span class="question-mark">?</span>;
 
-			<span class="macro">ensure!</span>(<span class="ident">assumed_reporter</span> <span class="op">=</span><span class="op">=</span> <span class="ident">reporter</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidReporterIndex</span>);
-			<span class="macro">ensure!</span>(<span class="ident">assumed_who</span> <span class="op">=</span><span class="op">=</span> <span class="ident">who</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidTargetIndex</span>);
+			<span class="macro">ensure!</span>(<span class="ident">assumed_reporter</span> <span class="op">==</span> <span class="ident">reporter</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidReporterIndex</span>);
+			<span class="macro">ensure!</span>(<span class="ident">assumed_who</span> <span class="op">==</span> <span class="ident">who</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidTargetIndex</span>);
 
 			<span class="comment">// will definitely kill one of reporter or who now.</span>
 
@@ -1942,14 +1942,14 @@
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">retract_voter</span>(
 			<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 			<span class="attribute">#[<span class="ident">pallet::compact</span>]</span> <span class="ident">index</span>: <span class="ident">u32</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+		) -&gt; <span class="ident">DispatchResult</span> {
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 
 			<span class="macro">ensure!</span>(<span class="op">!</span><span class="ident"><span class="self">Self</span>::presentation_active</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::CannotRetractPresenting</span>);
 			<span class="macro">ensure!</span>(<span class="op">&lt;</span><span class="ident">VoterInfoOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::RetractNonVoter</span>);
 			<span class="kw">let</span> <span class="ident">index</span> <span class="op">=</span> <span class="ident">index</span> <span class="kw">as</span> <span class="ident">usize</span>;
 			<span class="kw">let</span> <span class="ident">voter</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::voter_at</span>(<span class="ident">index</span>).<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidRetractionIndex</span>)<span class="question-mark">?</span>;
-			<span class="macro">ensure!</span>(<span class="ident">voter</span> <span class="op">=</span><span class="op">=</span> <span class="ident">who</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidRetractionIndex</span>);
+			<span class="macro">ensure!</span>(<span class="ident">voter</span> <span class="op">==</span> <span class="ident">who</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidRetractionIndex</span>);
 
 			<span class="ident"><span class="self">Self</span>::remove_voter</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">index</span>);
 			<span class="ident">T::Currency::unreserve</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">T::VotingBond::get</span>());
@@ -1975,7 +1975,7 @@
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">submit_candidacy</span>(
 			<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 			<span class="attribute">#[<span class="ident">pallet::compact</span>]</span> <span class="ident">slot</span>: <span class="ident">u32</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+		) -&gt; <span class="ident">DispatchResult</span> {
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 
 			<span class="macro">ensure!</span>(<span class="op">!</span><span class="ident"><span class="self">Self</span>::is_a_candidate</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::DuplicatedCandidate</span>);
@@ -1983,8 +1983,8 @@
 			<span class="kw">let</span> <span class="ident">count</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::candidate_count</span>() <span class="kw">as</span> <span class="ident">usize</span>;
 			<span class="kw">let</span> <span class="ident">candidates</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::candidates</span>();
 			<span class="macro">ensure!</span>(
-				(<span class="ident">slot</span> <span class="op">=</span><span class="op">=</span> <span class="ident">count</span> <span class="op">&amp;&amp;</span> <span class="ident">count</span> <span class="op">=</span><span class="op">=</span> <span class="ident">candidates</span>.<span class="ident">len</span>()) <span class="op">|</span><span class="op">|</span>
-					(<span class="ident">slot</span> <span class="op">&lt;</span> <span class="ident">candidates</span>.<span class="ident">len</span>() <span class="op">&amp;&amp;</span> <span class="ident">candidates</span>[<span class="ident">slot</span>] <span class="op">=</span><span class="op">=</span> <span class="ident">T::AccountId::default</span>()),
+				(<span class="ident">slot</span> <span class="op">==</span> <span class="ident">count</span> <span class="op">&amp;&amp;</span> <span class="ident">count</span> <span class="op">==</span> <span class="ident">candidates</span>.<span class="ident">len</span>()) <span class="op">|</span><span class="op">|</span>
+					(<span class="ident">slot</span> <span class="op">&lt;</span> <span class="ident">candidates</span>.<span class="ident">len</span>() <span class="op">&amp;&amp;</span> <span class="ident">candidates</span>[<span class="ident">slot</span>] <span class="op">==</span> <span class="ident">T::AccountId::default</span>()),
 				<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidCandidateSlot</span>,
 			);
 			<span class="comment">// NOTE: This must be last as it has side-effects.</span>
@@ -1993,7 +1993,7 @@
 
 			<span class="op">&lt;</span><span class="ident">RegisterInfoOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, (<span class="ident"><span class="self">Self</span>::vote_index</span>(), <span class="ident">slot</span> <span class="kw">as</span> <span class="ident">u32</span>));
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">candidates</span> <span class="op">=</span> <span class="ident">candidates</span>;
-			<span class="kw">if</span> <span class="ident">slot</span> <span class="op">=</span><span class="op">=</span> <span class="ident">candidates</span>.<span class="ident">len</span>() {
+			<span class="kw">if</span> <span class="ident">slot</span> <span class="op">==</span> <span class="ident">candidates</span>.<span class="ident">len</span>() {
 				<span class="ident">candidates</span>.<span class="ident">push</span>(<span class="ident">who</span>);
 			} <span class="kw">else</span> {
 				<span class="ident">candidates</span>[<span class="ident">slot</span>] <span class="op">=</span> <span class="ident">who</span>;
@@ -2018,12 +2018,12 @@
 			<span class="ident">candidate</span>: <span class="op">&lt;</span><span class="ident">T::Lookup</span> <span class="kw">as</span> <span class="ident">StaticLookup</span><span class="op">&gt;</span><span class="ident">::Source</span>,
 			<span class="attribute">#[<span class="ident">pallet::compact</span>]</span> <span class="ident">total</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 			<span class="attribute">#[<span class="ident">pallet::compact</span>]</span> <span class="ident">index</span>: <span class="ident">VoteIndex</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+		) -&gt; <span class="ident">DispatchResult</span> {
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">ensure_signed</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="macro">ensure!</span>(<span class="op">!</span><span class="ident">total</span>.<span class="ident">is_zero</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::ZeroDeposit</span>);
 
 			<span class="kw">let</span> <span class="ident">candidate</span> <span class="op">=</span> <span class="ident">T::Lookup::lookup</span>(<span class="ident">candidate</span>)<span class="question-mark">?</span>;
-			<span class="macro">ensure!</span>(<span class="ident">index</span> <span class="op">=</span><span class="op">=</span> <span class="ident"><span class="self">Self</span>::vote_index</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidVoteIndex</span>);
+			<span class="macro">ensure!</span>(<span class="ident">index</span> <span class="op">==</span> <span class="ident"><span class="self">Self</span>::vote_index</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidVoteIndex</span>);
 			<span class="kw">let</span> (<span class="kw">_</span>, <span class="kw">_</span>, <span class="ident">expiring</span>) <span class="op">=</span>
 				<span class="ident"><span class="self">Self</span>::next_finalize</span>().<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NotPresentationPeriod</span>)<span class="question-mark">?</span>;
 			<span class="kw">let</span> <span class="ident">bad_presentation_punishment</span> <span class="op">=</span>
@@ -2036,7 +2036,7 @@
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">leaderboard</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::leaderboard</span>().<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::LeaderboardMustExist</span>)<span class="question-mark">?</span>;
 			<span class="macro">ensure!</span>(<span class="ident">total</span> <span class="op">&gt;</span> <span class="ident">leaderboard</span>[<span class="number">0</span>].<span class="number">0</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::UnworthyCandidate</span>);
 
-			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">p</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::members</span>().<span class="ident">iter</span>().<span class="ident">position</span>(<span class="op">|</span><span class="kw-2">&amp;</span>(<span class="kw-2">ref</span> <span class="ident">c</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">c</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">candidate</span>) {
+			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">p</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::members</span>().<span class="ident">iter</span>().<span class="ident">position</span>(<span class="op">|</span><span class="kw-2">&amp;</span>(<span class="kw-2">ref</span> <span class="ident">c</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">c</span> <span class="op">==</span> <span class="kw-2">&amp;</span><span class="ident">candidate</span>) {
 				<span class="macro">ensure!</span>(<span class="ident">p</span> <span class="op">&lt;</span> <span class="ident">expiring</span>.<span class="ident">len</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::DuplicatedCandidate</span>);
 			}
 
@@ -2047,7 +2047,7 @@
 				.<span class="ident">iter</span>()
 				.<span class="ident">filter_map</span>(<span class="op">|</span><span class="ident">maybe_voter</span><span class="op">|</span> <span class="ident">maybe_voter</span>.<span class="ident">as_ref</span>())
 				.<span class="ident">filter_map</span>(<span class="op">|</span><span class="ident">voter</span><span class="op">|</span> <span class="kw">match</span> <span class="ident"><span class="self">Self</span>::voter_info</span>(<span class="ident">voter</span>) {
-					<span class="prelude-val">Some</span>(<span class="ident">b</span>) <span class="kw">if</span> <span class="ident">b</span>.<span class="ident">last_active</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">registered_since</span> <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="prelude-val">Some</span>(<span class="ident">b</span>) <span class="kw">if</span> <span class="ident">b</span>.<span class="ident">last_active</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">registered_since</span> =&gt; {
 						<span class="kw">let</span> <span class="ident">last_win</span> <span class="op">=</span> <span class="ident">b</span>.<span class="ident">last_win</span>;
 						<span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::vote_index</span>();
 						<span class="kw">let</span> <span class="ident">stake</span> <span class="op">=</span> <span class="ident">b</span>.<span class="ident">stake</span>;
@@ -2059,11 +2059,11 @@
 							<span class="prelude-val">None</span>
 						}
 					},
-					<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+					<span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
 				})
 				.<span class="ident">fold</span>(<span class="ident">Zero::zero</span>(), <span class="op">|</span><span class="ident">acc</span>, <span class="ident">n</span><span class="op">|</span> <span class="ident">acc</span> <span class="op">+</span> <span class="ident">n</span>);
-			<span class="kw">let</span> <span class="ident">dupe</span> <span class="op">=</span> <span class="ident">leaderboard</span>.<span class="ident">iter</span>().<span class="ident">find</span>(<span class="op">|</span><span class="op">&amp;&amp;</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">c</span>)<span class="op">|</span> <span class="ident">c</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">candidate</span>).<span class="ident">is_some</span>();
-			<span class="kw">if</span> <span class="ident">total</span> <span class="op">=</span><span class="op">=</span> <span class="ident">actual_total</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">dupe</span> {
+			<span class="kw">let</span> <span class="ident">dupe</span> <span class="op">=</span> <span class="ident">leaderboard</span>.<span class="ident">iter</span>().<span class="ident">find</span>(<span class="op">|</span><span class="op">&amp;&amp;</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">c</span>)<span class="op">|</span> <span class="ident">c</span> <span class="op">==</span> <span class="kw-2">&amp;</span><span class="ident">candidate</span>).<span class="ident">is_some</span>();
+			<span class="kw">if</span> <span class="ident">total</span> <span class="op">==</span> <span class="ident">actual_total</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">dupe</span> {
 				<span class="comment">// insert into leaderboard</span>
 				<span class="ident">leaderboard</span>[<span class="number">0</span>] <span class="op">=</span> (<span class="ident">total</span>, <span class="ident">candidate</span>);
 				<span class="ident">leaderboard</span>.<span class="ident">sort_by_key</span>(<span class="op">|</span><span class="kw-2">&amp;</span>(<span class="ident">t</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">t</span>);
@@ -2089,7 +2089,7 @@
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_desired_seats</span>(
 			<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 			<span class="attribute">#[<span class="ident">pallet::compact</span>]</span> <span class="ident">count</span>: <span class="ident">u32</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+		) -&gt; <span class="ident">DispatchResult</span> {
 			<span class="ident">ensure_root</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="ident">DesiredSeats</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">count</span>);
 			<span class="prelude-val">Ok</span>(())
@@ -2103,7 +2103,7 @@
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_member</span>(
 			<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 			<span class="ident">who</span>: <span class="op">&lt;</span><span class="ident">T::Lookup</span> <span class="kw">as</span> <span class="ident">StaticLookup</span><span class="op">&gt;</span><span class="ident">::Source</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+		) -&gt; <span class="ident">DispatchResult</span> {
 			<span class="ident">ensure_root</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="kw">let</span> <span class="ident">who</span> <span class="op">=</span> <span class="ident">T::Lookup::lookup</span>(<span class="ident">who</span>)<span class="question-mark">?</span>;
 			<span class="kw">let</span> <span class="ident">new_set</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">T::AccountId</span>, <span class="ident">T::BlockNumber</span>)<span class="op">&gt;</span> <span class="op">=</span>
@@ -2120,7 +2120,7 @@
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_presentation_duration</span>(
 			<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 			<span class="attribute">#[<span class="ident">pallet::compact</span>]</span> <span class="ident">count</span>: <span class="ident">T::BlockNumber</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+		) -&gt; <span class="ident">DispatchResult</span> {
 			<span class="ident">ensure_root</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="op">&lt;</span><span class="ident">PresentationDuration</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">count</span>);
 			<span class="prelude-val">Ok</span>(())
@@ -2132,7 +2132,7 @@
 		<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_term_duration</span>(
 			<span class="ident">origin</span>: <span class="ident">OriginFor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 			<span class="attribute">#[<span class="ident">pallet::compact</span>]</span> <span class="ident">count</span>: <span class="ident">T::BlockNumber</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+		) -&gt; <span class="ident">DispatchResult</span> {
 			<span class="ident">ensure_root</span>(<span class="ident">origin</span>)<span class="question-mark">?</span>;
 			<span class="op">&lt;</span><span class="ident">TermDuration</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">count</span>);
 			<span class="prelude-val">Ok</span>(())
@@ -2144,35 +2144,35 @@
 	<span class="comment">// exposed immutables.</span>
 
 	<span class="doccomment">/// True if we&#39;re currently in a presentation period.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">presentation_active</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">presentation_active</span>() -&gt; <span class="ident">bool</span> {
 		<span class="op">&lt;</span><span class="ident">NextFinalize</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::exists</span>()
 	}
 
 	<span class="doccomment">/// If `who` a candidate at the moment?</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_a_candidate</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_a_candidate</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) -&gt; <span class="ident">bool</span> {
 		<span class="op">&lt;</span><span class="ident">RegisterInfoOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::contains_key</span>(<span class="ident">who</span>)
 	}
 
 	<span class="doccomment">/// Iff the member `who` still has a seat at blocknumber `n` returns `true`.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">will_still_be_member_at</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>, <span class="ident">n</span>: <span class="ident">T::BlockNumber</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">will_still_be_member_at</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>, <span class="ident">n</span>: <span class="ident">T::BlockNumber</span>) -&gt; <span class="ident">bool</span> {
 		<span class="ident"><span class="self">Self</span>::members</span>()
 			.<span class="ident">iter</span>()
-			.<span class="ident">find</span>(<span class="op">|</span><span class="op">&amp;&amp;</span>(<span class="kw-2">ref</span> <span class="ident">a</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">a</span> <span class="op">=</span><span class="op">=</span> <span class="ident">who</span>)
+			.<span class="ident">find</span>(<span class="op">|</span><span class="op">&amp;&amp;</span>(<span class="kw-2">ref</span> <span class="ident">a</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">a</span> <span class="op">==</span> <span class="ident">who</span>)
 			.<span class="ident">map</span>(<span class="op">|</span><span class="kw-2">&amp;</span>(<span class="kw">_</span>, <span class="ident">expires</span>)<span class="op">|</span> <span class="ident">expires</span> <span class="op">&gt;</span> <span class="ident">n</span>)
 			.<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>)
 	}
 
 	<span class="doccomment">/// Determine the block that a vote can happen on which is no less than `n`.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">next_vote_from</span>(<span class="ident">n</span>: <span class="ident">T::BlockNumber</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T::BlockNumber</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">next_vote_from</span>(<span class="ident">n</span>: <span class="ident">T::BlockNumber</span>) -&gt; <span class="ident">T::BlockNumber</span> {
 		<span class="kw">let</span> <span class="ident">voting_period</span> <span class="op">=</span> <span class="ident">T::VotingPeriod::get</span>();
 		(<span class="ident">n</span> <span class="op">+</span> <span class="ident">voting_period</span> <span class="op">-</span> <span class="ident">One::one</span>()) <span class="op">/</span> <span class="ident">voting_period</span> <span class="op">*</span> <span class="ident">voting_period</span>
 	}
 
 	<span class="doccomment">/// The block number on which the tally for the next election will happen. `None` only if the</span>
 	<span class="doccomment">/// desired seats of the set is zero.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">next_tally</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T::BlockNumber</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">next_tally</span>() -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T::BlockNumber</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">desired_seats</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::desired_seats</span>();
-		<span class="kw">if</span> <span class="ident">desired_seats</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+		<span class="kw">if</span> <span class="ident">desired_seats</span> <span class="op">==</span> <span class="number">0</span> {
 			<span class="prelude-val">None</span>
 		} <span class="kw">else</span> {
 			<span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::members</span>();
@@ -2202,16 +2202,16 @@
 
 	<span class="comment">// Private</span>
 	<span class="doccomment">/// Check there&#39;s nothing to do this block</span>
-	<span class="kw">fn</span> <span class="ident">end_block</span>(<span class="ident">block_number</span>: <span class="ident">T::BlockNumber</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+	<span class="kw">fn</span> <span class="ident">end_block</span>(<span class="ident">block_number</span>: <span class="ident">T::BlockNumber</span>) -&gt; <span class="ident">DispatchResult</span> {
 		<span class="kw">if</span> (<span class="ident">block_number</span> <span class="op">%</span> <span class="ident">T::VotingPeriod::get</span>()).<span class="ident">is_zero</span>() {
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">number</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::next_tally</span>() {
-				<span class="kw">if</span> <span class="ident">block_number</span> <span class="op">=</span><span class="op">=</span> <span class="ident">number</span> {
+				<span class="kw">if</span> <span class="ident">block_number</span> <span class="op">==</span> <span class="ident">number</span> {
 					<span class="ident"><span class="self">Self</span>::start_tally</span>();
 				}
 			}
 		}
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">number</span>, <span class="kw">_</span>, <span class="kw">_</span>)) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::next_finalize</span>() {
-			<span class="kw">if</span> <span class="ident">block_number</span> <span class="op">=</span><span class="op">=</span> <span class="ident">number</span> {
+			<span class="kw">if</span> <span class="ident">block_number</span> <span class="op">==</span> <span class="ident">number</span> {
 				<span class="ident"><span class="self">Self</span>::finalize_tally</span>()<span class="question-mark">?</span>
 			}
 		}
@@ -2238,11 +2238,11 @@
 		<span class="ident">index</span>: <span class="ident">VoteIndex</span>,
 		<span class="ident">hint</span>: <span class="ident">SetIndex</span>,
 		<span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+	) -&gt; <span class="ident">DispatchResult</span> {
 		<span class="kw">let</span> <span class="ident">candidates_len</span> <span class="op">=</span> <span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">Store</span><span class="op">&gt;</span><span class="ident">::Candidates::decode_len</span>().<span class="ident">unwrap_or</span>(<span class="number">0_usize</span>);
 
 		<span class="macro">ensure!</span>(<span class="op">!</span><span class="ident"><span class="self">Self</span>::presentation_active</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::ApprovalPresentation</span>);
-		<span class="macro">ensure!</span>(<span class="ident">index</span> <span class="op">=</span><span class="op">=</span> <span class="ident"><span class="self">Self</span>::vote_index</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidVoteIndex</span>);
+		<span class="macro">ensure!</span>(<span class="ident">index</span> <span class="op">==</span> <span class="ident"><span class="self">Self</span>::vote_index</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidVoteIndex</span>);
 		<span class="macro">ensure!</span>(<span class="op">!</span><span class="ident">candidates_len</span>.<span class="ident">is_zero</span>(), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::ZeroCandidates</span>);
 		<span class="comment">// Prevent a vote from voters that provide a list of votes that exceeds the candidates</span>
 		<span class="comment">// length since otherwise an attacker may be able to submit a very long list of `votes` that</span>
@@ -2259,7 +2259,7 @@
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">info</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::voter_info</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>) {
 			<span class="comment">// already a voter. Index must be valid. No fee. update pot. O(1)</span>
 			<span class="kw">let</span> <span class="ident">voter</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::voter_at</span>(<span class="ident">hint</span>).<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidVoterIndex</span>)<span class="question-mark">?</span>;
-			<span class="macro">ensure!</span>(<span class="ident">voter</span> <span class="op">=</span><span class="op">=</span> <span class="ident">who</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidVoterIndex</span>);
+			<span class="macro">ensure!</span>(<span class="ident">voter</span> <span class="op">==</span> <span class="ident">who</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::InvalidVoterIndex</span>);
 
 			<span class="comment">// write new accumulated offset.</span>
 			<span class="kw">let</span> <span class="ident">last_win</span> <span class="op">=</span> <span class="ident">info</span>.<span class="ident">last_win</span>;
@@ -2275,17 +2275,17 @@
 
 			<span class="kw">let</span> (<span class="ident">set_index</span>, <span class="ident">vec_index</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::split_index</span>(<span class="ident">hint</span>, <span class="ident">VOTER_SET_SIZE</span>);
 			<span class="kw">match</span> <span class="ident"><span class="self">Self</span>::cell_status</span>(<span class="ident">set_index</span>, <span class="ident">vec_index</span>) {
-				<span class="ident">CellStatus::Hole</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="ident">CellStatus::Hole</span> =&gt; {
 					<span class="comment">// requested cell was a valid hole.</span>
 					<span class="op">&lt;</span><span class="ident">Voters</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::mutate</span>(<span class="ident">set_index</span>, <span class="op">|</span><span class="ident">set</span><span class="op">|</span> <span class="ident">set</span>[<span class="ident">vec_index</span>] <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">who</span>.<span class="ident">clone</span>()));
 				},
-				<span class="ident">CellStatus::Head</span> <span class="op">|</span> <span class="ident">CellStatus::Occupied</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="ident">CellStatus::Head</span> <span class="op">|</span> <span class="ident">CellStatus::Occupied</span> =&gt; {
 					<span class="comment">// Either occupied or out-of-range.</span>
 					<span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::next_nonfull_voter_set</span>();
 					<span class="kw">let</span> <span class="ident">set_len</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Voters</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::decode_len</span>(<span class="ident">next</span>).<span class="ident">unwrap_or</span>(<span class="number">0_usize</span>);
 					<span class="comment">// Caused a new set to be created. Pay for it.</span>
 					<span class="comment">// This is the last potential error. Writes will begin afterwards.</span>
-					<span class="kw">if</span> <span class="ident">set_len</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+					<span class="kw">if</span> <span class="ident">set_len</span> <span class="op">==</span> <span class="number">0</span> {
 						<span class="kw">let</span> <span class="ident">imbalance</span> <span class="op">=</span> <span class="ident">T::Currency::withdraw</span>(
 							<span class="kw-2">&amp;</span><span class="ident">who</span>,
 							<span class="ident">T::VotingFee::get</span>(),
@@ -2296,7 +2296,7 @@
 						<span class="comment">// NOTE: this is safe since the `withdraw()` will check this.</span>
 						<span class="ident">locked_balance</span> <span class="op">-</span><span class="op">=</span> <span class="ident">T::VotingFee::get</span>();
 					}
-					<span class="kw">if</span> <span class="ident">set_len</span> <span class="op">+</span> <span class="number">1</span> <span class="op">=</span><span class="op">=</span> <span class="ident">VOTER_SET_SIZE</span> {
+					<span class="kw">if</span> <span class="ident">set_len</span> <span class="op">+</span> <span class="number">1</span> <span class="op">==</span> <span class="ident">VOTER_SET_SIZE</span> {
 						<span class="ident">NextVoterSet</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">next</span> <span class="op">+</span> <span class="number">1</span>);
 					}
 					<span class="op">&lt;</span><span class="ident">Voters</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::append</span>(<span class="ident">next</span>, <span class="prelude-val">Some</span>(<span class="ident">who</span>.<span class="ident">clone</span>()));
@@ -2357,7 +2357,7 @@
 	<span class="doccomment">/// approved candidates in their place. If the total number of members is less than the desired</span>
 	<span class="doccomment">/// membership a new vote is started. Clears all presented candidates, returning the bond of the</span>
 	<span class="doccomment">/// elected ones.</span>
-	<span class="kw">fn</span> <span class="ident">finalize_tally</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+	<span class="kw">fn</span> <span class="ident">finalize_tally</span>() -&gt; <span class="ident">DispatchResult</span> {
 		<span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">coming</span>, <span class="ident">expiring</span>): (<span class="ident">T::BlockNumber</span>, <span class="ident">u32</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>) <span class="op">=</span>
 			<span class="op">&lt;</span><span class="ident">NextFinalize</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::take</span>()
 				.<span class="ident">ok_or</span>(<span class="string">&quot;finalize can only be called after a tally is started.&quot;</span>)<span class="question-mark">?</span>;
@@ -2430,7 +2430,7 @@
 				<span class="op">&lt;</span><span class="ident">RegisterInfoOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::remove</span>(<span class="ident">old</span>);
 
 				<span class="comment">// and candidate is not a winner.</span>
-				<span class="kw">if</span> <span class="ident">incoming</span>.<span class="ident">iter</span>().<span class="ident">find</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">e</span> <span class="op">=</span><span class="op">=</span> <span class="ident">old</span>).<span class="ident">is_none</span>() {
+				<span class="kw">if</span> <span class="ident">incoming</span>.<span class="ident">iter</span>().<span class="ident">find</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">e</span> <span class="op">==</span> <span class="ident">old</span>).<span class="ident">is_none</span>() {
 					<span class="comment">// slash the bond.</span>
 					<span class="kw">let</span> (<span class="ident">imbalance</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">T::Currency::slash_reserved</span>(<span class="kw-2">&amp;</span><span class="ident">old</span>, <span class="ident">T::CandidacyBond::get</span>());
 					<span class="ident">T::LoserCandidate::on_unbalanced</span>(<span class="ident">imbalance</span>);
@@ -2455,14 +2455,14 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Note that this function does not take holes into account.</span>
 	<span class="doccomment">/// See [`voter_at`].</span>
-	<span class="kw">fn</span> <span class="ident">split_index</span>(<span class="ident">index</span>: <span class="ident">usize</span>, <span class="ident">scale</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">SetIndex</span>, <span class="ident">usize</span>) {
+	<span class="kw">fn</span> <span class="ident">split_index</span>(<span class="ident">index</span>: <span class="ident">usize</span>, <span class="ident">scale</span>: <span class="ident">usize</span>) -&gt; (<span class="ident">SetIndex</span>, <span class="ident">usize</span>) {
 		<span class="kw">let</span> <span class="ident">set_index</span> <span class="op">=</span> (<span class="ident">index</span> <span class="op">/</span> <span class="ident">scale</span>) <span class="kw">as</span> <span class="ident">u32</span>;
 		<span class="kw">let</span> <span class="ident">vec_index</span> <span class="op">=</span> <span class="ident">index</span> <span class="op">%</span> <span class="ident">scale</span>;
 		(<span class="ident">set_index</span>, <span class="ident">vec_index</span>)
 	}
 
 	<span class="doccomment">/// Return a concatenated vector over all voter sets.</span>
-	<span class="kw">fn</span> <span class="ident">all_voters</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">all_voters</span>() -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">all</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Voters</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>(<span class="number">0</span>);
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">index</span> <span class="op">=</span> <span class="number">1</span>;
 		<span class="comment">// NOTE: we could also use `Self::next_nonfull_voter_set()` here but that might change based</span>
@@ -2485,7 +2485,7 @@
 	<span class="doccomment">/// This means that any account submitting an index at any point in time should submit:</span>
 	<span class="doccomment">/// `VOTER_SET_SIZE * set_index + local_index`, meaning that you are ignoring all holes in the</span>
 	<span class="doccomment">/// first `set_index` sets.</span>
-	<span class="kw">fn</span> <span class="ident">voter_at</span>(<span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">voter_at</span>(<span class="ident">index</span>: <span class="ident">usize</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> (<span class="ident">set_index</span>, <span class="ident">vec_index</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::split_index</span>(<span class="ident">index</span>, <span class="ident">VOTER_SET_SIZE</span>);
 		<span class="kw">let</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::voters</span>(<span class="ident">set_index</span>);
 		<span class="kw">if</span> <span class="ident">vec_index</span> <span class="op">&lt;</span> <span class="ident">set</span>.<span class="ident">len</span>() {
@@ -2497,7 +2497,7 @@
 
 	<span class="doccomment">/// A more sophisticated version of `voter_at`. Will be kept separate as most often it is an</span>
 	<span class="doccomment">/// overdue compared to `voter_at`. Only used when setting approvals.</span>
-	<span class="kw">fn</span> <span class="ident">cell_status</span>(<span class="ident">set_index</span>: <span class="ident">SetIndex</span>, <span class="ident">vec_index</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CellStatus</span> {
+	<span class="kw">fn</span> <span class="ident">cell_status</span>(<span class="ident">set_index</span>: <span class="ident">SetIndex</span>, <span class="ident">vec_index</span>: <span class="ident">usize</span>) -&gt; <span class="ident">CellStatus</span> {
 		<span class="kw">let</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::voters</span>(<span class="ident">set_index</span>);
 		<span class="kw">if</span> <span class="ident">vec_index</span> <span class="op">&lt;</span> <span class="ident">set</span>.<span class="ident">len</span>() {
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw">_</span>) <span class="op">=</span> <span class="ident">set</span>[<span class="ident">vec_index</span>] {
@@ -2525,7 +2525,7 @@
 	<span class="doccomment">/// type `ApprovalFlag` from storage at most; not all of them.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Note that false is returned in case of no-vote or an explicit `false`.</span>
-	<span class="kw">fn</span> <span class="ident">approvals_of_at</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>, <span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+	<span class="kw">fn</span> <span class="ident">approvals_of_at</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>, <span class="ident">index</span>: <span class="ident">usize</span>) -&gt; <span class="ident">bool</span> {
 		<span class="kw">let</span> (<span class="ident">flag_index</span>, <span class="ident">bit</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::split_index</span>(<span class="ident">index</span>, <span class="ident">APPROVAL_FLAG_LEN</span>);
 		<span class="kw">let</span> (<span class="ident">set_index</span>, <span class="ident">vec_index</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::split_index</span>(<span class="ident">flag_index</span> <span class="kw">as</span> <span class="ident">usize</span>, <span class="ident">APPROVAL_SET_SIZE</span>);
 		<span class="kw">let</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::approvals_of</span>((<span class="ident">who</span>.<span class="ident">clone</span>(), <span class="ident">set_index</span>));
@@ -2539,7 +2539,7 @@
 	}
 
 	<span class="doccomment">/// Return true of the bit `n` of scalar `x` is set to `1` and false otherwise.</span>
-	<span class="kw">fn</span> <span class="ident">bit_at</span>(<span class="ident">x</span>: <span class="ident">ApprovalFlag</span>, <span class="ident">n</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+	<span class="kw">fn</span> <span class="ident">bit_at</span>(<span class="ident">x</span>: <span class="ident">ApprovalFlag</span>, <span class="ident">n</span>: <span class="ident">usize</span>) -&gt; <span class="ident">bool</span> {
 		<span class="kw">if</span> <span class="ident">n</span> <span class="op">&lt;</span> <span class="ident">APPROVAL_FLAG_LEN</span> {
 			<span class="ident">x</span> <span class="op">&amp;</span> (<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="ident">n</span>) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>
 		} <span class="kw">else</span> {
@@ -2549,7 +2549,7 @@
 
 	<span class="doccomment">/// Convert a vec of boolean approval flags to a vec of integers, as denoted by</span>
 	<span class="doccomment">/// the type `ApprovalFlag`. see `bool_to_flag_should_work` test for examples.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bool_to_flag</span>(<span class="ident">x</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ApprovalFlag</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bool_to_flag</span>(<span class="ident">x</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ApprovalFlag</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ApprovalFlag</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="ident">x</span>.<span class="ident">len</span>() <span class="op">/</span> <span class="ident">APPROVAL_FLAG_LEN</span>);
 		<span class="kw">if</span> <span class="ident">x</span>.<span class="ident">is_empty</span>() {
 			<span class="kw">return</span> <span class="ident">result</span>
@@ -2564,7 +2564,7 @@
 			<span class="kw">if</span> <span class="ident">counter</span> <span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="number">1</span> {
 				<span class="kw">break</span>
 			}
-			<span class="kw">if</span> <span class="ident">counter</span> <span class="op">%</span> <span class="ident">APPROVAL_FLAG_LEN</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+			<span class="kw">if</span> <span class="ident">counter</span> <span class="op">%</span> <span class="ident">APPROVAL_FLAG_LEN</span> <span class="op">==</span> <span class="number">0</span> {
 				<span class="ident">result</span>.<span class="ident">push</span>(<span class="number">0</span>);
 				<span class="ident">index</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
 			}
@@ -2573,7 +2573,7 @@
 	}
 
 	<span class="doccomment">/// Convert a vec of flags (u32) to boolean.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flag_to_bool</span>(<span class="ident">chunk</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ApprovalFlag</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flag_to_bool</span>(<span class="ident">chunk</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ApprovalFlag</span><span class="op">&gt;</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="ident">chunk</span>.<span class="ident">len</span>());
 		<span class="kw">if</span> <span class="ident">chunk</span>.<span class="ident">is_empty</span>() {
 			<span class="kw">return</span> <span class="macro">vec!</span>[]
@@ -2585,8 +2585,8 @@
 			})
 			.<span class="ident">for_each</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> {
 				<span class="kw">let</span> <span class="ident">last_approve</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">c</span>.<span class="ident">iter</span>().<span class="ident">rposition</span>(<span class="op">|</span><span class="ident">n</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">n</span>) {
-					<span class="prelude-val">Some</span>(<span class="ident">index</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">index</span> <span class="op">+</span> <span class="number">1</span>,
-					<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">0</span>,
+					<span class="prelude-val">Some</span>(<span class="ident">index</span>) =&gt; <span class="ident">index</span> <span class="op">+</span> <span class="number">1</span>,
+					<span class="prelude-val">None</span> =&gt; <span class="number">0</span>,
 				};
 				<span class="ident">result</span>.<span class="ident">extend</span>(<span class="ident">c</span>.<span class="ident">into_iter</span>().<span class="ident">take</span>(<span class="ident">last_approve</span>));
 			});
@@ -2595,7 +2595,7 @@
 
 	<span class="doccomment">/// Return a concatenated vector over all approvals of a voter as boolean.</span>
 	<span class="doccomment">/// The trailing zeros are removed.</span>
-	<span class="kw">fn</span> <span class="ident">all_approvals_of</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">all_approvals_of</span>(<span class="ident">who</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">all</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[];
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">index</span> <span class="op">=</span> <span class="number">0_u32</span>;
 		<span class="kw">loop</span> {
@@ -2633,7 +2633,7 @@
 	<span class="doccomment">/// In other words, this function returns everything extra that should be added</span>
 	<span class="doccomment">/// to a voter&#39;s stake value to get the correct weight. Indeed, zero is</span>
 	<span class="doccomment">/// returned if `t` is zero.</span>
-	<span class="kw">fn</span> <span class="ident">get_offset</span>(<span class="ident">stake</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">t</span>: <span class="ident">VoteIndex</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">get_offset</span>(<span class="ident">stake</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">t</span>: <span class="ident">VoteIndex</span>) -&gt; <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">decay_ratio</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">T::DecayRatio::get</span>().<span class="ident">into</span>();
 		<span class="kw">if</span> <span class="ident">t</span> <span class="op">&gt;</span> <span class="number">150</span> {
 			<span class="kw">return</span> <span class="ident">stake</span> <span class="op">*</span> <span class="ident">decay_ratio</span>

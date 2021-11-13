@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;usr&#x2F;local&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;websocket-base-0.24.0&#x2F;src&#x2F;codec&#x2F;ws.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>ws.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../websocket_base/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;usr&#x2F;local&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;websocket-base-0.24.0&#x2F;src&#x2F;codec&#x2F;ws.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>ws.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../websocket_base/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -503,7 +503,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Use this method if you don&#39;t want to provide a custom implementation</span>
 	<span class="doccomment">/// for your dataframes.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default</span>(<span class="ident">context</span>: <span class="ident">Context</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default</span>(<span class="ident">context</span>: <span class="ident">Context</span>) -&gt; <span class="self">Self</span> {
 		<span class="ident">DataFrameCodec::new</span>(<span class="ident">context</span>)
 	}
 }
@@ -515,9 +515,9 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// If you only want to be able to send and receive the crate&#39;s</span>
 	<span class="doccomment">/// `DataFrame` struct use `.default(Context)` instead.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">context</span>: <span class="ident">Context</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DataFrameCodec</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">context</span>: <span class="ident">Context</span>) -&gt; <span class="ident">DataFrameCodec</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span> {
 		<span class="ident">DataFrameCodec</span> {
-			<span class="ident">is_server</span>: <span class="ident">context</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Context::Server</span>,
+			<span class="ident">is_server</span>: <span class="ident">context</span> <span class="op">==</span> <span class="ident">Context::Server</span>,
 			<span class="ident">frame_type</span>: <span class="ident">PhantomData</span>,
 		}
 	}
@@ -528,16 +528,16 @@
 	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">WebSocketError</span>;
 
 	<span class="comment">// TODO: do not retry to read the header on each new data (keep a buffer)</span>
-	<span class="kw">fn</span> <span class="ident">decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BytesMut</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">decode</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">src</span>: <span class="kw-2">&amp;mut</span> <span class="ident">BytesMut</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> (<span class="ident">header</span>, <span class="ident">bytes_read</span>) <span class="op">=</span> {
 			<span class="comment">// we&#39;ll make a fake reader and keep track of the bytes read</span>
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reader</span> <span class="op">=</span> <span class="ident">Cursor::new</span>(<span class="ident">src</span>.<span class="ident">as_ref</span>());
 
 			<span class="comment">// read header to get the size, bail if not enough</span>
-			<span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">read_header</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">reader</span>) {
-				<span class="prelude-val">Ok</span>(<span class="ident">head</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">head</span>,
-				<span class="prelude-val">Err</span>(<span class="ident">WebSocketError::NoDataAvailable</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
-				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>),
+			<span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">read_header</span>(<span class="kw-2">&amp;mut</span> <span class="ident">reader</span>) {
+				<span class="prelude-val">Ok</span>(<span class="ident">head</span>) =&gt; <span class="ident">head</span>,
+				<span class="prelude-val">Err</span>(<span class="ident">WebSocketError::NoDataAvailable</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
+				<span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>),
 			};
 
 			(<span class="ident">header</span>, <span class="ident">reader</span>.<span class="ident">position</span>())
@@ -568,13 +568,13 @@
 	<span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">D</span>;
 	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">WebSocketError</span>;
 
-	<span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">item</span>: <span class="ident"><span class="self">Self</span>::Item</span>, <span class="ident">dst</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BytesMut</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">item</span>: <span class="ident"><span class="self">Self</span>::Item</span>, <span class="ident">dst</span>: <span class="kw-2">&amp;mut</span> <span class="ident">BytesMut</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">masked</span> <span class="op">=</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">is_server</span>;
 		<span class="kw">let</span> <span class="ident">frame_size</span> <span class="op">=</span> <span class="ident">item</span>.<span class="ident">borrow</span>().<span class="ident">frame_size</span>(<span class="ident">masked</span>);
 		<span class="kw">if</span> <span class="ident">frame_size</span> <span class="op">&gt;</span> <span class="ident">dst</span>.<span class="ident">remaining_mut</span>() {
 			<span class="ident">dst</span>.<span class="ident">reserve</span>(<span class="ident">frame_size</span>);
 		}
-		<span class="ident">item</span>.<span class="ident">borrow</span>().<span class="ident">write_to</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dst</span>.<span class="ident">writer</span>(), <span class="ident">masked</span>)
+		<span class="ident">item</span>.<span class="ident">borrow</span>().<span class="ident">write_to</span>(<span class="kw-2">&amp;mut</span> <span class="ident">dst</span>.<span class="ident">writer</span>(), <span class="ident">masked</span>)
 	}
 }
 
@@ -648,7 +648,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// If you have your own implementation of websocket messages, you can</span>
 	<span class="doccomment">/// use the `new` method to create a codec for that implementation.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default</span>(<span class="ident">context</span>: <span class="ident">Context</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default</span>(<span class="ident">context</span>: <span class="ident">Context</span>) -&gt; <span class="self">Self</span> {
 		<span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">context</span>)
 	}
 }
@@ -662,7 +662,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// If you just want to use a normal codec without a specific implementation</span>
 	<span class="doccomment">/// of a websocket message, take a look at `MessageCodec::default`.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">context</span>: <span class="ident">Context</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MessageCodec</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">context</span>: <span class="ident">Context</span>) -&gt; <span class="ident">MessageCodec</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
 		<span class="ident">MessageCodec</span> {
 			<span class="ident">buffer</span>: <span class="ident">Vec::new</span>(),
 			<span class="ident">dataframe_codec</span>: <span class="ident">DataFrameCodec::new</span>(<span class="ident">context</span>),
@@ -678,36 +678,36 @@
 	<span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">OwnedMessage</span>;
 	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">WebSocketError</span>;
 
-	<span class="kw">fn</span> <span class="ident">decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">src</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BytesMut</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">decode</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">src</span>: <span class="kw-2">&amp;mut</span> <span class="ident">BytesMut</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">frame</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">dataframe_codec</span>.<span class="ident">decode</span>(<span class="ident">src</span>)<span class="question-mark">?</span> {
 			<span class="kw">let</span> <span class="ident">is_first</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">is_empty</span>();
 			<span class="kw">let</span> <span class="ident">finished</span> <span class="op">=</span> <span class="ident">frame</span>.<span class="ident">finished</span>;
 
 			<span class="kw">match</span> <span class="ident">frame</span>.<span class="ident">opcode</span> <span class="kw">as</span> <span class="ident">u8</span> {
 				<span class="comment">// continuation code</span>
-				<span class="number">0</span> <span class="kw">if</span> <span class="ident">is_first</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="number">0</span> <span class="kw">if</span> <span class="ident">is_first</span> =&gt; {
 					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">WebSocketError::ProtocolError</span>(
 						<span class="string">&quot;Unexpected continuation data frame opcode&quot;</span>,
 					));
 				}
 				<span class="comment">// control frame</span>
-				<span class="number">8</span>...<span class="number">15</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="number">8</span>...<span class="number">15</span> =&gt; {
 					<span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">OwnedMessage::from_dataframes</span>(<span class="macro">vec!</span>[<span class="ident">frame</span>])<span class="question-mark">?</span>));
 				}
 				<span class="comment">// data frame</span>
-				<span class="number">1</span>...<span class="number">7</span> <span class="kw">if</span> <span class="op">!</span><span class="ident">is_first</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="number">1</span>...<span class="number">7</span> <span class="kw">if</span> <span class="op">!</span><span class="ident">is_first</span> =&gt; {
 					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">WebSocketError::ProtocolError</span>(
 						<span class="string">&quot;Unexpected data frame opcode&quot;</span>,
 					));
 				}
 				<span class="comment">// its good</span>
-				<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="kw">_</span> =&gt; {
 					<span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">push</span>(<span class="ident">frame</span>);
 				}
 			};
 
 			<span class="kw">if</span> <span class="ident">finished</span> {
-				<span class="kw">let</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">mem::replace</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">buffer</span>, <span class="ident">Vec::new</span>());
+				<span class="kw">let</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">mem::replace</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">buffer</span>, <span class="ident">Vec::new</span>());
 				<span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">OwnedMessage::from_dataframes</span>(<span class="ident">buffer</span>)<span class="question-mark">?</span>));
 			}
 		}
@@ -723,13 +723,13 @@
 	<span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">M</span>;
 	<span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">WebSocketError</span>;
 
-	<span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">item</span>: <span class="ident"><span class="self">Self</span>::Item</span>, <span class="ident">dst</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BytesMut</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">item</span>: <span class="ident"><span class="self">Self</span>::Item</span>, <span class="ident">dst</span>: <span class="kw-2">&amp;mut</span> <span class="ident">BytesMut</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">masked</span> <span class="op">=</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">dataframe_codec</span>.<span class="ident">is_server</span>;
 		<span class="kw">let</span> <span class="ident">frame_size</span> <span class="op">=</span> <span class="ident">item</span>.<span class="ident">message_size</span>(<span class="ident">masked</span>);
 		<span class="kw">if</span> <span class="ident">frame_size</span> <span class="op">&gt;</span> <span class="ident">dst</span>.<span class="ident">remaining_mut</span>() {
 			<span class="ident">dst</span>.<span class="ident">reserve</span>(<span class="ident">frame_size</span>);
 		}
-		<span class="ident">item</span>.<span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dst</span>.<span class="ident">writer</span>(), <span class="ident">masked</span>)
+		<span class="ident">item</span>.<span class="ident">serialize</span>(<span class="kw-2">&amp;mut</span> <span class="ident">dst</span>.<span class="ident">writer</span>(), <span class="ident">masked</span>)
 	}
 }
 
@@ -763,12 +763,12 @@
 		<span class="kw">for</span> <span class="ident">message</span> <span class="kw">in</span> <span class="ident">messages</span>.<span class="ident">into_iter</span>() {
 			<span class="kw">let</span> <span class="ident">masked_predicted</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">message_size</span>(<span class="bool-val">true</span>);
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">masked_buf</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
-			<span class="ident">message</span>.<span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">masked_buf</span>, <span class="bool-val">true</span>).<span class="ident">unwrap</span>();
+			<span class="ident">message</span>.<span class="ident">serialize</span>(<span class="kw-2">&amp;mut</span> <span class="ident">masked_buf</span>, <span class="bool-val">true</span>).<span class="ident">unwrap</span>();
 			<span class="macro">assert_eq!</span>(<span class="ident">masked_buf</span>.<span class="ident">len</span>(), <span class="ident">masked_predicted</span>);
 
 			<span class="kw">let</span> <span class="ident">unmasked_predicted</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">message_size</span>(<span class="bool-val">false</span>);
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">unmasked_buf</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
-			<span class="ident">message</span>.<span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">unmasked_buf</span>, <span class="bool-val">false</span>).<span class="ident">unwrap</span>();
+			<span class="ident">message</span>.<span class="ident">serialize</span>(<span class="kw-2">&amp;mut</span> <span class="ident">unmasked_buf</span>, <span class="bool-val">false</span>).<span class="ident">unwrap</span>();
 			<span class="macro">assert_eq!</span>(<span class="ident">unmasked_buf</span>.<span class="ident">len</span>(), <span class="ident">unmasked_predicted</span>);
 		}
 	}
@@ -790,12 +790,12 @@
 		<span class="kw">for</span> <span class="ident">message</span> <span class="kw">in</span> <span class="ident">messages</span>.<span class="ident">iter</span>() {
 			<span class="kw">let</span> <span class="ident">masked_predicted</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">message_size</span>(<span class="bool-val">true</span>);
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">masked_buf</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
-			<span class="ident">message</span>.<span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">masked_buf</span>, <span class="bool-val">true</span>).<span class="ident">unwrap</span>();
+			<span class="ident">message</span>.<span class="ident">serialize</span>(<span class="kw-2">&amp;mut</span> <span class="ident">masked_buf</span>, <span class="bool-val">true</span>).<span class="ident">unwrap</span>();
 			<span class="macro">assert_eq!</span>(<span class="ident">masked_buf</span>.<span class="ident">len</span>(), <span class="ident">masked_predicted</span>);
 
 			<span class="kw">let</span> <span class="ident">unmasked_predicted</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">message_size</span>(<span class="bool-val">false</span>);
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">unmasked_buf</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
-			<span class="ident">message</span>.<span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">unmasked_buf</span>, <span class="bool-val">false</span>).<span class="ident">unwrap</span>();
+			<span class="ident">message</span>.<span class="ident">serialize</span>(<span class="kw-2">&amp;mut</span> <span class="ident">unmasked_buf</span>, <span class="bool-val">false</span>).<span class="ident">unwrap</span>();
 			<span class="macro">assert_eq!</span>(<span class="ident">unmasked_buf</span>.<span class="ident">len</span>(), <span class="ident">unmasked_predicted</span>);
 		}
 	}
@@ -804,7 +804,7 @@
 	<span class="kw">fn</span> <span class="ident">message_codec_client_send_receive</span>() {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">input</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
 		<span class="ident">Message::text</span>(<span class="string">&quot;50 schmeckels&quot;</span>)
-			.<span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">input</span>, <span class="bool-val">false</span>)
+			.<span class="ident">serialize</span>(<span class="kw-2">&amp;mut</span> <span class="ident">input</span>, <span class="bool-val">false</span>)
 			.<span class="ident">unwrap</span>();
 
 		<span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">MessageCodec::new</span>(<span class="ident">Context::Client</span>)
@@ -841,7 +841,7 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">runtime</span> <span class="op">=</span> <span class="ident">tokio::runtime::Builder::new</span>().<span class="ident">build</span>().<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">input</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
 		<span class="ident">Message::text</span>(<span class="string">&quot;50 schmeckels&quot;</span>)
-			.<span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">input</span>, <span class="bool-val">true</span>)
+			.<span class="ident">serialize</span>(<span class="kw-2">&amp;mut</span> <span class="ident">input</span>, <span class="bool-val">true</span>)
 			.<span class="ident">unwrap</span>();
 
 		<span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">MessageCodec::new</span>(<span class="ident">Context::Server</span>)
@@ -856,7 +856,7 @@
 			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> {
 				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">written</span> <span class="op">=</span> <span class="macro">vec!</span>[];
 				<span class="ident">Message::text</span>(<span class="string">&quot;ethan bradberry&quot;</span>)
-					.<span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">written</span>, <span class="bool-val">false</span>)
+					.<span class="ident">serialize</span>(<span class="kw-2">&amp;mut</span> <span class="ident">written</span>, <span class="bool-val">false</span>)
 					.<span class="ident">unwrap</span>();
 				<span class="macro">assert_eq!</span>(<span class="ident">written</span>, <span class="ident">s</span>.<span class="ident">into_parts</span>().<span class="ident">io</span>.<span class="number">1</span>.<span class="ident">into_inner</span>());
 			});

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `utils&#x2F;wasm-builder&#x2F;src&#x2F;wasm_project.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>wasm_project.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../substrate_wasm_builder/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `utils&#x2F;wasm-builder&#x2F;src&#x2F;wasm_project.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>wasm_project.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../substrate_wasm_builder/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -721,7 +721,7 @@
 <span class="doccomment">/// Colorize an info message.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Returns the colorized message.</span>
-<span class="kw">fn</span> <span class="ident">colorize_info_message</span>(<span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">fn</span> <span class="ident">colorize_info_message</span>(<span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">String</span> {
 	<span class="kw">if</span> <span class="ident"><span class="kw">super</span>::color_output_enabled</span>() {
 		<span class="ident">ansi_term::Color::Yellow</span>.<span class="ident">bold</span>().<span class="ident">paint</span>(<span class="ident">message</span>).<span class="ident">to_string</span>()
 	} <span class="kw">else</span> {
@@ -734,7 +734,7 @@
 
 <span class="kw">impl</span> <span class="ident">WasmBinaryBloaty</span> {
 	<span class="doccomment">/// Returns the escaped path to the bloaty wasm binary.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wasm_binary_bloaty_path_escaped</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wasm_binary_bloaty_path_escaped</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">String</span> {
 		<span class="self">self</span>.<span class="number">0</span>.<span class="ident">display</span>().<span class="ident">to_string</span>().<span class="ident">escape_default</span>().<span class="ident">to_string</span>()
 	}
 }
@@ -744,17 +744,17 @@
 
 <span class="kw">impl</span> <span class="ident">WasmBinary</span> {
 	<span class="doccomment">/// Returns the path to the wasm binary.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wasm_binary_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Path</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wasm_binary_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Path</span> {
 		<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>
 	}
 
 	<span class="doccomment">/// Returns the escaped path to the wasm binary.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wasm_binary_path_escaped</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wasm_binary_path_escaped</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">String</span> {
 		<span class="self">self</span>.<span class="number">0</span>.<span class="ident">display</span>().<span class="ident">to_string</span>().<span class="ident">escape_default</span>().<span class="ident">to_string</span>()
 	}
 }
 
-<span class="kw">fn</span> <span class="ident">crate_metadata</span>(<span class="ident">cargo_manifest</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Metadata</span> {
+<span class="kw">fn</span> <span class="ident">crate_metadata</span>(<span class="ident">cargo_manifest</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) -&gt; <span class="ident">Metadata</span> {
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">cargo_lock</span> <span class="op">=</span> <span class="ident">cargo_manifest</span>.<span class="ident">to_path_buf</span>();
 	<span class="ident">cargo_lock</span>.<span class="ident">set_file_name</span>(<span class="string">&quot;Cargo.lock&quot;</span>);
 
@@ -787,7 +787,7 @@
 	<span class="ident">cargo_cmd</span>: <span class="ident">CargoCommandVersioned</span>,
 	<span class="ident">features_to_enable</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	<span class="ident">wasm_binary_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> (<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WasmBinary</span><span class="op">&gt;</span>, <span class="ident">WasmBinaryBloaty</span>) {
+) -&gt; (<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WasmBinary</span><span class="op">&gt;</span>, <span class="ident">WasmBinaryBloaty</span>) {
 	<span class="kw">let</span> <span class="ident">wasm_workspace_root</span> <span class="op">=</span> <span class="ident">get_wasm_workspace_root</span>();
 	<span class="kw">let</span> <span class="ident">wasm_workspace</span> <span class="op">=</span> <span class="ident">wasm_workspace_root</span>.<span class="ident">join</span>(<span class="string">&quot;wbuild&quot;</span>);
 
@@ -821,8 +821,8 @@
 <span class="doccomment">/// Find the `Cargo.lock` relative to the `OUT_DIR` environment variable.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// If the `Cargo.lock` cannot be found, we emit a warning and return `None`.</span>
-<span class="kw">fn</span> <span class="ident">find_cargo_lock</span>(<span class="ident">cargo_manifest</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PathBuf</span><span class="op">&gt;</span> {
-	<span class="kw">fn</span> <span class="ident">find_impl</span>(<span class="kw-2">mut</span> <span class="ident">path</span>: <span class="ident">PathBuf</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PathBuf</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">find_cargo_lock</span>(<span class="ident">cargo_manifest</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PathBuf</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">find_impl</span>(<span class="kw-2">mut</span> <span class="ident">path</span>: <span class="ident">PathBuf</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PathBuf</span><span class="op">&gt;</span> {
 		<span class="kw">loop</span> {
 			<span class="kw">if</span> <span class="ident">path</span>.<span class="ident">join</span>(<span class="string">&quot;Cargo.lock&quot;</span>).<span class="ident">exists</span>() {
 				<span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">path</span>.<span class="ident">join</span>(<span class="string">&quot;Cargo.lock&quot;</span>))
@@ -852,7 +852,7 @@
 }
 
 <span class="doccomment">/// Extract the crate name from the given `Cargo.toml`.</span>
-<span class="kw">fn</span> <span class="ident">get_crate_name</span>(<span class="ident">cargo_manifest</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">fn</span> <span class="ident">get_crate_name</span>(<span class="ident">cargo_manifest</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) -&gt; <span class="ident">String</span> {
 	<span class="kw">let</span> <span class="ident">cargo_toml</span>: <span class="ident">Table</span> <span class="op">=</span> <span class="ident">toml::from_str</span>(
 		<span class="kw-2">&amp;</span><span class="ident">fs::read_to_string</span>(<span class="ident">cargo_manifest</span>).<span class="ident">expect</span>(<span class="string">&quot;File exists as checked before; qed&quot;</span>),
 	)
@@ -871,18 +871,18 @@
 }
 
 <span class="doccomment">/// Returns the name for the wasm binary.</span>
-<span class="kw">fn</span> <span class="ident">get_wasm_binary_name</span>(<span class="ident">cargo_manifest</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">fn</span> <span class="ident">get_wasm_binary_name</span>(<span class="ident">cargo_manifest</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) -&gt; <span class="ident">String</span> {
 	<span class="ident">get_crate_name</span>(<span class="ident">cargo_manifest</span>).<span class="ident">replace</span>(<span class="string">&#39;-&#39;</span>, <span class="string">&quot;_&quot;</span>)
 }
 
 <span class="doccomment">/// Returns the root path of the wasm workspace.</span>
-<span class="kw">fn</span> <span class="ident">get_wasm_workspace_root</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PathBuf</span> {
+<span class="kw">fn</span> <span class="ident">get_wasm_workspace_root</span>() -&gt; <span class="ident">PathBuf</span> {
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out_dir</span> <span class="op">=</span> <span class="ident">build_helper::out_dir</span>();
 
 	<span class="kw">loop</span> {
 		<span class="kw">match</span> <span class="ident">out_dir</span>.<span class="ident">parent</span>() {
-			<span class="prelude-val">Some</span>(<span class="ident">parent</span>) <span class="kw">if</span> <span class="ident">out_dir</span>.<span class="ident">ends_with</span>(<span class="string">&quot;build&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">parent</span>.<span class="ident">to_path_buf</span>(),
-			<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span>
+			<span class="prelude-val">Some</span>(<span class="ident">parent</span>) <span class="kw">if</span> <span class="ident">out_dir</span>.<span class="ident">ends_with</span>(<span class="string">&quot;build&quot;</span>) =&gt; <span class="kw">return</span> <span class="ident">parent</span>.<span class="ident">to_path_buf</span>(),
+			<span class="kw">_</span> =&gt;
 				<span class="kw">if</span> <span class="op">!</span><span class="ident">out_dir</span>.<span class="ident">pop</span>() {
 					<span class="kw">break</span>
 				},
@@ -934,7 +934,7 @@
 			})
 			.<span class="ident">flatten</span>()
 			.<span class="ident">for_each</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> {
-				<span class="ident">p</span>.<span class="ident">iter_mut</span>().<span class="ident">filter</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">k</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="string">&quot;path&quot;</span>).<span class="ident">for_each</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> {
+				<span class="ident">p</span>.<span class="ident">iter_mut</span>().<span class="ident">filter</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">k</span> <span class="op">==</span> <span class="kw-2">&amp;</span><span class="string">&quot;path&quot;</span>).<span class="ident">for_each</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> {
 					<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">path</span>) <span class="op">=</span> <span class="ident">v</span>.<span class="ident">as_str</span>().<span class="ident">map</span>(<span class="ident">PathBuf::from</span>) {
 						<span class="kw">if</span> <span class="ident">path</span>.<span class="ident">is_relative</span>() {
 							<span class="kw-2">*</span><span class="ident">v</span> <span class="op">=</span> <span class="ident">workspace_root_path</span>.<span class="ident">join</span>(<span class="ident">path</span>).<span class="ident">display</span>().<span class="ident">to_string</span>().<span class="ident">into</span>();
@@ -985,11 +985,11 @@
 <span class="kw">fn</span> <span class="ident">find_package_by_manifest_path</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
 	<span class="ident">manifest_path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>,
 	<span class="ident">crate_metadata</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">cargo_metadata::Metadata</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">cargo_metadata::Package</span> {
+) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">cargo_metadata::Package</span> {
 	<span class="ident">crate_metadata</span>
 		.<span class="ident">packages</span>
 		.<span class="ident">iter</span>()
-		.<span class="ident">find</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">manifest_path</span> <span class="op">=</span><span class="op">=</span> <span class="ident">manifest_path</span>)
+		.<span class="ident">find</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">manifest_path</span> <span class="op">==</span> <span class="ident">manifest_path</span>)
 		.<span class="ident">expect</span>(<span class="string">&quot;Wasm project exists in its own metadata; qed&quot;</span>)
 }
 
@@ -997,7 +997,7 @@
 <span class="kw">fn</span> <span class="ident">project_enabled_features</span>(
 	<span class="ident">cargo_manifest</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>,
 	<span class="ident">crate_metadata</span>: <span class="kw-2">&amp;</span><span class="ident">cargo_metadata::Metadata</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
 	<span class="kw">let</span> <span class="ident">package</span> <span class="op">=</span> <span class="ident">find_package_by_manifest_path</span>(<span class="ident">cargo_manifest</span>, <span class="ident">crate_metadata</span>);
 
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">enabled_features</span> <span class="op">=</span> <span class="ident">package</span>
@@ -1011,7 +1011,7 @@
 			<span class="comment">// we need to check if the feature is enabled by checking the env variable.</span>
 			<span class="kw-2">*</span><span class="ident">f</span> <span class="op">!</span><span class="op">=</span> <span class="string">&quot;std&quot;</span> <span class="op">&amp;&amp;</span>
 				<span class="kw-2">*</span><span class="ident">f</span> <span class="op">!</span><span class="op">=</span> <span class="string">&quot;default&quot;</span> <span class="op">&amp;&amp;</span> <span class="ident">env::var</span>(<span class="macro">format!</span>(<span class="string">&quot;CARGO_FEATURE_{}&quot;</span>, <span class="ident">feature_env</span>))
-				.<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;1&quot;</span>)
+				.<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span> <span class="op">==</span> <span class="string">&quot;1&quot;</span>)
 				.<span class="ident">unwrap_or_default</span>()
 		})
 		.<span class="ident">cloned</span>()
@@ -1025,10 +1025,10 @@
 <span class="kw">fn</span> <span class="ident">has_runtime_wasm_feature_declared</span>(
 	<span class="ident">cargo_manifest</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>,
 	<span class="ident">crate_metadata</span>: <span class="kw-2">&amp;</span><span class="ident">cargo_metadata::Metadata</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+) -&gt; <span class="ident">bool</span> {
 	<span class="kw">let</span> <span class="ident">package</span> <span class="op">=</span> <span class="ident">find_package_by_manifest_path</span>(<span class="ident">cargo_manifest</span>, <span class="ident">crate_metadata</span>);
 
-	<span class="ident">package</span>.<span class="ident">features</span>.<span class="ident">keys</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">k</span><span class="op">|</span> <span class="ident">k</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;runtime-wasm&quot;</span>)
+	<span class="ident">package</span>.<span class="ident">features</span>.<span class="ident">keys</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">k</span><span class="op">|</span> <span class="ident">k</span> <span class="op">==</span> <span class="string">&quot;runtime-wasm&quot;</span>)
 }
 
 <span class="doccomment">/// Create the project used to build the wasm binary.</span>
@@ -1042,7 +1042,7 @@
 	<span class="ident">crate_metadata</span>: <span class="kw-2">&amp;</span><span class="ident">Metadata</span>,
 	<span class="ident">workspace_root_path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>,
 	<span class="ident">features_to_enable</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PathBuf</span> {
+) -&gt; <span class="ident">PathBuf</span> {
 	<span class="kw">let</span> <span class="ident">crate_name</span> <span class="op">=</span> <span class="ident">get_crate_name</span>(<span class="ident">project_cargo_toml</span>);
 	<span class="kw">let</span> <span class="ident">crate_path</span> <span class="op">=</span> <span class="ident">project_cargo_toml</span>.<span class="ident">parent</span>().<span class="ident">expect</span>(<span class="string">&quot;Parent path exists; qed&quot;</span>);
 	<span class="kw">let</span> <span class="ident">wasm_binary</span> <span class="op">=</span> <span class="ident">get_wasm_binary_name</span>(<span class="ident">project_cargo_toml</span>);
@@ -1083,12 +1083,12 @@
 }
 
 <span class="doccomment">/// Returns if the project should be built as a release.</span>
-<span class="kw">fn</span> <span class="ident">is_release_build</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">fn</span> <span class="ident">is_release_build</span>() -&gt; <span class="ident">bool</span> {
 	<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">var</span>) <span class="op">=</span> <span class="ident">env::var</span>(<span class="ident"><span class="kw">crate</span>::WASM_BUILD_TYPE_ENV</span>) {
 		<span class="kw">match</span> <span class="ident">var</span>.<span class="ident">as_str</span>() {
-			<span class="string">&quot;release&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
-			<span class="string">&quot;debug&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-			<span class="ident">var</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(
+			<span class="string">&quot;release&quot;</span> =&gt; <span class="bool-val">true</span>,
+			<span class="string">&quot;debug&quot;</span> =&gt; <span class="bool-val">false</span>,
+			<span class="ident">var</span> =&gt; <span class="macro">panic!</span>(
 				<span class="string">&quot;Unexpected value for `{}` env variable: {}\nOne of the following are expected: `debug` or `release`.&quot;</span>,
 				<span class="ident"><span class="kw">crate</span>::WASM_BUILD_TYPE_ENV</span>,
 				<span class="ident">var</span>,
@@ -1138,9 +1138,9 @@
 	<span class="macro">println!</span>(<span class="string">&quot;{} {}&quot;</span>, <span class="ident">colorize_info_message</span>(<span class="string">&quot;Using rustc version:&quot;</span>), <span class="ident">cargo_cmd</span>.<span class="ident">rustc_version</span>());
 
 	<span class="kw">match</span> <span class="ident">build_cmd</span>.<span class="ident">status</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">success</span>()) {
-		<span class="prelude-val">Ok</span>(<span class="bool-val">true</span>) <span class="op">=</span><span class="op">&gt;</span> {},
+		<span class="prelude-val">Ok</span>(<span class="bool-val">true</span>) =&gt; {},
 		<span class="comment">// Use `process.exit(1)` to have a clean error output.</span>
-		<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">process::exit</span>(<span class="number">1</span>),
+		<span class="kw">_</span> =&gt; <span class="ident">process::exit</span>(<span class="number">1</span>),
 	}
 }
 
@@ -1149,7 +1149,7 @@
 	<span class="ident">project</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>,
 	<span class="ident">cargo_manifest</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>,
 	<span class="ident">wasm_binary_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> (<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WasmBinary</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WasmBinary</span><span class="op">&gt;</span>, <span class="ident">WasmBinaryBloaty</span>) {
+) -&gt; (<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WasmBinary</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WasmBinary</span><span class="op">&gt;</span>, <span class="ident">WasmBinaryBloaty</span>) {
 	<span class="kw">let</span> <span class="ident">is_release_build</span> <span class="op">=</span> <span class="ident">is_release_build</span>();
 	<span class="kw">let</span> <span class="ident">target</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">is_release_build</span> { <span class="string">&quot;release&quot;</span> } <span class="kw">else</span> { <span class="string">&quot;debug&quot;</span> };
 	<span class="kw">let</span> <span class="ident">default_wasm_binary_name</span> <span class="op">=</span> <span class="ident">get_wasm_binary_name</span>(<span class="ident">cargo_manifest</span>);
@@ -1196,7 +1196,7 @@
 	(<span class="ident">wasm_compact_file</span>, <span class="ident">wasm_compact_compressed_file</span>, <span class="ident">WasmBinaryBloaty</span>(<span class="ident">bloaty_file</span>))
 }
 
-<span class="kw">fn</span> <span class="ident">compress_wasm</span>(<span class="ident">wasm_binary_path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>, <span class="ident">compressed_binary_out_path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">fn</span> <span class="ident">compress_wasm</span>(<span class="ident">wasm_binary_path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>, <span class="ident">compressed_binary_out_path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) -&gt; <span class="ident">bool</span> {
 	<span class="kw">use</span> <span class="ident">sp_maybe_compressed_blob::CODE_BLOB_BOMB_LIMIT</span>;
 
 	<span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">fs::read</span>(<span class="ident">wasm_binary_path</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to read WASM binary&quot;</span>);
@@ -1224,7 +1224,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">cargo_metadata::Package</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DeduplicatePackage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">package</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">cargo_metadata::Package</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">package</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">cargo_metadata::Package</span>) -&gt; <span class="self">Self</span> {
 		<span class="self">Self</span> {
 			<span class="ident">package</span>,
 			<span class="ident">identifier</span>: <span class="macro">format!</span>(<span class="string">&quot;{}{}{:?}&quot;</span>, <span class="ident">package</span>.<span class="ident">name</span>, <span class="ident">package</span>.<span class="ident">version</span>, <span class="ident">package</span>.<span class="ident">source</span>),
@@ -1233,14 +1233,14 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Hash</span> <span class="kw">for</span> <span class="ident">DeduplicatePackage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-	<span class="kw">fn</span> <span class="ident">hash</span><span class="op">&lt;</span><span class="ident">H</span>: <span class="ident">Hasher</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">H</span>) {
+	<span class="kw">fn</span> <span class="ident">hash</span><span class="op">&lt;</span><span class="ident">H</span>: <span class="ident">Hasher</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident">H</span>) {
 		<span class="self">self</span>.<span class="ident">identifier</span>.<span class="ident">hash</span>(<span class="ident">state</span>);
 	}
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">PartialEq</span> <span class="kw">for</span> <span class="ident">DeduplicatePackage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-	<span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-		<span class="self">self</span>.<span class="ident">identifier</span> <span class="op">=</span><span class="op">=</span> <span class="ident">other</span>.<span class="ident">identifier</span>
+	<span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">bool</span> {
+		<span class="self">self</span>.<span class="ident">identifier</span> <span class="op">==</span> <span class="ident">other</span>.<span class="ident">identifier</span>
 	}
 }
 
@@ -1249,7 +1249,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Deref</span> <span class="kw">for</span> <span class="ident">DeduplicatePackage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
 	<span class="kw">type</span> <span class="ident">Target</span> <span class="op">=</span> <span class="ident">cargo_metadata::Package</span>;
 
-	<span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Target</span> {
+	<span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Target</span> {
 		<span class="self">self</span>.<span class="ident">package</span>
 	}
 }
@@ -1274,7 +1274,7 @@
 	<span class="kw">let</span> <span class="ident">package</span> <span class="op">=</span> <span class="ident">metadata</span>
 		.<span class="ident">packages</span>
 		.<span class="ident">iter</span>()
-		.<span class="ident">find</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">manifest_path</span> <span class="op">=</span><span class="op">=</span> <span class="ident">cargo_manifest</span>)
+		.<span class="ident">find</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">manifest_path</span> <span class="op">==</span> <span class="ident">cargo_manifest</span>)
 		.<span class="ident">expect</span>(<span class="string">&quot;The crate package is contained in its own metadata; qed&quot;</span>);
 
 	<span class="comment">// Start with the dependencies of the crate we want to compile for wasm.</span>
@@ -1296,7 +1296,7 @@
 				<span class="comment">// Check that the name matches and that the version matches or this is</span>
 				<span class="comment">// a git or path dep. A git or path dependency can only occur once, so we don&#39;t</span>
 				<span class="comment">// need to check the version.</span>
-				(<span class="ident">path_or_git_dep</span> <span class="op">|</span><span class="op">|</span> <span class="ident">dependency</span>.<span class="ident">req</span>.<span class="ident">matches</span>(<span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">version</span>)) <span class="op">&amp;&amp;</span> <span class="ident">dependency</span>.<span class="ident">name</span> <span class="op">=</span><span class="op">=</span> <span class="ident">p</span>.<span class="ident">name</span>
+				(<span class="ident">path_or_git_dep</span> <span class="op">|</span><span class="op">|</span> <span class="ident">dependency</span>.<span class="ident">req</span>.<span class="ident">matches</span>(<span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">version</span>)) <span class="op">&amp;&amp;</span> <span class="ident">dependency</span>.<span class="ident">name</span> <span class="op">==</span> <span class="ident">p</span>.<span class="ident">name</span>
 			});
 
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">package</span>) <span class="op">=</span> <span class="ident">package</span> {
@@ -1331,11 +1331,11 @@
 			<span class="comment">// `Cargo.toml` related to the current package. This is done to ignore sub-crates of a</span>
 			<span class="comment">// crate. If such a sub-crate is a dependency, it will be processed independently</span>
 			<span class="comment">// anyway.</span>
-			<span class="ident">p</span>.<span class="ident">path</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">manifest_path</span> <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="ident">p</span>.<span class="ident">path</span>().<span class="ident">is_dir</span>() <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="ident">p</span>.<span class="ident">path</span>().<span class="ident">join</span>(<span class="string">&quot;Cargo.toml&quot;</span>).<span class="ident">exists</span>()
+			<span class="ident">p</span>.<span class="ident">path</span>() <span class="op">==</span> <span class="ident">manifest_path</span> <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="ident">p</span>.<span class="ident">path</span>().<span class="ident">is_dir</span>() <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="ident">p</span>.<span class="ident">path</span>().<span class="ident">join</span>(<span class="string">&quot;Cargo.toml&quot;</span>).<span class="ident">exists</span>()
 		})
 		.<span class="ident">filter_map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">ok</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">into_path</span>()))
 		.<span class="ident">filter</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> {
-			<span class="ident">p</span>.<span class="ident">is_dir</span>() <span class="op">|</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">extension</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;rs&quot;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">e</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;toml&quot;</span>).<span class="ident">unwrap_or_default</span>()
+			<span class="ident">p</span>.<span class="ident">is_dir</span>() <span class="op">|</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">extension</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span> <span class="op">==</span> <span class="string">&quot;rs&quot;</span> <span class="op">|</span><span class="op">|</span> <span class="ident">e</span> <span class="op">==</span> <span class="string">&quot;toml&quot;</span>).<span class="ident">unwrap_or_default</span>()
 		})
 		.<span class="ident">for_each</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">rerun_if_changed</span>(<span class="ident">p</span>));
 }
@@ -1344,8 +1344,8 @@
 <span class="doccomment">/// variable. If the variable is not set, this is a no-op.</span>
 <span class="kw">fn</span> <span class="ident">copy_wasm_to_target_directory</span>(<span class="ident">cargo_manifest</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>, <span class="ident">wasm_binary</span>: <span class="kw-2">&amp;</span><span class="ident">WasmBinary</span>) {
 	<span class="kw">let</span> <span class="ident">target_dir</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">env::var</span>(<span class="ident"><span class="kw">crate</span>::WASM_TARGET_DIRECTORY</span>) {
-		<span class="prelude-val">Ok</span>(<span class="ident">path</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">PathBuf::from</span>(<span class="ident">path</span>),
-		<span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span>,
+		<span class="prelude-val">Ok</span>(<span class="ident">path</span>) =&gt; <span class="ident">PathBuf::from</span>(<span class="ident">path</span>),
+		<span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="kw">return</span>,
 	};
 
 	<span class="kw">if</span> <span class="op">!</span><span class="ident">target_dir</span>.<span class="ident">is_absolute</span>() {

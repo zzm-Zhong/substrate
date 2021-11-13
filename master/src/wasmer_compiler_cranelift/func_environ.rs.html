@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;usr&#x2F;local&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;wasmer-compiler-cranelift-1.0.2&#x2F;src&#x2F;func_environ.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>func_environ.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../wasmer_compiler_cranelift/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;usr&#x2F;local&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;wasmer-compiler-cranelift-1.0.2&#x2F;src&#x2F;func_environ.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>func_environ.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../wasmer_compiler_cranelift/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1155,17 +1155,17 @@
 <span class="kw">use</span> <span class="ident">wasmer_vm</span>::{<span class="ident">MemoryStyle</span>, <span class="ident">ModuleInfo</span>, <span class="ident">TableStyle</span>};
 
 <span class="doccomment">/// Compute an `ir::ExternalName` for a given wasm function index.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_function_name</span>(<span class="ident">func_index</span>: <span class="ident">FunctionIndex</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::ExternalName</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_function_name</span>(<span class="ident">func_index</span>: <span class="ident">FunctionIndex</span>) -&gt; <span class="ident">ir::ExternalName</span> {
     <span class="ident">ir::ExternalName::user</span>(<span class="number">0</span>, <span class="ident">func_index</span>.<span class="ident">as_u32</span>())
 }
 
 <span class="doccomment">/// The type of the `current_length` field.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">type_of_vmmemory_definition_current_length</span>(<span class="ident">vmoffsets</span>: <span class="kw-2">&amp;</span><span class="ident">VMOffsets</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::Type</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">type_of_vmmemory_definition_current_length</span>(<span class="ident">vmoffsets</span>: <span class="kw-2">&amp;</span><span class="ident">VMOffsets</span>) -&gt; <span class="ident">ir::Type</span> {
     <span class="ident">ir::Type::int</span>(<span class="ident">u16::from</span>(<span class="ident">vmoffsets</span>.<span class="ident">size_of_vmmemory_definition_current_length</span>()) <span class="op">*</span> <span class="number">8</span>).<span class="ident">unwrap</span>()
 }
 
 <span class="doccomment">/// The type of the `current_elements` field.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">type_of_vmtable_definition_current_elements</span>(<span class="ident">vmoffsets</span>: <span class="kw-2">&amp;</span><span class="ident">VMOffsets</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::Type</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">type_of_vmtable_definition_current_elements</span>(<span class="ident">vmoffsets</span>: <span class="kw-2">&amp;</span><span class="ident">VMOffsets</span>) -&gt; <span class="ident">ir::Type</span> {
     <span class="ident">ir::Type::int</span>(<span class="ident">u16::from</span>(<span class="ident">vmoffsets</span>.<span class="ident">size_of_vmtable_definition_current_elements</span>()) <span class="op">*</span> <span class="number">8</span>).<span class="ident">unwrap</span>()
 }
 
@@ -1232,7 +1232,7 @@
         <span class="ident">signatures</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;module_environment</span> <span class="ident">PrimaryMap</span><span class="op">&lt;</span><span class="ident">SignatureIndex</span>, <span class="ident">ir::Signature</span><span class="op">&gt;</span>,
         <span class="ident">memory_styles</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;module_environment</span> <span class="ident">PrimaryMap</span><span class="op">&lt;</span><span class="ident">MemoryIndex</span>, <span class="ident">MemoryStyle</span><span class="op">&gt;</span>,
         <span class="ident">table_styles</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;module_environment</span> <span class="ident">PrimaryMap</span><span class="op">&lt;</span><span class="ident">TableIndex</span>, <span class="ident">TableStyle</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">target_config</span>,
             <span class="ident">module</span>,
@@ -1253,11 +1253,11 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">pointer_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::Type</span> {
+    <span class="kw">fn</span> <span class="ident">pointer_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">ir::Type</span> {
         <span class="self">self</span>.<span class="ident">target_config</span>.<span class="ident">pointer_type</span>()
     }
 
-    <span class="kw">fn</span> <span class="ident">vmctx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::GlobalValue</span> {
+    <span class="kw">fn</span> <span class="ident">vmctx</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>) -&gt; <span class="ident">ir::GlobalValue</span> {
         <span class="self">self</span>.<span class="ident">vmctx</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">vmctx</span> <span class="op">=</span> <span class="ident">func</span>.<span class="ident">create_global_value</span>(<span class="ident">ir::GlobalValueData::VMContext</span>);
             <span class="self">self</span>.<span class="ident">vmctx</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">vmctx</span>);
@@ -1265,7 +1265,7 @@
         })
     }
 
-    <span class="kw">fn</span> <span class="ident">get_memory_grow_sig</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::SigRef</span> {
+    <span class="kw">fn</span> <span class="ident">get_memory_grow_sig</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>) -&gt; <span class="ident">ir::SigRef</span> {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">memory_grow_sig</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="ident">func</span>.<span class="ident">import_signature</span>(<span class="ident">Signature</span> {
                 <span class="ident">params</span>: <span class="macro">vec!</span>[
@@ -1284,10 +1284,10 @@
     <span class="doccomment">/// Return the memory.grow function signature to call for the given index, along with the</span>
     <span class="doccomment">/// translated index value to pass to it and its index in `VMBuiltinFunctionsArray`.</span>
     <span class="kw">fn</span> <span class="ident">get_memory_grow_func</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>,
         <span class="ident">index</span>: <span class="ident">MemoryIndex</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">ir::SigRef</span>, <span class="ident">usize</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
+    ) -&gt; (<span class="ident">ir::SigRef</span>, <span class="ident">usize</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">module</span>.<span class="ident">is_imported_memory</span>(<span class="ident">index</span>) {
             (
                 <span class="self">self</span>.<span class="ident">get_memory_grow_sig</span>(<span class="ident">func</span>),
@@ -1303,7 +1303,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_memory32_size_sig</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::SigRef</span> {
+    <span class="kw">fn</span> <span class="ident">get_memory32_size_sig</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>) -&gt; <span class="ident">ir::SigRef</span> {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">memory32_size_sig</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="ident">func</span>.<span class="ident">import_signature</span>(<span class="ident">Signature</span> {
                 <span class="ident">params</span>: <span class="macro">vec!</span>[
@@ -1321,10 +1321,10 @@
     <span class="doccomment">/// Return the memory.size function signature to call for the given index, along with the</span>
     <span class="doccomment">/// translated index value to pass to it and its index in `VMBuiltinFunctionsArray`.</span>
     <span class="kw">fn</span> <span class="ident">get_memory_size_func</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>,
         <span class="ident">index</span>: <span class="ident">MemoryIndex</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">ir::SigRef</span>, <span class="ident">usize</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
+    ) -&gt; (<span class="ident">ir::SigRef</span>, <span class="ident">usize</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">module</span>.<span class="ident">is_imported_memory</span>(<span class="ident">index</span>) {
             (
                 <span class="self">self</span>.<span class="ident">get_memory32_size_sig</span>(<span class="ident">func</span>),
@@ -1340,7 +1340,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_table_copy_sig</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::SigRef</span> {
+    <span class="kw">fn</span> <span class="ident">get_table_copy_sig</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>) -&gt; <span class="ident">ir::SigRef</span> {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">table_copy_sig</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="ident">func</span>.<span class="ident">import_signature</span>(<span class="ident">Signature</span> {
                 <span class="ident">params</span>: <span class="macro">vec!</span>[
@@ -1365,11 +1365,11 @@
     }
 
     <span class="kw">fn</span> <span class="ident">get_table_copy_func</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>,
         <span class="ident">dst_table_index</span>: <span class="ident">TableIndex</span>,
         <span class="ident">src_table_index</span>: <span class="ident">TableIndex</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">ir::SigRef</span>, <span class="ident">usize</span>, <span class="ident">usize</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
+    ) -&gt; (<span class="ident">ir::SigRef</span>, <span class="ident">usize</span>, <span class="ident">usize</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_table_copy_sig</span>(<span class="ident">func</span>);
         (
             <span class="ident">sig</span>,
@@ -1379,7 +1379,7 @@
         )
     }
 
-    <span class="kw">fn</span> <span class="ident">get_table_init_sig</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::SigRef</span> {
+    <span class="kw">fn</span> <span class="ident">get_table_init_sig</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>) -&gt; <span class="ident">ir::SigRef</span> {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">table_init_sig</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="ident">func</span>.<span class="ident">import_signature</span>(<span class="ident">Signature</span> {
                 <span class="ident">params</span>: <span class="macro">vec!</span>[
@@ -1404,10 +1404,10 @@
     }
 
     <span class="kw">fn</span> <span class="ident">get_table_init_func</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>,
         <span class="ident">table_index</span>: <span class="ident">TableIndex</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">ir::SigRef</span>, <span class="ident">usize</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
+    ) -&gt; (<span class="ident">ir::SigRef</span>, <span class="ident">usize</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_table_init_sig</span>(<span class="ident">func</span>);
         <span class="kw">let</span> <span class="ident">table_index</span> <span class="op">=</span> <span class="ident">table_index</span>.<span class="ident">as_u32</span>() <span class="kw">as</span> <span class="ident">usize</span>;
         (
@@ -1417,7 +1417,7 @@
         )
     }
 
-    <span class="kw">fn</span> <span class="ident">get_elem_drop_sig</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::SigRef</span> {
+    <span class="kw">fn</span> <span class="ident">get_elem_drop_sig</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>) -&gt; <span class="ident">ir::SigRef</span> {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">elem_drop_sig</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="ident">func</span>.<span class="ident">import_signature</span>(<span class="ident">Signature</span> {
                 <span class="ident">params</span>: <span class="macro">vec!</span>[
@@ -1433,12 +1433,12 @@
         <span class="ident">sig</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">get_elem_drop_func</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">ir::SigRef</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
+    <span class="kw">fn</span> <span class="ident">get_elem_drop_func</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>) -&gt; (<span class="ident">ir::SigRef</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_elem_drop_sig</span>(<span class="ident">func</span>);
         (<span class="ident">sig</span>, <span class="ident">VMBuiltinFunctionIndex::get_elem_drop_index</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">get_memory_copy_sig</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::SigRef</span> {
+    <span class="kw">fn</span> <span class="ident">get_memory_copy_sig</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>) -&gt; <span class="ident">ir::SigRef</span> {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">memory_copy_sig</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="ident">func</span>.<span class="ident">import_signature</span>(<span class="ident">Signature</span> {
                 <span class="ident">params</span>: <span class="macro">vec!</span>[
@@ -1461,10 +1461,10 @@
     }
 
     <span class="kw">fn</span> <span class="ident">get_memory_copy_func</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>,
         <span class="ident">memory_index</span>: <span class="ident">MemoryIndex</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">ir::SigRef</span>, <span class="ident">usize</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
+    ) -&gt; (<span class="ident">ir::SigRef</span>, <span class="ident">usize</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_memory_copy_sig</span>(<span class="ident">func</span>);
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">local_memory_index</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">module</span>.<span class="ident">local_memory_index</span>(<span class="ident">memory_index</span>) {
             (
@@ -1481,7 +1481,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_memory_fill_sig</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::SigRef</span> {
+    <span class="kw">fn</span> <span class="ident">get_memory_fill_sig</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>) -&gt; <span class="ident">ir::SigRef</span> {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">memory_fill_sig</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="ident">func</span>.<span class="ident">import_signature</span>(<span class="ident">Signature</span> {
                 <span class="ident">params</span>: <span class="macro">vec!</span>[
@@ -1504,10 +1504,10 @@
     }
 
     <span class="kw">fn</span> <span class="ident">get_memory_fill_func</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>,
         <span class="ident">memory_index</span>: <span class="ident">MemoryIndex</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">ir::SigRef</span>, <span class="ident">usize</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
+    ) -&gt; (<span class="ident">ir::SigRef</span>, <span class="ident">usize</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_memory_fill_sig</span>(<span class="ident">func</span>);
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">local_memory_index</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">module</span>.<span class="ident">local_memory_index</span>(<span class="ident">memory_index</span>) {
             (
@@ -1524,7 +1524,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_memory_init_sig</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::SigRef</span> {
+    <span class="kw">fn</span> <span class="ident">get_memory_init_sig</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>) -&gt; <span class="ident">ir::SigRef</span> {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">memory_init_sig</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="ident">func</span>.<span class="ident">import_signature</span>(<span class="ident">Signature</span> {
                 <span class="ident">params</span>: <span class="macro">vec!</span>[
@@ -1549,14 +1549,14 @@
     }
 
     <span class="kw">fn</span> <span class="ident">get_memory_init_func</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">ir::SigRef</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>,
+    ) -&gt; (<span class="ident">ir::SigRef</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_memory_init_sig</span>(<span class="ident">func</span>);
         (<span class="ident">sig</span>, <span class="ident">VMBuiltinFunctionIndex::get_memory_init_index</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">get_data_drop_sig</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ir::SigRef</span> {
+    <span class="kw">fn</span> <span class="ident">get_data_drop_sig</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>) -&gt; <span class="ident">ir::SigRef</span> {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">data_drop_sig</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="ident">func</span>.<span class="ident">import_signature</span>(<span class="ident">Signature</span> {
                 <span class="ident">params</span>: <span class="macro">vec!</span>[
@@ -1572,7 +1572,7 @@
         <span class="ident">sig</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">get_data_drop_func</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Function</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">ir::SigRef</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
+    <span class="kw">fn</span> <span class="ident">get_data_drop_func</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Function</span>) -&gt; (<span class="ident">ir::SigRef</span>, <span class="ident">VMBuiltinFunctionIndex</span>) {
         <span class="kw">let</span> <span class="ident">sig</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_data_drop_sig</span>(<span class="ident">func</span>);
         (<span class="ident">sig</span>, <span class="ident">VMBuiltinFunctionIndex::get_data_drop_index</span>())
     }
@@ -1580,13 +1580,13 @@
     <span class="doccomment">/// Translates load of builtin function and returns a pair of values `vmctx`</span>
     <span class="doccomment">/// and address of the loaded function.</span>
     <span class="kw">fn</span> <span class="ident">translate_load_builtin_function_address</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">pos</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">FuncCursor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">pos</span>: <span class="kw-2">&amp;mut</span> <span class="ident">FuncCursor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
         <span class="ident">callee_func_idx</span>: <span class="ident">VMBuiltinFunctionIndex</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">ir::Value</span>, <span class="ident">ir::Value</span>) {
+    ) -&gt; (<span class="ident">ir::Value</span>, <span class="ident">ir::Value</span>) {
         <span class="comment">// We use an indirect call so that we don&#39;t have to patch the code at runtime.</span>
         <span class="kw">let</span> <span class="ident">pointer_type</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">pointer_type</span>();
-        <span class="kw">let</span> <span class="ident">vmctx</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">vmctx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>.<span class="ident">func</span>);
+        <span class="kw">let</span> <span class="ident">vmctx</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">vmctx</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>.<span class="ident">func</span>);
         <span class="kw">let</span> <span class="ident">base</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">global_value</span>(<span class="ident">pointer_type</span>, <span class="ident">vmctx</span>);
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">mem_flags</span> <span class="op">=</span> <span class="ident">ir::MemFlags::trusted</span>();
@@ -1602,18 +1602,18 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;module_environment</span><span class="op">&gt;</span> <span class="ident">TargetEnvironment</span> <span class="kw">for</span> <span class="ident">FuncEnvironment</span><span class="op">&lt;</span><span class="lifetime">&#39;module_environment</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">target_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TargetFrontendConfig</span> {
+    <span class="kw">fn</span> <span class="ident">target_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">TargetFrontendConfig</span> {
         <span class="self">self</span>.<span class="ident">target_config</span>
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;module_environment</span><span class="op">&gt;</span> <span class="ident">BaseFuncEnvironment</span> <span class="kw">for</span> <span class="ident">FuncEnvironment</span><span class="op">&lt;</span><span class="lifetime">&#39;module_environment</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">is_wasm_parameter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_signature</span>: <span class="kw-2">&amp;</span><span class="ident">ir::Signature</span>, <span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">is_wasm_parameter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_signature</span>: <span class="kw-2">&amp;</span><span class="ident">ir::Signature</span>, <span class="ident">index</span>: <span class="ident">usize</span>) -&gt; <span class="ident">bool</span> {
         <span class="comment">// The first parameter is the vmctx. The rest are the wasm parameters.</span>
         <span class="ident">index</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">1</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">make_table</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ir::Function</span>, <span class="ident">index</span>: <span class="ident">TableIndex</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Table</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">make_table</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">ir::Function</span>, <span class="ident">index</span>: <span class="ident">TableIndex</span>) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Table</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">pointer_type</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">pointer_type</span>();
 
         <span class="kw">let</span> (<span class="ident">ptr</span>, <span class="ident">base_offset</span>, <span class="ident">current_elements_offset</span>) <span class="op">=</span> {
@@ -1656,7 +1656,7 @@
         });
 
         <span class="kw">let</span> <span class="ident">element_size</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">table_styles</span>[<span class="ident">index</span>] {
-            <span class="ident">TableStyle::CallerChecksSignature</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">TableStyle::CallerChecksSignature</span> =&gt; {
                 <span class="ident">u64::from</span>(<span class="self">self</span>.<span class="ident">offsets</span>.<span class="ident">size_of_vmcaller_checked_anyfunc</span>())
             }
         };
@@ -1671,65 +1671,65 @@
     }
 
     <span class="kw">fn</span> <span class="ident">translate_table_grow</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">_pos</span>: <span class="ident">cranelift_codegen::cursor::FuncCursor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
         <span class="ident">_table_index</span>: <span class="ident">TableIndex</span>,
         <span class="ident">_table</span>: <span class="ident">ir::Table</span>,
         <span class="ident">_delta</span>: <span class="ident">ir::Value</span>,
         <span class="ident">_init_value</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
         <span class="prelude-val">Err</span>(<span class="ident">WasmError::Unsupported</span>(
             <span class="string">&quot;the `table.grow` instruction is not supported yet&quot;</span>.<span class="ident">into</span>(),
         ))
     }
 
     <span class="kw">fn</span> <span class="ident">translate_table_get</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">_builder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">FunctionBuilder</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">_builder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">FunctionBuilder</span>,
         <span class="ident">_table_index</span>: <span class="ident">TableIndex</span>,
         <span class="ident">_table</span>: <span class="ident">ir::Table</span>,
         <span class="ident">_index</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
         <span class="prelude-val">Err</span>(<span class="ident">WasmError::Unsupported</span>(
             <span class="string">&quot;the `table.get` instruction is not supported yet&quot;</span>.<span class="ident">into</span>(),
         ))
     }
 
     <span class="kw">fn</span> <span class="ident">translate_table_set</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">_builder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">FunctionBuilder</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">_builder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">FunctionBuilder</span>,
         <span class="ident">_table_index</span>: <span class="ident">TableIndex</span>,
         <span class="ident">_table</span>: <span class="ident">ir::Table</span>,
         <span class="ident">_value</span>: <span class="ident">ir::Value</span>,
         <span class="ident">_index</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="prelude-val">Err</span>(<span class="ident">WasmError::Unsupported</span>(
             <span class="string">&quot;the `table.set` instruction is not supported yet&quot;</span>.<span class="ident">into</span>(),
         ))
     }
 
     <span class="kw">fn</span> <span class="ident">translate_table_fill</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">_pos</span>: <span class="ident">cranelift_codegen::cursor::FuncCursor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
         <span class="ident">_table_index</span>: <span class="ident">TableIndex</span>,
         <span class="ident">_dst</span>: <span class="ident">ir::Value</span>,
         <span class="ident">_val</span>: <span class="ident">ir::Value</span>,
         <span class="ident">_len</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="prelude-val">Err</span>(<span class="ident">WasmError::Unsupported</span>(
             <span class="string">&quot;the `table.fill` instruction is not supported yet&quot;</span>.<span class="ident">into</span>(),
         ))
     }
 
     <span class="kw">fn</span> <span class="ident">translate_ref_null</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">cranelift_codegen::cursor::FuncCursor</span>,
         <span class="ident">ty</span>: <span class="ident">Type</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">ty</span> {
-            <span class="ident">Type::FuncRef</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="self">self</span>.<span class="ident">pointer_type</span>(), <span class="number">0</span>),
+            <span class="ident">Type::FuncRef</span> =&gt; <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="self">self</span>.<span class="ident">pointer_type</span>(), <span class="number">0</span>),
             <span class="comment">// Type::ExternRef =&gt; pos.ins().null(self.reference_type(ty)),</span>
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="kw">_</span> =&gt; {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">WasmError::Unsupported</span>(
                     <span class="string">&quot;`ref.null T` that is not a `funcref`&quot;</span>.<span class="ident">into</span>(),
                 ));
@@ -1738,52 +1738,52 @@
     }
 
     <span class="kw">fn</span> <span class="ident">translate_ref_is_null</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">cranelift_codegen::cursor::FuncCursor</span>,
         <span class="ident">value</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">bool_is_null</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">pos</span>.<span class="ident">func</span>.<span class="ident">dfg</span>.<span class="ident">value_type</span>(<span class="ident">value</span>) {
             <span class="comment">// `externref`</span>
-            <span class="ident">ty</span> <span class="kw">if</span> <span class="ident">ty</span>.<span class="ident">is_ref</span>() <span class="op">=</span><span class="op">&gt;</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">is_null</span>(<span class="ident">value</span>),
+            <span class="ident">ty</span> <span class="kw">if</span> <span class="ident">ty</span>.<span class="ident">is_ref</span>() =&gt; <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">is_null</span>(<span class="ident">value</span>),
             <span class="comment">// `funcref`</span>
-            <span class="ident">ty</span> <span class="kw">if</span> <span class="ident">ty</span> <span class="op">=</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">pointer_type</span>() <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">ty</span> <span class="kw">if</span> <span class="ident">ty</span> <span class="op">==</span> <span class="self">self</span>.<span class="ident">pointer_type</span>() =&gt; {
                 <span class="ident">pos</span>.<span class="ident">ins</span>()
                     .<span class="ident">icmp_imm</span>(<span class="ident">cranelift_codegen::ir::condcodes::IntCC::Equal</span>, <span class="ident">value</span>, <span class="number">0</span>)
             }
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(),
+            <span class="kw">_</span> =&gt; <span class="macro">unreachable!</span>(),
         };
 
         <span class="prelude-val">Ok</span>(<span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">bint</span>(<span class="ident">ir::types::I32</span>, <span class="ident">bool_is_null</span>))
     }
 
     <span class="kw">fn</span> <span class="ident">translate_ref_func</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">_pos</span>: <span class="ident">cranelift_codegen::cursor::FuncCursor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
         <span class="ident">_func_index</span>: <span class="ident">FunctionIndex</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
         <span class="prelude-val">Err</span>(<span class="ident">WasmError::Unsupported</span>(
             <span class="string">&quot;the `ref.func` instruction is not supported yet&quot;</span>.<span class="ident">into</span>(),
         ))
     }
 
     <span class="kw">fn</span> <span class="ident">translate_custom_global_get</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">_pos</span>: <span class="ident">cranelift_codegen::cursor::FuncCursor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
         <span class="ident">_index</span>: <span class="ident">GlobalIndex</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
         <span class="macro">unreachable!</span>(<span class="string">&quot;we don&#39;t make any custom globals&quot;</span>)
     }
 
     <span class="kw">fn</span> <span class="ident">translate_custom_global_set</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">_pos</span>: <span class="ident">cranelift_codegen::cursor::FuncCursor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
         <span class="ident">_index</span>: <span class="ident">GlobalIndex</span>,
         <span class="ident">_value</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">unreachable!</span>(<span class="string">&quot;we don&#39;t make any custom globals&quot;</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">make_heap</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ir::Function</span>, <span class="ident">index</span>: <span class="ident">MemoryIndex</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Heap</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">make_heap</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">ir::Function</span>, <span class="ident">index</span>: <span class="ident">MemoryIndex</span>) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Heap</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">pointer_type</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">pointer_type</span>();
 
         <span class="kw">let</span> (<span class="ident">ptr</span>, <span class="ident">base_offset</span>, <span class="ident">current_length_offset</span>) <span class="op">=</span> {
@@ -1815,7 +1815,7 @@
         <span class="comment">// If we have a declared maximum, we can make this a &quot;static&quot; heap, which is</span>
         <span class="comment">// allocated up front and never moved.</span>
         <span class="kw">let</span> (<span class="ident">offset_guard_size</span>, <span class="ident">heap_style</span>, <span class="ident">readonly_base</span>) <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">memory_styles</span>[<span class="ident">index</span>] {
-            <span class="ident">MemoryStyle::Dynamic</span> { <span class="ident">offset_guard_size</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">MemoryStyle::Dynamic</span> { <span class="ident">offset_guard_size</span> } =&gt; {
                 <span class="kw">let</span> <span class="ident">heap_bound</span> <span class="op">=</span> <span class="ident">func</span>.<span class="ident">create_global_value</span>(<span class="ident">ir::GlobalValueData::Load</span> {
                     <span class="ident">base</span>: <span class="ident">ptr</span>,
                     <span class="ident">offset</span>: <span class="ident">Offset32::new</span>(<span class="ident">current_length_offset</span>),
@@ -1833,7 +1833,7 @@
             <span class="ident">MemoryStyle::Static</span> {
                 <span class="ident">bound</span>,
                 <span class="ident">offset_guard_size</span>,
-            } <span class="op">=</span><span class="op">&gt;</span> (
+            } =&gt; (
                 <span class="ident">Uimm64::new</span>(<span class="ident">offset_guard_size</span>),
                 <span class="ident">ir::HeapStyle::Static</span> {
                     <span class="ident">bound</span>: <span class="ident">Uimm64::new</span>(<span class="ident">bound</span>.<span class="ident">bytes</span>().<span class="number">0</span> <span class="kw">as</span> <span class="ident">u64</span>),
@@ -1858,10 +1858,10 @@
     }
 
     <span class="kw">fn</span> <span class="ident">make_global</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ir::Function</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">ir::Function</span>,
         <span class="ident">index</span>: <span class="ident">GlobalIndex</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">GlobalVariable</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">GlobalVariable</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">pointer_type</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">pointer_type</span>();
 
         <span class="kw">let</span> (<span class="ident">ptr</span>, <span class="ident">offset</span>) <span class="op">=</span> {
@@ -1889,18 +1889,18 @@
     }
 
     <span class="kw">fn</span> <span class="ident">make_indirect_sig</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ir::Function</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">ir::Function</span>,
         <span class="ident">index</span>: <span class="ident">SignatureIndex</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::SigRef</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::SigRef</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="ident">func</span>.<span class="ident">import_signature</span>(<span class="self">self</span>.<span class="ident">signatures</span>[<span class="ident">index</span>].<span class="ident">clone</span>()))
     }
 
     <span class="kw">fn</span> <span class="ident">make_direct_func</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">func</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ir::Function</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">func</span>: <span class="kw-2">&amp;mut</span> <span class="ident">ir::Function</span>,
         <span class="ident">index</span>: <span class="ident">FunctionIndex</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::FuncRef</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::FuncRef</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">sigidx</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">module</span>.<span class="ident">functions</span>[<span class="ident">index</span>];
         <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="ident">func</span>.<span class="ident">import_signature</span>(<span class="self">self</span>.<span class="ident">signatures</span>[<span class="ident">sigidx</span>].<span class="ident">clone</span>());
         <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">get_function_name</span>(<span class="ident">index</span>);
@@ -1914,7 +1914,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">translate_call_indirect</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
         <span class="ident">table_index</span>: <span class="ident">TableIndex</span>,
         <span class="ident">table</span>: <span class="ident">ir::Table</span>,
@@ -1922,7 +1922,7 @@
         <span class="ident">sig_ref</span>: <span class="ident">ir::SigRef</span>,
         <span class="ident">callee</span>: <span class="ident">ir::Value</span>,
         <span class="ident">call_args</span>: <span class="kw-2">&amp;</span>[<span class="ident">ir::Value</span>],
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Inst</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Inst</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">pointer_type</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">pointer_type</span>();
 
         <span class="kw">let</span> <span class="ident">table_entry_addr</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">table_addr</span>(<span class="ident">pointer_type</span>, <span class="ident">table</span>, <span class="ident">callee</span>, <span class="number">0</span>);
@@ -1941,7 +1941,7 @@
 
         <span class="comment">// If necessary, check the signature.</span>
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">table_styles</span>[<span class="ident">table_index</span>] {
-            <span class="ident">TableStyle::CallerChecksSignature</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">TableStyle::CallerChecksSignature</span> =&gt; {
                 <span class="kw">let</span> <span class="ident">sig_id_size</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">offsets</span>.<span class="ident">size_of_vmshared_signature_index</span>();
                 <span class="kw">let</span> <span class="ident">sig_id_type</span> <span class="op">=</span> <span class="ident">ir::Type::int</span>(<span class="ident">u16::from</span>(<span class="ident">sig_id_size</span>) <span class="op">*</span> <span class="number">8</span>).<span class="ident">unwrap</span>();
                 <span class="kw">let</span> <span class="ident">vmctx</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">vmctx</span>(<span class="ident">pos</span>.<span class="ident">func</span>);
@@ -1987,12 +1987,12 @@
     }
 
     <span class="kw">fn</span> <span class="ident">translate_call</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
         <span class="ident">callee_index</span>: <span class="ident">FunctionIndex</span>,
         <span class="ident">callee</span>: <span class="ident">ir::FuncRef</span>,
         <span class="ident">call_args</span>: <span class="kw-2">&amp;</span>[<span class="ident">ir::Value</span>],
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Inst</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Inst</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">real_call_args</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="ident">call_args</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="number">2</span>);
 
         <span class="comment">// Handle direct calls to locally-defined functions.</span>
@@ -2013,7 +2013,7 @@
         <span class="comment">// so that we don&#39;t have to patch the code at runtime.</span>
         <span class="kw">let</span> <span class="ident">pointer_type</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">pointer_type</span>();
         <span class="kw">let</span> <span class="ident">sig_ref</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">func</span>.<span class="ident">dfg</span>.<span class="ident">ext_funcs</span>[<span class="ident">callee</span>].<span class="ident">signature</span>;
-        <span class="kw">let</span> <span class="ident">vmctx</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">vmctx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>.<span class="ident">func</span>);
+        <span class="kw">let</span> <span class="ident">vmctx</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">vmctx</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>.<span class="ident">func</span>);
         <span class="kw">let</span> <span class="ident">base</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">global_value</span>(<span class="ident">pointer_type</span>, <span class="ident">vmctx</span>);
 
         <span class="kw">let</span> <span class="ident">mem_flags</span> <span class="op">=</span> <span class="ident">ir::MemFlags::trusted</span>();
@@ -2036,15 +2036,15 @@
     }
 
     <span class="kw">fn</span> <span class="ident">translate_memory_grow</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
         <span class="ident">index</span>: <span class="ident">MemoryIndex</span>,
         <span class="ident">_heap</span>: <span class="ident">ir::Heap</span>,
         <span class="ident">val</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">index_arg</span>, <span class="ident">func_idx</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_memory_grow_func</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>.<span class="ident">func</span>, <span class="ident">index</span>);
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">index_arg</span>, <span class="ident">func_idx</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_memory_grow_func</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>.<span class="ident">func</span>, <span class="ident">index</span>);
         <span class="kw">let</span> <span class="ident">memory_index</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="ident">I32</span>, <span class="ident">index_arg</span> <span class="kw">as</span> <span class="ident">i64</span>);
-        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
+        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
         <span class="kw">let</span> <span class="ident">call_inst</span> <span class="op">=</span> <span class="ident">pos</span>
             .<span class="ident">ins</span>()
             .<span class="ident">call_indirect</span>(<span class="ident">func_sig</span>, <span class="ident">func_addr</span>, <span class="kw-2">&amp;</span>[<span class="ident">vmctx</span>, <span class="ident">val</span>, <span class="ident">memory_index</span>]);
@@ -2052,14 +2052,14 @@
     }
 
     <span class="kw">fn</span> <span class="ident">translate_memory_size</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
         <span class="ident">index</span>: <span class="ident">MemoryIndex</span>,
         <span class="ident">_heap</span>: <span class="ident">ir::Heap</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">index_arg</span>, <span class="ident">func_idx</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_memory_size_func</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>.<span class="ident">func</span>, <span class="ident">index</span>);
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">index_arg</span>, <span class="ident">func_idx</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_memory_size_func</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>.<span class="ident">func</span>, <span class="ident">index</span>);
         <span class="kw">let</span> <span class="ident">memory_index</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="ident">I32</span>, <span class="ident">index_arg</span> <span class="kw">as</span> <span class="ident">i64</span>);
-        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
+        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
         <span class="kw">let</span> <span class="ident">call_inst</span> <span class="op">=</span> <span class="ident">pos</span>
             .<span class="ident">ins</span>()
             .<span class="ident">call_indirect</span>(<span class="ident">func_sig</span>, <span class="ident">func_addr</span>, <span class="kw-2">&amp;</span>[<span class="ident">vmctx</span>, <span class="ident">memory_index</span>]);
@@ -2067,7 +2067,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">translate_memory_copy</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span>,
         <span class="ident">src_index</span>: <span class="ident">MemoryIndex</span>,
         <span class="ident">_src_heap</span>: <span class="ident">ir::Heap</span>,
@@ -2076,12 +2076,12 @@
         <span class="ident">dst</span>: <span class="ident">ir::Value</span>,
         <span class="ident">src</span>: <span class="ident">ir::Value</span>,
         <span class="ident">len</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">src_index</span>, <span class="ident">func_idx</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_memory_copy_func</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>.<span class="ident">func</span>, <span class="ident">src_index</span>);
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">src_index</span>, <span class="ident">func_idx</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_memory_copy_func</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>.<span class="ident">func</span>, <span class="ident">src_index</span>);
 
         <span class="kw">let</span> <span class="ident">src_index_arg</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="ident">I32</span>, <span class="ident">src_index</span> <span class="kw">as</span> <span class="ident">i64</span>);
 
-        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
+        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
 
         <span class="ident">pos</span>.<span class="ident">ins</span>()
             .<span class="ident">call_indirect</span>(<span class="ident">func_sig</span>, <span class="ident">func_addr</span>, <span class="kw-2">&amp;</span>[<span class="ident">vmctx</span>, <span class="ident">src_index_arg</span>, <span class="ident">dst</span>, <span class="ident">src</span>, <span class="ident">len</span>]);
@@ -2090,20 +2090,20 @@
     }
 
     <span class="kw">fn</span> <span class="ident">translate_memory_fill</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span>,
         <span class="ident">memory_index</span>: <span class="ident">MemoryIndex</span>,
         <span class="ident">_heap</span>: <span class="ident">ir::Heap</span>,
         <span class="ident">dst</span>: <span class="ident">ir::Value</span>,
         <span class="ident">val</span>: <span class="ident">ir::Value</span>,
         <span class="ident">len</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">memory_index</span>, <span class="ident">func_idx</span>) <span class="op">=</span>
-            <span class="self">self</span>.<span class="ident">get_memory_fill_func</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>.<span class="ident">func</span>, <span class="ident">memory_index</span>);
+            <span class="self">self</span>.<span class="ident">get_memory_fill_func</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>.<span class="ident">func</span>, <span class="ident">memory_index</span>);
 
         <span class="kw">let</span> <span class="ident">memory_index_arg</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="ident">I32</span>, <span class="ident">memory_index</span> <span class="kw">as</span> <span class="ident">i64</span>);
 
-        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
+        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
 
         <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">call_indirect</span>(
             <span class="ident">func_sig</span>,
@@ -2115,7 +2115,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">translate_memory_init</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span>,
         <span class="ident">memory_index</span>: <span class="ident">MemoryIndex</span>,
         <span class="ident">_heap</span>: <span class="ident">ir::Heap</span>,
@@ -2123,13 +2123,13 @@
         <span class="ident">dst</span>: <span class="ident">ir::Value</span>,
         <span class="ident">src</span>: <span class="ident">ir::Value</span>,
         <span class="ident">len</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">func_idx</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_memory_init_func</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>.<span class="ident">func</span>);
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">func_idx</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_memory_init_func</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>.<span class="ident">func</span>);
 
         <span class="kw">let</span> <span class="ident">memory_index_arg</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="ident">I32</span>, <span class="ident">memory_index</span>.<span class="ident">index</span>() <span class="kw">as</span> <span class="ident">i64</span>);
         <span class="kw">let</span> <span class="ident">seg_index_arg</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="ident">I32</span>, <span class="ident">seg_index</span> <span class="kw">as</span> <span class="ident">i64</span>);
 
-        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
+        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
 
         <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">call_indirect</span>(
             <span class="ident">func_sig</span>,
@@ -2140,28 +2140,28 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">translate_data_drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span>, <span class="ident">seg_index</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">func_idx</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_data_drop_func</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>.<span class="ident">func</span>);
+    <span class="kw">fn</span> <span class="ident">translate_data_drop</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span>, <span class="ident">seg_index</span>: <span class="ident">u32</span>) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">func_idx</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_data_drop_func</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>.<span class="ident">func</span>);
         <span class="kw">let</span> <span class="ident">seg_index_arg</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="ident">I32</span>, <span class="ident">seg_index</span> <span class="kw">as</span> <span class="ident">i64</span>);
-        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
+        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
         <span class="ident">pos</span>.<span class="ident">ins</span>()
             .<span class="ident">call_indirect</span>(<span class="ident">func_sig</span>, <span class="ident">func_addr</span>, <span class="kw-2">&amp;</span>[<span class="ident">vmctx</span>, <span class="ident">seg_index_arg</span>]);
         <span class="prelude-val">Ok</span>(())
     }
 
     <span class="kw">fn</span> <span class="ident">translate_table_size</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">_pos</span>: <span class="ident">FuncCursor</span>,
         <span class="ident">_table_index</span>: <span class="ident">TableIndex</span>,
         <span class="ident">_table</span>: <span class="ident">ir::Table</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
         <span class="prelude-val">Err</span>(<span class="ident">WasmError::Unsupported</span>(
             <span class="string">&quot;bulk memory: `table.size`&quot;</span>.<span class="ident">to_string</span>(),
         ))
     }
 
     <span class="kw">fn</span> <span class="ident">translate_table_copy</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span>,
         <span class="ident">dst_table_index</span>: <span class="ident">TableIndex</span>,
         <span class="ident">_dst_table</span>: <span class="ident">ir::Table</span>,
@@ -2170,14 +2170,14 @@
         <span class="ident">dst</span>: <span class="ident">ir::Value</span>,
         <span class="ident">src</span>: <span class="ident">ir::Value</span>,
         <span class="ident">len</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">dst_table_index_arg</span>, <span class="ident">src_table_index_arg</span>, <span class="ident">func_idx</span>) <span class="op">=</span>
-            <span class="self">self</span>.<span class="ident">get_table_copy_func</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>.<span class="ident">func</span>, <span class="ident">dst_table_index</span>, <span class="ident">src_table_index</span>);
+            <span class="self">self</span>.<span class="ident">get_table_copy_func</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>.<span class="ident">func</span>, <span class="ident">dst_table_index</span>, <span class="ident">src_table_index</span>);
 
         <span class="kw">let</span> <span class="ident">dst_table_index_arg</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="ident">I32</span>, <span class="ident">dst_table_index_arg</span> <span class="kw">as</span> <span class="ident">i64</span>);
         <span class="kw">let</span> <span class="ident">src_table_index_arg</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="ident">I32</span>, <span class="ident">src_table_index_arg</span> <span class="kw">as</span> <span class="ident">i64</span>);
 
-        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
+        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
 
         <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">call_indirect</span>(
             <span class="ident">func_sig</span>,
@@ -2196,7 +2196,7 @@
     }
 
     <span class="kw">fn</span> <span class="ident">translate_table_init</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span>,
         <span class="ident">seg_index</span>: <span class="ident">u32</span>,
         <span class="ident">table_index</span>: <span class="ident">TableIndex</span>,
@@ -2204,14 +2204,14 @@
         <span class="ident">dst</span>: <span class="ident">ir::Value</span>,
         <span class="ident">src</span>: <span class="ident">ir::Value</span>,
         <span class="ident">len</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">table_index_arg</span>, <span class="ident">func_idx</span>) <span class="op">=</span>
-            <span class="self">self</span>.<span class="ident">get_table_init_func</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>.<span class="ident">func</span>, <span class="ident">table_index</span>);
+            <span class="self">self</span>.<span class="ident">get_table_init_func</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>.<span class="ident">func</span>, <span class="ident">table_index</span>);
 
         <span class="kw">let</span> <span class="ident">table_index_arg</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="ident">I32</span>, <span class="ident">table_index_arg</span> <span class="kw">as</span> <span class="ident">i64</span>);
         <span class="kw">let</span> <span class="ident">seg_index_arg</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="ident">I32</span>, <span class="ident">seg_index</span> <span class="kw">as</span> <span class="ident">i64</span>);
 
-        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
+        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
 
         <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">call_indirect</span>(
             <span class="ident">func_sig</span>,
@@ -2222,12 +2222,12 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">translate_elem_drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span>, <span class="ident">elem_index</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">func_idx</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_elem_drop_func</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>.<span class="ident">func</span>);
+    <span class="kw">fn</span> <span class="ident">translate_elem_drop</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">pos</span>: <span class="ident">FuncCursor</span>, <span class="ident">elem_index</span>: <span class="ident">u32</span>) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="kw">let</span> (<span class="ident">func_sig</span>, <span class="ident">func_idx</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_elem_drop_func</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>.<span class="ident">func</span>);
 
         <span class="kw">let</span> <span class="ident">elem_index_arg</span> <span class="op">=</span> <span class="ident">pos</span>.<span class="ident">ins</span>().<span class="ident">iconst</span>(<span class="ident">I32</span>, <span class="ident">elem_index</span> <span class="kw">as</span> <span class="ident">i64</span>);
 
-        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
+        <span class="kw">let</span> (<span class="ident">vmctx</span>, <span class="ident">func_addr</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">translate_load_builtin_function_address</span>(<span class="kw-2">&amp;mut</span> <span class="ident">pos</span>, <span class="ident">func_idx</span>);
 
         <span class="ident">pos</span>.<span class="ident">ins</span>()
             .<span class="ident">call_indirect</span>(<span class="ident">func_sig</span>, <span class="ident">func_addr</span>, <span class="kw-2">&amp;</span>[<span class="ident">vmctx</span>, <span class="ident">elem_index_arg</span>]);
@@ -2236,27 +2236,27 @@
     }
 
     <span class="kw">fn</span> <span class="ident">translate_atomic_wait</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">_pos</span>: <span class="ident">FuncCursor</span>,
         <span class="ident">_index</span>: <span class="ident">MemoryIndex</span>,
         <span class="ident">_heap</span>: <span class="ident">ir::Heap</span>,
         <span class="ident">_addr</span>: <span class="ident">ir::Value</span>,
         <span class="ident">_expected</span>: <span class="ident">ir::Value</span>,
         <span class="ident">_timeout</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
         <span class="prelude-val">Err</span>(<span class="ident">WasmError::Unsupported</span>(
             <span class="string">&quot;wasm atomics (fn translate_atomic_wait)&quot;</span>.<span class="ident">to_string</span>(),
         ))
     }
 
     <span class="kw">fn</span> <span class="ident">translate_atomic_notify</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">_pos</span>: <span class="ident">FuncCursor</span>,
         <span class="ident">_index</span>: <span class="ident">MemoryIndex</span>,
         <span class="ident">_heap</span>: <span class="ident">ir::Heap</span>,
         <span class="ident">_addr</span>: <span class="ident">ir::Value</span>,
         <span class="ident">_count</span>: <span class="ident">ir::Value</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">WasmResult</span><span class="op">&lt;</span><span class="ident">ir::Value</span><span class="op">&gt;</span> {
         <span class="prelude-val">Err</span>(<span class="ident">WasmError::Unsupported</span>(
             <span class="string">&quot;wasm atomics (fn translate_atomic_notify)&quot;</span>.<span class="ident">to_string</span>(),
         ))

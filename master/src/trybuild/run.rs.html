@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;usr&#x2F;local&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;trybuild-1.0.52&#x2F;src&#x2F;run.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>run.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../trybuild/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;usr&#x2F;local&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;trybuild-1.0.52&#x2F;src&#x2F;run.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>run.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../trybuild/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -518,9 +518,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Runner</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">tests</span> <span class="op">=</span> <span class="ident">expand_globs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">tests</span>);
-        <span class="ident">filter</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">tests</span>);
+        <span class="ident">filter</span>(<span class="kw-2">&amp;mut</span> <span class="ident">tests</span>);
 
         <span class="kw">let</span> (<span class="ident">project</span>, <span class="ident">_lock</span>) <span class="op">=</span> (<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">project</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">prepare</span>(<span class="kw-2">&amp;</span><span class="ident">tests</span>)<span class="question-mark">?</span>;
@@ -556,7 +556,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">prepare</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tests</span>: <span class="kw-2">&amp;</span>[<span class="ident">ExpandedTest</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Project</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">prepare</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tests</span>: <span class="kw-2">&amp;</span>[<span class="ident">ExpandedTest</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Project</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">Metadata</span> {
             <span class="ident">target_directory</span>: <span class="ident">target_dir</span>,
             <span class="ident">workspace_root</span>: <span class="ident">workspace</span>,
@@ -569,8 +569,8 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">has_compile_fail</span> <span class="op">=</span> <span class="bool-val">false</span>;
         <span class="kw">for</span> <span class="ident">e</span> <span class="kw">in</span> <span class="ident">tests</span> {
             <span class="kw">match</span> <span class="ident">e</span>.<span class="ident">test</span>.<span class="ident">expected</span> {
-                <span class="ident">Expected::Pass</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">has_pass</span> <span class="op">=</span> <span class="bool-val">true</span>,
-                <span class="ident">Expected::CompileFail</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">has_compile_fail</span> <span class="op">=</span> <span class="bool-val">true</span>,
+                <span class="ident">Expected::Pass</span> =&gt; <span class="ident">has_pass</span> <span class="op">=</span> <span class="bool-val">true</span>,
+                <span class="ident">Expected::CompileFail</span> =&gt; <span class="ident">has_compile_fail</span> <span class="op">=</span> <span class="bool-val">true</span>,
             }
         }
 
@@ -586,7 +586,7 @@
             .<span class="ident">iter</span>()
             .<span class="ident">filter_map</span>(<span class="op">|</span>(<span class="ident">name</span>, <span class="ident">dep</span>)<span class="op">|</span> {
                 <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">dep</span>.<span class="ident">path</span>.<span class="ident">as_ref</span>()<span class="question-mark">?</span>;
-                <span class="kw">if</span> <span class="ident">packages</span>.<span class="ident">iter</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">name</span> <span class="op">=</span><span class="op">=</span> <span class="ident">name</span>) {
+                <span class="kw">if</span> <span class="ident">packages</span>.<span class="ident">iter</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">name</span> <span class="op">==</span> <span class="ident">name</span>) {
                     <span class="comment">// Skip path dependencies coming from the workspace itself</span>
                     <span class="prelude-val">None</span>
                 } <span class="kw">else</span> {
@@ -611,7 +611,7 @@
             <span class="ident">source_manifest</span>,
         );
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">enabled_features</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">features</span> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">enabled_features</span>) <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="ident">features</span> {
             <span class="ident">enabled_features</span>.<span class="ident">retain</span>(<span class="op">|</span><span class="ident">feature</span><span class="op">|</span> <span class="ident">manifest</span>.<span class="ident">features</span>.<span class="ident">contains_key</span>(<span class="ident">feature</span>));
         }
 
@@ -630,7 +630,7 @@
         })
     }
 
-    <span class="kw">fn</span> <span class="ident">write</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">project</span>: <span class="kw-2">&amp;</span><span class="ident">Project</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">write</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">project</span>: <span class="kw-2">&amp;</span><span class="ident">Project</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">manifest_toml</span> <span class="op">=</span> <span class="ident">toml::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">project</span>.<span class="ident">manifest</span>)<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">config</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">make_config</span>();
@@ -654,7 +654,7 @@
         <span class="ident">source_dir</span>: <span class="kw-2">&amp;</span><span class="ident">Directory</span>,
         <span class="ident">tests</span>: <span class="kw-2">&amp;</span>[<span class="ident">ExpandedTest</span>],
         <span class="ident">source_manifest</span>: <span class="ident">dependencies::Manifest</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Manifest</span> {
+    ) -&gt; <span class="ident">Manifest</span> {
         <span class="kw">let</span> <span class="ident">workspace_manifest</span> <span class="op">=</span> <span class="ident">dependencies::get_workspace_manifest</span>(<span class="ident">workspace</span>);
 
         <span class="kw">let</span> <span class="ident">features</span> <span class="op">=</span> <span class="ident">source_manifest</span>
@@ -689,7 +689,7 @@
             .<span class="ident">dependencies</span>
             .<span class="ident">extend</span>(<span class="ident">source_manifest</span>.<span class="ident">dev_dependencies</span>);
         <span class="kw">for</span> <span class="ident">target</span> <span class="kw">in</span> <span class="ident">manifest</span>.<span class="ident">target</span>.<span class="ident">values_mut</span>() {
-            <span class="kw">let</span> <span class="ident">dev_dependencies</span> <span class="op">=</span> <span class="ident">mem::replace</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">target</span>.<span class="ident">dev_dependencies</span>, <span class="ident">Map::new</span>());
+            <span class="kw">let</span> <span class="ident">dev_dependencies</span> <span class="op">=</span> <span class="ident">mem::replace</span>(<span class="kw-2">&amp;mut</span> <span class="ident">target</span>.<span class="ident">dev_dependencies</span>, <span class="ident">Map::new</span>());
             <span class="ident">target</span>.<span class="ident">dependencies</span>.<span class="ident">extend</span>(<span class="ident">dev_dependencies</span>);
         }
         <span class="ident">manifest</span>.<span class="ident">dependencies</span>.<span class="ident">insert</span>(
@@ -724,7 +724,7 @@
         <span class="ident">manifest</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">make_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Config</span> {
+    <span class="kw">fn</span> <span class="ident">make_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Config</span> {
         <span class="ident">Config</span> {
             <span class="ident">build</span>: <span class="ident">Build</span> {
                 <span class="ident">rustflags</span>: <span class="ident">rustflags::make_vec</span>(),
@@ -734,7 +734,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Test</span> {
-    <span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">project</span>: <span class="kw-2">&amp;</span><span class="ident">Project</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">Name</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">project</span>: <span class="kw-2">&amp;</span><span class="ident">Project</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">Name</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">show_expected</span> <span class="op">=</span> <span class="ident">project</span>.<span class="ident">has_pass</span> <span class="op">&amp;&amp;</span> <span class="ident">project</span>.<span class="ident">has_compile_fail</span>;
         <span class="ident">message::begin_test</span>(<span class="self">self</span>, <span class="ident">show_expected</span>);
         <span class="ident">check_exists</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">path</span>)<span class="question-mark">?</span>;
@@ -754,8 +754,8 @@
         );
 
         <span class="kw">let</span> <span class="ident">check</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">expected</span> {
-            <span class="ident">Expected::Pass</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Test::check_pass</span>,
-            <span class="ident">Expected::CompileFail</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Test::check_compile_fail</span>,
+            <span class="ident">Expected::Pass</span> =&gt; <span class="ident">Test::check_pass</span>,
+            <span class="ident">Expected::CompileFail</span> =&gt; <span class="ident">Test::check_compile_fail</span>,
         };
 
         <span class="ident">check</span>(<span class="self">self</span>, <span class="ident">project</span>, <span class="ident">name</span>, <span class="ident">success</span>, <span class="ident">stdout</span>, <span class="ident">stderr</span>)
@@ -768,7 +768,7 @@
         <span class="ident">success</span>: <span class="ident">bool</span>,
         <span class="ident">build_stdout</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
         <span class="ident">variations</span>: <span class="ident">Variations</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">preferred</span> <span class="op">=</span> <span class="ident">variations</span>.<span class="ident">preferred</span>();
         <span class="kw">if</span> <span class="op">!</span><span class="ident">success</span> {
             <span class="ident">message::failed_to_build</span>(<span class="ident">preferred</span>);
@@ -792,7 +792,7 @@
         <span class="ident">success</span>: <span class="ident">bool</span>,
         <span class="ident">build_stdout</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
         <span class="ident">variations</span>: <span class="ident">Variations</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">preferred</span> <span class="op">=</span> <span class="ident">variations</span>.<span class="ident">preferred</span>();
 
         <span class="kw">if</span> <span class="ident">success</span> {
@@ -806,7 +806,7 @@
 
         <span class="kw">if</span> <span class="op">!</span><span class="ident">stderr_path</span>.<span class="ident">exists</span>() {
             <span class="kw">match</span> <span class="ident">project</span>.<span class="ident">update</span> {
-                <span class="ident">Update::Wip</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">Update::Wip</span> =&gt; {
                     <span class="kw">let</span> <span class="ident">wip_dir</span> <span class="op">=</span> <span class="ident">Path::new</span>(<span class="string">&quot;wip&quot;</span>);
                     <span class="ident">fs::create_dir_all</span>(<span class="ident">wip_dir</span>)<span class="question-mark">?</span>;
                     <span class="kw">let</span> <span class="ident">gitignore_path</span> <span class="op">=</span> <span class="ident">wip_dir</span>.<span class="ident">join</span>(<span class="string">&quot;.gitignore&quot;</span>);
@@ -818,7 +818,7 @@
                     <span class="ident">message::write_stderr_wip</span>(<span class="kw-2">&amp;</span><span class="ident">wip_path</span>, <span class="kw-2">&amp;</span><span class="ident">stderr_path</span>, <span class="ident">preferred</span>);
                     <span class="ident">fs::write</span>(<span class="ident">wip_path</span>, <span class="ident">preferred</span>).<span class="ident">map_err</span>(<span class="ident">Error::WriteStderr</span>)<span class="question-mark">?</span>;
                 }
-                <span class="ident">Update::Overwrite</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">Update::Overwrite</span> =&gt; {
                     <span class="ident">message::overwrite_stderr</span>(<span class="kw-2">&amp;</span><span class="ident">stderr_path</span>, <span class="ident">preferred</span>);
                     <span class="ident">fs::write</span>(<span class="ident">stderr_path</span>, <span class="ident">preferred</span>).<span class="ident">map_err</span>(<span class="ident">Error::WriteStderr</span>)<span class="question-mark">?</span>;
                 }
@@ -831,17 +831,17 @@
             .<span class="ident">map_err</span>(<span class="ident">Error::ReadStderr</span>)<span class="question-mark">?</span>
             .<span class="ident">replace</span>(<span class="string">&quot;\r\n&quot;</span>, <span class="string">&quot;\n&quot;</span>);
 
-        <span class="kw">if</span> <span class="ident">variations</span>.<span class="ident">any</span>(<span class="op">|</span><span class="ident">stderr</span><span class="op">|</span> <span class="ident">expected</span> <span class="op">=</span><span class="op">=</span> <span class="ident">stderr</span>) {
+        <span class="kw">if</span> <span class="ident">variations</span>.<span class="ident">any</span>(<span class="op">|</span><span class="ident">stderr</span><span class="op">|</span> <span class="ident">expected</span> <span class="op">==</span> <span class="ident">stderr</span>) {
             <span class="ident">message::ok</span>();
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
         }
 
         <span class="kw">match</span> <span class="ident">project</span>.<span class="ident">update</span> {
-            <span class="ident">Update::Wip</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">Update::Wip</span> =&gt; {
                 <span class="ident">message::mismatch</span>(<span class="kw-2">&amp;</span><span class="ident">expected</span>, <span class="ident">preferred</span>);
                 <span class="prelude-val">Err</span>(<span class="ident">Error::Mismatch</span>)
             }
-            <span class="ident">Update::Overwrite</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">Update::Overwrite</span> =&gt; {
                 <span class="ident">message::overwrite_stderr</span>(<span class="kw-2">&amp;</span><span class="ident">stderr_path</span>, <span class="ident">preferred</span>);
                 <span class="ident">fs::write</span>(<span class="ident">stderr_path</span>, <span class="ident">preferred</span>).<span class="ident">map_err</span>(<span class="ident">Error::WriteStderr</span>)<span class="question-mark">?</span>;
                 <span class="prelude-val">Ok</span>(())
@@ -850,13 +850,13 @@
     }
 }
 
-<span class="kw">fn</span> <span class="ident">check_exists</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">check_exists</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">path</span>.<span class="ident">exists</span>() {
         <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
     }
     <span class="kw">match</span> <span class="ident">File::open</span>(<span class="ident">path</span>) {
-        <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(()),
-        <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">Error::Open</span>(<span class="ident">path</span>.<span class="ident">to_owned</span>(), <span class="ident">err</span>)),
+        <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Ok</span>(()),
+        <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="prelude-val">Err</span>(<span class="ident">Error::Open</span>(<span class="ident">path</span>.<span class="ident">to_owned</span>(), <span class="ident">err</span>)),
     }
 }
 
@@ -867,8 +867,8 @@
     <span class="ident">error</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Error</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">fn</span> <span class="ident">expand_globs</span>(<span class="ident">tests</span>: <span class="kw-2">&amp;</span>[<span class="ident">Test</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ExpandedTest</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">glob</span>(<span class="ident">pattern</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PathBuf</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">expand_globs</span>(<span class="ident">tests</span>: <span class="kw-2">&amp;</span>[<span class="ident">Test</span>]) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ExpandedTest</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">glob</span>(<span class="ident">pattern</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PathBuf</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">paths</span> <span class="op">=</span> <span class="ident">glob::glob</span>(<span class="ident">pattern</span>)<span class="question-mark">?</span>
             .<span class="ident">map</span>(<span class="op">|</span><span class="ident">entry</span><span class="op">|</span> <span class="ident">entry</span>.<span class="ident">map_err</span>(<span class="ident">Error::from</span>))
             .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PathBuf</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
@@ -876,7 +876,7 @@
         <span class="prelude-val">Ok</span>(<span class="ident">paths</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">bin_name</span>(<span class="ident">i</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Name</span> {
+    <span class="kw">fn</span> <span class="ident">bin_name</span>(<span class="ident">i</span>: <span class="ident">usize</span>) -&gt; <span class="ident">Name</span> {
         <span class="ident">Name</span>(<span class="macro">format!</span>(<span class="string">&quot;trybuild{:03}&quot;</span>, <span class="ident">i</span>))
     }
 
@@ -891,7 +891,7 @@
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">utf8</span>) <span class="op">=</span> <span class="ident">test</span>.<span class="ident">path</span>.<span class="ident">to_str</span>() {
             <span class="kw">if</span> <span class="ident">utf8</span>.<span class="ident">contains</span>(<span class="string">&#39;*&#39;</span>) {
                 <span class="kw">match</span> <span class="ident">glob</span>(<span class="ident">utf8</span>) {
-                    <span class="prelude-val">Ok</span>(<span class="ident">paths</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="prelude-val">Ok</span>(<span class="ident">paths</span>) =&gt; {
                         <span class="kw">for</span> <span class="ident">path</span> <span class="kw">in</span> <span class="ident">paths</span> {
                             <span class="ident">vec</span>.<span class="ident">push</span>(<span class="ident">ExpandedTest</span> {
                                 <span class="ident">name</span>: <span class="ident">bin_name</span>(<span class="ident">vec</span>.<span class="ident">len</span>()),
@@ -904,7 +904,7 @@
                         }
                         <span class="kw">continue</span>;
                     }
-                    <span class="prelude-val">Err</span>(<span class="ident">error</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">expanded</span>.<span class="ident">error</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">error</span>),
+                    <span class="prelude-val">Err</span>(<span class="ident">error</span>) =&gt; <span class="ident">expanded</span>.<span class="ident">error</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">error</span>),
                 }
             }
         }
@@ -915,10 +915,10 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ExpandedTest</span> {
-    <span class="kw">fn</span> <span class="ident">run</span>(<span class="self">self</span>, <span class="ident">project</span>: <span class="kw-2">&amp;</span><span class="ident">Project</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">run</span>(<span class="self">self</span>, <span class="ident">project</span>: <span class="kw-2">&amp;</span><span class="ident">Project</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">error</span> {
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">test</span>.<span class="ident">run</span>(<span class="ident">project</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>),
-            <span class="prelude-val">Some</span>(<span class="ident">error</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="prelude-val">None</span> =&gt; <span class="self">self</span>.<span class="ident">test</span>.<span class="ident">run</span>(<span class="ident">project</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">error</span>) =&gt; {
                 <span class="kw">let</span> <span class="ident">show_expected</span> <span class="op">=</span> <span class="bool-val">false</span>;
                 <span class="ident">message::begin_test</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">test</span>, <span class="ident">show_expected</span>);
                 <span class="prelude-val">Err</span>(<span class="ident">error</span>)
@@ -937,7 +937,7 @@
 <span class="comment">// provides a filename filter. Only test cases whose filename contains the</span>
 <span class="comment">// filter string will be run.</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::needless_collect</span>)]</span> <span class="comment">// false positive https://github.com/rust-lang/rust-clippy/issues/5991</span>
-<span class="kw">fn</span> <span class="ident">filter</span>(<span class="ident">tests</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ExpandedTest</span><span class="op">&gt;</span>) {
+<span class="kw">fn</span> <span class="ident">filter</span>(<span class="ident">tests</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ExpandedTest</span><span class="op">&gt;</span>) {
     <span class="kw">let</span> <span class="ident">filters</span> <span class="op">=</span> <span class="ident">env::args_os</span>()
         .<span class="ident">flat_map</span>(<span class="ident">OsString::into_string</span>)
         .<span class="ident">filter_map</span>(<span class="op">|</span><span class="kw-2">mut</span> <span class="ident">arg</span><span class="op">|</span> {

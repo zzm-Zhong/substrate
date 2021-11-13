@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `bin&#x2F;node&#x2F;testing&#x2F;src&#x2F;bench.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>bench.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../node_testing/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `bin&#x2F;node&#x2F;testing&#x2F;src&#x2F;bench.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>bench.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../node_testing/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -773,10 +773,10 @@
 }
 
 <span class="kw">impl</span> <span class="ident">BenchPair</span> {
-	<span class="kw">fn</span> <span class="ident">sign</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">payload</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Signature</span> {
+	<span class="kw">fn</span> <span class="ident">sign</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">payload</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">Signature</span> {
 		<span class="kw">match</span> <span class="self">self</span> {
-			<span class="ident"><span class="self">Self</span>::Sr25519</span>(<span class="ident">pair</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">pair</span>.<span class="ident">sign</span>(<span class="ident">payload</span>).<span class="ident">into</span>(),
-			<span class="ident"><span class="self">Self</span>::Ed25519</span>(<span class="ident">pair</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">pair</span>.<span class="ident">sign</span>(<span class="ident">payload</span>).<span class="ident">into</span>(),
+			<span class="ident"><span class="self">Self</span>::Sr25519</span>(<span class="ident">pair</span>) =&gt; <span class="ident">pair</span>.<span class="ident">sign</span>(<span class="ident">payload</span>).<span class="ident">into</span>(),
+			<span class="ident"><span class="self">Self</span>::Ed25519</span>(<span class="ident">pair</span>) =&gt; <span class="ident">pair</span>.<span class="ident">sign</span>(<span class="ident">payload</span>).<span class="ident">into</span>(),
 		}
 	}
 }
@@ -850,7 +850,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">BenchDb</span> {
-	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span> {
 		<span class="kw">let</span> <span class="ident">keyring</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">keyring</span>.<span class="ident">clone</span>();
 		<span class="kw">let</span> <span class="ident">database_type</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">database_type</span>;
 		<span class="kw">let</span> <span class="ident">dir</span> <span class="op">=</span> <span class="ident">tempfile::tempdir</span>().<span class="ident">expect</span>(<span class="string">&quot;temp dir creation failed&quot;</span>);
@@ -894,7 +894,7 @@
 
 <span class="kw">impl</span> <span class="ident">BlockType</span> {
 	<span class="doccomment">/// Create block content description with specified number of transactions.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_content</span>(<span class="self">self</span>, <span class="ident">size</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BlockContent</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_content</span>(<span class="self">self</span>, <span class="ident">size</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) -&gt; <span class="ident">BlockContent</span> {
 		<span class="ident">BlockContent</span> { <span class="ident">block_type</span>: <span class="self">self</span>, <span class="ident">size</span> }
 	}
 }
@@ -916,10 +916,10 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DatabaseType</span> {
-	<span class="kw">fn</span> <span class="ident">into_settings</span>(<span class="self">self</span>, <span class="ident">path</span>: <span class="ident">PathBuf</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">sc_client_db::DatabaseSource</span> {
+	<span class="kw">fn</span> <span class="ident">into_settings</span>(<span class="self">self</span>, <span class="ident">path</span>: <span class="ident">PathBuf</span>) -&gt; <span class="ident">sc_client_db::DatabaseSource</span> {
 		<span class="kw">match</span> <span class="self">self</span> {
-			<span class="ident"><span class="self">Self</span>::RocksDb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">sc_client_db::DatabaseSource::RocksDb</span> { <span class="ident">path</span>, <span class="ident">cache_size</span>: <span class="number">512</span> },
-			<span class="ident"><span class="self">Self</span>::ParityDb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">sc_client_db::DatabaseSource::ParityDb</span> { <span class="ident">path</span> },
+			<span class="ident"><span class="self">Self</span>::RocksDb</span> =&gt; <span class="ident">sc_client_db::DatabaseSource::RocksDb</span> { <span class="ident">path</span>, <span class="ident">cache_size</span>: <span class="number">512</span> },
+			<span class="ident"><span class="self">Self</span>::ParityDb</span> =&gt; <span class="ident">sc_client_db::DatabaseSource::ParityDb</span> { <span class="ident">path</span> },
 		}
 	}
 }
@@ -933,7 +933,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">TaskExecutor</span> {
-	<span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
 		<span class="self">Self</span> { <span class="ident">pool</span>: <span class="ident">executor::ThreadPool::new</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to create task executor&quot;</span>) }
 	}
 }
@@ -968,7 +968,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">BlockContentIterator</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-	<span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">content</span>: <span class="ident">BlockContent</span>, <span class="ident">keyring</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BenchKeyring</span>, <span class="ident">client</span>: <span class="kw-2">&amp;</span><span class="ident">Client</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">content</span>: <span class="ident">BlockContent</span>, <span class="ident">keyring</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BenchKeyring</span>, <span class="ident">client</span>: <span class="kw-2">&amp;</span><span class="ident">Client</span>) -&gt; <span class="self">Self</span> {
 		<span class="kw">let</span> <span class="ident">runtime_version</span> <span class="op">=</span> <span class="ident">client</span>
 			.<span class="ident">runtime_version_at</span>(<span class="kw-2">&amp;</span><span class="ident">BlockId::number</span>(<span class="number">0</span>))
 			.<span class="ident">expect</span>(<span class="string">&quot;There should be runtime version at 0&quot;</span>);
@@ -986,7 +986,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">BlockContentIterator</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
 	<span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">OpaqueExtrinsic</span>;
 
-	<span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">content</span>.<span class="ident">size</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">size</span><span class="op">|</span> <span class="ident">size</span> <span class="op">&lt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">iteration</span>).<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>) {
 			<span class="kw">return</span> <span class="prelude-val">None</span>
 		}
@@ -1004,12 +1004,12 @@
 					<span class="ident">signed_extra</span>(<span class="number">0</span>, <span class="ident">node_runtime::ExistentialDeposit::get</span>() <span class="op">+</span> <span class="number">1</span>),
 				)),
 				<span class="ident">function</span>: <span class="kw">match</span> <span class="self">self</span>.<span class="ident">content</span>.<span class="ident">block_type</span> {
-					<span class="ident">BlockType::RandomTransfersKeepAlive</span> <span class="op">=</span><span class="op">&gt;</span>
+					<span class="ident">BlockType::RandomTransfersKeepAlive</span> =&gt;
 						<span class="ident">Call::Balances</span>(<span class="ident">BalancesCall::transfer_keep_alive</span> {
 							<span class="ident">dest</span>: <span class="ident">sp_runtime::MultiAddress::Id</span>(<span class="ident">receiver</span>),
 							<span class="ident">value</span>: <span class="ident">node_runtime::ExistentialDeposit::get</span>() <span class="op">+</span> <span class="number">1</span>,
 						}),
-					<span class="ident">BlockType::RandomTransfersReaping</span> <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="ident">BlockType::RandomTransfersReaping</span> =&gt; {
 						<span class="ident">Call::Balances</span>(<span class="ident">BalancesCall::transfer</span> {
 							<span class="ident">dest</span>: <span class="ident">sp_runtime::MultiAddress::Id</span>(<span class="ident">receiver</span>),
 							<span class="comment">// Transfer so that ending balance would be 1 less than existential</span>
@@ -1017,7 +1017,7 @@
 							<span class="ident">value</span>: <span class="number">100</span> <span class="op">*</span> <span class="ident">DOLLARS</span> <span class="op">-</span> (<span class="ident">node_runtime::ExistentialDeposit::get</span>() <span class="op">-</span> <span class="number">1</span>),
 						})
 					},
-					<span class="ident">BlockType::Noop</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Call::System</span>(<span class="ident">SystemCall::remark</span> { <span class="ident">remark</span>: <span class="ident">Vec::new</span>() }),
+					<span class="ident">BlockType::Noop</span> =&gt; <span class="ident">Call::System</span>(<span class="ident">SystemCall::remark</span> { <span class="ident">remark</span>: <span class="ident">Vec::new</span>() }),
 				},
 			},
 			<span class="self">self</span>.<span class="ident">runtime_version</span>.<span class="ident">spec_version</span>,
@@ -1027,7 +1027,7 @@
 
 		<span class="kw">let</span> <span class="ident">encoded</span> <span class="op">=</span> <span class="ident">Encode::encode</span>(<span class="kw-2">&amp;</span><span class="ident">signed</span>);
 
-		<span class="kw">let</span> <span class="ident">opaque</span> <span class="op">=</span> <span class="ident">OpaqueExtrinsic::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">&amp;</span><span class="ident">encoded</span>[..]).<span class="ident">expect</span>(<span class="string">&quot;Failed  to decode opaque&quot;</span>);
+		<span class="kw">let</span> <span class="ident">opaque</span> <span class="op">=</span> <span class="ident">OpaqueExtrinsic::decode</span>(<span class="kw-2">&amp;mut</span> <span class="kw-2">&amp;</span><span class="ident">encoded</span>[..]).<span class="ident">expect</span>(<span class="string">&quot;Failed  to decode opaque&quot;</span>);
 
 		<span class="self">self</span>.<span class="ident">iteration</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
 
@@ -1044,7 +1044,7 @@
 		<span class="ident">database_type</span>: <span class="ident">DatabaseType</span>,
 		<span class="ident">keyring_length</span>: <span class="ident">usize</span>,
 		<span class="ident">key_types</span>: <span class="ident">KeyTypes</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	) -&gt; <span class="self">Self</span> {
 		<span class="kw">let</span> <span class="ident">keyring</span> <span class="op">=</span> <span class="ident">BenchKeyring::new</span>(<span class="ident">keyring_length</span>, <span class="ident">key_types</span>);
 
 		<span class="kw">let</span> <span class="ident">dir</span> <span class="op">=</span> <span class="ident">tempfile::tempdir</span>().<span class="ident">expect</span>(<span class="string">&quot;temp dir creation failed&quot;</span>);
@@ -1068,7 +1068,7 @@
 	<span class="doccomment">/// You can `clone` this database or you can `create_context` from it</span>
 	<span class="doccomment">/// (which also does `clone`) to run actual operation against new database</span>
 	<span class="doccomment">/// which will be identical to the original.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">database_type</span>: <span class="ident">DatabaseType</span>, <span class="ident">keyring_length</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">database_type</span>: <span class="ident">DatabaseType</span>, <span class="ident">keyring_length</span>: <span class="ident">usize</span>) -&gt; <span class="self">Self</span> {
 		<span class="ident"><span class="self">Self</span>::with_key_types</span>(<span class="ident">database_type</span>, <span class="ident">keyring_length</span>, <span class="ident">KeyTypes::Sr25519</span>)
 	}
 
@@ -1082,7 +1082,7 @@
 		<span class="ident">dir</span>: <span class="kw-2">&amp;</span><span class="ident">std::path::Path</span>,
 		<span class="ident">profile</span>: <span class="ident">Profile</span>,
 		<span class="ident">keyring</span>: <span class="kw-2">&amp;</span><span class="ident">BenchKeyring</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Client</span>, <span class="ident">std::sync::Arc</span><span class="op">&lt;</span><span class="ident">Backend</span><span class="op">&gt;</span>, <span class="ident">TaskExecutor</span>) {
+	) -&gt; (<span class="ident">Client</span>, <span class="ident">std::sync::Arc</span><span class="op">&lt;</span><span class="ident">Backend</span><span class="op">&gt;</span>, <span class="ident">TaskExecutor</span>) {
 		<span class="kw">let</span> <span class="ident">db_config</span> <span class="op">=</span> <span class="ident">sc_client_db::DatabaseSettings</span> {
 			<span class="ident">state_cache_size</span>: <span class="number">16</span> <span class="op">*</span> <span class="number">1024</span> <span class="op">*</span> <span class="number">1024</span>,
 			<span class="ident">state_cache_child_ratio</span>: <span class="prelude-val">Some</span>((<span class="number">0</span>, <span class="number">100</span>)),
@@ -1114,7 +1114,7 @@
 	<span class="doccomment">/// Generate list of required inherents.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Uses already instantiated Client.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_inherents</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">client</span>: <span class="kw-2">&amp;</span><span class="ident">Client</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OpaqueExtrinsic</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_inherents</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">client</span>: <span class="kw-2">&amp;</span><span class="ident">Client</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OpaqueExtrinsic</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">inherent_data</span> <span class="op">=</span> <span class="ident">InherentData::new</span>();
 		<span class="kw">let</span> <span class="ident">timestamp</span> <span class="op">=</span> <span class="number">1</span> <span class="op">*</span> <span class="ident">MinimumPeriod::get</span>();
 
@@ -1133,12 +1133,12 @@
 	}
 
 	<span class="doccomment">/// Iterate over some block content with transaction signed using this database keyring.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">block_content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">content</span>: <span class="ident">BlockContent</span>, <span class="ident">client</span>: <span class="kw-2">&amp;</span><span class="ident">Client</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BlockContentIterator</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">block_content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">content</span>: <span class="ident">BlockContent</span>, <span class="ident">client</span>: <span class="kw-2">&amp;</span><span class="ident">Client</span>) -&gt; <span class="ident">BlockContentIterator</span> {
 		<span class="ident">BlockContentIterator::new</span>(<span class="ident">content</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">keyring</span>, <span class="ident">client</span>)
 	}
 
 	<span class="doccomment">/// Get cliet for this database operations.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">client</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Client</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">client</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">Client</span> {
 		<span class="kw">let</span> (<span class="ident">client</span>, <span class="ident">_backend</span>, <span class="ident">_task_executor</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::bench_client</span>(
 			<span class="self">self</span>.<span class="ident">database_type</span>,
 			<span class="self">self</span>.<span class="ident">directory_guard</span>.<span class="ident">path</span>(),
@@ -1150,7 +1150,7 @@
 	}
 
 	<span class="doccomment">/// Generate new block using this database.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_block</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">content</span>: <span class="ident">BlockContent</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Block</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_block</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">content</span>: <span class="ident">BlockContent</span>) -&gt; <span class="ident">Block</span> {
 		<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">client</span>();
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">block</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">new_block</span>(<span class="ident">Default::default</span>()).<span class="ident">expect</span>(<span class="string">&quot;Block creation failed&quot;</span>);
@@ -1164,9 +1164,9 @@
 			<span class="kw">match</span> <span class="ident">block</span>.<span class="ident">push</span>(<span class="ident">opaque</span>) {
 				<span class="prelude-val">Err</span>(<span class="ident">sp_blockchain::Error::ApplyExtrinsicFailed</span>(
 					<span class="ident">sp_blockchain::ApplyExtrinsicFailed::Validity</span>(<span class="ident">e</span>),
-				)) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">exhausted_resources</span>() <span class="op">=</span><span class="op">&gt;</span> <span class="kw">break</span>,
-				<span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Error pushing transaction: {:?}&quot;</span>, <span class="ident">err</span>),
-				<span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {},
+				)) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">exhausted_resources</span>() =&gt; <span class="kw">break</span>,
+				<span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Error pushing transaction: {:?}&quot;</span>, <span class="ident">err</span>),
+				<span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; {},
 			}
 		}
 
@@ -1182,12 +1182,12 @@
 	}
 
 	<span class="doccomment">/// Database path.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Path</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Path</span> {
 		<span class="self">self</span>.<span class="ident">directory_guard</span>.<span class="ident">path</span>()
 	}
 
 	<span class="doccomment">/// Clone this database and create context for testing/benchmarking.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_context</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">profile</span>: <span class="ident">Profile</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BenchContext</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_context</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">profile</span>: <span class="ident">Profile</span>) -&gt; <span class="ident">BenchContext</span> {
 		<span class="kw">let</span> <span class="ident">BenchDb</span> { <span class="ident">directory_guard</span>, <span class="ident">keyring</span>, <span class="ident">database_type</span> } <span class="op">=</span> <span class="self">self</span>.<span class="ident">clone</span>();
 		<span class="kw">let</span> (<span class="ident">client</span>, <span class="ident">backend</span>, <span class="ident">task_executor</span>) <span class="op">=</span>
 			<span class="ident"><span class="self">Self</span>::bench_client</span>(<span class="ident">database_type</span>, <span class="ident">directory_guard</span>.<span class="ident">path</span>(), <span class="ident">profile</span>, <span class="kw-2">&amp;</span><span class="ident">keyring</span>);
@@ -1213,19 +1213,19 @@
 	<span class="doccomment">/// New keyring.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// `length` is the number of accounts generated.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">length</span>: <span class="ident">usize</span>, <span class="ident">key_types</span>: <span class="ident">KeyTypes</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">length</span>: <span class="ident">usize</span>, <span class="ident">key_types</span>: <span class="ident">KeyTypes</span>) -&gt; <span class="self">Self</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">accounts</span> <span class="op">=</span> <span class="ident">BTreeMap::new</span>();
 
 		<span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">length</span> {
 			<span class="kw">let</span> <span class="ident">seed</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;//endowed-user/{}&quot;</span>, <span class="ident">n</span>);
 			<span class="kw">let</span> (<span class="ident">account_id</span>, <span class="ident">pair</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">key_types</span> {
-				<span class="ident">KeyTypes::Sr25519</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="ident">KeyTypes::Sr25519</span> =&gt; {
 					<span class="kw">let</span> <span class="ident">pair</span> <span class="op">=</span>
 						<span class="ident">sr25519::Pair::from_string</span>(<span class="kw-2">&amp;</span><span class="ident">seed</span>, <span class="prelude-val">None</span>).<span class="ident">expect</span>(<span class="string">&quot;failed to generate pair&quot;</span>);
 					<span class="kw">let</span> <span class="ident">account_id</span> <span class="op">=</span> <span class="ident">AccountPublic::from</span>(<span class="ident">pair</span>.<span class="ident">public</span>()).<span class="ident">into_account</span>();
 					(<span class="ident">account_id</span>, <span class="ident">BenchPair::Sr25519</span>(<span class="ident">pair</span>))
 				},
-				<span class="ident">KeyTypes::Ed25519</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="ident">KeyTypes::Ed25519</span> =&gt; {
 					<span class="kw">let</span> <span class="ident">pair</span> <span class="op">=</span> <span class="ident">ed25519::Pair::from_seed</span>(<span class="kw-2">&amp;</span><span class="ident">blake2_256</span>(<span class="ident">seed</span>.<span class="ident">as_bytes</span>()));
 					<span class="kw">let</span> <span class="ident">account_id</span> <span class="op">=</span> <span class="ident">AccountPublic::from</span>(<span class="ident">pair</span>.<span class="ident">public</span>()).<span class="ident">into_account</span>();
 					(<span class="ident">account_id</span>, <span class="ident">BenchPair::Ed25519</span>(<span class="ident">pair</span>))
@@ -1238,12 +1238,12 @@
 	}
 
 	<span class="doccomment">/// Generated account id-s from keyring keypairs.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">collect_account_ids</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">collect_account_ids</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AccountId</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">accounts</span>.<span class="ident">keys</span>().<span class="ident">cloned</span>().<span class="ident">collect</span>()
 	}
 
 	<span class="doccomment">/// Get account id at position `index`</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AccountId</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) -&gt; <span class="ident">AccountId</span> {
 		<span class="self">self</span>.<span class="ident">accounts</span>.<span class="ident">keys</span>().<span class="ident">nth</span>(<span class="ident">index</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to get account&quot;</span>).<span class="ident">clone</span>()
 	}
 
@@ -1254,9 +1254,9 @@
 		<span class="ident">spec_version</span>: <span class="ident">u32</span>,
 		<span class="ident">tx_version</span>: <span class="ident">u32</span>,
 		<span class="ident">genesis_hash</span>: [<span class="ident">u8</span>; <span class="number">32</span>],
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UncheckedExtrinsic</span> {
+	) -&gt; <span class="ident">UncheckedExtrinsic</span> {
 		<span class="kw">match</span> <span class="ident">xt</span>.<span class="ident">signed</span> {
-			<span class="prelude-val">Some</span>((<span class="ident">signed</span>, <span class="ident">extra</span>)) <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="prelude-val">Some</span>((<span class="ident">signed</span>, <span class="ident">extra</span>)) =&gt; {
 				<span class="kw">let</span> <span class="ident">payload</span> <span class="op">=</span> (
 					<span class="ident">xt</span>.<span class="ident">function</span>,
 					<span class="ident">extra</span>.<span class="ident">clone</span>(),
@@ -1280,12 +1280,12 @@
 					<span class="ident">function</span>: <span class="ident">payload</span>.<span class="number">0</span>,
 				}
 			},
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UncheckedExtrinsic</span> { <span class="ident">signature</span>: <span class="prelude-val">None</span>, <span class="ident">function</span>: <span class="ident">xt</span>.<span class="ident">function</span> },
+			<span class="prelude-val">None</span> =&gt; <span class="ident">UncheckedExtrinsic</span> { <span class="ident">signature</span>: <span class="prelude-val">None</span>, <span class="ident">function</span>: <span class="ident">xt</span>.<span class="ident">function</span> },
 		}
 	}
 
 	<span class="doccomment">/// Generate genesis with accounts from this keyring endowed with some balance.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_genesis</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">node_runtime::GenesisConfig</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_genesis</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">node_runtime::GenesisConfig</span> {
 		<span class="ident"><span class="kw">crate</span>::genesis::config_endowed</span>(
 			<span class="prelude-val">Some</span>(<span class="ident">node_runtime::wasm_binary_unwrap</span>()),
 			<span class="self">self</span>.<span class="ident">collect_account_ids</span>(),
@@ -1303,16 +1303,16 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Profile</span> {
-	<span class="kw">fn</span> <span class="ident">into_execution_strategies</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecutionStrategies</span> {
+	<span class="kw">fn</span> <span class="ident">into_execution_strategies</span>(<span class="self">self</span>) -&gt; <span class="ident">ExecutionStrategies</span> {
 		<span class="kw">match</span> <span class="self">self</span> {
-			<span class="ident">Profile::Wasm</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ExecutionStrategies</span> {
+			<span class="ident">Profile::Wasm</span> =&gt; <span class="ident">ExecutionStrategies</span> {
 				<span class="ident">syncing</span>: <span class="ident">ExecutionStrategy::AlwaysWasm</span>,
 				<span class="ident">importing</span>: <span class="ident">ExecutionStrategy::AlwaysWasm</span>,
 				<span class="ident">block_construction</span>: <span class="ident">ExecutionStrategy::AlwaysWasm</span>,
 				<span class="ident">offchain_worker</span>: <span class="ident">ExecutionStrategy::AlwaysWasm</span>,
 				<span class="ident">other</span>: <span class="ident">ExecutionStrategy::AlwaysWasm</span>,
 			},
-			<span class="ident">Profile::Native</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ExecutionStrategies</span> {
+			<span class="ident">Profile::Native</span> =&gt; <span class="ident">ExecutionStrategies</span> {
 				<span class="ident">syncing</span>: <span class="ident">ExecutionStrategy::NativeElseWasm</span>,
 				<span class="ident">importing</span>: <span class="ident">ExecutionStrategy::NativeElseWasm</span>,
 				<span class="ident">block_construction</span>: <span class="ident">ExecutionStrategy::NativeElseWasm</span>,
@@ -1326,7 +1326,7 @@
 <span class="kw">struct</span> <span class="ident">Guard</span>(<span class="ident">tempfile::TempDir</span>);
 
 <span class="kw">impl</span> <span class="ident">Guard</span> {
-	<span class="kw">fn</span> <span class="ident">path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Path</span> {
+	<span class="kw">fn</span> <span class="ident">path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Path</span> {
 		<span class="self">self</span>.<span class="number">0</span>.<span class="ident">path</span>()
 	}
 }
@@ -1345,13 +1345,13 @@
 
 <span class="kw">type</span> <span class="ident">AccountPublic</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Signature</span> <span class="kw">as</span> <span class="ident">Verify</span><span class="op">&gt;</span><span class="ident">::Signer</span>;
 
-<span class="kw">fn</span> <span class="ident">get_from_seed</span><span class="op">&lt;</span><span class="ident">TPublic</span>: <span class="ident">Public</span><span class="op">&gt;</span>(<span class="ident">seed</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="op">&lt;</span><span class="ident">TPublic::Pair</span> <span class="kw">as</span> <span class="ident">Pair</span><span class="op">&gt;</span><span class="ident">::Public</span> {
+<span class="kw">fn</span> <span class="ident">get_from_seed</span><span class="op">&lt;</span><span class="ident">TPublic</span>: <span class="ident">Public</span><span class="op">&gt;</span>(<span class="ident">seed</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="op">&lt;</span><span class="ident">TPublic::Pair</span> <span class="kw">as</span> <span class="ident">Pair</span><span class="op">&gt;</span><span class="ident">::Public</span> {
 	<span class="ident">TPublic::Pair::from_string</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;//{}&quot;</span>, <span class="ident">seed</span>), <span class="prelude-val">None</span>)
 		.<span class="ident">expect</span>(<span class="string">&quot;static values are valid; qed&quot;</span>)
 		.<span class="ident">public</span>()
 }
 
-<span class="kw">fn</span> <span class="ident">get_account_id_from_seed</span><span class="op">&lt;</span><span class="ident">TPublic</span>: <span class="ident">Public</span><span class="op">&gt;</span>(<span class="ident">seed</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AccountId</span>
+<span class="kw">fn</span> <span class="ident">get_account_id_from_seed</span><span class="op">&lt;</span><span class="ident">TPublic</span>: <span class="ident">Public</span><span class="op">&gt;</span>(<span class="ident">seed</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">AccountId</span>
 <span class="kw">where</span>
 	<span class="ident">AccountPublic</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="ident">TPublic::Pair</span> <span class="kw">as</span> <span class="ident">Pair</span><span class="op">&gt;</span><span class="ident">::Public</span><span class="op">&gt;</span>,
 {
@@ -1360,7 +1360,7 @@
 
 <span class="kw">impl</span> <span class="ident">BenchContext</span> {
 	<span class="doccomment">/// Import some block.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">import_block</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">block</span>: <span class="ident">Block</span>) {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">import_block</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">block</span>: <span class="ident">Block</span>) {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">import_params</span> <span class="op">=</span>
 			<span class="ident">BlockImportParams::new</span>(<span class="ident">BlockOrigin::NetworkBroadcast</span>, <span class="ident">block</span>.<span class="ident">header</span>.<span class="ident">clone</span>());
 		<span class="ident">import_params</span>.<span class="ident">body</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">block</span>.<span class="ident">extrinsics</span>().<span class="ident">to_vec</span>());
@@ -1386,7 +1386,7 @@
 	}
 
 	<span class="doccomment">/// Database path for the current context.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Path</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Path</span> {
 		<span class="self">self</span>.<span class="ident">db_guard</span>.<span class="ident">path</span>()
 	}
 }

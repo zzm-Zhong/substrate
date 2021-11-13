@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `bin&#x2F;node&#x2F;bench&#x2F;src&#x2F;import.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>import.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../node_bench/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `bin&#x2F;node&#x2F;bench&#x2F;src&#x2F;import.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>import.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../node_bench/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -248,28 +248,28 @@
 }
 
 <span class="kw">impl</span> <span class="ident">core::BenchmarkDescription</span> <span class="kw">for</span> <span class="ident">ImportBenchmarkDescription</span> {
-	<span class="kw">fn</span> <span class="ident">path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Path</span> {
+	<span class="kw">fn</span> <span class="ident">path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Path</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">Path::new</span>(<span class="kw-2">&amp;</span>[<span class="string">&quot;node&quot;</span>, <span class="string">&quot;import&quot;</span>]);
 
 		<span class="kw">match</span> <span class="self">self</span>.<span class="ident">profile</span> {
-			<span class="ident">Profile::Wasm</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;wasm&quot;</span>),
-			<span class="ident">Profile::Native</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;native&quot;</span>),
+			<span class="ident">Profile::Wasm</span> =&gt; <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;wasm&quot;</span>),
+			<span class="ident">Profile::Native</span> =&gt; <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;native&quot;</span>),
 		}
 
 		<span class="kw">match</span> <span class="self">self</span>.<span class="ident">key_types</span> {
-			<span class="ident">KeyTypes::Sr25519</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;sr25519&quot;</span>),
-			<span class="ident">KeyTypes::Ed25519</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;ed25519&quot;</span>),
+			<span class="ident">KeyTypes::Sr25519</span> =&gt; <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;sr25519&quot;</span>),
+			<span class="ident">KeyTypes::Ed25519</span> =&gt; <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;ed25519&quot;</span>),
 		}
 
 		<span class="kw">match</span> <span class="self">self</span>.<span class="ident">block_type</span> {
-			<span class="ident">BlockType::RandomTransfersKeepAlive</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;transfer_keep_alive&quot;</span>),
-			<span class="ident">BlockType::RandomTransfersReaping</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;transfer_reaping&quot;</span>),
-			<span class="ident">BlockType::Noop</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;noop&quot;</span>),
+			<span class="ident">BlockType::RandomTransfersKeepAlive</span> =&gt; <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;transfer_keep_alive&quot;</span>),
+			<span class="ident">BlockType::RandomTransfersReaping</span> =&gt; <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;transfer_reaping&quot;</span>),
+			<span class="ident">BlockType::Noop</span> =&gt; <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;noop&quot;</span>),
 		}
 
 		<span class="kw">match</span> <span class="self">self</span>.<span class="ident">database_type</span> {
-			<span class="ident">DatabaseType::RocksDb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;rocksdb&quot;</span>),
-			<span class="ident">DatabaseType::ParityDb</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;paritydb&quot;</span>),
+			<span class="ident">DatabaseType::RocksDb</span> =&gt; <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;rocksdb&quot;</span>),
+			<span class="ident">DatabaseType::ParityDb</span> =&gt; <span class="ident">path</span>.<span class="ident">push</span>(<span class="string">&quot;paritydb&quot;</span>),
 		}
 
 		<span class="ident">path</span>.<span class="ident">push</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="self">self</span>.<span class="ident">size</span>));
@@ -277,7 +277,7 @@
 		<span class="ident">path</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">setup</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">core::Benchmark</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">setup</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) -&gt; <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">core::Benchmark</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">profile</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">profile</span>;
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bench_db</span> <span class="op">=</span> <span class="ident">BenchDb::with_key_types</span>(<span class="self">self</span>.<span class="ident">database_type</span>, <span class="number">50_000</span>, <span class="self">self</span>.<span class="ident">key_types</span>);
 		<span class="kw">let</span> <span class="ident">block</span> <span class="op">=</span> <span class="ident">bench_db</span>.<span class="ident">generate_block</span>(<span class="self">self</span>.<span class="ident">block_type</span>.<span class="ident">to_content</span>(<span class="self">self</span>.<span class="ident">size</span>.<span class="ident">transactions</span>()));
@@ -289,7 +289,7 @@
 		})
 	}
 
-	<span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span> {
 		<span class="macro">format!</span>(
 			<span class="string">&quot;Block import ({:?}/{}, {:?}, {:?} backend)&quot;</span>,
 			<span class="self">self</span>.<span class="ident">block_type</span>, <span class="self">self</span>.<span class="ident">size</span>, <span class="self">self</span>.<span class="ident">profile</span>, <span class="self">self</span>.<span class="ident">database_type</span>,
@@ -299,7 +299,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">core::Benchmark</span> <span class="kw">for</span> <span class="ident">ImportBenchmark</span> {
-	<span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">mode</span>: <span class="ident">Mode</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::time::Duration</span> {
+	<span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">mode</span>: <span class="ident">Mode</span>) -&gt; <span class="ident">std::time::Duration</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">context</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">database</span>.<span class="ident">create_context</span>(<span class="self">self</span>.<span class="ident">profile</span>);
 
 		<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">context</span>
@@ -308,7 +308,7 @@
 			.<span class="ident">expect</span>(<span class="string">&quot;Failed to get runtime version&quot;</span>)
 			.<span class="ident">spec_version</span>;
 
-		<span class="kw">if</span> <span class="ident">mode</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Mode::Profile</span> {
+		<span class="kw">if</span> <span class="ident">mode</span> <span class="op">==</span> <span class="ident">Mode::Profile</span> {
 			<span class="ident">std::thread::park_timeout</span>(<span class="ident">std::time::Duration::from_secs</span>(<span class="number">3</span>));
 		}
 
@@ -323,7 +323,7 @@
 			.<span class="ident">expect</span>(<span class="string">&quot;state_at failed for block#1&quot;</span>)
 			.<span class="ident">inspect_state</span>(<span class="op">|</span><span class="op">|</span> {
 				<span class="kw">match</span> <span class="self">self</span>.<span class="ident">block_type</span> {
-					<span class="ident">BlockType::RandomTransfersKeepAlive</span> <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="ident">BlockType::RandomTransfersKeepAlive</span> =&gt; {
 						<span class="comment">// should be 7 per signed extrinsic + 1 per unsigned</span>
 						<span class="comment">// we have 1 unsigned and the rest are signed in the block</span>
 						<span class="comment">// those 7 events per signed are:</span>
@@ -340,7 +340,7 @@
 							(<span class="self">self</span>.<span class="ident">block</span>.<span class="ident">extrinsics</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="number">1</span>) <span class="op">*</span> <span class="number">7</span> <span class="op">+</span> <span class="number">1</span>,
 						);
 					},
-					<span class="ident">BlockType::Noop</span> <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="ident">BlockType::Noop</span> =&gt; {
 						<span class="macro">assert_eq!</span>(
 							<span class="ident">node_runtime::System::events</span>().<span class="ident">len</span>(),
 							<span class="comment">// should be 2 per signed extrinsic + 1 per unsigned</span>
@@ -351,11 +351,11 @@
 							(<span class="self">self</span>.<span class="ident">block</span>.<span class="ident">extrinsics</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="number">1</span>) <span class="op">*</span> <span class="number">2</span> <span class="op">+</span> <span class="number">1</span>,
 						);
 					},
-					<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {},
+					<span class="kw">_</span> =&gt; {},
 				}
 			});
 
-		<span class="kw">if</span> <span class="ident">mode</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Mode::Profile</span> {
+		<span class="kw">if</span> <span class="ident">mode</span> <span class="op">==</span> <span class="ident">Mode::Profile</span> {
 			<span class="ident">std::thread::park_timeout</span>(<span class="ident">std::time::Duration::from_secs</span>(<span class="number">1</span>));
 		}
 

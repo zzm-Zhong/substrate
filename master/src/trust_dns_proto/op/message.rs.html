@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;usr&#x2F;local&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;trust-dns-proto-0.20.1&#x2F;src&#x2F;op&#x2F;message.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>message.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../trust_dns_proto/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;usr&#x2F;local&#x2F;cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;trust-dns-proto-0.20.1&#x2F;src&#x2F;op&#x2F;message.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>message.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../trust_dns_proto/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1111,7 +1111,7 @@
     <span class="ident">current_header</span>: <span class="kw-2">&amp;</span><span class="ident">Header</span>,
     <span class="ident">is_truncated</span>: <span class="ident">bool</span>,
     <span class="ident">counts</span>: <span class="ident">HeaderCounts</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Header</span> {
+) -&gt; <span class="ident">Header</span> {
     <span class="macro">assert!</span>(<span class="ident">counts</span>.<span class="ident">query_count</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">u16::max_value</span>() <span class="kw">as</span> <span class="ident">usize</span>);
     <span class="macro">assert!</span>(<span class="ident">counts</span>.<span class="ident">answer_count</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">u16::max_value</span>() <span class="kw">as</span> <span class="ident">usize</span>);
     <span class="macro">assert!</span>(<span class="ident">counts</span>.<span class="ident">nameserver_count</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">u16::max_value</span>() <span class="kw">as</span> <span class="ident">usize</span>);
@@ -1146,7 +1146,7 @@
 
 <span class="kw">impl</span> <span class="ident">Message</span> {
     <span class="doccomment">/// Returns a new &quot;empty&quot; Message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Message</span> {
             <span class="ident">header</span>: <span class="ident">Header::new</span>(),
             <span class="ident">queries</span>: <span class="ident">Vec::new</span>(),
@@ -1165,7 +1165,7 @@
     <span class="doccomment">/// * `id` - message id should match the request message id</span>
     <span class="doccomment">/// * `op_code` - operation of the request</span>
     <span class="doccomment">/// * `response_code` - the error code for the response</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">error_msg</span>(<span class="ident">id</span>: <span class="ident">u16</span>, <span class="ident">op_code</span>: <span class="ident">OpCode</span>, <span class="ident">response_code</span>: <span class="ident">ResponseCode</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Message</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">error_msg</span>(<span class="ident">id</span>: <span class="ident">u16</span>, <span class="ident">op_code</span>: <span class="ident">OpCode</span>, <span class="ident">response_code</span>: <span class="ident">ResponseCode</span>) -&gt; <span class="ident">Message</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">Message::new</span>();
         <span class="ident">message</span>
             .<span class="ident">set_message_type</span>(<span class="ident">MessageType::Response</span>)
@@ -1177,7 +1177,7 @@
     }
 
     <span class="doccomment">/// Truncates a Message, this blindly removes all response fields and sets truncated to `true`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">truncate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">truncate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">truncated</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">clone</span>();
         <span class="ident">truncated</span>.<span class="ident">set_truncated</span>(<span class="bool-val">true</span>);
         <span class="comment">// drops additional/answer/queries so len is 0</span>
@@ -1190,73 +1190,73 @@
     }
 
     <span class="doccomment">/// see `Header::set_id`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_id</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">u16</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_id</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">u16</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">set_id</span>(<span class="ident">id</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// see `Header::set_message_type`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_message_type</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">message_type</span>: <span class="ident">MessageType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_message_type</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">message_type</span>: <span class="ident">MessageType</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">set_message_type</span>(<span class="ident">message_type</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// see `Header::set_op_code`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_op_code</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">op_code</span>: <span class="ident">OpCode</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_op_code</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">op_code</span>: <span class="ident">OpCode</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">set_op_code</span>(<span class="ident">op_code</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// see `Header::set_authoritative`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_authoritative</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">authoritative</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_authoritative</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">authoritative</span>: <span class="ident">bool</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">set_authoritative</span>(<span class="ident">authoritative</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// see `Header::set_truncated`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_truncated</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">truncated</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_truncated</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">truncated</span>: <span class="ident">bool</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">set_truncated</span>(<span class="ident">truncated</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// see `Header::set_recursion_desired`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_recursion_desired</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">recursion_desired</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_recursion_desired</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">recursion_desired</span>: <span class="ident">bool</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">set_recursion_desired</span>(<span class="ident">recursion_desired</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// see `Header::set_recursion_available`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_recursion_available</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">recursion_available</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_recursion_available</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">recursion_available</span>: <span class="ident">bool</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">set_recursion_available</span>(<span class="ident">recursion_available</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// see `Header::set_authentic_data`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_authentic_data</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">authentic_data</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_authentic_data</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">authentic_data</span>: <span class="ident">bool</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">set_authentic_data</span>(<span class="ident">authentic_data</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// see `Header::set_checking_disabled`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_checking_disabled</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">checking_disabled</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_checking_disabled</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">checking_disabled</span>: <span class="ident">bool</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">set_checking_disabled</span>(<span class="ident">checking_disabled</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// see `Header::set_response_code`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_response_code</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">response_code</span>: <span class="ident">ResponseCode</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_response_code</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">response_code</span>: <span class="ident">ResponseCode</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">set_response_code</span>(<span class="ident">response_code</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Add a query to the Message, either the query response from the server, or the request Query.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_query</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">query</span>: <span class="ident">Query</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_query</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">query</span>: <span class="ident">Query</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">queries</span>.<span class="ident">push</span>(<span class="ident">query</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Adds an iterator over a set of Queries to be added to the message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_queries</span><span class="op">&lt;</span><span class="ident">Q</span>, <span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">queries</span>: <span class="ident">Q</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_queries</span><span class="op">&lt;</span><span class="ident">Q</span>, <span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">queries</span>: <span class="ident">Q</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span>
     <span class="kw">where</span>
         <span class="ident">Q</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Query</span>, <span class="ident">IntoIter</span> <span class="op">=</span> <span class="ident">I</span><span class="op">&gt;</span>,
         <span class="ident">I</span>: <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Query</span><span class="op">&gt;</span>,
@@ -1269,13 +1269,13 @@
     }
 
     <span class="doccomment">/// Add an answer to the Message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_answer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">record</span>: <span class="ident">Record</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_answer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">record</span>: <span class="ident">Record</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">answers</span>.<span class="ident">push</span>(<span class="ident">record</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Add all the records from the iterator to the answers section of the Message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_answers</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">records</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_answers</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">records</span>: <span class="ident">R</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span>
     <span class="kw">where</span>
         <span class="ident">R</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Record</span>, <span class="ident">IntoIter</span> <span class="op">=</span> <span class="ident">I</span><span class="op">&gt;</span>,
         <span class="ident">I</span>: <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Record</span><span class="op">&gt;</span>,
@@ -1292,19 +1292,19 @@
     <span class="doccomment">/// # Panics</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Will panic if answer records are already associated to the message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert_answers</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">records</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert_answers</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">records</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span>) {
         <span class="macro">assert!</span>(<span class="self">self</span>.<span class="ident">answers</span>.<span class="ident">is_empty</span>());
         <span class="self">self</span>.<span class="ident">answers</span> <span class="op">=</span> <span class="ident">records</span>;
     }
 
     <span class="doccomment">/// Add a name server record to the Message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_name_server</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">record</span>: <span class="ident">Record</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_name_server</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">record</span>: <span class="ident">Record</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">name_servers</span>.<span class="ident">push</span>(<span class="ident">record</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Add all the records in the Iterator to the name server section of the message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_name_servers</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">records</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_name_servers</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">records</span>: <span class="ident">R</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span>
     <span class="kw">where</span>
         <span class="ident">R</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Record</span>, <span class="ident">IntoIter</span> <span class="op">=</span> <span class="ident">I</span><span class="op">&gt;</span>,
         <span class="ident">I</span>: <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Record</span><span class="op">&gt;</span>,
@@ -1321,13 +1321,13 @@
     <span class="doccomment">/// # Panics</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Will panic if name_servers records are already associated to the message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert_name_servers</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">records</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert_name_servers</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">records</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span>) {
         <span class="macro">assert!</span>(<span class="self">self</span>.<span class="ident">name_servers</span>.<span class="ident">is_empty</span>());
         <span class="self">self</span>.<span class="ident">name_servers</span> <span class="op">=</span> <span class="ident">records</span>;
     }
 
     <span class="doccomment">/// Add an additional Record to the message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_additional</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">record</span>: <span class="ident">Record</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_additional</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">record</span>: <span class="ident">Record</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">additionals</span>.<span class="ident">push</span>(<span class="ident">record</span>);
         <span class="self">self</span>
     }
@@ -1337,13 +1337,13 @@
     <span class="doccomment">/// # Panics</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Will panic if additional records are already associated to the message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert_additionals</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">records</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert_additionals</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">records</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span>) {
         <span class="macro">assert!</span>(<span class="self">self</span>.<span class="ident">additionals</span>.<span class="ident">is_empty</span>());
         <span class="self">self</span>.<span class="ident">additionals</span> <span class="op">=</span> <span class="ident">records</span>;
     }
 
     <span class="doccomment">/// Add the EDNS section to the Message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_edns</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">edns</span>: <span class="ident">Edns</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_edns</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">edns</span>: <span class="ident">Edns</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">edns</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">edns</span>);
         <span class="self">self</span>
     }
@@ -1352,59 +1352,59 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This must be don&#39;t only after all records have been associated. Generally this will be handled by the client and not need to be used directly</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dnssec&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_sig0</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">record</span>: <span class="ident">Record</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_sig0</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">record</span>: <span class="ident">Record</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="macro">assert_eq!</span>(<span class="ident">RecordType::DNSSEC</span>(<span class="ident">DNSSECRecordType::SIG</span>), <span class="ident">record</span>.<span class="ident">rr_type</span>());
         <span class="self">self</span>.<span class="ident">sig0</span>.<span class="ident">push</span>(<span class="ident">record</span>);
         <span class="self">self</span>
     }
 
     <span class="doccomment">/// Gets the header of the Message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">header</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Header</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">header</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Header</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">header</span>
     }
 
     <span class="doccomment">/// see `Header::id()`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u16</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u16</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">id</span>()
     }
 
     <span class="doccomment">/// see `Header::message_type()`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MessageType</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MessageType</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">message_type</span>()
     }
 
     <span class="doccomment">/// see `Header::op_code()`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">op_code</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OpCode</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">op_code</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">OpCode</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">op_code</span>()
     }
 
     <span class="doccomment">/// see `Header::authoritative()`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">authoritative</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">authoritative</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">authoritative</span>()
     }
 
     <span class="doccomment">/// see `Header::truncated()`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">truncated</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">truncated</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">truncated</span>()
     }
 
     <span class="doccomment">/// see `Header::recursion_desired()`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recursion_desired</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recursion_desired</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">recursion_desired</span>()
     }
 
     <span class="doccomment">/// see `Header::recursion_available()`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recursion_available</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recursion_available</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">recursion_available</span>()
     }
 
     <span class="doccomment">/// see `Header::authentic_data()`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">authentic_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">authentic_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">authentic_data</span>()
     }
 
     <span class="doccomment">/// see `Header::checking_disabled()`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">checking_disabled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">checking_disabled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">checking_disabled</span>()
     }
 
@@ -1412,7 +1412,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// The `ResponseCode`, if this is an EDNS message then this will join the section from the OPT</span>
     <span class="doccomment">///  record to create the EDNS `ResponseCode`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">response_code</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseCode</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">response_code</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">ResponseCode</span> {
         <span class="ident">ResponseCode::from</span>(
             <span class="self">self</span>.<span class="ident">edns</span>.<span class="ident">as_ref</span>().<span class="ident">map_or</span>(<span class="number">0</span>, <span class="ident">Edns::rcode_high</span>),
             <span class="self">self</span>.<span class="ident">header</span>.<span class="ident">response_code</span>(),
@@ -1422,35 +1422,35 @@
     <span class="doccomment">/// ```text</span>
     <span class="doccomment">/// Question        Carries the query name and other query parameters.</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">queries</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">Query</span>] {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">queries</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">Query</span>] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">queries</span>
     }
 
     <span class="doccomment">/// Provides mutable access to `queries`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">queries_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Query</span><span class="op">&gt;</span> {
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">queries</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">queries_mut</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Query</span><span class="op">&gt;</span> {
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">queries</span>
     }
 
     <span class="doccomment">/// Removes all the answers from the Message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_queries</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Query</span><span class="op">&gt;</span> {
-        <span class="ident">mem::replace</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">queries</span>, <span class="macro">vec!</span>[])
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_queries</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Query</span><span class="op">&gt;</span> {
+        <span class="ident">mem::replace</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">queries</span>, <span class="macro">vec!</span>[])
     }
 
     <span class="doccomment">/// ```text</span>
     <span class="doccomment">/// Answer          Carries RRs which directly answer the query.</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">answers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">Record</span>] {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">answers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">Record</span>] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">answers</span>
     }
 
     <span class="doccomment">/// Provides mutable access to `answers`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">answers_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> {
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">answers</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">answers_mut</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> {
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">answers</span>
     }
 
     <span class="doccomment">/// Removes all the answers from the Message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_answers</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> {
-        <span class="ident">mem::replace</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">answers</span>, <span class="macro">vec!</span>[])
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_answers</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> {
+        <span class="ident">mem::replace</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">answers</span>, <span class="macro">vec!</span>[])
     }
 
     <span class="doccomment">/// ```text</span>
@@ -1458,40 +1458,40 @@
     <span class="doccomment">///                 May optionally carry the SOA RR for the authoritative</span>
     <span class="doccomment">///                 data in the answer section.</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name_servers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">Record</span>] {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name_servers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">Record</span>] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">name_servers</span>
     }
 
     <span class="doccomment">/// Provides mutable access to `name_servers`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name_servers_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> {
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">name_servers</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name_servers_mut</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> {
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">name_servers</span>
     }
 
     <span class="doccomment">/// Remove the name servers from the Message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_name_servers</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> {
-        <span class="ident">mem::replace</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">name_servers</span>, <span class="macro">vec!</span>[])
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_name_servers</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> {
+        <span class="ident">mem::replace</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">name_servers</span>, <span class="macro">vec!</span>[])
     }
 
     <span class="doccomment">/// ```text</span>
     <span class="doccomment">/// Additional      Carries RRs which may be helpful in using the RRs in the</span>
     <span class="doccomment">///                 other sections.</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">additionals</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">Record</span>] {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">additionals</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">Record</span>] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">additionals</span>
     }
 
     <span class="doccomment">/// Provides mutable access to `additionals`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">additionals_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> {
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">additionals</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">additionals_mut</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> {
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">additionals</span>
     }
 
     <span class="doccomment">/// Remove the additional Records from the Message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_additionals</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> {
-        <span class="ident">mem::replace</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">additionals</span>, <span class="macro">vec!</span>[])
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_additionals</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> {
+        <span class="ident">mem::replace</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">additionals</span>, <span class="macro">vec!</span>[])
     }
 
     <span class="doccomment">/// All sections chained</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">all_sections</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">Record</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">all_sections</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">Record</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">answers</span>
             .<span class="ident">iter</span>()
             .<span class="ident">chain</span>(<span class="self">self</span>.<span class="ident">name_servers</span>().<span class="ident">iter</span>())
@@ -1527,12 +1527,12 @@
     <span class="doccomment">/// # Return value</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns the EDNS record if it was found in the additional section.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">edns</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Edns</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">edns</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Edns</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">edns</span>.<span class="ident">as_ref</span>()
     }
 
     <span class="doccomment">/// If edns is_none, this will create a new default Edns.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">edns_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Edns</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">edns_mut</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">Edns</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">edns</span>.<span class="ident">is_none</span>() {
             <span class="self">self</span>.<span class="ident">edns</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Edns::new</span>());
         }
@@ -1543,7 +1543,7 @@
     <span class="doccomment">/// # Return value</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the max payload value as it&#39;s defined in the EDNS section.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max_payload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u16</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max_payload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u16</span> {
         <span class="kw">let</span> <span class="ident">max_size</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">edns</span>.<span class="ident">as_ref</span>().<span class="ident">map_or</span>(<span class="number">512</span>, <span class="ident">Edns::max_payload</span>);
         <span class="kw">if</span> <span class="ident">max_size</span> <span class="op">&lt;</span> <span class="number">512</span> {
             <span class="number">512</span>
@@ -1555,7 +1555,7 @@
     <span class="doccomment">/// # Return value</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// the version as defined in the EDNS record</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u8</span> {
         <span class="self">self</span>.<span class="ident">edns</span>.<span class="ident">as_ref</span>().<span class="ident">map_or</span>(<span class="number">0</span>, <span class="ident">Edns::version</span>)
     }
 
@@ -1573,7 +1573,7 @@
     <span class="doccomment">/// # Return value</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The sig0, i.e. signed record, for verifying the sending and package integrity</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sig0</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">Record</span>] {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sig0</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">Record</span>] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sig0</span>
     }
 
@@ -1581,7 +1581,7 @@
     <span class="doccomment">/// this is necessary to match the counts in the header from the record sections</span>
     <span class="doccomment">///  this happens implicitly on write_to, so no need to call before write_to</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_counts</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_counts</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">header</span> <span class="op">=</span> <span class="ident">update_header_counts</span>(
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">header</span>,
             <span class="self">self</span>.<span class="ident">truncated</span>(),
@@ -1596,7 +1596,7 @@
     }
 
     <span class="doccomment">/// Attempts to read the specified number of `Query`s</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_queries</span>(<span class="ident">decoder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BinDecoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">count</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Query</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_queries</span>(<span class="ident">decoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">BinDecoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">count</span>: <span class="ident">usize</span>) -&gt; <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Query</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">queries</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="ident">count</span>);
         <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">count</span> {
             <span class="ident">queries</span>.<span class="ident">push</span>(<span class="ident">Query::read</span>(<span class="ident">decoder</span>)<span class="question-mark">?</span>);
@@ -1611,10 +1611,10 @@
     <span class="doccomment">/// This returns a tuple of first standard Records, then a possibly associated Edns, and then finally any optionally associated SIG0 records.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dnssec&quot;</span>), <span class="ident">allow</span>(<span class="ident">unused_mut</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_records</span>(
-        <span class="ident">decoder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BinDecoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
+        <span class="ident">decoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">BinDecoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
         <span class="ident">count</span>: <span class="ident">usize</span>,
         <span class="ident">is_additional</span>: <span class="ident">bool</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtoResult</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Edns</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">ProtoResult</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Edns</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">records</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="ident">count</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">edns</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Edns</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sig0s</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="kw">if</span> <span class="ident">is_additional</span> { <span class="number">1</span> } <span class="kw">else</span> { <span class="number">0</span> });
@@ -1632,11 +1632,11 @@
             } <span class="kw">else</span> {
                 <span class="kw">match</span> <span class="ident">record</span>.<span class="ident">rr_type</span>() {
                     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dnssec&quot;</span>)]</span>
-                    <span class="ident">RecordType::DNSSEC</span>(<span class="ident">DNSSECRecordType::SIG</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="ident">RecordType::DNSSEC</span>(<span class="ident">DNSSECRecordType::SIG</span>) =&gt; {
                         <span class="ident">saw_sig0</span> <span class="op">=</span> <span class="bool-val">true</span>;
                         <span class="ident">sig0s</span>.<span class="ident">push</span>(<span class="ident">record</span>);
                     }
-                    <span class="ident">RecordType::OPT</span> <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="ident">RecordType::OPT</span> =&gt; {
                         <span class="kw">if</span> <span class="ident">saw_sig0</span> {
                             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;sig0 must be final resource record&quot;</span>.<span class="ident">into</span>());
                         } <span class="comment">// SIG0 must be last</span>
@@ -1645,7 +1645,7 @@
                         }
                         <span class="ident">edns</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<span class="kw-2">&amp;</span><span class="ident">record</span>).<span class="ident">into</span>());
                     }
-                    <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="kw">_</span> =&gt; {
                         <span class="kw">if</span> <span class="ident">saw_sig0</span> {
                             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="string">&quot;sig0 must be final resource record&quot;</span>.<span class="ident">into</span>());
                         } <span class="comment">// SIG0 must be last</span>
@@ -1659,20 +1659,20 @@
     }
 
     <span class="doccomment">/// Decodes a message from the buffer.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_vec</span>(<span class="ident">buffer</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_vec</span>(<span class="ident">buffer</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">BinDecoder::new</span>(<span class="ident">buffer</span>);
-        <span class="ident">Message::read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">decoder</span>)
+        <span class="ident">Message::read</span>(<span class="kw-2">&amp;mut</span> <span class="ident">decoder</span>)
     }
 
     <span class="doccomment">/// Encodes the Message into a buffer</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">ProtoError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_vec</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">ProtoError</span><span class="op">&gt;</span> {
         <span class="comment">// TODO: this feels like the right place to verify the max packet size of the message,</span>
         <span class="comment">//  will need to update the header for truncation and the lengths if we send less than the</span>
         <span class="comment">//  full response. This needs to conform with the EDNS settings of the server...</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="number">512</span>);
         {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">encoder</span> <span class="op">=</span> <span class="ident">BinEncoder::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buffer</span>);
-            <span class="self">self</span>.<span class="ident">emit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">encoder</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">encoder</span> <span class="op">=</span> <span class="ident">BinEncoder::new</span>(<span class="kw-2">&amp;mut</span> <span class="ident">buffer</span>);
+            <span class="self">self</span>.<span class="ident">emit</span>(<span class="kw-2">&amp;mut</span> <span class="ident">encoder</span>)<span class="question-mark">?</span>;
         }
 
         <span class="prelude-val">Ok</span>(<span class="ident">buffer</span>)
@@ -1683,10 +1683,10 @@
     <span class="doccomment">/// Subsequent to calling this, the Message should not change.</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::match_single_binding</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">finalize</span><span class="op">&lt;</span><span class="ident">MF</span>: <span class="ident">MessageFinalizer</span><span class="op">&gt;</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">finalizer</span>: <span class="kw-2">&amp;</span><span class="ident">MF</span>,
         <span class="ident">inception_time</span>: <span class="ident">u32</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtoResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">ProtoResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">debug!</span>(<span class="string">&quot;finalizing message: {:?}&quot;</span>, <span class="self">self</span>);
         <span class="kw">let</span> <span class="ident">finals</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">finalizer</span>.<span class="ident">finalize_message</span>(<span class="self">self</span>, <span class="ident">inception_time</span>)<span class="question-mark">?</span>;
 
@@ -1695,8 +1695,8 @@
             <span class="kw">match</span> <span class="ident">fin</span>.<span class="ident">rr_type</span>() {
                 <span class="comment">// SIG0&#39;s are special, and come at the very end of the message</span>
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;dnssec&quot;</span>)]</span>
-                <span class="ident">RecordType::DNSSEC</span>(<span class="ident">DNSSECRecordType::SIG</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">add_sig0</span>(<span class="ident">fin</span>),
-                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">add_additional</span>(<span class="ident">fin</span>),
+                <span class="ident">RecordType::DNSSEC</span>(<span class="ident">DNSSECRecordType::SIG</span>) =&gt; <span class="self">self</span>.<span class="ident">add_sig0</span>(<span class="ident">fin</span>),
+                <span class="kw">_</span> =&gt; <span class="self">self</span>.<span class="ident">add_additional</span>(<span class="ident">fin</span>),
             };
         }
 
@@ -1704,7 +1704,7 @@
     }
 
     <span class="doccomment">/// Consumes `Message` and returns into components</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_parts</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MessageParts</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_parts</span>(<span class="self">self</span>) -&gt; <span class="ident">MessageParts</span> {
         <span class="self">self</span>.<span class="ident">into</span>()
     }
 }
@@ -1736,7 +1736,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MessageParts</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">msg</span>: <span class="ident">Message</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">msg</span>: <span class="ident">Message</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">Message</span> {
             <span class="ident">header</span>,
             <span class="ident">queries</span>,
@@ -1761,7 +1761,7 @@
 <span class="kw">impl</span> <span class="ident">Deref</span> <span class="kw">for</span> <span class="ident">Message</span> {
     <span class="kw">type</span> <span class="ident">Target</span> <span class="op">=</span> <span class="ident">Header</span>;
 
-    <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Target</span> {
+    <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Target</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">header</span>
     }
 }
@@ -1781,7 +1781,7 @@
     <span class="doccomment">/// # Return</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A vector to append to the additionals section of the message, sorted in the order as they should appear in the message.</span>
-    <span class="kw">fn</span> <span class="ident">finalize_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">Message</span>, <span class="ident">current_time</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">finalize_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">Message</span>, <span class="ident">current_time</span>: <span class="ident">u32</span>) -&gt; <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 }
 
 <span class="doccomment">/// A MessageFinalizer which does nothing</span>
@@ -1792,19 +1792,19 @@
 
 <span class="kw">impl</span> <span class="ident">NoopMessageFinalizer</span> {
     <span class="doccomment">/// Always returns None</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="prelude-val">None</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">MessageFinalizer</span> <span class="kw">for</span> <span class="ident">NoopMessageFinalizer</span> {
-    <span class="kw">fn</span> <span class="ident">finalize_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">Message</span>, <span class="kw">_</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">finalize_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="ident">Message</span>, <span class="kw">_</span>: <span class="ident">u32</span>) -&gt; <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Record</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="macro">panic!</span>(<span class="string">&quot;Misused NoopMessageFinalizer, None should be used instead&quot;</span>)
     }
 }
 
 <span class="doccomment">/// Returns the count written and a boolean if it was truncated</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">count_was_truncated</span>(<span class="ident">result</span>: <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtoResult</span><span class="op">&lt;</span>(<span class="ident">usize</span>, <span class="ident">bool</span>)<span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">count_was_truncated</span>(<span class="ident">result</span>: <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) -&gt; <span class="ident">ProtoResult</span><span class="op">&lt;</span>(<span class="ident">usize</span>, <span class="ident">bool</span>)<span class="op">&gt;</span> {
     <span class="ident">result</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">count</span><span class="op">|</span> (<span class="ident">count</span>, <span class="bool-val">false</span>)).<span class="ident">or_else</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="ident">ProtoErrorKind::NotAllRecordsWritten</span> { <span class="ident">count</span> } <span class="op">=</span> <span class="ident">e</span>.<span class="ident">kind</span>() {
             <span class="kw">return</span> <span class="prelude-val">Ok</span>((<span class="kw-2">*</span><span class="ident">count</span>, <span class="bool-val">true</span>));
@@ -1817,11 +1817,11 @@
 <span class="doccomment">/// A trait that defines types which can be emitted as a set, with the associated count returned.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">EmitAndCount</span> {
     <span class="doccomment">/// Emit self to the encoder and return the count of items</span>
-    <span class="kw">fn</span> <span class="ident">emit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">encoder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BinEncoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">emit</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">encoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">BinEncoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;e</span>, <span class="ident">I</span>: <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;e</span> <span class="ident">E</span><span class="op">&gt;</span>, <span class="ident">E</span>: <span class="lifetime">&#39;e</span> <span class="op">+</span> <span class="ident">BinEncodable</span><span class="op">&gt;</span> <span class="ident">EmitAndCount</span> <span class="kw">for</span> <span class="ident">I</span> {
-    <span class="kw">fn</span> <span class="ident">emit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">encoder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BinEncoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">emit</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">encoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">BinEncoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
         <span class="ident">encoder</span>.<span class="ident">emit_all</span>(<span class="self">self</span>)
     }
 }
@@ -1830,14 +1830,14 @@
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::too_many_arguments</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">emit_message_parts</span><span class="op">&lt;</span><span class="ident">Q</span>, <span class="ident">A</span>, <span class="ident">N</span>, <span class="ident">D</span><span class="op">&gt;</span>(
     <span class="ident">header</span>: <span class="kw-2">&amp;</span><span class="ident">Header</span>,
-    <span class="ident">queries</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Q</span>,
-    <span class="ident">answers</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">A</span>,
-    <span class="ident">name_servers</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">N</span>,
-    <span class="ident">additionals</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">D</span>,
+    <span class="ident">queries</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Q</span>,
+    <span class="ident">answers</span>: <span class="kw-2">&amp;mut</span> <span class="ident">A</span>,
+    <span class="ident">name_servers</span>: <span class="kw-2">&amp;mut</span> <span class="ident">N</span>,
+    <span class="ident">additionals</span>: <span class="kw-2">&amp;mut</span> <span class="ident">D</span>,
     <span class="ident">edns</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Edns</span><span class="op">&gt;</span>,
     <span class="ident">sig0</span>: <span class="kw-2">&amp;</span>[<span class="ident">Record</span>],
-    <span class="ident">encoder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BinEncoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtoResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
+    <span class="ident">encoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">BinEncoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
+) -&gt; <span class="ident">ProtoResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">Q</span>: <span class="ident">EmitAndCount</span>,
     <span class="ident">A</span>: <span class="ident">EmitAndCount</span>,
@@ -1884,13 +1884,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">BinEncodable</span> <span class="kw">for</span> <span class="ident">Message</span> {
-    <span class="kw">fn</span> <span class="ident">emit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">encoder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BinEncoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtoResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">emit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">encoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">BinEncoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">ProtoResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="ident">emit_message_parts</span>(
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">header</span>,
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">queries</span>.<span class="ident">iter</span>(),
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">answers</span>.<span class="ident">iter</span>(),
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">name_servers</span>.<span class="ident">iter</span>(),
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">additionals</span>.<span class="ident">iter</span>(),
+            <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">queries</span>.<span class="ident">iter</span>(),
+            <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">answers</span>.<span class="ident">iter</span>(),
+            <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">name_servers</span>.<span class="ident">iter</span>(),
+            <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">additionals</span>.<span class="ident">iter</span>(),
             <span class="self">self</span>.<span class="ident">edns</span>.<span class="ident">as_ref</span>(),
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sig0</span>,
             <span class="ident">encoder</span>,
@@ -1899,7 +1899,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span><span class="op">&gt;</span> <span class="ident">BinDecodable</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Message</span> {
-    <span class="kw">fn</span> <span class="ident">read</span>(<span class="ident">decoder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BinDecoder</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">read</span>(<span class="ident">decoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">BinDecoder</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span><span class="op">&gt;</span>) -&gt; <span class="ident">ProtoResult</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">Header::read</span>(<span class="ident">decoder</span>)<span class="question-mark">?</span>;
 
         <span class="comment">// TODO: return just header, and in the case of the rest of message getting an error.</span>
@@ -1994,12 +1994,12 @@
 <span class="kw">fn</span> <span class="ident">test_emit_and_read</span>(<span class="ident">message</span>: <span class="ident">Message</span>) {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">byte_vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="number">512</span>);
     {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">encoder</span> <span class="op">=</span> <span class="ident">BinEncoder::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">byte_vec</span>);
-        <span class="ident">message</span>.<span class="ident">emit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">encoder</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">encoder</span> <span class="op">=</span> <span class="ident">BinEncoder::new</span>(<span class="kw-2">&amp;mut</span> <span class="ident">byte_vec</span>);
+        <span class="ident">message</span>.<span class="ident">emit</span>(<span class="kw-2">&amp;mut</span> <span class="ident">encoder</span>).<span class="ident">unwrap</span>();
     }
 
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">BinDecoder::new</span>(<span class="kw-2">&amp;</span><span class="ident">byte_vec</span>);
-    <span class="kw">let</span> <span class="ident">got</span> <span class="op">=</span> <span class="ident">Message::read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">decoder</span>).<span class="ident">unwrap</span>();
+    <span class="kw">let</span> <span class="ident">got</span> <span class="op">=</span> <span class="ident">Message::read</span>(<span class="kw-2">&amp;mut</span> <span class="ident">decoder</span>).<span class="ident">unwrap</span>();
 
     <span class="macro">assert_eq!</span>(<span class="ident">got</span>, <span class="ident">message</span>);
 }
@@ -2027,18 +2027,18 @@
   ];
 
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">BinDecoder::new</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>);
-    <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">Message::read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">decoder</span>).<span class="ident">unwrap</span>();
+    <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">Message::read</span>(<span class="kw-2">&amp;mut</span> <span class="ident">decoder</span>).<span class="ident">unwrap</span>();
 
     <span class="macro">assert_eq!</span>(<span class="ident">message</span>.<span class="ident">id</span>(), <span class="number">4096</span>);
 
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="number">512</span>);
     {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">encoder</span> <span class="op">=</span> <span class="ident">BinEncoder::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>);
-        <span class="ident">message</span>.<span class="ident">emit</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">encoder</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">encoder</span> <span class="op">=</span> <span class="ident">BinEncoder::new</span>(<span class="kw-2">&amp;mut</span> <span class="ident">buf</span>);
+        <span class="ident">message</span>.<span class="ident">emit</span>(<span class="kw-2">&amp;mut</span> <span class="ident">encoder</span>).<span class="ident">unwrap</span>();
     }
 
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">BinDecoder::new</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>);
-    <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">Message::read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">decoder</span>).<span class="ident">unwrap</span>();
+    <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">Message::read</span>(<span class="kw-2">&amp;mut</span> <span class="ident">decoder</span>).<span class="ident">unwrap</span>();
 
     <span class="macro">assert_eq!</span>(<span class="ident">message</span>.<span class="ident">id</span>(), <span class="number">4096</span>);
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;contracts&#x2F;src&#x2F;exec.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>exec.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../pallet_contracts/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `frame&#x2F;contracts&#x2F;src&#x2F;exec.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>exec.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../pallet_contracts/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -2332,7 +2332,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">DispatchError</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ExecError</span> {
-	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">error</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">error</span>: <span class="ident">T</span>) -&gt; <span class="self">Self</span> {
 		<span class="self">Self</span> { <span class="ident">error</span>: <span class="ident">error</span>.<span class="ident">into</span>(), <span class="ident">origin</span>: <span class="ident">ErrorOrigin::Caller</span> }
 	}
 }
@@ -2357,13 +2357,13 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Result&lt;(ExecReturnValue, CodeSize), (ExecError, CodeSize)&gt;</span>
 	<span class="kw">fn</span> <span class="ident">call</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">gas_limit</span>: <span class="ident">Weight</span>,
 		<span class="ident">to</span>: <span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>,
 		<span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>,
 		<span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
 		<span class="ident">allows_reentry</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ExecReturnValue</span>, <span class="ident">ExecError</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ExecReturnValue</span>, <span class="ident">ExecError</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Instantiate a contract from the given code.</span>
 	<span class="doccomment">///</span>
@@ -2375,13 +2375,13 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Result&lt;(AccountId, ExecReturnValue, CodeSize), (ExecError, CodeSize)&gt;</span>
 	<span class="kw">fn</span> <span class="ident">instantiate</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">gas_limit</span>: <span class="ident">Weight</span>,
 		<span class="ident">code</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>,
 		<span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>,
 		<span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
 		<span class="ident">salt</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>, <span class="ident">ExecReturnValue</span>), <span class="ident">ExecError</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>, <span class="ident">ExecReturnValue</span>), <span class="ident">ExecError</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Transfer all funds to `beneficiary` and delete the contract.</span>
 	<span class="doccomment">///</span>
@@ -2390,66 +2390,66 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This function will fail if the same contract is present on the contract</span>
 	<span class="doccomment">/// call stack.</span>
-	<span class="kw">fn</span> <span class="ident">terminate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">beneficiary</span>: <span class="kw-2">&amp;</span><span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">terminate</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">beneficiary</span>: <span class="kw-2">&amp;</span><span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Transfer some amount of funds into the specified account.</span>
-	<span class="kw">fn</span> <span class="ident">transfer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">to</span>: <span class="kw-2">&amp;</span><span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span>;
+	<span class="kw">fn</span> <span class="ident">transfer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">to</span>: <span class="kw-2">&amp;</span><span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>) -&gt; <span class="ident">DispatchResult</span>;
 
 	<span class="doccomment">/// Returns the storage entry of the executing account by the given `key`.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Returns `None` if the `key` wasn&#39;t previously set by `set_storage` or</span>
 	<span class="doccomment">/// was deleted.</span>
-	<span class="kw">fn</span> <span class="ident">get_storage</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">StorageKey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">get_storage</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">StorageKey</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Sets the storage entry by the given key to the specified value. If `value` is `None` then</span>
 	<span class="doccomment">/// the storage entry is deleted.</span>
-	<span class="kw">fn</span> <span class="ident">set_storage</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="ident">StorageKey</span>, <span class="ident">value</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span>;
+	<span class="kw">fn</span> <span class="ident">set_storage</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="ident">StorageKey</span>, <span class="ident">value</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="ident">DispatchResult</span>;
 
 	<span class="doccomment">/// Returns a reference to the account id of the caller.</span>
-	<span class="kw">fn</span> <span class="ident">caller</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">caller</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Returns a reference to the account id of the current contract.</span>
-	<span class="kw">fn</span> <span class="ident">address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Returns the balance of the current contract.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The `value_transferred` is already added.</span>
-	<span class="kw">fn</span> <span class="ident">balance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">balance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Returns the value transferred along with this call or as endowment.</span>
-	<span class="kw">fn</span> <span class="ident">value_transferred</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">value_transferred</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Returns a reference to the timestamp of the current block</span>
-	<span class="kw">fn</span> <span class="ident">now</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">MomentOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">now</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">MomentOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Returns the minimum balance that is required for creating an account.</span>
-	<span class="kw">fn</span> <span class="ident">minimum_balance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">minimum_balance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Returns the deposit required to instantiate a contract.</span>
-	<span class="kw">fn</span> <span class="ident">contract_deposit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">contract_deposit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Returns a random number for the current block with the given subject.</span>
-	<span class="kw">fn</span> <span class="ident">random</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">subject</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">SeedOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>, <span class="ident">BlockNumberOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>);
+	<span class="kw">fn</span> <span class="ident">random</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">subject</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; (<span class="ident">SeedOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>, <span class="ident">BlockNumberOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>);
 
 	<span class="doccomment">/// Deposit an event with the given topics.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// There should not be any duplicates in `topics`.</span>
-	<span class="kw">fn</span> <span class="ident">deposit_event</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">topics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TopicOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>);
+	<span class="kw">fn</span> <span class="ident">deposit_event</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">topics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TopicOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>);
 
 	<span class="doccomment">/// Returns the current block number.</span>
-	<span class="kw">fn</span> <span class="ident">block_number</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BlockNumberOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">block_number</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BlockNumberOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Returns the maximum allowed size of a storage item.</span>
-	<span class="kw">fn</span> <span class="ident">max_value_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
+	<span class="kw">fn</span> <span class="ident">max_value_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u32</span>;
 
 	<span class="doccomment">/// Returns the price for the specified amount of weight.</span>
-	<span class="kw">fn</span> <span class="ident">get_weight_price</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">weight</span>: <span class="ident">Weight</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">get_weight_price</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">weight</span>: <span class="ident">Weight</span>) -&gt; <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Get a reference to the schedule used by the current call.</span>
-	<span class="kw">fn</span> <span class="ident">schedule</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Schedule</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">schedule</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Schedule</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Get a mutable reference to the nested gas meter.</span>
-	<span class="kw">fn</span> <span class="ident">gas_meter</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">gas_meter</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Append a string to the debug buffer.</span>
 	<span class="doccomment">///</span>
@@ -2459,13 +2459,13 @@
 	<span class="doccomment">/// when the code is executing on-chain.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Returns `true` if debug message recording is enabled. Otherwise `false` is returned.</span>
-	<span class="kw">fn</span> <span class="ident">append_debug_buffer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">msg</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
+	<span class="kw">fn</span> <span class="ident">append_debug_buffer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">msg</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span>;
 
 	<span class="doccomment">/// Call some dispatchable and return the result.</span>
-	<span class="kw">fn</span> <span class="ident">call_runtime</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">call</span>: <span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::Call</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResultWithPostInfo</span>;
+	<span class="kw">fn</span> <span class="ident">call_runtime</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">call</span>: <span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::Call</span>) -&gt; <span class="ident">DispatchResultWithPostInfo</span>;
 
 	<span class="doccomment">/// Recovers ECDSA compressed public key based on signature and message hash.</span>
-	<span class="kw">fn</span> <span class="ident">ecdsa_recover</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">signature</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>; <span class="number">65</span>], <span class="ident">message_hash</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>; <span class="number">32</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">33</span>], ()<span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">ecdsa_recover</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">signature</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>; <span class="number">65</span>], <span class="ident">message_hash</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>; <span class="number">32</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">33</span>], ()<span class="op">&gt;</span>;
 }
 
 <span class="doccomment">/// Describes the different functions that can be exported by an [`Executable`].</span>
@@ -2489,8 +2489,8 @@
 	<span class="kw">fn</span> <span class="ident">from_storage</span>(
 		<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 		<span class="ident">schedule</span>: <span class="kw-2">&amp;</span><span class="ident">Schedule</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-		<span class="ident">gas_meter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span>;
+		<span class="ident">gas_meter</span>: <span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Load the module from storage without re-instrumenting it.</span>
 	<span class="doccomment">///</span>
@@ -2501,7 +2501,7 @@
 	<span class="doccomment">/// # Note</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Does not charge from the gas meter. Do not call in contexts where this is important.</span>
-	<span class="kw">fn</span> <span class="ident">from_storage_noinstr</span>(<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">from_storage_noinstr</span>(<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Increment the refcount by one. Fails if the code does not exist on-chain.</span>
 	<span class="doccomment">///</span>
@@ -2510,7 +2510,7 @@
 	<span class="doccomment">/// # Note</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Charges weight proportional to the code size from the gas meter.</span>
-	<span class="kw">fn</span> <span class="ident">add_user</span>(<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">gas_meter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">add_user</span>(<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">gas_meter</span>: <span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Decrement the refcount by one and remove the code when it drops to zero.</span>
 	<span class="doccomment">///</span>
@@ -2521,8 +2521,8 @@
 	<span class="doccomment">/// Charges weight proportional to the code size from the gas meter</span>
 	<span class="kw">fn</span> <span class="ident">remove_user</span>(
 		<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-		<span class="ident">gas_meter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span>;
+		<span class="ident">gas_meter</span>: <span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Execute the specified exported function and return the result.</span>
 	<span class="doccomment">///</span>
@@ -2535,22 +2535,22 @@
 	<span class="doccomment">/// all of its emitted storage changes.</span>
 	<span class="kw">fn</span> <span class="ident">execute</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Ext</span><span class="op">&lt;</span><span class="ident">T</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>(
 		<span class="self">self</span>,
-		<span class="ident">ext</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">E</span>,
+		<span class="ident">ext</span>: <span class="kw-2">&amp;mut</span> <span class="ident">E</span>,
 		<span class="ident">function</span>: <span class="kw-2">&amp;</span><span class="ident">ExportedFunction</span>,
 		<span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecResult</span>;
+	) -&gt; <span class="ident">ExecResult</span>;
 
 	<span class="doccomment">/// The code hash of the executable.</span>
-	<span class="kw">fn</span> <span class="ident">code_hash</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">code_hash</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Size of the instrumented code in bytes.</span>
-	<span class="kw">fn</span> <span class="ident">code_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
+	<span class="kw">fn</span> <span class="ident">code_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u32</span>;
 
 	<span class="doccomment">/// Sum of instrumented and pristine code len.</span>
-	<span class="kw">fn</span> <span class="ident">aggregate_code_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
+	<span class="kw">fn</span> <span class="ident">aggregate_code_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u32</span>;
 
 	<span class="comment">// The number of contracts using this executable.</span>
-	<span class="kw">fn</span> <span class="ident">refcount</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span>;
+	<span class="kw">fn</span> <span class="ident">refcount</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u32</span>;
 }
 
 <span class="doccomment">/// The complete call stack of a contract execution.</span>
@@ -2655,7 +2655,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Return the `contract_info` of the current contract.</span>
-	<span class="kw">fn</span> <span class="ident">contract_info</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ContractInfo</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">contract_info</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">ContractInfo</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">contract_info</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">account_id</span>)
 	}
 
@@ -2665,7 +2665,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Under no circumstances the contract is allowed to access the `contract_info` after</span>
 	<span class="doccomment">/// a call to this function. This would constitute a programming error in the exec module.</span>
-	<span class="kw">fn</span> <span class="ident">terminate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ContractInfo</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">terminate</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">ContractInfo</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">contract_info</span>.<span class="ident">terminate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">account_id</span>)
 	}
 }
@@ -2674,7 +2674,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// This assumes that `load` was executed before calling this macro.</span>
 <span class="macro">macro_rules!</span> <span class="ident">get_cached_or_panic_after_load</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {{
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">c</span>:<span class="ident">expr</span>) =&gt; {{
 		<span class="kw">if</span> <span class="kw">let</span> <span class="ident">CachedContract::Cached</span>(<span class="ident">contract</span>) <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">c</span> {
 			<span class="ident">contract</span>
 		} <span class="kw">else</span> {
@@ -2691,7 +2691,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> <span class="ident">CachedContract</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Load the `contract_info` from storage if necessary.</span>
-	<span class="kw">fn</span> <span class="ident">load</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">account_id</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) {
+	<span class="kw">fn</span> <span class="ident">load</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">account_id</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) {
 		<span class="kw">if</span> <span class="kw">let</span> <span class="ident">CachedContract::Invalidated</span> <span class="op">=</span> <span class="self">self</span> {
 			<span class="kw">let</span> <span class="ident">contract</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">ContractInfoOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>(<span class="kw-2">&amp;</span><span class="ident">account_id</span>);
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">contract</span>) <span class="op">=</span> <span class="ident">contract</span> {
@@ -2701,13 +2701,13 @@
 	}
 
 	<span class="doccomment">/// Return the cached contract_info.</span>
-	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">account_id</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ContractInfo</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">account_id</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">ContractInfo</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">load</span>(<span class="ident">account_id</span>);
 		<span class="macro">get_cached_or_panic_after_load!</span>(<span class="self">self</span>)
 	}
 
 	<span class="doccomment">/// Terminate and return the contract info.</span>
-	<span class="kw">fn</span> <span class="ident">terminate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">account_id</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ContractInfo</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">terminate</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">account_id</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>) -&gt; <span class="ident">ContractInfo</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">load</span>(<span class="ident">account_id</span>);
 		<span class="macro">get_cached_or_panic_after_load!</span>(<span class="ident">mem::replace</span>(<span class="self">self</span>, <span class="ident"><span class="self">Self</span>::Terminated</span>))
 	}
@@ -2737,7 +2737,7 @@
 		<span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 		<span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
 		<span class="ident">debug_message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ExecReturnValue</span>, <span class="ident">ExecError</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ExecReturnValue</span>, <span class="ident">ExecError</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">stack</span>, <span class="ident">executable</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::new</span>(
 			<span class="ident">FrameArgs::Call</span> { <span class="ident">dest</span>, <span class="ident">cached_info</span>: <span class="prelude-val">None</span> },
 			<span class="ident">origin</span>,
@@ -2768,7 +2768,7 @@
 		<span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
 		<span class="ident">salt</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
 		<span class="ident">debug_message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">T::AccountId</span>, <span class="ident">ExecReturnValue</span>), <span class="ident">ExecError</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">T::AccountId</span>, <span class="ident">ExecReturnValue</span>), <span class="ident">ExecError</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">stack</span>, <span class="ident">executable</span>) <span class="op">=</span> <span class="ident"><span class="self">Self</span>::new</span>(
 			<span class="ident">FrameArgs::Instantiate</span> {
 				<span class="ident">sender</span>: <span class="ident">origin</span>.<span class="ident">clone</span>(),
@@ -2794,7 +2794,7 @@
 		<span class="ident">schedule</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Schedule</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 		<span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 		<span class="ident">debug_message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="self">Self</span>, <span class="ident">E</span>), <span class="ident">ExecError</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="self">Self</span>, <span class="ident">E</span>), <span class="ident">ExecError</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> (<span class="ident">first_frame</span>, <span class="ident">executable</span>, <span class="ident">account_counter</span>) <span class="op">=</span>
 			<span class="ident"><span class="self">Self</span>::new_frame</span>(<span class="ident">args</span>, <span class="ident">value</span>, <span class="ident">gas_meter</span>, <span class="number">0</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">stack</span> <span class="op">=</span> <span class="self">Self</span> {
@@ -2820,13 +2820,13 @@
 	<span class="kw">fn</span> <span class="ident">new_frame</span>(
 		<span class="ident">frame_args</span>: <span class="ident">FrameArgs</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>,
 		<span class="ident">value_transferred</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-		<span class="ident">gas_meter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
+		<span class="ident">gas_meter</span>: <span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 		<span class="ident">gas_limit</span>: <span class="ident">Weight</span>,
 		<span class="ident">schedule</span>: <span class="kw-2">&amp;</span><span class="ident">Schedule</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">E</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>), <span class="ident">ExecError</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">E</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>), <span class="ident">ExecError</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> (<span class="ident">account_id</span>, <span class="ident">contract_info</span>, <span class="ident">executable</span>, <span class="ident">entry_point</span>, <span class="ident">account_counter</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">frame_args</span>
 		{
-			<span class="ident">FrameArgs::Call</span> { <span class="ident">dest</span>, <span class="ident">cached_info</span> } <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="ident">FrameArgs::Call</span> { <span class="ident">dest</span>, <span class="ident">cached_info</span> } =&gt; {
 				<span class="kw">let</span> <span class="ident">contract</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">contract</span>) <span class="op">=</span> <span class="ident">cached_info</span> {
 					<span class="ident">contract</span>
 				} <span class="kw">else</span> {
@@ -2837,7 +2837,7 @@
 
 				(<span class="ident">dest</span>, <span class="ident">contract</span>, <span class="ident">executable</span>, <span class="ident">ExportedFunction::Call</span>, <span class="prelude-val">None</span>)
 			},
-			<span class="ident">FrameArgs::Instantiate</span> { <span class="ident">sender</span>, <span class="ident">trie_seed</span>, <span class="ident">executable</span>, <span class="ident">salt</span> } <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="ident">FrameArgs::Instantiate</span> { <span class="ident">sender</span>, <span class="ident">trie_seed</span>, <span class="ident">executable</span>, <span class="ident">salt</span> } =&gt; {
 				<span class="kw">let</span> <span class="ident">account_id</span> <span class="op">=</span>
 					<span class="op">&lt;</span><span class="ident">Contracts</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::contract_address</span>(<span class="kw-2">&amp;</span><span class="ident">sender</span>, <span class="ident">executable</span>.<span class="ident">code_hash</span>(), <span class="kw-2">&amp;</span><span class="ident">salt</span>);
 				<span class="kw">let</span> <span class="ident">trie_id</span> <span class="op">=</span> <span class="ident">Storage</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::generate_trie_id</span>(<span class="kw-2">&amp;</span><span class="ident">account_id</span>, <span class="ident">trie_seed</span>);
@@ -2864,12 +2864,12 @@
 
 	<span class="doccomment">/// Create a subsequent nested frame.</span>
 	<span class="kw">fn</span> <span class="ident">push_frame</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">frame_args</span>: <span class="ident">FrameArgs</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>,
 		<span class="ident">value_transferred</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 		<span class="ident">gas_limit</span>: <span class="ident">Weight</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">E</span>, <span class="ident">ExecError</span><span class="op">&gt;</span> {
-		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">frames</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">T::CallStack::size</span>() {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">E</span>, <span class="ident">ExecError</span><span class="op">&gt;</span> {
+		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">frames</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="ident">T::CallStack::size</span>() {
 			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::MaxCallDepthReached</span>.<span class="ident">into</span>())
 		}
 
@@ -2887,7 +2887,7 @@
 		}
 
 		<span class="kw">let</span> <span class="ident">nested_meter</span> <span class="op">=</span>
-			<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">frames</span>.<span class="ident">last_mut</span>().<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">first_frame</span>).<span class="ident">nested_meter</span>;
+			<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">frames</span>.<span class="ident">last_mut</span>().<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">first_frame</span>).<span class="ident">nested_meter</span>;
 		<span class="kw">let</span> (<span class="ident">frame</span>, <span class="ident">executable</span>, <span class="kw">_</span>) <span class="op">=</span>
 			<span class="ident"><span class="self">Self</span>::new_frame</span>(<span class="ident">frame_args</span>, <span class="ident">value_transferred</span>, <span class="ident">nested_meter</span>, <span class="ident">gas_limit</span>, <span class="self">self</span>.<span class="ident">schedule</span>)<span class="question-mark">?</span>;
 		<span class="self">self</span>.<span class="ident">frames</span>.<span class="ident">push</span>(<span class="ident">frame</span>);
@@ -2897,7 +2897,7 @@
 	<span class="doccomment">/// Run the current (top) frame.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This can be either a call or an instantiate.</span>
-	<span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">executable</span>: <span class="ident">E</span>, <span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ExecReturnValue</span>, <span class="ident">ExecError</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">executable</span>: <span class="ident">E</span>, <span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ExecReturnValue</span>, <span class="ident">ExecError</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">entry_point</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">top_frame</span>().<span class="ident">entry_point</span>;
 		<span class="kw">let</span> <span class="ident">do_transaction</span> <span class="op">=</span> <span class="op">|</span><span class="op">|</span> {
 			<span class="comment">// Every call or instantiate also optionally transferres balance.</span>
@@ -2909,7 +2909,7 @@
 				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ExecError</span> { <span class="ident">error</span>: <span class="ident">e</span>.<span class="ident">error</span>, <span class="ident">origin</span>: <span class="ident">ErrorOrigin::Callee</span> })<span class="question-mark">?</span>;
 
 			<span class="comment">// Additional work needs to be performed in case of an instantiation.</span>
-			<span class="kw">if</span> <span class="ident">output</span>.<span class="ident">is_success</span>() <span class="op">&amp;&amp;</span> <span class="ident">entry_point</span> <span class="op">=</span><span class="op">=</span> <span class="ident">ExportedFunction::Constructor</span> {
+			<span class="kw">if</span> <span class="ident">output</span>.<span class="ident">is_success</span>() <span class="op">&amp;&amp;</span> <span class="ident">entry_point</span> <span class="op">==</span> <span class="ident">ExportedFunction::Constructor</span> {
 				<span class="kw">let</span> <span class="ident">frame</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">top_frame_mut</span>();
 				<span class="kw">let</span> <span class="ident">account_id</span> <span class="op">=</span> <span class="ident">frame</span>.<span class="ident">account_id</span>.<span class="ident">clone</span>();
 
@@ -2934,8 +2934,8 @@
 		<span class="kw">let</span> (<span class="ident">success</span>, <span class="ident">output</span>) <span class="op">=</span> <span class="ident">with_transaction</span>(<span class="op">|</span><span class="op">|</span> {
 			<span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">do_transaction</span>();
 			<span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">output</span> {
-				<span class="prelude-val">Ok</span>(<span class="ident">result</span>) <span class="kw">if</span> <span class="ident">result</span>.<span class="ident">is_success</span>() <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TransactionOutcome::Commit</span>((<span class="bool-val">true</span>, <span class="ident">output</span>)),
-				<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">TransactionOutcome::Rollback</span>((<span class="bool-val">false</span>, <span class="ident">output</span>)),
+				<span class="prelude-val">Ok</span>(<span class="ident">result</span>) <span class="kw">if</span> <span class="ident">result</span>.<span class="ident">is_success</span>() =&gt; <span class="ident">TransactionOutcome::Commit</span>((<span class="bool-val">true</span>, <span class="ident">output</span>)),
+				<span class="kw">_</span> =&gt; <span class="ident">TransactionOutcome::Rollback</span>((<span class="bool-val">false</span>, <span class="ident">output</span>)),
 			}
 		});
 		<span class="self">self</span>.<span class="ident">pop_frame</span>(<span class="ident">success</span>);
@@ -2946,9 +2946,9 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This is called after running the current frame. It commits cached values to storage</span>
 	<span class="doccomment">/// and invalidates all stale references to it that might exist further down the call stack.</span>
-	<span class="kw">fn</span> <span class="ident">pop_frame</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">persist</span>: <span class="ident">bool</span>) {
+	<span class="kw">fn</span> <span class="ident">pop_frame</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">persist</span>: <span class="ident">bool</span>) {
 		<span class="comment">// Revert the account counter in case of a failed instantiation.</span>
-		<span class="kw">if</span> <span class="op">!</span><span class="ident">persist</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">top_frame</span>().<span class="ident">entry_point</span> <span class="op">=</span><span class="op">=</span> <span class="ident">ExportedFunction::Constructor</span> {
+		<span class="kw">if</span> <span class="op">!</span><span class="ident">persist</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">top_frame</span>().<span class="ident">entry_point</span> <span class="op">==</span> <span class="ident">ExportedFunction::Constructor</span> {
 			<span class="self">self</span>.<span class="ident">account_counter</span>.<span class="ident">as_mut</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">c</span> <span class="op">=</span> <span class="ident">c</span>.<span class="ident">wrapping_sub</span>(<span class="number">1</span>));
 		}
 
@@ -2970,7 +2970,7 @@
 				<span class="comment">// We can just copy the contract into the predecessor without a storage write.</span>
 				<span class="comment">// This is possible when there is no other contract in-between that could</span>
 				<span class="comment">// trigger a rollback.</span>
-				<span class="kw">if</span> <span class="ident">prev</span>.<span class="ident">account_id</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">*</span><span class="ident">account_id</span> {
+				<span class="kw">if</span> <span class="ident">prev</span>.<span class="ident">account_id</span> <span class="op">==</span> <span class="kw-2">*</span><span class="ident">account_id</span> {
 					<span class="ident">prev</span>.<span class="ident">contract_info</span> <span class="op">=</span> <span class="ident">CachedContract::Cached</span>(<span class="ident">contract</span>);
 					<span class="kw">return</span>
 				}
@@ -2981,7 +2981,7 @@
 				<span class="comment">// cache needs to be invalidated because that one will invalidate the next cache</span>
 				<span class="comment">// when it is popped from the stack.</span>
 				<span class="op">&lt;</span><span class="ident">ContractInfoOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="ident">account_id</span>, <span class="ident">contract</span>);
-				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">c</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">frames_mut</span>().<span class="ident">skip</span>(<span class="number">1</span>).<span class="ident">find</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">account_id</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">*</span><span class="ident">account_id</span>) {
+				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">c</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">frames_mut</span>().<span class="ident">skip</span>(<span class="number">1</span>).<span class="ident">find</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">account_id</span> <span class="op">==</span> <span class="kw-2">*</span><span class="ident">account_id</span>) {
 					<span class="ident">c</span>.<span class="ident">contract_info</span> <span class="op">=</span> <span class="ident">CachedContract::Invalidated</span>;
 				}
 			}
@@ -2994,7 +2994,7 @@
 				);
 			}
 			<span class="comment">// Write back to the root gas meter.</span>
-			<span class="self">self</span>.<span class="ident">gas_meter</span>.<span class="ident">absorb_nested</span>(<span class="ident">mem::take</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">first_frame</span>.<span class="ident">nested_meter</span>));
+			<span class="self">self</span>.<span class="ident">gas_meter</span>.<span class="ident">absorb_nested</span>(<span class="ident">mem::take</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">first_frame</span>.<span class="ident">nested_meter</span>));
 			<span class="comment">// Only gas counter changes are persisted in case of a failure.</span>
 			<span class="kw">if</span> <span class="op">!</span><span class="ident">persist</span> {
 				<span class="kw">return</span>
@@ -3020,14 +3020,14 @@
 		<span class="ident">from</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>,
 		<span class="ident">to</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>,
 		<span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
-		<span class="kw">if</span> <span class="ident">value</span> <span class="op">=</span><span class="op">=</span> <span class="number">0u32</span>.<span class="ident">into</span>() {
+	) -&gt; <span class="ident">DispatchResult</span> {
+		<span class="kw">if</span> <span class="ident">value</span> <span class="op">==</span> <span class="number">0u32</span>.<span class="ident">into</span>() {
 			<span class="kw">return</span> <span class="prelude-val">Ok</span>(())
 		}
 
 		<span class="kw">let</span> <span class="ident">existence_requirement</span> <span class="op">=</span> <span class="kw">match</span> (<span class="ident">allow_death</span>, <span class="ident">sender_is_contract</span>) {
-			(<span class="bool-val">true</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ExistenceRequirement::AllowDeath</span>,
-			(<span class="bool-val">false</span>, <span class="bool-val">true</span>) <span class="op">=</span><span class="op">&gt;</span> {
+			(<span class="bool-val">true</span>, <span class="kw">_</span>) =&gt; <span class="ident">ExistenceRequirement::AllowDeath</span>,
+			(<span class="bool-val">false</span>, <span class="bool-val">true</span>) =&gt; {
 				<span class="macro">ensure!</span>(
 					<span class="ident">T::Currency::total_balance</span>(<span class="ident">from</span>).<span class="ident">saturating_sub</span>(<span class="ident">value</span>) <span class="op">&gt;</span><span class="op">=</span>
 						<span class="ident">Contracts</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::subsistence_threshold</span>(),
@@ -3035,7 +3035,7 @@
 				);
 				<span class="ident">ExistenceRequirement::KeepAlive</span>
 			},
-			(<span class="bool-val">false</span>, <span class="bool-val">false</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ExistenceRequirement::KeepAlive</span>,
+			(<span class="bool-val">false</span>, <span class="bool-val">false</span>) =&gt; <span class="ident">ExistenceRequirement::KeepAlive</span>,
 		};
 
 		<span class="ident">T::Currency::transfer</span>(<span class="ident">from</span>, <span class="ident">to</span>, <span class="ident">value</span>, <span class="ident">existence_requirement</span>)
@@ -3045,7 +3045,7 @@
 	}
 
 	<span class="comment">// The transfer as performed by a call or instantiate.</span>
-	<span class="kw">fn</span> <span class="ident">initial_transfer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+	<span class="kw">fn</span> <span class="ident">initial_transfer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">DispatchResult</span> {
 		<span class="kw">let</span> <span class="ident">frame</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">top_frame</span>();
 		<span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">frame</span>.<span class="ident">value_transferred</span>;
 		<span class="kw">let</span> <span class="ident">subsistence_threshold</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Contracts</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::subsistence_threshold</span>();
@@ -3053,7 +3053,7 @@
 		<span class="comment">// If the value transferred to a new contract is less than the subsistence threshold</span>
 		<span class="comment">// we can error out early. This avoids executing the constructor in cases where</span>
 		<span class="comment">// we already know that the contract has too little balance.</span>
-		<span class="kw">if</span> <span class="ident">frame</span>.<span class="ident">entry_point</span> <span class="op">=</span><span class="op">=</span> <span class="ident">ExportedFunction::Constructor</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span> <span class="ident">subsistence_threshold</span> {
+		<span class="kw">if</span> <span class="ident">frame</span>.<span class="ident">entry_point</span> <span class="op">==</span> <span class="ident">ExportedFunction::Constructor</span> <span class="op">&amp;&amp;</span> <span class="ident">value</span> <span class="op">&lt;</span> <span class="ident">subsistence_threshold</span> {
 			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="op">&lt;</span><span class="ident">Error</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::NewContractNotFunded</span>.<span class="ident">into</span>())
 		}
 
@@ -3061,45 +3061,45 @@
 	}
 
 	<span class="doccomment">/// Wether the caller is the initiator of the call stack.</span>
-	<span class="kw">fn</span> <span class="ident">caller_is_origin</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+	<span class="kw">fn</span> <span class="ident">caller_is_origin</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
 		<span class="op">!</span><span class="self">self</span>.<span class="ident">frames</span>.<span class="ident">is_empty</span>()
 	}
 
 	<span class="doccomment">/// Reference to the current (top) frame.</span>
-	<span class="kw">fn</span> <span class="ident">top_frame</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">top_frame</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">frames</span>.<span class="ident">last</span>().<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">first_frame</span>)
 	}
 
 	<span class="doccomment">/// Mutable reference to the current (top) frame.</span>
-	<span class="kw">fn</span> <span class="ident">top_frame_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-		<span class="self">self</span>.<span class="ident">frames</span>.<span class="ident">last_mut</span>().<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">first_frame</span>)
+	<span class="kw">fn</span> <span class="ident">top_frame_mut</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+		<span class="self">self</span>.<span class="ident">frames</span>.<span class="ident">last_mut</span>().<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">first_frame</span>)
 	}
 
 	<span class="doccomment">/// Iterator over all frames.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// The iterator starts with the top frame and ends with the root frame.</span>
-	<span class="kw">fn</span> <span class="ident">frames</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">frames</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="ident">sp_std::iter::once</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">first_frame</span>).<span class="ident">chain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">frames</span>).<span class="ident">rev</span>()
 	}
 
 	<span class="doccomment">/// Same as `frames` but with a mutable reference as iterator item.</span>
-	<span class="kw">fn</span> <span class="ident">frames_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="ident">sp_std::iter::once</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">first_frame</span>).<span class="ident">chain</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">frames</span>).<span class="ident">rev</span>()
+	<span class="kw">fn</span> <span class="ident">frames_mut</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="ident">Frame</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+		<span class="ident">sp_std::iter::once</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">first_frame</span>).<span class="ident">chain</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">frames</span>).<span class="ident">rev</span>()
 	}
 
 	<span class="doccomment">/// Returns whether the current contract is on the stack multiple times.</span>
-	<span class="kw">fn</span> <span class="ident">is_recursive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+	<span class="kw">fn</span> <span class="ident">is_recursive</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
 		<span class="kw">let</span> <span class="ident">account_id</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">top_frame</span>().<span class="ident">account_id</span>;
-		<span class="self">self</span>.<span class="ident">frames</span>().<span class="ident">skip</span>(<span class="number">1</span>).<span class="ident">any</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">f</span>.<span class="ident">account_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">account_id</span>)
+		<span class="self">self</span>.<span class="ident">frames</span>().<span class="ident">skip</span>(<span class="number">1</span>).<span class="ident">any</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">f</span>.<span class="ident">account_id</span> <span class="op">==</span> <span class="ident">account_id</span>)
 	}
 
 	<span class="doccomment">/// Returns whether the specified contract allows to be reentered right now.</span>
-	<span class="kw">fn</span> <span class="ident">allows_reentry</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-		<span class="op">!</span><span class="self">self</span>.<span class="ident">frames</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">f</span>.<span class="ident">account_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">id</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">f</span>.<span class="ident">allows_reentry</span>)
+	<span class="kw">fn</span> <span class="ident">allows_reentry</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) -&gt; <span class="ident">bool</span> {
+		<span class="op">!</span><span class="self">self</span>.<span class="ident">frames</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">f</span>.<span class="ident">account_id</span> <span class="op">==</span> <span class="ident">id</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">f</span>.<span class="ident">allows_reentry</span>)
 	}
 
 	<span class="doccomment">/// Increments the cached account id and returns the value to be used for the trie_id.</span>
-	<span class="kw">fn</span> <span class="ident">next_trie_seed</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
+	<span class="kw">fn</span> <span class="ident">next_trie_seed</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">u64</span> {
 		<span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">current</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">account_counter</span> {
 			<span class="ident">current</span>.<span class="ident">wrapping_add</span>(<span class="number">1</span>)
 		} <span class="kw">else</span> {
@@ -3110,7 +3110,7 @@
 	}
 
 	<span class="doccomment">/// The account seed to be used to instantiate the account counter cache.</span>
-	<span class="kw">fn</span> <span class="ident">initial_trie_seed</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span> {
+	<span class="kw">fn</span> <span class="ident">initial_trie_seed</span>() -&gt; <span class="ident">u64</span> {
 		<span class="op">&lt;</span><span class="ident">AccountCounter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>().<span class="ident">wrapping_add</span>(<span class="number">1</span>)
 	}
 }
@@ -3124,13 +3124,13 @@
 	<span class="kw">type</span> <span class="ident">T</span> <span class="op">=</span> <span class="ident">T</span>;
 
 	<span class="kw">fn</span> <span class="ident">call</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">gas_limit</span>: <span class="ident">Weight</span>,
 		<span class="ident">to</span>: <span class="ident">T::AccountId</span>,
 		<span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 		<span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
 		<span class="ident">allows_reentry</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ExecReturnValue</span>, <span class="ident">ExecError</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ExecReturnValue</span>, <span class="ident">ExecError</span><span class="op">&gt;</span> {
 		<span class="comment">// Before pushing the new frame: Protect the caller contract against reentrancy attacks.</span>
 		<span class="comment">// It is important to do this before calling `allows_reentry` so that a direct recursion</span>
 		<span class="comment">// is caught by it.</span>
@@ -3145,10 +3145,10 @@
 			<span class="comment">// constructor: We disallow calling not fully constructed contracts.</span>
 			<span class="kw">let</span> <span class="ident">cached_info</span> <span class="op">=</span> <span class="self">self</span>
 				.<span class="ident">frames</span>()
-				.<span class="ident">find</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">entry_point</span> <span class="op">=</span><span class="op">=</span> <span class="ident">ExportedFunction::Call</span> <span class="op">&amp;&amp;</span> <span class="ident">f</span>.<span class="ident">account_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">to</span>)
+				.<span class="ident">find</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">entry_point</span> <span class="op">==</span> <span class="ident">ExportedFunction::Call</span> <span class="op">&amp;&amp;</span> <span class="ident">f</span>.<span class="ident">account_id</span> <span class="op">==</span> <span class="ident">to</span>)
 				.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">f</span>.<span class="ident">contract_info</span> {
-					<span class="ident">CachedContract::Cached</span>(<span class="ident">contract</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">contract</span>.<span class="ident">clone</span>()),
-					<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+					<span class="ident">CachedContract::Cached</span>(<span class="ident">contract</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">contract</span>.<span class="ident">clone</span>()),
+					<span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
 				});
 			<span class="kw">let</span> <span class="ident">executable</span> <span class="op">=</span>
 				<span class="self">self</span>.<span class="ident">push_frame</span>(<span class="ident">FrameArgs::Call</span> { <span class="ident">dest</span>: <span class="ident">to</span>, <span class="ident">cached_info</span> }, <span class="ident">value</span>, <span class="ident">gas_limit</span>)<span class="question-mark">?</span>;
@@ -3165,13 +3165,13 @@
 	}
 
 	<span class="kw">fn</span> <span class="ident">instantiate</span>(
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
 		<span class="ident">gas_limit</span>: <span class="ident">Weight</span>,
 		<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 		<span class="ident">endowment</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 		<span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
 		<span class="ident">salt</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">ExecReturnValue</span>), <span class="ident">ExecError</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">ExecReturnValue</span>), <span class="ident">ExecError</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">executable</span> <span class="op">=</span> <span class="ident">E::from_storage</span>(<span class="ident">code_hash</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">schedule</span>, <span class="self">self</span>.<span class="ident">gas_meter</span>())<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">trie_seed</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">next_trie_seed</span>();
 		<span class="kw">let</span> <span class="ident">executable</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">push_frame</span>(
@@ -3188,7 +3188,7 @@
 		<span class="self">self</span>.<span class="ident">run</span>(<span class="ident">executable</span>, <span class="ident">input_data</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">ret</span><span class="op">|</span> (<span class="ident">account_id</span>, <span class="ident">ret</span>))
 	}
 
-	<span class="kw">fn</span> <span class="ident">terminate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">beneficiary</span>: <span class="kw-2">&amp;</span><span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">terminate</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">beneficiary</span>: <span class="kw-2">&amp;</span><span class="ident">AccountIdOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_recursive</span>() {
 			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::TerminatedWhileReentrant</span>.<span class="ident">into</span>())
 		}
@@ -3203,7 +3203,7 @@
 			<span class="ident">T::Currency::free_balance</span>(<span class="kw-2">&amp;</span><span class="ident">frame</span>.<span class="ident">account_id</span>),
 		)<span class="question-mark">?</span>;
 		<span class="ident">ContractInfoOf</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::remove</span>(<span class="kw-2">&amp;</span><span class="ident">frame</span>.<span class="ident">account_id</span>);
-		<span class="ident">E::remove_user</span>(<span class="ident">info</span>.<span class="ident">code_hash</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">frame</span>.<span class="ident">nested_meter</span>)<span class="question-mark">?</span>;
+		<span class="ident">E::remove_user</span>(<span class="ident">info</span>.<span class="ident">code_hash</span>, <span class="kw-2">&amp;mut</span> <span class="ident">frame</span>.<span class="ident">nested_meter</span>)<span class="question-mark">?</span>;
 		<span class="ident">Contracts</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::deposit_event</span>(<span class="ident">Event::Terminated</span> {
 			<span class="ident">contract</span>: <span class="ident">frame</span>.<span class="ident">account_id</span>.<span class="ident">clone</span>(),
 			<span class="ident">beneficiary</span>: <span class="ident">beneficiary</span>.<span class="ident">clone</span>(),
@@ -3211,80 +3211,80 @@
 		<span class="prelude-val">Ok</span>(())
 	}
 
-	<span class="kw">fn</span> <span class="ident">transfer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">to</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>, <span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+	<span class="kw">fn</span> <span class="ident">transfer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">to</span>: <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span>, <span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) -&gt; <span class="ident">DispatchResult</span> {
 		<span class="ident"><span class="self">Self</span>::transfer</span>(<span class="bool-val">true</span>, <span class="bool-val">false</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">top_frame</span>().<span class="ident">account_id</span>, <span class="ident">to</span>, <span class="ident">value</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_storage</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">StorageKey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">get_storage</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">StorageKey</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="ident">Storage</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::read</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">top_frame_mut</span>().<span class="ident">contract_info</span>().<span class="ident">trie_id</span>, <span class="ident">key</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">set_storage</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="ident">StorageKey</span>, <span class="ident">value</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResult</span> {
+	<span class="kw">fn</span> <span class="ident">set_storage</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="ident">StorageKey</span>, <span class="ident">value</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="ident">DispatchResult</span> {
 		<span class="kw">let</span> <span class="ident">frame</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">top_frame_mut</span>();
 		<span class="ident">Storage</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::write</span>(<span class="ident">frame</span>.<span class="ident">contract_info</span>(), <span class="kw-2">&amp;</span><span class="ident">key</span>, <span class="ident">value</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span> {
+	<span class="kw">fn</span> <span class="ident">address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span> {
 		<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">top_frame</span>().<span class="ident">account_id</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">caller</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span> {
+	<span class="kw">fn</span> <span class="ident">caller</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">T::AccountId</span> {
 		<span class="self">self</span>.<span class="ident">frames</span>().<span class="ident">nth</span>(<span class="number">1</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">f</span>.<span class="ident">account_id</span>).<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">origin</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">balance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">balance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 		<span class="ident">T::Currency::free_balance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">top_frame</span>().<span class="ident">account_id</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">value_transferred</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">value_transferred</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">top_frame</span>().<span class="ident">value_transferred</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">random</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">subject</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">SeedOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">BlockNumberOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
+	<span class="kw">fn</span> <span class="ident">random</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">subject</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; (<span class="ident">SeedOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">BlockNumberOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
 		<span class="ident">T::Randomness::random</span>(<span class="ident">subject</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">now</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">MomentOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">now</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">MomentOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 		<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">timestamp</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">minimum_balance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">minimum_balance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 		<span class="ident">T::Currency::minimum_balance</span>()
 	}
 
-	<span class="kw">fn</span> <span class="ident">contract_deposit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">contract_deposit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
 		<span class="ident">T::ContractDeposit::get</span>()
 	}
 
-	<span class="kw">fn</span> <span class="ident">deposit_event</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">topics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::Hash</span><span class="op">&gt;</span>, <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) {
+	<span class="kw">fn</span> <span class="ident">deposit_event</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">topics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::Hash</span><span class="op">&gt;</span>, <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) {
 		<span class="ident">deposit_event</span>::<span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span>(
 			<span class="ident">topics</span>,
 			<span class="ident">Event::ContractEmitted</span> { <span class="ident">contract</span>: <span class="self">self</span>.<span class="ident">top_frame</span>().<span class="ident">account_id</span>.<span class="ident">clone</span>(), <span class="ident">data</span> },
 		);
 	}
 
-	<span class="kw">fn</span> <span class="ident">block_number</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T::BlockNumber</span> {
+	<span class="kw">fn</span> <span class="ident">block_number</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">T::BlockNumber</span> {
 		<span class="self">self</span>.<span class="ident">block_number</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">max_value_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+	<span class="kw">fn</span> <span class="ident">max_value_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u32</span> {
 		<span class="ident">T::Schedule::get</span>().<span class="ident">limits</span>.<span class="ident">payload_len</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_weight_price</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">weight</span>: <span class="ident">Weight</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">get_weight_price</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">weight</span>: <span class="ident">Weight</span>) -&gt; <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span> {
 		<span class="ident">T::WeightPrice::convert</span>(<span class="ident">weight</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">schedule</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">Schedule</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">schedule</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Schedule</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span> {
 		<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">schedule</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">gas_meter</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span> {
-		<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">top_frame_mut</span>().<span class="ident">nested_meter</span>
+	<span class="kw">fn</span> <span class="ident">gas_meter</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span><span class="op">&gt;</span> {
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">top_frame_mut</span>().<span class="ident">nested_meter</span>
 	}
 
-	<span class="kw">fn</span> <span class="ident">append_debug_buffer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">msg</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">buffer</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">debug_message</span> {
+	<span class="kw">fn</span> <span class="ident">append_debug_buffer</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">msg</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span> {
+		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">buffer</span>) <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">debug_message</span> {
 			<span class="kw">if</span> <span class="op">!</span><span class="ident">msg</span>.<span class="ident">is_empty</span>() {
 				<span class="ident">buffer</span>.<span class="ident">extend</span>(<span class="ident">msg</span>.<span class="ident">as_bytes</span>());
 			}
@@ -3294,13 +3294,13 @@
 		}
 	}
 
-	<span class="kw">fn</span> <span class="ident">call_runtime</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">call</span>: <span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::Call</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DispatchResultWithPostInfo</span> {
+	<span class="kw">fn</span> <span class="ident">call_runtime</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">call</span>: <span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::T</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::Call</span>) -&gt; <span class="ident">DispatchResultWithPostInfo</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">origin</span>: <span class="ident">T::Origin</span> <span class="op">=</span> <span class="ident">RawOrigin::Signed</span>(<span class="self">self</span>.<span class="ident">address</span>().<span class="ident">clone</span>()).<span class="ident">into</span>();
 		<span class="ident">origin</span>.<span class="ident">add_filter</span>(<span class="ident">T::CallFilter::contains</span>);
 		<span class="ident">call</span>.<span class="ident">dispatch</span>(<span class="ident">origin</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">ecdsa_recover</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">signature</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>; <span class="number">65</span>], <span class="ident">message_hash</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>; <span class="number">32</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">33</span>], ()<span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">ecdsa_recover</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">signature</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>; <span class="number">65</span>], <span class="ident">message_hash</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>; <span class="number">32</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">33</span>], ()<span class="op">&gt;</span> {
 		<span class="ident">secp256k1_ecdsa_recover_compressed</span>(<span class="kw-2">&amp;</span><span class="ident">signature</span>, <span class="kw-2">&amp;</span><span class="ident">message_hash</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())
 	}
 }
@@ -3323,7 +3323,7 @@
 	<span class="kw">impl</span> <span class="ident">Sealed</span> <span class="kw">for</span> <span class="ident"><span class="kw">crate</span>::wasm::MockExt</span> {}
 
 	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
-	<span class="kw">impl</span> <span class="ident">Sealed</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident"><span class="kw">crate</span>::wasm::MockExt</span> {}
+	<span class="kw">impl</span> <span class="ident">Sealed</span> <span class="kw">for</span> <span class="kw-2">&amp;mut</span> <span class="ident"><span class="kw">crate</span>::wasm::MockExt</span> {}
 }
 
 <span class="doccomment">/// These tests exercise the executive layer.</span>
@@ -3364,12 +3364,12 @@
 		<span class="kw">static</span> <span class="ident">LOADER</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">MockLoader</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">RefCell::new</span>(<span class="ident">MockLoader::default</span>());
 	}
 
-	<span class="kw">fn</span> <span class="ident">events</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">events</span>() -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Event</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="ident">System::events</span>()
 			.<span class="ident">into_iter</span>()
 			.<span class="ident">filter_map</span>(<span class="op">|</span><span class="ident">meta</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">meta</span>.<span class="ident">event</span> {
-				<span class="ident">MetaEvent::Contracts</span>(<span class="ident">contract_event</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">contract_event</span>),
-				<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+				<span class="ident">MetaEvent::Contracts</span>(<span class="ident">contract_event</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">contract_event</span>),
+				<span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
 			})
 			.<span class="ident">collect</span>()
 	}
@@ -3381,7 +3381,7 @@
 
 	<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
 	<span class="kw">struct</span> <span class="ident">MockExecutable</span> {
-		<span class="ident">func</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Fn</span>(<span class="ident">MockCtx</span>, <span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecResult</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
+		<span class="ident">func</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Fn</span>(<span class="ident">MockCtx</span>, <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">ExecResult</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>,
 		<span class="ident">func_type</span>: <span class="ident">ExportedFunction</span>,
 		<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>,
 		<span class="ident">refcount</span>: <span class="ident">u64</span>,
@@ -3396,8 +3396,8 @@
 	<span class="kw">impl</span> <span class="ident">MockLoader</span> {
 		<span class="kw">fn</span> <span class="ident">insert</span>(
 			<span class="ident">func_type</span>: <span class="ident">ExportedFunction</span>,
-			<span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">MockCtx</span>, <span class="kw-2">&amp;</span><span class="ident">MockExecutable</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecResult</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span> {
+			<span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">MockCtx</span>, <span class="kw-2">&amp;</span><span class="ident">MockExecutable</span>) -&gt; <span class="ident">ExecResult</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+		) -&gt; <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span> {
 			<span class="ident">LOADER</span>.<span class="ident">with</span>(<span class="op">|</span><span class="ident">loader</span><span class="op">|</span> {
 				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">loader</span> <span class="op">=</span> <span class="ident">loader</span>.<span class="ident">borrow_mut</span>();
 				<span class="comment">// Generate code hashes as monotonically increasing values.</span>
@@ -3432,12 +3432,12 @@
 			<span class="ident">LOADER</span>.<span class="ident">with</span>(<span class="op">|</span><span class="ident">loader</span><span class="op">|</span> {
 				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">loader</span> <span class="op">=</span> <span class="ident">loader</span>.<span class="ident">borrow_mut</span>();
 				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">entry</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">loader</span>.<span class="ident">map</span>.<span class="ident">entry</span>(<span class="ident">code_hash</span>) {
-					<span class="ident">Occupied</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">e</span>,
-					<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;code_hash does not exist&quot;</span>),
+					<span class="ident">Occupied</span>(<span class="ident">e</span>) =&gt; <span class="ident">e</span>,
+					<span class="kw">_</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;code_hash does not exist&quot;</span>),
 				};
-				<span class="kw">let</span> <span class="ident">refcount</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">entry</span>.<span class="ident">get_mut</span>().<span class="ident">refcount</span>;
+				<span class="kw">let</span> <span class="ident">refcount</span> <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="ident">entry</span>.<span class="ident">get_mut</span>().<span class="ident">refcount</span>;
 				<span class="kw-2">*</span><span class="ident">refcount</span> <span class="op">-</span><span class="op">=</span> <span class="number">1</span>;
-				<span class="kw">if</span> <span class="kw-2">*</span><span class="ident">refcount</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+				<span class="kw">if</span> <span class="kw-2">*</span><span class="ident">refcount</span> <span class="op">==</span> <span class="number">0</span> {
 					<span class="ident">entry</span>.<span class="ident">remove</span>();
 				}
 			});
@@ -3448,12 +3448,12 @@
 		<span class="kw">fn</span> <span class="ident">from_storage</span>(
 			<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>,
 			<span class="ident">_schedule</span>: <span class="kw-2">&amp;</span><span class="ident">Schedule</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>,
-			<span class="ident">_gas_meter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span> {
+			<span class="ident">_gas_meter</span>: <span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>,
+		) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span> {
 			<span class="ident"><span class="self">Self</span>::from_storage_noinstr</span>(<span class="ident">code_hash</span>)
 		}
 
-		<span class="kw">fn</span> <span class="ident">from_storage_noinstr</span>(<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span> {
+		<span class="kw">fn</span> <span class="ident">from_storage_noinstr</span>(<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">DispatchError</span><span class="op">&gt;</span> {
 			<span class="ident">LOADER</span>.<span class="ident">with</span>(<span class="op">|</span><span class="ident">loader</span><span class="op">|</span> {
 				<span class="ident">loader</span>
 					.<span class="ident">borrow_mut</span>()
@@ -3466,58 +3466,58 @@
 
 		<span class="kw">fn</span> <span class="ident">add_user</span>(
 			<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>,
-			<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span> {
+			<span class="kw">_</span>: <span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>,
+		) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span> {
 			<span class="ident">MockLoader::increment_refcount</span>(<span class="ident">code_hash</span>);
 			<span class="prelude-val">Ok</span>(())
 		}
 
 		<span class="kw">fn</span> <span class="ident">remove_user</span>(
 			<span class="ident">code_hash</span>: <span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>,
-			<span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span> {
+			<span class="kw">_</span>: <span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>,
+		) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span> {
 			<span class="ident">MockLoader::decrement_refcount</span>(<span class="ident">code_hash</span>);
 			<span class="prelude-val">Ok</span>(())
 		}
 
 		<span class="kw">fn</span> <span class="ident">execute</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Ext</span><span class="op">&lt;</span><span class="ident">T</span> <span class="op">=</span> <span class="ident">Test</span><span class="op">&gt;</span><span class="op">&gt;</span>(
 			<span class="self">self</span>,
-			<span class="ident">ext</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">E</span>,
+			<span class="ident">ext</span>: <span class="kw-2">&amp;mut</span> <span class="ident">E</span>,
 			<span class="ident">function</span>: <span class="kw-2">&amp;</span><span class="ident">ExportedFunction</span>,
 			<span class="ident">input_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
-		) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecResult</span> {
+		) -&gt; <span class="ident">ExecResult</span> {
 			<span class="kw">if</span> <span class="kw">let</span> <span class="kw-2">&amp;</span><span class="ident">Constructor</span> <span class="op">=</span> <span class="ident">function</span> {
 				<span class="ident">MockLoader::increment_refcount</span>(<span class="self">self</span>.<span class="ident">code_hash</span>);
 			}
-			<span class="kw">if</span> <span class="ident">function</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">func_type</span> {
+			<span class="kw">if</span> <span class="ident">function</span> <span class="op">==</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">func_type</span> {
 				(<span class="self">self</span>.<span class="ident">func</span>)(<span class="ident">MockCtx</span> { <span class="ident">ext</span>, <span class="ident">input_data</span> }, <span class="kw-2">&amp;</span><span class="self">self</span>)
 			} <span class="kw">else</span> {
 				<span class="ident">exec_success</span>()
 			}
 		}
 
-		<span class="kw">fn</span> <span class="ident">code_hash</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span> {
+		<span class="kw">fn</span> <span class="ident">code_hash</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">CodeHash</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span> {
 			<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">code_hash</span>
 		}
 
-		<span class="kw">fn</span> <span class="ident">code_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+		<span class="kw">fn</span> <span class="ident">code_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u32</span> {
 			<span class="number">0</span>
 		}
 
-		<span class="kw">fn</span> <span class="ident">aggregate_code_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+		<span class="kw">fn</span> <span class="ident">aggregate_code_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u32</span> {
 			<span class="number">0</span>
 		}
 
-		<span class="kw">fn</span> <span class="ident">refcount</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+		<span class="kw">fn</span> <span class="ident">refcount</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u32</span> {
 			<span class="self">self</span>.<span class="ident">refcount</span> <span class="kw">as</span> <span class="ident">u32</span>
 		}
 	}
 
-	<span class="kw">fn</span> <span class="ident">exec_success</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecResult</span> {
+	<span class="kw">fn</span> <span class="ident">exec_success</span>() -&gt; <span class="ident">ExecResult</span> {
 		<span class="prelude-val">Ok</span>(<span class="ident">ExecReturnValue</span> { <span class="ident">flags</span>: <span class="ident">ReturnFlags::empty</span>(), <span class="ident">data</span>: <span class="ident">Bytes</span>(<span class="ident">Vec::new</span>()) })
 	}
 
-	<span class="kw">fn</span> <span class="ident">exec_trapped</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ExecResult</span> {
+	<span class="kw">fn</span> <span class="ident">exec_trapped</span>() -&gt; <span class="ident">ExecResult</span> {
 		<span class="prelude-val">Err</span>(<span class="ident">ExecError</span> { <span class="ident">error</span>: <span class="op">&lt;</span><span class="ident">Error</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::ContractTrapped</span>.<span class="ident">into</span>(), <span class="ident">origin</span>: <span class="ident">ErrorOrigin::Callee</span> })
 	}
 
@@ -3539,7 +3539,7 @@
 			<span class="ident">place_contract</span>(<span class="kw-2">&amp;</span><span class="ident">BOB</span>, <span class="ident">exec_ch</span>);
 
 			<span class="macro">assert_matches!</span>(
-				<span class="ident">MockStack::run_call</span>(<span class="ident">ALICE</span>, <span class="ident">BOB</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="ident">value</span>, <span class="macro">vec!</span>[], <span class="prelude-val">None</span>,),
+				<span class="ident">MockStack::run_call</span>(<span class="ident">ALICE</span>, <span class="ident">BOB</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="ident">value</span>, <span class="macro">vec!</span>[], <span class="prelude-val">None</span>,),
 				<span class="prelude-val">Ok</span>(<span class="kw">_</span>)
 			);
 		});
@@ -3585,7 +3585,7 @@
 			<span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="ident">MockStack::run_call</span>(
 				<span class="ident">origin</span>.<span class="ident">clone</span>(),
 				<span class="ident">dest</span>.<span class="ident">clone</span>(),
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+				<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="number">55</span>,
 				<span class="macro">vec!</span>[],
@@ -3634,7 +3634,7 @@
 			<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">MockStack::run_call</span>(
 				<span class="ident">origin</span>,
 				<span class="ident">dest</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+				<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="number">0</span>,
 				<span class="macro">vec!</span>[],
@@ -3664,7 +3664,7 @@
 			<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">MockStack::run_call</span>(
 				<span class="ident">origin</span>,
 				<span class="ident">dest</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+				<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="number">0</span>,
 				<span class="macro">vec!</span>[],
@@ -3692,7 +3692,7 @@
 			<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">MockStack::run_call</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">BOB</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+				<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="number">0</span>,
 				<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],
@@ -3715,14 +3715,14 @@
 			<span class="kw">let</span> <span class="ident">subsistence</span> <span class="op">=</span> <span class="ident">Contracts</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::subsistence_threshold</span>();
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">gas_meter</span> <span class="op">=</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>);
 			<span class="kw">let</span> <span class="ident">executable</span> <span class="op">=</span>
-				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">input_data_ch</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
+				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">input_data_ch</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
 
 			<span class="ident">set_balance</span>(<span class="kw-2">&amp;</span><span class="ident">ALICE</span>, <span class="ident">subsistence</span> <span class="op">*</span> <span class="number">10</span>);
 
 			<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">MockStack::run_instantiate</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">executable</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>,
+				<span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>,
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="ident">subsistence</span> <span class="op">*</span> <span class="number">3</span>,
 				<span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],
@@ -3769,7 +3769,7 @@
 			<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">MockStack::run_call</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">BOB</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+				<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="ident">value</span>,
 				<span class="macro">vec!</span>[],
@@ -3814,7 +3814,7 @@
 			<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">MockStack::run_call</span>(
 				<span class="ident">origin</span>.<span class="ident">clone</span>(),
 				<span class="ident">dest</span>.<span class="ident">clone</span>(),
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+				<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="number">0</span>,
 				<span class="macro">vec!</span>[],
@@ -3851,7 +3851,7 @@
 			<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">MockStack::run_call</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">BOB</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+				<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="number">0</span>,
 				<span class="macro">vec!</span>[],
@@ -3870,13 +3870,13 @@
 			<span class="kw">let</span> <span class="ident">schedule</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Test</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::Schedule::get</span>();
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">gas_meter</span> <span class="op">=</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>);
 			<span class="kw">let</span> <span class="ident">executable</span> <span class="op">=</span>
-				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">dummy_ch</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
+				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">dummy_ch</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
 
 			<span class="macro">assert_matches!</span>(
 				<span class="ident">MockStack::run_instantiate</span>(
 					<span class="ident">ALICE</span>,
 					<span class="ident">executable</span>,
-					<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>,
+					<span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>,
 					<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 					<span class="number">0</span>, <span class="comment">// &lt;- zero endowment</span>
 					<span class="macro">vec!</span>[],
@@ -3898,21 +3898,21 @@
 			<span class="kw">let</span> <span class="ident">schedule</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Test</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::Schedule::get</span>();
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">gas_meter</span> <span class="op">=</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>);
 			<span class="kw">let</span> <span class="ident">executable</span> <span class="op">=</span>
-				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">dummy_ch</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
+				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">dummy_ch</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
 			<span class="ident">set_balance</span>(<span class="kw-2">&amp;</span><span class="ident">ALICE</span>, <span class="number">1000</span>);
 
 			<span class="kw">let</span> <span class="ident">instantiated_contract_address</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
 				<span class="ident">MockStack::run_instantiate</span>(
 					<span class="ident">ALICE</span>,
 					<span class="ident">executable</span>,
-					<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>,
+					<span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>,
 					<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 					<span class="number">100</span>,
 					<span class="macro">vec!</span>[],
 					<span class="kw-2">&amp;</span>[],
 					<span class="prelude-val">None</span>,
 				),
-				<span class="prelude-val">Ok</span>((<span class="ident">address</span>, <span class="kw-2">ref</span> <span class="ident">output</span>)) <span class="kw">if</span> <span class="ident">output</span>.<span class="ident">data</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Bytes</span>(<span class="macro">vec!</span>[<span class="number">80</span>, <span class="number">65</span>, <span class="number">83</span>, <span class="number">83</span>]) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">address</span>
+				<span class="prelude-val">Ok</span>((<span class="ident">address</span>, <span class="kw-2">ref</span> <span class="ident">output</span>)) <span class="kw">if</span> <span class="ident">output</span>.<span class="ident">data</span> <span class="op">==</span> <span class="ident">Bytes</span>(<span class="macro">vec!</span>[<span class="number">80</span>, <span class="number">65</span>, <span class="number">83</span>, <span class="number">83</span>]) =&gt; <span class="ident">address</span>
 			);
 
 			<span class="comment">// Check that the newly created account has the expected code hash and</span>
@@ -3938,21 +3938,21 @@
 			<span class="kw">let</span> <span class="ident">schedule</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Test</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::Schedule::get</span>();
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">gas_meter</span> <span class="op">=</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>);
 			<span class="kw">let</span> <span class="ident">executable</span> <span class="op">=</span>
-				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">dummy_ch</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
+				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">dummy_ch</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
 			<span class="ident">set_balance</span>(<span class="kw-2">&amp;</span><span class="ident">ALICE</span>, <span class="number">1000</span>);
 
 			<span class="kw">let</span> <span class="ident">instantiated_contract_address</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
 				<span class="ident">MockStack::run_instantiate</span>(
 					<span class="ident">ALICE</span>,
 					<span class="ident">executable</span>,
-					<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>,
+					<span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>,
 					<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 					<span class="number">100</span>,
 					<span class="macro">vec!</span>[],
 					<span class="kw-2">&amp;</span>[],
 					<span class="prelude-val">None</span>,
 				),
-				<span class="prelude-val">Ok</span>((<span class="ident">address</span>, <span class="kw-2">ref</span> <span class="ident">output</span>)) <span class="kw">if</span> <span class="ident">output</span>.<span class="ident">data</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Bytes</span>(<span class="macro">vec!</span>[<span class="number">70</span>, <span class="number">65</span>, <span class="number">73</span>, <span class="number">76</span>]) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">address</span>
+				<span class="prelude-val">Ok</span>((<span class="ident">address</span>, <span class="kw-2">ref</span> <span class="ident">output</span>)) <span class="kw">if</span> <span class="ident">output</span>.<span class="ident">data</span> <span class="op">==</span> <span class="ident">Bytes</span>(<span class="macro">vec!</span>[<span class="number">70</span>, <span class="number">65</span>, <span class="number">73</span>, <span class="number">76</span>]) =&gt; <span class="ident">address</span>
 			);
 
 			<span class="comment">// Check that the account has not been created.</span>
@@ -3995,7 +3995,7 @@
 				<span class="ident">MockStack::run_call</span>(
 					<span class="ident">ALICE</span>,
 					<span class="ident">BOB</span>,
-					<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+					<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 					<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 					<span class="number">20</span>,
 					<span class="macro">vec!</span>[],
@@ -4055,7 +4055,7 @@
 				<span class="ident">MockStack::run_call</span>(
 					<span class="ident">ALICE</span>,
 					<span class="ident">BOB</span>,
-					<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+					<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 					<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 					<span class="number">20</span>,
 					<span class="macro">vec!</span>[],
@@ -4081,14 +4081,14 @@
 			<span class="kw">let</span> <span class="ident">schedule</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Test</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::Schedule::get</span>();
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">gas_meter</span> <span class="op">=</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>);
 			<span class="kw">let</span> <span class="ident">executable</span> <span class="op">=</span>
-				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">terminate_ch</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
+				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">terminate_ch</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
 			<span class="ident">set_balance</span>(<span class="kw-2">&amp;</span><span class="ident">ALICE</span>, <span class="number">1000</span>);
 
 			<span class="macro">assert_eq!</span>(
 				<span class="ident">MockStack::run_instantiate</span>(
 					<span class="ident">ALICE</span>,
 					<span class="ident">executable</span>,
-					<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>,
+					<span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>,
 					<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 					<span class="number">100</span>,
 					<span class="macro">vec!</span>[],
@@ -4117,7 +4117,7 @@
 		<span class="comment">// control it reloads its contract info from storage. We check that changes that</span>
 		<span class="comment">// are made before calling into CHARLIE are not discarded.</span>
 		<span class="kw">let</span> <span class="ident">code_bob</span> <span class="op">=</span> <span class="ident">MockLoader::insert</span>(<span class="ident">Call</span>, <span class="op">|</span><span class="ident">ctx</span>, <span class="kw">_</span><span class="op">|</span> {
-			<span class="kw">if</span> <span class="ident">ctx</span>.<span class="ident">input_data</span>[<span class="number">0</span>] <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+			<span class="kw">if</span> <span class="ident">ctx</span>.<span class="ident">input_data</span>[<span class="number">0</span>] <span class="op">==</span> <span class="number">0</span> {
 				<span class="comment">// DO: modify medata (ContractInfo) of own contract through ctx.ext functions</span>
 				<span class="macro">assert_eq!</span>(<span class="ident">ctx</span>.<span class="ident">ext</span>.<span class="ident">call</span>(<span class="number">0</span>, <span class="ident">CHARLIE</span>, <span class="number">0</span>, <span class="macro">vec!</span>[], <span class="bool-val">true</span>), <span class="ident">exec_trapped</span>());
 				<span class="comment">// DO: check that the value is not discarded (query via ctx.ext)</span>
@@ -4138,7 +4138,7 @@
 			<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">MockStack::run_call</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">BOB</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+				<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="number">0</span>,
 				<span class="macro">vec!</span>[<span class="number">0</span>],
@@ -4153,7 +4153,7 @@
 		<span class="kw">let</span> <span class="ident">code</span> <span class="op">=</span> <span class="ident">MockLoader::insert</span>(<span class="ident">Constructor</span>, <span class="op">|</span><span class="ident">ctx</span>, <span class="kw">_</span><span class="op">|</span> {
 			<span class="macro">assert_matches!</span>(
 				<span class="ident">ctx</span>.<span class="ident">ext</span>.<span class="ident">call</span>(<span class="number">0</span>, <span class="ident">ctx</span>.<span class="ident">ext</span>.<span class="ident">address</span>().<span class="ident">clone</span>(), <span class="number">0</span>, <span class="macro">vec!</span>[], <span class="bool-val">true</span>),
-				<span class="prelude-val">Err</span>(<span class="ident">ExecError</span>{<span class="ident">error</span>, ..}) <span class="kw">if</span> <span class="ident">error</span> <span class="op">=</span><span class="op">=</span> <span class="op">&lt;</span><span class="ident">Error</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::ContractNotFound</span>.<span class="ident">into</span>()
+				<span class="prelude-val">Err</span>(<span class="ident">ExecError</span>{<span class="ident">error</span>, ..}) <span class="kw">if</span> <span class="ident">error</span> <span class="op">==</span> <span class="op">&lt;</span><span class="ident">Error</span><span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::ContractNotFound</span>.<span class="ident">into</span>()
 			);
 			<span class="ident">exec_success</span>()
 		});
@@ -4163,14 +4163,14 @@
 			<span class="kw">let</span> <span class="ident">schedule</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Test</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::Schedule::get</span>();
 			<span class="kw">let</span> <span class="ident">subsistence</span> <span class="op">=</span> <span class="ident">Contracts</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::subsistence_threshold</span>();
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">gas_meter</span> <span class="op">=</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>);
-			<span class="kw">let</span> <span class="ident">executable</span> <span class="op">=</span> <span class="ident">MockExecutable::from_storage</span>(<span class="ident">code</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
+			<span class="kw">let</span> <span class="ident">executable</span> <span class="op">=</span> <span class="ident">MockExecutable::from_storage</span>(<span class="ident">code</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
 
 			<span class="ident">set_balance</span>(<span class="kw-2">&amp;</span><span class="ident">ALICE</span>, <span class="ident">subsistence</span> <span class="op">*</span> <span class="number">10</span>);
 
 			<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">MockStack::run_instantiate</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">executable</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>,
+				<span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>,
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="ident">subsistence</span> <span class="op">*</span> <span class="number">3</span>,
 				<span class="macro">vec!</span>[],
@@ -4200,11 +4200,11 @@
 			<span class="ident">MockStack::run_call</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">BOB</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>,
+				<span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>,
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="number">0</span>,
 				<span class="macro">vec!</span>[],
-				<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">debug_buffer</span>),
+				<span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut</span> <span class="ident">debug_buffer</span>),
 			)
 			.<span class="ident">unwrap</span>();
 		});
@@ -4231,11 +4231,11 @@
 			<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">MockStack::run_call</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">BOB</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>,
+				<span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>,
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="number">0</span>,
 				<span class="macro">vec!</span>[],
-				<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">debug_buffer</span>),
+				<span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut</span> <span class="ident">debug_buffer</span>),
 			);
 			<span class="macro">assert!</span>(<span class="ident">result</span>.<span class="ident">is_err</span>());
 		});
@@ -4247,7 +4247,7 @@
 	<span class="kw">fn</span> <span class="ident">call_reentry_direct_recursion</span>() {
 		<span class="comment">// call the contract passed as input with disabled reentry</span>
 		<span class="kw">let</span> <span class="ident">code_bob</span> <span class="op">=</span> <span class="ident">MockLoader::insert</span>(<span class="ident">Call</span>, <span class="op">|</span><span class="ident">ctx</span>, <span class="kw">_</span><span class="op">|</span> {
-			<span class="kw">let</span> <span class="ident">dest</span> <span class="op">=</span> <span class="ident">Decode::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ctx</span>.<span class="ident">input_data</span>.<span class="ident">as_ref</span>()).<span class="ident">unwrap</span>();
+			<span class="kw">let</span> <span class="ident">dest</span> <span class="op">=</span> <span class="ident">Decode::decode</span>(<span class="kw-2">&amp;mut</span> <span class="ident">ctx</span>.<span class="ident">input_data</span>.<span class="ident">as_ref</span>()).<span class="ident">unwrap</span>();
 			<span class="ident">ctx</span>.<span class="ident">ext</span>.<span class="ident">call</span>(<span class="number">0</span>, <span class="ident">dest</span>, <span class="number">0</span>, <span class="macro">vec!</span>[], <span class="bool-val">false</span>)
 		});
 
@@ -4262,7 +4262,7 @@
 			<span class="macro">assert_ok!</span>(<span class="ident">MockStack::run_call</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">BOB</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+				<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="number">0</span>,
 				<span class="ident">CHARLIE</span>.<span class="ident">encode</span>(),
@@ -4274,7 +4274,7 @@
 				<span class="ident">MockStack::run_call</span>(
 					<span class="ident">ALICE</span>,
 					<span class="ident">BOB</span>,
-					<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+					<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 					<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 					<span class="number">0</span>,
 					<span class="ident">BOB</span>.<span class="ident">encode</span>(),
@@ -4289,7 +4289,7 @@
 	<span class="attribute">#[<span class="ident">test</span>]</span>
 	<span class="kw">fn</span> <span class="ident">call_deny_reentry</span>() {
 		<span class="kw">let</span> <span class="ident">code_bob</span> <span class="op">=</span> <span class="ident">MockLoader::insert</span>(<span class="ident">Call</span>, <span class="op">|</span><span class="ident">ctx</span>, <span class="kw">_</span><span class="op">|</span> {
-			<span class="kw">if</span> <span class="ident">ctx</span>.<span class="ident">input_data</span>[<span class="number">0</span>] <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+			<span class="kw">if</span> <span class="ident">ctx</span>.<span class="ident">input_data</span>[<span class="number">0</span>] <span class="op">==</span> <span class="number">0</span> {
 				<span class="ident">ctx</span>.<span class="ident">ext</span>.<span class="ident">call</span>(<span class="number">0</span>, <span class="ident">CHARLIE</span>, <span class="number">0</span>, <span class="macro">vec!</span>[], <span class="bool-val">false</span>)
 			} <span class="kw">else</span> {
 				<span class="ident">exec_success</span>()
@@ -4310,7 +4310,7 @@
 				<span class="ident">MockStack::run_call</span>(
 					<span class="ident">ALICE</span>,
 					<span class="ident">BOB</span>,
-					<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
+					<span class="kw-2">&amp;mut</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>),
 					<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 					<span class="number">0</span>,
 					<span class="macro">vec!</span>[<span class="number">0</span>],
@@ -4339,7 +4339,7 @@
 			<span class="ident">set_balance</span>(<span class="kw-2">&amp;</span><span class="ident">ALICE</span>, <span class="ident">subsistence</span> <span class="op">*</span> <span class="number">10</span>);
 			<span class="ident">place_contract</span>(<span class="kw-2">&amp;</span><span class="ident">BOB</span>, <span class="ident">code_hash</span>);
 			<span class="ident">System::reset_events</span>();
-			<span class="ident">MockStack::run_call</span>(<span class="ident">ALICE</span>, <span class="ident">BOB</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="number">0</span>, <span class="macro">vec!</span>[], <span class="prelude-val">None</span>).<span class="ident">unwrap</span>();
+			<span class="ident">MockStack::run_call</span>(<span class="ident">ALICE</span>, <span class="ident">BOB</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="number">0</span>, <span class="macro">vec!</span>[], <span class="prelude-val">None</span>).<span class="ident">unwrap</span>();
 
 			<span class="kw">let</span> <span class="ident">remark_hash</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Test</span> <span class="kw">as</span> <span class="ident">frame_system::Config</span><span class="op">&gt;</span><span class="ident">::Hashing::hash</span>(<span class="string">b&quot;Hello World&quot;</span>);
 			<span class="macro">assert_eq!</span>(
@@ -4385,8 +4385,8 @@
 		});
 
 		<span class="ident">TestFilter::set_filter</span>(<span class="op">|</span><span class="ident">call</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">call</span> {
-			<span class="ident">Call::Balances</span>(<span class="ident">pallet_balances::Call::transfer</span> { .. }) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-			<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+			<span class="ident">Call::Balances</span>(<span class="ident">pallet_balances::Call::transfer</span> { .. }) =&gt; <span class="bool-val">false</span>,
+			<span class="kw">_</span> =&gt; <span class="bool-val">true</span>,
 		});
 
 		<span class="ident">ExtBuilder::default</span>().<span class="ident">build</span>().<span class="ident">execute_with</span>(<span class="op">|</span><span class="op">|</span> {
@@ -4396,7 +4396,7 @@
 			<span class="ident">set_balance</span>(<span class="kw-2">&amp;</span><span class="ident">ALICE</span>, <span class="ident">subsistence</span> <span class="op">*</span> <span class="number">10</span>);
 			<span class="ident">place_contract</span>(<span class="kw-2">&amp;</span><span class="ident">BOB</span>, <span class="ident">code_hash</span>);
 			<span class="ident">System::reset_events</span>();
-			<span class="ident">MockStack::run_call</span>(<span class="ident">ALICE</span>, <span class="ident">BOB</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="number">0</span>, <span class="macro">vec!</span>[], <span class="prelude-val">None</span>).<span class="ident">unwrap</span>();
+			<span class="ident">MockStack::run_call</span>(<span class="ident">ALICE</span>, <span class="ident">BOB</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="number">0</span>, <span class="macro">vec!</span>[], <span class="prelude-val">None</span>).<span class="ident">unwrap</span>();
 
 			<span class="kw">let</span> <span class="ident">remark_hash</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Test</span> <span class="kw">as</span> <span class="ident">frame_system::Config</span><span class="op">&gt;</span><span class="ident">::Hashing::hash</span>(<span class="string">b&quot;Hello&quot;</span>);
 			<span class="macro">assert_eq!</span>(
@@ -4452,19 +4452,19 @@
 			<span class="kw">let</span> <span class="ident">min_balance</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">Test</span> <span class="kw">as</span> <span class="ident">Config</span><span class="op">&gt;</span><span class="ident">::Currency::minimum_balance</span>();
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">gas_meter</span> <span class="op">=</span> <span class="ident">GasMeter</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">GAS_LIMIT</span>);
 			<span class="kw">let</span> <span class="ident">fail_executable</span> <span class="op">=</span>
-				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">fail_code</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
+				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">fail_code</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
 			<span class="kw">let</span> <span class="ident">success_executable</span> <span class="op">=</span>
-				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">success_code</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
+				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">success_code</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
 			<span class="kw">let</span> <span class="ident">succ_fail_executable</span> <span class="op">=</span>
-				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">succ_fail_code</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
+				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">succ_fail_code</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
 			<span class="kw">let</span> <span class="ident">succ_succ_executable</span> <span class="op">=</span>
-				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">succ_succ_code</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
+				<span class="ident">MockExecutable::from_storage</span>(<span class="ident">succ_succ_code</span>, <span class="kw-2">&amp;</span><span class="ident">schedule</span>, <span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>).<span class="ident">unwrap</span>();
 			<span class="ident">set_balance</span>(<span class="kw-2">&amp;</span><span class="ident">ALICE</span>, <span class="ident">min_balance</span> <span class="op">*</span> <span class="number">1000</span>);
 
 			<span class="ident">MockStack::run_instantiate</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">fail_executable</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>,
+				<span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>,
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="ident">min_balance</span> <span class="op">*</span> <span class="number">100</span>,
 				<span class="macro">vec!</span>[],
@@ -4477,7 +4477,7 @@
 			<span class="macro">assert_ok!</span>(<span class="ident">MockStack::run_instantiate</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">success_executable</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>,
+				<span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>,
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="ident">min_balance</span> <span class="op">*</span> <span class="number">100</span>,
 				<span class="macro">vec!</span>[],
@@ -4489,7 +4489,7 @@
 			<span class="macro">assert_ok!</span>(<span class="ident">MockStack::run_instantiate</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">succ_fail_executable</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>,
+				<span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>,
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="ident">min_balance</span> <span class="op">*</span> <span class="number">200</span>,
 				<span class="macro">vec!</span>[],
@@ -4501,7 +4501,7 @@
 			<span class="macro">assert_ok!</span>(<span class="ident">MockStack::run_instantiate</span>(
 				<span class="ident">ALICE</span>,
 				<span class="ident">succ_succ_executable</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gas_meter</span>,
+				<span class="kw-2">&amp;mut</span> <span class="ident">gas_meter</span>,
 				<span class="kw-2">&amp;</span><span class="ident">schedule</span>,
 				<span class="ident">min_balance</span> <span class="op">*</span> <span class="number">200</span>,
 				<span class="macro">vec!</span>[],

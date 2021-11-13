@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `client&#x2F;executor&#x2F;wasmtime&#x2F;src&#x2F;runtime.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>runtime.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../sc_executor_wasmtime/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `client&#x2F;executor&#x2F;wasmtime&#x2F;src&#x2F;runtime.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>runtime.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../sc_executor_wasmtime/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -735,7 +735,7 @@
 
 <span class="kw">impl</span> <span class="ident">StoreData</span> {
 	<span class="doccomment">/// Returns a reference to the host state.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">host_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">HostState</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">host_state</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">HostState</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">host_state</span>.<span class="ident">as_ref</span>()
 	}
 }
@@ -761,8 +761,8 @@
 }
 
 <span class="kw">impl</span> <span class="ident">InstanceCreator</span> {
-	<span class="kw">fn</span> <span class="ident">instantiate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">InstanceWrapper</span><span class="op">&gt;</span> {
-		<span class="ident">InstanceWrapper::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">module</span>, <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">imports</span>, <span class="self">self</span>.<span class="ident">heap_pages</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">store</span>)
+	<span class="kw">fn</span> <span class="ident">instantiate</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">InstanceWrapper</span><span class="op">&gt;</span> {
+		<span class="ident">InstanceWrapper::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">module</span>, <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">imports</span>, <span class="self">self</span>.<span class="ident">heap_pages</span>, <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">store</span>)
 	}
 }
 
@@ -774,18 +774,18 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span>: <span class="ident">AsContextMut</span><span class="op">&gt;</span> <span class="ident">runtime_blob::InstanceGlobals</span> <span class="kw">for</span> <span class="ident">InstanceGlobals</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span><span class="op">&gt;</span> {
 	<span class="kw">type</span> <span class="ident">Global</span> <span class="op">=</span> <span class="ident">wasmtime::Global</span>;
 
-	<span class="kw">fn</span> <span class="ident">get_global</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">export_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Global</span> {
+	<span class="kw">fn</span> <span class="ident">get_global</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">export_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident"><span class="self">Self</span>::Global</span> {
 		<span class="self">self</span>.<span class="ident">instance</span>
-			.<span class="ident">get_global</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">ctx</span>, <span class="ident">export_name</span>)
+			.<span class="ident">get_global</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">ctx</span>, <span class="ident">export_name</span>)
 			.<span class="ident">expect</span>(<span class="string">&quot;get_global is guaranteed to be called with an export name of a global; qed&quot;</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_global_value</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">global</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Global</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
-		<span class="ident">util::from_wasmtime_val</span>(<span class="ident">global</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">ctx</span>))
+	<span class="kw">fn</span> <span class="ident">get_global_value</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">global</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Global</span>) -&gt; <span class="ident">Value</span> {
+		<span class="ident">util::from_wasmtime_val</span>(<span class="ident">global</span>.<span class="ident">get</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">ctx</span>))
 	}
 
-	<span class="kw">fn</span> <span class="ident">set_global_value</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">global</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Global</span>, <span class="ident">value</span>: <span class="ident">Value</span>) {
-		<span class="ident">global</span>.<span class="ident">set</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">ctx</span>, <span class="ident">util::into_wasmtime_val</span>(<span class="ident">value</span>)).<span class="ident">expect</span>(
+	<span class="kw">fn</span> <span class="ident">set_global_value</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">global</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Global</span>, <span class="ident">value</span>: <span class="ident">Value</span>) {
+		<span class="ident">global</span>.<span class="ident">set</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">ctx</span>, <span class="ident">util::into_wasmtime_val</span>(<span class="ident">value</span>)).<span class="ident">expect</span>(
 			<span class="string">&quot;the value is guaranteed to be of the same value; the global is guaranteed to be mutable; qed&quot;</span>,
 		);
 	}
@@ -809,7 +809,7 @@
 
 <span class="kw">impl</span> <span class="ident">WasmtimeRuntime</span> {
 	<span class="doccomment">/// Creates the store respecting the set limits.</span>
-	<span class="kw">fn</span> <span class="ident">new_store</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Store</span> {
+	<span class="kw">fn</span> <span class="ident">new_store</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Store</span> {
 		<span class="kw">let</span> <span class="ident">limits</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">max_memory_size</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">max_memory_size</span> {
 			<span class="ident">wasmtime::StoreLimitsBuilder::new</span>().<span class="ident">memory_size</span>(<span class="ident">max_memory_size</span>).<span class="ident">build</span>()
 		} <span class="kw">else</span> {
@@ -819,7 +819,7 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">store</span> <span class="op">=</span> <span class="ident">Store::new</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">engine</span>, <span class="ident">StoreData</span> { <span class="ident">limits</span>, <span class="ident">host_state</span>: <span class="prelude-val">None</span> });
 
 		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">max_memory_size</span>.<span class="ident">is_some</span>() {
-			<span class="ident">store</span>.<span class="ident">limiter</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">s</span>.<span class="ident">limits</span>);
+			<span class="ident">store</span>.<span class="ident">limiter</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="kw-2">&amp;mut</span> <span class="ident">s</span>.<span class="ident">limits</span>);
 		}
 
 		<span class="ident">store</span>
@@ -827,7 +827,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">WasmModule</span> <span class="kw">for</span> <span class="ident">WasmtimeRuntime</span> {
-	<span class="kw">fn</span> <span class="ident">new_instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasmInstance</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">new_instance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WasmInstance</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">store</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">new_store</span>();
 
 		<span class="comment">// Scan all imports, find the matching host functions, and create stubs that adapt arguments</span>
@@ -837,7 +837,7 @@
 		<span class="comment">//       However, I am not sure if that&#39;s a good idea since it would be pushing our luck</span>
 		<span class="comment">// further       by assuming that `Store` not only `Send` but also `Sync`.</span>
 		<span class="kw">let</span> <span class="ident">imports</span> <span class="op">=</span> <span class="ident">resolve_imports</span>(
-			<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">store</span>,
+			<span class="kw-2">&amp;mut</span> <span class="ident">store</span>,
 			<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">module</span>,
 			<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">host_functions</span>,
 			<span class="self">self</span>.<span class="ident">config</span>.<span class="ident">heap_pages</span>,
@@ -846,8 +846,8 @@
 
 		<span class="kw">let</span> <span class="ident">strategy</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">snapshot_data</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">snapshot_data</span> {
 			<span class="kw">let</span> <span class="ident">instance_wrapper</span> <span class="op">=</span>
-				<span class="ident">InstanceWrapper::new</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">module</span>, <span class="kw-2">&amp;</span><span class="ident">imports</span>, <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">heap_pages</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">store</span>)<span class="question-mark">?</span>;
-			<span class="kw">let</span> <span class="ident">heap_base</span> <span class="op">=</span> <span class="ident">instance_wrapper</span>.<span class="ident">extract_heap_base</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">store</span>)<span class="question-mark">?</span>;
+				<span class="ident">InstanceWrapper::new</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">module</span>, <span class="kw-2">&amp;</span><span class="ident">imports</span>, <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">heap_pages</span>, <span class="kw-2">&amp;mut</span> <span class="ident">store</span>)<span class="question-mark">?</span>;
+			<span class="kw">let</span> <span class="ident">heap_base</span> <span class="op">=</span> <span class="ident">instance_wrapper</span>.<span class="ident">extract_heap_base</span>(<span class="kw-2">&amp;mut</span> <span class="ident">store</span>)<span class="question-mark">?</span>;
 
 			<span class="comment">// This function panics if the instance was created from a runtime blob different from</span>
 			<span class="comment">// which the mutable globals were collected. Here, it is easy to see that there is only</span>
@@ -855,7 +855,7 @@
 			<span class="comment">// instance and collecting the mutable globals.</span>
 			<span class="kw">let</span> <span class="ident">globals_snapshot</span> <span class="op">=</span> <span class="ident">GlobalsSnapshot::take</span>(
 				<span class="kw-2">&amp;</span><span class="ident">snapshot_data</span>.<span class="ident">mutable_globals</span>,
-				<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">InstanceGlobals</span> { <span class="ident">ctx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">store</span>, <span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="ident">instance_wrapper</span> },
+				<span class="kw-2">&amp;mut</span> <span class="ident">InstanceGlobals</span> { <span class="ident">ctx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">store</span>, <span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="ident">instance_wrapper</span> },
 			);
 
 			<span class="ident">Strategy::FastInstanceReuse</span> {
@@ -889,26 +889,26 @@
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">Send</span> <span class="kw">for</span> <span class="ident">WasmtimeInstance</span> {}
 
 <span class="kw">impl</span> <span class="ident">WasmInstance</span> <span class="kw">for</span> <span class="ident">WasmtimeInstance</span> {
-	<span class="kw">fn</span> <span class="ident">call</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">method</span>: <span class="ident">InvokeMethod</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="kw">match</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">strategy</span> {
+	<span class="kw">fn</span> <span class="ident">call</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">method</span>: <span class="ident">InvokeMethod</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+		<span class="kw">match</span> <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">strategy</span> {
 			<span class="ident">Strategy::FastInstanceReuse</span> {
 				<span class="ident">instance_wrapper</span>,
 				<span class="ident">globals_snapshot</span>,
 				<span class="ident">data_segments_snapshot</span>,
 				<span class="ident">heap_base</span>,
 				<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">store</span>,
-			} <span class="op">=</span><span class="op">&gt;</span> {
-				<span class="kw">let</span> <span class="ident">entrypoint</span> <span class="op">=</span> <span class="ident">instance_wrapper</span>.<span class="ident">resolve_entrypoint</span>(<span class="ident">method</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">store</span>)<span class="question-mark">?</span>;
+			} =&gt; {
+				<span class="kw">let</span> <span class="ident">entrypoint</span> <span class="op">=</span> <span class="ident">instance_wrapper</span>.<span class="ident">resolve_entrypoint</span>(<span class="ident">method</span>, <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="ident">store</span>)<span class="question-mark">?</span>;
 
 				<span class="ident">data_segments_snapshot</span>.<span class="ident">apply</span>(<span class="op">|</span><span class="ident">offset</span>, <span class="ident">contents</span><span class="op">|</span> {
-					<span class="ident">instance_wrapper</span>.<span class="ident">write_memory_from</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">store</span>, <span class="ident">Pointer::new</span>(<span class="ident">offset</span>), <span class="ident">contents</span>)
+					<span class="ident">instance_wrapper</span>.<span class="ident">write_memory_from</span>(<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="ident">store</span>, <span class="ident">Pointer::new</span>(<span class="ident">offset</span>), <span class="ident">contents</span>)
 				})<span class="question-mark">?</span>;
 				<span class="ident">globals_snapshot</span>
-					.<span class="ident">apply</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">InstanceGlobals</span> { <span class="ident">ctx</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">store</span>, <span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">instance_wrapper</span> });
+					.<span class="ident">apply</span>(<span class="kw-2">&amp;mut</span> <span class="ident">InstanceGlobals</span> { <span class="ident">ctx</span>: <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="ident">store</span>, <span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">instance_wrapper</span> });
 				<span class="kw">let</span> <span class="ident">allocator</span> <span class="op">=</span> <span class="ident">FreeingBumpHeapAllocator::new</span>(<span class="kw-2">*</span><span class="ident">heap_base</span>);
 
 				<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">perform_call</span>(
-					<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">store</span>,
+					<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="ident">store</span>,
 					<span class="ident">data</span>,
 					<span class="ident">instance_wrapper</span>.<span class="ident">clone</span>(),
 					<span class="ident">entrypoint</span>,
@@ -921,15 +921,15 @@
 
 				<span class="ident">result</span>
 			},
-			<span class="ident">Strategy::RecreateInstance</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">instance_creator</span>) <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="ident">Strategy::RecreateInstance</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">instance_creator</span>) =&gt; {
 				<span class="kw">let</span> <span class="ident">instance_wrapper</span> <span class="op">=</span> <span class="ident">instance_creator</span>.<span class="ident">instantiate</span>()<span class="question-mark">?</span>;
-				<span class="kw">let</span> <span class="ident">heap_base</span> <span class="op">=</span> <span class="ident">instance_wrapper</span>.<span class="ident">extract_heap_base</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">instance_creator</span>.<span class="ident">store</span>)<span class="question-mark">?</span>;
+				<span class="kw">let</span> <span class="ident">heap_base</span> <span class="op">=</span> <span class="ident">instance_wrapper</span>.<span class="ident">extract_heap_base</span>(<span class="kw-2">&amp;mut</span> <span class="ident">instance_creator</span>.<span class="ident">store</span>)<span class="question-mark">?</span>;
 				<span class="kw">let</span> <span class="ident">entrypoint</span> <span class="op">=</span>
-					<span class="ident">instance_wrapper</span>.<span class="ident">resolve_entrypoint</span>(<span class="ident">method</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">instance_creator</span>.<span class="ident">store</span>)<span class="question-mark">?</span>;
+					<span class="ident">instance_wrapper</span>.<span class="ident">resolve_entrypoint</span>(<span class="ident">method</span>, <span class="kw-2">&amp;mut</span> <span class="ident">instance_creator</span>.<span class="ident">store</span>)<span class="question-mark">?</span>;
 
 				<span class="kw">let</span> <span class="ident">allocator</span> <span class="op">=</span> <span class="ident">FreeingBumpHeapAllocator::new</span>(<span class="ident">heap_base</span>);
 				<span class="ident">perform_call</span>(
-					<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">instance_creator</span>.<span class="ident">store</span>,
+					<span class="kw-2">&amp;mut</span> <span class="ident">instance_creator</span>.<span class="ident">store</span>,
 					<span class="ident">data</span>,
 					<span class="ident">Rc::new</span>(<span class="ident">instance_wrapper</span>),
 					<span class="ident">entrypoint</span>,
@@ -939,24 +939,24 @@
 		}
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_global_const</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-		<span class="kw">match</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">strategy</span> {
-			<span class="ident">Strategy::FastInstanceReuse</span> { <span class="ident">instance_wrapper</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">store</span>, .. } <span class="op">=</span><span class="op">&gt;</span>
-				<span class="ident">instance_wrapper</span>.<span class="ident">get_global_val</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">store</span>, <span class="ident">name</span>),
-			<span class="ident">Strategy::RecreateInstance</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">instance_creator</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">instance_creator</span>
+	<span class="kw">fn</span> <span class="ident">get_global_const</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+		<span class="kw">match</span> <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">strategy</span> {
+			<span class="ident">Strategy::FastInstanceReuse</span> { <span class="ident">instance_wrapper</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">store</span>, .. } =&gt;
+				<span class="ident">instance_wrapper</span>.<span class="ident">get_global_val</span>(<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="ident">store</span>, <span class="ident">name</span>),
+			<span class="ident">Strategy::RecreateInstance</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">instance_creator</span>) =&gt; <span class="ident">instance_creator</span>
 				.<span class="ident">instantiate</span>()<span class="question-mark">?</span>
-				.<span class="ident">get_global_val</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">instance_creator</span>.<span class="ident">store</span>, <span class="ident">name</span>),
+				.<span class="ident">get_global_val</span>(<span class="kw-2">&amp;mut</span> <span class="ident">instance_creator</span>.<span class="ident">store</span>, <span class="ident">name</span>),
 		}
 	}
 
-	<span class="kw">fn</span> <span class="ident">linear_memory_base_ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">linear_memory_base_ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">*const</span> <span class="ident">u8</span><span class="op">&gt;</span> {
 		<span class="kw">match</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">strategy</span> {
-			<span class="ident">Strategy::RecreateInstance</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="ident">Strategy::RecreateInstance</span>(<span class="kw">_</span>) =&gt; {
 				<span class="comment">// We do not keep the wasm instance around, therefore there is no linear memory</span>
 				<span class="comment">// associated with it.</span>
 				<span class="prelude-val">None</span>
 			},
-			<span class="ident">Strategy::FastInstanceReuse</span> { <span class="ident">instance_wrapper</span>, <span class="ident">store</span>, .. } <span class="op">=</span><span class="op">&gt;</span>
+			<span class="ident">Strategy::FastInstanceReuse</span> { <span class="ident">instance_wrapper</span>, <span class="ident">store</span>, .. } =&gt;
 				<span class="prelude-val">Some</span>(<span class="ident">instance_wrapper</span>.<span class="ident">base_ptr</span>(<span class="kw-2">&amp;</span><span class="ident">store</span>)),
 		}
 	}
@@ -967,8 +967,8 @@
 <span class="doccomment">/// In case of an error the caching will not be enabled.</span>
 <span class="kw">fn</span> <span class="ident">setup_wasmtime_caching</span>(
 	<span class="ident">cache_path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>,
-	<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">wasmtime::Config</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::result::Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span> {
+	<span class="ident">config</span>: <span class="kw-2">&amp;mut</span> <span class="ident">wasmtime::Config</span>,
+) -&gt; <span class="ident">std::result::Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span> {
 	<span class="kw">use</span> <span class="ident">std::fs</span>;
 
 	<span class="kw">let</span> <span class="ident">wasmtime_cache_root</span> <span class="op">=</span> <span class="ident">cache_path</span>.<span class="ident">join</span>(<span class="string">&quot;wasmtime&quot;</span>);
@@ -1000,15 +1000,15 @@ directory = \&quot;{cache_dir}\&quot;
 	<span class="prelude-val">Ok</span>(())
 }
 
-<span class="kw">fn</span> <span class="ident">common_config</span>(<span class="ident">semantics</span>: <span class="kw-2">&amp;</span><span class="ident">Semantics</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">wasmtime::Config</span>, <span class="ident">WasmError</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">common_config</span>(<span class="ident">semantics</span>: <span class="kw-2">&amp;</span><span class="ident">Semantics</span>) -&gt; <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">wasmtime::Config</span>, <span class="ident">WasmError</span><span class="op">&gt;</span> {
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">config</span> <span class="op">=</span> <span class="ident">wasmtime::Config::new</span>();
 	<span class="ident">config</span>.<span class="ident">cranelift_opt_level</span>(<span class="ident">wasmtime::OptLevel::SpeedAndSize</span>);
 	<span class="ident">config</span>.<span class="ident">cranelift_nan_canonicalization</span>(<span class="ident">semantics</span>.<span class="ident">canonicalize_nans</span>);
 
 	<span class="kw">let</span> <span class="ident">profiler</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">std::env::var_os</span>(<span class="string">&quot;WASMTIME_PROFILING_STRATEGY&quot;</span>) {
-		<span class="prelude-val">Some</span>(<span class="ident">os_string</span>) <span class="kw">if</span> <span class="ident">os_string</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;jitdump&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">wasmtime::ProfilingStrategy::JitDump</span>,
-		<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">wasmtime::ProfilingStrategy::None</span>,
-		<span class="prelude-val">Some</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+		<span class="prelude-val">Some</span>(<span class="ident">os_string</span>) <span class="kw">if</span> <span class="ident">os_string</span> <span class="op">==</span> <span class="string">&quot;jitdump&quot;</span> =&gt; <span class="ident">wasmtime::ProfilingStrategy::JitDump</span>,
+		<span class="prelude-val">None</span> =&gt; <span class="ident">wasmtime::ProfilingStrategy::None</span>,
+		<span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; {
 			<span class="comment">// Remember if we have already logged a warning due to an unknown profiling strategy.</span>
 			<span class="kw">static</span> <span class="ident">UNKNOWN_PROFILING_STRATEGY</span>: <span class="ident">AtomicBool</span> <span class="op">=</span> <span class="ident">AtomicBool::new</span>(<span class="bool-val">false</span>);
 			<span class="comment">// Make sure that the warning will not be relogged regularly.</span>
@@ -1196,7 +1196,7 @@ directory = \&quot;{cache_dir}\&quot;
 	<span class="ident">blob</span>: <span class="ident">RuntimeBlob</span>,
 	<span class="ident">config</span>: <span class="ident">Config</span>,
 	<span class="ident">host_functions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="kw">dyn</span> <span class="ident">Function</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">WasmtimeRuntime</span>, <span class="ident">WasmError</span><span class="op">&gt;</span> {
+) -&gt; <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">WasmtimeRuntime</span>, <span class="ident">WasmError</span><span class="op">&gt;</span> {
 	<span class="comment">// SAFETY: this is safe because it doesn&#39;t use `CodeSupplyMode::Artifact`.</span>
 	<span class="kw">unsafe</span> { <span class="ident">do_create_runtime</span>(<span class="ident">CodeSupplyMode::Verbatim</span> { <span class="ident">blob</span> }, <span class="ident">config</span>, <span class="ident">host_functions</span>) }
 }
@@ -1216,7 +1216,7 @@ directory = \&quot;{cache_dir}\&quot;
 	<span class="ident">compiled_artifact</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
 	<span class="ident">config</span>: <span class="ident">Config</span>,
 	<span class="ident">host_functions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="kw">dyn</span> <span class="ident">Function</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">WasmtimeRuntime</span>, <span class="ident">WasmError</span><span class="op">&gt;</span> {
+) -&gt; <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">WasmtimeRuntime</span>, <span class="ident">WasmError</span><span class="op">&gt;</span> {
 	<span class="ident">do_create_runtime</span>(<span class="ident">CodeSupplyMode::Artifact</span> { <span class="ident">compiled_artifact</span> }, <span class="ident">config</span>, <span class="ident">host_functions</span>)
 }
 
@@ -1228,11 +1228,11 @@ directory = \&quot;{cache_dir}\&quot;
 	<span class="ident">code_supply_mode</span>: <span class="ident">CodeSupplyMode</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
 	<span class="ident">config</span>: <span class="ident">Config</span>,
 	<span class="ident">host_functions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="kw">dyn</span> <span class="ident">Function</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">WasmtimeRuntime</span>, <span class="ident">WasmError</span><span class="op">&gt;</span> {
+) -&gt; <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">WasmtimeRuntime</span>, <span class="ident">WasmError</span><span class="op">&gt;</span> {
 	<span class="comment">// Create the engine, store and finally the module from the given code.</span>
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wasmtime_config</span> <span class="op">=</span> <span class="ident">common_config</span>(<span class="kw-2">&amp;</span><span class="ident">config</span>.<span class="ident">semantics</span>)<span class="question-mark">?</span>;
 	<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">cache_path</span>) <span class="op">=</span> <span class="ident">config</span>.<span class="ident">cache_path</span> {
-		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">reason</span>) <span class="op">=</span> <span class="ident">setup_wasmtime_caching</span>(<span class="ident">cache_path</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">wasmtime_config</span>) {
+		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">reason</span>) <span class="op">=</span> <span class="ident">setup_wasmtime_caching</span>(<span class="ident">cache_path</span>, <span class="kw-2">&amp;mut</span> <span class="ident">wasmtime_config</span>) {
 			<span class="macro">log::warn!</span>(
 				<span class="string">&quot;failed to setup wasmtime cache. Performance may degrade significantly: {}.&quot;</span>,
 				<span class="ident">reason</span>,
@@ -1244,7 +1244,7 @@ directory = \&quot;{cache_dir}\&quot;
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">WasmError::Other</span>(<span class="macro">format!</span>(<span class="string">&quot;cannot create the engine for runtime: {}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
 
 	<span class="kw">let</span> (<span class="ident">module</span>, <span class="ident">snapshot_data</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">code_supply_mode</span> {
-		<span class="ident">CodeSupplyMode::Verbatim</span> { <span class="ident">blob</span> } <span class="op">=</span><span class="op">&gt;</span> {
+		<span class="ident">CodeSupplyMode::Verbatim</span> { <span class="ident">blob</span> } =&gt; {
 			<span class="kw">let</span> <span class="ident">blob</span> <span class="op">=</span> <span class="ident">instrument</span>(<span class="ident">blob</span>, <span class="kw-2">&amp;</span><span class="ident">config</span>.<span class="ident">semantics</span>)<span class="question-mark">?</span>;
 
 			<span class="kw">if</span> <span class="ident">config</span>.<span class="ident">semantics</span>.<span class="ident">fast_instance_reuse</span> {
@@ -1265,7 +1265,7 @@ directory = \&quot;{cache_dir}\&quot;
 				(<span class="ident">module</span>, <span class="prelude-val">None</span>)
 			}
 		},
-		<span class="ident">CodeSupplyMode::Artifact</span> { <span class="ident">compiled_artifact</span> } <span class="op">=</span><span class="op">&gt;</span> {
+		<span class="ident">CodeSupplyMode::Artifact</span> { <span class="ident">compiled_artifact</span> } =&gt; {
 			<span class="comment">// SAFETY: The unsafity of `deserialize` is covered by this function. The</span>
 			<span class="comment">//         responsibilities to maintain the invariants are passed to the caller.</span>
 			<span class="kw">let</span> <span class="ident">module</span> <span class="op">=</span> <span class="ident">wasmtime::Module::deserialize</span>(<span class="kw-2">&amp;</span><span class="ident">engine</span>, <span class="ident">compiled_artifact</span>)
@@ -1281,7 +1281,7 @@ directory = \&quot;{cache_dir}\&quot;
 <span class="kw">fn</span> <span class="ident">instrument</span>(
 	<span class="kw-2">mut</span> <span class="ident">blob</span>: <span class="ident">RuntimeBlob</span>,
 	<span class="ident">semantics</span>: <span class="kw-2">&amp;</span><span class="ident">Semantics</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">RuntimeBlob</span>, <span class="ident">WasmError</span><span class="op">&gt;</span> {
+) -&gt; <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">RuntimeBlob</span>, <span class="ident">WasmError</span><span class="op">&gt;</span> {
 	<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">DeterministicStackLimit</span> { <span class="ident">logical_max</span>, .. }) <span class="op">=</span> <span class="ident">semantics</span>.<span class="ident">deterministic_stack_limit</span> {
 		<span class="ident">blob</span> <span class="op">=</span> <span class="ident">blob</span>.<span class="ident">inject_stack_depth_metering</span>(<span class="ident">logical_max</span>)<span class="question-mark">?</span>;
 	}
@@ -1299,7 +1299,7 @@ directory = \&quot;{cache_dir}\&quot;
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prepare_runtime_artifact</span>(
 	<span class="ident">blob</span>: <span class="ident">RuntimeBlob</span>,
 	<span class="ident">semantics</span>: <span class="kw-2">&amp;</span><span class="ident">Semantics</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">WasmError</span><span class="op">&gt;</span> {
+) -&gt; <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">WasmError</span><span class="op">&gt;</span> {
 	<span class="kw">let</span> <span class="ident">blob</span> <span class="op">=</span> <span class="ident">instrument</span>(<span class="ident">blob</span>, <span class="ident">semantics</span>)<span class="question-mark">?</span>;
 
 	<span class="kw">let</span> <span class="ident">engine</span> <span class="op">=</span> <span class="ident">Engine::new</span>(<span class="kw-2">&amp;</span><span class="ident">common_config</span>(<span class="ident">semantics</span>)<span class="question-mark">?</span>)
@@ -1316,16 +1316,16 @@ directory = \&quot;{cache_dir}\&quot;
 	<span class="ident">instance_wrapper</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">InstanceWrapper</span><span class="op">&gt;</span>,
 	<span class="ident">entrypoint</span>: <span class="ident">EntryPoint</span>,
 	<span class="kw-2">mut</span> <span class="ident">allocator</span>: <span class="ident">FreeingBumpHeapAllocator</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 	<span class="kw">let</span> (<span class="ident">data_ptr</span>, <span class="ident">data_len</span>) <span class="op">=</span>
-		<span class="ident">inject_input_data</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ctx</span>, <span class="kw-2">&amp;</span><span class="ident">instance_wrapper</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">allocator</span>, <span class="ident">data</span>)<span class="question-mark">?</span>;
+		<span class="ident">inject_input_data</span>(<span class="kw-2">&amp;mut</span> <span class="ident">ctx</span>, <span class="kw-2">&amp;</span><span class="ident">instance_wrapper</span>, <span class="kw-2">&amp;mut</span> <span class="ident">allocator</span>, <span class="ident">data</span>)<span class="question-mark">?</span>;
 
 	<span class="kw">let</span> <span class="ident">host_state</span> <span class="op">=</span> <span class="ident">HostState::new</span>(<span class="ident">allocator</span>, <span class="ident">instance_wrapper</span>.<span class="ident">clone</span>());
 
 	<span class="comment">// Set the host state before calling into wasm.</span>
 	<span class="ident">ctx</span>.<span class="ident">as_context_mut</span>().<span class="ident">data_mut</span>().<span class="ident">host_state</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Rc::new</span>(<span class="ident">host_state</span>));
 
-	<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">entrypoint</span>.<span class="ident">call</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ctx</span>, <span class="ident">data_ptr</span>, <span class="ident">data_len</span>).<span class="ident">map</span>(<span class="ident">unpack_ptr_and_len</span>);
+	<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">entrypoint</span>.<span class="ident">call</span>(<span class="kw-2">&amp;mut</span> <span class="ident">ctx</span>, <span class="ident">data_ptr</span>, <span class="ident">data_len</span>).<span class="ident">map</span>(<span class="ident">unpack_ptr_and_len</span>);
 
 	<span class="comment">// Reset the host state</span>
 	<span class="ident">ctx</span>.<span class="ident">as_context_mut</span>().<span class="ident">data_mut</span>().<span class="ident">host_state</span> <span class="op">=</span> <span class="prelude-val">None</span>;
@@ -1339,11 +1339,11 @@ directory = \&quot;{cache_dir}\&quot;
 <span class="kw">fn</span> <span class="ident">inject_input_data</span>(
 	<span class="kw-2">mut</span> <span class="ident">ctx</span>: <span class="kw">impl</span> <span class="ident">AsContextMut</span>,
 	<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="ident">InstanceWrapper</span>,
-	<span class="ident">allocator</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">FreeingBumpHeapAllocator</span>,
+	<span class="ident">allocator</span>: <span class="kw-2">&amp;mut</span> <span class="ident">FreeingBumpHeapAllocator</span>,
 	<span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Pointer</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">WordSize</span>)<span class="op">&gt;</span> {
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Pointer</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">WordSize</span>)<span class="op">&gt;</span> {
 	<span class="kw">let</span> <span class="ident">data_len</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">WordSize</span>;
-	<span class="kw">let</span> <span class="ident">data_ptr</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">allocate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ctx</span>, <span class="ident">allocator</span>, <span class="ident">data_len</span>)<span class="question-mark">?</span>;
+	<span class="kw">let</span> <span class="ident">data_ptr</span> <span class="op">=</span> <span class="ident">instance</span>.<span class="ident">allocate</span>(<span class="kw-2">&amp;mut</span> <span class="ident">ctx</span>, <span class="ident">allocator</span>, <span class="ident">data_len</span>)<span class="question-mark">?</span>;
 	<span class="ident">instance</span>.<span class="ident">write_memory_from</span>(<span class="ident">ctx</span>, <span class="ident">data_ptr</span>, <span class="ident">data</span>)<span class="question-mark">?</span>;
 	<span class="prelude-val">Ok</span>((<span class="ident">data_ptr</span>, <span class="ident">data_len</span>))
 }
@@ -1353,9 +1353,9 @@ directory = \&quot;{cache_dir}\&quot;
 	<span class="ident">instance</span>: <span class="kw-2">&amp;</span><span class="ident">InstanceWrapper</span>,
 	<span class="ident">output_ptr</span>: <span class="ident">u32</span>,
 	<span class="ident">output_len</span>: <span class="ident">u32</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">output</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="ident">output_len</span> <span class="kw">as</span> <span class="ident">usize</span>];
-	<span class="ident">instance</span>.<span class="ident">read_memory_into</span>(<span class="ident">ctx</span>, <span class="ident">Pointer::new</span>(<span class="ident">output_ptr</span>), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">output</span>)<span class="question-mark">?</span>;
+	<span class="ident">instance</span>.<span class="ident">read_memory_into</span>(<span class="ident">ctx</span>, <span class="ident">Pointer::new</span>(<span class="ident">output_ptr</span>), <span class="kw-2">&amp;mut</span> <span class="ident">output</span>)<span class="question-mark">?</span>;
 	<span class="prelude-val">Ok</span>(<span class="ident">output</span>)
 }
 </code></pre></div>
