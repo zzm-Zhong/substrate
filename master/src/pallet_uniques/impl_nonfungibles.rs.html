@@ -275,7 +275,7 @@
 			<span class="ident">admin</span>.<span class="ident">clone</span>(),
 			<span class="ident">T::ClassDeposit::get</span>(),
 			<span class="bool-val">false</span>,
-			<span class="ident">Event::Created</span>(<span class="ident">class</span>.<span class="ident">clone</span>(), <span class="ident">who</span>.<span class="ident">clone</span>(), <span class="ident">admin</span>.<span class="ident">clone</span>()),
+			<span class="ident">Event::Created</span> { <span class="ident">class</span>: <span class="ident">class</span>.<span class="ident">clone</span>(), <span class="ident">creator</span>: <span class="ident">who</span>.<span class="ident">clone</span>(), <span class="ident">owner</span>: <span class="ident">admin</span>.<span class="ident">clone</span>() },
 		)
 	}
 }

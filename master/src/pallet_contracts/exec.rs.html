@@ -4414,10 +4414,10 @@
 					},
 					<span class="ident">EventRecord</span> {
 						<span class="ident">phase</span>: <span class="ident">Phase::Initialization</span>,
-						<span class="ident">event</span>: <span class="ident">MetaEvent::Utility</span>(<span class="ident">pallet_utility::Event::BatchInterrupted</span>(
-							<span class="number">1</span>,
-							<span class="ident">frame_system::Error</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::CallFiltered</span>.<span class="ident">into</span>()
-						),),
+						<span class="ident">event</span>: <span class="ident">MetaEvent::Utility</span>(<span class="ident">pallet_utility::Event::BatchInterrupted</span> {
+							<span class="ident">index</span>: <span class="number">1</span>,
+							<span class="ident">error</span>: <span class="ident">frame_system::Error</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span><span class="ident">::CallFiltered</span>.<span class="ident">into</span>()
+						},),
 						<span class="ident">topics</span>: <span class="macro">vec!</span>[],
 					},
 				]

@@ -178,6 +178,11 @@
 <span id="178">178</span>
 <span id="179">179</span>
 <span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -224,7 +229,12 @@
 		<span class="ident">details</span>.<span class="ident">owner</span> <span class="op">=</span> <span class="ident">dest</span>;
 		<span class="ident">Asset</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="kw-2">&amp;</span><span class="ident">class</span>, <span class="kw-2">&amp;</span><span class="ident">instance</span>, <span class="kw-2">&amp;</span><span class="ident">details</span>);
 
-		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Transferred</span>(<span class="ident">class</span>, <span class="ident">instance</span>, <span class="ident">origin</span>, <span class="ident">details</span>.<span class="ident">owner</span>));
+		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Transferred</span> {
+			<span class="ident">class</span>,
+			<span class="ident">instance</span>,
+			<span class="ident">from</span>: <span class="ident">origin</span>,
+			<span class="ident">to</span>: <span class="ident">details</span>.<span class="ident">owner</span>,
+		});
 		<span class="prelude-val">Ok</span>(())
 	}
 
@@ -285,7 +295,7 @@
 			<span class="ident">Attribute</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::remove_prefix</span>((<span class="kw-2">&amp;</span><span class="ident">class</span>,), <span class="prelude-val">None</span>);
 			<span class="ident">T::Currency::unreserve</span>(<span class="kw-2">&amp;</span><span class="ident">class_details</span>.<span class="ident">owner</span>, <span class="ident">class_details</span>.<span class="ident">total_deposit</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Destroyed</span>(<span class="ident">class</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Destroyed</span> { <span class="ident">class</span> });
 
 			<span class="prelude-val">Ok</span>(<span class="ident">DestroyWitness</span> {
 				<span class="ident">instances</span>: <span class="ident">class_details</span>.<span class="ident">instances</span>,
@@ -326,7 +336,7 @@
 			<span class="prelude-val">Ok</span>(())
 		})<span class="question-mark">?</span>;
 
-		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Issued</span>(<span class="ident">class</span>, <span class="ident">instance</span>, <span class="ident">owner</span>));
+		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Issued</span> { <span class="ident">class</span>, <span class="ident">instance</span>, <span class="ident">owner</span> });
 		<span class="prelude-val">Ok</span>(())
 	}
 
@@ -354,7 +364,7 @@
 		<span class="ident">Asset</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::remove</span>(<span class="kw-2">&amp;</span><span class="ident">class</span>, <span class="kw-2">&amp;</span><span class="ident">instance</span>);
 		<span class="ident">Account</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::remove</span>((<span class="kw-2">&amp;</span><span class="ident">owner</span>, <span class="kw-2">&amp;</span><span class="ident">class</span>, <span class="kw-2">&amp;</span><span class="ident">instance</span>));
 
-		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Burned</span>(<span class="ident">class</span>, <span class="ident">instance</span>, <span class="ident">owner</span>));
+		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Burned</span> { <span class="ident">class</span>, <span class="ident">instance</span>, <span class="ident">owner</span> });
 		<span class="prelude-val">Ok</span>(())
 	}
 }
