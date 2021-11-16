@@ -1606,6 +1606,8 @@
 <span id="1606">1606</span>
 <span id="1607">1607</span>
 <span id="1608">1608</span>
+<span id="1609">1609</span>
+<span id="1610">1610</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -2216,7 +2218,9 @@
 		<span class="ident">DuplicateIndex</span>,
 		<span class="doccomment">/// Slash record index out of bounds.</span>
 		<span class="ident">InvalidSlashIndex</span>,
-		<span class="doccomment">/// Can not bond with value less than minimum required.</span>
+		<span class="doccomment">/// Cannot have a validator or nominator role, with value less than the minimum defined by</span>
+		<span class="doccomment">/// governance (see `MinValidatorBond` and `MinNominatorBond`). If unbonding is the</span>
+		<span class="doccomment">/// intention, `chill` first to remove one&#39;s role as validator/nominator.</span>
 		<span class="ident">InsufficientBond</span>,
 		<span class="doccomment">/// Can not schedule more unlock chunks.</span>
 		<span class="ident">NoMoreChunks</span>,
