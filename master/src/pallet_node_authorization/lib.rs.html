@@ -451,6 +451,12 @@
 <span id="451">451</span>
 <span id="452">452</span>
 <span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -581,24 +587,24 @@
 	<span class="attribute">#[<span class="ident">pallet::generate_deposit</span>(<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">deposit_event</span>)]</span>
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> {
 		<span class="doccomment">/// The given well known node was added.</span>
-		<span class="ident">NodeAdded</span>(<span class="ident">PeerId</span>, <span class="ident">T::AccountId</span>),
+		<span class="ident">NodeAdded</span> { <span class="ident">peer_id</span>: <span class="ident">PeerId</span>, <span class="ident">who</span>: <span class="ident">T::AccountId</span> },
 		<span class="doccomment">/// The given well known node was removed.</span>
-		<span class="ident">NodeRemoved</span>(<span class="ident">PeerId</span>),
+		<span class="ident">NodeRemoved</span> { <span class="ident">peer_id</span>: <span class="ident">PeerId</span> },
 		<span class="doccomment">/// The given well known node was swapped; first item was removed,</span>
 		<span class="doccomment">/// the latter was added.</span>
-		<span class="ident">NodeSwapped</span>(<span class="ident">PeerId</span>, <span class="ident">PeerId</span>),
+		<span class="ident">NodeSwapped</span> { <span class="ident">removed</span>: <span class="ident">PeerId</span>, <span class="ident">added</span>: <span class="ident">PeerId</span> },
 		<span class="doccomment">/// The given well known nodes were reset.</span>
-		<span class="ident">NodesReset</span>(<span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">PeerId</span>, <span class="ident">T::AccountId</span>)<span class="op">&gt;</span>),
+		<span class="ident">NodesReset</span> { <span class="ident">nodes</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">PeerId</span>, <span class="ident">T::AccountId</span>)<span class="op">&gt;</span> },
 		<span class="doccomment">/// The given node was claimed by a user.</span>
-		<span class="ident">NodeClaimed</span>(<span class="ident">PeerId</span>, <span class="ident">T::AccountId</span>),
+		<span class="ident">NodeClaimed</span> { <span class="ident">peer_id</span>: <span class="ident">PeerId</span>, <span class="ident">who</span>: <span class="ident">T::AccountId</span> },
 		<span class="doccomment">/// The given claim was removed by its owner.</span>
-		<span class="ident">ClaimRemoved</span>(<span class="ident">PeerId</span>, <span class="ident">T::AccountId</span>),
+		<span class="ident">ClaimRemoved</span> { <span class="ident">peer_id</span>: <span class="ident">PeerId</span>, <span class="ident">who</span>: <span class="ident">T::AccountId</span> },
 		<span class="doccomment">/// The node was transferred to another account.</span>
-		<span class="ident">NodeTransferred</span>(<span class="ident">PeerId</span>, <span class="ident">T::AccountId</span>),
+		<span class="ident">NodeTransferred</span> { <span class="ident">peer_id</span>: <span class="ident">PeerId</span>, <span class="ident">target</span>: <span class="ident">T::AccountId</span> },
 		<span class="doccomment">/// The allowed connections were added to a node.</span>
-		<span class="ident">ConnectionsAdded</span>(<span class="ident">PeerId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PeerId</span><span class="op">&gt;</span>),
+		<span class="ident">ConnectionsAdded</span> { <span class="ident">peer_id</span>: <span class="ident">PeerId</span>, <span class="ident">allowed_connections</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PeerId</span><span class="op">&gt;</span> },
 		<span class="doccomment">/// The allowed connections were removed from a node.</span>
-		<span class="ident">ConnectionsRemoved</span>(<span class="ident">PeerId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PeerId</span><span class="op">&gt;</span>),
+		<span class="ident">ConnectionsRemoved</span> { <span class="ident">peer_id</span>: <span class="ident">PeerId</span>, <span class="ident">allowed_connections</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PeerId</span><span class="op">&gt;</span> },
 	}
 
 	<span class="attribute">#[<span class="ident">pallet::error</span>]</span>
@@ -677,7 +683,7 @@
 			<span class="ident">WellKnownNodes</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="kw-2">&amp;</span><span class="ident">nodes</span>);
 			<span class="op">&lt;</span><span class="ident">Owners</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="kw-2">&amp;</span><span class="ident">node</span>, <span class="kw-2">&amp;</span><span class="ident">owner</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NodeAdded</span>(<span class="ident">node</span>, <span class="ident">owner</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NodeAdded</span> { <span class="ident">peer_id</span>: <span class="ident">node</span>, <span class="ident">who</span>: <span class="ident">owner</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -701,7 +707,7 @@
 			<span class="op">&lt;</span><span class="ident">Owners</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::remove</span>(<span class="kw-2">&amp;</span><span class="ident">node</span>);
 			<span class="ident">AdditionalConnections</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::remove</span>(<span class="kw-2">&amp;</span><span class="ident">node</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NodeRemoved</span>(<span class="ident">node</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NodeRemoved</span> { <span class="ident">peer_id</span>: <span class="ident">node</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -737,7 +743,7 @@
 			<span class="ident">Owners</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::swap</span>(<span class="kw-2">&amp;</span><span class="ident">remove</span>, <span class="kw-2">&amp;</span><span class="ident">add</span>);
 			<span class="ident">AdditionalConnections</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::swap</span>(<span class="kw-2">&amp;</span><span class="ident">remove</span>, <span class="kw-2">&amp;</span><span class="ident">add</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NodeSwapped</span>(<span class="ident">remove</span>, <span class="ident">add</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NodeSwapped</span> { <span class="ident">removed</span>: <span class="ident">remove</span>, <span class="ident">added</span>: <span class="ident">add</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -758,7 +764,7 @@
 
 			<span class="ident"><span class="self">Self</span>::initialize_nodes</span>(<span class="kw-2">&amp;</span><span class="ident">nodes</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NodesReset</span>(<span class="ident">nodes</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NodesReset</span> { <span class="ident">nodes</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -774,7 +780,7 @@
 			<span class="macro">ensure!</span>(<span class="op">!</span><span class="ident">Owners</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">node</span>), <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::AlreadyClaimed</span>);
 
 			<span class="ident">Owners</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="kw-2">&amp;</span><span class="ident">node</span>, <span class="kw-2">&amp;</span><span class="ident">sender</span>);
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NodeClaimed</span>(<span class="ident">node</span>, <span class="ident">sender</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NodeClaimed</span> { <span class="ident">peer_id</span>: <span class="ident">node</span>, <span class="ident">who</span>: <span class="ident">sender</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -795,7 +801,7 @@
 			<span class="ident">Owners</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::remove</span>(<span class="kw-2">&amp;</span><span class="ident">node</span>);
 			<span class="ident">AdditionalConnections</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::remove</span>(<span class="kw-2">&amp;</span><span class="ident">node</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::ClaimRemoved</span>(<span class="ident">node</span>, <span class="ident">sender</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::ClaimRemoved</span> { <span class="ident">peer_id</span>: <span class="ident">node</span>, <span class="ident">who</span>: <span class="ident">sender</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -817,7 +823,7 @@
 
 			<span class="ident">Owners</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="kw-2">&amp;</span><span class="ident">node</span>, <span class="kw-2">&amp;</span><span class="ident">owner</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NodeTransferred</span>(<span class="ident">node</span>, <span class="ident">owner</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NodeTransferred</span> { <span class="ident">peer_id</span>: <span class="ident">node</span>, <span class="ident">target</span>: <span class="ident">owner</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -848,7 +854,10 @@
 
 			<span class="ident">AdditionalConnections</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="kw-2">&amp;</span><span class="ident">node</span>, <span class="ident">nodes</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::ConnectionsAdded</span>(<span class="ident">node</span>, <span class="ident">connections</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::ConnectionsAdded</span> {
+				<span class="ident">peer_id</span>: <span class="ident">node</span>,
+				<span class="ident">allowed_connections</span>: <span class="ident">connections</span>,
+			});
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -876,7 +885,10 @@
 
 			<span class="ident">AdditionalConnections</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="kw-2">&amp;</span><span class="ident">node</span>, <span class="ident">nodes</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::ConnectionsRemoved</span>(<span class="ident">node</span>, <span class="ident">connections</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::ConnectionsRemoved</span> {
+				<span class="ident">peer_id</span>: <span class="ident">node</span>,
+				<span class="ident">allowed_connections</span>: <span class="ident">connections</span>,
+			});
 			<span class="prelude-val">Ok</span>(())
 		}
 	}

@@ -451,7 +451,7 @@
 				<span class="kw-2">*</span><span class="ident">maybe_value</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<span class="ident">who</span>.<span class="ident">clone</span>(), <span class="ident">T::Deposit::get</span>(), <span class="bool-val">false</span>));
 				<span class="ident">T::Currency::reserve</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">T::Deposit::get</span>())
 			})<span class="question-mark">?</span>;
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::IndexAssigned</span>(<span class="ident">who</span>, <span class="ident">index</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::IndexAssigned</span> { <span class="ident">who</span>, <span class="ident">index</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -492,7 +492,7 @@
 				<span class="kw-2">*</span><span class="ident">maybe_value</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<span class="ident">new</span>.<span class="ident">clone</span>(), <span class="ident">amount</span>.<span class="ident">saturating_sub</span>(<span class="ident">lost</span>), <span class="bool-val">false</span>));
 				<span class="prelude-val">Ok</span>(())
 			})<span class="question-mark">?</span>;
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::IndexAssigned</span>(<span class="ident">new</span>, <span class="ident">index</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::IndexAssigned</span> { <span class="ident">who</span>: <span class="ident">new</span>, <span class="ident">index</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -525,7 +525,7 @@
 				<span class="ident">T::Currency::unreserve</span>(<span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="ident">amount</span>);
 				<span class="prelude-val">Ok</span>(())
 			})<span class="question-mark">?</span>;
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::IndexFreed</span>(<span class="ident">index</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::IndexFreed</span> { <span class="ident">index</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -565,7 +565,7 @@
 				}
 				<span class="kw-2">*</span><span class="ident">maybe_value</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<span class="ident">new</span>.<span class="ident">clone</span>(), <span class="ident">Zero::zero</span>(), <span class="ident">freeze</span>));
 			});
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::IndexAssigned</span>(<span class="ident">new</span>, <span class="ident">index</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::IndexAssigned</span> { <span class="ident">who</span>: <span class="ident">new</span>, <span class="ident">index</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -599,7 +599,7 @@
 				<span class="kw-2">*</span><span class="ident">maybe_value</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<span class="ident">account</span>, <span class="ident">Zero::zero</span>(), <span class="bool-val">true</span>));
 				<span class="prelude-val">Ok</span>(())
 			})<span class="question-mark">?</span>;
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::IndexFrozen</span>(<span class="ident">index</span>, <span class="ident">who</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::IndexFrozen</span> { <span class="ident">index</span>, <span class="ident">who</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 	}
@@ -607,12 +607,12 @@
 	<span class="attribute">#[<span class="ident">pallet::event</span>]</span>
 	<span class="attribute">#[<span class="ident">pallet::generate_deposit</span>(<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">deposit_event</span>)]</span>
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> {
-		<span class="doccomment">/// A account index was assigned. \[index, who\]</span>
-		<span class="ident">IndexAssigned</span>(<span class="ident">T::AccountId</span>, <span class="ident">T::AccountIndex</span>),
-		<span class="doccomment">/// A account index has been freed up (unassigned). \[index\]</span>
-		<span class="ident">IndexFreed</span>(<span class="ident">T::AccountIndex</span>),
-		<span class="doccomment">/// A account index has been frozen to its current account ID. \[index, who\]</span>
-		<span class="ident">IndexFrozen</span>(<span class="ident">T::AccountIndex</span>, <span class="ident">T::AccountId</span>),
+		<span class="doccomment">/// A account index was assigned.</span>
+		<span class="ident">IndexAssigned</span> { <span class="ident">who</span>: <span class="ident">T::AccountId</span>, <span class="ident">index</span>: <span class="ident">T::AccountIndex</span> },
+		<span class="doccomment">/// A account index has been freed up (unassigned).</span>
+		<span class="ident">IndexFreed</span> { <span class="ident">index</span>: <span class="ident">T::AccountIndex</span> },
+		<span class="doccomment">/// A account index has been frozen to its current account ID.</span>
+		<span class="ident">IndexFrozen</span> { <span class="ident">index</span>: <span class="ident">T::AccountIndex</span>, <span class="ident">who</span>: <span class="ident">T::AccountId</span> },
 	}
 
 	<span class="doccomment">/// Old name generated by `decl_event`.</span>

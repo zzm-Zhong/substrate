@@ -383,7 +383,7 @@
 		<span class="doccomment">/// There is an offence reported of the given `kind` happened at the `session_index` and</span>
 		<span class="doccomment">/// (kind-specific) time slot. This event is not deposited for duplicate slashes.</span>
 		<span class="doccomment">/// \[kind, timeslot\].</span>
-		<span class="ident">Offence</span>(<span class="ident">Kind</span>, <span class="ident">OpaqueTimeSlot</span>),
+		<span class="ident">Offence</span> { <span class="ident">kind</span>: <span class="ident">Kind</span>, <span class="ident">timeslot</span>: <span class="ident">OpaqueTimeSlot</span> },
 	}
 
 	<span class="attribute">#[<span class="ident">pallet::hooks</span>]</span>
@@ -428,7 +428,7 @@
 		);
 
 		<span class="comment">// Deposit the event.</span>
-		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Offence</span>(<span class="ident">O::ID</span>, <span class="ident">time_slot</span>.<span class="ident">encode</span>()));
+		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Offence</span> { <span class="ident">kind</span>: <span class="ident">O::ID</span>, <span class="ident">timeslot</span>: <span class="ident">time_slot</span>.<span class="ident">encode</span>() });
 
 		<span class="prelude-val">Ok</span>(())
 	}

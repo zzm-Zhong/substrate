@@ -664,9 +664,9 @@
 		<span class="doccomment">/// A new set of calls have been set!</span>
 		<span class="ident">CallsUpdated</span>,
 		<span class="doccomment">/// A winner has been chosen!</span>
-		<span class="ident">Winner</span>(<span class="ident">T::AccountId</span>, <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>),
+		<span class="ident">Winner</span> { <span class="ident">winner</span>: <span class="ident">T::AccountId</span>, <span class="ident">lottery_balance</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> },
 		<span class="doccomment">/// A ticket has been bought!</span>
-		<span class="ident">TicketBought</span>(<span class="ident">T::AccountId</span>, <span class="ident">CallIndex</span>),
+		<span class="ident">TicketBought</span> { <span class="ident">who</span>: <span class="ident">T::AccountId</span>, <span class="ident">call_index</span>: <span class="ident">CallIndex</span> },
 	}
 
 	<span class="attribute">#[<span class="ident">pallet::error</span>]</span>
@@ -738,7 +738,7 @@
 						);
 						<span class="macro">debug_assert!</span>(<span class="ident">res</span>.<span class="ident">is_ok</span>());
 
-						<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::Winner</span>(<span class="ident">winner</span>, <span class="ident">lottery_balance</span>));
+						<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::Winner</span> { <span class="ident">winner</span>, <span class="ident">lottery_balance</span> });
 
 						<span class="ident">TicketsCount</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::kill</span>();
 
@@ -940,7 +940,7 @@
 			},
 		)<span class="question-mark">?</span>;
 
-		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::TicketBought</span>(<span class="ident">caller</span>.<span class="ident">clone</span>(), <span class="ident">call_index</span>));
+		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::TicketBought</span> { <span class="ident">who</span>: <span class="ident">caller</span>.<span class="ident">clone</span>(), <span class="ident">call_index</span> });
 
 		<span class="prelude-val">Ok</span>(())
 	}

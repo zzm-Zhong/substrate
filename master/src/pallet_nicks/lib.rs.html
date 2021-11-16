@@ -503,16 +503,16 @@
 	<span class="attribute">#[<span class="ident">pallet::event</span>]</span>
 	<span class="attribute">#[<span class="ident">pallet::generate_deposit</span>(<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">deposit_event</span>)]</span>
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> {
-		<span class="doccomment">/// A name was set. \[who\]</span>
-		<span class="ident">NameSet</span>(<span class="ident">T::AccountId</span>),
-		<span class="doccomment">/// A name was forcibly set. \[target\]</span>
-		<span class="ident">NameForced</span>(<span class="ident">T::AccountId</span>),
-		<span class="doccomment">/// A name was changed. \[who\]</span>
-		<span class="ident">NameChanged</span>(<span class="ident">T::AccountId</span>),
-		<span class="doccomment">/// A name was cleared, and the given balance returned. \[who, deposit\]</span>
-		<span class="ident">NameCleared</span>(<span class="ident">T::AccountId</span>, <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>),
-		<span class="doccomment">/// A name was removed and the given balance slashed. \[target, deposit\]</span>
-		<span class="ident">NameKilled</span>(<span class="ident">T::AccountId</span>, <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>),
+		<span class="doccomment">/// A name was set.</span>
+		<span class="ident">NameSet</span> { <span class="ident">who</span>: <span class="ident">T::AccountId</span> },
+		<span class="doccomment">/// A name was forcibly set.</span>
+		<span class="ident">NameForced</span> { <span class="ident">target</span>: <span class="ident">T::AccountId</span> },
+		<span class="doccomment">/// A name was changed.</span>
+		<span class="ident">NameChanged</span> { <span class="ident">who</span>: <span class="ident">T::AccountId</span> },
+		<span class="doccomment">/// A name was cleared, and the given balance returned.</span>
+		<span class="ident">NameCleared</span> { <span class="ident">who</span>: <span class="ident">T::AccountId</span>, <span class="ident">deposit</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> },
+		<span class="doccomment">/// A name was removed and the given balance slashed.</span>
+		<span class="ident">NameKilled</span> { <span class="ident">target</span>: <span class="ident">T::AccountId</span>, <span class="ident">deposit</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> },
 	}
 
 	<span class="doccomment">/// Error for the nicks pallet.</span>
@@ -561,12 +561,12 @@
 			<span class="macro">ensure!</span>(<span class="ident">name</span>.<span class="ident">len</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="ident">T::MaxLength::get</span>() <span class="kw">as</span> <span class="ident">usize</span>, <span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::TooLong</span>);
 
 			<span class="kw">let</span> <span class="ident">deposit</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="kw">_</span>, <span class="ident">deposit</span>)) <span class="op">=</span> <span class="op">&lt;</span><span class="ident">NameOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>(<span class="kw-2">&amp;</span><span class="ident">sender</span>) {
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NameChanged</span>(<span class="ident">sender</span>.<span class="ident">clone</span>()));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NameChanged</span> { <span class="ident">who</span>: <span class="ident">sender</span>.<span class="ident">clone</span>() });
 				<span class="ident">deposit</span>
 			} <span class="kw">else</span> {
 				<span class="kw">let</span> <span class="ident">deposit</span> <span class="op">=</span> <span class="ident">T::ReservationFee::get</span>();
 				<span class="ident">T::Currency::reserve</span>(<span class="kw-2">&amp;</span><span class="ident">sender</span>, <span class="ident">deposit</span>.<span class="ident">clone</span>())<span class="question-mark">?</span>;
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NameSet</span>(<span class="ident">sender</span>.<span class="ident">clone</span>()));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NameSet</span> { <span class="ident">who</span>: <span class="ident">sender</span>.<span class="ident">clone</span>() });
 				<span class="ident">deposit</span>
 			};
 
@@ -593,7 +593,7 @@
 			<span class="kw">let</span> <span class="ident">err_amount</span> <span class="op">=</span> <span class="ident">T::Currency::unreserve</span>(<span class="kw-2">&amp;</span><span class="ident">sender</span>, <span class="ident">deposit</span>.<span class="ident">clone</span>());
 			<span class="macro">debug_assert!</span>(<span class="ident">err_amount</span>.<span class="ident">is_zero</span>());
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NameCleared</span>(<span class="ident">sender</span>, <span class="ident">deposit</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NameCleared</span> { <span class="ident">who</span>: <span class="ident">sender</span>, <span class="ident">deposit</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -624,7 +624,7 @@
 			<span class="comment">// Slash their deposit from them.</span>
 			<span class="ident">T::Slashed::on_unbalanced</span>(<span class="ident">T::Currency::slash_reserved</span>(<span class="kw-2">&amp;</span><span class="ident">target</span>, <span class="ident">deposit</span>.<span class="ident">clone</span>()).<span class="number">0</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NameKilled</span>(<span class="ident">target</span>, <span class="ident">deposit</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NameKilled</span> { <span class="ident">target</span>, <span class="ident">deposit</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -652,7 +652,7 @@
 			<span class="kw">let</span> <span class="ident">deposit</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">NameOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::get</span>(<span class="kw-2">&amp;</span><span class="ident">target</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>.<span class="number">1</span>).<span class="ident">unwrap_or_else</span>(<span class="ident">Zero::zero</span>);
 			<span class="op">&lt;</span><span class="ident">NameOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="kw-2">&amp;</span><span class="ident">target</span>, (<span class="ident">name</span>, <span class="ident">deposit</span>));
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NameForced</span>(<span class="ident">target</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::NameForced</span> { <span class="ident">target</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 	}

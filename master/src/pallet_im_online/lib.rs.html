@@ -1346,12 +1346,12 @@
 	<span class="attribute">#[<span class="ident">pallet::event</span>]</span>
 	<span class="attribute">#[<span class="ident">pallet::generate_deposit</span>(<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">deposit_event</span>)]</span>
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> {
-		<span class="doccomment">/// A new heartbeat was received from `AuthorityId` \[authority_id\]</span>
-		<span class="ident">HeartbeatReceived</span>(<span class="ident">T::AuthorityId</span>),
+		<span class="doccomment">/// A new heartbeat was received from `AuthorityId`.</span>
+		<span class="ident">HeartbeatReceived</span> { <span class="ident">authority_id</span>: <span class="ident">T::AuthorityId</span> },
 		<span class="doccomment">/// At the end of the session, no offence was committed.</span>
 		<span class="ident">AllGood</span>,
-		<span class="doccomment">/// At the end of the session, at least one validator was found to be \[offline\].</span>
-		<span class="ident">SomeOffline</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">IdentificationTuple</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>),
+		<span class="doccomment">/// At the end of the session, at least one validator was found to be offline.</span>
+		<span class="ident">SomeOffline</span> { <span class="ident">offline</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">IdentificationTuple</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> },
 	}
 
 	<span class="attribute">#[<span class="ident">pallet::error</span>]</span>
@@ -1467,7 +1467,7 @@
 			<span class="kw">let</span> <span class="ident">keys</span> <span class="op">=</span> <span class="ident">Keys</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::get</span>();
 			<span class="kw">let</span> <span class="ident">public</span> <span class="op">=</span> <span class="ident">keys</span>.<span class="ident">get</span>(<span class="ident">heartbeat</span>.<span class="ident">authority_index</span> <span class="kw">as</span> <span class="ident">usize</span>);
 			<span class="kw">if</span> <span class="kw">let</span> (<span class="bool-val">false</span>, <span class="prelude-val">Some</span>(<span class="ident">public</span>)) <span class="op">=</span> (<span class="ident">exists</span>, <span class="ident">public</span>) {
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::HeartbeatReceived</span>(<span class="ident">public</span>.<span class="ident">clone</span>()));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::HeartbeatReceived</span> { <span class="ident">authority_id</span>: <span class="ident">public</span>.<span class="ident">clone</span>() });
 
 				<span class="kw">let</span> <span class="ident">network_state_bounded</span> <span class="op">=</span> <span class="ident">BoundedOpaqueNetworkState</span>::<span class="op">&lt;</span>
 					<span class="ident">T::MaxPeerDataEncodingSize</span>,
@@ -1880,7 +1880,7 @@
 		<span class="kw">if</span> <span class="ident">offenders</span>.<span class="ident">is_empty</span>() {
 			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::AllGood</span>);
 		} <span class="kw">else</span> {
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::SomeOffline</span>(<span class="ident">offenders</span>.<span class="ident">clone</span>()));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::SomeOffline</span> { <span class="ident">offline</span>: <span class="ident">offenders</span>.<span class="ident">clone</span>() });
 
 			<span class="kw">let</span> <span class="ident">validator_set_count</span> <span class="op">=</span> <span class="ident">keys</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>;
 			<span class="kw">let</span> <span class="ident">offence</span> <span class="op">=</span> <span class="ident">UnresponsivenessOffence</span> { <span class="ident">session_index</span>, <span class="ident">validator_set_count</span>, <span class="ident">offenders</span> };

@@ -834,9 +834,9 @@
 				<span class="comment">// enact the change if we&#39;ve reached the enacting block</span>
 				<span class="kw">if</span> <span class="ident">block_number</span> <span class="op">==</span> <span class="ident">pending_change</span>.<span class="ident">scheduled_at</span> <span class="op">+</span> <span class="ident">pending_change</span>.<span class="ident">delay</span> {
 					<span class="ident"><span class="self">Self</span>::set_grandpa_authorities</span>(<span class="kw-2">&amp;</span><span class="ident">pending_change</span>.<span class="ident">next_authorities</span>);
-					<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NewAuthorities</span>(
-						<span class="ident">pending_change</span>.<span class="ident">next_authorities</span>.<span class="ident">to_vec</span>(),
-					));
+					<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::NewAuthorities</span> {
+						<span class="ident">authority_set</span>: <span class="ident">pending_change</span>.<span class="ident">next_authorities</span>.<span class="ident">to_vec</span>(),
+					});
 					<span class="op">&lt;</span><span class="ident">PendingChange</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::kill</span>();
 				}
 			}
@@ -935,8 +935,8 @@
 	<span class="attribute">#[<span class="ident">pallet::event</span>]</span>
 	<span class="attribute">#[<span class="ident">pallet::generate_deposit</span>(<span class="kw">fn</span> <span class="ident">deposit_event</span>)]</span>
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span> {
-		<span class="doccomment">/// New authority set has been applied. \[authority_set\]</span>
-		<span class="ident">NewAuthorities</span>(<span class="ident">AuthorityList</span>),
+		<span class="doccomment">/// New authority set has been applied.</span>
+		<span class="ident">NewAuthorities</span> { <span class="ident">authority_set</span>: <span class="ident">AuthorityList</span> },
 		<span class="doccomment">/// Current authority set has been paused.</span>
 		<span class="ident">Paused</span>,
 		<span class="doccomment">/// Current authority set has been resumed.</span>

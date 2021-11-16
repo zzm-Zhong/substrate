@@ -568,7 +568,7 @@
 		};
 	}: <span class="kw">_</span>(<span class="ident">RawOrigin::Signed</span>(<span class="ident">caller</span>.<span class="ident">clone</span>()), <span class="ident">Box::new</span>(<span class="ident">create_identity_info</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">x</span>)))
 	<span class="ident">verify</span> {
-		<span class="ident">assert_last_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::IdentitySet</span>(<span class="ident">caller</span>).<span class="ident">into</span>());
+		<span class="ident">assert_last_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::IdentitySet</span> { <span class="ident">who</span>: <span class="ident">caller</span> }.<span class="ident">into</span>());
 	}
 
 	<span class="comment">// We need to split `set_subs` into two benchmarks to accurately isolate the potential</span>
@@ -652,7 +652,7 @@
 		};
 	}: <span class="kw">_</span>(<span class="ident">RawOrigin::Signed</span>(<span class="ident">caller</span>.<span class="ident">clone</span>()), <span class="ident">r</span> <span class="op">-</span> <span class="number">1</span>, <span class="number">10u32</span>.<span class="ident">into</span>())
 	<span class="ident">verify</span> {
-		<span class="ident">assert_last_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::JudgementRequested</span>(<span class="ident">caller</span>, <span class="ident">r</span><span class="op">-</span><span class="number">1</span>).<span class="ident">into</span>());
+		<span class="ident">assert_last_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::JudgementRequested</span> { <span class="ident">who</span>: <span class="ident">caller</span>, <span class="ident">registrar_index</span>: <span class="ident">r</span><span class="op">-</span><span class="number">1</span> }.<span class="ident">into</span>());
 	}
 
 	<span class="ident">cancel_request</span> {
@@ -672,7 +672,7 @@
 		<span class="ident">Identity</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::request_judgement</span>(<span class="ident">caller_origin</span>, <span class="ident">r</span> <span class="op">-</span> <span class="number">1</span>, <span class="number">10u32</span>.<span class="ident">into</span>())<span class="question-mark">?</span>;
 	}: <span class="kw">_</span>(<span class="ident">RawOrigin::Signed</span>(<span class="ident">caller</span>.<span class="ident">clone</span>()), <span class="ident">r</span> <span class="op">-</span> <span class="number">1</span>)
 	<span class="ident">verify</span> {
-		<span class="ident">assert_last_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::JudgementUnrequested</span>(<span class="ident">caller</span>, <span class="ident">r</span><span class="op">-</span><span class="number">1</span>).<span class="ident">into</span>());
+		<span class="ident">assert_last_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::JudgementUnrequested</span> { <span class="ident">who</span>: <span class="ident">caller</span>, <span class="ident">registrar_index</span>: <span class="ident">r</span><span class="op">-</span><span class="number">1</span> }.<span class="ident">into</span>());
 	}
 
 	<span class="ident">set_fee</span> {
@@ -743,7 +743,7 @@
 		<span class="ident">Identity</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::request_judgement</span>(<span class="ident">user_origin</span>.<span class="ident">clone</span>(), <span class="ident">r</span>, <span class="number">10u32</span>.<span class="ident">into</span>())<span class="question-mark">?</span>;
 	}: <span class="kw">_</span>(<span class="ident">RawOrigin::Signed</span>(<span class="ident">caller</span>), <span class="ident">r</span>, <span class="ident">user_lookup</span>, <span class="ident">Judgement::Reasonable</span>)
 	<span class="ident">verify</span> {
-		<span class="ident">assert_last_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::JudgementGiven</span>(<span class="ident">user</span>, <span class="ident">r</span>).<span class="ident">into</span>())
+		<span class="ident">assert_last_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::JudgementGiven</span> { <span class="ident">target</span>: <span class="ident">user</span>, <span class="ident">registrar_index</span>: <span class="ident">r</span> }.<span class="ident">into</span>())
 	}
 
 	<span class="ident">kill_identity</span> {

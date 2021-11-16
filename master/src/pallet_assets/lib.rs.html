@@ -1248,6 +1248,35 @@
 <span id="1248">1248</span>
 <span id="1249">1249</span>
 <span id="1250">1250</span>
+<span id="1251">1251</span>
+<span id="1252">1252</span>
+<span id="1253">1253</span>
+<span id="1254">1254</span>
+<span id="1255">1255</span>
+<span id="1256">1256</span>
+<span id="1257">1257</span>
+<span id="1258">1258</span>
+<span id="1259">1259</span>
+<span id="1260">1260</span>
+<span id="1261">1261</span>
+<span id="1262">1262</span>
+<span id="1263">1263</span>
+<span id="1264">1264</span>
+<span id="1265">1265</span>
+<span id="1266">1266</span>
+<span id="1267">1267</span>
+<span id="1268">1268</span>
+<span id="1269">1269</span>
+<span id="1270">1270</span>
+<span id="1271">1271</span>
+<span id="1272">1272</span>
+<span id="1273">1273</span>
+<span id="1274">1274</span>
+<span id="1275">1275</span>
+<span id="1276">1276</span>
+<span id="1277">1277</span>
+<span id="1278">1278</span>
+<span id="1279">1279</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1629,47 +1658,70 @@
 	<span class="attribute">#[<span class="ident">pallet::event</span>]</span>
 	<span class="attribute">#[<span class="ident">pallet::generate_deposit</span>(<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">deposit_event</span>)]</span>
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>, <span class="ident">I</span>: <span class="lifetime">&#39;static</span> <span class="op">=</span> ()<span class="op">&gt;</span> {
-		<span class="doccomment">/// Some asset class was created. \[asset_id, creator, owner\]</span>
-		<span class="ident">Created</span>(<span class="ident">T::AssetId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::AccountId</span>),
-		<span class="doccomment">/// Some assets were issued. \[asset_id, owner, total_supply\]</span>
-		<span class="ident">Issued</span>(<span class="ident">T::AssetId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::Balance</span>),
-		<span class="doccomment">/// Some assets were transferred. \[asset_id, from, to, amount\]</span>
-		<span class="ident">Transferred</span>(<span class="ident">T::AssetId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::Balance</span>),
-		<span class="doccomment">/// Some assets were destroyed. \[asset_id, owner, balance\]</span>
-		<span class="ident">Burned</span>(<span class="ident">T::AssetId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::Balance</span>),
-		<span class="doccomment">/// The management team changed \[asset_id, issuer, admin, freezer\]</span>
-		<span class="ident">TeamChanged</span>(<span class="ident">T::AssetId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::AccountId</span>),
-		<span class="doccomment">/// The owner changed \[asset_id, owner\]</span>
-		<span class="ident">OwnerChanged</span>(<span class="ident">T::AssetId</span>, <span class="ident">T::AccountId</span>),
-		<span class="doccomment">/// Some account `who` was frozen. \[asset_id, who\]</span>
-		<span class="ident">Frozen</span>(<span class="ident">T::AssetId</span>, <span class="ident">T::AccountId</span>),
-		<span class="doccomment">/// Some account `who` was thawed. \[asset_id, who\]</span>
-		<span class="ident">Thawed</span>(<span class="ident">T::AssetId</span>, <span class="ident">T::AccountId</span>),
-		<span class="doccomment">/// Some asset `asset_id` was frozen. \[asset_id\]</span>
-		<span class="ident">AssetFrozen</span>(<span class="ident">T::AssetId</span>),
-		<span class="doccomment">/// Some asset `asset_id` was thawed. \[asset_id\]</span>
-		<span class="ident">AssetThawed</span>(<span class="ident">T::AssetId</span>),
+		<span class="doccomment">/// Some asset class was created.</span>
+		<span class="ident">Created</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>, <span class="ident">creator</span>: <span class="ident">T::AccountId</span>, <span class="ident">owner</span>: <span class="ident">T::AccountId</span> },
+		<span class="doccomment">/// Some assets were issued.</span>
+		<span class="ident">Issued</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>, <span class="ident">owner</span>: <span class="ident">T::AccountId</span>, <span class="ident">total_supply</span>: <span class="ident">T::Balance</span> },
+		<span class="doccomment">/// Some assets were transferred.</span>
+		<span class="ident">Transferred</span> {
+			<span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>,
+			<span class="ident">from</span>: <span class="ident">T::AccountId</span>,
+			<span class="ident">to</span>: <span class="ident">T::AccountId</span>,
+			<span class="ident">amount</span>: <span class="ident">T::Balance</span>,
+		},
+		<span class="doccomment">/// Some assets were destroyed.</span>
+		<span class="ident">Burned</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>, <span class="ident">owner</span>: <span class="ident">T::AccountId</span>, <span class="ident">balance</span>: <span class="ident">T::Balance</span> },
+		<span class="doccomment">/// The management team changed.</span>
+		<span class="ident">TeamChanged</span> {
+			<span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>,
+			<span class="ident">issuer</span>: <span class="ident">T::AccountId</span>,
+			<span class="ident">admin</span>: <span class="ident">T::AccountId</span>,
+			<span class="ident">freezer</span>: <span class="ident">T::AccountId</span>,
+		},
+		<span class="doccomment">/// The owner changed.</span>
+		<span class="ident">OwnerChanged</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>, <span class="ident">owner</span>: <span class="ident">T::AccountId</span> },
+		<span class="doccomment">/// Some account `who` was frozen.</span>
+		<span class="ident">Frozen</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>, <span class="ident">who</span>: <span class="ident">T::AccountId</span> },
+		<span class="doccomment">/// Some account `who` was thawed.</span>
+		<span class="ident">Thawed</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>, <span class="ident">who</span>: <span class="ident">T::AccountId</span> },
+		<span class="doccomment">/// Some asset `asset_id` was frozen.</span>
+		<span class="ident">AssetFrozen</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span> },
+		<span class="doccomment">/// Some asset `asset_id` was thawed.</span>
+		<span class="ident">AssetThawed</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span> },
 		<span class="doccomment">/// An asset class was destroyed.</span>
-		<span class="ident">Destroyed</span>(<span class="ident">T::AssetId</span>),
-		<span class="doccomment">/// Some asset class was force-created. \[asset_id, owner\]</span>
-		<span class="ident">ForceCreated</span>(<span class="ident">T::AssetId</span>, <span class="ident">T::AccountId</span>),
-		<span class="doccomment">/// New metadata has been set for an asset. \[asset_id, name, symbol, decimals, is_frozen\]</span>
-		<span class="ident">MetadataSet</span>(<span class="ident">T::AssetId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">u8</span>, <span class="ident">bool</span>),
-		<span class="doccomment">/// Metadata has been cleared for an asset. \[asset_id\]</span>
-		<span class="ident">MetadataCleared</span>(<span class="ident">T::AssetId</span>),
+		<span class="ident">Destroyed</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span> },
+		<span class="doccomment">/// Some asset class was force-created.</span>
+		<span class="ident">ForceCreated</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>, <span class="ident">owner</span>: <span class="ident">T::AccountId</span> },
+		<span class="doccomment">/// New metadata has been set for an asset.</span>
+		<span class="ident">MetadataSet</span> {
+			<span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>,
+			<span class="ident">name</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
+			<span class="ident">symbol</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
+			<span class="ident">decimals</span>: <span class="ident">u8</span>,
+			<span class="ident">is_frozen</span>: <span class="ident">bool</span>,
+		},
+		<span class="doccomment">/// Metadata has been cleared for an asset.</span>
+		<span class="ident">MetadataCleared</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span> },
 		<span class="doccomment">/// (Additional) funds have been approved for transfer to a destination account.</span>
-		<span class="doccomment">/// \[asset_id, source, delegate, amount\]</span>
-		<span class="ident">ApprovedTransfer</span>(<span class="ident">T::AssetId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::Balance</span>),
+		<span class="ident">ApprovedTransfer</span> {
+			<span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>,
+			<span class="ident">source</span>: <span class="ident">T::AccountId</span>,
+			<span class="ident">delegate</span>: <span class="ident">T::AccountId</span>,
+			<span class="ident">amount</span>: <span class="ident">T::Balance</span>,
+		},
 		<span class="doccomment">/// An approval for account `delegate` was cancelled by `owner`.</span>
-		<span class="doccomment">/// \[id, owner, delegate\]</span>
-		<span class="ident">ApprovalCancelled</span>(<span class="ident">T::AssetId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::AccountId</span>),
+		<span class="ident">ApprovalCancelled</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>, <span class="ident">owner</span>: <span class="ident">T::AccountId</span>, <span class="ident">delegate</span>: <span class="ident">T::AccountId</span> },
 		<span class="doccomment">/// An `amount` was transferred in its entirety from `owner` to `destination` by</span>
 		<span class="doccomment">/// the approved `delegate`.</span>
-		<span class="doccomment">/// \[id, owner, delegate, destination\]</span>
-		<span class="ident">TransferredApproved</span>(<span class="ident">T::AssetId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::AccountId</span>, <span class="ident">T::Balance</span>),
+		<span class="ident">TransferredApproved</span> {
+			<span class="ident">asset_id</span>: <span class="ident">T::AssetId</span>,
+			<span class="ident">owner</span>: <span class="ident">T::AccountId</span>,
+			<span class="ident">delegate</span>: <span class="ident">T::AccountId</span>,
+			<span class="ident">destination</span>: <span class="ident">T::AccountId</span>,
+			<span class="ident">amount</span>: <span class="ident">T::Balance</span>,
+		},
 		<span class="doccomment">/// An asset has had its attributes changed by the `Force` origin.</span>
-		<span class="doccomment">/// \[id\]</span>
-		<span class="ident">AssetStatusChanged</span>(<span class="ident">T::AssetId</span>),
+		<span class="ident">AssetStatusChanged</span> { <span class="ident">asset_id</span>: <span class="ident">T::AssetId</span> },
 	}
 
 	<span class="attribute">#[<span class="ident">pallet::error</span>]</span>
@@ -1755,7 +1807,7 @@
 					<span class="ident">is_frozen</span>: <span class="bool-val">false</span>,
 				},
 			);
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Created</span>(<span class="ident">id</span>, <span class="ident">owner</span>, <span class="ident">admin</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Created</span> { <span class="ident">asset_id</span>: <span class="ident">id</span>, <span class="ident">creator</span>: <span class="ident">owner</span>, <span class="ident">owner</span>: <span class="ident">admin</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -2011,7 +2063,7 @@
 
 			<span class="ident">Account</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::mutate</span>(<span class="ident">id</span>, <span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="op">|</span><span class="ident">a</span><span class="op">|</span> <span class="ident">a</span>.<span class="ident">is_frozen</span> <span class="op">=</span> <span class="bool-val">true</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::Frozen</span>(<span class="ident">id</span>, <span class="ident">who</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::Frozen</span> { <span class="ident">asset_id</span>: <span class="ident">id</span>, <span class="ident">who</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -2040,7 +2092,7 @@
 
 			<span class="ident">Account</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::mutate</span>(<span class="ident">id</span>, <span class="kw-2">&amp;</span><span class="ident">who</span>, <span class="op">|</span><span class="ident">a</span><span class="op">|</span> <span class="ident">a</span>.<span class="ident">is_frozen</span> <span class="op">=</span> <span class="bool-val">false</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::Thawed</span>(<span class="ident">id</span>, <span class="ident">who</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::Thawed</span> { <span class="ident">asset_id</span>: <span class="ident">id</span>, <span class="ident">who</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -2066,7 +2118,7 @@
 
 				<span class="ident">d</span>.<span class="ident">is_frozen</span> <span class="op">=</span> <span class="bool-val">true</span>;
 
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::AssetFrozen</span>(<span class="ident">id</span>));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::AssetFrozen</span> { <span class="ident">asset_id</span>: <span class="ident">id</span> });
 				<span class="prelude-val">Ok</span>(())
 			})
 		}
@@ -2093,7 +2145,7 @@
 
 				<span class="ident">d</span>.<span class="ident">is_frozen</span> <span class="op">=</span> <span class="bool-val">false</span>;
 
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::AssetThawed</span>(<span class="ident">id</span>));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::AssetThawed</span> { <span class="ident">asset_id</span>: <span class="ident">id</span> });
 				<span class="prelude-val">Ok</span>(())
 			})
 		}
@@ -2132,7 +2184,7 @@
 
 				<span class="ident">details</span>.<span class="ident">owner</span> <span class="op">=</span> <span class="ident">owner</span>.<span class="ident">clone</span>();
 
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::OwnerChanged</span>(<span class="ident">id</span>, <span class="ident">owner</span>));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::OwnerChanged</span> { <span class="ident">asset_id</span>: <span class="ident">id</span>, <span class="ident">owner</span> });
 				<span class="prelude-val">Ok</span>(())
 			})
 		}
@@ -2170,7 +2222,7 @@
 				<span class="ident">details</span>.<span class="ident">admin</span> <span class="op">=</span> <span class="ident">admin</span>.<span class="ident">clone</span>();
 				<span class="ident">details</span>.<span class="ident">freezer</span> <span class="op">=</span> <span class="ident">freezer</span>.<span class="ident">clone</span>();
 
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::TeamChanged</span>(<span class="ident">id</span>, <span class="ident">issuer</span>, <span class="ident">admin</span>, <span class="ident">freezer</span>));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::TeamChanged</span> { <span class="ident">asset_id</span>: <span class="ident">id</span>, <span class="ident">issuer</span>, <span class="ident">admin</span>, <span class="ident">freezer</span> });
 				<span class="prelude-val">Ok</span>(())
 			})
 		}
@@ -2227,7 +2279,7 @@
 			<span class="ident">Metadata</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::try_mutate_exists</span>(<span class="ident">id</span>, <span class="op">|</span><span class="ident">metadata</span><span class="op">|</span> {
 				<span class="kw">let</span> <span class="ident">deposit</span> <span class="op">=</span> <span class="ident">metadata</span>.<span class="ident">take</span>().<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::Unknown</span>)<span class="question-mark">?</span>.<span class="ident">deposit</span>;
 				<span class="ident">T::Currency::unreserve</span>(<span class="kw-2">&amp;</span><span class="ident">d</span>.<span class="ident">owner</span>, <span class="ident">deposit</span>);
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::MetadataCleared</span>(<span class="ident">id</span>));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::MetadataCleared</span> { <span class="ident">asset_id</span>: <span class="ident">id</span> });
 				<span class="prelude-val">Ok</span>(())
 			})
 		}
@@ -2274,7 +2326,13 @@
 					<span class="ident">is_frozen</span>,
 				});
 
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::MetadataSet</span>(<span class="ident">id</span>, <span class="ident">name</span>, <span class="ident">symbol</span>, <span class="ident">decimals</span>, <span class="ident">is_frozen</span>));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::MetadataSet</span> {
+					<span class="ident">asset_id</span>: <span class="ident">id</span>,
+					<span class="ident">name</span>,
+					<span class="ident">symbol</span>,
+					<span class="ident">decimals</span>,
+					<span class="ident">is_frozen</span>,
+				});
 				<span class="prelude-val">Ok</span>(())
 			})
 		}
@@ -2301,7 +2359,7 @@
 			<span class="ident">Metadata</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::try_mutate_exists</span>(<span class="ident">id</span>, <span class="op">|</span><span class="ident">metadata</span><span class="op">|</span> {
 				<span class="kw">let</span> <span class="ident">deposit</span> <span class="op">=</span> <span class="ident">metadata</span>.<span class="ident">take</span>().<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::Unknown</span>)<span class="question-mark">?</span>.<span class="ident">deposit</span>;
 				<span class="ident">T::Currency::unreserve</span>(<span class="kw-2">&amp;</span><span class="ident">d</span>.<span class="ident">owner</span>, <span class="ident">deposit</span>);
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::MetadataCleared</span>(<span class="ident">id</span>));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::MetadataCleared</span> { <span class="ident">asset_id</span>: <span class="ident">id</span> });
 				<span class="prelude-val">Ok</span>(())
 			})
 		}
@@ -2353,7 +2411,7 @@
 				<span class="ident">asset</span>.<span class="ident">is_frozen</span> <span class="op">=</span> <span class="ident">is_frozen</span>;
 				<span class="kw-2">*</span><span class="ident">maybe_asset</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">asset</span>);
 
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::AssetStatusChanged</span>(<span class="ident">id</span>));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::AssetStatusChanged</span> { <span class="ident">asset_id</span>: <span class="ident">id</span> });
 				<span class="prelude-val">Ok</span>(())
 			})
 		}
@@ -2419,7 +2477,7 @@
 			<span class="ident">d</span>.<span class="ident">approvals</span>.<span class="ident">saturating_dec</span>();
 			<span class="ident">Asset</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="ident">id</span>, <span class="ident">d</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::ApprovalCancelled</span>(<span class="ident">id</span>, <span class="ident">owner</span>, <span class="ident">delegate</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::ApprovalCancelled</span> { <span class="ident">asset_id</span>: <span class="ident">id</span>, <span class="ident">owner</span>, <span class="ident">delegate</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -2461,7 +2519,7 @@
 			<span class="ident">d</span>.<span class="ident">approvals</span>.<span class="ident">saturating_dec</span>();
 			<span class="ident">Asset</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="ident">id</span>, <span class="ident">d</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::ApprovalCancelled</span>(<span class="ident">id</span>, <span class="ident">owner</span>, <span class="ident">delegate</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::ApprovalCancelled</span> { <span class="ident">asset_id</span>: <span class="ident">id</span>, <span class="ident">owner</span>, <span class="ident">delegate</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 

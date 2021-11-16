@@ -1585,7 +1585,7 @@
 	}: <span class="ident">enact_proposal</span>(<span class="ident">RawOrigin::Root</span>, <span class="ident">proposal_hash</span>, <span class="number">0</span>)
 	<span class="ident">verify</span> {
 		<span class="comment">// Fails due to mismatched origin</span>
-		<span class="ident">assert_last_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::Executed</span>(<span class="number">0</span>, <span class="prelude-val">Err</span>(<span class="ident">BadOrigin</span>.<span class="ident">into</span>())).<span class="ident">into</span>());
+		<span class="ident">assert_last_event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::Executed</span> { <span class="ident">ref_index</span>: <span class="number">0</span>, <span class="ident">result</span>: <span class="prelude-val">Err</span>(<span class="ident">BadOrigin</span>.<span class="ident">into</span>()) }.<span class="ident">into</span>());
 	}
 
 	<span class="attribute">#[<span class="ident">extra</span>]</span>

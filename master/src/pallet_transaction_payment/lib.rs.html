@@ -1574,6 +1574,8 @@
 <span id="1574">1574</span>
 <span id="1575">1575</span>
 <span id="1576">1576</span>
+<span id="1577">1577</span>
+<span id="1578">1578</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -2939,9 +2941,11 @@
 				));
 				<span class="macro">assert_eq!</span>(<span class="ident">Balances::free_balance</span>(<span class="number">2</span>), <span class="number">0</span>);
 				<span class="comment">// Transfer Event</span>
-				<span class="ident">System::assert_has_event</span>(<span class="ident">Event::Balances</span>(<span class="ident">pallet_balances::Event::Transfer</span>(
-					<span class="number">2</span>, <span class="number">3</span>, <span class="number">80</span>,
-				)));
+				<span class="ident">System::assert_has_event</span>(<span class="ident">Event::Balances</span>(<span class="ident">pallet_balances::Event::Transfer</span> {
+					<span class="ident">from</span>: <span class="number">2</span>,
+					<span class="ident">to</span>: <span class="number">3</span>,
+					<span class="ident">amount</span>: <span class="number">80</span>,
+				}));
 				<span class="comment">// Killed Event</span>
 				<span class="ident">System::assert_has_event</span>(<span class="ident">Event::System</span>(<span class="ident">system::Event::KilledAccount</span>(<span class="number">2</span>)));
 			});

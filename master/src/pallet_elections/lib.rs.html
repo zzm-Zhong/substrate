@@ -1322,7 +1322,6 @@
 <span id="1322">1322</span>
 <span id="1323">1323</span>
 <span id="1324">1324</span>
-<span id="1325">1325</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1790,15 +1789,14 @@
 	<span class="attribute">#[<span class="ident">pallet::event</span>]</span>
 	<span class="attribute">#[<span class="ident">pallet::generate_deposit</span>(<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">deposit_event</span>)]</span>
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> {
-		<span class="doccomment">/// Reaped \[voter, reaper\].</span>
-		<span class="ident">VoterReaped</span>(<span class="ident">T::AccountId</span>, <span class="ident">T::AccountId</span>),
-		<span class="doccomment">/// Slashed \[reaper\].</span>
-		<span class="ident">BadReaperSlashed</span>(<span class="ident">T::AccountId</span>),
-		<span class="doccomment">/// A tally (for approval votes of \[seats\]) has started.</span>
-		<span class="ident">TallyStarted</span>(<span class="ident">u32</span>),
+		<span class="doccomment">/// Reaped</span>
+		<span class="ident">VoterReaped</span> { <span class="ident">voter</span>: <span class="ident">T::AccountId</span>, <span class="ident">reaper</span>: <span class="ident">T::AccountId</span> },
+		<span class="doccomment">/// Slashed</span>
+		<span class="ident">BadReaperSlashed</span> { <span class="ident">reaper</span>: <span class="ident">T::AccountId</span> },
+		<span class="doccomment">/// A tally (for approval votes of seats) has started.</span>
+		<span class="ident">TallyStarted</span> { <span class="ident">seats</span>: <span class="ident">u32</span> },
 		<span class="doccomment">/// A tally (for approval votes of seat(s)) has ended (with one or more new members).</span>
-		<span class="doccomment">/// \[incoming, outgoing\]</span>
-		<span class="ident">TallyFinalized</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>),
+		<span class="ident">TallyFinalized</span> { <span class="ident">incoming</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span>, <span class="ident">outgoing</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T::AccountId</span><span class="op">&gt;</span> },
 	}
 
 	<span class="attribute">#[<span class="ident">pallet::call</span>]</span>
@@ -1915,11 +1913,11 @@
 					<span class="ident">T::VotingBond::get</span>(),
 					<span class="ident">BalanceStatus::Free</span>,
 				)<span class="question-mark">?</span>;
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::VoterReaped</span>(<span class="ident">who</span>, <span class="ident">reporter</span>));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::VoterReaped</span> { <span class="ident">voter</span>: <span class="ident">who</span>, <span class="ident">reaper</span>: <span class="ident">reporter</span> });
 			} <span class="kw">else</span> {
 				<span class="kw">let</span> <span class="ident">imbalance</span> <span class="op">=</span> <span class="ident">T::Currency::slash_reserved</span>(<span class="kw-2">&amp;</span><span class="ident">reporter</span>, <span class="ident">T::VotingBond::get</span>()).<span class="number">0</span>;
 				<span class="ident">T::BadReaper::on_unbalanced</span>(<span class="ident">imbalance</span>);
-				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::BadReaperSlashed</span>(<span class="ident">reporter</span>));
+				<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::BadReaperSlashed</span> { <span class="ident">reaper</span>: <span class="ident">reporter</span> });
 			}
 			<span class="prelude-val">Ok</span>(())
 		}
@@ -2349,7 +2347,7 @@
 				<span class="ident">leaderboard_size</span>
 			]);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::TallyStarted</span>(<span class="ident">empty_seats</span> <span class="kw">as</span> <span class="ident">u32</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::TallyStarted</span> { <span class="ident">seats</span>: <span class="ident">empty_seats</span> <span class="kw">as</span> <span class="ident">u32</span> });
 		}
 	}
 
@@ -2443,7 +2441,7 @@
 			<span class="ident">new_candidates</span>.<span class="ident">truncate</span>(<span class="ident">last_index</span> <span class="op">+</span> <span class="number">1</span>);
 		}
 
-		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::TallyFinalized</span>(<span class="ident">incoming</span>, <span class="ident">outgoing</span>));
+		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::TallyFinalized</span> { <span class="ident">incoming</span>, <span class="ident">outgoing</span> });
 
 		<span class="op">&lt;</span><span class="ident">Candidates</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">new_candidates</span>);
 		<span class="ident">CandidateCount</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">count</span>);

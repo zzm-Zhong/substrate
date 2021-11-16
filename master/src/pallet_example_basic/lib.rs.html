@@ -749,6 +749,13 @@
 <span id="749">749</span>
 <span id="750">750</span>
 <span id="751">751</span>
+<span id="752">752</span>
+<span id="753">753</span>
+<span id="754">754</span>
+<span id="755">755</span>
+<span id="756">756</span>
+<span id="757">757</span>
+<span id="758">758</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1276,7 +1283,7 @@
 			});
 
 			<span class="comment">// Let&#39;s deposit an event to let the outside world know this happened.</span>
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::AccumulateDummy</span>(<span class="ident">increase_by</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::AccumulateDummy</span> { <span class="ident">balance</span>: <span class="ident">increase_by</span> });
 
 			<span class="comment">// All good, no refund.</span>
 			<span class="prelude-val">Ok</span>(())
@@ -1308,7 +1315,7 @@
 			<span class="comment">// Put the new value into storage.</span>
 			<span class="op">&lt;</span><span class="ident">Dummy</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">new_value</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::SetDummy</span>(<span class="ident">new_value</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::SetDummy</span> { <span class="ident">balance</span>: <span class="ident">new_value</span> });
 
 			<span class="comment">// All good, no refund.</span>
 			<span class="prelude-val">Ok</span>(())
@@ -1325,9 +1332,16 @@
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> {
 		<span class="comment">// Just a normal `enum`, here&#39;s a dummy event to ensure it compiles.</span>
 		<span class="doccomment">/// Dummy event, just here so there&#39;s a generic type that&#39;s used.</span>
-		<span class="ident">AccumulateDummy</span>(<span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>),
-		<span class="ident">SetDummy</span>(<span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>),
-		<span class="ident">SetBar</span>(<span class="ident">T::AccountId</span>, <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>),
+		<span class="ident">AccumulateDummy</span> {
+			<span class="ident">balance</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
+		},
+		<span class="ident">SetDummy</span> {
+			<span class="ident">balance</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
+		},
+		<span class="ident">SetBar</span> {
+			<span class="ident">account</span>: <span class="ident">T::AccountId</span>,
+			<span class="ident">balance</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
+		},
 	}
 
 	<span class="comment">// pallet::storage attributes allow for type-safe usage of the Substrate storage database,</span>
