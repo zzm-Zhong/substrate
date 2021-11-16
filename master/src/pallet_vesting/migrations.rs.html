@@ -165,7 +165,7 @@
 
 		<span class="kw">for</span> (<span class="ident">_key</span>, <span class="ident">schedules</span>) <span class="kw">in</span> <span class="ident">Vesting</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::iter</span>() {
 			<span class="macro">assert!</span>(
-				<span class="ident">schedules</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span>,
+				<span class="ident">schedules</span>.<span class="ident">len</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="number">1</span>,
 				<span class="string">&quot;A bounded vec with incorrect count of items was created.&quot;</span>
 			);
 
