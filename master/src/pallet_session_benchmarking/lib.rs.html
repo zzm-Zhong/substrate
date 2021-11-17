@@ -187,6 +187,7 @@
 
 <span class="kw">mod</span> <span class="ident">mock</span>;
 
+<span class="kw">use</span> <span class="ident">sp_runtime::traits</span>::{<span class="ident">One</span>, <span class="ident">StaticLookup</span>};
 <span class="kw">use</span> <span class="ident">sp_std</span>::{<span class="ident">prelude</span>::<span class="kw-2">*</span>, <span class="ident">vec</span>};
 
 <span class="kw">use</span> <span class="ident">frame_benchmarking::benchmarks</span>;
@@ -195,12 +196,11 @@
 	<span class="ident">traits</span>::{<span class="ident">KeyOwnerProofSystem</span>, <span class="ident">OnInitialize</span>},
 };
 <span class="kw">use</span> <span class="ident">frame_system::RawOrigin</span>;
-<span class="kw">use</span> <span class="ident">pallet_session</span>::{<span class="ident">historical::Module</span> <span class="kw">as</span> <span class="ident">Historical</span>, <span class="ident">Pallet</span> <span class="kw">as</span> <span class="ident">Session</span>, <span class="kw-2">*</span>};
+<span class="kw">use</span> <span class="ident">pallet_session</span>::{<span class="ident">historical::Pallet</span> <span class="kw">as</span> <span class="ident">Historical</span>, <span class="ident">Pallet</span> <span class="kw">as</span> <span class="ident">Session</span>, <span class="kw-2">*</span>};
 <span class="kw">use</span> <span class="ident">pallet_staking</span>::{
 	<span class="ident">benchmarking::create_validator_with_nominators</span>, <span class="ident">testing_utils::create_validators</span>,
 	<span class="ident">RewardDestination</span>,
 };
-<span class="kw">use</span> <span class="ident">sp_runtime::traits</span>::{<span class="ident">One</span>, <span class="ident">StaticLookup</span>};
 
 <span class="kw">const</span> <span class="ident">MAX_VALIDATORS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">1000</span>;
 
