@@ -160,6 +160,9 @@
 <span id="160">160</span>
 <span id="161">161</span>
 <span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -180,6 +183,7 @@
 
 <span class="attribute">#![<span class="ident">warn</span>(<span class="ident">missing_docs</span>)]</span>
 <span class="attribute">#![<span class="ident">recursion_limit</span> <span class="op">=</span> <span class="string">&quot;1024&quot;</span>]</span>
+
 <span class="doccomment">//! Substrate authority discovery.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This crate enables Substrate authorities to discover and directly connect to</span>
@@ -193,7 +197,7 @@
 	<span class="ident">worker</span>::{<span class="ident">NetworkProvider</span>, <span class="ident">Role</span>, <span class="ident">Worker</span>},
 };
 
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">sync::Arc</span>, <span class="ident">time::Duration</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::HashSet</span>, <span class="ident">sync::Arc</span>, <span class="ident">time::Duration</span>};
 
 <span class="kw">use</span> <span class="ident">futures</span>::{
 	<span class="ident">channel</span>::{<span class="ident">mpsc</span>, <span class="ident">oneshot</span>},
@@ -220,11 +224,13 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// By default this is set to 1 hour.</span>
 	<span class="kw">pub</span> <span class="ident">max_publish_interval</span>: <span class="ident">Duration</span>,
+
 	<span class="doccomment">/// Interval at which the keystore is queried. If the keys have changed, unconditionally</span>
 	<span class="doccomment">/// re-publish its addresses on the DHT.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// By default this is set to 1 minute.</span>
 	<span class="kw">pub</span> <span class="ident">keystore_refresh_interval</span>: <span class="ident">Duration</span>,
+
 	<span class="doccomment">/// The maximum interval in which the node will query the DHT for new entries.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// By default this is set to 10 minutes.</span>
@@ -318,9 +324,9 @@
 <span class="doccomment">/// Message send from the [`Service`] to the [`Worker`].</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum</span> <span class="ident">ServicetoWorkerMsg</span> {
 	<span class="doccomment">/// See [`Service::get_addresses_by_authority_id`].</span>
-	<span class="ident">GetAddressesByAuthorityId</span>(<span class="ident">AuthorityId</span>, <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Multiaddr</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>),
-	<span class="doccomment">/// See [`Service::get_authority_id_by_peer_id`].</span>
-	<span class="ident">GetAuthorityIdByPeerId</span>(<span class="ident">PeerId</span>, <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AuthorityId</span><span class="op">&gt;</span><span class="op">&gt;</span>),
+	<span class="ident">GetAddressesByAuthorityId</span>(<span class="ident">AuthorityId</span>, <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">Multiaddr</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>),
+	<span class="doccomment">/// See [`Service::get_authority_ids_by_peer_id`].</span>
+	<span class="ident">GetAuthorityIdsByPeerId</span>(<span class="ident">PeerId</span>, <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">AuthorityId</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>),
 }
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="sc_authority_discovery" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
