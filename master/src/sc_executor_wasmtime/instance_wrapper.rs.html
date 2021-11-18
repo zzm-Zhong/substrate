@@ -435,6 +435,12 @@
 <span id="435">435</span>
 <span id="436">436</span>
 <span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -840,10 +846,10 @@
 		<span class="self">self</span>.<span class="ident">memory</span>.<span class="ident">data_ptr</span>(<span class="ident">ctx</span>)
 	}
 
-	<span class="doccomment">/// Removes physical backing from the allocated linear memory. This leads to returning the</span>
-	<span class="doccomment">/// memory back to the system. While the memory is zeroed this is considered as a side-effect</span>
-	<span class="doccomment">/// and is not relied upon. Thus this function acts as a hint.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decommit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ctx</span>: <span class="kw">impl</span> <span class="ident">AsContext</span>) {
+	<span class="doccomment">/// If possible removes physical backing from the allocated linear memory which</span>
+	<span class="doccomment">/// leads to returning the memory back to the system; this also zeroes the memory</span>
+	<span class="doccomment">/// as a side-effect.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decommit</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">ctx</span>: <span class="kw">impl</span> <span class="ident">AsContextMut</span>) {
 		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">memory</span>.<span class="ident">data_size</span>(<span class="kw-2">&amp;</span><span class="ident">ctx</span>) <span class="op">==</span> <span class="number">0</span> {
 			<span class="kw">return</span>
 		}
@@ -854,7 +860,7 @@
 
 				<span class="kw">unsafe</span> {
 					<span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">memory</span>.<span class="ident">data_ptr</span>(<span class="kw-2">&amp;</span><span class="ident">ctx</span>);
-					<span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">memory</span>.<span class="ident">data_size</span>(<span class="ident">ctx</span>);
+					<span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">memory</span>.<span class="ident">data_size</span>(<span class="kw-2">&amp;</span><span class="ident">ctx</span>);
 
 					<span class="comment">// Linux handles MADV_DONTNEED reliably. The result is that the given area</span>
 					<span class="comment">// is unmapped and will be zeroed on the next pagefault.</span>
@@ -866,10 +872,16 @@
 								<span class="ident">std::io::Error::last_os_error</span>(),
 							);
 						});
+					} <span class="kw">else</span> {
+						<span class="kw">return</span>;
 					}
 				}
 			}
 		}
+
+		<span class="comment">// If we&#39;re on an unsupported OS or the memory couldn&#39;t have been</span>
+		<span class="comment">// decommited for some reason then just manually zero it out.</span>
+		<span class="self">self</span>.<span class="ident">memory</span>.<span class="ident">data_mut</span>(<span class="ident">ctx</span>.<span class="ident">as_context_mut</span>()).<span class="ident">fill</span>(<span class="number">0</span>);
 	}
 }
 </code></pre></div>
