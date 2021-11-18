@@ -1018,6 +1018,39 @@
 <span id="1018">1018</span>
 <span id="1019">1019</span>
 <span id="1020">1020</span>
+<span id="1021">1021</span>
+<span id="1022">1022</span>
+<span id="1023">1023</span>
+<span id="1024">1024</span>
+<span id="1025">1025</span>
+<span id="1026">1026</span>
+<span id="1027">1027</span>
+<span id="1028">1028</span>
+<span id="1029">1029</span>
+<span id="1030">1030</span>
+<span id="1031">1031</span>
+<span id="1032">1032</span>
+<span id="1033">1033</span>
+<span id="1034">1034</span>
+<span id="1035">1035</span>
+<span id="1036">1036</span>
+<span id="1037">1037</span>
+<span id="1038">1038</span>
+<span id="1039">1039</span>
+<span id="1040">1040</span>
+<span id="1041">1041</span>
+<span id="1042">1042</span>
+<span id="1043">1043</span>
+<span id="1044">1044</span>
+<span id="1045">1045</span>
+<span id="1046">1046</span>
+<span id="1047">1047</span>
+<span id="1048">1048</span>
+<span id="1049">1049</span>
+<span id="1050">1050</span>
+<span id="1051">1051</span>
+<span id="1052">1052</span>
+<span id="1053">1053</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -1062,7 +1095,7 @@
 <span class="kw">use</span> <span class="ident">sp_runtime</span>::{
 	<span class="ident">generic::BlockId</span>,
 	<span class="ident">traits</span>::{<span class="ident">BlakeTwo256</span>, <span class="ident">Block</span> <span class="kw">as</span> <span class="ident">BlockT</span>, <span class="ident">Hash</span> <span class="kw">as</span> <span class="ident">HashT</span>, <span class="ident">Header</span> <span class="kw">as</span> <span class="ident">HeaderT</span>},
-	<span class="ident">Digest</span>,
+	<span class="ident">Digest</span>, <span class="ident">Percent</span>, <span class="ident">SaturatedConversion</span>,
 };
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">marker::PhantomData</span>, <span class="ident">pin::Pin</span>, <span class="ident">sync::Arc</span>, <span class="ident">time</span>};
 
@@ -1078,6 +1111,8 @@
 <span class="doccomment">/// transferred to other nodes.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">DEFAULT_BLOCK_SIZE_LIMIT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">4</span> <span class="op">*</span> <span class="number">1024</span> <span class="op">*</span> <span class="number">1024</span> <span class="op">+</span> <span class="number">512</span>;
 
+<span class="kw">const</span> <span class="ident">DEFAULT_SOFT_DEADLINE_PERCENT</span>: <span class="ident">Percent</span> <span class="op">=</span> <span class="ident">Percent::from_percent</span>(<span class="number">50</span>);
+
 <span class="doccomment">/// [`Proposer`] factory.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ProposerFactory</span><span class="op">&lt;</span><span class="ident">A</span>, <span class="ident">B</span>, <span class="ident">C</span>, <span class="ident">PR</span><span class="op">&gt;</span> {
 	<span class="ident">spawn_handle</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">SpawnNamed</span><span class="op">&gt;</span>,
@@ -1092,6 +1127,14 @@
 	<span class="doccomment">/// If no `block_size_limit` is passed to [`sp_consensus::Proposer::propose`], this block size</span>
 	<span class="doccomment">/// limit will be used.</span>
 	<span class="ident">default_block_size_limit</span>: <span class="ident">usize</span>,
+	<span class="doccomment">/// Soft deadline percentage of hard deadline.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// The value is used to compute soft deadline during block production.</span>
+	<span class="doccomment">/// The soft deadline indicates where we should stop attempting to add transactions</span>
+	<span class="doccomment">/// to the block, which exhaust resources. After soft deadline is reached,</span>
+	<span class="doccomment">/// we switch to a fixed-amount mode, in which after we see `MAX_SKIPPED_TRANSACTIONS`</span>
+	<span class="doccomment">/// transactions which exhaust resrouces, we will conclude that the block is full.</span>
+	<span class="ident">soft_deadline_percent</span>: <span class="ident">Percent</span>,
 	<span class="ident">telemetry</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TelemetryHandle</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// When estimating the block size, should the proof be included?</span>
 	<span class="ident">include_proof_in_block_size_estimation</span>: <span class="ident">bool</span>,
@@ -1116,6 +1159,7 @@
 			<span class="ident">transaction_pool</span>,
 			<span class="ident">metrics</span>: <span class="ident">PrometheusMetrics::new</span>(<span class="ident">prometheus</span>),
 			<span class="ident">default_block_size_limit</span>: <span class="ident">DEFAULT_BLOCK_SIZE_LIMIT</span>,
+			<span class="ident">soft_deadline_percent</span>: <span class="ident">DEFAULT_SOFT_DEADLINE_PERCENT</span>,
 			<span class="ident">telemetry</span>,
 			<span class="ident">client</span>,
 			<span class="ident">include_proof_in_block_size_estimation</span>: <span class="bool-val">false</span>,
@@ -1144,6 +1188,7 @@
 			<span class="ident">transaction_pool</span>,
 			<span class="ident">metrics</span>: <span class="ident">PrometheusMetrics::new</span>(<span class="ident">prometheus</span>),
 			<span class="ident">default_block_size_limit</span>: <span class="ident">DEFAULT_BLOCK_SIZE_LIMIT</span>,
+			<span class="ident">soft_deadline_percent</span>: <span class="ident">DEFAULT_SOFT_DEADLINE_PERCENT</span>,
 			<span class="ident">telemetry</span>,
 			<span class="ident">include_proof_in_block_size_estimation</span>: <span class="bool-val">true</span>,
 			<span class="ident">_phantom</span>: <span class="ident">PhantomData</span>,
@@ -1166,6 +1211,22 @@
 	<span class="doccomment">/// will be used.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_default_block_size_limit</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">limit</span>: <span class="ident">usize</span>) {
 		<span class="self">self</span>.<span class="ident">default_block_size_limit</span> <span class="op">=</span> <span class="ident">limit</span>;
+	}
+
+	<span class="doccomment">/// Set soft deadline percentage.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// The value is used to compute soft deadline during block production.</span>
+	<span class="doccomment">/// The soft deadline indicates where we should stop attempting to add transactions</span>
+	<span class="doccomment">/// to the block, which exhaust resources. After soft deadline is reached,</span>
+	<span class="doccomment">/// we switch to a fixed-amount mode, in which after we see `MAX_SKIPPED_TRANSACTIONS`</span>
+	<span class="doccomment">/// transactions which exhaust resrouces, we will conclude that the block is full.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// Setting the value too low will significantly limit the amount of transactions</span>
+	<span class="doccomment">/// we try in case they exhaust resources. Setting the value too high can</span>
+	<span class="doccomment">/// potentially open a DoS vector, where many &quot;exhaust resources&quot; transactions</span>
+	<span class="doccomment">/// are being tried with no success, hence block producer ends up creating an empty block.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_soft_deadline</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">percent</span>: <span class="ident">Percent</span>) {
+		<span class="self">self</span>.<span class="ident">soft_deadline_percent</span> <span class="op">=</span> <span class="ident">percent</span>;
 	}
 }
 
@@ -1204,6 +1265,7 @@
 			<span class="ident">now</span>,
 			<span class="ident">metrics</span>: <span class="self">self</span>.<span class="ident">metrics</span>.<span class="ident">clone</span>(),
 			<span class="ident">default_block_size_limit</span>: <span class="self">self</span>.<span class="ident">default_block_size_limit</span>,
+			<span class="ident">soft_deadline_percent</span>: <span class="self">self</span>.<span class="ident">soft_deadline_percent</span>,
 			<span class="ident">telemetry</span>: <span class="self">self</span>.<span class="ident">telemetry</span>.<span class="ident">clone</span>(),
 			<span class="ident">_phantom</span>: <span class="ident">PhantomData</span>,
 			<span class="ident">include_proof_in_block_size_estimation</span>: <span class="self">self</span>.<span class="ident">include_proof_in_block_size_estimation</span>,
@@ -1249,6 +1311,7 @@
 	<span class="ident">metrics</span>: <span class="ident">PrometheusMetrics</span>,
 	<span class="ident">default_block_size_limit</span>: <span class="ident">usize</span>,
 	<span class="ident">include_proof_in_block_size_estimation</span>: <span class="ident">bool</span>,
+	<span class="ident">soft_deadline_percent</span>: <span class="ident">Percent</span>,
 	<span class="ident">telemetry</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TelemetryHandle</span><span class="op">&gt;</span>,
 	<span class="ident">_phantom</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span>(<span class="ident">B</span>, <span class="ident">PR</span>)<span class="op">&gt;</span>,
 }
@@ -1360,7 +1423,10 @@
 		<span class="comment">// proceed with transactions</span>
 		<span class="comment">// We calculate soft deadline used only in case we start skipping transactions.</span>
 		<span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> (<span class="self">self</span>.<span class="ident">now</span>)();
-		<span class="kw">let</span> <span class="ident">soft_deadline</span> <span class="op">=</span> <span class="ident">now</span> <span class="op">+</span> <span class="ident">deadline</span>.<span class="ident">saturating_duration_since</span>(<span class="ident">now</span>) <span class="op">/</span> <span class="number">2</span>;
+		<span class="kw">let</span> <span class="ident">left</span> <span class="op">=</span> <span class="ident">deadline</span>.<span class="ident">saturating_duration_since</span>(<span class="ident">now</span>);
+		<span class="kw">let</span> <span class="ident">left_micros</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="ident">left</span>.<span class="ident">as_micros</span>().<span class="ident">saturated_into</span>();
+		<span class="kw">let</span> <span class="ident">soft_deadline</span> <span class="op">=</span>
+			<span class="ident">now</span> <span class="op">+</span> <span class="ident">time::Duration::from_micros</span>(<span class="self">self</span>.<span class="ident">soft_deadline_percent</span>.<span class="ident">mul_floor</span>(<span class="ident">left_micros</span>));
 		<span class="kw">let</span> <span class="ident">block_timer</span> <span class="op">=</span> <span class="ident">time::Instant::now</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">skipped</span> <span class="op">=</span> <span class="number">0</span>;
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">unqueue_invalid</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
