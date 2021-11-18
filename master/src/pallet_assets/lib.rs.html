@@ -1276,7 +1276,6 @@
 <span id="1276">1276</span>
 <span id="1277">1277</span>
 <span id="1278">1278</span>
-<span id="1279">1279</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1419,6 +1418,15 @@
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">types</span>::<span class="kw-2">*</span>;
 
 <span class="kw">use</span> <span class="ident">codec::HasCompact</span>;
+<span class="kw">use</span> <span class="ident">scale_info::TypeInfo</span>;
+<span class="kw">use</span> <span class="ident">sp_runtime</span>::{
+	<span class="ident">traits</span>::{
+		<span class="ident">AtLeast32BitUnsigned</span>, <span class="ident">Bounded</span>, <span class="ident">CheckedAdd</span>, <span class="ident">CheckedSub</span>, <span class="ident">Saturating</span>, <span class="ident">StaticLookup</span>, <span class="ident">Zero</span>,
+	},
+	<span class="ident">ArithmeticError</span>, <span class="ident">TokenError</span>,
+};
+<span class="kw">use</span> <span class="ident">sp_std</span>::{<span class="ident">borrow::Borrow</span>, <span class="ident">convert::TryInto</span>, <span class="ident">prelude</span>::<span class="kw-2">*</span>};
+
 <span class="kw">use</span> <span class="ident">frame_support</span>::{
 	<span class="ident">dispatch</span>::{<span class="ident">DispatchError</span>, <span class="ident">DispatchResult</span>},
 	<span class="ident">ensure</span>,
@@ -1430,16 +1438,6 @@
 	},
 };
 <span class="kw">use</span> <span class="ident">frame_system::Config</span> <span class="kw">as</span> <span class="ident">SystemConfig</span>;
-<span class="kw">use</span> <span class="ident">sp_runtime</span>::{
-	<span class="ident">traits</span>::{
-		<span class="ident">AtLeast32BitUnsigned</span>, <span class="ident">Bounded</span>, <span class="ident">CheckedAdd</span>, <span class="ident">CheckedSub</span>, <span class="ident">Saturating</span>, <span class="ident">StaticLookup</span>, <span class="ident">Zero</span>,
-	},
-	<span class="ident">ArithmeticError</span>, <span class="ident">TokenError</span>,
-};
-<span class="kw">use</span> <span class="ident">sp_std</span>::{<span class="ident">borrow::Borrow</span>, <span class="ident">prelude</span>::<span class="kw-2">*</span>};
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident">frame_support::traits::GenesisBuild</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">pallet</span>::<span class="kw-2">*</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">weights::WeightInfo</span>;
@@ -1447,7 +1445,7 @@
 <span class="attribute">#[<span class="ident">frame_support::pallet</span>]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">pallet</span> {
 	<span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-	<span class="kw">use</span> <span class="ident">frame_support</span>::{<span class="ident">dispatch::DispatchResult</span>, <span class="ident">pallet_prelude</span>::<span class="kw-2">*</span>};
+	<span class="kw">use</span> <span class="ident">frame_support::pallet_prelude</span>::<span class="kw-2">*</span>;
 	<span class="kw">use</span> <span class="ident">frame_system::pallet_prelude</span>::<span class="kw-2">*</span>;
 
 	<span class="attribute">#[<span class="ident">pallet::pallet</span>]</span>

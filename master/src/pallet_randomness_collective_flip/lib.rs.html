@@ -326,9 +326,9 @@
 <span class="comment">// See the License for the specific language governing permissions and</span>
 <span class="comment">// limitations under the License.</span>
 
-<span class="doccomment">//! # Randomness Module</span>
+<span class="doccomment">//! # Randomness Pallet</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The Randomness Collective Flip module provides a [`random`](./struct.Module.html#method.random)</span>
+<span class="doccomment">//! The Randomness Collective Flip pallet provides a [`random`](./struct.Module.html#method.random)</span>
 <span class="doccomment">//! function that generates low-influence random values based on the block hashes from the previous</span>
 <span class="doccomment">//! `81` blocks. Low-influence randomness can be useful when defending against relatively weak</span>
 <span class="doccomment">//! adversaries. Using this pallet as a randomness source is advisable primarily in low-security</span>
@@ -342,7 +342,7 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Prerequisites</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Import the Randomness Collective Flip module and derive your module&#39;s configuration trait from</span>
+<span class="doccomment">//! Import the Randomness Collective Flip pallet and derive your pallet&#39;s configuration trait from</span>
 <span class="doccomment">//! the system trait.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ### Example - Get random seed for the current block</span>
@@ -352,9 +352,9 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #[frame_support::pallet]</span>
 <span class="doccomment">//! pub mod pallet {</span>
+<span class="doccomment">//!     use super::*;</span>
 <span class="doccomment">//!     use frame_support::pallet_prelude::*;</span>
 <span class="doccomment">//!     use frame_system::pallet_prelude::*;</span>
-<span class="doccomment">//!     use super::*;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     #[pallet::pallet]</span>
 <span class="doccomment">//!     #[pallet::generate_store(pub(super) trait Store)]</span>

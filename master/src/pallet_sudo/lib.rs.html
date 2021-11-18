@@ -291,7 +291,6 @@
 <span id="291">291</span>
 <span id="292">292</span>
 <span id="293">293</span>
-<span id="294">294</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -346,28 +345,27 @@
 <span class="doccomment">//! This is an example of a pallet that exposes a privileged function:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
-<span class="doccomment">//! </span>
 <span class="doccomment">//! #[frame_support::pallet]</span>
-<span class="doccomment">//! pub mod logger {</span>
+<span class="doccomment">//! pub mod pallet {</span>
+<span class="doccomment">//! 	use super::*;</span>
 <span class="doccomment">//! 	use frame_support::pallet_prelude::*;</span>
 <span class="doccomment">//! 	use frame_system::pallet_prelude::*;</span>
-<span class="doccomment">//! 	use super::*;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! 	#[pallet::pallet]</span>
+<span class="doccomment">//! 	pub struct Pallet&lt;T&gt;(_);</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! 	#[pallet::config]</span>
 <span class="doccomment">//! 	pub trait Config: frame_system::Config {}</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! 	#[pallet::pallet]</span>
-<span class="doccomment">//! 	pub struct Pallet&lt;T&gt;(PhantomData&lt;T&gt;);</span>
-<span class="doccomment">//!</span>
 <span class="doccomment">//! 	#[pallet::call]</span>
 <span class="doccomment">//! 	impl&lt;T: Config&gt; Pallet&lt;T&gt; {</span>
 <span class="doccomment">//! 		#[pallet::weight(0)]</span>
-<span class="doccomment">//!         pub fn privileged_function(origin: OriginFor&lt;T&gt;) -&gt; DispatchResultWithPostInfo {</span>
+<span class="doccomment">//!         pub fn privileged_function(origin: OriginFor&lt;T&gt;) -&gt; DispatchResult {</span>
 <span class="doccomment">//!             ensure_root(origin)?;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!             // do something...</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!             Ok(().into())</span>
+<span class="doccomment">//!             Ok(())</span>
 <span class="doccomment">//!         }</span>
 <span class="doccomment">//! 	}</span>
 <span class="doccomment">//! }</span>
