@@ -1055,11 +1055,11 @@
 					<span class="macro">vec!</span>[<span class="ident">Instruction::I32Const</span>(<span class="ident">current</span> <span class="kw">as</span> <span class="ident">i32</span>)]
 				},
 				<span class="ident">DynInstr::RandomUnaligned</span>(<span class="ident">low</span>, <span class="ident">high</span>) =&gt; {
-					<span class="kw">let</span> <span class="ident">unaligned</span> <span class="op">=</span> <span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>, <span class="kw-2">*</span><span class="ident">high</span>) <span class="op">|</span> <span class="number">1</span>;
+					<span class="kw">let</span> <span class="ident">unaligned</span> <span class="op">=</span> <span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>..<span class="kw-2">*</span><span class="ident">high</span>) <span class="op">|</span> <span class="number">1</span>;
 					<span class="macro">vec!</span>[<span class="ident">Instruction::I32Const</span>(<span class="ident">unaligned</span> <span class="kw">as</span> <span class="ident">i32</span>)]
 				},
 				<span class="ident">DynInstr::RandomI32</span>(<span class="ident">low</span>, <span class="ident">high</span>) =&gt; {
-					<span class="macro">vec!</span>[<span class="ident">Instruction::I32Const</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>, <span class="kw-2">*</span><span class="ident">high</span>))]
+					<span class="macro">vec!</span>[<span class="ident">Instruction::I32Const</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>..<span class="kw-2">*</span><span class="ident">high</span>))]
 				},
 				<span class="ident">DynInstr::RandomI32Repeated</span>(<span class="ident">num</span>) =&gt; (<span class="kw-2">&amp;mut</span> <span class="ident">rng</span>)
 					.<span class="ident">sample_iter</span>(<span class="ident">Standard</span>)
@@ -1072,19 +1072,19 @@
 					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">val</span><span class="op">|</span> <span class="ident">Instruction::I64Const</span>(<span class="ident">val</span>))
 					.<span class="ident">collect</span>(),
 				<span class="ident">DynInstr::RandomGetLocal</span>(<span class="ident">low</span>, <span class="ident">high</span>) =&gt; {
-					<span class="macro">vec!</span>[<span class="ident">Instruction::GetLocal</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>, <span class="kw-2">*</span><span class="ident">high</span>))]
+					<span class="macro">vec!</span>[<span class="ident">Instruction::GetLocal</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>..<span class="kw-2">*</span><span class="ident">high</span>))]
 				},
 				<span class="ident">DynInstr::RandomSetLocal</span>(<span class="ident">low</span>, <span class="ident">high</span>) =&gt; {
-					<span class="macro">vec!</span>[<span class="ident">Instruction::SetLocal</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>, <span class="kw-2">*</span><span class="ident">high</span>))]
+					<span class="macro">vec!</span>[<span class="ident">Instruction::SetLocal</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>..<span class="kw-2">*</span><span class="ident">high</span>))]
 				},
 				<span class="ident">DynInstr::RandomTeeLocal</span>(<span class="ident">low</span>, <span class="ident">high</span>) =&gt; {
-					<span class="macro">vec!</span>[<span class="ident">Instruction::TeeLocal</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>, <span class="kw-2">*</span><span class="ident">high</span>))]
+					<span class="macro">vec!</span>[<span class="ident">Instruction::TeeLocal</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>..<span class="kw-2">*</span><span class="ident">high</span>))]
 				},
 				<span class="ident">DynInstr::RandomGetGlobal</span>(<span class="ident">low</span>, <span class="ident">high</span>) =&gt; {
-					<span class="macro">vec!</span>[<span class="ident">Instruction::GetGlobal</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>, <span class="kw-2">*</span><span class="ident">high</span>))]
+					<span class="macro">vec!</span>[<span class="ident">Instruction::GetGlobal</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>..<span class="kw-2">*</span><span class="ident">high</span>))]
 				},
 				<span class="ident">DynInstr::RandomSetGlobal</span>(<span class="ident">low</span>, <span class="ident">high</span>) =&gt; {
-					<span class="macro">vec!</span>[<span class="ident">Instruction::SetGlobal</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>, <span class="kw-2">*</span><span class="ident">high</span>))]
+					<span class="macro">vec!</span>[<span class="ident">Instruction::SetGlobal</span>(<span class="ident">rng</span>.<span class="ident">gen_range</span>(<span class="kw-2">*</span><span class="ident">low</span>..<span class="kw-2">*</span><span class="ident">high</span>))]
 				},
 			})
 			.<span class="ident">chain</span>(<span class="ident">sp_std::iter::once</span>(<span class="ident">Instruction::End</span>))
