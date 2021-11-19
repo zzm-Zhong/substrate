@@ -470,6 +470,7 @@
 <span id="470">470</span>
 <span id="471">471</span>
 <span id="472">472</span>
+<span id="473">473</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -640,6 +641,7 @@
 	<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
 	<span class="ident">extensions</span>: <span class="ident">E</span>,
 	<span class="comment">// Never used, left only for backward compatibility.</span>
+	<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing</span>)]</span>
 	<span class="ident">consensus_engine</span>: (),
 	<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing</span>)]</span>
 	<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused</span>)]</span>

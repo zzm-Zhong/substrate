@@ -208,7 +208,7 @@
 				<span class="ident">frame_system::Pallet</span>::<span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Runtime</span><span class="op">&gt;</span><span class="ident">::account_nonce</span>(<span class="ident">from</span>),
 			),
 			<span class="ident">frame_system::CheckWeight</span>::<span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Runtime</span><span class="op">&gt;</span><span class="ident">::new</span>(),
-			<span class="ident">pallet_transaction_payment::ChargeTransactionPayment</span>::<span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Runtime</span><span class="op">&gt;</span><span class="ident">::from</span>(<span class="number">0</span>),
+			<span class="ident">pallet_asset_tx_payment::ChargeAssetTxPayment</span>::<span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Runtime</span><span class="op">&gt;</span><span class="ident">::from</span>(<span class="number">0</span>, <span class="prelude-val">None</span>),
 		)
 	}
 }

@@ -330,6 +330,7 @@ sourcesIndex["openssl"] = {"name":"","dirs":[{"name":"ssl","files":["bio.rs","ca
 sourcesIndex["openssl_probe"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["openssl_sys"] = {"name":"","files":["aes.rs","asn1.rs","bio.rs","bn.rs","cms.rs","conf.rs","crypto.rs","dh.rs","dsa.rs","dtls1.rs","ec.rs","err.rs","evp.rs","hmac.rs","lib.rs","macros.rs","obj_mac.rs","object.rs","ocsp.rs","ossl_typ.rs","pem.rs","pkcs12.rs","pkcs7.rs","rand.rs","rsa.rs","safestack.rs","sha.rs","srtp.rs","ssl.rs","ssl3.rs","stack.rs","tls1.rs","types.rs","x509.rs","x509_vfy.rs","x509v3.rs"]};
 sourcesIndex["owning_ref"] = {"name":"","files":["lib.rs"]};
+sourcesIndex["pallet_asset_tx_payment"] = {"name":"","files":["lib.rs","payment.rs"]};
 sourcesIndex["pallet_assets"] = {"name":"","files":["benchmarking.rs","extra_mutator.rs","functions.rs","impl_fungibles.rs","impl_stored_map.rs","lib.rs","types.rs","weights.rs"]};
 sourcesIndex["pallet_atomic_swap"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["pallet_aura"] = {"name":"","files":["lib.rs","migrations.rs"]};
