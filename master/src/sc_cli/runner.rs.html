@@ -211,7 +211,6 @@
 <span id="211">211</span>
 <span id="212">212</span>
 <span id="213">213</span>
-<span id="214">214</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -312,7 +311,7 @@
 	<span class="macro">pin_mut!</span>(<span class="ident">f</span>);
 
 	<span class="ident">tokio_runtime</span>.<span class="ident">block_on</span>(<span class="ident">main</span>(<span class="ident">f</span>))<span class="question-mark">?</span>;
-	<span class="ident">tokio_runtime</span>.<span class="ident">block_on</span>(<span class="ident">task_manager</span>.<span class="ident">clean_shutdown</span>());
+	<span class="ident">drop</span>(<span class="ident">task_manager</span>);
 
 	<span class="prelude-val">Ok</span>(())
 }
@@ -368,7 +367,6 @@
 		<span class="self">self</span>.<span class="ident">print_node_infos</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">task_manager</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">tokio_runtime</span>.<span class="ident">block_on</span>(<span class="ident">initialize</span>(<span class="self">self</span>.<span class="ident">config</span>))<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">tokio_runtime</span>.<span class="ident">block_on</span>(<span class="ident">main</span>(<span class="ident">task_manager</span>.<span class="ident">future</span>().<span class="ident">fuse</span>()));
-		<span class="self">self</span>.<span class="ident">tokio_runtime</span>.<span class="ident">block_on</span>(<span class="ident">task_manager</span>.<span class="ident">clean_shutdown</span>());
 		<span class="prelude-val">Ok</span>(<span class="ident">res</span><span class="question-mark">?</span>)
 	}
 
