@@ -69,6 +69,22 @@
 <span id="69">69</span>
 <span id="70">70</span>
 <span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -118,6 +134,8 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Metrics</span> {
 	<span class="kw">pub</span> <span class="ident">block_constructed</span>: <span class="ident">Histogram</span>,
 	<span class="kw">pub</span> <span class="ident">number_of_transactions</span>: <span class="ident">Gauge</span><span class="op">&lt;</span><span class="ident">U64</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">create_inherents_time</span>: <span class="ident">Histogram</span>,
+	<span class="kw">pub</span> <span class="ident">create_block_proposal_time</span>: <span class="ident">Histogram</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Metrics</span> {
@@ -135,6 +153,20 @@
 					<span class="string">&quot;proposer_number_of_transactions&quot;</span>,
 					<span class="string">&quot;Number of transactions included in block&quot;</span>,
 				)<span class="question-mark">?</span>,
+				<span class="ident">registry</span>,
+			)<span class="question-mark">?</span>,
+			<span class="ident">create_inherents_time</span>: <span class="ident">register</span>(
+				<span class="ident">Histogram::with_opts</span>(<span class="ident">HistogramOpts::new</span>(
+					<span class="string">&quot;proposer_create_inherents_time&quot;</span>,
+					<span class="string">&quot;Histogram of time taken to execute create inherents&quot;</span>,
+				))<span class="question-mark">?</span>,
+				<span class="ident">registry</span>,
+			)<span class="question-mark">?</span>,
+			<span class="ident">create_block_proposal_time</span>: <span class="ident">register</span>(
+				<span class="ident">Histogram::with_opts</span>(<span class="ident">HistogramOpts::new</span>(
+					<span class="string">&quot;proposer_block_proposal_time&quot;</span>,
+					<span class="string">&quot;Histogram of time taken to construct a block and prepare it for proposal&quot;</span>,
+				))<span class="question-mark">?</span>,
 				<span class="ident">registry</span>,
 			)<span class="question-mark">?</span>,
 		})

@@ -1051,6 +1051,27 @@
 <span id="1051">1051</span>
 <span id="1052">1052</span>
 <span id="1053">1053</span>
+<span id="1054">1054</span>
+<span id="1055">1055</span>
+<span id="1056">1056</span>
+<span id="1057">1057</span>
+<span id="1058">1058</span>
+<span id="1059">1059</span>
+<span id="1060">1060</span>
+<span id="1061">1061</span>
+<span id="1062">1062</span>
+<span id="1063">1063</span>
+<span id="1064">1064</span>
+<span id="1065">1065</span>
+<span id="1066">1066</span>
+<span id="1067">1067</span>
+<span id="1068">1068</span>
+<span id="1069">1069</span>
+<span id="1070">1070</span>
+<span id="1071">1071</span>
+<span id="1072">1072</span>
+<span id="1073">1073</span>
+<span id="1074">1074</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -1399,10 +1420,23 @@
 		<span class="ident">block_size_limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,
 	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Proposal</span><span class="op">&lt;</span><span class="ident">Block</span>, <span class="ident">backend::TransactionFor</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">Block</span><span class="op">&gt;</span>, <span class="ident">PR::Proof</span><span class="op">&gt;</span>, <span class="ident">sp_blockchain::Error</span><span class="op">&gt;</span>
 	{
+		<span class="kw">let</span> <span class="ident">propose_with_start</span> <span class="op">=</span> <span class="ident">time::Instant::now</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">block_builder</span> <span class="op">=</span>
 			<span class="self">self</span>.<span class="ident">client</span>.<span class="ident">new_block_at</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">parent_id</span>, <span class="ident">inherent_digests</span>, <span class="ident">PR::ENABLED</span>)<span class="question-mark">?</span>;
 
-		<span class="kw">for</span> <span class="ident">inherent</span> <span class="kw">in</span> <span class="ident">block_builder</span>.<span class="ident">create_inherents</span>(<span class="ident">inherent_data</span>)<span class="question-mark">?</span> {
+		<span class="kw">let</span> <span class="ident">create_inherents_start</span> <span class="op">=</span> <span class="ident">time::Instant::now</span>();
+		<span class="kw">let</span> <span class="ident">inherents</span> <span class="op">=</span> <span class="ident">block_builder</span>.<span class="ident">create_inherents</span>(<span class="ident">inherent_data</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">create_inherents_end</span> <span class="op">=</span> <span class="ident">time::Instant::now</span>();
+
+		<span class="self">self</span>.<span class="ident">metrics</span>.<span class="ident">report</span>(<span class="op">|</span><span class="ident">metrics</span><span class="op">|</span> {
+			<span class="ident">metrics</span>.<span class="ident">create_inherents_time</span>.<span class="ident">observe</span>(
+				<span class="ident">create_inherents_end</span>
+					.<span class="ident">saturating_duration_since</span>(<span class="ident">create_inherents_start</span>)
+					.<span class="ident">as_secs_f64</span>(),
+			);
+		});
+
+		<span class="kw">for</span> <span class="ident">inherent</span> <span class="kw">in</span> <span class="ident">inherents</span> {
 			<span class="kw">match</span> <span class="ident">block_builder</span>.<span class="ident">push</span>(<span class="ident">inherent</span>) {
 				<span class="prelude-val">Err</span>(<span class="ident">ApplyExtrinsicFailed</span>(<span class="ident">Validity</span>(<span class="ident">e</span>))) <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">exhausted_resources</span>() =&gt; {
 					<span class="macro">warn!</span>(<span class="string">&quot;⚠️  Dropping non-mandatory inherent from overweight block.&quot;</span>)
@@ -1582,6 +1616,14 @@
 
 		<span class="kw">let</span> <span class="ident">proof</span> <span class="op">=</span>
 			<span class="ident">PR::into_proof</span>(<span class="ident">proof</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">sp_blockchain::Error::Application</span>(<span class="ident">Box::new</span>(<span class="ident">e</span>)))<span class="question-mark">?</span>;
+
+		<span class="kw">let</span> <span class="ident">propose_with_end</span> <span class="op">=</span> <span class="ident">time::Instant::now</span>();
+		<span class="self">self</span>.<span class="ident">metrics</span>.<span class="ident">report</span>(<span class="op">|</span><span class="ident">metrics</span><span class="op">|</span> {
+			<span class="ident">metrics</span>.<span class="ident">create_block_proposal_time</span>.<span class="ident">observe</span>(
+				<span class="ident">propose_with_end</span>.<span class="ident">saturating_duration_since</span>(<span class="ident">propose_with_start</span>).<span class="ident">as_secs_f64</span>(),
+			);
+		});
+
 		<span class="prelude-val">Ok</span>(<span class="ident">Proposal</span> { <span class="ident">block</span>, <span class="ident">proof</span>, <span class="ident">storage_changes</span> })
 	}
 }
