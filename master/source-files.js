@@ -437,7 +437,6 @@ sourcesIndex["proc_macro_hack"] = {"name":"","files":["error.rs","iter.rs","lib.
 sourcesIndex["proc_macro_nested"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["prometheus"] = {"name":"","dirs":[{"name":"encoder","files":["mod.rs","text.rs"]}],"files":["atomic64.rs","auto_flush.rs","counter.rs","desc.rs","errors.rs","gauge.rs","histogram.rs","lib.rs","macros.rs","metrics.rs","plain_model.rs","registry.rs","timer.rs","value.rs","vec.rs"]};
 sourcesIndex["prost"] = {"name":"","files":["encoding.rs","error.rs","lib.rs","message.rs","types.rs"]};
-sourcesIndex["prost_derive"] = {"name":"","dirs":[{"name":"field","files":["group.rs","map.rs","message.rs","mod.rs","oneof.rs","scalar.rs"]}],"files":["lib.rs"]};
 sourcesIndex["psm"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["pwasm_utils"] = {"name":"","dirs":[{"name":"gas","files":["mod.rs"]},{"name":"stack_height","files":["max_height.rs","mod.rs","thunk.rs"]}],"files":["build.rs","export_globals.rs","ext.rs","graph.rs","lib.rs","optimizer.rs","pack.rs","ref_list.rs","rules.rs","runtime_type.rs","symbols.rs"]};
 sourcesIndex["quick_error"] = {"name":"","files":["lib.rs"]};
