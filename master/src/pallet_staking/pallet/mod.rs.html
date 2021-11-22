@@ -1608,6 +1608,7 @@
 <span id="1608">1608</span>
 <span id="1609">1609</span>
 <span id="1610">1610</span>
+<span id="1611">1611</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1679,7 +1680,8 @@
 
 		<span class="doccomment">/// Convert a balance into a number used for election calculation. This must fit into a</span>
 		<span class="doccomment">/// `u64` but is allowed to be sensibly lossy. The `u64` is used to communicate with the</span>
-		<span class="doccomment">/// [`sp_npos_elections`] crate which accepts u64 numbers and does operations in 128.</span>
+		<span class="doccomment">/// [`frame_election_provider_support`] crate which accepts u64 numbers and does operations</span>
+		<span class="doccomment">/// in 128.</span>
 		<span class="doccomment">/// Consequently, the backward convert is used convert the u128s from sp-elections back to a</span>
 		<span class="doccomment">/// [`BalanceOf`].</span>
 		<span class="kw">type</span> <span class="ident">CurrencyToVote</span>: <span class="ident">CurrencyToVote</span><span class="op">&lt;</span><span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span>;
@@ -1756,7 +1758,7 @@
 		<span class="kw">type</span> <span class="ident">OffendingValidatorsThreshold</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">Perbill</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// Something that can provide a sorted list of voters in a somewhat sorted way. The</span>
-		<span class="doccomment">/// original use case for this was designed with [`pallet_bags_list::Pallet`] in mind. If</span>
+		<span class="doccomment">/// original use case for this was designed with `pallet_bags_list::Pallet` in mind. If</span>
 		<span class="doccomment">/// the bags-list is not desired, [`impls::UseNominatorsMap`] is likely the desired option.</span>
 		<span class="kw">type</span> <span class="ident">SortedListProvider</span>: <span class="ident">SortedListProvider</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::AccountId</span><span class="op">&gt;</span>;
 

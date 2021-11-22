@@ -370,7 +370,7 @@
 <span class="doccomment">/// The last element is always `VoteWeight::MAX`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// All other elements are computed from the previous according to the formula</span>
-<span class="doccomment">/// `threshold[k + 1] = (threshold[k] * ratio).max(threshold[k] + 1);</span>
+<span class="doccomment">/// `threshold[k + 1] = (threshold[k] * ratio).max(threshold[k] + 1);`</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">thresholds</span>(
 	<span class="ident">existential_weight</span>: <span class="ident">VoteWeight</span>,
 	<span class="ident">constant_ratio</span>: <span class="ident">f64</span>,

@@ -817,7 +817,7 @@
 	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ElectionResult</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::AccountId</span>, <span class="ident"><span class="self">Self</span>::Accuracy</span><span class="op">&gt;</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// A wrapper for [`sp_npos_elections::seq_phragmen`] that implements [`super::NposSolver`]. See the</span>
+<span class="doccomment">/// A wrapper for [`sp_npos_elections::seq_phragmen`] that implements [`NposSolver`]. See the</span>
 <span class="doccomment">/// documentation of [`sp_npos_elections::seq_phragmen`] for more info.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SequentialPhragmen</span><span class="op">&lt;</span><span class="ident">AccountId</span>, <span class="ident">Accuracy</span>, <span class="ident">Balancing</span> <span class="op">=</span> ()<span class="op">&gt;</span>(
 	<span class="ident">sp_std::marker::PhantomData</span><span class="op">&lt;</span>(<span class="ident">AccountId</span>, <span class="ident">Accuracy</span>, <span class="ident">Balancing</span>)<span class="op">&gt;</span>,
@@ -841,8 +841,8 @@
 	}
 }
 
-<span class="doccomment">/// A wrapper for [`sp_npos_elections::phragmms`] that implements [`NposSolver`]. See the</span>
-<span class="doccomment">/// documentation of [`sp_npos_elections::phragmms`] for more info.</span>
+<span class="doccomment">/// A wrapper for [`sp_npos_elections::phragmms()`] that implements [`NposSolver`]. See the</span>
+<span class="doccomment">/// documentation of [`sp_npos_elections::phragmms()`] for more info.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PhragMMS</span><span class="op">&lt;</span><span class="ident">AccountId</span>, <span class="ident">Accuracy</span>, <span class="ident">Balancing</span> <span class="op">=</span> ()<span class="op">&gt;</span>(
 	<span class="ident">sp_std::marker::PhantomData</span><span class="op">&lt;</span>(<span class="ident">AccountId</span>, <span class="ident">Accuracy</span>, <span class="ident">Balancing</span>)<span class="op">&gt;</span>,
 );

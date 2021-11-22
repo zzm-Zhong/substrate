@@ -262,6 +262,7 @@
 <span id="262">262</span>
 <span id="263">263</span>
 <span id="264">264</span>
+<span id="265">265</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -285,7 +286,8 @@
 
 <span class="doccomment">/// A commitment signed by GRANDPA validators as part of BEEFY protocol.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The commitment contains a [payload] extracted from the finalized block at height [block_number].</span>
+<span class="doccomment">/// The commitment contains a [payload](Commitment::payload) extracted from the finalized block at</span>
+<span class="doccomment">/// height [block_number](Commitment::block_number).</span>
 <span class="doccomment">/// GRANDPA validators collect signatures on commitments and a stream of such signed commitments</span>
 <span class="doccomment">/// (see [SignedCommitment]) forms the BEEFY protocol.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">codec::Encode</span>, <span class="ident">codec::Decode</span>)]</span>
@@ -297,7 +299,7 @@
 	<span class="doccomment">/// validator set. The protocol does not enforce any particular format of this data,</span>
 	<span class="doccomment">/// nor how often it should be present in commitments, however the light client has to be</span>
 	<span class="doccomment">/// provided with full validator set whenever it performs the transition (i.e. importing first</span>
-	<span class="doccomment">/// block with [validator_set_id] incremented).</span>
+	<span class="doccomment">/// block with [validator_set_id](Commitment::validator_set_id) incremented).</span>
 	<span class="kw">pub</span> <span class="ident">payload</span>: <span class="ident">TPayload</span>,
 
 	<span class="doccomment">/// Finalized block number this commitment is for.</span>
@@ -315,8 +317,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Validator set is changing once per epoch. The Light Client must be provided by details</span>
 	<span class="doccomment">/// about the validator set whenever it&#39;s importing first commitment with a new</span>
-	<span class="doccomment">/// `validator_set_id`. Validator set data MUST be verifiable, for instance using [payload]</span>
-	<span class="doccomment">/// information.</span>
+	<span class="doccomment">/// `validator_set_id`. Validator set data MUST be verifiable, for instance using</span>
+	<span class="doccomment">/// [payload](Commitment::payload) information.</span>
 	<span class="kw">pub</span> <span class="ident">validator_set_id</span>: <span class="ident">ValidatorSetId</span>,
 }
 

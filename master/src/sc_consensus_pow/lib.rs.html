@@ -739,9 +739,9 @@
 <span class="doccomment">//! started via the [`start_mining_worker`] function. It returns a worker</span>
 <span class="doccomment">//! handle together with a future. The future must be pulled. Through</span>
 <span class="doccomment">//! the worker handle, you can pull the metadata needed to start the</span>
-<span class="doccomment">//! mining process via [`MiningWorker::metadata`], and then do the actual</span>
+<span class="doccomment">//! mining process via [`MiningHandle::metadata`], and then do the actual</span>
 <span class="doccomment">//! mining on a standalone thread. Finally, when a seal is found, call</span>
-<span class="doccomment">//! [`MiningWorker::submit`] to build the block.</span>
+<span class="doccomment">//! [`MiningHandle::submit`] to build the block.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The auxiliary storage for PoW engine only stores the total difficulty.</span>
 <span class="doccomment">//! For other storage requirements for particular PoW algorithm (such as</span>

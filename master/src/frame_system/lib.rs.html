@@ -1707,6 +1707,7 @@
 <span id="1707">1707</span>
 <span id="1708">1708</span>
 <span id="1709">1709</span>
+<span id="1710">1710</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -2010,7 +2011,8 @@
 		<span class="doccomment">/// What to do if the runtime wants to change the code to something new.</span>
 		<span class="doccomment">///</span>
 		<span class="doccomment">/// The default (`()`) implementation is responsible for setting the correct storage</span>
-		<span class="doccomment">/// entry and emitting corresponding event and log item. (see [`update_code_in_storage`]).</span>
+		<span class="doccomment">/// entry and emitting corresponding event and log item. (see</span>
+		<span class="doccomment">/// [`Pallet::update_code_in_storage`]).</span>
 		<span class="doccomment">/// It&#39;s unlikely that this needs to be customized, unless you are writing a parachain using</span>
 		<span class="doccomment">/// `Cumulus`, where the actual code change is deferred.</span>
 		<span class="kw">type</span> <span class="ident">OnSetCode</span>: <span class="ident">SetCode</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;

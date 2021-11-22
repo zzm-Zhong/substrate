@@ -951,7 +951,7 @@
 		<span class="kw">type</span> <span class="ident">Schedule</span>: <span class="ident">Get</span><span class="op">&lt;</span><span class="ident">Schedule</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 		<span class="doccomment">/// The deposit that must be placed into the contract&#39;s account to instantiate it.</span>
-		<span class="doccomment">/// This is in **addition** to the [`pallet_balances::Pallet::ExistenialDeposit`].</span>
+		<span class="doccomment">/// This is in **addition** to the [`Currency::minimum_balance`].</span>
 		<span class="doccomment">/// The minimum balance for a contract&#39;s account can be queried using</span>
 		<span class="doccomment">/// [`Pallet::subsistence_threshold`].</span>
 		<span class="attribute">#[<span class="ident">pallet::constant</span>]</span>

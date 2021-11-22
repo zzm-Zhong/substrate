@@ -298,6 +298,7 @@
 <span id="298">298</span>
 <span id="299">299</span>
 <span id="300">300</span>
+<span id="301">301</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -319,11 +320,11 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! A semi-sorted list, where items hold an `AccountId` based on some `VoteWeight`. The `AccountId`</span>
 <span class="doccomment">//! (`id` for short) might be synonym to a `voter` or `nominator` in some context, and `VoteWeight`</span>
-<span class="doccomment">//! signifies the chance of each id being included in the final [`VoteWeightProvider::iter`].</span>
+<span class="doccomment">//! signifies the chance of each id being included in the final [`SortedListProvider::iter`].</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! It implements [`sp_election_provider_support::SortedListProvider`] to provide a semi-sorted list</span>
-<span class="doccomment">//! of accounts to another pallet. It needs some other pallet to give it some information about the</span>
-<span class="doccomment">//! weights of accounts via [`sp_election_provider_support::VoteWeightProvider`].</span>
+<span class="doccomment">//! It implements [`frame_election_provider_support::SortedListProvider`] to provide a semi-sorted</span>
+<span class="doccomment">//! list of accounts to another pallet. It needs some other pallet to give it some information about</span>
+<span class="doccomment">//! the weights of accounts via [`frame_election_provider_support::VoteWeightProvider`].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This pallet is not configurable at genesis. Whoever uses it should call appropriate functions of</span>
 <span class="doccomment">//! the `SortedListProvider` (e.g. `on_insert`, or `regenerate`) at their genesis.</span>
@@ -338,7 +339,8 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Details</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - items are kept in bags, which are delineated by their range of weight (See [`BagThresholds`]).</span>
+<span class="doccomment">//! - items are kept in bags, which are delineated by their range of weight (See</span>
+<span class="doccomment">//!   [`Config::BagThresholds`]).</span>
 <span class="doccomment">//! - for iteration, bags are chained together from highest to lowest and elements within the bag</span>
 <span class="doccomment">//!   are iterated from head to tail.</span>
 <span class="doccomment">//! - items within a bag are iterated in order of insertion. Thus removing an item and re-inserting</span>
