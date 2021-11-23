@@ -15,7 +15,7 @@ targets = ["x86_64-unknown-linux-gnu"]
 [dependencies]
 thiserror = "1.0.21"
 anyhow = "1"
-jsonrpsee = { git = "https://github.com/paritytech/jsonrpsee", rev = "aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7", features = ["server"] }
+jsonrpsee = { git = "https://github.com/paritytech/jsonrpsee", rev = "085df4144e87be2a0ec547d12cbe390d90a8b038", features = ["server"] }
 
 sc-chain-spec = { version = "4.0.0-dev", path = "../chain-spec" }
 sc-client-api = { version = "4.0.0-dev", path = "../api" }

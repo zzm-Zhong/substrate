@@ -2666,7 +2666,22 @@ dependencies = [
  "tokio",
  "tokio-rustls 0.22.0",
  "webpki 0.21.4",
- "webpki-roots 0.21.0",
+]
+
+[[package]]
+name = "hyper-rustls"
+version = "0.23.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d87c48c02e0dc5e3b849a2041db3029fd066650f8f717c07bf8ed78ccb895cac"
+dependencies = [
+ "http",
+ "hyper",
+ "log",
+ "rustls 0.20.2",
+ "rustls-native-certs 0.6.1",
+ "tokio",
+ "tokio-rustls 0.23.1",
+ "webpki-roots 0.22.1",
 ]
 
 [[package]]
@@ -2851,7 +2866,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee"
 version = "0.4.1"
-source = "git+https://github.com/paritytech/jsonrpsee?rev=aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7#aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7"
+source = "git+https://github.com/paritytech/jsonrpsee?rev=085df4144e87be2a0ec547d12cbe390d90a8b038#085df4144e87be2a0ec547d12cbe390d90a8b038"
 dependencies = [
  "jsonrpsee-http-client",
  "jsonrpsee-http-server",
@@ -2865,12 +2880,12 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-http-client"
 version = "0.4.1"
-source = "git+https://github.com/paritytech/jsonrpsee?rev=aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7#aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7"
+source = "git+https://github.com/paritytech/jsonrpsee?rev=085df4144e87be2a0ec547d12cbe390d90a8b038#085df4144e87be2a0ec547d12cbe390d90a8b038"
 dependencies = [
  "async-trait",
  "fnv",
  "hyper",
- "hyper-rustls",
+ "hyper-rustls 0.23.0",
  "jsonrpsee-types 0.4.1",
  "jsonrpsee-utils",
  "serde",
@@ -2884,7 +2899,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-http-server"
 version = "0.4.1"
-source = "git+https://github.com/paritytech/jsonrpsee?rev=aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7#aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7"
+source = "git+https://github.com/paritytech/jsonrpsee?rev=085df4144e87be2a0ec547d12cbe390d90a8b038#085df4144e87be2a0ec547d12cbe390d90a8b038"
 dependencies = [
  "futures-channel",
  "futures-util",
@@ -2917,7 +2932,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-proc-macros"
 version = "0.4.1"
-source = "git+https://github.com/paritytech/jsonrpsee?rev=aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7#aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7"
+source = "git+https://github.com/paritytech/jsonrpsee?rev=085df4144e87be2a0ec547d12cbe390d90a8b038#085df4144e87be2a0ec547d12cbe390d90a8b038"
 dependencies = [
  "proc-macro-crate",
  "proc-macro2",
@@ -2946,7 +2961,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-types"
 version = "0.4.1"
-source = "git+https://github.com/paritytech/jsonrpsee?rev=aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7#aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7"
+source = "git+https://github.com/paritytech/jsonrpsee?rev=085df4144e87be2a0ec547d12cbe390d90a8b038#085df4144e87be2a0ec547d12cbe390d90a8b038"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -2964,7 +2979,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-utils"
 version = "0.4.1"
-source = "git+https://github.com/paritytech/jsonrpsee?rev=aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7#aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7"
+source = "git+https://github.com/paritytech/jsonrpsee?rev=085df4144e87be2a0ec547d12cbe390d90a8b038#085df4144e87be2a0ec547d12cbe390d90a8b038"
 dependencies = [
  "arrayvec 0.7.1",
  "beef",
@@ -3009,7 +3024,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-ws-client"
 version = "0.4.1"
-source = "git+https://github.com/paritytech/jsonrpsee?rev=aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7#aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7"
+source = "git+https://github.com/paritytech/jsonrpsee?rev=085df4144e87be2a0ec547d12cbe390d90a8b038#085df4144e87be2a0ec547d12cbe390d90a8b038"
 dependencies = [
  "async-trait",
  "fnv",
@@ -3032,7 +3047,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-ws-server"
 version = "0.4.1"
-source = "git+https://github.com/paritytech/jsonrpsee?rev=aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7#aacf7c0ecdb71da345e7c5cb0283f5cb5a040bd7"
+source = "git+https://github.com/paritytech/jsonrpsee?rev=085df4144e87be2a0ec547d12cbe390d90a8b038#085df4144e87be2a0ec547d12cbe390d90a8b038"
 dependencies = [
  "futures-channel",
  "futures-util",
@@ -6871,9 +6886,9 @@ dependencies = [
 
 [[package]]
 name = "rustls"
-version = "0.20.0"
+version = "0.20.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9b5ac6078ca424dc1d3ae2328526a76787fecc7f8011f520e3276730e711fc95"
+checksum = "d37e5e2290f3e040b594b1a9e04377c2c671f1a1cfd9bfdef82106ac1c113f84"
 dependencies = [
  "log",
  "ring",
@@ -7731,7 +7746,7 @@ dependencies = [
  "futures-timer 3.0.2",
  "hex",
  "hyper",
- "hyper-rustls",
+ "hyper-rustls 0.22.1",
  "lazy_static",
  "log",
  "num_cpus",
@@ -10013,7 +10028,7 @@ version = "0.23.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4baa378e417d780beff82bf54ceb0d195193ea6a00c14e22359e7f39456b5689"
 dependencies = [
- "rustls 0.20.0",
+ "rustls 0.20.2",
  "tokio",
  "webpki 0.22.0",
 ]
