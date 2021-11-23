@@ -63,7 +63,7 @@
 	<span class="ident">on_initialize</span> {
 		<span class="kw">let</span> <span class="ident">x</span> <span class="kw">in</span> <span class="number">1</span> .. <span class="number">1_000</span>;
 
-		<span class="kw">let</span> <span class="ident">leaves</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u64</span>;
+		<span class="kw">let</span> <span class="ident">leaves</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">NodeIndex</span>;
 	}: {
 		<span class="kw">for</span> <span class="ident">b</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">leaves</span> {
 			<span class="ident">Pallet</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::on_initialize</span>((<span class="ident">b</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">into</span>());

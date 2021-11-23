@@ -3346,7 +3346,7 @@
 		<span class="ident">Block</span>,
 		<span class="ident">mmr::Hash</span>,
 	<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Runtime</span> {
-		<span class="kw">fn</span> <span class="ident">generate_proof</span>(<span class="ident">leaf_index</span>: <span class="ident">u64</span>)
+		<span class="kw">fn</span> <span class="ident">generate_proof</span>(<span class="ident">leaf_index</span>: <span class="ident">pallet_mmr::primitives::LeafIndex</span>)
 			-&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">mmr::EncodableOpaqueLeaf</span>, <span class="ident">mmr::Proof</span><span class="op">&lt;</span><span class="ident">mmr::Hash</span><span class="op">&gt;</span>), <span class="ident">mmr::Error</span><span class="op">&gt;</span>
 		{
 			<span class="ident">Mmr::generate_proof</span>(<span class="ident">leaf_index</span>)
