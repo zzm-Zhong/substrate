@@ -444,7 +444,7 @@
 }
 
 <span class="doccomment">/// The version of a crate.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">RuntimeDebug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Encode</span>, <span class="ident">Decode</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Encode</span>, <span class="ident">Decode</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CrateVersion</span> {
 	<span class="doccomment">/// The major version of the crate.</span>
 	<span class="kw">pub</span> <span class="ident">major</span>: <span class="ident">u16</span>,
@@ -484,7 +484,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Each storage version of a pallet is stored in the state under a fixed key. See</span>
 <span class="doccomment">/// [`STORAGE_VERSION_STORAGE_KEY_POSTFIX`] for how this key is built.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">RuntimeDebug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Encode</span>, <span class="ident">Decode</span>, <span class="ident">Ord</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialOrd</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Encode</span>, <span class="ident">Decode</span>, <span class="ident">Ord</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialOrd</span>, <span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StorageVersion</span>(<span class="ident">u16</span>);
 
 <span class="kw">impl</span> <span class="ident">StorageVersion</span> {
