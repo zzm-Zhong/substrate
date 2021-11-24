@@ -2696,7 +2696,7 @@
 	<span class="comment">// `ReturnCode::BelowSubsistenceThreshold`</span>
 	<span class="comment">// `ReturnCode::TransferFailed`</span>
 	<span class="comment">// `ReturnCode::NotCallable`</span>
-	[<span class="ident">__unstable__</span>] <span class="ident">seal_call</span>(
+	[<span class="ident">seal1</span>] <span class="ident">seal_call</span>(
 		<span class="ident">ctx</span>,
 		<span class="ident">flags</span>: <span class="ident">u32</span>,
 		<span class="ident">callee_ptr</span>: <span class="ident">u32</span>,
@@ -2708,7 +2708,7 @@
 		<span class="ident">output_len_ptr</span>: <span class="ident">u32</span>
 	) -&gt; <span class="ident">ReturnCode</span> =&gt; {
 		<span class="ident">ctx</span>.<span class="ident">call</span>(
-			<span class="ident">CallFlags::from_bits</span>(<span class="ident">flags</span>).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="string">&quot;used rerved bit in CallFlags&quot;</span>)<span class="question-mark">?</span>,
+			<span class="ident">CallFlags::from_bits</span>(<span class="ident">flags</span>).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="string">&quot;used reserved bit in CallFlags&quot;</span>)<span class="question-mark">?</span>,
 			<span class="ident">callee_ptr</span>,
 			<span class="ident">gas</span>,
 			<span class="ident">value_ptr</span>,

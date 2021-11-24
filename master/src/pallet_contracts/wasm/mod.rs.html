@@ -1988,9 +1988,6 @@
 <span id="1988">1988</span>
 <span id="1989">1989</span>
 <span id="1990">1990</span>
-<span id="1991">1991</span>
-<span id="1992">1992</span>
-<span id="1993">1993</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -2534,11 +2531,10 @@
 	}
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-interface&quot;</span>)]</span>
 	<span class="kw">fn</span> <span class="ident">contract_call_forward_input</span>() {
 		<span class="kw">const</span> <span class="ident">CODE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">r#&quot;
 (module
-	(import &quot;__unstable__&quot; &quot;seal_call&quot; (func $seal_call (param i32 i32 i64 i32 i32 i32 i32 i32) (result i32)))
+	(import &quot;seal1&quot; &quot;seal_call&quot; (func $seal_call (param i32 i32 i64 i32 i32 i32 i32 i32) (result i32)))
 	(import &quot;seal0&quot; &quot;seal_input&quot; (func $seal_input (param i32 i32)))
 	(import &quot;env&quot; &quot;memory&quot; (memory 1 1))
 	(func (export &quot;call&quot;)
@@ -2589,11 +2585,10 @@
 	}
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-interface&quot;</span>)]</span>
 	<span class="kw">fn</span> <span class="ident">contract_call_clone_input</span>() {
 		<span class="kw">const</span> <span class="ident">CODE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">r#&quot;
 (module
-	(import &quot;__unstable__&quot; &quot;seal_call&quot; (func $seal_call (param i32 i32 i64 i32 i32 i32 i32 i32) (result i32)))
+	(import &quot;seal1&quot; &quot;seal_call&quot; (func $seal_call (param i32 i32 i64 i32 i32 i32 i32 i32) (result i32)))
 	(import &quot;seal0&quot; &quot;seal_input&quot; (func $seal_input (param i32 i32)))
 	(import &quot;seal0&quot; &quot;seal_return&quot; (func $seal_return (param i32 i32 i32)))
 	(import &quot;env&quot; &quot;memory&quot; (memory 1 1))
@@ -2645,11 +2640,10 @@
 	}
 
 	<span class="attribute">#[<span class="ident">test</span>]</span>
-	<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-interface&quot;</span>)]</span>
 	<span class="kw">fn</span> <span class="ident">contract_call_tail_call</span>() {
 		<span class="kw">const</span> <span class="ident">CODE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">r#&quot;
 (module
-	(import &quot;__unstable__&quot; &quot;seal_call&quot; (func $seal_call (param i32 i32 i64 i32 i32 i32 i32 i32) (result i32)))
+	(import &quot;seal1&quot; &quot;seal_call&quot; (func $seal_call (param i32 i32 i64 i32 i32 i32 i32 i32) (result i32)))
 	(import &quot;env&quot; &quot;memory&quot; (memory 1 1))
 	(func (export &quot;call&quot;)
 		(drop
