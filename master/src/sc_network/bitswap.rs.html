@@ -331,8 +331,6 @@
 <span id="331">331</span>
 <span id="332">332</span>
 <span id="333">333</span>
-<span id="334">334</span>
-<span id="335">335</span>
 </pre><pre class="rust"><code><span class="comment">// Copyright 2021 Parity Technologies (UK) Ltd.</span>
 <span class="comment">// This file is part of Substrate.</span>
 
@@ -374,8 +372,7 @@
 		<span class="ident">UpgradeInfo</span>,
 	},
 	<span class="ident">swarm</span>::{
-		<span class="ident">IntoProtocolsHandler</span>, <span class="ident">NetworkBehaviour</span>, <span class="ident">NetworkBehaviourAction</span>, <span class="ident">NotifyHandler</span>,
-		<span class="ident">OneShotHandler</span>, <span class="ident">PollParameters</span>, <span class="ident">ProtocolsHandler</span>,
+		<span class="ident">NetworkBehaviour</span>, <span class="ident">NetworkBehaviourAction</span>, <span class="ident">NotifyHandler</span>, <span class="ident">OneShotHandler</span>, <span class="ident">PollParameters</span>,
 	},
 };
 <span class="kw">use</span> <span class="ident">log</span>::{<span class="ident">debug</span>, <span class="ident">error</span>, <span class="ident">trace</span>};
@@ -632,12 +629,11 @@
 		<span class="self">self</span>.<span class="ident">ready_blocks</span>.<span class="ident">push_back</span>((<span class="ident">peer</span>, <span class="ident">response</span>));
 	}
 
-	<span class="kw">fn</span> <span class="ident">poll</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">_ctx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span>, <span class="kw">_</span>: <span class="kw-2">&amp;mut</span> <span class="kw">impl</span> <span class="ident">PollParameters</span>) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span>
-		<span class="ident">NetworkBehaviourAction</span><span class="op">&lt;</span>
-			<span class="op">&lt;</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::ProtocolsHandler</span> <span class="kw">as</span> <span class="ident">IntoProtocolsHandler</span><span class="op">&gt;</span><span class="ident">::Handler</span> <span class="kw">as</span> <span class="ident">ProtocolsHandler</span><span class="op">&gt;</span><span class="ident">::InEvent</span>,
-			<span class="ident"><span class="self">Self</span>::OutEvent</span>,
-		<span class="op">&gt;</span>,
-	<span class="op">&gt;</span>{
+	<span class="kw">fn</span> <span class="ident">poll</span>(
+		<span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+		<span class="ident">_ctx</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Context</span>,
+		<span class="kw">_</span>: <span class="kw-2">&amp;mut</span> <span class="kw">impl</span> <span class="ident">PollParameters</span>,
+	) -&gt; <span class="ident">Poll</span><span class="op">&lt;</span><span class="ident">NetworkBehaviourAction</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::OutEvent</span>, <span class="ident"><span class="self">Self</span>::ProtocolsHandler</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">peer_id</span>, <span class="ident">message</span>)) <span class="op">=</span> <span class="self">self</span>.<span class="ident">ready_blocks</span>.<span class="ident">pop_front</span>() {
 			<span class="kw">return</span> <span class="ident">Poll::Ready</span>(<span class="ident">NetworkBehaviourAction::NotifyHandler</span> {
 				<span class="ident">peer_id</span>,

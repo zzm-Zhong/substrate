@@ -843,6 +843,14 @@
 <span id="843">843</span>
 <span id="844">844</span>
 <span id="845">845</span>
+<span id="846">846</span>
+<span id="847">847</span>
+<span id="848">848</span>
+<span id="849">849</span>
+<span id="850">850</span>
+<span id="851">851</span>
+<span id="852">852</span>
+<span id="853">853</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -1210,10 +1218,12 @@
 	<span class="doccomment">/// Sender to use in asynchronous contexts. Uses an asynchronous mutex.</span>
 	<span class="ident">async_channel</span>: <span class="ident">FuturesMutex</span><span class="op">&lt;</span><span class="ident">mpsc::Sender</span><span class="op">&lt;</span><span class="ident">NotificationsSinkMessage</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Sender to use in synchronous contexts. Uses a synchronous mutex.</span>
+	<span class="doccomment">/// Contains `None` if the channel was full at some point, in which case the channel will</span>
+	<span class="doccomment">/// be closed in the near future anyway.</span>
 	<span class="doccomment">/// This channel has a large capacity and is meant to be used in contexts where</span>
 	<span class="doccomment">/// back-pressure cannot be properly exerted.</span>
 	<span class="doccomment">/// It will be removed in a future version.</span>
-	<span class="ident">sync_channel</span>: <span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">mpsc::Sender</span><span class="op">&lt;</span><span class="ident">NotificationsSinkMessage</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="ident">sync_channel</span>: <span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">mpsc::Sender</span><span class="op">&lt;</span><span class="ident">NotificationsSinkMessage</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// Message emitted through the [`NotificationsSink`] and processed by the background task</span>
@@ -1245,14 +1255,20 @@
 	<span class="doccomment">/// This method will be removed in a future version.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_sync_notification</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="ident">message</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>) {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">sync_channel</span>.<span class="ident">lock</span>();
-		<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span>
-			<span class="ident">lock</span>.<span class="ident">try_send</span>(<span class="ident">NotificationsSinkMessage::Notification</span> { <span class="ident">message</span>: <span class="ident">message</span>.<span class="ident">into</span>() });
 
-		<span class="kw">if</span> <span class="ident">result</span>.<span class="ident">is_err</span>() {
-			<span class="comment">// Cloning the `mpsc::Sender` guarantees the allocation of an extra spot in the</span>
-			<span class="comment">// buffer, and therefore `try_send` will succeed.</span>
-			<span class="kw">let</span> <span class="ident">_result2</span> <span class="op">=</span> <span class="ident">lock</span>.<span class="ident">clone</span>().<span class="ident">try_send</span>(<span class="ident">NotificationsSinkMessage::ForceClose</span>);
-			<span class="macro">debug_assert!</span>(<span class="ident">_result2</span>.<span class="ident">map</span>(<span class="op">|</span>()<span class="op">|</span> <span class="bool-val">true</span>).<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">err</span>.<span class="ident">is_disconnected</span>()));
+		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">tx</span>) <span class="op">=</span> <span class="ident">lock</span>.<span class="ident">as_mut</span>() {
+			<span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span>
+				<span class="ident">tx</span>.<span class="ident">try_send</span>(<span class="ident">NotificationsSinkMessage::Notification</span> { <span class="ident">message</span>: <span class="ident">message</span>.<span class="ident">into</span>() });
+
+			<span class="kw">if</span> <span class="ident">result</span>.<span class="ident">is_err</span>() {
+				<span class="comment">// Cloning the `mpsc::Sender` guarantees the allocation of an extra spot in the</span>
+				<span class="comment">// buffer, and therefore `try_send` will succeed.</span>
+				<span class="kw">let</span> <span class="ident">_result2</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">clone</span>().<span class="ident">try_send</span>(<span class="ident">NotificationsSinkMessage::ForceClose</span>);
+				<span class="macro">debug_assert!</span>(<span class="ident">_result2</span>.<span class="ident">map</span>(<span class="op">|</span>()<span class="op">|</span> <span class="bool-val">true</span>).<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">err</span>.<span class="ident">is_disconnected</span>()));
+
+				<span class="comment">// Destroy the sender in order to not send more `ForceClose` messages.</span>
+				<span class="kw-2">*</span><span class="ident">lock</span> <span class="op">=</span> <span class="prelude-val">None</span>;
+			}
 		}
 	}
 
@@ -1399,7 +1415,7 @@
 					<span class="ident">inner</span>: <span class="ident">Arc::new</span>(<span class="ident">NotificationsSinkInner</span> {
 						<span class="ident">peer_id</span>: <span class="self">self</span>.<span class="ident">peer_id</span>,
 						<span class="ident">async_channel</span>: <span class="ident">FuturesMutex::new</span>(<span class="ident">async_tx</span>),
-						<span class="ident">sync_channel</span>: <span class="ident">Mutex::new</span>(<span class="ident">sync_tx</span>),
+						<span class="ident">sync_channel</span>: <span class="ident">Mutex::new</span>(<span class="prelude-val">Some</span>(<span class="ident">sync_tx</span>)),
 					}),
 				};
 
