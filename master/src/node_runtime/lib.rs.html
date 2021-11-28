@@ -1785,6 +1785,13 @@
 <span id="1785">1785</span>
 <span id="1786">1786</span>
 <span id="1787">1787</span>
+<span id="1788">1788</span>
+<span id="1789">1789</span>
+<span id="1790">1790</span>
+<span id="1791">1791</span>
+<span id="1792">1792</span>
+<span id="1793">1793</span>
+<span id="1794">1794</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -1813,8 +1820,8 @@
 <span class="kw">use</span> <span class="ident">frame_support</span>::{
 	<span class="ident">construct_runtime</span>, <span class="ident">parameter_types</span>,
 	<span class="ident">traits</span>::{
-		<span class="ident">Currency</span>, <span class="ident">EqualPrivilegeOnly</span>, <span class="ident">Everything</span>, <span class="ident">Imbalance</span>, <span class="ident">InstanceFilter</span>, <span class="ident">KeyOwnerProofSystem</span>,
-		<span class="ident">LockIdentifier</span>, <span class="ident">Nothing</span>, <span class="ident">OnUnbalanced</span>, <span class="ident">U128CurrencyToVote</span>,
+		<span class="ident">ConstU32</span>, <span class="ident">Currency</span>, <span class="ident">EqualPrivilegeOnly</span>, <span class="ident">Everything</span>, <span class="ident">Imbalance</span>, <span class="ident">InstanceFilter</span>,
+		<span class="ident">KeyOwnerProofSystem</span>, <span class="ident">LockIdentifier</span>, <span class="ident">Nothing</span>, <span class="ident">OnUnbalanced</span>, <span class="ident">U128CurrencyToVote</span>,
 	},
 	<span class="ident">weights</span>::{
 		<span class="ident">constants</span>::{<span class="ident">BlockExecutionWeight</span>, <span class="ident">ExtrinsicBaseWeight</span>, <span class="ident">RocksDbWeight</span>, <span class="ident">WEIGHT_PER_SECOND</span>},
@@ -2302,6 +2309,12 @@
 	<span class="kw">type</span> <span class="ident">DataProvider</span> <span class="op">=</span> <span class="ident">Staking</span>;
 }
 
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StakingBenchmarkingConfig</span>;
+<span class="kw">impl</span> <span class="ident">pallet_staking::BenchmarkingConfig</span> <span class="kw">for</span> <span class="ident">StakingBenchmarkingConfig</span> {
+	<span class="kw">type</span> <span class="ident">MaxNominators</span> <span class="op">=</span> <span class="ident">ConstU32</span><span class="op">&lt;</span><span class="number">1000</span><span class="op">&gt;</span>;
+	<span class="kw">type</span> <span class="ident">MaxValidators</span> <span class="op">=</span> <span class="ident">ConstU32</span><span class="op">&lt;</span><span class="number">1000</span><span class="op">&gt;</span>;
+}
+
 <span class="kw">impl</span> <span class="ident">pallet_staking::Config</span> <span class="kw">for</span> <span class="ident">Runtime</span> {
 	<span class="kw">const</span> <span class="ident">MAX_NOMINATIONS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">MAX_NOMINATIONS</span>;
 	<span class="kw">type</span> <span class="ident">Currency</span> <span class="op">=</span> <span class="ident">Balances</span>;
@@ -2331,6 +2344,7 @@
 	<span class="comment">// Note that the aforementioned does not scale to a very large number of nominators.</span>
 	<span class="kw">type</span> <span class="ident">SortedListProvider</span> <span class="op">=</span> <span class="ident">BagsList</span>;
 	<span class="kw">type</span> <span class="ident">WeightInfo</span> <span class="op">=</span> <span class="ident">pallet_staking::weights::SubstrateWeight</span><span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span>;
+	<span class="kw">type</span> <span class="ident">BenchmarkingConfig</span> <span class="op">=</span> <span class="ident">StakingBenchmarkingConfig</span>;
 }
 
 <span class="macro">parameter_types!</span> {
@@ -2378,8 +2392,8 @@
 <span class="doccomment">/// The numbers configured here could always be more than the the maximum limits of staking pallet</span>
 <span class="doccomment">/// to ensure election snapshot will not run out of memory. For now, we set them to smaller values</span>
 <span class="doccomment">/// since the staking is bounded and the weight pipeline takes hours for this single pallet.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BenchmarkConfig</span>;
-<span class="kw">impl</span> <span class="ident">pallet_election_provider_multi_phase::BenchmarkingConfig</span> <span class="kw">for</span> <span class="ident">BenchmarkConfig</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ElectionProviderBenchmarkConfig</span>;
+<span class="kw">impl</span> <span class="ident">pallet_election_provider_multi_phase::BenchmarkingConfig</span> <span class="kw">for</span> <span class="ident">ElectionProviderBenchmarkConfig</span> {
 	<span class="kw">const</span> <span class="ident">VOTERS</span>: [<span class="ident">u32</span>; <span class="number">2</span>] <span class="op">=</span> [<span class="number">1000</span>, <span class="number">2000</span>];
 	<span class="kw">const</span> <span class="ident">TARGETS</span>: [<span class="ident">u32</span>; <span class="number">2</span>] <span class="op">=</span> [<span class="number">500</span>, <span class="number">1000</span>];
 	<span class="kw">const</span> <span class="ident">ACTIVE_VOTERS</span>: [<span class="ident">u32</span>; <span class="number">2</span>] <span class="op">=</span> [<span class="number">500</span>, <span class="number">800</span>];
@@ -2444,7 +2458,7 @@
 	<span class="op">&gt;</span>;
 	<span class="kw">type</span> <span class="ident">WeightInfo</span> <span class="op">=</span> <span class="ident">pallet_election_provider_multi_phase::weights::SubstrateWeight</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 	<span class="kw">type</span> <span class="ident">ForceOrigin</span> <span class="op">=</span> <span class="ident">EnsureRootOrHalfCouncil</span>;
-	<span class="kw">type</span> <span class="ident">BenchmarkingConfig</span> <span class="op">=</span> <span class="ident">BenchmarkConfig</span>;
+	<span class="kw">type</span> <span class="ident">BenchmarkingConfig</span> <span class="op">=</span> <span class="ident">ElectionProviderBenchmarkConfig</span>;
 	<span class="kw">type</span> <span class="ident">VoterSnapshotPerBlock</span> <span class="op">=</span> <span class="ident">VoterSnapshotPerBlock</span>;
 }
 

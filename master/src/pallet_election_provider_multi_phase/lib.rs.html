@@ -2067,16 +2067,6 @@
 <span id="2067">2067</span>
 <span id="2068">2068</span>
 <span id="2069">2069</span>
-<span id="2070">2070</span>
-<span id="2071">2071</span>
-<span id="2072">2072</span>
-<span id="2073">2073</span>
-<span id="2074">2074</span>
-<span id="2075">2075</span>
-<span id="2076">2076</span>
-<span id="2077">2077</span>
-<span id="2078">2078</span>
-<span id="2079">2079</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -2386,16 +2376,6 @@
 	<span class="kw">const</span> <span class="ident">MINER_MAXIMUM_VOTERS</span>: <span class="ident">u32</span>;
 	<span class="doccomment">/// Maximum number of targets expected. This is used only for memory-benchmarking.</span>
 	<span class="kw">const</span> <span class="ident">MAXIMUM_TARGETS</span>: <span class="ident">u32</span>;
-}
-
-<span class="kw">impl</span> <span class="ident">BenchmarkingConfig</span> <span class="kw">for</span> () {
-	<span class="kw">const</span> <span class="ident">VOTERS</span>: [<span class="ident">u32</span>; <span class="number">2</span>] <span class="op">=</span> [<span class="number">4000</span>, <span class="number">6000</span>];
-	<span class="kw">const</span> <span class="ident">TARGETS</span>: [<span class="ident">u32</span>; <span class="number">2</span>] <span class="op">=</span> [<span class="number">1000</span>, <span class="number">1600</span>];
-	<span class="kw">const</span> <span class="ident">ACTIVE_VOTERS</span>: [<span class="ident">u32</span>; <span class="number">2</span>] <span class="op">=</span> [<span class="number">1000</span>, <span class="number">3000</span>];
-	<span class="kw">const</span> <span class="ident">DESIRED_TARGETS</span>: [<span class="ident">u32</span>; <span class="number">2</span>] <span class="op">=</span> [<span class="number">400</span>, <span class="number">800</span>];
-	<span class="kw">const</span> <span class="ident">SNAPSHOT_MAXIMUM_VOTERS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">10_000</span>;
-	<span class="kw">const</span> <span class="ident">MINER_MAXIMUM_VOTERS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">10_000</span>;
-	<span class="kw">const</span> <span class="ident">MAXIMUM_TARGETS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">2_000</span>;
 }
 
 <span class="doccomment">/// A fallback implementation that transitions the pallet to the emergency phase.</span>

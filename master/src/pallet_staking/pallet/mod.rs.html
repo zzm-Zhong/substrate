@@ -1609,6 +1609,11 @@
 <span id="1609">1609</span>
 <span id="1610">1610</span>
 <span id="1611">1611</span>
+<span id="1612">1612</span>
+<span id="1613">1613</span>
+<span id="1614">1614</span>
+<span id="1615">1615</span>
+<span id="1616">1616</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1661,6 +1666,8 @@
 
 <span class="attribute">#[<span class="ident">frame_support::pallet</span>]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">pallet</span> {
+	<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::BenchmarkingConfig</span>;
+
 	<span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 
 	<span class="attribute">#[<span class="ident">pallet::pallet</span>]</span>
@@ -1761,6 +1768,9 @@
 		<span class="doccomment">/// original use case for this was designed with `pallet_bags_list::Pallet` in mind. If</span>
 		<span class="doccomment">/// the bags-list is not desired, [`impls::UseNominatorsMap`] is likely the desired option.</span>
 		<span class="kw">type</span> <span class="ident">SortedListProvider</span>: <span class="ident">SortedListProvider</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::AccountId</span><span class="op">&gt;</span>;
+
+		<span class="doccomment">/// Some parameters of the benchmarking.</span>
+		<span class="kw">type</span> <span class="ident">BenchmarkingConfig</span>: <span class="ident">BenchmarkingConfig</span>;
 
 		<span class="doccomment">/// Weight information for extrinsics in this pallet.</span>
 		<span class="kw">type</span> <span class="ident">WeightInfo</span>: <span class="ident">WeightInfo</span>;
