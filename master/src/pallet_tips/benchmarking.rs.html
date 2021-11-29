@@ -190,9 +190,6 @@
 <span id="190">190</span>
 <span id="191">191</span>
 <span id="192">192</span>
-<span id="193">193</span>
-<span id="194">194</span>
-<span id="195">195</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -279,12 +276,9 @@
 	<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">T::Currency::make_free_balance_be</span>(<span class="kw-2">&amp;</span><span class="ident">pot_account</span>, <span class="ident">value</span>);
 }
 
-<span class="kw">const</span> <span class="ident">MAX_BYTES</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">16384</span>;
-<span class="kw">const</span> <span class="ident">MAX_TIPPERS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">100</span>;
-
 <span class="macro">benchmarks!</span> {
 	<span class="ident">report_awesome</span> {
-		<span class="kw">let</span> <span class="ident">r</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">MAX_BYTES</span>;
+		<span class="kw">let</span> <span class="ident">r</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">T::MaximumReasonLength::get</span>();
 		<span class="kw">let</span> (<span class="ident">caller</span>, <span class="ident">reason</span>, <span class="ident">awesome_person</span>) <span class="op">=</span> <span class="ident">setup_awesome</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">r</span>);
 		<span class="comment">// Whitelist caller account from further DB operations.</span>
 		<span class="kw">let</span> <span class="ident">caller_key</span> <span class="op">=</span> <span class="ident">frame_system::Account</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::hashed_key_for</span>(<span class="kw-2">&amp;</span><span class="ident">caller</span>);
@@ -292,7 +286,7 @@
 	}: <span class="kw">_</span>(<span class="ident">RawOrigin::Signed</span>(<span class="ident">caller</span>), <span class="ident">reason</span>, <span class="ident">awesome_person</span>)
 
 	<span class="ident">retract_tip</span> {
-		<span class="kw">let</span> <span class="ident">r</span> <span class="op">=</span> <span class="ident">MAX_BYTES</span>;
+		<span class="kw">let</span> <span class="ident">r</span> <span class="op">=</span> <span class="ident">T::MaximumReasonLength::get</span>();
 		<span class="kw">let</span> (<span class="ident">caller</span>, <span class="ident">reason</span>, <span class="ident">awesome_person</span>) <span class="op">=</span> <span class="ident">setup_awesome</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">r</span>);
 		<span class="ident">TipsMod</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::report_awesome</span>(
 			<span class="ident">RawOrigin::Signed</span>(<span class="ident">caller</span>.<span class="ident">clone</span>()).<span class="ident">into</span>(),
@@ -307,8 +301,8 @@
 	}: <span class="kw">_</span>(<span class="ident">RawOrigin::Signed</span>(<span class="ident">caller</span>), <span class="ident">hash</span>)
 
 	<span class="ident">tip_new</span> {
-		<span class="kw">let</span> <span class="ident">r</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">MAX_BYTES</span>;
-		<span class="kw">let</span> <span class="ident">t</span> <span class="kw">in</span> <span class="number">1</span> .. <span class="ident">MAX_TIPPERS</span>;
+		<span class="kw">let</span> <span class="ident">r</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">T::MaximumReasonLength::get</span>();
+		<span class="kw">let</span> <span class="ident">t</span> <span class="kw">in</span> <span class="number">1</span> .. <span class="ident">T::Tippers::max_len</span>() <span class="kw">as</span> <span class="ident">u32</span>;
 
 		<span class="kw">let</span> (<span class="ident">caller</span>, <span class="ident">reason</span>, <span class="ident">beneficiary</span>, <span class="ident">value</span>) <span class="op">=</span> <span class="ident">setup_tip</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">r</span>, <span class="ident">t</span>)<span class="question-mark">?</span>;
 		<span class="comment">// Whitelist caller account from further DB operations.</span>
@@ -317,7 +311,7 @@
 	}: <span class="kw">_</span>(<span class="ident">RawOrigin::Signed</span>(<span class="ident">caller</span>), <span class="ident">reason</span>, <span class="ident">beneficiary</span>, <span class="ident">value</span>)
 
 	<span class="ident">tip</span> {
-		<span class="kw">let</span> <span class="ident">t</span> <span class="kw">in</span> <span class="number">1</span> .. <span class="ident">MAX_TIPPERS</span>;
+		<span class="kw">let</span> <span class="ident">t</span> <span class="kw">in</span> <span class="number">1</span> .. <span class="ident">T::Tippers::max_len</span>() <span class="kw">as</span> <span class="ident">u32</span>;
 		<span class="kw">let</span> (<span class="ident">member</span>, <span class="ident">reason</span>, <span class="ident">beneficiary</span>, <span class="ident">value</span>) <span class="op">=</span> <span class="ident">setup_tip</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="number">0</span>, <span class="ident">t</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">T::Currency::minimum_balance</span>().<span class="ident">saturating_mul</span>(<span class="number">100u32</span>.<span class="ident">into</span>());
 		<span class="ident">TipsMod</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::tip_new</span>(
@@ -337,7 +331,7 @@
 	}: <span class="kw">_</span>(<span class="ident">RawOrigin::Signed</span>(<span class="ident">caller</span>), <span class="ident">hash</span>, <span class="ident">value</span>)
 
 	<span class="ident">close_tip</span> {
-		<span class="kw">let</span> <span class="ident">t</span> <span class="kw">in</span> <span class="number">1</span> .. <span class="ident">MAX_TIPPERS</span>;
+		<span class="kw">let</span> <span class="ident">t</span> <span class="kw">in</span> <span class="number">1</span> .. <span class="ident">T::Tippers::max_len</span>() <span class="kw">as</span> <span class="ident">u32</span>;
 
 		<span class="comment">// Make sure pot is funded</span>
 		<span class="ident">setup_pot_account</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>();
@@ -366,7 +360,7 @@
 	}: <span class="kw">_</span>(<span class="ident">RawOrigin::Signed</span>(<span class="ident">caller</span>), <span class="ident">hash</span>)
 
 	<span class="ident">slash_tip</span> {
-		<span class="kw">let</span> <span class="ident">t</span> <span class="kw">in</span> <span class="number">1</span> .. <span class="ident">MAX_TIPPERS</span>;
+		<span class="kw">let</span> <span class="ident">t</span> <span class="kw">in</span> <span class="number">1</span> .. <span class="ident">T::Tippers::max_len</span>() <span class="kw">as</span> <span class="ident">u32</span>;
 
 		<span class="comment">// Make sure pot is funded</span>
 		<span class="ident">setup_pot_account</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>();
