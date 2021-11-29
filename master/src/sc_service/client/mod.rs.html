@@ -58,7 +58,6 @@
 <span id="58">58</span>
 <span id="59">59</span>
 <span id="60">60</span>
-<span id="61">61</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -98,9 +97,8 @@
 <span class="doccomment">//! The latter typically requires passing one of:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! - A [`LocalCallExecutor`] running the runtime locally.</span>
-<span class="doccomment">//! - A [`RemoteCallExecutor`](sc_client_api::light::RemoteCallRequest) that will ask a</span>
-<span class="doccomment">//! third-party to perform the executions.</span>
-<span class="doccomment">//! - A [`RemoteOrLocalCallExecutor`](sc_client_api::light::LocalOrRemote), combination of the two.</span>
+<span class="doccomment">//! - A `RemoteCallExecutor` that will ask a third-party to perform the executions.</span>
+<span class="doccomment">//! - A `RemoteOrLocalCallExecutor` combination of the two.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Additionally, the fourth generic parameter of the `Client` is a marker type representing</span>
 <span class="doccomment">//! the ways in which the runtime can interface with the outside. Any code that builds a `Client`</span>
