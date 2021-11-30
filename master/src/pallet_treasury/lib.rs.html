@@ -501,6 +501,12 @@
 <span id="501">501</span>
 <span id="502">502</span>
 <span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -758,21 +764,20 @@
 	<span class="attribute">#[<span class="ident">pallet::event</span>]</span>
 	<span class="attribute">#[<span class="ident">pallet::generate_deposit</span>(<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">deposit_event</span>)]</span>
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>, <span class="ident">I</span>: <span class="lifetime">&#39;static</span> <span class="op">=</span> ()<span class="op">&gt;</span> {
-		<span class="doccomment">/// New proposal. \[proposal_index\]</span>
-		<span class="ident">Proposed</span>(<span class="ident">ProposalIndex</span>),
-		<span class="doccomment">/// We have ended a spend period and will now allocate funds. \[budget_remaining\]</span>
-		<span class="ident">Spending</span>(<span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span>),
-		<span class="doccomment">/// Some funds have been allocated. \[proposal_index, award, beneficiary\]</span>
-		<span class="ident">Awarded</span>(<span class="ident">ProposalIndex</span>, <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span>, <span class="ident">T::AccountId</span>),
-		<span class="doccomment">/// A proposal was rejected; funds were slashed. \[proposal_index, slashed\]</span>
-		<span class="ident">Rejected</span>(<span class="ident">ProposalIndex</span>, <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span>),
-		<span class="doccomment">/// Some of our funds have been burnt. \[burn\]</span>
-		<span class="ident">Burnt</span>(<span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span>),
+		<span class="doccomment">/// New proposal.</span>
+		<span class="ident">Proposed</span> { <span class="ident">proposal_index</span>: <span class="ident">ProposalIndex</span> },
+		<span class="doccomment">/// We have ended a spend period and will now allocate funds.</span>
+		<span class="ident">Spending</span> { <span class="ident">budget_remaining</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span> },
+		<span class="doccomment">/// Some funds have been allocated.</span>
+		<span class="ident">Awarded</span> { <span class="ident">proposal_index</span>: <span class="ident">ProposalIndex</span>, <span class="ident">award</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span>, <span class="ident">account</span>: <span class="ident">T::AccountId</span> },
+		<span class="doccomment">/// A proposal was rejected; funds were slashed.</span>
+		<span class="ident">Rejected</span> { <span class="ident">proposal_index</span>: <span class="ident">ProposalIndex</span>, <span class="ident">slashed</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span> },
+		<span class="doccomment">/// Some of our funds have been burnt.</span>
+		<span class="ident">Burnt</span> { <span class="ident">burnt_funds</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span> },
 		<span class="doccomment">/// Spending has finished; this is the amount that rolls over until next spend.</span>
-		<span class="doccomment">/// \[budget_remaining\]</span>
-		<span class="ident">Rollover</span>(<span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span>),
-		<span class="doccomment">/// Some funds have been deposited. \[deposit\]</span>
-		<span class="ident">Deposit</span>(<span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span>),
+		<span class="ident">Rollover</span> { <span class="ident">rollover_balance</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span> },
+		<span class="doccomment">/// Some funds have been deposited.</span>
+		<span class="ident">Deposit</span> { <span class="ident">value</span>: <span class="ident">BalanceOf</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span> },
 	}
 
 	<span class="doccomment">/// Old name generated by `decl_event`.</span>
@@ -837,7 +842,7 @@
 			<span class="op">&lt;</span><span class="ident">ProposalCount</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::put</span>(<span class="ident">c</span> <span class="op">+</span> <span class="number">1</span>);
 			<span class="op">&lt;</span><span class="ident">Proposals</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::insert</span>(<span class="ident">c</span>, <span class="ident">Proposal</span> { <span class="ident">proposer</span>, <span class="ident">value</span>, <span class="ident">beneficiary</span>, <span class="ident">bond</span> });
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Proposed</span>(<span class="ident">c</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Proposed</span> { <span class="ident">proposal_index</span>: <span class="ident">c</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -863,7 +868,10 @@
 			<span class="kw">let</span> <span class="ident">imbalance</span> <span class="op">=</span> <span class="ident">T::Currency::slash_reserved</span>(<span class="kw-2">&amp;</span><span class="ident">proposal</span>.<span class="ident">proposer</span>, <span class="ident">value</span>).<span class="number">0</span>;
 			<span class="ident">T::OnSlash::on_unbalanced</span>(<span class="ident">imbalance</span>);
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::Rejected</span>(<span class="ident">proposal_id</span>, <span class="ident">value</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span><span class="ident">::Rejected</span> {
+				<span class="ident">proposal_index</span>: <span class="ident">proposal_id</span>,
+				<span class="ident">slashed</span>: <span class="ident">value</span>,
+			});
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -913,7 +921,7 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">total_weight</span>: <span class="ident">Weight</span> <span class="op">=</span> <span class="ident">Zero::zero</span>();
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">budget_remaining</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::pot</span>();
-		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Spending</span>(<span class="ident">budget_remaining</span>));
+		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Spending</span> { <span class="ident">budget_remaining</span> });
 		<span class="kw">let</span> <span class="ident">account_id</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::account_id</span>();
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">missed_any</span> <span class="op">=</span> <span class="bool-val">false</span>;
@@ -934,7 +942,11 @@
 						<span class="comment">// provide the allocation.</span>
 						<span class="ident">imbalance</span>.<span class="ident">subsume</span>(<span class="ident">T::Currency::deposit_creating</span>(<span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">beneficiary</span>, <span class="ident">p</span>.<span class="ident">value</span>));
 
-						<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Awarded</span>(<span class="ident">index</span>, <span class="ident">p</span>.<span class="ident">value</span>, <span class="ident">p</span>.<span class="ident">beneficiary</span>));
+						<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Awarded</span> {
+							<span class="ident">proposal_index</span>: <span class="ident">index</span>,
+							<span class="ident">award</span>: <span class="ident">p</span>.<span class="ident">value</span>,
+							<span class="ident">account</span>: <span class="ident">p</span>.<span class="ident">beneficiary</span>,
+						});
 						<span class="bool-val">false</span>
 					} <span class="kw">else</span> {
 						<span class="ident">missed_any</span> <span class="op">=</span> <span class="bool-val">true</span>;
@@ -965,7 +977,7 @@
 			<span class="kw">let</span> (<span class="ident">debit</span>, <span class="ident">credit</span>) <span class="op">=</span> <span class="ident">T::Currency::pair</span>(<span class="ident">burn</span>);
 			<span class="ident">imbalance</span>.<span class="ident">subsume</span>(<span class="ident">debit</span>);
 			<span class="ident">T::BurnDestination::on_unbalanced</span>(<span class="ident">credit</span>);
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Burnt</span>(<span class="ident">burn</span>))
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Burnt</span> { <span class="ident">burnt_funds</span>: <span class="ident">burn</span> })
 		}
 
 		<span class="comment">// Must never be an error, but better to be safe.</span>
@@ -980,7 +992,7 @@
 			<span class="ident">drop</span>(<span class="ident">problem</span>);
 		}
 
-		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Rollover</span>(<span class="ident">budget_remaining</span>));
+		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Rollover</span> { <span class="ident">rollover_balance</span>: <span class="ident">budget_remaining</span> });
 
 		<span class="ident">total_weight</span>
 	}
@@ -1001,7 +1013,7 @@
 		<span class="comment">// Must resolve into existing but better to be safe.</span>
 		<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">T::Currency::resolve_creating</span>(<span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::account_id</span>(), <span class="ident">amount</span>);
 
-		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Deposit</span>(<span class="ident">numeric_amount</span>));
+		<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Deposit</span> { <span class="ident">value</span>: <span class="ident">numeric_amount</span> });
 	}
 }
 </code></pre></div>

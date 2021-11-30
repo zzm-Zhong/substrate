@@ -1576,6 +1576,8 @@
 <span id="1576">1576</span>
 <span id="1577">1577</span>
 <span id="1578">1578</span>
+<span id="1579">1579</span>
+<span id="1580">1580</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -2947,7 +2949,9 @@
 					<span class="ident">amount</span>: <span class="number">80</span>,
 				}));
 				<span class="comment">// Killed Event</span>
-				<span class="ident">System::assert_has_event</span>(<span class="ident">Event::System</span>(<span class="ident">system::Event::KilledAccount</span>(<span class="number">2</span>)));
+				<span class="ident">System::assert_has_event</span>(<span class="ident">Event::System</span>(<span class="ident">system::Event::KilledAccount</span> {
+					<span class="ident">account</span>: <span class="number">2</span>,
+				}));
 			});
 	}
 

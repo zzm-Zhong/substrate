@@ -647,7 +647,7 @@
 				});
 				<span class="prelude-val">Ok</span>(())
 			})<span class="question-mark">?</span>;
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Stored</span>(<span class="ident">index</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Stored</span> { <span class="ident">index</span> });
 			<span class="prelude-val">Ok</span>(())
 		}
 
@@ -688,7 +688,7 @@
 				});
 				<span class="prelude-val">Ok</span>(())
 			})<span class="question-mark">?</span>;
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Renewed</span>(<span class="ident">index</span>));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::Renewed</span> { <span class="ident">index</span> });
 			<span class="prelude-val">Ok</span>(().<span class="ident">into</span>())
 		}
 
@@ -750,9 +750,9 @@
 	<span class="attribute">#[<span class="ident">pallet::generate_deposit</span>(<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">deposit_event</span>)]</span>
 	<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Event</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Config</span><span class="op">&gt;</span> {
 		<span class="doccomment">/// Stored data under specified index.</span>
-		<span class="ident">Stored</span>(<span class="ident">u32</span>),
+		<span class="ident">Stored</span> { <span class="ident">index</span>: <span class="ident">u32</span> },
 		<span class="doccomment">/// Renewed data under specified index.</span>
-		<span class="ident">Renewed</span>(<span class="ident">u32</span>),
+		<span class="ident">Renewed</span> { <span class="ident">index</span>: <span class="ident">u32</span> },
 		<span class="doccomment">/// Storage proof was successfully checked.</span>
 		<span class="ident">ProofChecked</span>,
 	}

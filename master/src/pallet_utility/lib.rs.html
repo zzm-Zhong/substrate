@@ -401,6 +401,8 @@
 <span id="401">401</span>
 <span id="402">402</span>
 <span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -518,8 +520,8 @@
 		<span class="ident">BatchCompleted</span>,
 		<span class="doccomment">/// A single item within a Batch of dispatches has completed with no error.</span>
 		<span class="ident">ItemCompleted</span>,
-		<span class="doccomment">/// A call was dispatched. \[result\]</span>
-		<span class="ident">DispatchedAs</span>(<span class="ident">DispatchResult</span>),
+		<span class="doccomment">/// A call was dispatched.</span>
+		<span class="ident">DispatchedAs</span> { <span class="ident">result</span>: <span class="ident">DispatchResult</span> },
 	}
 
 	<span class="comment">// Align the call size to 1KB. As we are currently compiling the runtime for native/wasm</span>
@@ -783,7 +785,9 @@
 
 			<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">call</span>.<span class="ident">dispatch_bypass_filter</span>((<span class="kw-2">*</span><span class="ident">as_origin</span>).<span class="ident">into</span>());
 
-			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::DispatchedAs</span>(<span class="ident">res</span>.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">error</span>)));
+			<span class="ident"><span class="self">Self</span>::deposit_event</span>(<span class="ident">Event::DispatchedAs</span> {
+				<span class="ident">result</span>: <span class="ident">res</span>.<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">error</span>),
+			});
 			<span class="prelude-val">Ok</span>(())
 		}
 	}
