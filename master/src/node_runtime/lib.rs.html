@@ -1792,6 +1792,8 @@
 <span id="1792">1792</span>
 <span id="1793">1793</span>
 <span id="1794">1794</span>
+<span id="1795">1795</span>
+<span id="1796">1796</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.</span>
@@ -3062,6 +3064,8 @@
 		<span class="ident">Utility</span>: <span class="ident">pallet_utility</span>,
 		<span class="ident">Babe</span>: <span class="ident">pallet_babe</span>,
 		<span class="ident">Timestamp</span>: <span class="ident">pallet_timestamp</span>,
+		<span class="comment">// Authorship must be before session in order to note author in the correct session and era</span>
+		<span class="comment">// for im-online and staking.</span>
 		<span class="ident">Authorship</span>: <span class="ident">pallet_authorship</span>,
 		<span class="ident">Indices</span>: <span class="ident">pallet_indices</span>,
 		<span class="ident">Balances</span>: <span class="ident">pallet_balances</span>,
@@ -3139,7 +3143,7 @@
 	<span class="ident">Block</span>,
 	<span class="ident">frame_system::ChainContext</span><span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span>,
 	<span class="ident">Runtime</span>,
-	<span class="ident">AllPallets</span>,
+	<span class="ident">AllPalletsWithSystem</span>,
 	<span class="ident">pallet_bags_list::migrations::CheckCounterPrefix</span><span class="op">&lt;</span><span class="ident">Runtime</span><span class="op">&gt;</span>,
 <span class="op">&gt;</span>;
 
