@@ -37,6 +37,7 @@ mod benchmarking;
 mod mock;
 #[cfg(test)]
 mod tests;
+pub mod weights;
 
 use sp_runtime::traits::Dispatchable;
 use sp_std::prelude::*;
@@ -48,6 +49,7 @@ use frame_support::{
 	weights::{GetDispatchInfo, PostDispatchInfo},
 };
 use scale_info::TypeInfo;
+use weights::WeightInfo;
 
 use frame_support::pallet_prelude::*;
 use frame_system::pallet_prelude::*;
@@ -85,6 +87,9 @@ pub mod pallet {
 		/// The handler of pre-images.
 		// NOTE: recipient is only needed for benchmarks.
 		type PreimageProvider: PreimageProvider<Self::Hash> + PreimageRecipient<Self::Hash>;
+
+		/// The weight information for this pallet.
+		type WeightInfo: weights::WeightInfo;
 	}
 
 	#[pallet::pallet]
@@ -114,7 +119,7 @@ pub mod pallet {
 
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
-		#[pallet::weight(0)]
+		#[pallet::weight(T::WeightInfo::whitelist_call())]
 		pub fn whitelist_call(origin: OriginFor<T>, call_hash: T::Hash) -> DispatchResult {
 			T::WhitelistOrigin::ensure_origin(origin)?;
 
@@ -131,7 +136,7 @@ pub mod pallet {
 			Ok(())
 		}
 
-		#[pallet::weight(0)]
+		#[pallet::weight(T::WeightInfo::remove_whitelisted_call())]
 		pub fn remove_whitelisted_call(origin: OriginFor<T>, call_hash: T::Hash) -> DispatchResult {
 			T::WhitelistOrigin::ensure_origin(origin)?;
 
@@ -144,7 +149,7 @@ pub mod pallet {
 			Ok(())
 		}
 
-		#[pallet::weight(0)]
+		#[pallet::weight(T::WeightInfo::dispatch_whitelisted_call().saturating_add(*call_weight_witness))]
 		pub fn dispatch_whitelisted_call(
 			origin: OriginFor<T>,
 			call_hash: T::Hash,

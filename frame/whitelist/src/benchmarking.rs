@@ -23,7 +23,7 @@ use super::*;
 use frame_benchmarking::benchmarks;
 use frame_support::{ensure, traits::PreimageRecipient};
 use sp_runtime::traits::Hash;
-use std::convert::TryInto;
+use core::convert::TryInto;
 
 #[cfg(test)]
 use crate::Pallet as Whitelist;
@@ -66,6 +66,7 @@ benchmarks! {
 	// on the size of the call, with a new witness in parameter.
 	dispatch_whitelisted_call {
 		let origin = T::DispatchWhitelistedOrigin::successful_origin();
+		// NOTE: we remove `10` because we need some bytes to encode the variants and vec length
 		let remark = (0 .. <T::PreimageProvider as PreimageRecipient<_>>::MaxSize::get() - 10)
 			.map(|_| 1u8)
 			.collect();
