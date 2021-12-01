@@ -135,6 +135,8 @@
 <span id="135">135</span>
 <span id="136">136</span>
 <span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -172,7 +174,9 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">mmr</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">witness</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">commitment</span>::{<span class="ident">Commitment</span>, <span class="ident">SignedCommitment</span>, <span class="ident">VersionedCommitment</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">commitment</span>::{
+	<span class="ident">known_payload_ids</span>, <span class="ident">BeefyPayloadId</span>, <span class="ident">Commitment</span>, <span class="ident">Payload</span>, <span class="ident">SignedCommitment</span>, <span class="ident">VersionedCommitment</span>,
+};
 
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Codec</span>, <span class="ident">Decode</span>, <span class="ident">Encode</span>};
 <span class="kw">use</span> <span class="ident">scale_info::TypeInfo</span>;
@@ -255,9 +259,9 @@
 <span class="doccomment">/// A vote message is a direct vote created by a BEEFY node on every voting round</span>
 <span class="doccomment">/// and is gossiped to its peers.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Decode</span>, <span class="ident">Encode</span>, <span class="ident">TypeInfo</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VoteMessage</span><span class="op">&lt;</span><span class="ident">Hash</span>, <span class="ident">Number</span>, <span class="ident">Id</span>, <span class="ident">Signature</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VoteMessage</span><span class="op">&lt;</span><span class="ident">Number</span>, <span class="ident">Id</span>, <span class="ident">Signature</span><span class="op">&gt;</span> {
 	<span class="doccomment">/// Commit to information extracted from a finalized block</span>
-	<span class="kw">pub</span> <span class="ident">commitment</span>: <span class="ident">Commitment</span><span class="op">&lt;</span><span class="ident">Number</span>, <span class="ident">Hash</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">commitment</span>: <span class="ident">Commitment</span><span class="op">&lt;</span><span class="ident">Number</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Node authority id</span>
 	<span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">Id</span>,
 	<span class="doccomment">/// Node signature</span>
