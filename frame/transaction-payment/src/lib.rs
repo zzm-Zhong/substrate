@@ -1369,9 +1369,7 @@ mod tests {
 					amount: 80,
 				}));
 				// Killed Event
-				System::assert_has_event(Event::System(system::Event::KilledAccount {
-					account: 2,
-				}));
+				System::assert_has_event(Event::System(system::Event::KilledAccount(2)));
 			});
 	}
 

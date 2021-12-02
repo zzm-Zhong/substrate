@@ -2089,10 +2089,7 @@ mod tests {
 				System::events(),
 				vec![EventRecord {
 					phase: Phase::Initialization,
-					event: MetaEvent::System(frame_system::Event::Remarked {
-						sender: BOB,
-						hash: remark_hash
-					}),
+					event: MetaEvent::System(frame_system::Event::Remarked(BOB, remark_hash)),
 					topics: vec![],
 				},]
 			);
@@ -2150,10 +2147,7 @@ mod tests {
 				vec![
 					EventRecord {
 						phase: Phase::Initialization,
-						event: MetaEvent::System(frame_system::Event::Remarked {
-							sender: BOB,
-							hash: remark_hash
-						}),
+						event: MetaEvent::System(frame_system::Event::Remarked(BOB, remark_hash)),
 						topics: vec![],
 					},
 					EventRecord {
