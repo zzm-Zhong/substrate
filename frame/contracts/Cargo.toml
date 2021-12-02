@@ -79,7 +79,7 @@ std = [
 	"libsecp256k1/std",
 ]
 runtime-benchmarks = [
-	"frame-benchmarking/runtime-benchmarks",
+	"frame-benchmarking",
 	"libsecp256k1",
 	"rand",
 	"rand_pcg",

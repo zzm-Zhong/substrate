@@ -72,7 +72,7 @@ std = [
 	"log/std",
 ]
 runtime-benchmarks = [
-	"frame-benchmarking/runtime-benchmarks",
+	"frame-benchmarking",
 	"frame-election-provider-support/runtime-benchmarks",
 	"rand",
 	"strum",
