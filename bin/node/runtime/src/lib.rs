@@ -1256,8 +1256,6 @@ construct_runtime!(
 		Utility: pallet_utility,
 		Babe: pallet_babe,
 		Timestamp: pallet_timestamp,
-		// Authorship must be before session in order to note author in the correct session and era
-		// for im-online and staking.
 		Authorship: pallet_authorship,
 		Indices: pallet_indices,
 		Balances: pallet_balances,
@@ -1335,7 +1333,7 @@ pub type Executive = frame_executive::Executive<
 	Block,
 	frame_system::ChainContext<Runtime>,
 	Runtime,
-	AllPalletsWithSystem,
+	AllPallets,
 	pallet_bags_list::migrations::CheckCounterPrefix<Runtime>,
 >;
 
