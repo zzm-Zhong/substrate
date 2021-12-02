@@ -26,8 +26,8 @@ use codec::{Decode, Encode, MaxEncodedLen};
 use frame_support::{
 	construct_runtime, parameter_types,
 	traits::{
-		ConstU32, Currency, EnsureOneOf, EqualPrivilegeOnly, Everything, Imbalance, InstanceFilter,
-		KeyOwnerProofSystem, LockIdentifier, Nothing, OnUnbalanced, U128CurrencyToVote,
+		Currency, EqualPrivilegeOnly, Everything, Imbalance, InstanceFilter, KeyOwnerProofSystem,
+		LockIdentifier, Nothing, OnUnbalanced, U128CurrencyToVote,
 	},
 	weights::{
 		constants::{BlockExecutionWeight, ExtrinsicBaseWeight, RocksDbWeight, WEIGHT_PER_SECOND},
@@ -515,12 +515,6 @@ impl onchain::Config for Runtime {
 	type DataProvider = Staking;
 }
 
-pub struct StakingBenchmarkingConfig;
-impl pallet_staking::BenchmarkingConfig for StakingBenchmarkingConfig {
-	type MaxNominators = ConstU32<1000>;
-	type MaxValidators = ConstU32<1000>;
-}
-
 impl pallet_staking::Config for Runtime {
 	const MAX_NOMINATIONS: u32 = MAX_NOMINATIONS;
 	type Currency = Balances;
@@ -549,7 +543,6 @@ impl pallet_staking::Config for Runtime {
 	// Note that the aforementioned does not scale to a very large number of nominators.
 	type SortedListProvider = BagsList;
 	type WeightInfo = pallet_staking::weights::SubstrateWeight<Runtime>;
-	type BenchmarkingConfig = StakingBenchmarkingConfig;
 }
 
 parameter_types! {
@@ -597,8 +590,8 @@ pub const MAX_NOMINATIONS: u32 = <NposSolution16 as sp_npos_elections::NposSolut
 /// The numbers configured here could always be more than the the maximum limits of staking pallet
 /// to ensure election snapshot will not run out of memory. For now, we set them to smaller values
 /// since the staking is bounded and the weight pipeline takes hours for this single pallet.
-pub struct ElectionProviderBenchmarkConfig;
-impl pallet_election_provider_multi_phase::BenchmarkingConfig for ElectionProviderBenchmarkConfig {
+pub struct BenchmarkConfig;
+impl pallet_election_provider_multi_phase::BenchmarkingConfig for BenchmarkConfig {
 	const VOTERS: [u32; 2] = [1000, 2000];
 	const TARGETS: [u32; 2] = [500, 1000];
 	const ACTIVE_VOTERS: [u32; 2] = [500, 800];
@@ -663,7 +656,7 @@ impl pallet_election_provider_multi_phase::Config for Runtime {
 	>;
 	type WeightInfo = pallet_election_provider_multi_phase::weights::SubstrateWeight<Self>;
 	type ForceOrigin = EnsureRootOrHalfCouncil;
-	type BenchmarkingConfig = ElectionProviderBenchmarkConfig;
+	type BenchmarkingConfig = BenchmarkConfig;
 	type VoterSnapshotPerBlock = VoterSnapshotPerBlock;
 }
 

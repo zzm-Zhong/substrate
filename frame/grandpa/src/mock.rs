@@ -218,7 +218,6 @@ impl pallet_staking::Config for Test {
 	type ElectionProvider = onchain::OnChainSequentialPhragmen<Self>;
 	type GenesisElectionProvider = Self::ElectionProvider;
 	type SortedListProvider = pallet_staking::UseNominatorsMap<Self>;
-	type BenchmarkingConfig = pallet_staking::TestBenchmarkingConfig;
 	type WeightInfo = ();
 }
 
