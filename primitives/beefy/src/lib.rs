@@ -35,9 +35,7 @@ mod commitment;
 pub mod mmr;
 pub mod witness;
 
-pub use commitment::{
-	known_payload_ids, BeefyPayloadId, Commitment, Payload, SignedCommitment, VersionedCommitment,
-};
+pub use commitment::{Commitment, SignedCommitment, VersionedCommitment};
 
 use codec::{Codec, Decode, Encode};
 use scale_info::TypeInfo;
@@ -120,9 +118,9 @@ pub enum ConsensusLog<AuthorityId: Codec> {
 /// A vote message is a direct vote created by a BEEFY node on every voting round
 /// and is gossiped to its peers.
 #[derive(Debug, Decode, Encode, TypeInfo)]
-pub struct VoteMessage<Number, Id, Signature> {
+pub struct VoteMessage<Hash, Number, Id, Signature> {
 	/// Commit to information extracted from a finalized block
-	pub commitment: Commitment<Number>,
+	pub commitment: Commitment<Number, Hash>,
 	/// Node authority id
 	pub id: Id,
 	/// Node signature
