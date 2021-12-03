@@ -141,6 +141,8 @@
 <span id="141">141</span>
 <span id="142">142</span>
 <span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -178,7 +180,8 @@
 		<span class="comment">//   node in the destination in addition to the work we do otherwise. (2 W/R)</span>
 
 		<span class="comment">// clear any pre-existing storage.</span>
-		<span class="ident">List</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::clear</span>(<span class="prelude-val">None</span>);
+		<span class="comment">// NOTE: safe to call outside block production</span>
+		<span class="ident">List</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::unsafe_clear</span>();
 
 		<span class="comment">// define our origin and destination thresholds.</span>
 		<span class="kw">let</span> <span class="ident">origin_bag_thresh</span> <span class="op">=</span> <span class="ident">T::BagThresholds::get</span>()[<span class="number">0</span>];
@@ -237,7 +240,8 @@
 		<span class="comment">//   node in the destination in addition to the work we do otherwise. (2 W/R)</span>
 
 		<span class="comment">// clear any pre-existing storage.</span>
-		<span class="ident">List</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::clear</span>(<span class="prelude-val">None</span>);
+		<span class="comment">// NOTE: safe to call outside block production</span>
+		<span class="ident">List</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::unsafe_clear</span>();
 
 		<span class="comment">// define our origin and destination thresholds.</span>
 		<span class="kw">let</span> <span class="ident">origin_bag_thresh</span> <span class="op">=</span> <span class="ident">T::BagThresholds::get</span>()[<span class="number">0</span>];

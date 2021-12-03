@@ -1040,6 +1040,7 @@
 <span id="1040">1040</span>
 <span id="1041">1041</span>
 <span id="1042">1042</span>
+<span id="1043">1043</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2021 Parity Technologies (UK) Ltd.</span>
@@ -1073,7 +1074,6 @@
 	<span class="ident">Never</span>,
 };
 <span class="kw">use</span> <span class="ident">codec</span>::{<span class="ident">Decode</span>, <span class="ident">Encode</span>, <span class="ident">EncodeLike</span>, <span class="ident">FullCodec</span>, <span class="ident">MaxEncodedLen</span>, <span class="ident">Ref</span>};
-<span class="kw">use</span> <span class="ident">sp_arithmetic::traits::Bounded</span>;
 <span class="kw">use</span> <span class="ident">sp_runtime::traits::Saturating</span>;
 <span class="kw">use</span> <span class="ident">sp_std::prelude</span>::<span class="kw-2">*</span>;
 
@@ -1305,10 +1305,12 @@
 	}
 
 	<span class="doccomment">/// Remove all value of the storage.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_all</span>(<span class="ident">maybe_limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>) {
-		<span class="kw">let</span> <span class="ident">leftover</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::count</span>().<span class="ident">saturating_sub</span>(<span class="ident">maybe_limit</span>.<span class="ident">unwrap_or_else</span>(<span class="ident">Bounded::max_value</span>));
-		<span class="ident">CounterFor</span>::<span class="op">&lt;</span><span class="ident">Prefix</span><span class="op">&gt;</span><span class="ident">::set</span>(<span class="ident">leftover</span>);
-		<span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">MapWrapper</span><span class="op">&gt;</span><span class="ident">::Map::remove_all</span>(<span class="ident">maybe_limit</span>);
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_all</span>() {
+		<span class="comment">// NOTE: it is not possible to remove up to some limit because</span>
+		<span class="comment">// `sp_io::storage::clear_prefix` and `StorageMap::remove_all` don&#39;t give the number of</span>
+		<span class="comment">// value removed from the overlay.</span>
+		<span class="ident">CounterFor</span>::<span class="op">&lt;</span><span class="ident">Prefix</span><span class="op">&gt;</span><span class="ident">::set</span>(<span class="number">0u32</span>);
+		<span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">MapWrapper</span><span class="op">&gt;</span><span class="ident">::Map::remove_all</span>(<span class="prelude-val">None</span>);
 	}
 
 	<span class="doccomment">/// Iter over all value of the storage.</span>
@@ -1720,7 +1722,7 @@
 			<span class="macro">assert_eq!</span>(<span class="ident">A::count</span>(), <span class="number">2</span>);
 
 			<span class="comment">// Remove all.</span>
-			<span class="ident">A::remove_all</span>(<span class="prelude-val">None</span>);
+			<span class="ident">A::remove_all</span>();
 
 			<span class="macro">assert_eq!</span>(<span class="ident">A::count</span>(), <span class="number">0</span>);
 			<span class="macro">assert_eq!</span>(<span class="ident">A::initialize_counter</span>(), <span class="number">0</span>);
@@ -1951,7 +1953,7 @@
 			<span class="macro">assert_eq!</span>(<span class="ident">B::count</span>(), <span class="number">2</span>);
 
 			<span class="comment">// Remove all.</span>
-			<span class="ident">B::remove_all</span>(<span class="prelude-val">None</span>);
+			<span class="ident">B::remove_all</span>();
 
 			<span class="macro">assert_eq!</span>(<span class="ident">B::count</span>(), <span class="number">0</span>);
 			<span class="macro">assert_eq!</span>(<span class="ident">B::initialize_counter</span>(), <span class="number">0</span>);

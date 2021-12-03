@@ -431,6 +431,14 @@
 <span id="431">431</span>
 <span id="432">432</span>
 <span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020 Parity Technologies (UK) Ltd.</span>
@@ -766,15 +774,23 @@
 	<span class="doccomment">/// Regenerate this list from scratch. Returns the count of items inserted.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This should typically only be used at a runtime upgrade.</span>
-	<span class="kw">fn</span> <span class="ident">regenerate</span>(
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// ## WARNING</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// This function should be called with care, regenerate will remove the current list write the</span>
+	<span class="doccomment">/// new list, which can lead to too many storage accesses, exhausting the block weight.</span>
+	<span class="kw">fn</span> <span class="ident">unsafe_regenerate</span>(
 		<span class="ident">all</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">AccountId</span><span class="op">&gt;</span>,
 		<span class="ident">weight_of</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">AccountId</span>) -&gt; <span class="ident">VoteWeight</span><span class="op">&gt;</span>,
 	) -&gt; <span class="ident">u32</span>;
 
-	<span class="doccomment">/// Remove `maybe_count` number of items from the list. Returns the number of items actually</span>
-	<span class="doccomment">/// removed. WARNING: removes all items if `maybe_count` is `None`, which should never be done</span>
-	<span class="doccomment">/// in production settings because it can lead to an unbounded amount of storage accesses.</span>
-	<span class="kw">fn</span> <span class="ident">clear</span>(<span class="ident">maybe_count</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>) -&gt; <span class="ident">u32</span>;
+	<span class="doccomment">/// Remove all items from the list.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// ## WARNING</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// This function should never be called in production settings because it can lead to an</span>
+	<span class="doccomment">/// unbounded amount of storage accesses.</span>
+	<span class="kw">fn</span> <span class="ident">unsafe_clear</span>();
 
 	<span class="doccomment">/// Sanity check internal state of list. Only meant for debug compilation.</span>
 	<span class="kw">fn</span> <span class="ident">sanity_check</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span>;

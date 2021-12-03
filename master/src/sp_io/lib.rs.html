@@ -1791,12 +1791,12 @@
 }
 
 <span class="doccomment">/// The outcome of calling `storage_kill`. Returned value is the number of storage items</span>
-<span class="doccomment">/// removed from the trie from making the `storage_kill` call.</span>
+<span class="doccomment">/// removed from the backend from making the `storage_kill` call.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PassByCodec</span>, <span class="ident">Encode</span>, <span class="ident">Decode</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">KillStorageResult</span> {
-	<span class="doccomment">/// No key remains in the child trie.</span>
+	<span class="doccomment">/// All key to remove were removed, return number of key removed from backend.</span>
 	<span class="ident">AllRemoved</span>(<span class="ident">u32</span>),
-	<span class="doccomment">/// At least one key still resides in the child trie due to the supplied limit.</span>
+	<span class="doccomment">/// Not all key to remove were removed, return number of key removed from backend.</span>
 	<span class="ident">SomeRemaining</span>(<span class="ident">u32</span>),
 }
 

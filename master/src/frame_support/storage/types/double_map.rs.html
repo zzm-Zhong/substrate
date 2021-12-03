@@ -828,6 +828,10 @@
 <span id="828">828</span>
 <span id="829">829</span>
 <span id="830">830</span>
+<span id="831">831</span>
+<span id="832">832</span>
+<span id="833">833</span>
+<span id="834">834</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -1165,7 +1169,11 @@
 		<span class="op">&gt;</span>(<span class="ident">key1</span>, <span class="ident">key2</span>)
 	}
 
-	<span class="doccomment">/// Remove all value of the storage.</span>
+	<span class="doccomment">/// Remove all values of the storage in the overlay and up to `limit` in the backend.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// All values in the client overlay will be deleted, if there is some `limit` then up to</span>
+	<span class="doccomment">/// `limit` values are deleted from the client backend, if `limit` is none then all values in</span>
+	<span class="doccomment">/// the client backend are deleted.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_all</span>(<span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>) -&gt; <span class="ident">sp_io::KillStorageResult</span> {
 		<span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident"><span class="kw">crate</span>::storage::StoragePrefixedMap</span><span class="op">&lt;</span><span class="ident">Value</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::remove_all</span>(<span class="ident">limit</span>)
 	}
