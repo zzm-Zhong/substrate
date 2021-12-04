@@ -170,6 +170,8 @@
 <span id="170">170</span>
 <span id="171">171</span>
 <span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2020-2021 Parity Technologies (UK) Ltd.</span>
@@ -239,6 +241,7 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_nodes</span>(<span class="self">self</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">trie_nodes</span>
 	}
+
 	<span class="doccomment">/// Creates a `MemoryDB` from `Self`.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_memory_db</span><span class="op">&lt;</span><span class="ident">H</span>: <span class="ident">Hasher</span><span class="op">&gt;</span>(<span class="self">self</span>) -&gt; <span class="ident"><span class="kw">crate</span>::MemoryDB</span><span class="op">&lt;</span><span class="ident">H</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">into</span>()
@@ -272,8 +275,9 @@
 
 	<span class="doccomment">/// Returns the estimated encoded size of the compact proof.</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// Runing this operation is a slow operation (build the whole compact proof) and should only be</span>
-	<span class="doccomment">/// in non sensitive path.</span>
+	<span class="doccomment">/// Running this operation is a slow operation (build the whole compact proof) and should only</span>
+	<span class="doccomment">/// be in non sensitive path.</span>
+	<span class="doccomment">///</span>
 	<span class="doccomment">/// Return `None` on error.</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encoded_compact_size</span><span class="op">&lt;</span><span class="ident">H</span>: <span class="ident">Hasher</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">root</span>: <span class="ident">H::Out</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">compact_proof</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">into_compact_proof</span>::<span class="op">&lt;</span><span class="ident">H</span><span class="op">&gt;</span>(<span class="ident">root</span>);

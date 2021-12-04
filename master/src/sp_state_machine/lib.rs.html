@@ -2175,6 +2175,9 @@
 <span id="2175">2175</span>
 <span id="2176">2176</span>
 <span id="2177">2177</span>
+<span id="2178">2178</span>
+<span id="2179">2179</span>
+<span id="2180">2180</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -2364,6 +2367,9 @@
 
 	<span class="doccomment">/// Trie backend with in-memory storage.</span>
 	<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">InMemoryBackend</span><span class="op">&lt;</span><span class="ident">H</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">TrieBackend</span><span class="op">&lt;</span><span class="ident">MemoryDB</span><span class="op">&lt;</span><span class="ident">H</span><span class="op">&gt;</span>, <span class="ident">H</span><span class="op">&gt;</span>;
+
+	<span class="doccomment">/// Proving Trie backend with in-memory storage.</span>
+	<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">InMemoryProvingBackend</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">H</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">ProvingBackend</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">MemoryDB</span><span class="op">&lt;</span><span class="ident">H</span><span class="op">&gt;</span>, <span class="ident">H</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/// Strategy for executing a call into the runtime.</span>
 	<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Debug</span>)]</span>

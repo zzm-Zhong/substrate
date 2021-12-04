@@ -407,6 +407,12 @@
 <span id="407">407</span>
 <span id="408">408</span>
 <span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -619,6 +625,14 @@
 	<span class="doccomment">/// Prefix of the default child storage keys in the top trie.</span>
 	<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">DEFAULT_CHILD_STORAGE_KEY_PREFIX</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">u8</span>] <span class="op">=</span> <span class="string">b&quot;:child_storage:default:&quot;</span>;
 
+	<span class="doccomment">/// Whether a key is a default child storage key.</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// This is convenience function which basically checks if the given `key` starts</span>
+	<span class="doccomment">/// with `DEFAULT_CHILD_STORAGE_KEY_PREFIX` and doesn&#39;t do anything apart from that.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_default_child_storage_key</span>(<span class="ident">key</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">bool</span> {
+		<span class="ident">key</span>.<span class="ident">starts_with</span>(<span class="ident">DEFAULT_CHILD_STORAGE_KEY_PREFIX</span>)
+	}
+
 	<span class="doccomment">/// Whether a key is a child storage key.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This is convenience function which basically checks if the given `key` starts</span>
@@ -640,7 +654,7 @@
 
 <span class="doccomment">/// Information related to a child state.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>))]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Encode</span>, <span class="ident">Decode</span>))]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ChildInfo</span> {
 	<span class="doccomment">/// This is the one used by default.</span>
 	<span class="ident">ParentKeyId</span>(<span class="ident">ChildTrieParentKeyId</span>),
@@ -779,16 +793,14 @@
 }
 
 <span class="doccomment">/// A child trie of default type.</span>
-<span class="doccomment">/// It uses the same default implementation as the top trie,</span>
-<span class="doccomment">/// top trie being a child trie with no keyspace and no storage key.</span>
-<span class="doccomment">/// Its keyspace is the variable (unprefixed) part of its storage key.</span>
-<span class="doccomment">/// It shares its trie nodes backend storage with every other</span>
-<span class="doccomment">/// child trie, so its storage key needs to be a unique id</span>
-<span class="doccomment">/// that will be use only once.</span>
-<span class="doccomment">/// Those unique id also required to be long enough to avoid any</span>
-<span class="doccomment">/// unique id to be prefixed by an other unique id.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// It uses the same default implementation as the top trie, top trie being a child trie with no</span>
+<span class="doccomment">/// keyspace and no storage key. Its keyspace is the variable (unprefixed) part of its storage key.</span>
+<span class="doccomment">/// It shares its trie nodes backend storage with every other child trie, so its storage key needs</span>
+<span class="doccomment">/// to be a unique id that will be use only once. Those unique id also required to be long enough to</span>
+<span class="doccomment">/// avoid any unique id to be prefixed by an other unique id.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>))]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>, <span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Encode</span>, <span class="ident">Decode</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ChildTrieParentKeyId</span> {
 	<span class="doccomment">/// Data is the storage key without prefix.</span>
 	<span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,

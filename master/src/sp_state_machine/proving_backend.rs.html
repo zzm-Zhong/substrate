@@ -537,6 +537,13 @@
 <span id="537">537</span>
 <span id="538">538</span>
 <span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -760,6 +767,11 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">estimate_encoded_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">usize</span> {
 		<span class="self">self</span>.<span class="number">0</span>.<span class="ident">essence</span>().<span class="ident">backend_storage</span>().<span class="ident">proof_recorder</span>.<span class="ident">estimate_encoded_size</span>()
 	}
+
+	<span class="doccomment">/// Clear the proof recorded data.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_recorder</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+		<span class="self">self</span>.<span class="number">0</span>.<span class="ident">essence</span>().<span class="ident">backend_storage</span>().<span class="ident">proof_recorder</span>.<span class="ident">reset</span>()
+	}
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">S</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">TrieBackendStorage</span><span class="op">&lt;</span><span class="ident">H</span><span class="op">&gt;</span>, <span class="ident">H</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">Hasher</span><span class="op">&gt;</span> <span class="ident">TrieBackendStorage</span><span class="op">&lt;</span><span class="ident">H</span><span class="op">&gt;</span>
@@ -897,7 +909,9 @@
 	}
 }
 
-<span class="doccomment">/// Create proof check backend.</span>
+<span class="doccomment">/// Create a backend used for checking the proof., using `H` as hasher.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// `proof` and `root` must match, i.e. `root` must be the correct root of `proof` nodes.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_proof_check_backend</span><span class="op">&lt;</span><span class="ident">H</span><span class="op">&gt;</span>(
 	<span class="ident">root</span>: <span class="ident">H::Out</span>,
 	<span class="ident">proof</span>: <span class="ident">StorageProof</span>,
