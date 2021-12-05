@@ -163,6 +163,12 @@
 <span id="163">163</span>
 <span id="164">164</span>
 <span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -243,6 +249,11 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// Defaults to `true` to avoid the surprise factor.</span>
 	<span class="kw">pub</span> <span class="ident">publish_non_global_ips</span>: <span class="ident">bool</span>,
+
+	<span class="doccomment">/// Reject authority discovery records that are not signed by their network identity (PeerId)</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// Defaults to `false` to provide compatibility with old versions</span>
+	<span class="kw">pub</span> <span class="ident">strict_record_validation</span>: <span class="ident">bool</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">WorkerConfig</span> {
@@ -263,6 +274,7 @@
 			<span class="comment">// `authority_discovery_dht_event_received`.</span>
 			<span class="ident">max_query_interval</span>: <span class="ident">Duration::from_secs</span>(<span class="number">10</span> <span class="op">*</span> <span class="number">60</span>),
 			<span class="ident">publish_non_global_ips</span>: <span class="bool-val">true</span>,
+			<span class="ident">strict_record_validation</span>: <span class="bool-val">false</span>,
 		}
 	}
 }

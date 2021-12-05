@@ -53,6 +53,14 @@
 <span id="53">53</span>
 <span id="54">54</span>
 <span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2019-2021 Parity Technologies (UK) Ltd.</span>
@@ -101,12 +109,20 @@
 	<span class="ident">EncodingDecodingScale</span>(<span class="ident">codec::Error</span>),
 	<span class="doccomment">/// Failed to parse a libp2p multi address.</span>
 	<span class="ident">ParsingMultiaddress</span>(<span class="ident">libp2p::core::multiaddr::Error</span>),
+	<span class="doccomment">/// Failed to parse a libp2p key.</span>
+	<span class="ident">ParsingLibp2pIdentity</span>(<span class="ident">sc_network::DecodingError</span>),
 	<span class="doccomment">/// Failed to sign using a specific public key.</span>
 	<span class="ident">MissingSignature</span>(<span class="ident">CryptoTypePublicPair</span>),
 	<span class="doccomment">/// Failed to sign using all public keys.</span>
 	<span class="ident">Signing</span>,
 	<span class="doccomment">/// Failed to register Prometheus metric.</span>
 	<span class="ident">Prometheus</span>(<span class="ident">prometheus_endpoint::PrometheusError</span>),
+	<span class="doccomment">/// Received authority record that contains addresses with multiple peer ids</span>
+	<span class="ident">ReceivingDhtValueFoundEventWithDifferentPeerIds</span>,
+	<span class="doccomment">/// Received authority record without any addresses having a peer id</span>
+	<span class="ident">ReceivingDhtValueFoundEventWithNoPeerIds</span>,
+	<span class="doccomment">/// Received authority record without a valid signature for the remote peer id.</span>
+	<span class="ident">MissingPeerIdSignature</span>,
 }
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="sc_authority_discovery" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>

@@ -329,6 +329,7 @@
 <span id="329">329</span>
 <span id="330">330</span>
 <span id="331">331</span>
+<span id="332">332</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -604,8 +605,9 @@
 	<span class="ident">PeerInfo</span>,
 };
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">service</span>::{
-	<span class="ident">IfDisconnected</span>, <span class="ident">NetworkService</span>, <span class="ident">NetworkWorker</span>, <span class="ident">NotificationSender</span>, <span class="ident">NotificationSenderReady</span>,
-	<span class="ident">OutboundFailure</span>, <span class="ident">RequestFailure</span>,
+	<span class="ident">DecodingError</span>, <span class="ident">IfDisconnected</span>, <span class="ident">KademliaKey</span>, <span class="ident">Keypair</span>, <span class="ident">NetworkService</span>, <span class="ident">NetworkWorker</span>,
+	<span class="ident">NotificationSender</span>, <span class="ident">NotificationSenderReady</span>, <span class="ident">OutboundFailure</span>, <span class="ident">PublicKey</span>, <span class="ident">RequestFailure</span>,
+	<span class="ident">Signature</span>, <span class="ident">SigningError</span>,
 };
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">sc_peerset::ReputationChange</span>;
