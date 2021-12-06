@@ -527,6 +527,10 @@
 <span id="527">527</span>
 <span id="528">528</span>
 <span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.</span>
 
 <span class="comment">// Copyright (C) 2017-2021 Parity Technologies (UK) Ltd.</span>
@@ -788,6 +792,10 @@
 }
 
 <span class="doccomment">/// Provides access to an auxiliary database.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This is a simple global database not aware of forks. Can be used for storing auxiliary</span>
+<span class="doccomment">/// information like total block weight/difficulty for fork resolution purposes as a common use</span>
+<span class="doccomment">/// case.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AuxStore</span> {
 	<span class="doccomment">/// Insert auxiliary data into key-value store.</span>
 	<span class="doccomment">///</span>
