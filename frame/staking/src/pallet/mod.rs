@@ -80,14 +80,14 @@ pub mod pallet {
 			Self::AccountId,
 			Self::BlockNumber,
 			// we only accept an election provider that has staking as data provider.
-			DataProvider = Pallet<Self>,
+			// DataProvider<>,
 		>;
 
 		/// Something that provides the election functionality at genesis.
 		type GenesisElectionProvider: frame_election_provider_support::ElectionProvider<
 			Self::AccountId,
 			Self::BlockNumber,
-			DataProvider = Pallet<Self>,
+			// DataProvider = Pallet<Self>,
 		>;
 
 		/// Maximum number of nominations per nominator.
