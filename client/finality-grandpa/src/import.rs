@@ -732,7 +732,8 @@ impl<Backend, Block: BlockT, Client, SC> GrandpaBlockImport<Backend, Block, Clie
 				});
 		}
 		afg_log!(false, "authority_set_hard_forks: {:?}", authority_set_hard_forks);
-		afg_log!(false, "authority_set: {:?}", authority_set);
+		afg_log!(false, "authority_set: {:?}", authority_set.clone());
+		//TODO remove
 		GrandpaBlockImport {
 			inner,
 			select_chain,
