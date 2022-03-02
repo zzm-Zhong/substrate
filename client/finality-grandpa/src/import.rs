@@ -731,7 +731,7 @@ impl<Backend, Block: BlockT, Client, SC> GrandpaBlockImport<Backend, Block, Clie
 					authority_set_hard_forks.get(&hash).cloned().unwrap_or(original)
 				});
 		}
-
+		afg_log!(false, "authority_set_hard_forks: {:?}", authority_set_hard_forks);
 		GrandpaBlockImport {
 			inner,
 			select_chain,
