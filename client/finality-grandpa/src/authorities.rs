@@ -69,6 +69,7 @@ impl<N, E: std::error::Error> From<E> for Error<N, E> {
 }
 
 /// A shared authority set.
+#[derive(Debug)]
 pub struct SharedAuthoritySet<H, N> {
 	inner: SharedData<AuthoritySet<H, N>>,
 }

@@ -111,6 +111,7 @@ impl<'a, T> std::ops::DerefMut for SharedDataLocked<'a, T> {
 /// Holds the shared data and if the shared data is currently locked.
 ///
 /// For more information see [`SharedData`].
+#[derive(Debug)]
 struct SharedDataInner<T> {
 	/// The actual shared data that is protected here against concurrent access.
 	shared_data: T,
@@ -167,6 +168,7 @@ struct SharedDataInner<T> {
 /// // As we don't know the order of the threads, we need to check for both combinations
 /// assert!(*data == "hello world321" || *data == "hello world312");
 /// ```
+#[derive(Debug)]
 pub struct SharedData<T> {
 	inner: Arc<Mutex<SharedDataInner<T>>>,
 	cond_var: Arc<Condvar>,
