@@ -28,7 +28,7 @@ use parking_lot::MappedMutexGuard;
 use sc_consensus::shared_data::{SharedData, SharedDataLocked};
 use sc_telemetry::{telemetry, TelemetryHandle, CONSENSUS_INFO};
 use sp_finality_grandpa::{AuthorityId, AuthorityList};
-
+use sp_runtime::Serialize;
 use crate::SetId;
 
 /// Error type returned on operations on the `AuthoritySet`.
