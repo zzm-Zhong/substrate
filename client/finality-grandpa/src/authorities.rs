@@ -147,7 +147,7 @@ pub(crate) struct Status<H, N> {
 }
 
 /// A set of authorities.
-#[derive(Debug, Clone, Encode, Decode, PartialEq)]
+#[derive(Debug, Clone, Encode, Decode, PartialEq, serde::Serialize)]
 pub struct AuthoritySet<H, N> {
 	/// The current active authorities.
 	pub(crate) current_authorities: AuthorityList,
@@ -614,7 +614,7 @@ pub enum DelayKind<N> {
 ///
 /// This will be applied when the announcing block is at some depth within
 /// the finalized or unfinalized chain.
-#[derive(Debug, Clone, Encode, PartialEq)]
+#[derive(Debug, Clone, Encode, PartialEq,serde::Serialize)]
 pub struct PendingChange<H, N> {
 	/// The new authorities and weights to apply.
 	pub(crate) next_authorities: AuthorityList,
