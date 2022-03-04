@@ -28,7 +28,7 @@ use parity_scale_codec::{Decode, Encode};
 use parking_lot::MappedMutexGuard;
 use sc_consensus::shared_data::{SharedData, SharedDataLocked};
 use sc_telemetry::{telemetry, TelemetryHandle, CONSENSUS_INFO};
-use serde::Serialize;
+pub use serde::Serialize;
 use sp_finality_grandpa::{AuthorityId, AuthorityList};
 
 /// Error type returned on operations on the `AuthoritySet`.
