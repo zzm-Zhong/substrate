@@ -20,6 +20,7 @@
 
 use std::{cmp::Ord, fmt::Debug, ops::Add};
 
+use crate::SetId;
 use finality_grandpa::voter_set::VoterSet;
 use fork_tree::ForkTree;
 use log::debug;
@@ -27,9 +28,9 @@ use parity_scale_codec::{Decode, Encode};
 use parking_lot::MappedMutexGuard;
 use sc_consensus::shared_data::{SharedData, SharedDataLocked};
 use sc_telemetry::{telemetry, TelemetryHandle, CONSENSUS_INFO};
+#[cfg(feature = "std")]
+pub use serde::Serialize;
 use sp_finality_grandpa::{AuthorityId, AuthorityList};
-use sp_runtime::Serialize;
-use crate::SetId;
 
 /// Error type returned on operations on the `AuthoritySet`.
 #[derive(Debug, derive_more::Display)]
@@ -69,7 +70,8 @@ impl<N, E: std::error::Error> From<E> for Error<N, E> {
 }
 
 /// A shared authority set.
-#[derive(Debug, Serialize)]
+#[cfg_attr(feature = "std", derive(Serialize))]
+#[derive(Debug)]
 pub struct SharedAuthoritySet<H, N> {
 	inner: SharedData<AuthoritySet<H, N>>,
 }
