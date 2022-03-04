@@ -28,7 +28,6 @@ use parity_scale_codec::{Decode, Encode};
 use parking_lot::MappedMutexGuard;
 use sc_consensus::shared_data::{SharedData, SharedDataLocked};
 use sc_telemetry::{telemetry, TelemetryHandle, CONSENSUS_INFO};
-#[cfg(feature = "std")]
 pub use serde::Serialize;
 use sp_finality_grandpa::{AuthorityId, AuthorityList};
 
@@ -70,8 +69,7 @@ impl<N, E: std::error::Error> From<E> for Error<N, E> {
 }
 
 /// A shared authority set.
-#[cfg_attr(feature = "std", derive(Serialize))]
-#[derive(Debug)]
+#[derive(Debug,Serialize)]
 pub struct SharedAuthoritySet<H, N> {
 	inner: SharedData<AuthoritySet<H, N>>,
 }
