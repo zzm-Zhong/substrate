@@ -601,7 +601,7 @@ where
 }
 
 /// Kinds of delays for pending changes.
-#[derive(Debug, Clone, Encode, Decode, PartialEq)]
+#[derive(Debug, Clone, Encode, Decode, PartialEq, serde::Serialize)]
 pub enum DelayKind<N> {
 	/// Depth in finalized chain.
 	Finalized,
@@ -614,7 +614,7 @@ pub enum DelayKind<N> {
 ///
 /// This will be applied when the announcing block is at some depth within
 /// the finalized or unfinalized chain.
-#[derive(Debug, Clone, Encode, PartialEq,serde::Serialize)]
+#[derive(Debug, Clone, Encode, PartialEq, serde::Serialize)]
 pub struct PendingChange<H, N> {
 	/// The new authorities and weights to apply.
 	pub(crate) next_authorities: AuthorityList,
@@ -654,7 +654,7 @@ impl<H, N: Add<Output = N> + Clone> PendingChange<H, N> {
 /// Tracks historical authority set changes. We store the block numbers for the last block
 /// of each authority set, once they have been finalized. These blocks are guaranteed to
 /// have a justification unless they were triggered by a forced change.
-#[derive(Debug, Encode, Decode, Clone, PartialEq)]
+#[derive(Debug, Encode, Decode, Clone, PartialEq, serde::Serialize)]
 pub struct AuthoritySetChanges<N>(Vec<(u64, N)>);
 
 /// The response when querying for a set id for a specific block. Either we get a set id
