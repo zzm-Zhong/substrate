@@ -111,7 +111,6 @@ impl<'a, T> std::ops::DerefMut for SharedDataLocked<'a, T> {
 /// Holds the shared data and if the shared data is currently locked.
 ///
 /// For more information see [`SharedData`].
-#[derive(Debug, serde::Serialize)]
 struct SharedDataInner<T> {
 	/// The actual shared data that is protected here against concurrent access.
 	shared_data: T,
