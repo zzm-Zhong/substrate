@@ -728,12 +728,12 @@ impl<Backend, Block: BlockT, Client, SC> GrandpaBlockImport<Backend, Block, Clie
 
 			authority_set.pending_standard_changes =
 				authority_set.pending_standard_changes.clone().map(&mut |hash, _, original| {
-					afg_log!(false, "pending_standard_changes hash: {:?}", &hash);
+					afg_log!(true, "pending_standard_changes hash: {:?}", &hash);
 					authority_set_hard_forks.get(&hash).cloned().unwrap_or(original)
 				});
 		}
-		afg_log!(false, "authority_set_hard_forks: {:?}", authority_set_hard_forks);
-		afg_log!(false, "authority_set: {:?}", authority_set.clone());
+		afg_log!(true, "authority_set_hard_forks: {:?}", authority_set_hard_forks);
+		afg_log!(true, "authority_set: {:?}", authority_set.clone());
 		//TODO remove
 		GrandpaBlockImport {
 			inner,
