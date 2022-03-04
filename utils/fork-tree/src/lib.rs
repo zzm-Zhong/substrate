@@ -76,7 +76,7 @@ pub enum FinalizationResult<V> {
 /// in order. Each node is uniquely identified by its hash but can be ordered by
 /// its number. In order to build the tree an external function must be provided
 /// when interacting with the tree to establish a node's ancestry.
-#[derive(Clone, Debug, Decode, Encode, PartialEq)]
+#[derive(Clone, Debug, Decode, Encode, PartialEq, serde::Serialize)]
 pub struct ForkTree<H, N, V> {
 	roots: Vec<Node<H, N, V>>,
 	best_finalized_number: Option<N>,
