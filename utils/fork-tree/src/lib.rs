@@ -641,7 +641,7 @@ mod node_implementation {
 		Abort,
 	}
 
-	#[derive(Clone, Debug, Decode, Encode, PartialEq)]
+	#[derive(Clone, Debug, Decode, Encode, PartialEq, serde::Serialize)]
 	pub struct Node<H, N, V> {
 		pub hash: H,
 		pub number: N,
