@@ -170,6 +170,7 @@ struct SharedDataInner<T> {
 #[derive(Debug, serde::Serialize)]
 pub struct SharedData<T> {
 	inner: Arc<Mutex<SharedDataInner<T>>>,
+	#[serde(skip_serializing)]
 	cond_var: Arc<Condvar>,
 }
 
