@@ -620,6 +620,7 @@ impl<T: Config> Pallet<T> {
 		ensure!(Self::round() == raw_solution.round, Error::<T>::OcwCallWrongEra);
 
 		// ensure correct number of winners.
+		log!(debug, "desired_targets: {:?} solution: {:?}", Self::desired_targets(), raw_solution.solution.unique_targets());
 		ensure!(
 			Self::desired_targets().unwrap_or_default() ==
 				raw_solution.solution.unique_targets().len() as u32,
