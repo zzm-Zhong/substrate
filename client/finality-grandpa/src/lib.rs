@@ -575,7 +575,7 @@ where
 				Ok(authorities)
 			}
 		})?;
-
+	afg_log!(true, "persistent_data voter state: {:?}", persistent_data.set_state);
 	let (voter_commands_tx, voter_commands_rx) = tracing_unbounded("mpsc_grandpa_voter_command");
 
 	let (justification_sender, justification_stream) = GrandpaJustificationStream::channel();

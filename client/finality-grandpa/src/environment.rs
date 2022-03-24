@@ -321,7 +321,7 @@ impl<Block: BlockT> HasVoted<Block> {
 }
 
 /// A voter set state meant to be shared safely across multiple owners.
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct SharedVoterSetState<Block: BlockT> {
 	/// The inner shared `VoterSetState`.
 	inner: Arc<RwLock<VoterSetState<Block>>>,
